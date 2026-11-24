@@ -1,0 +1,16 @@
+{
+  "generatedAt": null,
+  "generator": "tools/extract.py",
+  "schemaVersion": 2,
+  "totals": {
+    "sites": 0,
+    "chapters": 0,
+    "concepts": 0,
+    "quizzes": 0,
+    "cards": 0,
+    "glossary": 0
+  },
+  "disciplines": [],
+  "sites": [],
+  "failures": []
+}
