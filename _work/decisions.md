@@ -56,3 +56,27 @@
 | 2026-11-25 | 自检样本怎么给 | `pick_samples()` 每次全库扫一遍现选，报告里落 slug 与章节 id | 写死书名会在数据重跑后指向不存在的章节，误报成前端 bug | 换成写死常量 |
 | 2026-11-25 | Windows 下 Python 调 npx | `shutil.which(cmd[0]) or cmd[0]`，env 注 `PYTHONIOENCODING=utf-8` | `npx` 实为 `npx.cmd`，CreateProcess 不认；不注 encoding 时子进程打中文直接 UnicodeEncodeError | 去掉 which 兜底（本机跑得起来，CI 起不来） |
 | 2026-11-25 | 帧率判据在 headless 测到 165 说明什么 | 阈值保留 ≥45 的下限语义，另记 `triangles()` 负载（大厅 1,398 / 数学房 3,874）入报告 | 无头模式 rAF 不等合成器，数字不等于观感；真实证据是三角面远低于 15 万预算 | 把判据改成「≥60」会测出假失败 |
+| 2026-11-25 | 待决策 1「Mermaid 何时真渲染」（用户定） | 提前到批 3.5 本批做真渲染，不等批 6 | 855 章含围栏、占 73%，是内容形态问题不是打磨问题 | 回退即把 `src/diagram.ts` 的渲染支换回 `render.ts` 的源码吐字支 |
+| 2026-11-25 | 待决策 2「阅读层侧栏 vs 全屏」（用户定） | 双模式并存，不减状态机 | 桌面侧栏不遮空间视图、手机 390 侧栏不可用，两条都要 | 删 `viewMode='reader'` 分支（390 判据即失证） |
+| 2026-11-25 | 待决策 3「check_offline 是否单列」（用户定） | 收进统一脚本：`tools/check_offline.py` 独立可跑，`selfcheck.py` 调用并入报告 | 静态扫描与运行期监听是同一铁律的两半，分列必然漏一头 | 从 `selfcheck.py` 摘掉 `offline_evidence()` 调用即回单列 |
+| 2026-11-25 | mermaid 怎么「不进首屏」 | `import('mermaid')` 动态分包，不手放 `vendor/mermaid.min.js` | 铁律判据是运行时不发请求，打包成本地同源即满足；Vite 自动切出 core 671KB + 57 子包，首屏只多一次动态 import | 改回静态 `import mermaid` 并手工 vendor（entry 立刻涨 3MB+） |
+| 2026-11-25 | 围栏什么时候渲染 | `IntersectionObserver` 可见才渲染（`rootMargin 160px`），未可见先出占位容器并保留源码 `<details>` | 882 个围栏一次性全渲会卡死主线程；源码留在容器里，失败与关图都不丢内容 | 改回 `hydrateDiagrams` 里直接 `renderInto()`（首屏长章必抖） |
+| 2026-11-25 | 渲染失败怎么表现 | `data-diagram="error"` + 源码 `<pre>` + 一行原因 + 标题条改「已回退源码」，绝不空容器 | 判据要求「不空不白屏」；`renderDiagram()` 返回 `{svg,error,kind}` 不抛错，坏源码也能被探针喂 | 只标错不给源码（内容即丢失） |
+| 2026-11-25 | 同章多围栏怎么避免重复加载 | 模块级 promise 缓存 + 串行渲染队列，失败时把缓存置空允许重试 | mermaid 复用同一批临时 DOM，并发 `render()` 会互相踩；缓存不重试会让一次网络抖动永久失败 | 改成每围栏各自 import（chunk 请求翻倍且渲染互踩） |
+| 2026-11-25 | 图型样本抽哪些 | 按库里**实际出现**的 5 类各取一章（flowchart/graph/sequenceDiagram/mindmap/xychart-beta），不造 classDiagram、stateDiagram | 判据原写「classDiagram/stateDiagram」但库里 0 个，硬造等于自证假数据 | 手工塞一个 classDiagram 合成样本（违「不硬造」且不代表库里） |
+| 2026-11-25 | SVG 安全消毒范围 | `sanitizeSvg` 保留 `<style>`（mermaid 靠它上色），剔 `script` / `on*` / 远程 URL 属性 | 剔掉 style 图会全白；mermaid `securityLevel:'strict'` 本就不注入脚本 | 连 style 一起剔（图不可看） |
+| 2026-11-25 | 离线扫描判据口径 | 只有「资源加载位点上的远程 URL」判违规；xmlns 声明 / 代码块与 JSON 字面量内 / 保留域名进白名单计数 | 产物里 106 处字面量与 200 处数据 URL 都是被展示内容，按出现次数判会把 332 文件全判红 | 退回「grep 计数即红」（等于放弃这条门槛） |
+| 2026-11-25 | 检索分片放哪 | `data/dist/search-<area>.json` 六片，复用已有 `dist/` 子目录 | 硬约束「不新增 `data/` 一级子目录」；与结构分片同目录不同前缀，`publicDir` 已把这条路径带进产物 | 新建 `data/search/`（属必须停的第 5 类） |
+| 2026-11-25 | tools 区库里 0 本，出片还是不出 | 照样生成 0.3KB 空片（`counts` 全 0） | 任务书原话「tools 缺片沿用容错」，但空片让「分片取到 / 库里 0 本」这条路径可验，比缺片容错更接近真实故障面 | 改成缺片走 `generator:'missing'`（前端仍是两条支，只是少一条可验） |
+| 2026-11-25 | 判据「六学科各命中一条」在库里不可满足 | 5 区命中 + tools 单独走「空片容错」断言，报告里写明原因，不改 `data/` 凑数 | tools 六个仓全无 manifest〔X〕；为过判据改数据直接违铁律 | 给 tools 编一本书（违铁律 6） |
+| 2026-11-25 | 检索落点用什么键 | 一律带 `file`，`manifest.sites.find(s => s.file === hit.file)` | `bookSlug` 跨仓重名 31 个，按 slug 取会开错书；`file` 是抽取器给的唯一路径键 | 退回 slug 查表（重名书目必错） |
+| 2026-11-25 | 中文怎么切词 | MiniSearch 自定义 `tokenize`：拉丁整词 + 中文单字与二字组合 | 默认按空白切，「自然数与数学归纳法」这种标题不加空格永远匹配不上 | 换 lunr/ES 等分词器（多引一个包，收益不省） |
+| 2026-11-25 | 无结果态怎么验 | 探针用拉丁乱码 `zxqvkjz`，不用中文乱码 | 单字 + 二字 + `prefix` + `fuzzy 0.12` + `OR` 天然高召回，随手敲中文必命中，验不出 `none` | 调低 `searchOptions` 收窄召回（改产品行为迁就测试） |
+| 2026-11-25 | 术语命中归到哪一组 | 有落点章归「章节」，无落点归「书」总览，不猜目标 | `terms[].c` 抽不到就是抽不到，铁律 7 禁止推测填充 | 猜最近章（会跳错内容） |
+| 2026-11-25 | MiniSearch 打进哪个 chunk | 不加分包规则，让它自然进 entry，用 `autoVacuum` 串作指纹取证 | 检索层是首屏就要可用的能力，分包只多一次往返；指纹稳定不受压缩改名影响 | 加 `manualChunks` 把它拆出去（判据要跟着改） |
+| 2026-11-25 | 判「首屏含 mermaid」的标记 | 用实现体函数名（`detectType` 等 5 个），core 至少命中 3、entry 必须 0 | `startOnLoad`/`securityLevel` 是我自己 CONFIG 的字面量，会被误判成 mermaid 进了首屏 | 用配置键判（首验即假红） |
+| 2026-11-25 | 「mermaid 分包有没有被加载」怎么在浏览器里取证 | 由 `bundle_evidence()` 从构建产物算出 57 片名单，注入探针做集合判定 | chunk 名正则不成立：`scene3d-C4wo3fve.js` 的哈希里撞出 `c4` 被误判；名单还要在 entry 静态闭包处截断，否则 mermaid 子包反向 import entry 会把 scene3d 也卷进来 | 改回名字正则（哈希一漂就假阳/假阴） |
+| 2026-11-25 | 检索返程落点何时记录 | 每次 `openFromSearch()` 都无条件重记；`enterRoom()` / `showHall()` 立即作废 | 「面板已开就不记」会让上一次的陈旧快照串进本次返回（实测返回落到 ai 区）；用户自己走位后落点本就该失效 | 恢复「只在面板关着时记」（返程位姿错） |
+| 2026-11-25 | 390 搜索弹层溢出怎么修 | `#search-box` 及每条子项显式 `min-width:0`，长文本配 `overflow-wrap:anywhere` | grid/flex 项自动最小尺寸取 min-content，一条 40 字中文标题把盒子撑到 551px 而 `document.scrollWidth` 仍报 390 | 给盒子写死 `width:390px`（大屏就废了） |
+| 2026-11-25 | 自检截图目录 | 本批落 `_work/shots-batch35/`（25 张），不覆盖批 3 的 `_work/shots-batch3/` | 两批证据要能各自回看对比；目录属 `_work/`（gitignore），不影响版本库 | 改回 `PROBE_SHOTS` 常量即切目录 |
+| 2026-11-25 | 门槛怎么跑才算数 | 收尾一律完整 `python tools/selfcheck.py`，不带 `--skip-build` | 本批三处改动（空片文案、返程落点、390 CSS）都要重建才生效，`--skip-build` 复用旧 dist 直接验成 3 项失败 | 只在改探针本身时用 `--skip-build` 快速回环 |
