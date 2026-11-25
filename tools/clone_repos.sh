@@ -29,13 +29,19 @@ DRY=0
 # 档位归属：一档为默认，下面只列非默认的站
 # 2026-11-24 用 _work/clone_tier_audit.txt（50 站 ls-tree 实测）复核后调整：
 #   kaoyan-math-66000   树内 868 条目含 md 28 + json 20，根目录规则只落地 2 个 → 改 three-big（实测放宽后 48 个全到，pack 35.26KiB→205.54KiB）
+#                       2026-11-25 再补 *.csv *.txt：它的考研题主数据在 csv 19 / txt 8 里〔K〕；**html 201 个不拉**（成品 HTML，公式绑死样式，反解析成本高）
 #   CourseVault-OfflineCourseMap 树内 md 20 + json 1,159，根目录规则只落地 1 个 → 归 three-big，待重拉
 #   ACM-XCPC-Notes      481MB 走三档；树内 .md 仅 1（README.md）+ .json 仅 1（assets/data.json，在一级子目录），
 #                       所以只有 any-depth 规则才能两个都拿到，归 three-big；正文实为 135 个 .html 与 40 个 .txt，非知枢结构
 TIER2=""                                        # 50–100MB：blob:none + sparse（含根目录）
-TIER3_BIG="ACM-XCPC-Notes kaoyan-math-66000 CourseVault-OfflineCourseMap"  # 稀疏取任意深度的 *.md *.json
+TIER3_BIG="ACM-XCPC-Notes kaoyan-math-66000 CourseVault-OfflineCourseMap"  # 稀疏取任意深度的 *.md *.json *.csv *.txt
 TIER3_ROOT=""                                   # 只需根目录：稀疏取 /*.md /*.json（当前无站归属）
 FORCE_FULL="hello-ai-zhishu"                   # 硬约束：正文在子目录，禁止稀疏
+
+SPARSE_KEEP=("*.md" "*.json" "*.csv" "*.txt")
+# 目录级排除：非 cone 模式支持 ! 前缀。实测 CourseVault-OfflineCourseMap 放宽后 1,159 个 json 里，
+# static_shared/ 下 126 个 MathJax i18n 包就占 31,175,207B / 32,524,990B（95.8%），全是重复 vendor 垃圾〔K〕。
+SPARSE_DROP=("!/**/static_shared/**" "!/**/node_modules/**" "!/**/vendor/**")
 
 tier_of() {
   local r="$1"
@@ -83,11 +89,11 @@ for r in $REPOS; do
       [ "$DRY" = 1 ] || git -C "$r" sparse-checkout set /* 2>>"$REPORT"
       ;;
     three-big)
-      run "$r" "三档大仓 稀疏 *.md *.json" clone --quiet --depth 1 --single-branch --filter=blob:none --no-checkout
+      run "$r" "三档大仓 保留 md/json/csv/txt，排除 static_shared 等" clone --quiet --depth 1 --single-branch --filter=blob:none --no-checkout
       if [ "$DRY" = 0 ]; then
-        git -C "$r" sparse-checkout init --no-cone 2>>"$REPORT"
-        git -C "$r" sparse-checkout set '*.md' '*.json' 2>>"$REPORT"
-        git -C "$r" checkout HEAD -- . 2>>"$REPORT"
+        git -c http.sslVerify=true -C "$r" sparse-checkout init --no-cone 2>>"$REPORT"
+        git -c http.sslVerify=true -C "$r" sparse-checkout set "${SPARSE_KEEP[@]}" "${SPARSE_DROP[@]}" 2>>"$REPORT"
+        git -c http.sslVerify=true -C "$r" checkout HEAD -- . 2>>"$REPORT"
       fi
       ;;
     three-root)

@@ -42,11 +42,15 @@ Node 只作子进程求值用，抽取器不依赖任何 npm 包；求值脚本�
 |---|---|---|---|
 | 一档 | **< 50MB**（默认档，含未标注大小的站） | `git clone --depth 1 --single-branch` | 整仓，正文 `.md` 直接读本地 |
 | 二档 | **50–100MB** | `git clone --depth 1 --single-branch --filter=blob:none --sparse` + `git sparse-checkout set /*` | 至少含**根目录**，需要子目录再 `sparse-checkout add` |
-| 三档 | **> 100MB，或只需要根目录的站** | `--filter=blob:none --no-checkout` + `sparse-checkout init --no-cone` | 只取 `*.md` 与 `*.json`：大仓按任意深度 `'*.md' '*.json'`；仅根目录的按 `'/*.md' '/*.json'` |
+| 三档 | **> 100MB，或只需要根目录的站** | `--filter=blob:none --no-checkout` + `sparse-checkout init --no-cone` | 只取 `*.md *.json *.csv *.txt`：大仓按任意深度；仅根目录的加前导 `/`。**明确不含 `*.html`** |
 
-点名归属：**`ACM-XCPC-Notes`（481MB）走三档大仓**（任意深度取 `.md`/`.json`）；**`kaoyan-math-66000` 走三档仅根目录**——
-它只有 38MB，但只用到根目录题库 JSON，按「只需根目录」归第三档，不按大小；`CourseVault-OfflineCourseMap` 同档。
-`ai-enlighten` 17MB 走一档。
+`*.html` 不拉是认过代价的：知枢的 `.html` 与 `BOOKS[slug].rendered`、sudoku 的 `ZS.*` 正文同源，
+公式被烤成 KaTeX 节点并绑死字号配色，反解析成本高、收益低（详见 `docs/pitfalls.md` 已验证 15）。
+
+点名归属（2026-11-25 实测复核后）：**`ACM-XCPC-Notes`（481MB）、`kaoyan-math-66000`、
+`CourseVault-OfflineCourseMap` 三站全部走 three-big**（任意深度取 `*.md *.json *.csv *.txt`）——
+`kaoyan` 虽只 38MB，但按「只需根目录」归三档时只落地 2 个文件，放宽后是 75 个，所以根目录规则对它不成立；
+`TIER3_ROOT` 目前为空，仅作为「确实只需根目录」的备用档。`ai-enlighten` 17MB 走一档，未标注大小的站默认一档。
 
 **硬约束（写进脚本 `FORCE_FULL`）**：`hello-ai-zhishu` 的正文在 `01-Hello-AI人工智能导论/` 子目录，
 **任何稀疏规则都不得把它排除**——该站强制一档整仓浅克隆（实测树内 133 文件，成本可忽略）。
@@ -100,14 +104,26 @@ Node 只作子进程求值用，抽取器不依赖任何 npm 包；求值脚本�
 
 - 50 仓树内合计条目 15,422、`.md` 3,703、`.json` 1,457；**`manifest.json` 共 131 份，只有 25 个站有**（根目录 2 / 一级 100 / 二级 29）——
   所以抽取单元改成「一份 manifest = 一本书」，见 `docs/schema.md` 第一节。
-- `kaoyan-math-66000`：已用 `sparse-checkout set '*.md' '*.json'` 放宽到任意深度，**已检出 2 → 48**（树内 md 28 + json 20 全到），
-  pack 35.26 KiB → 205.54 KiB，`git fsck` 无输出 → 原 three-root 档位确实错了，已改 three-big。
+- `kaoyan-math-66000`：两次放宽都做了。`'*.md' '*.json'` 让已检出从 2 → 48（pack 35.26 → 205.54 KiB）；
+  再按新清单加 `'*.csv' '*.txt'`，已检出 **48 → 75**（md 28 + json 20 + **csv 19 + txt 8**），
+  pack **386.76 KiB**，`git fsck` 无输出〔K〕。**但档位结论要翻**：19 个 csv 共 3,613 行的表头是
+  `q,page,verdict,note,time` 与 `qno,册内编号,页,题干核对,答案核对,校勘位置`——**校对台账，不是题面**；
+  json 全是流水线元数据（`waves.json`、`inventory.json`、`q2p`/`p2q`），题面只在 201 个 `.html` 里。
+  所以该站判 **`stats-only`**（不是原先预判的 degraded），见 `docs/pitfalls.md` 已验证 14。
+  定界符顺带验完：台账文本 `$...$` 149 处、`\(...\)` 332 处〔K〕，完好。
 - `ACM-XCPC-Notes`：**无需重拉**。树内 `.md` 只有 1（`README.md`）、`.json` 只有 1（`assets/data.json`，在一级子目录），
   any-depth 规则两个都已落地；该站 481MB 的主体是 cpp 1,482 / pdf 282 / ppt 279 / doc 180，**没有知枢正文**，判 stats-only 候选。
-- `CourseVault-OfflineCourseMap`：**档位错误，待重拉**——树内 md 20 + json 1,159，根目录规则只落地 1 个。已归 three-big，
-  但重拉是网络动作，等批准后再执行。
-- 缺口提醒：`kaoyan-math-66000` 的考研题主数据在 `.csv`（19）/ `.html`（201）/ `.txt`（8）里〔K〕，
-  三档的 `*.md`/`*.json` 覆盖不到。要不要把 `*.csv` 加进三档模式，批 1 定，本轮不改规则。
+- `CourseVault-OfflineCourseMap`：**已重拉（三档判定的第三次验证）**。根目录规则下工作树只有 1 个文件、pack 201.97 KiB；
+  放宽到 `*.md *.json *.csv *.txt` 后 → **1,186 个文件、工作树 32,524,990B、pack 1.05 MiB**，
+  所以 root-only **确实是错的判定**（体积没停在「本来就这么小」）〔K〕。
+  但收益里 **126 个文件占 31,175,207B（95.8%）是 `notes/<课程>/static_shared/mathjax/hi.*.json` 这种
+  MathJax i18n 重复包**，不是课程数据；真数据是每门课的 `content_map.json`（32,595B）与
+  `video_galleries/**/data.json`（59,843B）〔K〕。
+  因此三档规则加了目录级排除（非 cone 的 `!` 前缀）：`!/**/static_shared/**`、`!/**/node_modules/**`、`!/**/vendor/**`，
+  排除后 **1,046 个文件 / 1,372,900B**〔K〕。该站仍无 `manifest.json`，所以是 stats-only + `pendingSources`，
+  要收录得写课程目录适配器。
+- `*.html` 不进三档清单，是认过代价的决定：成品 HTML 的公式绑死字号与配色，反解析成本高、收益低
+  （`docs/pitfalls.md` 已验证 15）。代价就是 kaoyan 这类「数据只在 html」的站只能 `stats-only`。
 - 环境提醒：本机 `git config --global http.sslVerify` = **false**（仓库级同值）。旧脚本逐次 `-c http.sslVerify=true` 是对的，
   手动跑 git 时会看到「TLS certificate verification has been disabled」告警；**`extract.py` 若调 git 必须显式带 `-c http.sslVerify=true`**，
   本轮未改动任何 git 配置。
@@ -157,6 +173,7 @@ python tools/extract.py --probe            # 只探 3 个代表站，打印结�
 python tools/extract.py --probe --json     # 同一结果以 JSON 打到 stdout
 python tools/extract.py --probe --no-cache # 忽略缓存重抓
 python tools/extract.py --all --bodies --out-dir _work/data-dry   # 全量抽取（验证用，不碰 data/）
+python tools/extract.py --all --bodies --link-policy strip        # 真外链降级为纯文本（默认 keep 只记录）
 python tools/extract.py --all --dry-run    # 只算不写，看条目与分级
 python tools/extract.py --all --limit 12   # 试跑前 12 本
 python tools/extract.py --all --repo hello-ai-zhishu --bodies     # 单仓重抽
@@ -167,7 +184,10 @@ python tools/verify_data.py                # 校验产出：含 contentLevel 与
 ```
 
 抽取器约定：主路径读 `_work/repos/`，读不到才走 raw（3 并发 + `_work/cache/` + `_work/state/fetch-state.json` 断点）；
-调 git 一律带 `-c http.sslVerify=true`（本机全局该值为 false）；`_archive`/`_backup`/`旧版` 路径的 manifest 排除并记
-`_report.json`；同仓库 slug 冲突跳过后者并记 `slugCollisions`，不静默覆盖。
+调 git 一律带 `-c http.sslVerify=true`（本机全局该值为 false）；`_archive`/`_backup`/`旧版`/`deprecated` 路径的 manifest 排除并记
+`_report.json` 的 `excludedManifests`；同仓库 slug 冲突跳过后者并记 `slugCollisions`，不静默覆盖。
+正文 URL 由 `classify_links()` 按铁律白名单分流（`xmlns` 属性 / 围栏代码块内 / `example.*`·`localhost`·`127.0.0.1` 保留域名），
+命中记 `links.allowed`，未命中逐条记 `externalLinks`（origin 路径 + 行号 + 160 字上下文）；
+无 manifest 但有结构化文件的站记 `pendingSources`（含 csv/txt/json/html/md 计数），不当作成功产出。
 
 探路结论见 `docs/probe-report.md`。

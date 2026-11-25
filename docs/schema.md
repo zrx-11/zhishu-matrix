@@ -76,6 +76,19 @@
 | cards | array | 是 | 抽认卡，可为空 |
 | glossary | array | 是 | 术语，可为空 |
 
+### 抽取器附带的元数据字段（非展示用，前端可忽略）
+
+| 字段 | 类型 | 说明 |
+|---|---|---|
+| manifestPath | string | 该书 `manifest.json` 在仓库内的相对路径，回溯与重跑定位用 |
+| file | string | **只出现在 `data/manifest.json` 的 `sites[].file`**，写单书文件时被弹出，不进 `data/sites/*.json` |
+| bodyCount | object | `{chapters, concepts}` 实际读到正文的条目数，`full` 判定的依据〔X〕 |
+| signature | string | 书名 + 章节 id 序列 + 计数 的 sha1 前 12 位，跨仓查重用 |
+| duplicateGroup | string | 仅同签名组出现，值即 `signature`；配 `mirroredFrom` 标 canonical |
+| sourceKeys | object | 五类数组在源数据里实际命中的键名（如 `cards ← flashcards`），别名表回归对照 |
+
+这些字段是**产出侧的记录**，不参与渲染契约；改名要同步 `verify_data.py` 与 `_report.json`。
+
 ### chapters[]
 
 ```json
@@ -99,10 +112,12 @@
 - **`origin` 取代原 `source`**。实测 `manifest.json` 的 `chapters[].source` 已被占用为「原书出处」对象，
   统一 schema 不能同名，故抽取来源改叫 `origin{repo, path}`，原书出处原样承接为 `bookSource`〔M〕。
   `path` 是仓库内相对路径，含 manifest 所在目录段（hello-ai 是 `01-Hello-AI人工智能导论/…`），缺失时填空串。
-- **`bookSource` 不规范化**：`page` 三站形态不一 —— hello-ai 是区间字符串 `"6–15"`、math-physical 该键缺失、
-  sudoku 是整数 `0`〔M〕。原样存，前端按有无显示。
+- **`bookSource` 保留原始形态、不做类型归一**：`page` 三站形态不一 —— hello-ai 是区间字符串 `"6–15"`（en-dash，即上方示例）、
+  math-physical 该键缺失、sudoku 是整数 `0`〔M〕。**不转数字、不补区间符、不填默认值**，原样存，前端按有无显示。
 - **`bodyType`**：`md` | `html`。`contentLevel: full` 的站取 `.md` 原文，为 `md`；只有内联正文的站是 HTML 片段，为 `html`（见第三节）。
 - **`body`** 保留原始 Markdown 与公式定界符原文，不做 HTML 转换，渲染在前端做。
+  定界符两种形态都要保住：`$...$` 与 `\(...\)`（`kaoyan` 台账文本里前者 149 处、后者 332 处〔K〕）——
+  抽取端不改写，KaTeX 端 `inlineMath` 两项都开，见铁律渲染节。
 - **`num`** 由 `id` 解析，不假定从 1 起：math-physical 首章 id 是 `ch00`〔M〕。
 - **`core`** 覆盖率不一：hello-ai 20/20 有，math-physical 与 sudoku 均无〔M〕，缺失填 `""`，不得由标题臆造。
 - **`minutes`** 是 int 或 **`null`，绝不是 0**：sudoku 的 `minutes` 本身就是 int（30/40/35…）可直接用；
@@ -232,14 +247,16 @@ sudoku 的内联版卡片键为 `front,back,lesson`〔N〕——`lesson` 即 `ch
 |---|---|---|
 | `totals.repos` | **仓库总数** | 50（`_work/site_repos.json` 全集，含跳过的站） |
 | `totals.sites` | **实际产出的书条目数** | 等于成功写出的 `data/sites/*.json` 份数，上限是实测的 131 份 manifest〔K〕，**不填 50、不填 47**；批 1 首跑实测 **129**〔X〕 |
-| `totals.sitesUnique` | **去重后的独书数** | 同一本书会被多个仓库收录，见下节；批 1 首跑 129 条里只有 **103** 本是独书〔X〕 |
+| `totals.sitesUnique` | **去重后的独书数** | 同一本书会被多个仓库收录，见下节；定稿跑 129 条里只有 **96** 本是独书〔X〕 |
 
-**跨仓库重复必须显式处理，不能当两本书用**。批 1 首跑实测：131 份 manifest 里有 **26 组内容同书**〔X〕——
+**跨仓库重复必须显式处理，不能当两本书用**。定稿实测：131 份 manifest 里有 **33 组内容同书**（66 本带 `duplicateGroup`）〔X〕——
 `ai-architecture-handbook` 是聚合仓，把 `math-basics-enlighten` 的 24 本、`agentic-design-patterns-handbook` 与
 `neural-net-zero` 各 1 本原样重收了一份（signature 由 书名 + 章节 id 序列 + 计数 取 sha1）。规则：
 
-- 抽取器给每本算 `signature`，同组的都写 `duplicateGroup` 字段，**条目全部保留**（前端要按仓库入口进原书），
-  但 `totals.sitesUnique` 与 3D 大厅的展台数一律用去重后的数；
+- 抽取器给每本算 `signature` = sha1(**章节 id 序列 + 五类计数 + 正文哈希**)，同组的都写 `duplicateGroup` 字段，
+  **签名里不含 `title`**：聚合仓常给书改名——`ai-architecture-handbook` 把 hello-ai 叫「AI 导论：Hello, AI」，
+  章节 id 与计数完全一致，含 title 的旧算法会漏判（103/26 组 → 96/33 组，就是改键后的差值）〔X〕。
+  条目全部保留（前端要按仓库入口进原书），但 `totals.sitesUnique` 与 3D 大厅的展台数一律用去重后的数；
 - **canonical 归属**：同组里优先「书名与该仓库主题一致」的那条（`math-basics-enlighten` 为 canonical，
   `ai-architecture-handbook` 里的副本标 `mirroredFrom`），无法判定时取章节数多者；
 - 依赖图的节点用 canonical，避免同一知识点在星图上出现两个点；检索层可以去重展示但计数要说明。
@@ -293,7 +310,7 @@ sudoku 的内联版卡片键为 `front,back,lesson`〔N〕——`lesson` 即 `ch
 | 级别 | 判定条件 | 正文形态 | 实测样本 |
 |---|---|---|---|
 | `full` | manifest 解析成功 **且** `chapters[].file` 指向的 `.md` 源文件存在 → 读 Markdown | `bodyType: "md"`，公式定界符原文完整 | hello-ai（20 章全有 `file`）、math-physical（14 章全有 `file`）〔M〕〔T〕；50 站按树内文件粗判 **24 站为 full 候选**〔K〕 |
-| `degraded` | manifest 解析成功，但无 `.md` 源文件可回读，只有内联 `rendered` / `ZS.*` 正文 | `bodyType: "html"`，**公式不可还原**，页面须标「正文为成品 HTML，公式不可还原」 | sudoku（`chapters[].file` 0/16，树内 `.md` 仅 2 个）〔M〕〔K〕 |
+| `degraded` | manifest 解析成功，但无 `.md` 源文件可回读，只有内联 `rendered` / `ZS.*` 正文——**语义是「可做题、无或极少可读正文」** | `bodyType: "html"`，**公式不可还原**，页面须标「正文为成品 HTML，公式不可还原」 | sudoku（`chapters[].file` 0/16，但 16/16 章有内联 HTML 正文 + 54 道题）〔M〕〔X〕 |
 | `stats-only` | 只有计数（优先级 4、无 manifest，或 manifest 解析失败） | 无正文，点节点跳原站 Pages | 实测 **20 站连 manifest 与成量 `.md` 都没有**；含 `ACM-XCPC-Notes`——481MB、3,153 条目，`.md` 只有 1 个、`.json` 只有 1 个，正文实为 135 个 `.html` 与 40 个 `.txt`〔K〕 |
 
 判定权在抽取器，结果**逐本**写进 `data/sites/….json` 与 `_report.json`，前端只读；同一仓库内各书的 `contentLevel` 可以不同。
@@ -303,6 +320,28 @@ sudoku 的内联版卡片键为 `front,back,lesson`〔N〕——`lesson` 即 `ch
 唯一 degraded 是 sudoku；那 25 个没有 `manifest.json` 的站**不进 `sites[]`，而是整体落 `failures`**
 （`contentLevel: stats-only` 写在 failure 记录里），所以索引里的 `contentLevels` 之和等于 `totals.sites` 而不含失败站。
 章正文实际读到 **1,153 / 1,169** 章，`full` 判定用「真读到正文」而不是「manifest 声明了 `file`」〔X〕。
+
+**别把「有数据文件」当成 `degraded`**：`kaoyan-math-66000` 一度被预判为「有题无正文 → degraded」，
+把 `*.csv`/`*.txt` 拉下来才发现它的 19 个 csv（3,613 行）是 `q,page,verdict,note,time` 式的**校对台账**、
+json 是流水线元数据，题面只在 201 个 `.html` 里而不拉——**所以它是 `stats-only`**〔K〕。
+定档前先开两个数据文件看表头，别按扩展名猜（详见 `pitfalls.md` 已验证 14）。
+
+### `_report.json` 必记字段
+
+抽取器的判定过程要可复核，`data/_report.json` 至少含：
+
+| 键 | 内容 |
+|---|---|
+| `totals` / `contentLevels` | 与 `manifest.json` 一致，用于对账 |
+| `slugCollisions` | `{repo, slug, paths[], action}`，冲突跳过的书 |
+| `excludedManifests` | `{repo, path}`，`_archive`/`_backup`/`旧版`/`deprecated` 路径下的 manifest（排除规则在 `extract.py` 顶部 `EXCLUDED_MANIFEST_PARTS`） |
+| `duplicates` | `{signature, books[]}` 跨仓同书分组（定稿跑 33 组，66 本带 `duplicateGroup`） |
+| `unmappedAndNotes` | `minutes` 取不到单一数值、编码异常、内联求值结果等逐条说明 |
+| `links` / `externalLinks` | 白名单命中分类计数 + 真外链逐条（`origin` 路径、行号、上下文 160 字），`--link-policy` 记 keep/strip |
+| `pendingSources` | 无 manifest 但有结构化文件的站，列出 `csv/txt/json/html/md` 计数与「需专用适配器」 |
+| `rawFallback` | 兜底抓取次数、缓存命中、失败清单 |
+
+
 
 ### 正文来源与回读策略
 

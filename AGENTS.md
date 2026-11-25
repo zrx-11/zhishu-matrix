@@ -8,7 +8,7 @@
 完整版在 `.qoder/rules/zhishu-rules.md` 与 `.lingma/rules/zhishu-rules.md`。此处只列摘要：
 
 1. 公式一律 KaTeX，行内 `$...$`，独立 `$$...$$`，禁止反引号包裹
-2. 依赖全部本地化到 `vendor/`，禁止任何 CDN
+2. 渲染结果不得在运行时发起任何网络请求；运行时资源全部本地化到 `vendor/`（xmlns 声明、代码块内 URL、example.com/localhost 等保留域名三类白名单除外）
 3. 390px 视口 `scrollWidth === 390`，无横向滚动
 4. 3D 在触屏或宽度 < 768px 时自动降级 2D SVG，不得白屏
 5. AI 生成内容必须标「AI 现场生成 · 未经校验」，不进依赖图、不进诊断链

@@ -1102,9 +1102,6 @@ def list_repos(catalog: dict[str, str]) -> list[str]:
     return sorted(repos)
 
 
-EXCLUDED_MANIFEST_PARTS = ("_archive", "_backup", "archive", "backup", "旧版")
-
-
 def find_manifests(repo_dir: str) -> tuple[list[str], list[str]]:
     """返回 (可用 manifest, 被排除的 manifest)。归档副本不算一本书，否则会产出重复条目。"""
     hits: list[str] = []
@@ -1328,6 +1325,66 @@ def map_glossary(raw: dict) -> dict:
     }
 
 
+# 归档副本不算一本书：路径含这些标记的 manifest.json 一律排除（docs/schema.md 第二节）
+EXCLUDED_MANIFEST_PARTS = ("_archive", "_backup", "archive", "backup", "旧版", "deprecated")
+
+# 外链分流白名单（铁律 2 的正解：渲染结果不得在运行时发起网络请求）
+RESERVED_HOSTS = ("example.com", "example.org", "example.net", "localhost", "127.0.0.1", "0.0.0.0")
+XMLNS_RE = re.compile(r"xmlns(?::[A-Za-z]+)?\s*=\s*[\"']?\s*$")
+URL_RE = re.compile(r"https?://[^\s\"'<>)\]]+")
+
+
+def classify_links(text: str, origin: str) -> tuple[list[dict], list[dict]]:
+    """把正文里的 URL 分成 (白名单命中, 真外链)。
+
+    白名单三类（docs/pitfalls.md 已验证 14）：xmlns 命名空间声明、代码块内 URL、
+    example.com / localhost 等保留域名。其余算真外链，交付前要按铁律降级成纯文本。
+    """
+    allowed: list[dict] = []
+    external: list[dict] = []
+    fence = 0
+    for line_no, line in enumerate(text.splitlines(), 1):
+        fence += line.count("```")
+        in_code = fence % 2 == 1
+        for m in URL_RE.finditer(line):
+            url = m.group(0)
+            before = line[:m.start()]
+            host = re.sub(r"^https?://", "", url).split("/")[0].lower()
+            if XMLNS_RE.search(before):
+                allowed.append({"kind": "xmlns", "url": url, "origin": origin, "line": line_no})
+            elif in_code:
+                allowed.append({"kind": "code-block", "url": url, "origin": origin, "line": line_no})
+            elif any(host == h or host.endswith("." + h) for h in RESERVED_HOSTS):
+                allowed.append({"kind": "reserved-domain", "url": url, "origin": origin, "line": line_no})
+            else:
+                external.append({
+                    "kind": "external-link",
+                    "url": url,
+                    "origin": origin,
+                    "line": line_no,
+                    "context": line.strip()[:160],
+                })
+    return allowed, external
+
+
+def strip_external_links(text: str, external: list[dict]) -> str:
+    """真外链降级成纯文本：保留显示文字，去掉可点击链接，加离线标记。
+
+    只在 `--link-policy strip` 时执行；默认 keep，正文原样入库、违规只记 `_report.json`。
+    """
+    if not external:
+        return text
+    out = text
+    for item in external:
+        url = item["url"]
+        esc = re.escape(url)
+        marker = "（原文链接，离线不可达）"
+        out = re.sub(r"\[([^\]]*)\]\(" + esc + r"\)", r"\1" + marker, out)   # [文字](url) → 文字+标记
+        out = re.sub(r"<" + esc + r">", url + marker, out)                    # <url> 自动链接
+        out = re.sub(esc + r"(?!" + re.escape(marker[:6]) + ")", url + marker, out)  # 裸 URL
+    return out
+
+
 def parse_manifest(path: str) -> tuple[dict | None, str]:
     text, enc = read_text_file(path)
     if text is None:
@@ -1474,7 +1531,7 @@ class RawFetcher:
         if not self.use_state:
             return
         os.makedirs(os.path.dirname(self.state_path), exist_ok=True)
-        with open(self.state_path, "w", encoding="utf-8") as fh:
+        with open(self.state_path, "w", encoding="utf-8", newline="\n") as fh:
             json.dump(self.state, fh, ensure_ascii=False, indent=1, default=str)
 
 
@@ -1526,14 +1583,14 @@ def inline_bodies_via_node(repo: str, book: dict, ctx: dict) -> int:
         for i, (var, lit) in enumerate(pending):
             key = f"{repo}_{re.sub(r'[^0-9A-Za-z_]', '_', var)}_{i}"
             fp = os.path.join(jsdir, key + ".txt")
-            with open(fp, "w", encoding="utf-8") as fh:
+            with open(fp, "w", encoding="utf-8", newline="\n") as fh:
                 fh.write(lit)
             jobs.append({"key": key, "file": fp.replace(os.sep, "/")})
         spec = os.path.join(jsdir, f"{repo}_jobs.json")
-        with open(spec, "w", encoding="utf-8") as fh:
+        with open(spec, "w", encoding="utf-8", newline="\n") as fh:
             json.dump(jobs, fh, ensure_ascii=False)
         runner = os.path.join(jsdir, "_eval.js")
-        with open(runner, "w", encoding="utf-8") as fh:
+        with open(runner, "w", encoding="utf-8", newline="\n") as fh:
             fh.write(NODE_EVAL)
         try:
             import subprocess
@@ -1572,7 +1629,8 @@ def _apply_inline(repo: str, book: dict, merged: dict[str, list], ctx: dict) -> 
 # ---------------------------------------------------------------- 全量编排
 
 def run_all(*, repos: list[str], catalog: dict[str, str], out_dir: str, bodies: bool,
-            dry_run: bool, use_cache: bool, limit: int | None = None) -> dict:
+            dry_run: bool, use_cache: bool, limit: int | None = None,
+            link_policy: str = "keep") -> dict:
     base = out_dir if os.path.isabs(out_dir) else work_path(out_dir)
     fetcher = RawFetcher()
     books: list[dict] = []
@@ -1581,6 +1639,7 @@ def run_all(*, repos: list[str], catalog: dict[str, str], out_dir: str, bodies: 
     unmapped: list[str] = []
     excluded_all: list[dict] = []
     sigs: dict[str, list[str]] = {}
+    pending_repos: list[tuple[str, str]] = []
     cloned = set()
     rbase = work_path(*REPOS_SUBDIR.split("/"))
     if os.path.isdir(rbase):
@@ -1609,6 +1668,7 @@ def run_all(*, repos: list[str], catalog: dict[str, str], out_dir: str, bodies: 
                 "reason": f"无 manifest.json（说明文件 {doc or '未探到'}）",
                 "contentLevel": "stats-only",
             })
+            pending_repos.append((repo, repo_dir))
             continue
         parsed: list[tuple[str, dict]] = []
         for mrel in manifests:
@@ -1650,15 +1710,57 @@ def run_all(*, repos: list[str], catalog: dict[str, str], out_dir: str, bodies: 
                 "chapters": sum(1 for c in book["chapters"] if c.get("body")),
                 "concepts": sum(1 for c in book["concepts"] if c.get("body")),
             }
-            book["signature"] = hashlib.sha1(
-                json.dumps([book["title"], [c["id"] for c in book["chapters"]], book["stats"]],
-                           ensure_ascii=False).encode("utf-8")
-            ).hexdigest()[:12]
+            body_hash = hashlib.sha1("".join(
+                (c.get("body") or "") for c in book["chapters"] + book["concepts"]
+            ).encode("utf-8", "replace")).hexdigest()[:12] if (read_ch or read_co) else ""
+            # 查重键不含 title：聚合仓常给书改名（ai-architecture-handbook 把 hello-ai 叫
+            # 「AI 导论：Hello, AI」，章节 id 与计数完全一致），带 title 会漏判〔X〕
+            book["signature"] = hashlib.sha1(json.dumps(
+                [[c["id"] for c in book["chapters"]], book["stats"], body_hash],
+                ensure_ascii=False).encode("utf-8")).hexdigest()[:12]
+            book["contentHash"] = body_hash
             sigs.setdefault(book["signature"], []).append(f"{repo}::{book['bookSlug']}")
             books.append(book)
         if ctx.get("excludedManifests"):
             excluded_all.extend({"repo": repo, "path": p} for p in ctx["excludedManifests"])
         unmapped.extend(ctx["notes"])
+
+    link_allowed: dict[str, int] = {}
+    external_links: list[dict] = []
+    stripped_books = 0
+    if bodies:
+        for book in books:
+            touched = False
+            for key in ("chapters", "concepts"):
+                for item in book.get(key, []):
+                    body = item.get("body") or ""
+                    if "http" not in body:
+                        continue
+                    origin = f"{book['repo']}/{book['bookSlug']}/{item.get('id')}"
+                    allowed, external = classify_links(body, origin)
+                    for a in allowed:
+                        link_allowed[a["kind"]] = link_allowed.get(a["kind"], 0) + 1
+                    for e in external:
+                        e["file"] = book.get("file", "")
+                        external_links.append(e)
+                    if external and link_policy == "strip":
+                        item["body"] = strip_external_links(body, external)
+                        touched = True
+            if touched:
+                stripped_books += 1
+
+    pending_sources: list[dict] = []
+    for repo, repo_dir in pending_repos:
+        kinds: dict[str, int] = {}
+        for dirpath, dirnames, filenames in os.walk(repo_dir):
+            dirnames[:] = [d for d in dirnames if d not in NO_EXTENSIONS and not d.startswith(".")]
+            for name in filenames:
+                ext = name.rsplit(".", 1)[-1].lower() if "." in name else "(no-ext)"
+                if ext in ("csv", "txt", "json", "html", "md"):
+                    kinds[ext] = kinds.get(ext, 0) + 1
+        if kinds:
+            pending_sources.append({"repo": repo, "files": kinds,
+                                    "note": "无 manifest.json，需专用适配器（批 1 后续）"})
 
     levels = {"full": 0, "degraded": 0, "stats-only": 0}
     for b in books:
@@ -1706,6 +1808,10 @@ def run_all(*, repos: list[str], catalog: dict[str, str], out_dir: str, bodies: 
         "slugCollisions": collisions,
         "excludedManifests": excluded_all,
         "duplicates": duplicates,
+        "links": {"policy": link_policy, "allowed": link_allowed,
+                  "external": len(external_links), "booksStripped": stripped_books},
+        "externalLinks": external_links[:200],
+        "pendingSources": pending_sources,
         "unmappedAndNotes": unmapped,
         "rawFallback": {"fetches": fetcher.fetches, "cacheHits": fetcher.hits,
                         "failures": fetcher.failures[:80], "concurrency": fetcher.concurrency},
@@ -1737,13 +1843,13 @@ def write_outputs(bundle: dict, *, bodies: bool) -> dict:
                     if item.get("body"):
                         body_doc[key][item["id"]] = {"bodyType": item.get("bodyType"), "body": item["body"]}
             if body_doc["chapters"] or body_doc["concepts"]:
-                with open(os.path.join(bodies_dir, filename), "w", encoding="utf-8") as fh:
+                with open(os.path.join(bodies_dir, filename), "w", encoding="utf-8", newline="\n") as fh:
                     json.dump(body_doc, fh, ensure_ascii=False, indent=1)
                 counts["bodies"] += 1
             for key in ("chapters", "concepts"):
                 for item in payload.get(key, []):
                     item.pop("body", None)
-        with open(os.path.join(sites_dir, filename), "w", encoding="utf-8") as fh:
+        with open(os.path.join(sites_dir, filename), "w", encoding="utf-8", newline="\n") as fh:
             json.dump(payload, fh, ensure_ascii=False, indent=1)
         counts["sites"] += 1
     shards: dict[str, dict] = {}
@@ -1752,12 +1858,12 @@ def write_outputs(bundle: dict, *, bodies: bool) -> dict:
         shard = shards.setdefault(key, {"discipline": key, "sites": []})
         shard["sites"].append(strip_bodies(book))
     for key, shard in shards.items():
-        with open(os.path.join(dist_dir, f"{key}.json"), "w", encoding="utf-8") as fh:
+        with open(os.path.join(dist_dir, f"{key}.json"), "w", encoding="utf-8", newline="\n") as fh:
             json.dump(shard, fh, ensure_ascii=False, indent=1)
         counts["dist"] += 1
-    with open(os.path.join(base, "manifest.json"), "w", encoding="utf-8") as fh:
+    with open(os.path.join(base, "manifest.json"), "w", encoding="utf-8", newline="\n") as fh:
         json.dump(bundle["index"], fh, ensure_ascii=False, indent=2)
-    with open(os.path.join(base, "_report.json"), "w", encoding="utf-8") as fh:
+    with open(os.path.join(base, "_report.json"), "w", encoding="utf-8", newline="\n") as fh:
         json.dump(bundle["report"], fh, ensure_ascii=False, indent=2)
     return counts
 
@@ -1779,6 +1885,8 @@ def main(argv=None) -> int:
     ap.add_argument("--out-dir", default="data", help="产出目录，默认 data/；验证用 _work/data-dry")
     ap.add_argument("--dry-run", action="store_true", help="只算不写，打印将要产出的条目")
     ap.add_argument("--limit", type=int, default=None, help="最多产出多少本书（试跑用）")
+    ap.add_argument("--link-policy", choices=["keep", "strip"], default="keep",
+                    help="真外链处理：keep 只记 _report.json 的 externalLinks；strip 正文降级为纯文本")
     args = ap.parse_args(argv)
 
     if args.probe and args.all:
@@ -1794,7 +1902,8 @@ def main(argv=None) -> int:
         if not catalog:
             sys.exit(f"读不到仓库清单：{SITES_MD}（硬约束要求不写死站名清单）")
         bundle = run_all(repos=repos, catalog=catalog, out_dir=args.out_dir, bodies=args.bodies,
-                         dry_run=args.dry_run, use_cache=not args.no_cache, limit=args.limit)
+                         dry_run=args.dry_run, use_cache=not args.no_cache, limit=args.limit,
+                         link_policy=args.link_policy)
         counts = None if args.dry_run else write_outputs(bundle, bodies=args.bodies)
         index, report = bundle["index"], bundle["report"]
         p(f"all @ {index['generatedAt']} · 模式={report['mode']} · 产出目录={bundle['base']}"
@@ -1809,6 +1918,9 @@ def main(argv=None) -> int:
           f"（命中缓存 {report['rawFallback']['cacheHits']}）")
         if counts:
             p(f"已写出 sites={counts['sites']} bodies={counts['bodies']} dist={counts['dist']}")
+        lk = report["links"]
+        p(f"外链：白名单 {json.dumps(lk['allowed'], ensure_ascii=False)} · 真外链 {lk['external']} 条"
+          f"（policy={lk['policy']}，降级 {lk['booksStripped']} 本）· 待适配器站 {len(report['pendingSources'])} 个")
         if args.json:
             sys.stdout.buffer.write(json.dumps({"index": index, "report": report},
                                                ensure_ascii=False, indent=2, default=str).encode("utf-8"))

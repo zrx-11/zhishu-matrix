@@ -323,6 +323,15 @@ extract.py
 `git fsck` 对 `kaoyan-math-66000` 无输出（对象库完好），上一轮观测到的 179 行 `unable to read sha1 file`
 是被旧脚本第二次 pass 的 `> _clone_report.txt` 覆盖掉了——**旧版每跑一次就清空历史**，这点已写进 `tools/README.md`。
 
+**第三次验证已执行（2026-11-25 09:5x，CourseVault）〔K〕**：根目录规则下工作树 1 个文件、pack 201.97 KiB；
+放宽到 `*.md *.json *.csv *.txt` 后 **1,186 个文件 / 工作树 32,524,990B / pack 1.05 MiB** ——
+体积没有停在「本来就这么小」，说明 **root-only 判定确实是错的**。但其中 **126 个文件占 31,175,207B（95.8%）**
+是 `notes/<课程>/static_shared/mathjax/hi.*.json` 这类 MathJax i18n 重复包，真数据是每门课的
+`content_map.json`（32,595B）与 `video_galleries/**/data.json`（59,843B）。
+据此给三档加了目录级排除（非 cone 的 `!` 前缀：`static_shared`、`node_modules`、`vendor`），
+排除后 **1,046 个文件 / 1,372,900B**。该站没有 `manifest.json`，所以结论仍是 `stats-only` + 待适配器，
+不是「拉到 json 就能抽」。
+
 ### 四、契约影响（已落到文档，未落到代码）
 
 1. `schema.md` 第一节：`sites` 条目 = 一本书；文件名单书站仍叫 `data/sites/{repo}.json`、多书站叫
@@ -346,21 +355,24 @@ extract.py
   本轮我执行 `sparse-checkout set` 时未加该参数，git 直接告警「TLS certificate verification has been disabled」。
   **未改任何 git 配置**；批 1 若由 `extract.py` 调 git，需显式带 `-c http.sslVerify=true`。
 
-## 十一、批 1 首跑实测（2026-11-25 09:30，〔X〕）
+## 十一、批 1 实测（2026-11-25 09:30 首跑 / 09:53 定稿写 `data/`，〔X〕）
 
-命令：`python tools/extract.py --all --bodies --out-dir _work/data-dry`。
-**`data/` 未被写入**（只建了空目录 `data/sites`、`data/bodies`、`data/dist`），全部产出与 `_report.json` 在 `_work/data-dry/`。
+命令：首跑 `python tools/extract.py --all --bodies --out-dir _work/data-dry`（验证用，不碰 `data/`）；
+定稿 `python tools/extract.py --all --bodies`（**已写入 `data/`**，265 个 JSON：
+`sites/129 + bodies/129 + dist/5 + manifest.json + _report.json + 原有骨架`）。
+交付自检：全部 JSON 可解析、**0 个 CRLF、0 个 BOM**（写入统一 `newline="\n"` + UTF-8）、
+5 个分片全部 < 2MB、对账 `sites 129 + excludedManifests 2 = 131 份 manifest`、`repos 50 = 有 manifest 25 站 + failures 25 站`。
 主路径全部本地读盘：raw 兜底 **0 次**、未克隆站 **0 个**。
 
 | 项 | 实测 |
 |---|---|
-| 仓库 / 书条目 / 去重后独书 | 50 · **129** · **103** |
+| 仓库 / 书条目 / 去重后独书 | 50 · **129** · **96** |
 | 章 / 概念 / 题 / 卡 / 术语 | 1,169 · 765 · 3,541 · 4,100 · 4,100 |
 | contentLevels | `full` 128 · `degraded` 1 · `stats-only` 0 |
 | failures | 25（全部是「无 manifest.json」的站，按站记，不占 `sites[]`） |
 | 排除的归档 manifest | 2（`chem-zhishu/_archive/03-…旧版`、`04-…旧版40题`） |
 | slug 冲突 | 0（排除 `_archive` 之后） |
-| 跨仓重复组 | 26 |
+| 跨仓重复组 | 33（初版含 title 的算法是 26 组，改键后补出 7 组镜像） |
 | 结构分片体积 | ai 1,637 KiB · math 1,124 · general 574 · cs 502 · chem 477 —— 全部 < 2MB |
 | 正文体积 | 7.4 MiB / 129 本 |
 | 章正文命中 | `.md` **1,153 / 1,169** 章；sudoku 另经 Node 拿到 **16/16** 章 HTML |
@@ -371,9 +383,11 @@ extract.py
    因此 `answer` 不可能是单一 int：`single`→int 索引、`blank`→**答案文本 str**（如 `"3/11"`、`"费马"`、`"θ"`）、
    `multi`→**索引数组 list[int]**（如 `[0,1]`）。归一后 `answer=null` **0 条**。
 2. **`options` 长度还有 2 与 0**：4 项 3,120 · 3 项 225 · 2 项 47 · 0 项 157（填空）。判题组件按数组长度渲染这条更硬了。
-3. **同一本书会被多个仓库收录**：26 组重复，`ai-architecture-handbook` 是聚合仓——
-   它把 `math-basics-enlighten` 的 24 本、`agentic-design-patterns-handbook` 与 `neural-net-zero` 各 1 本原样重收〔X〕。
-   新增 `totals.sitesUnique` 与 `duplicateGroup`/`mirroredFrom` 规则（schema 第二节）。
+3. **同一本书会被多个仓库收录**：定稿跑 **33 组**重复（66 本带 `duplicateGroup`），`ai-architecture-handbook` 是聚合仓——
+   它把 `math-basics-enlighten` 的 24 本、`neural-net-zero` 各 1 本，以及**改了名的 hello-ai**（「AI 导论：Hello, AI」）原样重收〔X〕。
+   查重键因此**不含 title**（章节 id 序列 + 计数 + 正文哈希）：含 title 的初版算法只有 26 组 / 独书 103，
+   去掉 title 后是 33 组 / 独书 96，差的 7 组全是「同内容不同名」的镜像。新增 `totals.sitesUnique` 与
+   `duplicateGroup`/`mirroredFrom` 规则（schema 第二节）。
 4. **`_archive/` 里的旧版 manifest 会撞 slug 并造出假条目**：不排除就会多出一本「旧版 40 题」题库。
    新增 `excludedManifests`（schema 第二节）。
 5. **概念正文之前没被回读**：`map_chapter` 登记了 `.md` 而 `map_concept` 漏了，实测 `concepts[].file` 覆盖率
@@ -381,14 +395,28 @@ extract.py
 6. **`minutes` 的 null 是 18 条**：hello-ai 9 章区间串 + `ai-architecture-handbook` 里那份 hello-ai 副本 9 章〔X〕，
    没有一条被写成 0。
 
-### 交付前要处理的两个尾巴
+### 两个尾巴的结论（2026-11-25 复核后已定性，不是数据错）
 
-- **正文里仍有远程引用**：129 个正文文件里 **5 本含 `http(s)://`**（`mp.weixin.qq.com` 13 处、`www.w3.org` 13 处多为 SVG 命名空间、
-  `weather.example.com` 2 处），与铁律 2「零 CDN」冲突 → 批 3 渲染层要么白名单放行非资源型链接，要么抽取时打标；
-  命名空间 URI 与真实外链要分开统计，别误伤。
-- **公式定界符保留情况**：129 本正文里 **22 本含美元定界符**、**6 本含 HTML 标签**〔X〕——
-  即多数书的 `.md` 正文不用行内公式，用公式的集中在数学类；`degraded` 路线（无定界符）只 sudoku 一本。
-  `glossary[].def` 里定界符是保住的（实测样本：形如 `$x+iy$` 的释义原文完好〔X〕）。
+- **远程引用是「铁律表述错」而不是数据错**：首跑扫描 129 个正文文件得到 28 处 URL，逐条看上下文分流结果正好对上——
+  `www.w3.org` **13 处全在 `xmlns="http://www.w3.org/2000/svg"` 属性里**（economics 两本的内联 SVG），
+  `weather.example.com` **2 处全在围栏代码块的 JSON 字面量里**，两者属白名单放行；
+  剩下 **13 处 `mp.weixin.qq.com/s/…` 是真外链**，形态是 Markdown 自动链接、集中在「来源」小节〔X〕。
+  铁律原文「零 CDN」已改写为「渲染结果不得在运行时发起任何网络请求」+ 三类白名单
+  （`xmlns` 声明 / 代码块内 URL / `example.*`·`localhost`·`127.0.0.1` 等保留域名），
+  同步改在 `.qoder/rules/zhishu-rules.md`、`.lingma/rules/zhishu-rules.md`、`docs/pitfalls.md` 已验证 3 与 `AGENTS.md` 摘要四处。
+  真外链按铁律降级为纯文本并逐条记 `_report.json` 的 `externalLinks`，抽取端由 `--link-policy strip` 执行
+  （实测 3 种形态都能降级：`[文字](url)`、`<url>`、裸 URL；默认 `keep` 只记录）。
+- **`kaoyan-math-66000` 按「加 `*.csv` 与 `*.txt`、不加 `*.html`」重取后，预判被否**：已检出 2 → 75 个文件
+  （md 28 + json 20 + **csv 19 + txt 8**），pack 205.54 KiB → 386.76 KiB〔K〕。
+  但 19 个 csv 共 3,613 行的表头是 `q,page,verdict,note,time`、`qno,册内编号,页,题干核对,答案核对,校勘位置`——
+  **是人工校对台账，不是题面**；json 也全是流水线元数据（`waves.json`、`inventory.json`、`q2p`/`p2q`）。
+  题面只在 201 个 `.html` 里，而不拉 HTML 是既定取舍（成品 HTML 公式绑死字号颜色，反解析成本高）。
+  所以 kaoyan 正确判定是 **`stats-only`**，不是「有题无正文的 degraded」；
+  degraded 的定义仍是「可做题、无或极少正文」，标准样本是 sudoku（16/16 章内联 HTML + 54 题〔X〕）。
+  顺带验到定界符完好：台账里 `$...$` 149 处、`\(...\)` **332 处**〔K〕——后者要求 KaTeX 端开 `inlineMath`
+  或抽取时归一，已写进铁律与 `schema.md` 第一节。
+- **正文里的公式密度**（保留原测）：129 本正文中 **22 本含美元定界符**、**6 本含 HTML 标签**〔X〕——
+  多数书的 `.md` 不用行内公式，用的集中在数学类；`glossary[].def` 的定界符完好（实测样本形如 `$x+iy$` 的释义原文〔X〕）。
 
 ### 未做（留批 1 后续）
 

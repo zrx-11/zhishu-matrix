@@ -1,5 +1,6 @@
 node_modules/
-dist/
+# 前端构建产物只忽略仓库根目录的 dist/，不能顺手吃掉 data/dist/（学科分片是产出物）
+/dist/
 .vite/
 *.log
 __pycache__/
