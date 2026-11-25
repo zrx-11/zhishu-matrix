@@ -1,0 +1,439 @@
+{
+ "repo": "math-basics-enlighten",
+ "bookSlug": "solving-triangles",
+ "title": "解三角形",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "16-解三角形/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 10,
+  "glossary": 7
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：正弦定理",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "16-解三角形/chapters/ch01-sine-rule.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-16-解三角形 吴新萃.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：余弦定理与形状判断",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "16-解三角形/chapters/ch02-cosine-rule.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-16-解三角形 吴新萃.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：面积公式与应用",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "16-解三角形/chapters/ch03-area-application.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-16-解三角形 吴新萃.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "边角对应",
+   "chapterIds": [
+    "ch01",
+    "ch02"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "16-解三角形/concepts/c01-side-angle.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-16-解三角形 吴新萃.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "多解",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "ch01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "16-解三角形/concepts/c02-ambiguous-case.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-16-解三角形 吴新萃.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "正弦定理中，a/sinA 等于：",
+   "options": [
+    "内切圆半径",
+    "外接圆半径",
+    "外接圆直径",
+    "三角形周长"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "a/sinA=2R，即外接圆直径。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "已知 a=2、b=3、A=30°，则 B：",
+   "options": [
+    "只有一解",
+    "可能有两解",
+    "一定无解",
+    "一定为直角"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "sinB=b sinA/a=3×0.5/2=0.75<1，B 有锐角与钝角两个候选，需检验，可能两解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "已知 b=3、c=4、A=90°，则 a 等于：",
+   "options": [
+    "5",
+    "7",
+    "25",
+    "√7"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "cosA=0，a²=9+16=25，a=5。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "三角形三边为 2、3、4，最大角是：",
+   "options": [
+    "锐角",
+    "直角",
+    "钝角",
+    "无法判断"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "4²=16>2²+3²=13，故最大角为钝角。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "两边为 4 和 6、夹角 30°，面积是：",
+   "options": [
+    "12",
+    "6",
+    "24",
+    "3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "S=(1/2)×4×6×0.5=6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "三边为 6、8、10 的三角形面积是：",
+   "options": [
+    "24",
+    "48",
+    "30",
+    "20"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "p=12，S=√(12×6×4×2)=√576=24。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "在 △ABC 中，a=8、b=6、A=60°，则 sinB 等于：",
+   "options": [
+    "3√3/8",
+    "3/4",
+    "√3/2",
+    "1/2"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "由 a/sinA=b/sinB 得 sinB=b sinA/a=6×(√3/2)/8=3√3/8。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "三边为 5、12、13 的三角形，其最大角是：",
+   "options": [
+    "锐角",
+    "直角",
+    "钝角",
+    "60°"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "13²=169=5²+12²，故为直角三角形，最大角 90°。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：正弦定理」的一句话核心是什么？",
+   "back": "同一个三角形中，边与它所对角的正弦之比相等，且等于外接圆直径。",
+   "chapterId": "ch01",
+   "tags": [
+    "solving-triangles",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：余弦定理与形状判断」的一句话核心是什么？",
+   "back": "余弦定理是勾股定理的推广：a²=b²+c²−2bc cosA，多出的那一项修正了“非直角”。",
+   "chapterId": "ch02",
+   "tags": [
+    "solving-triangles",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：面积公式与应用」的一句话核心是什么？",
+   "back": "面积有两种算法：给角用 (1/2)ab sinC，给三边用海伦公式。",
+   "chapterId": "ch03",
+   "tags": [
+    "solving-triangles",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「正弦定理」？",
+   "back": "a/sinA=b/sinB=c/sinC=2R。",
+   "chapterId": "ch01",
+   "tags": [
+    "solving-triangles",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「余弦定理」？",
+   "back": "a²=b²+c²−2bc cosA。",
+   "chapterId": "ch02",
+   "tags": [
+    "solving-triangles",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「外接圆半径」？",
+   "back": "三角形外接圆的半径 R。",
+   "chapterId": "ch01",
+   "tags": [
+    "solving-triangles",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「边边角」？",
+   "back": "已知两边及其中一边的对角，可能多解。",
+   "chapterId": "ch01",
+   "tags": [
+    "solving-triangles",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「海伦公式」？",
+   "back": "由三边求面积的公式。",
+   "chapterId": "ch03",
+   "tags": [
+    "solving-triangles",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「方位角」？",
+   "back": "从正北方向顺时针量到目标方向的角度。",
+   "chapterId": "ch03",
+   "tags": [
+    "solving-triangles",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「仰角」？",
+   "back": "视线在水平线之上的夹角。",
+   "chapterId": "ch03",
+   "tags": [
+    "solving-triangles",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "正弦定理",
+   "en": "",
+   "def": "a/sinA=b/sinB=c/sinC=2R。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "余弦定理",
+   "en": "",
+   "def": "a²=b²+c²−2bc cosA。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "外接圆半径",
+   "en": "",
+   "def": "三角形外接圆的半径 R。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "边边角",
+   "en": "",
+   "def": "已知两边及其中一边的对角，可能多解。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "海伦公式",
+   "en": "",
+   "def": "由三边求面积的公式。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "方位角",
+   "en": "",
+   "def": "从正北方向顺时针量到目标方向的角度。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "仰角",
+   "en": "",
+   "def": "视线在水平线之上的夹角。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "a747c91427a3",
+ "contentHash": "5f883f3bab5c",
+ "duplicateGroup": "a747c91427a3"
+}

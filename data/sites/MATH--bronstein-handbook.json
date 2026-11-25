@@ -1,0 +1,1191 @@
+{
+ "repo": "MATH",
+ "bookSlug": "bronstein-handbook",
+ "title": "数学手册",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "02-数学手册/manifest.json",
+ "stats": {
+  "chapters": 8,
+  "concepts": 8,
+  "quizzes": 19,
+  "cards": 40,
+  "glossary": 31
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：算术与初等代数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/chapters/ch01-算术与初等代数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：函数与初等函数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/chapters/ch02-函数与初等函数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：几何学",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/chapters/ch03-几何学.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：线性代数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/chapters/ch04-线性代数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：微分学",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/chapters/ch05-微分学.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：无穷级数与积分学",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/chapters/ch06-级数与积分学.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：微分方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/chapters/ch07-微分方程.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：概率论与数理统计",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/chapters/ch08-概率与统计.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "复利与年金模型",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/concepts/复利与年金.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "坐标变换与数据拟合",
+   "chapterIds": [
+    "ch02",
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/concepts/坐标变换与数据拟合.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "向量与坐标系",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/concepts/向量与坐标系.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "矩阵与特征值",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/concepts/矩阵与特征值.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "泰勒展开与局部近似",
+   "chapterIds": [
+    "ch05",
+    "ch06"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/concepts/泰勒展开.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "雅可比行列式与坐标变换",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/concepts/雅可比与坐标变换.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c07",
+   "title": "定解条件与方程类型",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/concepts/定解条件与方程类型.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c08",
+   "title": "贝叶斯更新",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "MATH",
+    "path": "02-数学手册/concepts/贝叶斯更新.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "前 n 项立方和等于？",
+   "options": [
+    "n(n+1)/2",
+    "[n(n+1)/2]²",
+    "n(n+1)(2n+1)/6",
+    "n²(n+1)²/4"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "前 n 项立方和等于前 n 项和的平方。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "本金 1000 元，年利率 10%，按年复利 2 年后的终值是多少元？（填整数）",
+   "options": [],
+   "answer": "1210",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "1000×1.1²=1000×1.21=1210。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch02",
+   "stem": "y=ae^(bx) 的数据在哪种坐标下呈直线？",
+   "options": [
+    "普通直角坐标",
+    "半对数坐标",
+    "双对数坐标",
+    "极坐标"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "取对数得 lg y=lg a+(b lg e)x，对 x 线性。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch02",
+   "stem": "双曲函数满足 cosh²x−sinh²x 等于多少？（填数字）",
+   "options": [],
+   "answer": "1",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "把 cosh 与 sinh 用 e 的表达式代入展开相减即得。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch03",
+   "stem": "球面余弦定理比平面版本多出的项是？",
+   "options": [
+    "sin a sin b cos C",
+    "cos a cos b",
+    "tan a tan b",
+    "a²+b²"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "cos c = cos a cos b + sin a sin b cos C。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch03",
+   "stem": "半径为 R 的圆，曲率是多少？（写成 1/R 形式）",
+   "options": [],
+   "answer": "1/r",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "曲率是切线转角对弧长的变化率，圆周转 2π 走过 2πR，比值为 1/R。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch04",
+   "stem": "A 是 3×2 矩阵，B 是 2×4 矩阵，AB 的尺寸是？",
+   "options": [
+    "3×4",
+    "2×2",
+    "4×3",
+    "不能相乘"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "内维都为 2，可以相乘，结果取外维 3×4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch04",
+   "stem": "矩阵 [[2,1],[1,2]] 的特征值是 3 和多少？（填数字）",
+   "options": [],
+   "answer": "1",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "特征方程 (2−λ)²−1=0，解得 3 与 1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch05",
+   "stem": "f(x,y)=x²+y² 在 (1,2) 的梯度是？",
+   "options": [
+    "(1,2)",
+    "(2,4)",
+    "(2,2)",
+    "(1,4)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "∂f/∂x=2x=2，∂f/∂y=2y=4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch05",
+   "stem": "eˣ 在 0 处展开到 x² 项时，x² 的系数是 1/2!，即 1/（　）。（填数字）",
+   "options": [],
+   "answer": "2",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "二阶项系数为 f''(0)/2!=1/2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch06",
+   "stem": "Σ1/n² 的敛散性是？",
+   "options": [
+    "发散",
+    "收敛",
+    "条件收敛",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "p 级数在 p>1 时收敛，p=2 满足。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch06",
+   "stem": "极坐标下面积元 dxdy 等于 r dr d（　）。（填一个希腊字母）",
+   "options": [],
+   "answer": "θ",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "极坐标的雅可比为 r，面积元 dxdy = r dr dθ。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch07",
+   "stem": "y''+4y=0 的通解是？",
+   "options": [
+    "C₁e^(2x)+C₂e^(−2x)",
+    "C₁cos2x+C₂sin2x",
+    "(C₁+C₂x)e^(2x)",
+    "C₁cos x+C₂sin x"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "特征方程 λ²+4=0 得 λ=±2i，对应 cos2x 与 sin2x。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch07",
+   "stem": "热传导方程属于哪一型偏微分方程？（填两字）",
+   "options": [],
+   "answer": "抛物",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "判别式 B²−4AC=0，属抛物型。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch08",
+   "stem": "从 5 人中选 2 人不考虑顺序，有多少种选法？",
+   "options": [
+    "20",
+    "10",
+    "5",
+    "25"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "C(5,2)=5×4/2=10。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch08",
+   "stem": "泊松分布的期望与方差都等于哪个参数？（填一个希腊字母）",
+   "options": [],
+   "answer": "λ",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "泊松分布 P(λ) 的期望和方差都是 λ。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "__all",
+   "stem": "下列哪一组公式属于同一件事的离散与连续两个版本？",
+   "options": [
+    "复利与年金",
+    "级数求和与定积分",
+    "正弦定理与余弦定理",
+    "均值不等式与柯西不等式"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "级数是离散求和，定积分是连续求和的极限，判据与技巧一一对应。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "__all",
+   "stem": "用不到雅可比行列式的情形是？",
+   "options": [
+    "极坐标下算二重积分",
+    "球坐标下算三重积分",
+    "普通直角坐标下的二重积分",
+    "曲面参数化后算面积"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "直角坐标到自身是恒等变换，雅可比为 1，不需要额外因子。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "__all",
+   "stem": "二阶常系数线性方程需要几个初始条件才能定出唯一解？（填数字）",
+   "options": [],
+   "answer": "2",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "二阶方程通解含两个独立常数，需要两条独立初始信息。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "ch01-f01",
+   "front": "复利终值公式怎么写？",
+   "back": "S=P(1+i)ⁿ",
+   "chapterId": "ch01",
+   "tags": [
+    "代数"
+   ]
+  },
+  {
+   "id": "ch01-f02",
+   "front": "等差与等比求和各一条公式",
+   "back": "等差 n(a₁+aₙ)/2；等比 a₁(1−qⁿ)/(1−q)",
+   "chapterId": "ch01",
+   "tags": [
+    "代数"
+   ]
+  },
+  {
+   "id": "ch01-f03",
+   "front": "五次方程为什么不能根式解？",
+   "back": "阿贝尔-鲁菲尼定理证明一般五次及以上方程没有根式解，但有数值解",
+   "chapterId": "ch01",
+   "tags": [
+    "代数"
+   ]
+  },
+  {
+   "id": "ch01-f04",
+   "front": "分式方程为什么必须验根？",
+   "back": "去分母时乘以了可能为零的式子，会产生增根",
+   "chapterId": "ch01",
+   "tags": [
+    "代数"
+   ]
+  },
+  {
+   "id": "ch01-f05",
+   "front": "复数除法怎么算？",
+   "back": "分子分母同乘分母的共轭，分母变成 c²+d²",
+   "chapterId": "ch01",
+   "tags": [
+    "代数"
+   ]
+  },
+  {
+   "id": "ch02-f01",
+   "front": "幂律在什么坐标下是直线？",
+   "back": "双对数坐标，斜率就是指数",
+   "chapterId": "ch02",
+   "tags": [
+    "函数"
+   ]
+  },
+  {
+   "id": "ch02-f02",
+   "front": "arcsin 和 1/sin 有什么区别？",
+   "back": "前者是反函数，后者是倒数，两者完全不同",
+   "chapterId": "ch02",
+   "tags": [
+    "函数"
+   ]
+  },
+  {
+   "id": "ch02-f03",
+   "front": "摆线的参数方程？",
+   "back": "x=a(t−sin t)，y=a(1−cos t)",
+   "chapterId": "ch02",
+   "tags": [
+    "函数"
+   ]
+  },
+  {
+   "id": "ch02-f04",
+   "front": "悬链线的方程形式？",
+   "back": "y=a cosh(x/a)",
+   "chapterId": "ch02",
+   "tags": [
+    "函数"
+   ]
+  },
+  {
+   "id": "ch02-f05",
+   "front": "算图法的原理是什么？",
+   "back": "用三条刻度尺的连线读出结果，本质是射影对应",
+   "chapterId": "ch02",
+   "tags": [
+    "函数"
+   ]
+  },
+  {
+   "id": "ch03-f01",
+   "front": "正弦定理怎么写？",
+   "back": "a/sin A = b/sin B = c/sin C = 2R",
+   "chapterId": "ch03",
+   "tags": [
+    "几何"
+   ]
+  },
+  {
+   "id": "ch03-f02",
+   "front": "海伦公式？",
+   "back": "S=√(p(p−a)(p−b)(p−c))，p 为半周长",
+   "chapterId": "ch03",
+   "tags": [
+    "几何"
+   ]
+  },
+  {
+   "id": "ch03-f03",
+   "front": "混合积为零说明什么？",
+   "back": "三个向量共面，平行六面体体积为零",
+   "chapterId": "ch03",
+   "tags": [
+    "几何"
+   ]
+  },
+  {
+   "id": "ch03-f04",
+   "front": "高斯曲率为什么决定能否摊平？",
+   "back": "它是内蕴量，等距变形不能改变它，非零则无法等距映射到平面",
+   "chapterId": "ch03",
+   "tags": [
+    "几何"
+   ]
+  },
+  {
+   "id": "ch03-f05",
+   "front": "二次曲线怎么分类？",
+   "back": "看判别式 B²−4AC：小于零椭圆，等于零抛物线，大于零双曲线",
+   "chapterId": "ch03",
+   "tags": [
+    "几何"
+   ]
+  },
+  {
+   "id": "ch04-f01",
+   "front": "矩阵乘法什么时候能做？",
+   "back": "左矩阵列数等于右矩阵行数，结果取外维",
+   "chapterId": "ch04",
+   "tags": [
+    "矩阵"
+   ]
+  },
+  {
+   "id": "ch04-f02",
+   "front": "行列式为零意味着什么？",
+   "back": "矩阵不可逆，变换把空间压到低维，信息丢失",
+   "chapterId": "ch04",
+   "tags": [
+    "矩阵"
+   ]
+  },
+  {
+   "id": "ch04-f03",
+   "front": "方程组三种解情形怎么判断？",
+   "back": "比较 rank(A) 与 rank([A|b]) 及未知数个数",
+   "chapterId": "ch04",
+   "tags": [
+    "矩阵"
+   ]
+  },
+  {
+   "id": "ch04-f04",
+   "front": "实对称矩阵的特征向量有什么性质？",
+   "back": "特征值全实，特征向量互相正交，可正交对角化",
+   "chapterId": "ch04",
+   "tags": [
+    "矩阵"
+   ]
+  },
+  {
+   "id": "ch04-f05",
+   "front": "四元数适合表示什么？",
+   "back": "三维旋转，优点是无万向锁、可平滑插值",
+   "chapterId": "ch04",
+   "tags": [
+    "矩阵"
+   ]
+  },
+  {
+   "id": "ch05-f01",
+   "front": "梯度的两个性质？",
+   "back": "方向是最快增长方向，模是最大变化率",
+   "chapterId": "ch05",
+   "tags": [
+    "微分"
+   ]
+  },
+  {
+   "id": "ch05-f02",
+   "front": "方向导数怎么写？",
+   "back": "∂f/∂l=∇f·l，l 为单位向量",
+   "chapterId": "ch05",
+   "tags": [
+    "微分"
+   ]
+  },
+  {
+   "id": "ch05-f03",
+   "front": "多元极值的二阶判别式？",
+   "back": "Δ=AC−B²，A=f_xx，C=f_yy，B=f_xy；Δ>0 且 A>0 为极小，Δ<0 为鞍点",
+   "chapterId": "ch05",
+   "tags": [
+    "微分"
+   ]
+  },
+  {
+   "id": "ch05-f04",
+   "front": "隐函数求导公式？",
+   "back": "dy/dx=−F_x/F_y，条件是 F_y≠0",
+   "chapterId": "ch05",
+   "tags": [
+    "微分"
+   ]
+  },
+  {
+   "id": "ch05-f05",
+   "front": "泰勒展开的余项有什么用？",
+   "back": "给出误差上界，决定取几阶才能达到要求精度",
+   "chapterId": "ch05",
+   "tags": [
+    "微分"
+   ]
+  },
+  {
+   "id": "ch06-f01",
+   "front": "比值判据怎么用？",
+   "back": "lim a(n+1)/a(n)<1 收敛，>1 发散，=1 失效",
+   "chapterId": "ch06",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "ch06-f02",
+   "front": "调和级数收敛吗？",
+   "back": "发散，它说明通项趋于零不保证收敛",
+   "chapterId": "ch06",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "ch06-f03",
+   "front": "分部积分公式？",
+   "back": "∫u dv=uv−∫v du",
+   "chapterId": "ch06",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "ch06-f04",
+   "front": "球坐标的体积元？",
+   "back": "ρ²sinφ dρ dφ dθ",
+   "chapterId": "ch06",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "ch06-f05",
+   "front": "傅里叶系数怎么算？",
+   "back": "aₙ=(1/π)∫f cos nx dx，bₙ=(1/π)∫f sin nx dx",
+   "chapterId": "ch06",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "ch07-f01",
+   "front": "一阶线性方程的积分因子？",
+   "back": "e^(∫Pdx)，乘上后左边变成 (y e^(∫Pdx))'",
+   "chapterId": "ch07",
+   "tags": [
+    "方程"
+   ]
+  },
+  {
+   "id": "ch07-f02",
+   "front": "二阶常系数方程三种特征根对应什么？",
+   "back": "相异实根、重根、共轭复根，对应过阻尼、临界、欠阻尼",
+   "chapterId": "ch07",
+   "tags": [
+    "方程"
+   ]
+  },
+  {
+   "id": "ch07-f03",
+   "front": "PDE 三类怎么分？",
+   "back": "按 B²−4AC：小于零椭圆，等于零抛物，大于零双曲",
+   "chapterId": "ch07",
+   "tags": [
+    "方程"
+   ]
+  },
+  {
+   "id": "ch07-f04",
+   "front": "分离变量法的核心动作？",
+   "back": "设 u=X(x)T(t)，把 PDE 拆成两个 ODE",
+   "chapterId": "ch07",
+   "tags": [
+    "方程"
+   ]
+  },
+  {
+   "id": "ch07-f05",
+   "front": "为什么椭圆型方程不需要初始条件？",
+   "back": "它描述稳态，没有时间方向，只需边界条件",
+   "chapterId": "ch07",
+   "tags": [
+    "方程"
+   ]
+  },
+  {
+   "id": "ch08-f01",
+   "front": "贝叶斯公式？",
+   "back": "P(B|A)=P(A|B)P(B)/P(A)",
+   "chapterId": "ch08",
+   "tags": [
+    "概率"
+   ]
+  },
+  {
+   "id": "ch08-f02",
+   "front": "样本方差为什么除以 n−1？",
+   "back": "除以 n 会系统性低估总体方差，n−1 才是无偏估计",
+   "chapterId": "ch08",
+   "tags": [
+    "概率"
+   ]
+  },
+  {
+   "id": "ch08-f03",
+   "front": "95% 置信区间的正确解释？",
+   "back": "反复抽样构造的区间中约 95% 包含真值，不是单个区间有 95% 概率包含真值",
+   "chapterId": "ch08",
+   "tags": [
+    "概率"
+   ]
+  },
+  {
+   "id": "ch08-f04",
+   "front": "中心极限定理说什么？",
+   "back": "大量独立同分布随机变量之和近似正态，是统计推断的基础",
+   "chapterId": "ch08",
+   "tags": [
+    "概率"
+   ]
+  },
+  {
+   "id": "ch08-f05",
+   "front": "两类错误各是什么？",
+   "back": "第一类：H₀ 真却拒绝，概率 α；第二类：H₀ 假却不拒绝，概率 β",
+   "chapterId": "ch08",
+   "tags": [
+    "概率"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "复利终值",
+   "en": "",
+   "def": "S=P(1+i)ⁿ，本金按复利计息 n 期后的本息合计",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "年金现值",
+   "en": "",
+   "def": "每期支付 R 共 n 期，按利率 i 折现到今天的总额",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "判别式",
+   "en": "",
+   "def": "二次方程 Δ=b²−4ac，决定实根个数；二次曲线 Δ=B²−4AC 决定类型",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "双曲函数",
+   "en": "",
+   "def": "由 eˣ 与 e⁻ˣ 组合定义的函数，满足 cosh²−sinh²=1",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "半对数坐标",
+   "en": "",
+   "def": "一个轴取对数、一个轴取线性，用来把指数律画成直线",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "双对数坐标",
+   "en": "",
+   "def": "两个轴都取对数，用来把幂律画成直线",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "海伦公式",
+   "en": "",
+   "def": "由三边直接算三角形面积：S=√(p(p−a)(p−b)(p−c))，p 为半周长",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "球面三角",
+   "en": "",
+   "def": "球面上以球心角表示的边与角构成的三角形，满足球面余弦定理",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "点积",
+   "en": "",
+   "def": "a·b=|a||b|cosθ，结果是一个数，用来算夹角与投影",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "叉积",
+   "en": "",
+   "def": "a×b，方向垂直两者，模等于张成平行四边形面积",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "高斯曲率",
+   "en": "",
+   "def": "两个主曲率之积 K=κ₁κ₂，是曲面的内蕴量",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "行列式",
+   "en": "",
+   "def": "方阵对应的一个数，其绝对值是变换对面积或体积的缩放倍数",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "秩",
+   "en": "",
+   "def": "矩阵所含线性无关行或列的个数，决定方程组解的结构",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "特征值",
+   "en": "",
+   "def": "使 Av=λv 有非零解 v 的数 λ",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "四元数",
+   "en": "",
+   "def": "形如 a+bi+cj+dk 的数，乘法不交换，用于表示三维旋转",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "偏导数",
+   "en": "",
+   "def": "把其余变量视为常数时对某一变量的导数",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "梯度",
+   "en": "",
+   "def": "各偏导组成的向量，指向函数增长最快的方向",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "方向导数",
+   "en": "",
+   "def": "函数沿某单位方向的瞬时变化率，等于梯度在该方向的投影",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "隐函数定理",
+   "en": "",
+   "def": "若 F_y≠0，则方程 F(x,y)=0 在局部可解出 y=y(x)",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "比值判据",
+   "en": "",
+   "def": "若 lim a(n+1)/a(n)<1 则正项级数收敛，>1 则发散",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "傅里叶级数",
+   "en": "",
+   "def": "把周期函数展开成不同频率正弦余弦之和",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "雅可比行列式",
+   "en": "",
+   "def": "坐标变换偏导组成的行列式，其绝对值是面积或体积元的缩放倍数",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "积分因子",
+   "en": "",
+   "def": "乘以它可把一阶线性方程左边化为一个乘积的导数",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "特征根",
+   "en": "",
+   "def": "二阶常系数线性方程对应的二次方程的根，三种情形决定解的形式",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "分离变量法",
+   "en": "",
+   "def": "设 u=X(x)T(t) 把偏微分方程拆成若干常微分方程的方法",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "条件概率",
+   "en": "",
+   "def": "在已知 B 发生的条件下 A 发生的概率，P(A|B)=P(A∩B)/P(B)",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "全概率公式",
+   "en": "",
+   "def": "P(A)=ΣP(A|Bᵢ)P(Bᵢ)，Bᵢ 构成完备事件组",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "中心极限定理",
+   "en": "",
+   "def": "大量独立同分布随机变量之和近似正态分布",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "置信区间",
+   "en": "",
+   "def": "由样本构造的区间，反复抽样时约有一定比例的区间包含真值",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "无偏估计",
+   "en": "",
+   "def": "期望等于被估计参数的估计量",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "第一类错误",
+   "en": "",
+   "def": "原假设为真却被拒绝，概率为显著性水平 α",
+   "chapterIds": [
+    "ch08"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 8,
+  "concepts": 8
+ },
+ "signature": "95a94a89ca81",
+ "contentHash": "b088d0e932e1"
+}

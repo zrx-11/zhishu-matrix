@@ -1,0 +1,2317 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "machine-learning",
+ "title": "机器学习基础：从任务到评估",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "04-machine-learning/manifest.json",
+ "stats": {
+  "chapters": 16,
+  "concepts": 2,
+  "quizzes": 47,
+  "cards": 68,
+  "glossary": 72
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：绪论",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch01.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：模型评估与选择",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch02.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：线性模型",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch03.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：决策树",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch04.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：神经网络",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch05.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：支持向量机",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch06.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：贝叶斯分类器",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch07.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：集成学习",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch08.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：聚类",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch09.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：降维与度量学习",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch10.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：特征选择与稀疏学习",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch11.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：计算学习理论",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch12.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：半监督学习",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch13.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch14",
+   "num": 14,
+   "title": "第 14 章：概率图模型",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch14.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch15",
+   "num": 15,
+   "title": "第 15 章：规则学习",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch15.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch16",
+   "num": 16,
+   "title": "第 16 章：强化学习",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/chapters/ch16.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "偏差与方差",
+   "chapterIds": [
+    "ch02",
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/concepts/c01.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "核技巧",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "04-machine-learning/concepts/c02.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "西瓜例子里假设空间 65 的来历？",
+   "options": [
+    "特征数加一",
+    "每特征取值数加一通配符",
+    "样本数加一",
+    "类别数加一"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "每个特征 4 种可能（3 取值 + 无所谓），4×4×4+1=65。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "版本空间的存在说明什么？",
+   "options": [
+    "学习一定失败",
+    "数据有噪声",
+    "模型存在不确定性",
+    "算法有 bug"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "有限样本无法唯一确定模型。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "自助法训练集约占原数据多少？",
+   "options": [
+    "36.8%",
+    "50%",
+    "63.2%",
+    "80%"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "未被抽到的概率极限 1/e≈36.8%，故训练集约 63.2%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "P=0.9、R=0.1 时 F1 约是多少？",
+   "options": [
+    "0.18",
+    "0.5",
+    "0.9",
+    "0.1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "2×0.9×0.1/(0.9+0.1)=0.18。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02",
+   "stem": "AUC 的含义是？",
+   "options": [
+    "准确率的上界",
+    "正例打分高于负例的概率",
+    "召回率的平均值",
+    "损失函数值"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "AUC 等于随机取一对正负样本、正例得分更高的概率。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "3 个样本、100 个特征做最小二乘会怎样？",
+   "options": [
+    "结果更准",
+    "自动降维",
+    "XᵀX 不可逆需加正则",
+    "无法计算损失"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "XᵀX 秩最多 3，100×100 矩阵奇异。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch03",
+   "stem": "对数几率回归用交叉熵的主因？",
+   "options": [
+    "更容易实现",
+    "避免梯度饱和",
+    "平方误差不可导",
+    "计算更快"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "交叉熵配 sigmoid 梯度为 ŷ-y，不会饱和。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch03",
+   "stem": "类别不平衡最不改变数据分布的做法？",
+   "options": [
+    "过采样",
+    "欠采样",
+    "SMOTE",
+    "调整判定阈值"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "只改判定规则，不动训练数据。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch04",
+   "stem": "二分类中信息熵的最大值？",
+   "options": [
+    "0.5",
+    "1",
+    "2",
+    "log2(n)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "两类各半时熵为 1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch04",
+   "stem": "用样本编号做分裂特征的后果？",
+   "options": [
+    "信息增益最大但泛化极差",
+    "增益为负",
+    "无法分裂",
+    "自动剪枝"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "每个子集单一类别，熵为 0，增益最大却毫无泛化。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch04",
+   "stem": "后剪枝的主要优势？",
+   "options": [
+    "计算量更小",
+    "训练更快",
+    "不易欠拟合",
+    "不需要验证集"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "先长全再回退，避免过早砍掉有用分裂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch05",
+   "stem": "输出层误差项 δ 的计算？",
+   "options": [
+    "直接等于损失",
+    "损失对输出的梯度 ⊙ 激活导数",
+    "权重矩阵乘输出",
+    "恒为 1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "δ^(L)=∇_a L ⊙ f'(z^(L))。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch05",
+   "stem": "隐层 δ 回传乘什么？",
+   "options": [
+    "本层权重",
+    "学习率",
+    "下一层权重转置 ⊙ 本层激活导数",
+    "输入特征"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "δ^(l)=(W^(l+1))ᵀδ^(l+1) ⊙ f'(z^(l))。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch05",
+   "stem": "ReLU 神经元死亡指？",
+   "options": [
+    "梯度恒 0 参数不再更新",
+    "输出恒为 1",
+    "权重被清零",
+    "计算溢出"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "输入长期为负时该神经元梯度恒 0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch06",
+   "stem": "SVM 标签取 ±1 的原因是？",
+   "options": [
+    "计算更快",
+    "约束形式统一对称",
+    "便于核函数",
+    "防止除零"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "y_i(wᵀx_i+b)≥1 对两类同形，0/1 会不对称。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch06",
+   "stem": "α_i>0 对应哪种样本？",
+   "options": [
+    "支持向量",
+    "噪声点",
+    "所有样本",
+    "离边界最远的点"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "互补松弛条件决定只有边界上的样本 α 非零。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch06",
+   "stem": "高斯核 σ 变小的后果？",
+   "options": [
+    "模型更简单",
+    "变成线性核",
+    "更易过拟合",
+    "间隔变宽"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "核更尖锐，决策边界更弯曲。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch07",
+   "stem": "某特征值在某类中未出现且不做修正会怎样？",
+   "options": [
+    "概率为 1",
+    "自动忽略该特征",
+    "后验被乘成 0",
+    "报错"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "零概率连乘把整个后验打成 0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch07",
+   "stem": "EM 算法的理论保证是？",
+   "options": [
+    "一定全局最优",
+    "似然单调不减",
+    "一步收敛",
+    "无需初值"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "每轮 E/M 都提升或保持似然，但只到局部最优。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch07",
+   "stem": "朴素贝叶斯的核心假设？",
+   "options": [
+    "特征相互独立",
+    "类别相互独立",
+    "样本独立同分布",
+    "参数服从高斯"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "给定类别下特征条件独立，联合似然可拆成连乘。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch08",
+   "stem": "Bagging 主要降低什么？",
+   "options": [
+    "偏差",
+    "方差",
+    "计算量",
+    "特征数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "独立训练多个模型再平均，抵消方差。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch08",
+   "stem": "AdaBoost 中基学习器错误率 0.5 时权重 α 为？",
+   "options": [
+    "0",
+    "1",
+    "0.5",
+    "无穷大"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "½ln(0.5/0.5)=0，无投票权。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch08",
+   "stem": "随机森林限制特征子集的目的是？",
+   "options": [
+    "加速训练",
+    "减少内存",
+    "增加树间多样性",
+    "防止只依赖单一特征"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "逼每棵树看不同证据，提升多样性。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch09",
+   "stem": "k-means 每轮迭代目标函数如何变化？",
+   "options": [
+    "下降或不变",
+    "上升",
+    "震荡",
+    "随机"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "分配与更新各自都不增加平方距离和。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch09",
+   "stem": "DBSCAN 的核心对象定义？",
+   "options": [
+    "离原点最近的点",
+    "密度最大的点",
+    "ε 邻域样本数≥MinPts 的点",
+    "任何非噪声点"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "核心对象是邻域内样本数达阈值的点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch09",
+   "stem": "轮廓系数为负意味着？",
+   "options": [
+    "聚类很好",
+    "样本可能分错簇",
+    "簇数太多",
+    "数据无结构"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "b<a，样本离其他簇更近。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch10",
+   "stem": "PCA 的最优投影方向是？",
+   "options": [
+    "均值方向",
+    "最大特征值对应的特征向量",
+    "最小特征值对应的特征向量",
+    "任意正交方向"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Cw=λw，方差等于特征值。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch10",
+   "stem": "kNN 在高维失效的主因？",
+   "options": [
+    "计算太慢",
+    "内存不够",
+    "样本稀疏距离趋同",
+    "参数太多"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "维度灾难使最近邻失去区分度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q29",
+   "chapterId": "ch10",
+   "stem": "流形学习的核心假设？",
+   "options": [
+    "数据位于低维流形",
+    "数据线性可分",
+    "数据服从高斯",
+    "数据无噪声"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "高维观测实际分布在一个低维曲面上。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q30",
+   "chapterId": "ch11",
+   "stem": "L1 产生稀疏解的根本原因？",
+   "options": [
+    "梯度更大",
+    "等值线有尖角落在坐标轴",
+    "计算更快",
+    "需要归一化"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "菱形等值线的顶点位于坐标轴上，最优点易落在顶点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q31",
+   "chapterId": "ch11",
+   "stem": "Relief 中特征让同类近邻更近时权重如何变？",
+   "options": [
+    "增加",
+    "减少",
+    "不变",
+    "归零"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "δ=-近同类差²+近异类差²，前者小后者大，δ 为正。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q32",
+   "chapterId": "ch11",
+   "stem": "包裹式特征选择的主要风险？",
+   "options": [
+    "计算太慢",
+    "无法处理高维",
+    "过拟合到特定学习器",
+    "必须离散特征"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "以某学习器性能为准则，容易过拟合该学习器。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q33",
+   "chapterId": "ch12",
+   "stem": "二维线性分类器的 VC 维？",
+   "options": [
+    "2",
+    "3",
+    "4",
+    "无穷"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "3 点可打散、4 点不行。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q34",
+   "chapterId": "ch12",
+   "stem": "泛化上界中的惩罚项随样本量增大如何变化？",
+   "options": [
+    "减小",
+    "增大",
+    "不变",
+    "先增后减"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "含 1/√m，样本越多惩罚越小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q35",
+   "chapterId": "ch12",
+   "stem": "PAC 中“近似正确”的含义？",
+   "options": [
+    "一定正确",
+    "误差为零",
+    "以高概率使误差不超过 ε",
+    "对任意分布都完美"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "PAC 给的是概率意义上的误差界。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q36",
+   "chapterId": "ch13",
+   "stem": "半监督学习的根本依据？",
+   "options": [
+    "无标数据更多",
+    "数据分布本身含结构",
+    "模型更强",
+    "计算更快"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "聚类假设与流形假设都指向数据分布的结构信息。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q37",
+   "chapterId": "ch13",
+   "stem": "协同训练对视图的要求？",
+   "options": [
+    "完全相同",
+    "完全不相关",
+    "充分且独立",
+    "都是文本"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "独立才能保证错误不重叠。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q38",
+   "chapterId": "ch13",
+   "stem": "直推学习的特点？",
+   "options": [
+    "不追求对新样本泛化",
+    "不需要有标数据",
+    "必须用深度学习",
+    "一定有图结构"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "目标只是标出当前未标注样本。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q39",
+   "chapterId": "ch14",
+   "stem": "汇连 A→B←C 中观测 B 后 A 与 C 的关系？",
+   "options": [
+    "仍独立",
+    "完全无关",
+    "变得相关",
+    "无法判断"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "解释消除效应使父节点由独立变相关。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q40",
+   "chapterId": "ch14",
+   "stem": "无向图模型的联合分布按什么分解？",
+   "options": [
+    "按节点",
+    "按团",
+    "按边",
+    "按路径"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "按团势函数乘积再除以配分函数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q41",
+   "chapterId": "ch14",
+   "stem": "变量消去法的复杂度取决于？",
+   "options": [
+    "节点数",
+    "边数",
+    "树宽",
+    "样本数"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "复杂度随树宽指数增长。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q42",
+   "chapterId": "ch15",
+   "stem": "规则学习与决策树的关键差别？",
+   "options": [
+    "规则学习不能分类",
+    "规则集可重叠且可不完备",
+    "决策树不可解释",
+    "规则学习不需要数据"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "决策树路径互斥完备，规则集更灵活。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q43",
+   "chapterId": "ch15",
+   "stem": "序贯覆盖产出一条规则后做什么？",
+   "options": [
+    "删掉被覆盖的正例",
+    "删掉所有负例",
+    "重新采样",
+    "增加特征"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "把已解释的样本移除，继续处理剩余样本。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q44",
+   "chapterId": "ch15",
+   "stem": "ILP 需要背景知识的原因？",
+   "options": [
+    "提高准确率",
+    "加速计算",
+    "约束无限的一阶规则空间",
+    "避免过拟合"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "没有背景知识，搜索空间无法收敛。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q45",
+   "chapterId": "ch16",
+   "stem": "Q-learning 与 Sarsa 的核心差别？",
+   "options": [
+    "学习率不同",
+    "是否使用下一状态的最大动作价值",
+    "是否需要环境模型",
+    "是否用神经网络"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Q-learning 离轨取 max，Sarsa 同轨取实际动作价值。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q46",
+   "chapterId": "ch16",
+   "stem": "ε-贪心中 ε 控制什么？",
+   "options": [
+    "学习率",
+    "折扣因子",
+    "探索比例",
+    "奖励尺度"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "以 ε 概率随机探索。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q47",
+   "chapterId": "ch16",
+   "stem": "TD 误差是？",
+   "options": [
+    "目标估计减当前估计",
+    "奖励减学习率",
+    "价值减奖励",
+    "动作价值减状态价值"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "r+γV(s')-V(s)。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "假设空间是什么？",
+   "back": "所有候选映射组成的集合。",
+   "chapterId": "ch01",
+   "tags": [
+    "concept"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "版本空间怎么得到？",
+   "back": "用训练集删掉所有预测不符的假设，剩下的就是。",
+   "chapterId": "ch01",
+   "tags": [
+    "concept"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "NFL 定理的真正含义？",
+   "back": "脱离问题结构谈算法优劣没有意义。",
+   "chapterId": "ch01",
+   "tags": [
+    "theory"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "查准率与查全率的公式？",
+   "back": "P=TP/(TP+FP)，R=TP/(TP+FN)。",
+   "chapterId": "ch02",
+   "tags": [
+    "metric"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "F1 为什么用调和平均？",
+   "back": "对较小的一项更敏感，能暴露短板。",
+   "chapterId": "ch02",
+   "tags": [
+    "metric"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "k 折交叉验证的 k 常取多少？",
+   "back": "5 或 10，兼顾计算量与偏差。",
+   "chapterId": "ch02",
+   "tags": [
+    "evaluation"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "AUC 为什么在样本不平衡时更稳？",
+   "back": "它衡量排序能力，不依赖阈值和类别比例。",
+   "chapterId": "ch02",
+   "tags": [
+    "metric"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "36.8% 的由来？",
+   "back": "(1-1/m)^m 极限为 1/e。",
+   "chapterId": "ch02",
+   "tags": [
+    "evaluation"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "最小二乘闭式解？",
+   "back": "w=(XᵀX)^{-1}Xᵀy；奇异时加 λI 得岭回归。",
+   "chapterId": "ch03",
+   "tags": [
+    "linear"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "对数几率回归损失为什么用交叉熵？",
+   "back": "梯度化简为 ŷ-y，不因 sigmoid 饱和而消失。",
+   "chapterId": "ch03",
+   "tags": [
+    "linear"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "OvO 与 OvR 的模型数量？",
+   "back": "OvO 需 k(k-1)/2 个；OvR 需 k 个。",
+   "chapterId": "ch03",
+   "tags": [
+    "multiclass"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "阈值移动怎么处理不平衡？",
+   "back": "按 p/(1-p) 与负正样本比例比较，而非固定 0.5。",
+   "chapterId": "ch03",
+   "tags": [
+    "imbalance"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "信息熵公式？",
+   "back": "Ent=-Σ p_k log2 p_k。",
+   "chapterId": "ch04",
+   "tags": [
+    "tree"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "信息增益为什么偏向多值特征？",
+   "back": "多值特征把数据切得更碎，子集熵更容易接近 0。",
+   "chapterId": "ch04",
+   "tags": [
+    "tree"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "基尼指数含义？",
+   "back": "随机抽两个样本类别不一致的概率，1-Σp_k²。",
+   "chapterId": "ch04",
+   "tags": [
+    "tree"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "预剪枝与后剪枝的风险？",
+   "back": "预剪枝易欠拟合；后剪枝计算代价大但泛化更好。",
+   "chapterId": "ch04",
+   "tags": [
+    "tree"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "连续值怎么处理？",
+   "back": "排序后取相邻值中点作候选划分点，选增益最大者。",
+   "chapterId": "ch04",
+   "tags": [
+    "tree"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "单隐层网络的万能近似说明什么？",
+   "back": "足够多神经元可逼近任意连续函数，但只保证存在性。",
+   "chapterId": "ch05",
+   "tags": [
+    "nn"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "反向传播两个核心步骤？",
+   "back": "误差项乘以转置权重回传，再乘本层激活导数。",
+   "chapterId": "ch05",
+   "tags": [
+    "nn"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "sigmoid 与 ReLU 的初始化分别用什么？",
+   "back": "Xavier（1/√n）与 He（√(2/n)）。",
+   "chapterId": "ch05",
+   "tags": [
+    "init"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "跳出局部极小的常用手段？",
+   "back": "多初始化、动量、SGD 噪声、模拟退火。",
+   "chapterId": "ch05",
+   "tags": [
+    "optimization"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "SVM 的目标函数？",
+   "back": "min ½||w||² s.t. y_i(wᵀx_i+b)≥1。",
+   "chapterId": "ch06",
+   "tags": [
+    "svm"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "支持向量的判定条件？",
+   "back": "对偶解中 α_i>0 的样本，位于间隔边界上。",
+   "chapterId": "ch06",
+   "tags": [
+    "svm"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "核技巧的核心思想？",
+   "back": "只在对偶中用核函数算内积，不显式构造高维映射。",
+   "chapterId": "ch06",
+   "tags": [
+    "kernel"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "软间隔中 C 的作用？",
+   "back": "C 大惩罚违规重、间隔窄易过拟合；C 小更宽容。",
+   "chapterId": "ch06",
+   "tags": [
+    "svm"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "贝叶斯决策规则？",
+   "back": "argmax_c P(c)P(x|c)，P(x) 可忽略。",
+   "chapterId": "ch07",
+   "tags": [
+    "bayes"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "朴素贝叶斯的独立性假设？",
+   "back": "给定类别下各特征条件独立，P(x|c)=ΠP(x_i|c)。",
+   "chapterId": "ch07",
+   "tags": [
+    "bayes"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "拉普拉斯修正公式？",
+   "back": "P=(count+1)/(N_c+N_i)。",
+   "chapterId": "ch07",
+   "tags": [
+    "bayes"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "EM 两步各做什么？",
+   "back": "E 步估计隐变量期望，M 步用补全数据更新参数。",
+   "chapterId": "ch07",
+   "tags": [
+    "em"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "Boosting 与 Bagging 的误差分解分工？",
+   "back": "Boosting 降偏差，Bagging 降方差。",
+   "chapterId": "ch08",
+   "tags": [
+    "ensemble"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "AdaBoost 的 α 公式？",
+   "back": "α=½ln((1-ε)/ε)。",
+   "chapterId": "ch08",
+   "tags": [
+    "adaboost"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "AdaBoost 样本权重怎么更新？",
+   "back": "判错乘 e^α，判对乘 e^-α，再归一化。",
+   "chapterId": "ch08",
+   "tags": [
+    "adaboost"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "随机森林的两处随机？",
+   "back": "样本自助采样 + 每次分裂随机抽特征子集。",
+   "chapterId": "ch08",
+   "tags": [
+    "rf"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "Stacking 为什么要交叉验证？",
+   "back": "避免初级输出在训练集上过拟合，导致次级学到假信号。",
+   "chapterId": "ch08",
+   "tags": [
+    "stacking"
+   ]
+  },
+  {
+   "id": "f35",
+   "front": "k-means 的两步？",
+   "back": "分配每个点到最近中心；把中心更新为所属点均值。",
+   "chapterId": "ch09",
+   "tags": [
+    "clustering"
+   ]
+  },
+  {
+   "id": "f36",
+   "front": "k-means 为什么局部最优？",
+   "back": "目标非凸，结果依赖初值；k-means++ 可改善。",
+   "chapterId": "ch09",
+   "tags": [
+    "clustering"
+   ]
+  },
+  {
+   "id": "f37",
+   "front": "DBSCAN 的两个参数？",
+   "back": "半径 ε 与最小点数 MinPts。",
+   "chapterId": "ch09",
+   "tags": [
+    "dbscan"
+   ]
+  },
+  {
+   "id": "f38",
+   "front": "轮廓系数公式？",
+   "back": "s=(b-a)/max(a,b)，a 簇内平均距离，b 最近他簇平均距离。",
+   "chapterId": "ch09",
+   "tags": [
+    "metric"
+   ]
+  },
+  {
+   "id": "f39",
+   "front": "PCA 的三个步骤？",
+   "back": "中心化、算协方差矩阵、特征分解取大特征值方向。",
+   "chapterId": "ch10",
+   "tags": [
+    "pca"
+   ]
+  },
+  {
+   "id": "f40",
+   "front": "累计贡献率怎么算？",
+   "back": "前 d 个特征值之和除以全部特征值之和。",
+   "chapterId": "ch10",
+   "tags": [
+    "pca"
+   ]
+  },
+  {
+   "id": "f41",
+   "front": "维度灾难的后果？",
+   "back": "空间变稀疏，任意两点距离趋同，最近邻失效。",
+   "chapterId": "ch10",
+   "tags": [
+    "curse"
+   ]
+  },
+  {
+   "id": "f42",
+   "front": "Isomap 与 PCA 的区别？",
+   "back": "Isomap 用近邻图最短路近似测地距离，PCA 只看欧氏方差。",
+   "chapterId": "ch10",
+   "tags": [
+    "manifold"
+   ]
+  },
+  {
+   "id": "f43",
+   "front": "三种特征选择范式？",
+   "back": "过滤式看统计量、包裹式看模型性能、嵌入式训练中置零。",
+   "chapterId": "ch11",
+   "tags": [
+    "feature"
+   ]
+  },
+  {
+   "id": "f44",
+   "front": "Relief 的权重更新公式？",
+   "back": "δ_j=-diff(同类近邻)²+diff(异类近邻)²。",
+   "chapterId": "ch11",
+   "tags": [
+    "relief"
+   ]
+  },
+  {
+   "id": "f45",
+   "front": "L1 为什么稀疏？",
+   "back": "菱形等值线顶点在坐标轴上，最优点常落在顶点。",
+   "chapterId": "ch11",
+   "tags": [
+    "l1"
+   ]
+  },
+  {
+   "id": "f46",
+   "front": "L1 与 L2 在相关特征上的差异？",
+   "back": "L1 随机保留一个，L2 平摊权重。",
+   "chapterId": "ch11",
+   "tags": [
+    "regularization"
+   ]
+  },
+  {
+   "id": "f47",
+   "front": "PAC 的三要素？",
+   "back": "误差 ε、失败概率 δ、样本复杂度 m。",
+   "chapterId": "ch12",
+   "tags": [
+    "theory"
+   ]
+  },
+  {
+   "id": "f48",
+   "front": "打散是什么意思？",
+   "back": "一组样本的所有 2^m 种标注都能被假设空间实现。",
+   "chapterId": "ch12",
+   "tags": [
+    "vc"
+   ]
+  },
+  {
+   "id": "f49",
+   "front": "泛化上界的结构？",
+   "back": "训练误差 + 与复杂度成正比、与 √样本量成反比的惩罚项。",
+   "chapterId": "ch12",
+   "tags": [
+    "theory"
+   ]
+  },
+  {
+   "id": "f50",
+   "front": "稳定性路径与 VC 路径的差别？",
+   "back": "稳定性利用算法本身的性质，VC 利用假设空间容量。",
+   "chapterId": "ch12",
+   "tags": [
+    "theory"
+   ]
+  },
+  {
+   "id": "f51",
+   "front": "半监督的两个基本假设？",
+   "back": "聚类假设（边界穿过稀疏区）与流形假设（近邻标签相似）。",
+   "chapterId": "ch13",
+   "tags": [
+    "semi"
+   ]
+  },
+  {
+   "id": "f52",
+   "front": "纯半监督与直推的差别？",
+   "back": "前者要泛化到新样本，后者只标当前无标样本。",
+   "chapterId": "ch13",
+   "tags": [
+    "semi"
+   ]
+  },
+  {
+   "id": "f53",
+   "front": "图半监督怎么给无标样本定标签？",
+   "back": "标签沿相似度边扩散，由邻居加权决定。",
+   "chapterId": "ch13",
+   "tags": [
+    "graph"
+   ]
+  },
+  {
+   "id": "f54",
+   "front": "协同训练为什么要求视图独立？",
+   "back": "否则一个分类器的错误会被另一个复制。",
+   "chapterId": "ch13",
+   "tags": [
+    "cotraining"
+   ]
+  },
+  {
+   "id": "f55",
+   "front": "贝叶斯网的分解公式？",
+   "back": "P(X)=Π P(X_i|parents(X_i))。",
+   "chapterId": "ch14",
+   "tags": [
+    "pgm"
+   ]
+  },
+  {
+   "id": "f56",
+   "front": "三种基本结构及独立性？",
+   "back": "顺连给定中间独立；分连给定中间独立、不给则相关；汇连不给独立、给了相关。",
+   "chapterId": "ch14",
+   "tags": [
+    "pgm"
+   ]
+  },
+  {
+   "id": "f57",
+   "front": "MRF 的配分函数 Z 作用？",
+   "back": "保证势函数乘积归一化为概率。",
+   "chapterId": "ch14",
+   "tags": [
+    "pgm"
+   ]
+  },
+  {
+   "id": "f58",
+   "front": "MCMC 的 Gibbs 采样怎么做？",
+   "back": "每次按其余变量的条件分布更新一个变量。",
+   "chapterId": "ch14",
+   "tags": [
+    "inference"
+   ]
+  },
+  {
+   "id": "f59",
+   "front": "LDA 的生成过程？",
+   "back": "文档抽主题分布，词先抽主题再抽词。",
+   "chapterId": "ch14",
+   "tags": [
+    "lda"
+   ]
+  },
+  {
+   "id": "f60",
+   "front": "规则的精度与覆盖度分别指？",
+   "back": "精度=覆盖样本中正例比例；覆盖度=覆盖的正例数量。",
+   "chapterId": "ch15",
+   "tags": [
+    "rule"
+   ]
+  },
+  {
+   "id": "f61",
+   "front": "序贯覆盖的流程？",
+   "back": "贪心加条件至精度达标，产规则，删覆盖正例，重复。",
+   "chapterId": "ch15",
+   "tags": [
+    "rule"
+   ]
+  },
+  {
+   "id": "f62",
+   "front": "规则剪枝两种做法？",
+   "back": "预剪枝加条件时看验证集；后剪枝长完再删条件。",
+   "chapterId": "ch15",
+   "tags": [
+    "rule"
+   ]
+  },
+  {
+   "id": "f63",
+   "front": "ILP 相比命题规则的优势？",
+   "back": "可用一阶逻辑与背景知识表达关系甚至递归概念。",
+   "chapterId": "ch15",
+   "tags": [
+    "ilp"
+   ]
+  },
+  {
+   "id": "f64",
+   "front": "强化学习与监督学习的三个不同？",
+   "back": "无即时标签、数据自产、探索改变数据分布。",
+   "chapterId": "ch16",
+   "tags": [
+    "rl"
+   ]
+  },
+  {
+   "id": "f65",
+   "front": "ε-贪心策略？",
+   "back": "以 ε 随机探索，1-ε 选当前估计最优动作。",
+   "chapterId": "ch16",
+   "tags": [
+    "bandit"
+   ]
+  },
+  {
+   "id": "f66",
+   "front": "贝尔曼方程一句话？",
+   "back": "当前价值等于即时奖励加折扣后的下一状态价值。",
+   "chapterId": "ch16",
+   "tags": [
+    "mdp"
+   ]
+  },
+  {
+   "id": "f67",
+   "front": "Q-learning 更新式？",
+   "back": "Q(s,a)←Q(s,a)+α[r+γmax Q(s',a')-Q(s,a)]。",
+   "chapterId": "ch16",
+   "tags": [
+    "td"
+   ]
+  },
+  {
+   "id": "f68",
+   "front": "γ 的作用？",
+   "back": "折扣因子，控制视野长度并保证无穷和收敛。",
+   "chapterId": "ch16",
+   "tags": [
+    "mdp"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "假设空间",
+   "en": "",
+   "def": "所有可能的从特征到标记的映射组成的集合。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "版本空间",
+   "en": "",
+   "def": "假设空间中与训练集完全一致的那部分假设。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "归纳偏好",
+   "en": "",
+   "def": "算法在多个同样符合数据的假设中做选择时依据的先验倾向。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "没有免费午餐定理",
+   "en": "",
+   "def": "在所有可能问题上平均，任何算法的期望性能相同。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "留出法",
+   "en": "",
+   "def": "把数据集按比例切成训练集与测试集。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "交叉验证",
+   "en": "",
+   "def": "把数据分 k 份轮流做测试集，取平均性能。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "自助法",
+   "en": "",
+   "def": "有放回采样构造训练集，未被抽到的样本作测试。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "查准率",
+   "en": "",
+   "def": "预测为正的样本中真正为正的比例。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "查全率",
+   "en": "",
+   "def": "真实正例中被找出来的比例。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "AUC",
+   "en": "",
+   "def": "ROC 曲线下面积，等于正例得分高于负例的概率。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "最小二乘",
+   "en": "",
+   "def": "以平方误差为损失、可用闭式解求解的线性回归方法。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "对数几率回归",
+   "en": "",
+   "def": "用 sigmoid 把线性分数映射为概率的二分类模型。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "OvO",
+   "en": "",
+   "def": "每两个类训练一个分类器的多分类策略。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "OvR",
+   "en": "",
+   "def": "每个类训练一个“是否为本类”分类器的多分类策略。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "类别不平衡",
+   "en": "",
+   "def": "不同类别样本数量差异悬殊，导致模型偏向多数类。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "信息熵",
+   "en": "",
+   "def": "衡量样本集合类别混杂程度的量，越小越纯。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "信息增益",
+   "en": "",
+   "def": "用某特征分裂后熵的下降量。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "增益率",
+   "en": "",
+   "def": "信息增益除以特征固有值，用于惩罚多值特征。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "基尼指数",
+   "en": "",
+   "def": "随机抽两个样本类别不一致的概率。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "剪枝",
+   "en": "",
+   "def": "去掉决策树中泛化收益为负的分支，分预剪枝与后剪枝。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "误差项",
+   "en": "",
+   "def": "损失对本层线性输出的偏导，反向传播中逐层回传的量。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "万能近似定理",
+   "en": "",
+   "def": "足够宽的单隐层网络可任意精度逼近连续函数。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "梯度消失",
+   "en": "",
+   "def": "多层连乘小导数导致浅层梯度趋近于 0。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "局部极小",
+   "en": "",
+   "def": "参数空间中比邻域都低但非全局最低的点。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "支持向量",
+   "en": "",
+   "def": "决定分类边界的少数样本，对偶解中 α 非零。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "间隔",
+   "en": "",
+   "def": "分界面到最近样本的距离，SVM 要最大化它。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "核函数",
+   "en": "",
+   "def": "直接给出高维映射后内积的函数，避免显式映射。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "软间隔",
+   "en": "",
+   "def": "允许部分样本违规的 SVM 形式，用松弛变量与惩罚系数 C 控制。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "贝叶斯最优分类器",
+   "en": "",
+   "def": "已知真实分布时按后验最大决策、错误率最小的分类器。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "朴素贝叶斯",
+   "en": "",
+   "def": "假设特征在给定类别下条件独立的贝叶斯分类器。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "拉普拉斯修正",
+   "en": "",
+   "def": "分子加一、分母加取值数，避免零概率的平滑手段。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "EM 算法",
+   "en": "",
+   "def": "交替估计隐变量与参数、使似然单调不减的迭代算法。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "Boosting",
+   "en": "",
+   "def": "串行训练多个基学习器、每轮聚焦前轮错误样本的集成方法。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "Bagging",
+   "en": "",
+   "def": "自助采样并行训练多个基学习器再投票的集成方法。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "AdaBoost",
+   "en": "",
+   "def": "通过样本权重与学习器权重迭代调整的 Boosting 代表算法。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "随机森林",
+   "en": "",
+   "def": "以决策树为基学习器、引入样本与特征双重随机的 Bagging 集成。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "Stacking",
+   "en": "",
+   "def": "用初级学习器输出训练次级学习器的集成策略。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "聚类",
+   "en": "",
+   "def": "无标签情况下按相似度把样本分组的任务。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "k-means",
+   "en": "",
+   "def": "以平方距离和为目标、交替分配与更新中心的聚类算法。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "DBSCAN",
+   "en": "",
+   "def": "基于密度连通性的聚类算法，能识别噪声与任意形状簇。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "轮廓系数",
+   "en": "",
+   "def": "衡量簇内紧密度与簇间分离度的指标。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "维度灾难",
+   "en": "",
+   "def": "维度升高导致样本稀疏、距离度量失效的现象。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "PCA",
+   "en": "",
+   "def": "以最大化投影方差为目标的主成分分析降维方法。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "累计贡献率",
+   "en": "",
+   "def": "保留的主成分特征值之和占全部特征值和的比例。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "流形学习",
+   "en": "",
+   "def": "假设数据位于低维流形并保持其局部或全局结构的降维方法。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "特征选择",
+   "en": "",
+   "def": "从原始特征中挑出对任务有用的子集。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "Relief",
+   "en": "",
+   "def": "用同类与异类最近邻的距离差给特征打分的过滤式方法。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "L1 正则",
+   "en": "",
+   "def": "权重绝对值之和作惩罚项，倾向于产生稀疏解。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "稀疏表示",
+   "en": "",
+   "def": "用少量非零系数表示样本，兼顾压缩与可解释性。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "PAC",
+   "en": "",
+   "def": "在高概率下输出误差不超过给定界的假设的学习框架。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "VC 维",
+   "en": "",
+   "def": "假设空间能打散的最大样本集大小。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "泛化误差上界",
+   "en": "",
+   "def": "用训练误差与模型复杂度、样本量给出的泛化性能界。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "算法稳定性",
+   "en": "",
+   "def": "训练集微扰导致输出模型损失变化有限的性質。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "半监督学习",
+   "en": "",
+   "def": "同时利用少量有标与大量无标数据训练模型。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "聚类假设",
+   "en": "",
+   "def": "决策边界应穿过数据低密度区域。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "流形假设",
+   "en": "",
+   "def": "相邻样本位于同一低维流形，标记应相似。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "直推学习",
+   "en": "",
+   "def": "只对给定的一批未标注样本做预测，不追求泛化。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "贝叶斯网",
+   "en": "",
+   "def": "用有向无环图表示变量间条件依赖的概率模型。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "马尔可夫随机场",
+   "en": "",
+   "def": "用无向图与团势函数表示联合分布的概率模型。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "d-分离",
+   "en": "",
+   "def": "判断贝叶斯网中两变量在给定证据下是否条件独立的图准则。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "配分函数",
+   "en": "",
+   "def": "使无向图模型势函数乘积归一化为概率分布的常数。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "LDA",
+   "en": "",
+   "def": "以文档-主题-词三层生成结构建模文本主题的概率模型。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "序贯覆盖",
+   "en": "",
+   "def": "一条条生成规则、每轮删掉已覆盖正例的规则学习策略。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "精度",
+   "en": "",
+   "def": "规则覆盖的样本中正例所占比例。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "覆盖度",
+   "en": "",
+   "def": "规则覆盖的正例数量。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "归纳逻辑程序设计",
+   "en": "",
+   "def": "用一阶逻辑表示规则并引入背景知识的规则学习框架。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "强化学习",
+   "en": "",
+   "def": "智能体通过与环境交互、以最大化长期累积奖励为目标的学习范式。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "ε-贪心",
+   "en": "",
+   "def": "以 ε 概率随机探索、否则选当前最优动作的策略。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "马尔可夫决策过程",
+   "en": "",
+   "def": "由状态、动作、转移概率、奖励构成的强化学习标准模型。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "贝尔曼方程",
+   "en": "",
+   "def": "把状态价值表示为即时奖励与后继状态价值折扣和的关系式。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "TD 误差",
+   "en": "",
+   "def": "一步目标估计与当前价值估计之差。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "Q-learning",
+   "en": "",
+   "def": "用下一状态最大动作价值更新的离轨策略时序差分算法。",
+   "chapterIds": [
+    "ch16"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 16,
+  "concepts": 2
+ },
+ "signature": "cd8f221a1149",
+ "contentHash": "7b2a7d278c41"
+}

@@ -1,0 +1,544 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "calculus-intro",
+ "title": "微积分初步",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/22-微积分初步/manifest.json",
+ "stats": {
+  "chapters": 4,
+  "concepts": 2,
+  "quizzes": 10,
+  "cards": 13,
+  "glossary": 9
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：实数与极限",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/22-微积分初步/chapters/ch01-real-limit.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-22-微积分初步 高国士.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：连续与导数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/22-微积分初步/chapters/ch02-continuity-derivative.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-22-微积分初步 高国士.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：微分与积分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/22-微积分初步/chapters/ch03-differential-integral.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-22-微积分初步 高国士.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：单调、极值与面积",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/22-微积分初步/chapters/ch04-applications.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-22-微积分初步 高国士.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "极限",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/22-微积分初步/concepts/c01-limit.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-22-微积分初步 高国士.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "互逆运算",
+   "chapterIds": [
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/22-微积分初步/concepts/c02-inverse-operations.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-22-微积分初步 高国士.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "数列 a_n=1/n 的极限是：",
+   "options": [
+    "1",
+    "0",
+    "不存在",
+    "∞"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "n 越大 1/n 越接近 0，可任意小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "ε-N 定义中，N 的作用是：",
+   "options": [
+    "表示项数上限",
+    "表示从第 N 项以后都满足精度要求",
+    "表示误差",
+    "表示极限值"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "N 是“从这一项开始，之后所有项都落在 ε 范围内”的分界。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "f(x)=x³ 的导数是：",
+   "options": [
+    "3x²",
+    "x²",
+    "3x",
+    "x³/4"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "由 (x^n)'=nx^(n−1) 得 3x²。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "y=(2x+1)³ 的导数是：",
+   "options": [
+    "3(2x+1)²",
+    "6(2x+1)²",
+    "3(2x+1)³",
+    "6(2x+1)³"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "链式法则：3(2x+1)²·2=6(2x+1)²。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "∫_0^2 x dx 的值是：",
+   "options": [
+    "2",
+    "4",
+    "1",
+    "0"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "原函数 x²/2，代入得 4/2−0=2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "微积分基本定理的作用是：",
+   "options": [
+    "定义极限",
+    "把定积分化为原函数在端点的差",
+    "求导数",
+    "判断连续"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "∫_a^b f=F(b)−F(a)，把求和变成代端点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "f(x)=x²−2x 的极小值点是：",
+   "options": [
+    "x=1",
+    "x=0",
+    "x=2",
+    "x=−1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "f'(x)=2x−2，零点 x=1，且为极小值点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "y=x 与 y=x² 在 [0,1] 围成的面积是：",
+   "options": [
+    "1/6",
+    "1/3",
+    "1/2",
+    "1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "∫_0^1(x−x²)dx=1/2−1/3=1/6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "__all__",
+   "stem": "f(x)=3x²+1 的导数是：",
+   "options": [
+    "6x",
+    "3x",
+    "6x+1",
+    "x²"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "常数项导数为 0，(3x²)'=6x。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "__all__",
+   "stem": "∫_1^2 2x dx 的值是：",
+   "options": [
+    "3",
+    "4",
+    "2",
+    "1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "原函数 x²，代入得 4−1=3。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：实数与极限」的一句话核心是什么？",
+   "back": "极限描述“越来越接近”的严格含义：要多近就能多近。",
+   "chapterId": "ch01",
+   "tags": [
+    "calculus-intro",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：连续与导数」的一句话核心是什么？",
+   "back": "连续是“极限等于函数值”；导数是“差商的极限”，即瞬时变化率。",
+   "chapterId": "ch02",
+   "tags": [
+    "calculus-intro",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：微分与积分」的一句话核心是什么？",
+   "back": "微分是增量的线性主部；定积分是分割求和的极限；两者由基本定理连接。",
+   "chapterId": "ch03",
+   "tags": [
+    "calculus-intro",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "「第 4 章：单调、极值与面积」的一句话核心是什么？",
+   "back": "导数正负决定增减，导数为零的点是极值候选；面积用上减下再积分。",
+   "chapterId": "ch04",
+   "tags": [
+    "calculus-intro",
+    "核心"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「极限」？",
+   "back": "变量无限接近某个值的趋势的严格描述。",
+   "chapterId": "ch01",
+   "tags": [
+    "calculus-intro",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「ε-N 语言」？",
+   "back": "用任意小的 ε 与分界 N 表述数列极限。",
+   "chapterId": "ch01",
+   "tags": [
+    "calculus-intro",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「连续」？",
+   "back": "函数在某点的极限等于函数值。",
+   "chapterId": "ch02",
+   "tags": [
+    "calculus-intro",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「导数」？",
+   "back": "差商当 h→0 时的极限，表示瞬时变化率。",
+   "chapterId": "ch02",
+   "tags": [
+    "calculus-intro",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「链式法则」？",
+   "back": "复合函数求导：外层导数乘内层导数。",
+   "chapterId": "ch02",
+   "tags": [
+    "calculus-intro",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「微分」？",
+   "back": "增量的线性主部 dy=f'(x)dx。",
+   "chapterId": "ch03",
+   "tags": [
+    "calculus-intro",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「定积分」？",
+   "back": "分割求和的极限，表示累积量。",
+   "chapterId": "ch03",
+   "tags": [
+    "calculus-intro",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「原函数」？",
+   "back": "导数等于被积函数的函数。",
+   "chapterId": "ch03",
+   "tags": [
+    "calculus-intro",
+    "术语"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "什么是「极值」？",
+   "back": "局部最大或最小值。",
+   "chapterId": "ch04",
+   "tags": [
+    "calculus-intro",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "极限",
+   "en": "",
+   "def": "变量无限接近某个值的趋势的严格描述。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "ε-N 语言",
+   "en": "",
+   "def": "用任意小的 ε 与分界 N 表述数列极限。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "连续",
+   "en": "",
+   "def": "函数在某点的极限等于函数值。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "导数",
+   "en": "",
+   "def": "差商当 h→0 时的极限，表示瞬时变化率。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "链式法则",
+   "en": "",
+   "def": "复合函数求导：外层导数乘内层导数。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "微分",
+   "en": "",
+   "def": "增量的线性主部 dy=f'(x)dx。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "定积分",
+   "en": "",
+   "def": "分割求和的极限，表示累积量。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "原函数",
+   "en": "",
+   "def": "导数等于被积函数的函数。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "极值",
+   "en": "",
+   "def": "局部最大或最小值。",
+   "chapterIds": [
+    "ch04"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 4,
+  "concepts": 2
+ },
+ "signature": "09895e4caa9f",
+ "contentHash": "6943eebcad71",
+ "duplicateGroup": "09895e4caa9f"
+}

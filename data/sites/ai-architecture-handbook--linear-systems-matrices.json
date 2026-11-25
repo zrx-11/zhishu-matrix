@@ -1,0 +1,558 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "linear-systems-matrices",
+ "title": "线性方程组与矩阵",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/21-线性方程组与矩阵/manifest.json",
+ "stats": {
+  "chapters": 4,
+  "concepts": 2,
+  "quizzes": 10,
+  "cards": 14,
+  "glossary": 10
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：消元法与解的判定",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/21-线性方程组与矩阵/chapters/ch01-elimination.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-21-线性方程组与矩阵 王笃正.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：行列式与克莱默法则",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/21-线性方程组与矩阵/chapters/ch02-determinant.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-21-线性方程组与矩阵 王笃正.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：矩阵运算与逆矩阵",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/21-线性方程组与矩阵/chapters/ch03-matrix-algebra.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-21-线性方程组与矩阵 王笃正.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：线性变换与二次型",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/21-线性方程组与矩阵/chapters/ch04-transform-quadratic.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-21-线性方程组与矩阵 王笃正.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "秩与解的个数",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "ch01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/21-线性方程组与矩阵/concepts/c01-rank.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-21-线性方程组与矩阵 王笃正.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "矩阵乘法与不可交换",
+   "chapterIds": [
+    "ch03",
+    "ch04"
+   ],
+   "prerequisites": [
+    "ch03",
+    "ch04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/21-线性方程组与矩阵/concepts/c02-matrix-product.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-21-线性方程组与矩阵 王笃正.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "增广矩阵化简后出现 0=2 的行，则该方程组：",
+   "options": [
+    "唯一解",
+    "无穷多解",
+    "无解",
+    "无法判断"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "0=2 是矛盾方程，说明方程组无解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "三个未知数、系数矩阵秩为 2、增广矩阵秩为 2，则：",
+   "options": [
+    "唯一解",
+    "无解",
+    "无穷多解",
+    "零解"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "r=R=2<3，有无穷多解，自由未知量个数 3−2=1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "行列式 |2 1; 3 4| 的值是：",
+   "options": [
+    "5",
+    "11",
+    "8",
+    "−5"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "2×4−1×3=8−3=5。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "克莱默法则适用的前提是：",
+   "options": [
+    "系数行列式不为零",
+    "常数项全为零",
+    "方程个数多于未知数",
+    "系数全为正"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "D≠0 时方程组有唯一解，才能用 x_i=D_i/D。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "A 是 2×3 矩阵，B 是 3×4 矩阵，则 AB 是：",
+   "options": [
+    "2×4",
+    "3×3",
+    "4×2",
+    "不能相乘"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "内维相同（3=3），结果为 2×4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "二阶矩阵 A 可逆的条件是：",
+   "options": [
+    "元素都非零",
+    "行列式不为零",
+    "是对称矩阵",
+    "对角线元素相等"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "A⁻¹ 的分母是 ad−bc，必须非零。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "绕原点旋转 90° 的变换矩阵是：",
+   "options": [
+    "[[1,0],[0,1]]",
+    "[[0,−1],[1,0]]",
+    "[[0,1],[1,0]]",
+    "[[−1,0],[0,1]]"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "cos90°=0，sin90°=1，代入旋转矩阵得 [[0,−1],[1,0]]。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "二次型 2x²+6xy+5y² 的矩阵中，第一行第二列的元素是：",
+   "options": [
+    "6",
+    "3",
+    "1.5",
+    "5"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "交叉项系数 6 要除以 2，故填 3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "__all__",
+   "stem": "方程组 x+y=1，2x+2y=3 的解的情况是：",
+   "options": [
+    "唯一解",
+    "无解",
+    "无穷多解",
+    "零解"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "第二式减两倍第一式得 0=1，矛盾，无解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "__all__",
+   "stem": "矩阵 A=[[1,2],[0,1]] 的行列式是：",
+   "options": [
+    "1",
+    "2",
+    "0",
+    "−1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "1×1−2×0=1。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：消元法与解的判定」的一句话核心是什么？",
+   "back": "消元的目的是化成阶梯形；阶梯形里有几条有效的“非零行”，就有几个独立方程。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-systems-matrices",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：行列式与克莱默法则」的一句话核心是什么？",
+   "back": "行列式是一个由方阵算出的数，它不为零就说明方程组有唯一解。",
+   "chapterId": "ch02",
+   "tags": [
+    "linear-systems-matrices",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：矩阵运算与逆矩阵」的一句话核心是什么？",
+   "back": "矩阵乘法是“行乘列”，不是对应元素相乘；只有方阵才谈逆矩阵。",
+   "chapterId": "ch03",
+   "tags": [
+    "linear-systems-matrices",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "「第 4 章：线性变换与二次型」的一句话核心是什么？",
+   "back": "线性变换就是“用矩阵乘向量”；二次型是“把二次多项式写成 xᵀAx”。",
+   "chapterId": "ch04",
+   "tags": [
+    "linear-systems-matrices",
+    "核心"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「增广矩阵」？",
+   "back": "系数矩阵右侧接上常数项列得到的矩阵。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「初等行变换」？",
+   "back": "交换两行、某行乘非零数、某行的倍数加到另一行。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「秩」？",
+   "back": "阶梯形中非零行的个数。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「自由未知量」？",
+   "back": "无穷多解中可以任意取值的未知量。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「行列式」？",
+   "back": "由方阵算出的一个数。",
+   "chapterId": "ch02",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「克莱默法则」？",
+   "back": "用行列式表示唯一解的公式。",
+   "chapterId": "ch02",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「转置」？",
+   "back": "行列互换得到的矩阵。",
+   "chapterId": "ch03",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「逆矩阵」？",
+   "back": "满足 AA⁻¹=E 的矩阵。",
+   "chapterId": "ch03",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "什么是「线性变换」？",
+   "back": "用矩阵乘法表示的、保持线性结构的映射。",
+   "chapterId": "ch04",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "什么是「二次型」？",
+   "back": "二次齐次多项式，可写成 xᵀAx。",
+   "chapterId": "ch04",
+   "tags": [
+    "linear-systems-matrices",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "增广矩阵",
+   "en": "",
+   "def": "系数矩阵右侧接上常数项列得到的矩阵。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "初等行变换",
+   "en": "",
+   "def": "交换两行、某行乘非零数、某行的倍数加到另一行。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "秩",
+   "en": "",
+   "def": "阶梯形中非零行的个数。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "自由未知量",
+   "en": "",
+   "def": "无穷多解中可以任意取值的未知量。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "行列式",
+   "en": "",
+   "def": "由方阵算出的一个数。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "克莱默法则",
+   "en": "",
+   "def": "用行列式表示唯一解的公式。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "转置",
+   "en": "",
+   "def": "行列互换得到的矩阵。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "逆矩阵",
+   "en": "",
+   "def": "满足 AA⁻¹=E 的矩阵。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "线性变换",
+   "en": "",
+   "def": "用矩阵乘法表示的、保持线性结构的映射。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "二次型",
+   "en": "",
+   "def": "二次齐次多项式，可写成 xᵀAx。",
+   "chapterIds": [
+    "ch04"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 4,
+  "concepts": 2
+ },
+ "signature": "39e70c396858",
+ "contentHash": "aba798a6078b",
+ "duplicateGroup": "39e70c396858"
+}

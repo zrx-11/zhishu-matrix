@@ -1,0 +1,619 @@
+{
+  "generatedAt": "2026-11-25T09:55:32+0800",
+  "mode": "all+bodies",
+  "outDir": "data",
+  "dryRun": false,
+  "totals": {
+    "repos": 50,
+    "sites": 129,
+    "sitesUnique": 96,
+    "chapters": 1169,
+    "concepts": 765,
+    "quizzes": 3541,
+    "cards": 4100,
+    "glossary": 4100
+  },
+  "contentLevels": {
+    "full": 128,
+    "degraded": 1,
+    "stats-only": 0
+  },
+  "slugCollisions": [],
+  "excludedManifests": [
+    {
+      "repo": "chem-zhishu",
+      "path": "_archive/03-简明无机化学-旧版/manifest.json"
+    },
+    {
+      "repo": "chem-zhishu",
+      "path": "_archive/04-无机及分析化学题库-旧版40题/manifest.json"
+    }
+  ],
+  "duplicates": [
+    {
+      "signature": "fae8f87b20fa",
+      "books": [
+        "agentic-design-patterns-handbook::agentic-design-patterns",
+        "ai-architecture-handbook::agentic-design-patterns"
+      ]
+    },
+    {
+      "signature": "cb1609c23e54",
+      "books": [
+        "ai-architecture-handbook::neural-networks",
+        "neural-net-zero::neural-net-zero"
+      ]
+    },
+    {
+      "signature": "6c512a5a9008",
+      "books": [
+        "ai-architecture-handbook::deep-learning-scratch",
+        "ai-ml-dl-rl-enlighten::dl-scratch"
+      ]
+    },
+    {
+      "signature": "cbb10adc4326",
+      "books": [
+        "ai-architecture-handbook::hello-ai",
+        "hello-ai-zhishu::hello-ai"
+      ]
+    },
+    {
+      "signature": "04b4d0392d17",
+      "books": [
+        "ai-architecture-handbook::aima4",
+        "ai-ml-dl-rl-enlighten::aima4"
+      ]
+    },
+    {
+      "signature": "ca309865454d",
+      "books": [
+        "ai-architecture-handbook::d2l",
+        "ai-ml-dl-rl-enlighten::d2l"
+      ]
+    },
+    {
+      "signature": "057a437b8c44",
+      "books": [
+        "ai-architecture-handbook::rl-sutton",
+        "ai-ml-dl-rl-enlighten::rl-sutton"
+      ]
+    },
+    {
+      "signature": "6d2a9da96e5a",
+      "books": [
+        "ai-architecture-handbook::rational-irrational",
+        "math-basics-enlighten::rational-irrational"
+      ]
+    },
+    {
+      "signature": "0d6a5c8c04cc",
+      "books": [
+        "ai-architecture-handbook::zhengshi",
+        "math-basics-enlighten::zhengshi"
+      ]
+    },
+    {
+      "signature": "a9f692096b71",
+      "books": [
+        "ai-architecture-handbook::equations-1-2",
+        "math-basics-enlighten::equations-1-2"
+      ]
+    },
+    {
+      "signature": "c37b55e8a04f",
+      "books": [
+        "ai-architecture-handbook::fractions-radicals",
+        "math-basics-enlighten::fractions-radicals"
+      ]
+    },
+    {
+      "signature": "d747595a5ac0",
+      "books": [
+        "ai-architecture-handbook::inequalities",
+        "math-basics-enlighten::inequalities"
+      ]
+    },
+    {
+      "signature": "774f84a27547",
+      "books": [
+        "ai-architecture-handbook::linear-quadratic-functions",
+        "math-basics-enlighten::linear-quadratic-functions"
+      ]
+    },
+    {
+      "signature": "cb204b023845",
+      "books": [
+        "ai-architecture-handbook::exponents-logarithms",
+        "math-basics-enlighten::exponents-logarithms"
+      ]
+    },
+    {
+      "signature": "05c80560900d",
+      "books": [
+        "ai-architecture-handbook::permutations-combinations",
+        "math-basics-enlighten::permutations-combinations"
+      ]
+    },
+    {
+      "signature": "0f1a7d601840",
+      "books": [
+        "ai-architecture-handbook::sequences-limits",
+        "math-basics-enlighten::sequences-limits"
+      ]
+    },
+    {
+      "signature": "d22ca30ec4f9",
+      "books": [
+        "ai-architecture-handbook::complex-numbers",
+        "math-basics-enlighten::complex-numbers"
+      ]
+    },
+    {
+      "signature": "274d5523acc8",
+      "books": [
+        "ai-architecture-handbook::plane-figures",
+        "math-basics-enlighten::plane-figures"
+      ]
+    },
+    {
+      "signature": "68c4cdc1769b",
+      "books": [
+        "ai-architecture-handbook::circle",
+        "math-basics-enlighten::circle"
+      ]
+    },
+    {
+      "signature": "bf08d0b852ce",
+      "books": [
+        "ai-architecture-handbook::lines-planes",
+        "math-basics-enlighten::lines-planes"
+      ]
+    },
+    {
+      "signature": "58ac28e8afe9",
+      "books": [
+        "ai-architecture-handbook::area-volume",
+        "math-basics-enlighten::area-volume"
+      ]
+    },
+    {
+      "signature": "70089785ea24",
+      "books": [
+        "ai-architecture-handbook::locus",
+        "math-basics-enlighten::locus"
+      ]
+    },
+    {
+      "signature": "a747c91427a3",
+      "books": [
+        "ai-architecture-handbook::solving-triangles",
+        "math-basics-enlighten::solving-triangles"
+      ]
+    },
+    {
+      "signature": "6af4d1daee6b",
+      "books": [
+        "ai-architecture-handbook::trigonometry",
+        "math-basics-enlighten::trigonometry"
+      ]
+    },
+    {
+      "signature": "ca97cc7faf17",
+      "books": [
+        "ai-architecture-handbook::line-equations",
+        "math-basics-enlighten::line-equations"
+      ]
+    },
+    {
+      "signature": "0e89fec1ca11",
+      "books": [
+        "ai-architecture-handbook::conic-sections",
+        "math-basics-enlighten::conic-sections"
+      ]
+    },
+    {
+      "signature": "55b737db706b",
+      "books": [
+        "ai-architecture-handbook::polar-parametric",
+        "math-basics-enlighten::polar-parametric"
+      ]
+    },
+    {
+      "signature": "39e70c396858",
+      "books": [
+        "ai-architecture-handbook::linear-systems-matrices",
+        "math-basics-enlighten::linear-systems-matrices"
+      ]
+    },
+    {
+      "signature": "09895e4caa9f",
+      "books": [
+        "ai-architecture-handbook::calculus-intro",
+        "math-basics-enlighten::calculus-intro"
+      ]
+    },
+    {
+      "signature": "d9d9d1aa3db0",
+      "books": [
+        "ai-architecture-handbook::boolean-algebra",
+        "math-basics-enlighten::boolean-algebra"
+      ]
+    },
+    {
+      "signature": "fc5a533bc9c1",
+      "books": [
+        "ai-architecture-handbook::statistics-intro",
+        "math-basics-enlighten::statistics-intro"
+      ]
+    },
+    {
+      "signature": "e59ca27e0f0f",
+      "books": [
+        "chem-zhishu::inorganic-analytical-chem",
+        "food-zhishu::inorganic-analytical-chem"
+      ]
+    },
+    {
+      "signature": "290b68dfa2fa",
+      "books": [
+        "chem-zhishu::inorganic-analytical-chem-bank",
+        "food-zhishu::inorganic-analytical-chem-bank"
+      ]
+    }
+  ],
+  "links": {
+    "policy": "keep",
+    "allowed": {
+      "code-block": 2,
+      "xmlns": 13
+    },
+    "external": 13,
+    "booksStripped": 0
+  },
+  "externalLinks": [
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch01",
+      "line": 69,
+      "context": "- 技术派Pro《学习人工智能需要知道的 114 个机制》：<https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch01",
+      "line": 70,
+      "context": "- 技术派Pro《学习人工智能需要知道的 104 个公式》：<https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch02",
+      "line": 67,
+      "context": "<https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch03",
+      "line": 70,
+      "context": "<https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch04",
+      "line": 67,
+      "context": "<https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch05",
+      "line": 63,
+      "context": "<https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch06",
+      "line": 74,
+      "context": "<https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch07",
+      "line": 200,
+      "context": "<https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch08",
+      "line": 235,
+      "context": "<https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch09",
+      "line": 296,
+      "context": "<https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch10",
+      "line": 269,
+      "context": "<https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch11",
+      "line": 80,
+      "context": "- <https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    },
+    {
+      "kind": "external-link",
+      "url": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw",
+      "origin": "ai-architecture-handbook/ai-mechanisms-formulas/ch11",
+      "line": 81,
+      "context": "- <https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw>",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json"
+    }
+  ],
+  "pendingSources": [
+    {
+      "repo": "ACM-XCPC-Notes",
+      "files": {
+        "md": 1,
+        "json": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "AI-Study-Notes",
+      "files": {
+        "html": 2,
+        "md": 104
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "AI-courses",
+      "files": {
+        "html": 75,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "C-",
+      "files": {
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "C-true",
+      "files": {
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "CourseVault-OfflineCourseMap",
+      "files": {
+        "md": 6,
+        "json": 1033,
+        "txt": 7
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "MATLAB",
+      "files": {
+        "html": 1,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "ODE",
+      "files": {
+        "html": 1,
+        "md": 1,
+        "txt": 9
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "SVM",
+      "files": {
+        "html": 1,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "ai-history-site",
+      "files": {
+        "html": 8,
+        "md": 1,
+        "json": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "alpoge-remark-book",
+      "files": {
+        "html": 1,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "bws-bilingual-reader",
+      "files": {
+        "html": 1,
+        "md": 1,
+        "json": 10
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "exam-solver",
+      "files": {
+        "html": 1,
+        "md": 350
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "gaokao-math",
+      "files": {
+        "html": 11,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "kaoyan-math-66000",
+      "files": {
+        "json": 20,
+        "md": 28,
+        "csv": 19,
+        "txt": 8
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "llm-model-catalog",
+      "files": {
+        "html": 1,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "math-competition-derivation",
+      "files": {
+        "html": 7,
+        "md": 2
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "mathmap",
+      "files": {
+        "html": 2,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "meeting-129600years",
+      "files": {
+        "html": 1,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "odes-from-scratch",
+      "files": {
+        "html": 1,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "pages-index",
+      "files": {
+        "html": 1,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "probability-statistics",
+      "files": {
+        "html": 2,
+        "md": 1,
+        "txt": 3,
+        "json": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "shanghai-chem-lab",
+      "files": {
+        "html": 2,
+        "md": 1,
+        "json": 5
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "show",
+      "files": {
+        "html": 2,
+        "md": 9,
+        "json": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    },
+    {
+      "repo": "transformer",
+      "files": {
+        "html": 1,
+        "md": 1
+      },
+      "note": "无 manifest.json，需专用适配器（批 1 后续）"
+    }
+  ],
+  "unmappedAndNotes": [
+    "ai-architecture-handbook:hello-ai:ch01.minutes: hours='1–2' 是字符串/区间，取不到单一数值 → null",
+    "ai-architecture-handbook:hello-ai:ch08.minutes: hours='3–4' 是字符串/区间，取不到单一数值 → null",
+    "ai-architecture-handbook:hello-ai:ch10.minutes: hours='2–3' 是字符串/区间，取不到单一数值 → null",
+    "ai-architecture-handbook:hello-ai:ch14.minutes: hours='2–3' 是字符串/区间，取不到单一数值 → null",
+    "ai-architecture-handbook:hello-ai:t01.minutes: hours='1–2' 是字符串/区间，取不到单一数值 → null",
+    "ai-architecture-handbook:hello-ai:t02.minutes: hours='1–2' 是字符串/区间，取不到单一数值 → null",
+    "ai-architecture-handbook:hello-ai:t03.minutes: hours='2–3' 是字符串/区间，取不到单一数值 → null",
+    "ai-architecture-handbook:hello-ai:t04.minutes: hours='2–3' 是字符串/区间，取不到单一数值 → null",
+    "ai-architecture-handbook:hello-ai:t06.minutes: hours='1–2' 是字符串/区间，取不到单一数值 → null",
+    "hello-ai-zhishu:hello-ai:ch01.minutes: hours='1–2' 是字符串/区间，取不到单一数值 → null",
+    "hello-ai-zhishu:hello-ai:ch08.minutes: hours='3–4' 是字符串/区间，取不到单一数值 → null",
+    "hello-ai-zhishu:hello-ai:ch10.minutes: hours='2–3' 是字符串/区间，取不到单一数值 → null",
+    "hello-ai-zhishu:hello-ai:ch14.minutes: hours='2–3' 是字符串/区间，取不到单一数值 → null",
+    "hello-ai-zhishu:hello-ai:t01.minutes: hours='1–2' 是字符串/区间，取不到单一数值 → null",
+    "hello-ai-zhishu:hello-ai:t02.minutes: hours='1–2' 是字符串/区间，取不到单一数值 → null",
+    "hello-ai-zhishu:hello-ai:t03.minutes: hours='2–3' 是字符串/区间，取不到单一数值 → null",
+    "hello-ai-zhishu:hello-ai:t04.minutes: hours='2–3' 是字符串/区间，取不到单一数值 → null",
+    "hello-ai-zhishu:hello-ai:t06.minutes: hours='1–2' 是字符串/区间，取不到单一数值 → null",
+    "sudoku-zhishu 内联正文：ZS.lessons 合并 16 条，命中 16/16 章（HTML 片段，公式不可还原）；内联 `mis` 非空 1 条"
+  ],
+  "rawFallback": {
+    "fetches": 0,
+    "cacheHits": 0,
+    "failures": [],
+    "concurrency": 3
+  },
+  "notInCatalog": [],
+  "notCloned": []
+}

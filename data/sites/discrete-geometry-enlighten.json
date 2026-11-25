@@ -1,0 +1,2342 @@
+{
+ "repo": "discrete-geometry-enlighten",
+ "bookSlug": "discrete-geometry-processing",
+ "title": "《离散几何处理与应用》点化学习",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-离散几何处理与应用/manifest.json",
+ "stats": {
+  "chapters": 10,
+  "concepts": 16,
+  "quizzes": 42,
+  "cards": 45,
+  "glossary": 101
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：几何处理的数学基础",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/chapters/ch01-数学基础.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：点云曲面重建和光顺",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/chapters/ch02-重建与光顺.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：网格曲面的参数化和多分辨率表示",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/chapters/ch03-参数化与多分辨率.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：网格模型的重网格化",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/chapters/ch04-重网格化.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：三维形状分析",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/chapters/ch05-形状分析.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：网格曲面的形变",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/chapters/ch06-曲面形变.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：弹性运动模拟",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/chapters/ch07-弹性模拟.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：基于机器学习的几何处理",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/chapters/ch08-机器学习几何.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：新型几何处理应用",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/chapters/ch09-新型应用.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "mix",
+   "num": 10,
+   "title": "综合测验与最终检验",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/quiz.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "离散 Laplace 算子与余切权重",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch03",
+    "ch05",
+    "ch06",
+    "ch07"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/discrete-laplace.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "离散高斯曲率与角度亏欠",
+   "chapterIds": [
+    "ch01",
+    "ch04",
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/gauss-curvature.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "样条家族：从三次样条到 NURBS",
+   "chapterIds": [
+    "ch01",
+    "ch03"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/splines.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "点云配准与 ICP",
+   "chapterIds": [
+    "ch02",
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/icp-registration.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "Voronoi / Delaunay 与 Crust 系列重建",
+   "chapterIds": [
+    "ch01",
+    "ch02"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/voronoi-crust.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "Poisson 曲面重建",
+   "chapterIds": [
+    "ch02",
+    "ch06",
+    "ch07"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/poisson-reconstruction.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c07",
+   "title": "参数化：调和、共形与防翻转",
+   "chapterIds": [
+    "ch03",
+    "ch04"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/parameterization.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c08",
+   "title": "QEM 简化与渐进网格",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/qem-progressive-mesh.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c09",
+   "title": "方向场、周期跳跃与奇异点",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/cross-field.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c10",
+   "title": "标架场与六面体重网格化",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/frame-field-hex.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c11",
+   "title": "形状描述子与谱签名（HKS / WKS）",
+   "chapterIds": [
+    "ch05",
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/shape-descriptor.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c12",
+   "title": "网格分割与归一化割",
+   "chapterIds": [
+    "ch05",
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/mesh-segmentation.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c13",
+   "title": "蒙皮：LBS、DQS 与骨骼学习",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/skinning-lbs.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c14",
+   "title": "梯度域形变与 ARAP",
+   "chapterIds": [
+    "ch06",
+    "ch07"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/gradient-domain-arap.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c15",
+   "title": "弹性模拟：隐式积分、PBD 与子空间",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/elastic-simulation.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c16",
+   "title": "稀疏、低秩与深度几何学习",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "discrete-geometry-enlighten",
+    "path": "01-离散几何处理与应用/concepts/sparse-and-deep.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "一个闭合球面网格的离散高斯曲率（角度亏欠）总和是多少？",
+   "options": [
+    "0",
+    "2π",
+    "4π",
+    "与剖分密度成正比"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "离散高斯-博内定理给出总和 = 2πχ，球面 χ = V − E + F = 2，因此 4π，与剖分无关。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "哪种表示能够精确表达一个圆？",
+   "options": [
+    "三次样条",
+    "B-样条",
+    "有理样条 NURBS",
+    "均匀 B 样条"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "非有理多项式样条只能逼近圆锥曲线；有理样条分子分母同为多项式，可精确表示圆、椭圆，并在投影变换下保持形式。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "某顶点有 3 个邻居，每条边的余切权重和为 1.2，混合面积 A_i = 0.4。则离散 Laplace 前的系数 1/(2A_i) 为＿＿，Δx_i 等于该系数乘以＿＿。",
+   "options": [],
+   "answer": "1.25；Σ_j (x_j − x_i)",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "1/(2×0.4) = 1.25；整个算子为 1.25 × 1.2 × Σ(x_j − x_i) = 1.5Σ(x_j − x_i)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch01",
+   "stem": "为什么三次样条\"C² 连续\"却\"不局部\"？",
+   "options": [],
+   "answer": "系数由覆盖全部控制点的线性系统联立求出，改一个控制点会改变方程组右端项，所有段都要重解。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "局部性取决于\"每段是否只依赖自己的数据\"。埃尔米特样条每段只由两个端点位置与切向决定，才真正局部。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02",
+   "stem": "ICP 每轮迭代包含哪两步？",
+   "options": [
+    "特征提取与分类",
+    "找最近点对应与解闭式最优变换",
+    "三角化与抽等值面",
+    "估法向与双边滤波"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "ICP 的核心是\"对应—求解\"交替；它只是交替下降，因此只保证局部最优。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch02",
+   "stem": "Poisson 重建求解的方程是？",
+   "options": [
+    "∇f = 0",
+    "Δf = ∇·V",
+    "f 等于距离场",
+    "∇×V = 0"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "由\"求 f 使 ∇f ≈ V\"的最小二乘正规方程得到；左边是 Laplace，右边是法向场的散度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch02",
+   "stem": "Delaunay 三角剖分的\"最小角最大化\"性质带来的实际好处是＿＿；而显式重建方法最怕＿＿和＿＿。",
+   "options": [],
+   "answer": "三角形更接近正三角形、网格质量好，离散算子不会因钝角出现负权重；噪声；采样缺失（导致不水密）",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "质量与算子稳定性直接相关；显式方法依赖精确的 Delaunay 结构，噪声与缺失会改变结构或留下无约束区域。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch02",
+   "stem": "双边滤波为什么能保住棱线？",
+   "options": [],
+   "answer": "值域核按法向差异降权，跨棱邻居法向差别大，权重趋于零，几乎不参与平均。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "空间核决定\"看多远\"，值域核决定\"谁能参与\"。二者相乘后，跨棱平滑被自动抑制。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch03",
+   "stem": "Tutte 定理保证参数化不翻转的条件是？",
+   "options": [
+    "权重全为正、边界映射到凸多边形",
+    "网格是闭合的",
+    "使用余切权重",
+    "三角形都接近等边"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "闭合曲面还需先切开；余切权重可能为负，反而破坏前提。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch03",
+   "stem": "QEM 决定坍缩哪条边的依据是？",
+   "options": [
+    "边最长",
+    "相邻三角形面积最大",
+    "坍缩后到相关平面族的距离平方和最小",
+    "顶点度数最高"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "二次型可累加，坍缩后 Q = Q_i + Q_j，误差取该二次型的最小值。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch03",
+   "stem": "Edgebreaker 用 5 个符号编码网格拓扑，其中 C 表示＿＿，S 表示＿＿。",
+   "options": [],
+   "answer": "进入一个未访问的三角形；遇到分叉、需要压栈记录",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "L/R 表示左右转向、E 表示结束分支；5 个符号即可编码任意连通网格拓扑。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch03",
+   "stem": "为什么参数化的扭曲能量很难优化？给出两个原因。",
+   "options": [],
+   "answer": "能量高度非凸（含奇异值、比值、障碍项），存在大量局部极小；防翻转约束使可行域边界附近能量趋无穷，步长必须很小。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "这也是为何工程上先用 Tutte 给初值、或用渐进参考三角形把大跳分解成小步。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch04",
+   "stem": "四边形全局参数化要求相邻片的坐标变换属于？",
+   "options": [
+    "任意仿射变换",
+    "90° 整数倍旋转 + 整数平移",
+    "仅平移",
+    "相似变换"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "只有这样才能保证公共边界上的整数格点重合，四边形顶点对齐。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch04",
+   "stem": "用 (cos 4θ, sin 4θ) 表示方向场的目的是？",
+   "options": [
+    "把方向归一化",
+    "利用周期性消掉整数跳跃变量",
+    "把向量场变成标量场",
+    "限制角度范围"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "旋转 90° 对应 θ 加 π/2，乘 4 后加 2π，三角函数值不变，于是 4 个等价方向被压成一个点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch04",
+   "stem": "四边形网格中 3 价顶点指数为＿＿，5 价顶点指数为＿＿；球面上指数之和为＿＿。",
+   "options": [],
+   "answer": "+1/4；−1/4；2",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "index = (4 − n)/4，Poincaré-Hopf 要求 Σindex = χ，球面 χ = 2，因此至少 8 个 3 价顶点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch04",
+   "stem": "Morse-Smale 法为什么能产生四边形块？",
+   "options": [],
+   "answer": "标量场的一个鞍点有两条上行流线和两条下行流线，构成四条边界，围出一块四边形区域。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "控制质量靠设计 ψ 的特征向量（对齐棱线）与二阶导数条件（避免关键点退化）。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch05",
+   "stem": "HKS 的等距不变性来自？",
+   "options": [
+    "它使用了法向",
+    "它只依赖 Laplace 的特征值/特征向量，而它们由内在度量决定",
+    "它对坐标做了归一化",
+    "它用了曲率"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "热扩散只依赖沿曲面的距离，弯曲纸面不改变签名；代价是分不开镜像。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch05",
+   "stem": "Ncut 相比\"最小切口\"多了什么？",
+   "options": [
+    "体积约束",
+    "用 assoc 归一化，惩罚过小的块",
+    "深度网络",
+    "固定块数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "分母是块与全图的连接量，切下小碎片会因分母小而得分高，从而被抑制。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch05",
+   "stem": "HKS 在 t 很小时主要由＿＿决定，在 t 很大时趋于＿＿。",
+   "options": [],
+   "answer": "局部几何（高阶模态、细节）；常数（只剩最低频模态）",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "这也是为什么必须用整条曲线（多个 t）当特征，单点值没有区分度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch05",
+   "stem": "D2 形状分布为什么对旋转不敏感，又丢了什么？",
+   "options": [],
+   "answer": "它统计采样点对的距离分布，距离在旋转下不变；但它不记录距离出现在哪个位置、哪个方向，空间分布信息全丢。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "所以 D2 适合粗筛，不适合精细匹配。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch06",
+   "stem": "LBS 糖纸收缩的根本原因是？",
+   "options": [
+    "权重没归一化",
+    "对\"变换后的位置\"做线性平均，而非对旋转做插值",
+    "骨骼数量太少",
+    "网格分辨率不足"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "两个 90° 差异的旋转，位置中点会落到关节内侧，长度缩为 0.707 倍；DQS 插值旋转以减轻此现象。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch06",
+   "stem": "梯度域形变最终求解的是？",
+   "options": [
+    "∇×u = 0",
+    "L v' = b（离散 Poisson）",
+    "特征值问题",
+    "v' = Σ w_j R_j v"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "把\"保微分\"写成最小二乘，正规方程即 Laplace 矩阵乘新坐标等于目标微分项。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch06",
+   "stem": "ARAP 的局部步固定＿＿、求＿＿；全局步固定＿＿、解＿＿线性系统。",
+   "options": [],
+   "answer": "顶点位置；每个三角形的最优旋转（SVD 解 Procrustes）；所有旋转；稀疏",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "交替进行，能量单调下降，可能停在局部极小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch06",
+   "stem": "为什么\"直接令 ∇f = u\"常常无解，必须先做 Helmholtz 分解？",
+   "options": [],
+   "answer": "任意向量场含旋转（无散）和调和分量，而梯度场必然无旋；只有先取出无旋部分（等价于解 ∇²φ = ∇·u）才存在 f。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "这一步同时解释了梯度域方法为什么稳。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch07",
+   "stem": "显式积分的时间步上限主要由什么决定？",
+   "options": [
+    "总质量",
+    "系统最高振动频率",
+    "外力大小",
+    "顶点数量"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "稳定条件 h ≤ 2/ω_max；网格越细 ω_max 越高，步长必须越小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch07",
+   "stem": "投影动力学每步的线性系统有什么特点？",
+   "options": [
+    "每步重新分解",
+    "左边矩阵恒定，可预分解，每步只回代",
+    "是非线性系统",
+    "是特征值问题"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "左边只与网格和权重有关，与当前位置无关。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch07",
+   "stem": "子空间模拟把未知量从＿＿个降到＿＿个；它在＿＿与＿＿两类场景下会失效。",
+   "options": [],
+   "answer": "3N；K；大幅非线性形变；局部尖锐碰撞",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "前者使线性化基失效，后者需要被截断的高频模态。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch07",
+   "stem": "为什么\"网格加密会让弹簧质点模型变硬\"？",
+   "options": [],
+   "answer": "刚度定义在边上，边变短后同样的绝对位移对应更大的相对伸长，等效刚度上升，最高频也上升。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "要跨分辨率一致，需按边长重标定刚度，或改用有限元的连续介质参数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q29",
+   "chapterId": "ch08",
+   "stem": "L1 正则产生稀疏解的直接原因是？",
+   "options": [
+    "它是凸函数",
+    "等值线有尖角，最优点易落在坐标轴上",
+    "梯度更大",
+    "等价于 L0"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "菱形等值线与数据项椭圆相切处常在尖角；L2 的圆形等值线不会。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q30",
+   "chapterId": "ch08",
+   "stem": "PointNet 对输入顺序不敏感靠的是？",
+   "options": [
+    "卷积",
+    "循环网络",
+    "逐点 MLP + 对称池化（最大池化）",
+    "图拉普拉斯"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "最大值与顺序无关；旋转则另靠 T-Net 学变换近似抵消。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q31",
+   "chapterId": "ch08",
+   "stem": "低秩正朝向方法依赖的观察是：人造模型摆正时，其在三个坐标平面上的投影矩阵具有＿＿；可优化的替代目标是＿＿。",
+   "options": [],
+   "answer": "更低的秩（行高度相关）；核范数（奇异值之和）",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "秩的凸松弛让问题可解，且完全不需要训练数据。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q32",
+   "chapterId": "ch08",
+   "stem": "为什么几何信号比图像信号更难稀疏表达？",
+   "options": [],
+   "answer": "图像定义在规则格点上，有局部紧支撑的正交基；几何定义在不规则流形上，Laplace 特征向量是全局支撑的，无法表示局部细节。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "因此需要局部字典、冗余字典 + L1，或让网络学基。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q33",
+   "chapterId": "ch09",
+   "stem": "重定向行走中人对哪类增益最敏感？",
+   "options": [
+    "平移增益",
+    "旋转增益",
+    "视场角增益",
+    "时间增益"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "前庭系统对旋转极敏感，旋转增益的可容忍区间远窄于平移。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q34",
+   "chapterId": "ch09",
+   "stem": "3D 打印中\"悬垂面\"的判定依据是？",
+   "options": [
+    "面积大小",
+    "法向与竖直方向夹角（相对水平面倾角小于约 45°）",
+    "顶点数量",
+    "曲率符号"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "超过约 45° 的悬垂下方无材料支撑，必须加支撑结构。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q35",
+   "chapterId": "ch09",
+   "stem": "机器人自主扫描把\"自由区域\"与\"未知区域\"的交界称为＿＿；用势场规划时通常把＿＿当作势源。",
+   "options": [],
+   "answer": "边界（frontier）；未知区域",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "沿势的梯度移动，机器人会被\"吸\"向信息量最大的地方。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q36",
+   "chapterId": "ch09",
+   "stem": "为什么\"联合分割与识别\"比\"先分割再识别\"更稳？",
+   "options": [],
+   "answer": "分割边界在噪声/遮挡下不可靠，而整块的分类似然提供全局语义约束；合并相邻块若提升整体似然则合并，等于用语义修正边界。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "两个子问题互相依赖时，联合求解优于流水线。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q37",
+   "chapterId": "mix",
+   "stem": "下列哪一项**不需要**求解全局稀疏线性系统？",
+   "options": [
+    "调和参数化",
+    "梯度域形变",
+    "Poisson 重建",
+    "QEM 边坍缩的选边"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "QEM 的选边是优先队列 + 局部 3×3 求解；前三者都要解全局稀疏系统。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q38",
+   "chapterId": "mix",
+   "stem": "第 1 章的离散 Laplace 算子在第 5 章被用来做什么？",
+   "options": [
+    "计算 Hausdorff 距离",
+    "构造 HKS 与谱聚类（Ncut）",
+    "生成四边形网格",
+    "处理碰撞"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "谱方法都需要 Laplace 的特征值/特征向量；Hausdorff 依赖距离，四边形化依赖方向场，碰撞依赖约束。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q39",
+   "chapterId": "mix",
+   "stem": "从数学结构上看，第 6 章的梯度域形变、第 7 章的投影动力学、第 2 章的 Poisson 重建都共享同一个模式：先构造＿＿，再解＿＿。",
+   "options": [],
+   "answer": "局部微分/梯度目标；全局 Poisson（或 Laplace）方程",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "这就是\"局部-全局\"模式在全书的三次复用。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q40",
+   "chapterId": "mix",
+   "stem": "为什么\"四边形化球面不可能没有奇异点\"？请用指数与欧拉示性数说明。",
+   "options": [],
+   "answer": "index = (4 − n)/4，只有 4 价顶点指数为 0；Poincaré-Hopf 要求闭合曲面 Σindex = χ，球面 χ = 2，因此必须有非零指数的顶点（如 8 个 3 价，或等价组合）。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "这说明奇异点是拓扑必然，不是算法缺陷。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q41",
+   "chapterId": "mix",
+   "stem": "给定一份带噪声、有遮挡缺失的文物扫描点云，请给出处理流程并说明每一步的理由。",
+   "options": [],
+   "answer": "① 配准（多视角拼接）：用特征粗配准 + ICP 精修，避免局部最优；② 去噪/法向估计：先做局部拟合（MLS）或法向双边滤波，为后续提供可靠法向；③ 隐式重建（筛选 Poisson）：梯度拟合对噪声稳、能补出封闭面，八叉树 + 多重网格保证可解；④ 光顺（保特征的 Taubin 或法向滤波）修残留噪声；⑤ 重网格化（如需仿真）。若缺失区域关键，需人工补洞或标明不可信区域。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "评分要点是\"为什么不用显式重建（怕噪声缺失）\"和\"重建后再光顺的顺序不能反\"。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q42",
+   "chapterId": "mix",
+   "stem": "如果你要在移动端实时编辑一个 5 万顶点的网格（拖拽骨架 + 保体积），会选择哪些技术组合？说明取舍。",
+   "options": [],
+   "answer": "子空间形变（低频模态或样本 PCA 作基）承担自由度降维；能量用 ARAP 或梯度域（保局部细节），并加体积约束/内部体图防塌陷；交互帧用预分解的常量矩阵（投影动力学式）加速；离线预处理特征分解与矩阵分解。取舍：牺牲极端形变精度与局部尖锐细节，换取毫秒级响应；若需要精确接触或大幅非线性，则退回完整非线性求解。",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "评分要点是识别\"自由度、能量、求解器\"三层各自的降本手段，并说明代价。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "离散高斯曲率怎么算？",
+   "back": "K_i = 2π − Σθ_i（顶点一圈三角形的内角和），只依赖角度，不需要拟合曲面。",
+   "chapterId": "ch01",
+   "tags": [
+    "曲率",
+    "离散算子"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "余切权重里的两个角是哪两个？",
+   "back": "边 (i, j) 两侧各一个对着这条边的角，分别记为 α、β；权重 w = cot α + cot β。",
+   "chapterId": "ch01",
+   "tags": [
+    "Laplace",
+    "余切"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "为什么 B-样条比 Bézier 更适合交互设计？",
+   "back": "B-样条基函数局部支撑，改一个控制点只影响相邻几段；Bézier 是全局的，改一点整条曲线都变。",
+   "chapterId": "ch01",
+   "tags": [
+    "样条",
+    "局部性"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "NURBS 能精确表示圆的两个原因？",
+   "back": "① 属于有理函数空间，可写成分式多项式；② 有理形式在投影变换下仍是有理形式，投影不变。",
+   "chapterId": "ch01",
+   "tags": [
+    "样条",
+    "NURBS"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "带约束优化的 KKT 条件在说什么？",
+   "back": "在最优且约束起作用处，目标梯度必须落在约束梯度的正锥内（∇f = Σλ_i∇g_i，λ_i ≥ 0），同时在可行域内。",
+   "chapterId": "ch01",
+   "tags": [
+    "优化",
+    "KKT"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "ICP 为什么只到局部最优？",
+   "back": "最近点对应随变换改变，目标函数在对应切换处不连续且非凸，误差下降到某个自洽的错误配对上就停住。",
+   "chapterId": "ch02",
+   "tags": [
+    "配准",
+    "ICP"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "刚性配准的闭式解三步是什么？",
+   "back": "① 求两边质心并平移；② 对协方差矩阵做 SVD，R = V Uᵀ（det 为负则修一列）；③ t = ȳ − R x̄。",
+   "chapterId": "ch02",
+   "tags": [
+    "配准",
+    "Procrustes"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "Crust 里的\"极点\"是什么，有什么用？",
+   "back": "顶点 Voronoi 单元里离该点最远的两个 Voronoi 顶点；极点方向近似曲面法向，用于筛掉斜穿表面的三角形。",
+   "chapterId": "ch02",
+   "tags": [
+    "重建",
+    "Delaunay"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "Poisson 重建为什么不需要估距离？",
+   "back": "它拟合的是梯度（法向场），梯度对常数偏移不敏感；不需要知道\"离曲面多远\"。",
+   "chapterId": "ch02",
+   "tags": [
+    "重建",
+    "Poisson"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "Taubin 光顺为什么能既平滑又不收缩？",
+   "back": "把正负两个缩放因子交替使用，单个因子的收缩被另一个抵消，整体体积近似保持。",
+   "chapterId": "ch02",
+   "tags": [
+    "光顺"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "Tutte 定理的两个前提？",
+   "back": "网格是拓扑圆盘（闭合的需先切开）；映射边界落在凸多边形上且权重全为正。",
+   "chapterId": "ch03",
+   "tags": [
+    "参数化",
+    "Tutte"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "ASAP 的\"局部-全局\"两步各做什么？",
+   "back": "固定坐标时逐三角形算最接近的相似变换（SVD 取平均奇异值）；固定相似变换时解稀疏最小二乘求坐标。",
+   "chapterId": "ch03",
+   "tags": [
+    "参数化",
+    "ASAP"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "QEM 的误差为什么可以累加？",
+   "back": "每个顶点存的是\"到若干平面的距离平方和\"的二次型，坍缩后新顶点的二次型就是两个旧二次型相加。",
+   "chapterId": "ch03",
+   "tags": [
+    "简化",
+    "QEM"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "渐进网格相对多套 LOD 的优势？",
+   "back": "只存粗网格加一串可逆的分裂记录，任意精度连续可调，且每条记录带误差，可按预算停止。",
+   "chapterId": "ch03",
+   "tags": [
+    "多分辨率"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "Edgebreaker 的 5 个符号是哪些？",
+   "back": "C（进入新三角形）、L（左转）、R（右转）、E（分支结束）、S（分叉需压栈）。",
+   "chapterId": "ch03",
+   "tags": [
+    "压缩",
+    "拓扑编码"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "为什么用 (cos 4θ, sin 4θ) 表示方向场？",
+   "back": "4 个等价方向的 θ 相差 π/2，乘 4 后相差 2π，三角函数值相同，于是整数跳跃变量自动消失。",
+   "chapterId": "ch04",
+   "tags": [
+    "方向场"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "四边形网格奇异点的指数公式？",
+   "back": "index = (4 − n)/4；3 价 +1/4、5 价 −1/4、4 价 0。",
+   "chapterId": "ch04",
+   "tags": [
+    "奇异点"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "球面四边形网格至少要几个 3 价顶点？",
+   "back": "8 个（8 × 1/4 = 2 = χ），或等价的指数组合。",
+   "chapterId": "ch04",
+   "tags": [
+    "奇异点",
+    "拓扑"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "三维标架的对称性有多少种，怎么处理？",
+   "back": "立方体旋转群 24 种等价表示；用球面调和（l=0 与 l=4）编码成 9 维向量，在 R⁹ 里做光顺。",
+   "chapterId": "ch04",
+   "tags": [
+    "标架场",
+    "六面体"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "为什么整数约束要\"逐步取整\"而不能一次取完？",
+   "back": "一次取整会把远离整数的分量硬拉过去，产生大量奇异点、场极不光顺；逐步固定最接近整数的再优化其余，结果更优。",
+   "chapterId": "ch04",
+   "tags": [
+    "优化",
+    "整数约束"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "HKS 的物理含义？",
+   "back": "在 x 放单位热量，t 时刻 x 处剩余热量 = Σ exp(−λ_i t) φ_i(x)²。",
+   "chapterId": "ch05",
+   "tags": [
+    "描述子",
+    "HKS"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "HKS 的等距不变性带来什么好处与局限？",
+   "back": "好处是不同姿势/弯曲下同一部位签名一致；局限是分不开镜像（左右手）、也分不开凸起与凹陷。",
+   "chapterId": "ch05",
+   "tags": [
+    "描述子"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "Ncut 为什么不会切出一个很小的碎片？",
+   "back": "分母 assoc 是块与全图的连接量；碎片的分母极小，比值反而很大，被目标函数惩罚。",
+   "chapterId": "ch05",
+   "tags": [
+    "分割",
+    "谱方法"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "Spin Image 对什么最敏感？",
+   "back": "法向。它以法向为轴建立柱坐标，法向估错整个图就歪，因此要先做可靠的法向估计。",
+   "chapterId": "ch05",
+   "tags": [
+    "描述子",
+    "局部特征"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "Ncut 最终化成一个什么数学问题？",
+   "back": "广义特征值问题 (D − W)x = λ D x，取第二小特征向量，按符号二分。",
+   "chapterId": "ch05",
+   "tags": [
+    "分割",
+    "拉普拉斯"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "LBS 的糖纸收缩数值是多少？",
+   "back": "权重 0.5/0.5、旋转 90°，关节距离由 r 缩为 0.707r；180° 时缩为 0（完全塌陷）。",
+   "chapterId": "ch06",
+   "tags": [
+    "蒙皮",
+    "LBS"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "DQS 用什么替代位置插值？",
+   "back": "对偶四元数（旋转 + 平移）的归一化线性插值，再作用到顶点；插值\"运动\"而非\"位置\"。",
+   "chapterId": "ch06",
+   "tags": [
+    "蒙皮",
+    "DQS"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "梯度域形变的最终方程？",
+   "back": "(LᵀL + λI_C) v' = Lᵀ(Tδ) + λp，即离散 Poisson 的最小二乘形式。",
+   "chapterId": "ch06",
+   "tags": [
+    "形变",
+    "Poisson"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "ARAP 的局部步为什么是 SVD？",
+   "back": "求使 |E − R S| 最小的旋转，等价于最大化 tr(Rᵀ E Sᵀ)，解为 R = V Uᵀ（Procrustes）。",
+   "chapterId": "ch06",
+   "tags": [
+    "形变",
+    "ARAP"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "体图（cage）在梯度域编辑里解决什么问题？",
+   "back": "内部填充点让形变有体积感、防塌陷；外部覆盖点约束外部空间不被拉变形；两者共同防自交。",
+   "chapterId": "ch06",
+   "tags": [
+    "形变",
+    "体图"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "显式积分的稳定条件？",
+   "back": "h ≤ 2/ω_max；k = 100、m = 0.01 时 ω = 100，h ≤ 0.02 s。",
+   "chapterId": "ch07",
+   "tags": [
+    "模拟",
+    "积分"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "PBD 的三个循环步骤？",
+   "back": "预测位置（速度积分）→ 投影约束（迭代修正位置）→ 反推速度（(x_new − x_old)/h）。",
+   "chapterId": "ch07",
+   "tags": [
+    "模拟",
+    "PBD"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "投影动力学为什么快？",
+   "back": "把内力写成局部投影之和，隐式方程左边 (M/h² + ΣwSᵀS) 恒定，预分解一次，每步只回代。",
+   "chapterId": "ch07",
+   "tags": [
+    "模拟",
+    "投影动力学"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "Cubature 在做什么？",
+   "back": "只算少量\"代表单元\"的内力，用训练数据拟合使其整体误差最小，把单元级计算降一个数量级。",
+   "chapterId": "ch07",
+   "tags": [
+    "模拟",
+    "加速"
+   ]
+  },
+  {
+   "id": "f35",
+   "front": "自碰撞为什么必须先排除相邻三角形？",
+   "back": "相邻三角形天然接触/共边，不排除会被判成碰撞，布料会\"粘住\"自己。",
+   "chapterId": "ch07",
+   "tags": [
+    "碰撞"
+   ]
+  },
+  {
+   "id": "f36",
+   "front": "L1 为什么产生稀疏解？",
+   "back": "L1 的等值线是菱形（有尖角），与数据项的椭圆相切处多半落在坐标轴上，某些分量恰好为 0。",
+   "chapterId": "ch08",
+   "tags": [
+    "稀疏",
+    "优化"
+   ]
+  },
+  {
+   "id": "f37",
+   "front": "低秩正朝向靠什么观察？",
+   "back": "人造模型摆正时在三个坐标平面上的投影矩阵行高度相关（秩低）；优化核范数即可求旋转，无需训练数据。",
+   "chapterId": "ch08",
+   "tags": [
+    "低秩",
+    "正朝向"
+   ]
+  },
+  {
+   "id": "f38",
+   "front": "PointNet 的置换不变性来自哪里？",
+   "back": "逐点 MLP + 全局最大池化；最大值与输入顺序无关。",
+   "chapterId": "ch08",
+   "tags": [
+    "深度学习",
+    "PointNet"
+   ]
+  },
+  {
+   "id": "f39",
+   "front": "把三角形特征排成 30×20 假图像喂 CNN 的问题在哪？",
+   "back": "排列与拓扑邻接无关、矩阵形状是人工定的，换顺序结果就变，并非真正尊重曲面结构。",
+   "chapterId": "ch08",
+   "tags": [
+    "深度学习",
+    "CNN"
+   ]
+  },
+  {
+   "id": "f40",
+   "front": "几何信号为什么难找稀疏基？",
+   "back": "定义域是不规则流形，Laplace 特征向量全局支撑，无法像图像小波那样提供局部紧支撑基。",
+   "chapterId": "ch08",
+   "tags": [
+    "稀疏",
+    "几何信号"
+   ]
+  },
+  {
+   "id": "f41",
+   "front": "重定向行走的三类增益？",
+   "back": "平移增益、旋转增益、传送（或门户/重新定向）。",
+   "chapterId": "ch09",
+   "tags": [
+    "VR",
+    "重定向"
+   ]
+  },
+  {
+   "id": "f42",
+   "front": "场景映射的五项约束？",
+   "back": "保形、局部等距、边界约束、避障、多用户一致。",
+   "chapterId": "ch09",
+   "tags": [
+    "VR",
+    "场景映射"
+   ]
+  },
+  {
+   "id": "f43",
+   "front": "3D 打印的四类几何约束？",
+   "back": "切片与路径（含支撑 45°）、中空与壁厚、强度、站立/旋转稳定；外加分解装配与装箱。",
+   "chapterId": "ch09",
+   "tags": [
+    "3D打印"
+   ]
+  },
+  {
+   "id": "f44",
+   "front": "机器人为什么选\"边界\"作为探索目标？",
+   "back": "边界是自由区域与未知区域的交界，去那里最可能带来新信息，探索效率最高。",
+   "chapterId": "ch09",
+   "tags": [
+    "机器人",
+    "探索"
+   ]
+  },
+  {
+   "id": "f45",
+   "front": "联合分割识别的合并准则？",
+   "back": "反复尝试合并相邻块，若合并后整块的分类似然更高则合并，直到再合并不提升为止。",
+   "chapterId": "ch09",
+   "tags": [
+    "机器人",
+    "场景理解"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "离散化（Discretization）",
+   "en": "",
+   "def": "把连续的曲面、微分、积分换成有限个点和面能表达、能计算的一整套做法",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "多边形网格曲面",
+   "en": "",
+   "def": "顶点表记坐标、面片表记\"哪几个顶点连成一个面\"，拼出的分片平面曲面",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "顶点表 / 面片表",
+   "en": "",
+   "def": "顶点表是一串坐标，面片表是一串顶点编号的组合",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "流形网格",
+   "en": "",
+   "def": "每个顶点的邻域都像一小块平盘，没有自交、没有多余薄片的网格",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "亏格（genus）",
+   "en": "",
+   "def": "曲面上\"洞\"的个数，甜甜圈是 1，球是 0",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "隐式曲面",
+   "en": "",
+   "def": "用\"函数值等于零\"的点集来描述的曲面，没有顶点和面片",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "符号距离场（SDF）",
+   "en": "",
+   "def": "空间每一点记录\"到曲面多远\"和\"在里还是在外\"",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "等值面",
+   "en": "",
+   "def": "函数取值相同的点连成的面，SDF 的零等值面就是曲面本身",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "参数曲面",
+   "en": "",
+   "def": "用两个参数 (u,v) 把一张平面片\"贴\"到空间曲面上",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "三次样条",
+   "en": "",
+   "def": "分段的三次多项式，接缝处一阶、二阶导数都连续",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "自然边界条件",
+   "en": "",
+   "def": "样条首末两端二阶导数取零的约定",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "埃尔米特样条",
+   "en": "",
+   "def": "除了点，还给每点的切方向，因此能局部修改",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "Bézier 曲线",
+   "en": "",
+   "def": "把控制点按 Bernstein 权重做加权平均得到的曲线",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "de Casteljau 算法",
+   "en": "",
+   "def": "反复取两点中点来画 Bézier 曲线的数值方法",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "B-样条",
+   "en": "",
+   "def": "Bézier 的局部版：改一个控制点只影响附近几段",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "有理样条（NURBS）",
+   "en": "",
+   "def": "给控制点加权重再平均，能精确画出圆和圆锥",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "第一基本形式",
+   "en": "",
+   "def": "曲面上的\"尺子\"，用来量切向长度和夹角",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "第二基本形式",
+   "en": "",
+   "def": "曲面上的\"弯曲计\"，用来量沿法向弯了多少",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "主曲率",
+   "en": "",
+   "def": "一点上沿两个互相垂直方向的最大、最小弯曲程度",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "高斯曲率",
+   "en": "",
+   "def": "两个主曲率的乘积，反映\"像球还是像马鞍\"",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "平均曲率",
+   "en": "",
+   "def": "两个主曲率的一半之和，反映\"整体鼓还是塌\"",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "脐点",
+   "en": "",
+   "def": "两个主曲率相等的点，局部像球面",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "离散 Laplace 算子",
+   "en": "",
+   "def": "把\"本点与邻居的加权平均之差\"写成矩阵，逐顶点计算",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "余切权重",
+   "en": "",
+   "def": "用边所对角的余切给这条边加权，是离散 Laplace 的标准权重",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "角度亏欠",
+   "en": "",
+   "def": "顶点一圈三角形的内角和与 2π 的差，即离散高斯曲率",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "离散高斯-博内定理",
+   "en": "",
+   "def": "全网格角度亏欠求和 = 2π × 欧拉示性数",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "Hausdorff 距离",
+   "en": "",
+   "def": "两个点集各自的\"最不像\"程度取大者，用来衡量两条曲面差多少",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "Voronoi 图",
+   "en": "",
+   "def": "每个点分到一块\"离它最近\"的地盘",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "Delaunay 三角剖分",
+   "en": "",
+   "def": "Voronoi 图的对偶：地盘相邻的点连成三角形",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "网格求交裁剪",
+   "en": "",
+   "def": "让两个网格的三角形两两求交、切开、重新连边",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "无约束优化",
+   "en": "",
+   "def": "只让目标函数变小，不加任何限制",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "牛顿法",
+   "en": "",
+   "def": "用二阶导数（Hessian）直接跳到二次近似的最小点",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "带约束优化",
+   "en": "",
+   "def": "在等式/不等式限制下找最优",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "KKT 条件",
+   "en": "",
+   "def": "带约束问题最优解的\"必要条件\"，含互补松弛",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "点云配准",
+   "en": "",
+   "def": "求一个变换把两片点云对齐",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "ICP",
+   "en": "",
+   "def": "交替做\"找最近点对\"和\"解最优变换\"直到不再改善",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "刚性变换",
+   "en": "",
+   "def": "只有旋转和平移，形状不变",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "非刚性配准",
+   "en": "",
+   "def": "允许目标发生形变的配准",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "Crust 算法",
+   "en": "",
+   "def": "借 Voronoi 顶点扩张采样集，再从 Delaunay 里挑出曲面三角形",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "极点（pole）",
+   "en": "",
+   "def": "某采样点所在 Voronoi 单元里，离它最远、位于曲面两侧的两个顶点",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "Power Crust",
+   "en": "",
+   "def": "用带权 Voronoi 处理采样不均匀的 Crust 变体",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "Cocone 算法",
+   "en": "",
+   "def": "用锥形条件筛三角形，保证输出是流形",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "径向基函数（RBF）",
+   "en": "",
+   "def": "以每个采样点为中心放一个\"钟形\"函数，叠加起来拟合曲面",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "Poisson 曲面重建",
+   "en": "",
+   "def": "解 Poisson 方程，让指示函数的梯度等于采样法向场",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "Marching Cubes",
+   "en": "",
+   "def": "在体素格上按符号变化挖出三角形，得到等值面",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "曲面光顺",
+   "en": "",
+   "def": "抹掉高频噪声、保留大形状的操作",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "双边滤波",
+   "en": "",
+   "def": "只有距离近、法向也接近的邻居才参与平均",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "参数化",
+   "en": "",
+   "def": "给曲面上每个点一个平面坐标 (u,v)",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "调和映射",
+   "en": "",
+   "def": "让参数化坐标满足拉普拉斯方程（离散下即坐标是邻居的加权平均）",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "共形 / 保角",
+   "en": "",
+   "def": "只保角度不保面积；反过来叫保面积",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "翻转（flip）",
+   "en": "",
+   "def": "摊平后三角形绕向反转或重叠",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "多片参数化",
+   "en": "",
+   "def": "先把曲面切成几块，各自摊平再拼回来",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "渐进参数化",
+   "en": "",
+   "def": "先摊平粗网格，再插入新点局部修正",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "二次误差度量（QEM）",
+   "en": "",
+   "def": "删点时用\"到原来若干平面的距离平方和\"评估损失",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "渐进网格（PM）",
+   "en": "",
+   "def": "把简化过程存成一串可逆的边坍缩记录",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "三角带",
+   "en": "",
+   "def": "用\"加一个顶点成一个三角形\"的方式连续输出三角形",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "Edgebreaker",
+   "en": "",
+   "def": "用 C/L/E/R/S 五种符号沿边遍历编码整个网格",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "重网格化",
+   "en": "",
+   "def": "保持形状、换一套更规整的采样（顶点数可变多也可变少）",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "方向场 / 交叉场",
+   "en": "",
+   "def": "每点给 4 个互相垂直的切向，规定四边形怎么铺",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "周期跳跃",
+   "en": "",
+   "def": "方向场转过 90° 时向量分量变号，跨块计算要先翻符号",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "奇异点",
+   "en": "",
+   "def": "方向场绕一圈回不到原值的位置，对应 3 价或 5 价顶点",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "Morse-Smale 复形",
+   "en": "",
+   "def": "用标量场的梯度流把曲面切成四边形块",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "标架场",
+   "en": "",
+   "def": "每点给 3 个互相垂直方向，六面体网格的铺设依据",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "多立方体（polycube）",
+   "en": "",
+   "def": "用轴对齐立方体拼出的近似模型，可当六面体网格的骨架",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "形状描述子",
+   "en": "",
+   "def": "把形状压成一个向量，使\"像不像\"变成可算的距离",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "D2 形状分布",
+   "en": "",
+   "def": "随机采样两点、统计距离分布作为描述子",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "球谐函数描述子",
+   "en": "",
+   "def": "把形状展开到球面频率基上，取系数当特征",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "热核签名（HKS）",
+   "en": "",
+   "def": "曲面上某点残留热量的时间曲线，等距不变",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "波核签名（WKS）",
+   "en": "",
+   "def": "用拉普拉斯特征值加权的振动版签名",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "网格分割",
+   "en": "",
+   "def": "按几何或语义把网格切成若干互不重叠的块",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "归一化割",
+   "en": "",
+   "def": "切口小、且每块不能太小的分割目标",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "协同分割",
+   "en": "",
+   "def": "一组相关模型一起切，对应部位切法一致",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "形状检索",
+   "en": "",
+   "def": "按描述子距离从库里找最相似的模型",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "蒙皮",
+   "en": "",
+   "def": "用骨架带动表面，顶点按权重混合若干骨头的变换",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "线性混合蒙皮（LBS）",
+   "en": "",
+   "def": "顶点位置 = 各骨变换后的位置按权重相加",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "自由形变（FFD）",
+   "en": "",
+   "def": "把模型装进控制网格，动格子就带动模型",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "梯度域形变",
+   "en": "",
+   "def": "保留每个点的微分坐标，再一次性重建全局位置",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "拉普拉斯坐标",
+   "en": "",
+   "def": "顶点位置减去邻居平均，刻画\"局部凸起多少\"",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "变形图（cage / 体图）",
+   "en": "",
+   "def": "包住模型的低模控制网格，用来传递形变",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "ARAP",
+   "en": "",
+   "def": "让每个三角形尽量只旋转不拉伸的形状保持能量",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "局部-全局迭代",
+   "en": "",
+   "def": "先固定旋转求位置、再固定位置求旋转，交替下降",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "子空间形变",
+   "en": "",
+   "def": "只在少数基向量张成的空间里求未知量，以速度换精度",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "弹性运动模拟",
+   "en": "",
+   "def": "按力与加速度的物理方程推进形状随时间变化",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "隐式积分",
+   "en": "",
+   "def": "用后一时刻的力反推位移，大时间步也稳定",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "子空间降维",
+   "en": "",
+   "def": "只用最低频的少量振动模态表示运动",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "PBD / 投影动力学",
+   "en": "",
+   "def": "先预测位置，再把约束\"投影\"回满足约束的集合",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "碰撞检测",
+   "en": "",
+   "def": "判断哪些三角形对相交",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "层次包围盒（BVH）",
+   "en": "",
+   "def": "用一层层盒子把不可能相交的三角形成批排除",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "旋转-应变分解",
+   "en": "",
+   "def": "把形变拆成旋转部分和拉伸部分，分别控制",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "稀疏编码",
+   "en": "",
+   "def": "用字典里少数几个\"原子\"的加权和表示信号",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "字典学习",
+   "en": "",
+   "def": "连\"原子\"本身也从数据里学出来",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "L1 正则",
+   "en": "",
+   "def": "加一项\"系数绝对值之和\"的惩罚，逼出稀疏解",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "低秩优化",
+   "en": "",
+   "def": "要求矩阵秩尽量小，等价于要求信息高度重复",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "压缩感知",
+   "en": "",
+   "def": "信号本身稀疏时，少量测量即可恢复",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "PointNet",
+   "en": "",
+   "def": "逐点提特征、再池化成全局向量的点云网络",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "流形卷积",
+   "en": "",
+   "def": "在曲面上按测地距离聚合邻居，而不是按平面网格",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "生成模型（VAE/GAN）",
+   "en": "",
+   "def": "学数据分布，并能采样出新的形状",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "重定向行走",
+   "en": "",
+   "def": "用视觉增益、转向、传送让人在有限空间里以为走了很远",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "场景映射",
+   "en": "",
+   "def": "把虚拟大场景\"折叠\"进真实小场地",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "可打印性",
+   "en": "",
+   "def": "能支撑、能闭合、强度够、装得进打印空间",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "切片与路径规划",
+   "en": "",
+   "def": "把模型切成一层层轮廓并规划打印头轨迹",
+   "chapterIds": [
+    "ch09"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 10,
+  "concepts": 16
+ },
+ "signature": "239662c86a32",
+ "contentHash": "608fa5587885"
+}

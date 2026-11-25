@@ -1,0 +1,2146 @@
+{
+ "repo": "sudoku-zhishu",
+ "bookSlug": "sudoku-zhishu",
+ "title": "数独：从规则到链",
+ "discipline": "cs",
+ "homepage": "",
+ "contentLevel": "degraded",
+ "manifestPath": "manifest.json",
+ "stats": {
+  "chapters": 16,
+  "concepts": 0,
+  "quizzes": 54,
+  "cards": 34,
+  "glossary": 43
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：规则与坐标",
+   "core": "",
+   "minutes": 30,
+   "bodyType": "html",
+   "conceptIds": [
+    "c01"
+   ],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：数独的数学身份",
+   "core": "",
+   "minutes": 40,
+   "bodyType": "html",
+   "conceptIds": [
+    "c02"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：候选数",
+   "core": "",
+   "minutes": 35,
+   "bodyType": "html",
+   "conceptIds": [
+    "c03"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：唯一余数",
+   "core": "",
+   "minutes": 30,
+   "bodyType": "html",
+   "conceptIds": [
+    "c04"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01",
+    "ch03"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：隐性唯一",
+   "core": "",
+   "minutes": 35,
+   "bodyType": "html",
+   "conceptIds": [
+    "c05"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03",
+    "ch04"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：区块排除",
+   "core": "",
+   "minutes": 45,
+   "bodyType": "html",
+   "conceptIds": [
+    "c06"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04",
+    "ch05"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：数对与三数组",
+   "core": "",
+   "minutes": 50,
+   "bodyType": "html",
+   "conceptIds": [
+    "c07",
+    "c08"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch06"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：X-Wing",
+   "core": "",
+   "minutes": 50,
+   "bodyType": "html",
+   "conceptIds": [
+    "c09"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch07"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：Swordfish 与 Jellyfish",
+   "core": "",
+   "minutes": 45,
+   "bodyType": "html",
+   "conceptIds": [
+    "c10"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch08"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：唯一矩形",
+   "core": "",
+   "minutes": 45,
+   "bodyType": "html",
+   "conceptIds": [
+    "c11"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch08"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：XY-Wing 与 XYZ-Wing",
+   "core": "",
+   "minutes": 50,
+   "bodyType": "html",
+   "conceptIds": [
+    "c12"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch07",
+    "ch08"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：链：强链、弱链与交替推理",
+   "core": "",
+   "minutes": 60,
+   "bodyType": "html",
+   "conceptIds": [
+    "c13",
+    "c14"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch11"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：解题流程与难度",
+   "core": "",
+   "minutes": 40,
+   "bodyType": "html",
+   "conceptIds": [
+    "c15"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05",
+    "ch06",
+    "ch07",
+    "ch08"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch14",
+   "num": 14,
+   "title": "第 14 章：程序求解",
+   "core": "",
+   "minutes": 60,
+   "bodyType": "html",
+   "conceptIds": [
+    "c16",
+    "c17"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01",
+    "ch02"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch15",
+   "num": 15,
+   "title": "第 15 章：程序出题",
+   "core": "",
+   "minutes": 60,
+   "bodyType": "html",
+   "conceptIds": [
+    "c18",
+    "c19"
+   ],
+   "quizIds": [],
+   "prerequisites": [
+    "ch14"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "ch16",
+   "num": 16,
+   "title": "第 16 章：综合检验",
+   "core": "",
+   "minutes": 90,
+   "bodyType": "html",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch13",
+    "ch12",
+    "ch15"
+   ],
+   "origin": {
+    "repo": "sudoku-zhishu",
+    "path": ""
+   },
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  }
+ ],
+ "concepts": [],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "标准数独里的“宫”是什么形状？",
+   "options": [
+    "3×3 的九格方块",
+    "3×9 的长条",
+    "9×3 的长条",
+    "1×9 的一行"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "宫是粗线围出的 3×3 区域，共 9 个；三宫横排成一带，三宫竖排成一栈。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "R4C5 属于第几宫？",
+   "options": [
+    "B2",
+    "B4",
+    "B5",
+    "B8"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "第 4–6 行属于第二带，第 4–6 列属于第二栈，交叉处是第 5 宫（B5）。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "下面哪一条是数独的合法条件？",
+   "options": [
+    "每行、每列、每宫都含 1–9 各一次",
+    "每行数字之和等于 45",
+    "两条对角线的数字之和相等",
+    "81 格全部填满"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "和等于 45 是“每行含 1–9”的推论，不是条件本身；对角线不是标准数独的约束；填满不等于合法。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "数独比 9 阶拉丁方多出来的约束是什么？",
+   "options": [
+    "两条对角线",
+    "9 个 3×3 宫各含 1–9",
+    "每行数字之和为 45",
+    "必须对称"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "拉丁方只管每行每列 1–9 各一次；数独在此之上要求 9 个 3×3 宫也各含 1–9 一次。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02",
+   "stem": "保证唯一解最少需要几个提示数？",
+   "options": [
+    "16",
+    "17",
+    "18",
+    "21"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "McGuire、Tugemann、Civario 在 2012 年穷举证明 16 个提示不可能唯一解，17 个可以。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch02",
+   "stem": "6,670,903,752,021,072,936,960 这个数是什么？",
+   "options": [
+    "合法终盘总数",
+    "本质不同的终盘数",
+    "9 阶拉丁方的数量",
+    "17 提示题的数量"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "这是 Felgenhauer 与 Jarvis 在 2005 年算出的合法 9×9 终盘总数，约 6.67×10²¹。本质不同的终盘数是 5,472,730,538。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch03",
+   "stem": "一个空格的候选数是什么？",
+   "options": [
+    "同行、同列、同宫已出现数字之外、1–9 中剩下的数字",
+    "这个格子最可能填的数字",
+    "整个盘面出现次数最少的数字",
+    "随便选几个数字试试"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "候选是确定集合：把三个方向的已出现数字全部划掉，剩下就是候选。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch03",
+   "stem": "R1C4 所在行有 9、1、4、8、2，列有 5、9、3，宫有 4、9。它的候选是？",
+   "options": [
+    "{6,7}",
+    "{6,7,8}",
+    "{2,6,7}",
+    "{7}"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "合并已出现数字 {1,2,3,4,5,8,9}，1–9 中只剩 6、7。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch03",
+   "stem": "填下一个数字后，候选数要怎么处理？",
+   "options": [
+    "删掉同行、同列、同宫里这个数字的候选",
+    "只在同一宫里删",
+    "不用改，等卡住再重算",
+    "把所有候选重新写一遍但保留旧的"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "落子会同时影响行、列、宫三个方向的 20 个相邻格，三个方向的该数字候选都要删。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch04",
+   "stem": "唯一余数（Naked Single）的判断依据是什么？",
+   "options": [
+    "某格只剩一个候选",
+    "某数字在一个单元里只剩一个位置",
+    "某行只剩一个空格",
+    "某宫只剩一个数字没填"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "唯一余数从格子出发：该格候选只剩一个。数字只剩一个位置是隐性唯一。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch04",
+   "stem": "某格候选是 {4}，为什么可以直接填 4？",
+   "options": [
+    "同行、同列、同宫已经占掉了另外 8 个数字",
+    "因为 4 出现的次数最少",
+    "因为这一格看起来像 4",
+    "因为老师说的"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "三个方向的约束把其他 8 个数字全部排除，4 是唯一不冲突的选择。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch04",
+   "stem": "“这一行只剩一个空格”属于哪种思路？",
+   "options": [
+    "隐性唯一：从数字角度看位置",
+    "唯一余数：从格子角度看候选",
+    "区块排除",
+    "猜测"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "行里缺一个数字、只剩一个空格能放它，这是从数字出发的隐性唯一。唯一余数必须从格子的候选集合出发。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch05",
+   "stem": "隐性唯一（Hidden Single）的判断依据是什么？",
+   "options": [
+    "某数字在一个单元里只有一个格子能放",
+    "某格只剩一个候选",
+    "某行只剩一个空格",
+    "某数字在整盘只出现一次"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "隐性唯一从数字出发：某个数字在行、列或宫里只剩一个可放位置。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch05",
+   "stem": "扫隐性唯一时，推荐的顺序是？",
+   "options": [
+    "宫 → 行 → 列",
+    "列 → 行 → 宫",
+    "行 → 宫 → 列",
+    "随便，怎么快怎么来"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "宫只有 9 格、边界清楚，最容易看漏也最容易出隐性唯一，所以先宫，再行，再列。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch05",
+   "stem": "某格有 3 个候选，但数字 7 在整个宫里只有这一格能放。该填什么？",
+   "options": [
+    "填 7",
+    "不能填，候选不唯一",
+    "填候选里最小的数字",
+    "先做区块排除再说"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "宫必须含 7 一次，而 7 在宫里只有这一个位置，所以该格必须填 7；其他候选被这次落子排除。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch06",
+   "stem": "“指向”（Pointing）的排除方向是？",
+   "options": [
+    "宫 → 线：删这条线在宫外的候选",
+    "线 → 宫：删这个宫在线外的候选",
+    "行 → 列",
+    "宫 → 宫"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "指向是宫内的候选锁在一条线上，删这条线在宫外的该数字。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch06",
+   "stem": "“声明”（Claiming）删的是哪里的候选？",
+   "options": [
+    "这个宫里、线外其他格子的该数字",
+    "这条线在宫外其他格子的该数字",
+    "宫内的所有候选",
+    "线内的所有候选"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "声明是线上的候选锁在一个宫里，删这个宫在线外其他格子的该数字。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch06",
+   "stem": "区块排除做完之后，通常会做什么？",
+   "options": [
+    "回到唯一余数和隐性唯一，看有没有新数字",
+    "直接进入链",
+    "停止解题",
+    "重新抄一遍题目"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "区块排除只删候选，不落子。删完候选后回到便宜技巧，通常会带出新的唯一余数。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch07",
+   "stem": "显性数对的条件是什么？",
+   "options": [
+    "同一单元两格的候选并集恰好是两个数字，且每格候选不超过两个",
+    "两格候选完全相同，必须有三个以上候选",
+    "两个数字在整盘只出现两次",
+    "两格在同一行即可"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "并集恰好两个数字、每格候选不超过两个，两个格子才能占住这两个数字。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch07",
+   "stem": "隐性数对删的是哪里的候选？",
+   "options": [
+    "这两个格子里的其他候选",
+    "同单元其他格子的这两个数字",
+    "整个盘面的这两个数字",
+    "宫外的候选"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "隐性数对是“数字占格子”：两个数字只出现在两格，这两格只保留这两个数字，删其他候选。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch07",
+   "stem": "同一单元三格候选分别是 {1,2}、{2,3}、{1,3}，这构成什么？",
+   "options": [
+    "显性三数组",
+    "隐性三数组",
+    "X-Wing",
+    "什么也不构成"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "三格候选并集是 {1,2,3}，恰好三个数字，每格两个候选，构成显性三数组；同单元其他格删 1、2、3。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch08",
+   "stem": "X-Wing 的条件是什么？",
+   "options": [
+    "某数字在两行里都只剩相同的两列",
+    "四个角都有同一个候选",
+    "两行里某数字各有两个以上候选",
+    "四个角在同一个宫里"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "必须两行里该数字的候选都恰好只剩相同的两列。四角有候选只是必要条件。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch08",
+   "stem": "X-Wing 成立后，删哪里的候选？",
+   "options": [
+    "这两列在其他行的该数字",
+    "四个角上的该数字",
+    "这两行在宫内的该数字",
+    "矩形内部的候选"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "两行的该数字占满这两列，所以这两列在其他行的该数字可以删；四角是支点，不能删。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch08",
+   "stem": "两行里某数字都只剩两列，但第一行还有第三个位置。这能算 X-Wing 吗？",
+   "options": [
+    "不能，第一行锁不住这两列",
+    "能，只要四个角有候选就行",
+    "能，但只能删第一行",
+    "能，删两列所有候选"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "X-Wing 要求两行里该数字的候选都恰好两个位置。多一个位置，第一行的该数字可能跑到第三列，锁不住。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch09",
+   "stem": "Swordfish 是几条线对几条线？",
+   "options": [
+    "3 行 3 列",
+    "2 行 2 列",
+    "4 行 4 列",
+    "3 行 2 列"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "Swordfish 是 X-Wing 的三线推广：三行里的候选落在三列以内。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch09",
+   "stem": "Jellyfish 对应几条线？",
+   "options": [
+    "4 行 4 列",
+    "3 行 3 列",
+    "2 行 2 列",
+    "5 行 5 列"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "Jellyfish 是四线版本：四行里的候选落在四列以内。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch09",
+   "stem": "Swordfish 成立需要什么条件？",
+   "options": [
+    "每行候选数在 2–3 之间，且所有候选所在列的并集正好 3 列",
+    "三行里每行都正好 2 个候选",
+    "三行必须属于同一带",
+    "三列的候选必须都在同一宫"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "每行至少 2 个、最多 3 个位置，且候选列的并集正好 3 列，才能锁住这三列。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch10",
+   "stem": "唯一矩形依赖哪个前提？",
+   "options": [
+    "题目保证唯一解",
+    "题目提示数少于 20",
+    "四格在同一个宫",
+    "题目必须是对称的"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "唯一矩形用逆否命题：若四格互换产生第二解，就与唯一解矛盾。多解题目上不能用。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q29",
+   "chapterId": "ch10",
+   "stem": "唯一矩形的四格必须落在几个宫？",
+   "options": [
+    "恰好两个",
+    "四个",
+    "一个",
+    "无所谓"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "恰好两个宫时，互换 a、b 仍保持每宫的 a、b 各一次；四个宫时互换会破坏宫约束。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q30",
+   "chapterId": "ch10",
+   "stem": "两行两列两宫的四格中，三格候选是 {1,2}，第四格是 {1,2,3}。结论是？",
+   "options": [
+    "第四格删掉 1、2，只能填 3",
+    "第四格删掉 3",
+    "四格都能互换",
+    "无法判断"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "第四格若取 1 或 2，四格就构成死锁模式，题目会有两个解；唯一解前提下它只能取 3。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q31",
+   "chapterId": "ch11",
+   "stem": "XY-Wing 的结论是什么？",
+   "options": [
+    "同时看见两翼的格子不能取共同候选 z",
+    "枢纽必须取 x",
+    "两翼必须互相看见",
+    "删掉枢纽的候选"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "枢纽取 x 或 y 都会逼出一翼取 z，所以 z 必被取到；同时看见两翼的格子不能取 z。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q32",
+   "chapterId": "ch11",
+   "stem": "XYZ-Wing 与 XY-Wing 的关键差别是什么？",
+   "options": [
+    "枢纽是三值格，目标格还要看见枢纽",
+    "两翼有三个候选",
+    "删除的是 x、y",
+    "不需要两翼看见枢纽"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "XYZ-Wing 枢纽 {x,y,z}，z 可能由枢纽自己取，所以目标格必须同时看见枢纽和两翼。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q33",
+   "chapterId": "ch11",
+   "stem": "枢纽 {4,7}、翼 Q1 {4,9}、翼 Q2 {7,9}。若枢纽取 4，Q1 会怎样？",
+   "options": [
+    "Q1 不能取 4，只能取 9",
+    "Q1 必须取 4",
+    "Q1 可以取 4 或 9",
+    "Q1 无解"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "Q1 与枢纽同行/列/宫，枢纽取 4 后 Q1 不能再取 4，只能取 9。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q34",
+   "chapterId": "ch12",
+   "stem": "强链的定义是什么？",
+   "options": [
+    "两个候选至少一个为真",
+    "两个候选至多一个为真",
+    "两个候选都真",
+    "两个候选都假"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c13",
+   "explain": "强链表示至少一真，来源是共轭对或双值格。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q35",
+   "chapterId": "ch12",
+   "stem": "弱链的定义是什么？",
+   "options": [
+    "两个候选至多一个为真",
+    "两个候选至少一个为真",
+    "两个候选必须同真",
+    "两个候选无关"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c13",
+   "explain": "弱链表示至多一真：同一单元同一数字、同一格不同数字都构成弱链。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q36",
+   "chapterId": "ch12",
+   "stem": "单数染色中，两个同色格子互相看得见，说明什么？",
+   "options": [
+    "这一种颜色全部为假，排除该颜色的该数字",
+    "这一种颜色全部为真",
+    "两格都必须填该数字",
+    "没有结论"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c14",
+   "explain": "同色格子不可能同时为真（它们互相看见会冲突），所以整色排除该数字。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q37",
+   "chapterId": "ch12",
+   "stem": "AIC 链条要满足什么条件才能用端点规则？",
+   "options": [
+    "强链、弱链交替，且两端都是强链",
+    "全部是强链",
+    "全部是弱链",
+    "首尾都是弱链"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c14",
+   "explain": "强弱交替保证真假逐段传递；两端都是强链时，两端至少一真。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q38",
+   "chapterId": "ch13",
+   "stem": "解题时推荐的技巧顺序是？",
+   "options": [
+    "唯一余数 → 隐性唯一 → 区块 → 数组 → 鱼 → 链",
+    "链 → 鱼 → 数组 → 区块 → 唯一余数",
+    "随便，先看到哪个用哪个",
+    "只找唯一余数"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c15",
+   "explain": "从成本低的技巧开始，先用便宜的，再用贵的；能落子先落子，不能落子再删候选。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q39",
+   "chapterId": "ch13",
+   "stem": "卡住时第一步应该检查什么？",
+   "options": [
+    "候选有没有漏更新",
+    "题目是不是印错了",
+    "是否该直接用链",
+    "是否需要换一支笔"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c15",
+   "explain": "候选漏更新是最常见的卡点来源。旧候选会让隐性唯一、区块、数组全部失效。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q40",
+   "chapterId": "ch13",
+   "stem": "衡量数独难度的可靠指标是什么？",
+   "options": [
+    "解出所需的最低技巧层级",
+    "提示数的多少",
+    "盘面空格的数量",
+    "做题用了多少分钟"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c15",
+   "explain": "提示数不等于难度；难度应由限权求解第一次成功的最低技巧层级衡量。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q41",
+   "chapterId": "ch14",
+   "stem": "精确覆盖模型里，数独一共有多少列约束？",
+   "options": [
+    "324",
+    "81",
+    "729",
+    "162"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c16",
+   "explain": "格 81 + 行数字 81 + 列数字 81 + 宫数字 81 = 324 列。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q42",
+   "chapterId": "ch14",
+   "stem": "MRV 启发式是什么意思？",
+   "options": [
+    "优先选候选最少的格子试填",
+    "优先选候选最多的格子",
+    "按行列顺序填",
+    "随机选格子"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c16",
+   "explain": "Minimum Remaining Values：候选越少，分支越少，先试它能让搜索树更窄。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q43",
+   "chapterId": "ch14",
+   "stem": "DLX 的核心数据结构是什么？",
+   "options": [
+    "十字链表",
+    "二叉堆",
+    "哈希表",
+    "并查集"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c17",
+   "explain": "Dancing Links 用十字链表存 0/1 矩阵，覆盖和恢复一列都是指针操作。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q44",
+   "chapterId": "ch14",
+   "stem": "广义数独（n²×n²）的判定复杂度是什么？",
+   "options": [
+    "NP-complete",
+    "P",
+    "O(1)",
+    "不可判定"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c16",
+   "explain": "Yato 与 Seta 在 2002 年证明广义数独的求解是 NP-complete；9×9 固定规模仍然秒解。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q45",
+   "chapterId": "ch15",
+   "stem": "挖洞时每去掉一个提示数，必须做什么？",
+   "options": [
+    "数解，确认仍然唯一；数到 2 就可以停",
+    "直接去掉，不用检查",
+    "重新生成终盘",
+    "检查提示数是否小于 17"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c18",
+   "explain": "唯一解是挖洞法的底线。每挖一个都要数解；只判断是否唯一，数到 2 就够。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q46",
+   "chapterId": "ch15",
+   "stem": "给题目评难度，正确做法是？",
+   "options": [
+    "限制求解器只能用前 L 层技巧，找第一次能解出的 L",
+    "数提示数",
+    "数空格数",
+    "看题目排版"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c19",
+   "explain": "难度层级 = 解出题目所需的最低技巧层级；提示数只是辅助条件。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q47",
+   "chapterId": "ch15",
+   "stem": "对称挖洞的主要代价是什么？",
+   "options": [
+    "可选位置变少，通常更难挖出高难度题",
+    "题目会变成多解",
+    "求解器无法校验",
+    "提示数会自动变成 17"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c18",
+   "explain": "中心对称成对挖洞让盘面整齐，但成对限制减少了可选位置，能挖到的难度受限。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q48",
+   "chapterId": "ch16",
+   "stem": "某行三个空格候选分别是 {1,2}、{1,2}、{1,2,3}。先看哪一招？",
+   "options": [
+    "显性数对：前两格占住 1、2，第三格删 1、2",
+    "唯一矩形",
+    "Swordfish",
+    "AIC"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c15",
+   "explain": "前两格候选并集是 {1,2}，构成显性数对；同单元其他格（含第三格）删 1、2，第三格只剩 3。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q49",
+   "chapterId": "ch16",
+   "stem": "某数字在两行里都只剩相同的两列，这是什么结构？",
+   "options": [
+    "X-Wing",
+    "Swordfish",
+    "唯一矩形",
+    "隐性数对"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "两行两列的矩形锁定，是 X-Wing；三行三列才是 Swordfish。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q50",
+   "chapterId": "ch16",
+   "stem": "你拿到一道题，数解结果是 2。还能用唯一矩形吗？",
+   "options": [
+    "不能，唯一解前提不成立",
+    "能，唯一矩形只删候选",
+    "能，但只能删一格",
+    "能，先做完再用"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "唯一矩形依赖“题目唯一解”。多解题目上用会删掉合法解，直接做错。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q51",
+   "chapterId": "ch16",
+   "stem": "第 3 宫里数字 5 的候选全部落在第 2 行。下一步最合理的是？",
+   "options": [
+    "删第 2 行在宫外其他格的 5",
+    "删第 3 宫里其他格的 5",
+    "直接在第 3 宫填 5",
+    "删第 2 行所有候选"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "这是指向：宫内的 5 锁在第 2 行，删第 2 行在宫外的 5。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q52",
+   "chapterId": "ch16",
+   "stem": "枢纽 {2,5}、翼 Q1 {2,8}、翼 Q2 {5,8}。哪个格子不能取 8？",
+   "options": [
+    "同时看得见 Q1 和 Q2 的格子",
+    "只看得见枢纽的格子",
+    "只看得见 Q1 的格子",
+    "枢纽自己"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "XY-Wing 中 8 必被 Q1 或 Q2 取到，同时看见两翼的格子不能取 8。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q53",
+   "chapterId": "ch16",
+   "stem": "出题程序挖掉一个提示后数解，得到 2。应该怎么做？",
+   "options": [
+    "把提示填回去，换下一个格子",
+    "保留这个洞，题目还能做",
+    "继续挖，直到 3 个解",
+    "把题目删掉重来"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c18",
+   "explain": "数解为 2 说明不再唯一，必须恢复这个提示，保证唯一解底线。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  },
+  {
+   "id": "q54",
+   "chapterId": "ch16",
+   "stem": "为什么 9×9 数独用回溯也能很快解出？",
+   "options": [
+    "规模固定且约束传播、MRV 大幅剪枝",
+    "因为 9×9 是 P 问题",
+    "因为数独只有唯一解",
+    "因为候选数一定很少"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c16",
+   "explain": "广义数独是 NP-complete，但 9×9 是常数规模；传播和 MRV 把实际搜索节点压得很低。",
+   "misconception": "",
+   "bookSource": {
+    "file": "知枢学习系统生成",
+    "page": 0
+   }
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "数独的三条约束是什么？",
+   "back": "每行、每列、每个 3×3 宫都含 1–9 各一次。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "R4C5 是哪一格？",
+   "back": "第 4 行第 5 列，属于第 5 宫（B5）。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "“填满”“合法”“唯一解”分别是什么意思？",
+   "back": "填满 = 81 格都有数；合法 = 没有行列宫重复；唯一解 = 只有一个合法终盘。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "标准数独有多少个解？",
+   "back": "终盘总数为 6,670,903,752,021,072,936,960；单题通常只保留一个解。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "“本质不同”的终盘有多少个？",
+   "back": "5,472,730,538 个（去掉数字重命名、行列置换、转置等等价变换）。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "唯一解最少需要几个提示数？",
+   "back": "17 个；16 个不可能，2012 年由 McGuire 等人穷举证明。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "数独和拉丁方的差别在哪？",
+   "back": "数独在拉丁方的基础上多了 9 个 3×3 宫的约束。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "候选数怎么算？",
+   "back": "对每个空格，划掉同行、同列、同宫已出现的数字，剩下的就是候选。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "候选数是概率吗？",
+   "back": "不是。候选是确定的信息：这个数字目前没有被规则排除。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "唯一余数和隐性唯一，分别看什么？",
+   "back": "唯一余数看格子（只剩一个候选）；隐性唯一看单元里的数字（只剩一个位置）。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "唯一余数为什么一定成立？",
+   "back": "该格的同行、同列、同宫已经占掉了另外 8 个数字，它只剩这一个选择。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "隐性唯一的扫描顺序？",
+   "back": "先宫，再行，再列；按数字 1–9 逐个看位置。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "区块排除的“指向”和“声明”方向？",
+   "back": "指向：宫 → 线；声明：线 → 宫。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "区块排除后要做什么？",
+   "back": "只删候选，不落子；删完继续找唯一余数或隐性唯一。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "显性数对的条件？",
+   "back": "同一单元两格，候选并集恰好两个数字，且每格候选不超过两个。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "隐性数对的条件？",
+   "back": "同一单元两个数字只出现在同样两个格子里。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "X-Wing 的条件？",
+   "back": "一个数字在两行里都只剩相同的两列（或两列里都只剩相同的两行）。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "X-Wing 为什么能删？",
+   "back": "两行各放一个 d，必须占掉这两列，所以这两列在其他行不能再有 d。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "Swordfish 是几行几列？",
+   "back": "3 行 3 列；Jellyfish 是 4 行 4 列。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "唯一矩形为什么依赖唯一解？",
+   "back": "如果四格能互换 a、b，题目就会出现第二个解；唯一解前提让这种互换不可能。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "唯一矩形要求四格落在几个宫？",
+   "back": "恰好两个宫；四个宫时互换会破坏宫约束，死锁不成立。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "XY-Wing 的结论？",
+   "back": "同时看见两翼的格子不能取共同候选 z。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "XY-Wing 的枢纽和两翼分别是什么？",
+   "back": "枢纽是双值格 {x,y}；两翼是 {x,z} 和 {y,z}，且都看见枢纽。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "强链的定义？",
+   "back": "两个候选至少一个为真；来源是共轭对或双值格。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "弱链的定义？",
+   "back": "两个候选至多一个为真；同一单元同一数字、同一格不同数字都是弱链。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "单数染色的两条规则？",
+   "back": "同色两格互相看见 → 该色全假；某格同时看见两色 → 该格删该数字。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "AIC 的端点规则？",
+   "back": "强-弱-强交替，两端都是强链时至少一端为真；两端同数字时删共同可见格的该数字。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "解题卡住时先检查什么？",
+   "back": "候选是否漏更新；有没有更简单的技巧；不要一上来就用链。",
+   "chapterId": "ch13",
+   "tags": [
+    "ch13"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "MRV 是什么？",
+   "back": "优先选候选最少的格子试填，减少搜索分支。",
+   "chapterId": "ch14",
+   "tags": [
+    "ch14"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "精确覆盖的四类约束？",
+   "back": "格、行-数字、列-数字、宫-数字，共 81+81+81+81=324 列。",
+   "chapterId": "ch14",
+   "tags": [
+    "ch14"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "DLX 的核心数据结构？",
+   "back": "十字链表；覆盖和恢复一列都是 O(1) 级别的指针操作。",
+   "chapterId": "ch14",
+   "tags": [
+    "ch14"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "挖洞法怎么保证唯一解？",
+   "back": "每去掉一个提示数，就用求解器数解，最多数到 2 个；不是 1 就恢复。",
+   "chapterId": "ch15",
+   "tags": [
+    "ch15"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "提示数越少越难吗？",
+   "back": "不是。难度由所需技巧层级决定；17 提示可以很难，30 提示也可能很简单。",
+   "chapterId": "ch15",
+   "tags": [
+    "ch15"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "广义数独的复杂度？",
+   "back": "NP-complete；但 9×9 是常数规模，程序可以秒解。",
+   "chapterId": "ch14",
+   "tags": [
+    "ch14"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "数独",
+   "en": "",
+   "def": "在 9×9 盘面上填 1–9，使每行、每列、每宫各含 1–9 一次。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "格",
+   "en": "",
+   "def": "盘面上的一个位置，共 81 个。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "行",
+   "en": "",
+   "def": "横向 9 格，共 9 行。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "列",
+   "en": "",
+   "def": "纵向 9 格，共 9 列。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "宫",
+   "en": "",
+   "def": "粗线围出的 3×3 区域，共 9 个。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "单元",
+   "en": "",
+   "def": "行、列、宫的统称；一个单元有 9 格，必须含 1–9 各一次。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "坐标",
+   "en": "",
+   "def": "R4C5 表示第 4 行第 5 列；行在前，列在后。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "提示数",
+   "en": "",
+   "def": "题目一开始给出的数字，也叫线索（clue）。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "终盘",
+   "en": "",
+   "def": "填满且合法的完整盘面。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "合法",
+   "en": "",
+   "def": "没有同一行、同一列或同一宫重复的数字。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "唯一解",
+   "en": "",
+   "def": "一盘题只有一个合法终盘；多解则是两个及以上。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "候选数",
+   "en": "",
+   "def": "某个空格当前还可能填的数字，记作铅笔标记。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "铅笔标记",
+   "en": "",
+   "def": "在格子里用小字写候选数，通常按 1–9 固定位置排列。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "排除",
+   "en": "",
+   "def": "从某格候选里划掉一个数字，不是填数。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "落子",
+   "en": "",
+   "def": "把某个候选确定为该格的数字。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "唯一余数",
+   "en": "",
+   "def": "某格只剩一个候选，直接填它（Naked Single）。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "隐性唯一",
+   "en": "",
+   "def": "某单元里某数字只剩一个位置，填它（Hidden Single）。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "区块",
+   "en": "",
+   "def": "一个宫里某数字的候选集中在一条线（行或列）上。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "指向",
+   "en": "",
+   "def": "宫 → 线：宫内的候选锁在一条线上，删这条线在宫外的候选。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "声明",
+   "en": "",
+   "def": "线 → 宫：线上的候选锁在一个宫内，删这个宫在线外的候选。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "显性数对",
+   "en": "",
+   "def": "同一单元两格的候选并集恰好是 {a,b}，其他格删 a、b。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "隐性数对",
+   "en": "",
+   "def": "同一单元两个数字只出现在两格，这两格只保留这两个数字。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "三数组 / 四数组",
+   "en": "",
+   "def": "显性或隐性数组在 n=3、4 时的形式。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "共轭对",
+   "en": "",
+   "def": "某单元里同一数字只剩两个位置；两者必有一真。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "X-Wing",
+   "en": "",
+   "def": "两行某数字都只剩相同两列，形成 2×2 矩形，删这两列其他行的该数字。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "Swordfish",
+   "en": "",
+   "def": "X-Wing 的三线版本：3 行 3 列。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "Jellyfish",
+   "en": "",
+   "def": "X-Wing 的四线版本：4 行 4 列。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "XY-Wing",
+   "en": "",
+   "def": "双值枢纽 {x,y} 与两翼 {x,z}、{y,z}，删两翼共同可见格的 z。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "XYZ-Wing",
+   "en": "",
+   "def": "三值枢纽 {x,y,z} 与两翼 {x,z}、{y,z}，删三格共同可见格的 z。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "唯一矩形",
+   "en": "",
+   "def": "利用唯一解假设排除矩形第四格的 a、b 的技巧。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "死锁模式",
+   "en": "",
+   "def": "四格 {a,b} 可互换产生第二解的结构，唯一矩形要避免它。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "强链",
+   "en": "",
+   "def": "两个候选至少一个为真（¬A→B）。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "弱链",
+   "en": "",
+   "def": "两个候选至多一个为真（A→¬B）。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "染色",
+   "en": "",
+   "def": "把同一数字的共轭对交替染成两色，用颜色冲突排除候选。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "AIC",
+   "en": "",
+   "def": "交替推理链：强链、弱链交替，两端为强链时至少一端为真。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "回溯",
+   "en": "",
+   "def": "选一个候选试填，失败后退回上一步换下一个候选。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "MRV",
+   "en": "",
+   "def": "Minimum Remaining Values：优先选候选最少的格子试填。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "精确覆盖",
+   "en": "",
+   "def": "用一组行精确覆盖所有列一次的问题模型。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "DLX",
+   "en": "",
+   "def": "Dancing Links，Knuth 提出的十字链表，用来高效实现精确覆盖。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "挖洞法",
+   "en": "",
+   "def": "从完整终盘逐个去掉提示数，每次用求解器确认仍然唯一解。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "难度层级",
+   "en": "",
+   "def": "解出题目所需的最低技巧层级，不等于提示数。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "拉丁方",
+   "en": "",
+   "def": "每行每列各含 1–n 一次的 n×n 方阵；数独是带宫约束的 9 阶拉丁方。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "对称挖洞",
+   "en": "",
+   "def": "按中心对称成对去掉提示数，盘面更整齐，但会限制能挖到的难度。",
+   "chapterIds": [
+    "ch15"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": null,
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 16,
+  "concepts": 0
+ },
+ "signature": "71cb1ab7b1e3",
+ "contentHash": ""
+}

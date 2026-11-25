@@ -1,0 +1,475 @@
+{
+ "repo": "math-basics-enlighten",
+ "bookSlug": "permutations-combinations",
+ "title": "排列与组合",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "08-排列与组合/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 12,
+  "glossary": 9
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：两条原理与排列",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "08-排列与组合/chapters/ch01-principles-permutation.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-08-排列与组合 吴世煦.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：组合与组合数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "08-排列与组合/chapters/ch02-combination.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-08-排列与组合 吴世煦.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：可重复排列与分组分配",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "08-排列与组合/chapters/ch03-repeat-grouping.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-08-排列与组合 吴世煦.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "有序与无序",
+   "chapterIds": [
+    "ch01",
+    "ch02"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "08-排列与组合/concepts/c01-ordered-unordered.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-08-排列与组合 吴世煦.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "先分组后分配",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "08-排列与组合/concepts/c02-group-then-assign.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-08-排列与组合 吴世煦.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "从 5 人中选 3 人排成一排，共有多少种排法：",
+   "options": [
+    "10",
+    "60",
+    "125",
+    "15"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "A(5,3)=5×4×3=60。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "从甲地到乙地有 3 条路，从乙地到丙地有 4 条路，从甲到丙必须经乙，共有多少种走法：",
+   "options": [
+    "7",
+    "12",
+    "34",
+    "4"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "分两步，用乘法原理：3×4=12。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "从 6 名同学中选 2 名当代表，共有多少种选法：",
+   "options": [
+    "30",
+    "15",
+    "12",
+    "36"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "不分顺序，C(6,2)=15。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "C(10,3) 的值是：",
+   "options": [
+    "120",
+    "720",
+    "240",
+    "90"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "C(10,3)=10×9×8/6=120。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "用 1、2、3 组成允许重复的三位数，共有多少个：",
+   "options": [
+    "6",
+    "9",
+    "27",
+    "81"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "每一位都有 3 种选择：3³=27。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "6 人平均分成 3 组，每组 2 人，共有多少种分法：",
+   "options": [
+    "90",
+    "15",
+    "60",
+    "20"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "C(6,2)C(4,2)C(2,2)/3!=15×6×1/6=15。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "从 7 人中选 3 人排成一排照相，共有多少种排法：",
+   "options": [
+    "35",
+    "210",
+    "343",
+    "21"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "有序，A(7,3)=7×6×5=210。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "把 4 本不同的书平均分成两堆，每堆 2 本，共有多少种分法：",
+   "options": [
+    "6",
+    "3",
+    "12",
+    "4"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "C(4,2)C(2,2)/2!=3，两堆无标号要除以 2!。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：两条原理与排列」的一句话核心是什么？",
+   "back": "分类用加法、分步用乘法；有序用排列。",
+   "chapterId": "ch01",
+   "tags": [
+    "permutations-combinations",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：组合与组合数」的一句话核心是什么？",
+   "back": "组合只问“选哪些”，不问“怎么排”；所以 C(n,m)=A(n,m)/m!。",
+   "chapterId": "ch02",
+   "tags": [
+    "permutations-combinations",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：可重复排列与分组分配」的一句话核心是什么？",
+   "back": "允许重复时每一步都有 n 种；分组时若各组人数相同，要除以组数的阶乘。",
+   "chapterId": "ch03",
+   "tags": [
+    "permutations-combinations",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「加法原理」？",
+   "back": "分类计数，各类互斥则相加。",
+   "chapterId": "ch01",
+   "tags": [
+    "permutations-combinations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「乘法原理」？",
+   "back": "分步计数，各步相依则相乘。",
+   "chapterId": "ch01",
+   "tags": [
+    "permutations-combinations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「排列」？",
+   "back": "取出的元素要计顺序的排法。",
+   "chapterId": "ch01",
+   "tags": [
+    "permutations-combinations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「全排列」？",
+   "back": "n 个元素全部参与排列，共 n! 种。",
+   "chapterId": "ch01",
+   "tags": [
+    "permutations-combinations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「组合」？",
+   "back": "只计取出哪些元素、不计顺序。",
+   "chapterId": "ch02",
+   "tags": [
+    "permutations-combinations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「组合数」？",
+   "back": "C(n,m)=n!/[m!(n−m)!]。",
+   "chapterId": "ch02",
+   "tags": [
+    "permutations-combinations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「可重复排列」？",
+   "back": "元素可重复取用，数目为 nᵐ。",
+   "chapterId": "ch03",
+   "tags": [
+    "permutations-combinations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「均匀分组」？",
+   "back": "各组元素个数相同，需除以组数阶乘。",
+   "chapterId": "ch03",
+   "tags": [
+    "permutations-combinations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「分配」？",
+   "back": "把分好的组派到有标号的位置。",
+   "chapterId": "ch03",
+   "tags": [
+    "permutations-combinations",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "加法原理",
+   "en": "",
+   "def": "分类计数，各类互斥则相加。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "乘法原理",
+   "en": "",
+   "def": "分步计数，各步相依则相乘。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "排列",
+   "en": "",
+   "def": "取出的元素要计顺序的排法。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "全排列",
+   "en": "",
+   "def": "n 个元素全部参与排列，共 n! 种。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "组合",
+   "en": "",
+   "def": "只计取出哪些元素、不计顺序。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "组合数",
+   "en": "",
+   "def": "C(n,m)=n!/[m!(n−m)!]。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "可重复排列",
+   "en": "",
+   "def": "元素可重复取用，数目为 nᵐ。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "均匀分组",
+   "en": "",
+   "def": "各组元素个数相同，需除以组数阶乘。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "分配",
+   "en": "",
+   "def": "把分好的组派到有标号的位置。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "05c80560900d",
+ "contentHash": "a53c004b9813",
+ "duplicateGroup": "05c80560900d"
+}

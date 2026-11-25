@@ -1,0 +1,475 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "linear-quadratic-functions",
+ "title": "一次函数与二次函数",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/06-一次函数与二次函数/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 12,
+  "glossary": 9
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：函数与图象",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/06-一次函数与二次函数/chapters/ch01-function-image.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-06-一次函数与二次函数 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：一次函数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/06-一次函数与二次函数/chapters/ch02-linear-function.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-06-一次函数与二次函数 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：二次函数与变化率",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/06-一次函数与二次函数/chapters/ch03-quadratic-function.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-06-一次函数与二次函数 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "函数三要素",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "ch01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/06-一次函数与二次函数/concepts/c01-three-elements.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-06-一次函数与二次函数 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "变化率",
+   "chapterIds": [
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/06-一次函数与二次函数/concepts/c02-rate-of-change.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-06-一次函数与二次函数 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "下列关系中，y 是 x 的函数的是：",
+   "options": [
+    "x²+y²=1",
+    "y²=x",
+    "y=2x+1",
+    "|y|=x"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "其余三个都出现一个 x 对应两个 y 的情况，不满足唯一性。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "f(x)=x² 在 [−1,2] 上的值域是：",
+   "options": [
+    "[1,4]",
+    "[0,4]",
+    "[0,1]",
+    "[−1,4]"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "x=0 时取到最小值 0，x=2 时取到最大值 4，故值域 [0,4]。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "一次函数 y=3x−6 的零点是：",
+   "options": [
+    "x=−2",
+    "x=2",
+    "x=6",
+    "x=3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "3x−6=0 得 x=2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "若一次函数 y=kx+b 的图象经过第一、二、四象限，则：",
+   "options": [
+    "k>0，b>0",
+    "k<0，b>0",
+    "k<0，b<0",
+    "k>0，b<0"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "直线下降说明 k<0；与 y 轴交于正半轴说明 b>0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "y=x²−6x+5 的顶点坐标是：",
+   "options": [
+    "(3,−4)",
+    "(−3,−4)",
+    "(3,4)",
+    "(3,−5)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "配方 y=(x−3)²−4，顶点 (3,−4)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "y=−x²+2x+3 的最大值是：",
+   "options": [
+    "3",
+    "4",
+    "−4",
+    "2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "y=−(x−1)²+4，开口向下，x=1 时取最大值 4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "y=2x²−8x+3 的对称轴是：",
+   "options": [
+    "x=2",
+    "x=−2",
+    "x=4",
+    "x=1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "对称轴 x=−b/2a=8/4=2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "一次函数 y=−3x+9 中，y 随 x 增大而：",
+   "options": [
+    "增大",
+    "减小",
+    "不变",
+    "先增后减"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "k=−3<0，函数单调递减。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：函数与图象」的一句话核心是什么？",
+   "back": "函数不是公式，是一条规则：给定输入，唯一确定输出。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-quadratic-functions",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：一次函数」的一句话核心是什么？",
+   "back": "一次函数 y=kx+b 的变化率恒为 k：k 正则升，k 负则降，b 是它与 y 轴的交点。",
+   "chapterId": "ch02",
+   "tags": [
+    "linear-quadratic-functions",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：二次函数与变化率」的一句话核心是什么？",
+   "back": "二次函数的一切都藏在顶点式 y=a(x−h)²+k 里：a 定开口，顶点 (h,k) 定最值。",
+   "chapterId": "ch03",
+   "tags": [
+    "linear-quadratic-functions",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「函数」？",
+   "back": "一个输入对应唯一输出的规则。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-quadratic-functions",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「定义域」？",
+   "back": "允许输入的所有取值组成的集合。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-quadratic-functions",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「值域」？",
+   "back": "所有实际输出组成的集合。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-quadratic-functions",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「增函数」？",
+   "back": "x 增大时 y 也增大的函数。",
+   "chapterId": "ch01",
+   "tags": [
+    "linear-quadratic-functions",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「斜率」？",
+   "back": "一次函数 y=kx+b 中的 k，反映倾斜与增减。",
+   "chapterId": "ch02",
+   "tags": [
+    "linear-quadratic-functions",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「截距」？",
+   "back": "图象与 y 轴交点的纵坐标 b。",
+   "chapterId": "ch02",
+   "tags": [
+    "linear-quadratic-functions",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「顶点式」？",
+   "back": "y=a(x−h)²+k 的形式，直接读出顶点。",
+   "chapterId": "ch03",
+   "tags": [
+    "linear-quadratic-functions",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「对称轴」？",
+   "back": "抛物线关于它左右对称的竖直线 x=−b/2a。",
+   "chapterId": "ch03",
+   "tags": [
+    "linear-quadratic-functions",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「平均变化率」？",
+   "back": "区间两端函数值之差与自变量之差的比。",
+   "chapterId": "ch03",
+   "tags": [
+    "linear-quadratic-functions",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "函数",
+   "en": "",
+   "def": "一个输入对应唯一输出的规则。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "定义域",
+   "en": "",
+   "def": "允许输入的所有取值组成的集合。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "值域",
+   "en": "",
+   "def": "所有实际输出组成的集合。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "增函数",
+   "en": "",
+   "def": "x 增大时 y 也增大的函数。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "斜率",
+   "en": "",
+   "def": "一次函数 y=kx+b 中的 k，反映倾斜与增减。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "截距",
+   "en": "",
+   "def": "图象与 y 轴交点的纵坐标 b。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "顶点式",
+   "en": "",
+   "def": "y=a(x−h)²+k 的形式，直接读出顶点。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "对称轴",
+   "en": "",
+   "def": "抛物线关于它左右对称的竖直线 x=−b/2a。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "平均变化率",
+   "en": "",
+   "def": "区间两端函数值之差与自变量之差的比。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "774f84a27547",
+ "contentHash": "d0283bee5b10",
+ "duplicateGroup": "774f84a27547"
+}

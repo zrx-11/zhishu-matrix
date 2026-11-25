@@ -1,0 +1,540 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "equations-1-2",
+ "title": "一次方程与二次方程",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/03-一次方程与二次方程/manifest.json",
+ "stats": {
+  "chapters": 4,
+  "concepts": 2,
+  "quizzes": 10,
+  "cards": 13,
+  "glossary": 9
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：一元一次方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/03-一次方程与二次方程/chapters/ch01-linear-equation.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-03-一次方程与二次方程 王厚纯 张凤韬.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：一次方程组",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/03-一次方程与二次方程/chapters/ch02-linear-systems.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-03-一次方程与二次方程 王厚纯 张凤韬.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：一元二次方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/03-一次方程与二次方程/chapters/ch03-quadratic-equation.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-03-一次方程与二次方程 王厚纯 张凤韬.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：二次方程组与可化归方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/03-一次方程与二次方程/chapters/ch04-reducible.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-03-一次方程与二次方程 王厚纯 张凤韬.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "同解变形",
+   "chapterIds": [
+    "ch01",
+    "ch04"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/03-一次方程与二次方程/concepts/c01-equivalent-transform.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-03-一次方程与二次方程 王厚纯 张凤韬.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "判别式与韦达定理",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/03-一次方程与二次方程/concepts/c02-discriminant-vieta.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-03-一次方程与二次方程 王厚纯 张凤韬.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "方程 2(x−1)=x+3 的解是：",
+   "options": [
+    "x=1",
+    "x=5",
+    "x=3",
+    "x=−5"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "展开 2x−2=x+3，移项得 x=5。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "关于 x 的方程 ax=b，下列说法正确的是：",
+   "options": [
+    "一定有唯一解 x=b/a",
+    "a=0 时一定无解",
+    "a=0 且 b=0 时任意 x 都是解",
+    "a=0 且 b≠0 时有无穷多解"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "a≠0 时唯一解；a=0、b≠0 无解；a=0、b=0 时恒成立，任意解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "方程组 x+y=7，x−y=1 的解是：",
+   "options": [
+    "x=4，y=3",
+    "x=3，y=4",
+    "x=5，y=2",
+    "x=6，y=1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "两式相加 2x=8 得 x=4，代回得 y=3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "消元后出现 0=5 这样的式子，说明方程组：",
+   "options": [
+    "有唯一解",
+    "有无穷多解",
+    "无解",
+    "解为正数"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "0=5 是矛盾式，说明不存在同时满足所有方程的解，即无解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "方程 x²−5x+6=0 的两根是：",
+   "options": [
+    "2 和 3",
+    "−2 和 −3",
+    "1 和 6",
+    "−1 和 −6"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "因式分解 (x−2)(x−3)=0，或用公式：Δ=1，x=(5±1)/2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "方程 x²+2x+5=0 的根的情况是：",
+   "options": [
+    "两个不等实根",
+    "两个相等实根",
+    "没有实根",
+    "无法判断"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "Δ=4−20=−16<0，无实根。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "方程 x⁴−5x²+4=0 的实根个数是：",
+   "options": [
+    "2",
+    "3",
+    "4",
+    "0"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "设 t=x²：t²−5t+4=0 得 t=1 或 4，均非负，故 x=±1、±2，共 4 个实根。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "解分式方程时，验根的目的是：",
+   "options": [
+    "检查计算是否正确",
+    "排除使分母为零的增根",
+    "确认解是正数",
+    "检查是否为整数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "去分母时乘了含未知数的式子，可能引入使分母为零的根，必须代回原方程排除。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "__all__",
+   "stem": "方程 x²−2x−8=0 的两根之和与两根之积分别是：",
+   "options": [
+    "2 和 −8",
+    "−2 和 −8",
+    "2 和 8",
+    "−2 和 8"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "a=1，b=−2，c=−8：和为 −b/a=2，积为 c/a=−8。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "__all__",
+   "stem": "若关于 x 的方程 kx²+2x+1=0 有两个不相等的实根，则 k 的取值范围是：",
+   "options": [
+    "k<1",
+    "k<1 且 k≠0",
+    "k>1",
+    "k≤1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "二次方程要求 k≠0；两个不等实根要求 Δ=4−4k>0，即 k<1。合起来 k<1 且 k≠0。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：一元一次方程」的一句话核心是什么？",
+   "back": "解方程就是在等式两边同时做同一件事，把未知数一步步孤立出来。",
+   "chapterId": "ch01",
+   "tags": [
+    "equations-1-2",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：一次方程组」的一句话核心是什么？",
+   "back": "解方程组只有一个策略：消元——把多个未知数一个个消掉，直到只剩一个。",
+   "chapterId": "ch02",
+   "tags": [
+    "equations-1-2",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：一元二次方程」的一句话核心是什么？",
+   "back": "二次方程靠配方变成“完全平方＝常数”，开方就得到两个根；判别式就是那个常数是否非负。",
+   "chapterId": "ch03",
+   "tags": [
+    "equations-1-2",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "「第 4 章：二次方程组与可化归方程」的一句话核心是什么？",
+   "back": "遇到高次或复杂方程，先想办法降次或消元；化归之后必须回代验根，因为变形可能扩大定义域。",
+   "chapterId": "ch04",
+   "tags": [
+    "equations-1-2",
+    "核心"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「方程」？",
+   "back": "含未知数的等式，使等式成立的未知数值叫解。",
+   "chapterId": "ch01",
+   "tags": [
+    "equations-1-2",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「移项」？",
+   "back": "把项从等式一边移到另一边并变号，本质是两边同加相反数。",
+   "chapterId": "ch01",
+   "tags": [
+    "equations-1-2",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「消元」？",
+   "back": "通过代入或加减，减少方程组中未知数的个数。",
+   "chapterId": "ch02",
+   "tags": [
+    "equations-1-2",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「配方」？",
+   "back": "把二次式改写成完全平方加常数的形式。",
+   "chapterId": "ch03",
+   "tags": [
+    "equations-1-2",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「判别式」？",
+   "back": "Δ=b²−4ac，判断二次方程实根个数。",
+   "chapterId": "ch03",
+   "tags": [
+    "equations-1-2",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「韦达定理」？",
+   "back": "两根之和为 −b/a，两根之积为 c/a。",
+   "chapterId": "ch03",
+   "tags": [
+    "equations-1-2",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「换元」？",
+   "back": "用一个新变量替换原式中的某部分，达到降次或简化。",
+   "chapterId": "ch04",
+   "tags": [
+    "equations-1-2",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「增根」？",
+   "back": "变形后产生、但不满足原方程的解。",
+   "chapterId": "ch04",
+   "tags": [
+    "equations-1-2",
+    "术语"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "什么是「验根」？",
+   "back": "把候选解代回原方程，排除增根。",
+   "chapterId": "ch04",
+   "tags": [
+    "equations-1-2",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "方程",
+   "en": "",
+   "def": "含未知数的等式，使等式成立的未知数值叫解。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "移项",
+   "en": "",
+   "def": "把项从等式一边移到另一边并变号，本质是两边同加相反数。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "消元",
+   "en": "",
+   "def": "通过代入或加减，减少方程组中未知数的个数。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "配方",
+   "en": "",
+   "def": "把二次式改写成完全平方加常数的形式。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "判别式",
+   "en": "",
+   "def": "Δ=b²−4ac，判断二次方程实根个数。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "韦达定理",
+   "en": "",
+   "def": "两根之和为 −b/a，两根之积为 c/a。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "换元",
+   "en": "",
+   "def": "用一个新变量替换原式中的某部分，达到降次或简化。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "增根",
+   "en": "",
+   "def": "变形后产生、但不满足原方程的解。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "验根",
+   "en": "",
+   "def": "把候选解代回原方程，排除增根。",
+   "chapterIds": [
+    "ch04"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 4,
+  "concepts": 2
+ },
+ "signature": "a9f692096b71",
+ "contentHash": "6355d56215a4",
+ "duplicateGroup": "a9f692096b71"
+}

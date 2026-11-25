@@ -1,0 +1,1316 @@
+{
+ "repo": "math-analysis",
+ "bookSlug": "math-analysis-lower",
+ "title": "数学分析（下册）",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "book/02-数学分析下册/manifest.json",
+ "stats": {
+  "chapters": 12,
+  "concepts": 6,
+  "quizzes": 24,
+  "cards": 24,
+  "glossary": 34
+ },
+ "chapters": [
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：数项级数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch12-series.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 1
+   }
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：函数列与函数项级数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch12"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch13-function-series.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 25
+   }
+  },
+  {
+   "id": "ch14",
+   "num": 14,
+   "title": "第 14 章：幂级数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch13"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch14-power-series.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 41
+   }
+  },
+  {
+   "id": "ch15",
+   "num": 15,
+   "title": "第 15 章：傅里叶级数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch14"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch15-fourier.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 60
+   }
+  },
+  {
+   "id": "ch16",
+   "num": 16,
+   "title": "第 16 章：多元函数的极限与连续",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch15"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch16-multivariable-limits.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 82
+   }
+  },
+  {
+   "id": "ch17",
+   "num": 17,
+   "title": "第 17 章：多元函数微分学",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch16"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch17-multivariable-calculus.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 102
+   }
+  },
+  {
+   "id": "ch18",
+   "num": 18,
+   "title": "第 18 章：隐函数定理及其应用",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch17"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch18-implicit-function.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 136
+   }
+  },
+  {
+   "id": "ch19",
+   "num": 19,
+   "title": "第 19 章：含参量积分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch13"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch19-parameter-integral.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 163
+   }
+  },
+  {
+   "id": "ch20",
+   "num": 20,
+   "title": "第 20 章：曲线积分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch17"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch20-line-integral.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 185
+   }
+  },
+  {
+   "id": "ch21",
+   "num": 21,
+   "title": "第 21 章：重积分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch18",
+    "ch20"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch21-multiple-integral.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 198
+   }
+  },
+  {
+   "id": "ch22",
+   "num": 22,
+   "title": "第 22 章：曲面积分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch20",
+    "ch21"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch22-surface-integral.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 259
+   }
+  },
+  {
+   "id": "ch23",
+   "num": 23,
+   "title": "第 23 章：向量函数微分学",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch17",
+    "ch18"
+   ],
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/chapters/ch23-vector-calculus.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 285
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c07",
+   "title": "一致收敛",
+   "chapterIds": [
+    "ch13"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/concepts/c07-uniform-convergence.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 25
+   }
+  },
+  {
+   "id": "c08",
+   "title": "傅里叶级数",
+   "chapterIds": [
+    "ch15"
+   ],
+   "prerequisites": [
+    "c07"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/concepts/c08-fourier.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 60
+   }
+  },
+  {
+   "id": "c09",
+   "title": "全微分与可微性",
+   "chapterIds": [
+    "ch17"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/concepts/c09-differentiability.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 104
+   }
+  },
+  {
+   "id": "c10",
+   "title": "隐函数定理",
+   "chapterIds": [
+    "ch18"
+   ],
+   "prerequisites": [
+    "c09"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/concepts/c10-implicit.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 136
+   }
+  },
+  {
+   "id": "c11",
+   "title": "格林公式",
+   "chapterIds": [
+    "ch21"
+   ],
+   "prerequisites": [
+    "c09"
+   ],
+   "brief": "",
+   "depth": "concepts/c11-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/concepts/c11-green.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 214
+   }
+  },
+  {
+   "id": "c12",
+   "title": "高斯公式与斯托克斯公式",
+   "chapterIds": [
+    "ch22"
+   ],
+   "prerequisites": [
+    "c11"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-analysis",
+    "path": "book/02-数学分析下册/concepts/c12-gauss.md"
+   },
+   "bookSource": {
+    "file": "数分下.pdf",
+    "page": 269
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch12",
+   "stem": "∑1/n^{1.1} 的敛散性是？",
+   "options": [
+    "收敛",
+    "发散",
+    "条件收敛",
+    "无法判断"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "p=1.1>1，p 级数收敛。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch12",
+   "stem": "∑1/[n(n+1)] 的和是？",
+   "options": [
+    "1",
+    "2",
+    "发散",
+    "1/2"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "裂项为 1/n-1/(n+1)，部分和 1-1/(n+1)→1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch13",
+   "stem": "f_n(x)=x^n 在 [0,1] 上？",
+   "options": [
+    "一致收敛于 0",
+    "点态收敛但不一致收敛",
+    "不收敛",
+    "一致收敛于 1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "x<1 时趋于 0，x=1 时为 1；sup|x^n-0|=1 不趋于 0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch13",
+   "stem": "∑cos(nx)/n³ 在 R 上一致收敛吗？",
+   "options": [
+    "是，用 M 判别法",
+    "否，通项不趋于 0",
+    "只在 [0,1] 上",
+    "无法判断"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "|cos nx/n³|≤1/n³，∑1/n³ 收敛，由 M 判别法。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch14",
+   "stem": "∑x^n/2^n 的收敛半径是？",
+   "options": [
+    "1/2",
+    "1",
+    "2",
+    "∞"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "a_n=2^{-n}，L=1/2，R=2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch14",
+   "stem": "∑x^n/n! 的和函数是？",
+   "options": [
+    "e^x",
+    "e^{-x}",
+    "1/(1-x)",
+    "ln(1+x)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "这是 e^x 的麦克劳林展开，收敛区间为 R。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch15",
+   "stem": "f(x)=x 在 [-π,π] 上的傅里叶系数满足？",
+   "options": [
+    "a_n=0，b_n≠0",
+    "a_n≠0，b_n=0",
+    "两者都非零",
+    "两者都为零"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "x 是奇函数，与 cos nx 正交，a_n=0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch15",
+   "stem": "f(x)=x 的傅里叶级数在 x=π 处收敛到？",
+   "options": [
+    "π",
+    "0",
+    "π/2",
+    "-π"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "端点取左右极限平均 (-π+π)/2=0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch16",
+   "stem": "lim(x,y→0) xy/(x²+y²) 等于？",
+   "options": [
+    "0",
+    "1",
+    "不存在",
+    "∞"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "沿 y=kx 得 k/(1+k²)，随 k 变化。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch16",
+   "stem": "lim(x,y→0) x²y/(x²+y²) 等于？",
+   "options": [
+    "0",
+    "1",
+    "不存在",
+    "∞"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "极坐标下 |f|≤r→0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch17",
+   "stem": "xy/(x²+y²) 在原点（补 0）？",
+   "options": [
+    "可微",
+    "偏导存在但不连续",
+    "连续但不可微",
+    "偏导不存在"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "沿坐标轴偏导为 0，但沿 y=x 极限为 1/2，不连续。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch17",
+   "stem": "f=x²+y² 在 (1,1) 的梯度是？",
+   "options": [
+    "(1,1)",
+    "(2,2)",
+    "(2,1)",
+    "(0,0)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "f_x=2x，f_y=2y，代入得 (2,2)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch18",
+   "stem": "x²+y²=1 在 (0,1) 处的 y' 是？",
+   "options": [
+    "0",
+    "1",
+    "-1",
+    "不存在"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "y'=-x/y，代入得 0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch18",
+   "stem": "F=x²+y²+z²-1 在 (1,0,0) 的法向量是？",
+   "options": [
+    "(1,0,0)",
+    "(2,0,0)",
+    "(0,0,2)",
+    "(0,0,0)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "∇F=(2x,2y,2z)，代入得 (2,0,0)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch19",
+   "stem": "Γ(5) 等于？",
+   "options": [
+    "24",
+    "120",
+    "4",
+    "√π"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Γ(5)=4!=24。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch19",
+   "stem": "B(1,1) 等于？",
+   "options": [
+    "1",
+    "0",
+    "1/2",
+    "2"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "∫₀¹dx=1，或 Γ(1)Γ(1)/Γ(2)=1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch20",
+   "stem": "第一型曲线积分与方向的关系？",
+   "options": [
+    "反向变号",
+    "无关",
+    "反向加倍",
+    "只与起点有关"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "弧长恒为正，与方向无关。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch20",
+   "stem": "∫x dy+y dx 沿 y=x 从 (0,0) 到 (1,1) 等于？",
+   "options": [
+    "0",
+    "1",
+    "2",
+    "1/2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "参数化后 ∫₀¹2t dt=1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch21",
+   "stem": "极坐标下 dxdy 等于？",
+   "options": [
+    "drdθ",
+    "r drdθ",
+    "r² drdθ",
+    "(1/r) drdθ"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "雅可比行列式为 r。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch21",
+   "stem": "∮(x²-y)dx+(x+y²)dy 沿单位圆正向等于？",
+   "options": [
+    "0",
+    "π",
+    "2π",
+    "-2π"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "Q_x-P_y=1-(-1)=2，乘面积 π 得 2π。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch22",
+   "stem": "高斯公式把闭曲面积分化为？",
+   "options": [
+    "曲线积分",
+    "三重积分",
+    "二重积分",
+    "第一型曲面积分"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "右端是散度在体积上的三重积分。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch22",
+   "stem": "F=(x,y,z) 的散度是？",
+   "options": [
+    "0",
+    "1",
+    "3",
+    "向量"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "P_x+Q_y+R_z=1+1+1=3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch23",
+   "stem": "f:R^n→R^m 的雅可比矩阵形状是？",
+   "options": [
+    "n×n",
+    "m×n",
+    "n×m",
+    "m×m"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "m 个分量、n 个自变量，矩阵 m 行 n 列。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch23",
+   "stem": "反函数定理要求雅可比矩阵？",
+   "options": [
+    "对称",
+    "可逆（行列式非零）",
+    "为零",
+    "正定"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "行列式非零是局部一一对应的判据。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "级数收敛的必要条件",
+   "back": "通项 u_n 趋于 0（不充分）。",
+   "chapterId": "ch12",
+   "tags": [
+    "级数"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "p 级数敛散",
+   "back": "∑n^{-p}：p>1 收敛，p≤1 发散。",
+   "chapterId": "ch12",
+   "tags": [
+    "级数"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "点态与一致收敛的区别",
+   "back": "点态 N 依赖 x；一致收敛 N 只依赖 ε，对所有 x 通用。",
+   "chapterId": "ch13",
+   "tags": [
+    "一致收敛"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "M 判别法",
+   "back": "|u_n(x)|≤M_n 且 ∑M_n 收敛，则函数项级数一致收敛。",
+   "chapterId": "ch13",
+   "tags": [
+    "一致收敛"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "收敛半径公式",
+   "back": "R=1/L，L 为相邻系数比或根值的极限。",
+   "chapterId": "ch14",
+   "tags": [
+    "幂级数"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "五个常用展开式",
+   "back": "e^x、sin x、cos x、ln(1+x)、(1+x)^α。",
+   "chapterId": "ch14",
+   "tags": [
+    "幂级数"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "傅里叶系数公式",
+   "back": "a_n=1/π∫f cos nx dx，b_n=1/π∫f sin nx dx。",
+   "chapterId": "ch15",
+   "tags": [
+    "傅里叶"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "收敛定理三条",
+   "back": "连续点收敛 f，间断点收敛左右平均，端点同理。",
+   "chapterId": "ch15",
+   "tags": [
+    "傅里叶"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "证明二重极限不存在的方法",
+   "back": "找两条路径给不同极限，如 y=kx。",
+   "chapterId": "ch16",
+   "tags": [
+    "多元极限"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "重极限与累次极限的关系",
+   "back": "重极限存在可推出累次极限相等，反之不成立。",
+   "chapterId": "ch16",
+   "tags": [
+    "多元极限"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "可微的充分条件",
+   "back": "偏导存在且连续（不是必要条件）。",
+   "chapterId": "ch17",
+   "tags": [
+    "微分"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "方向导数与梯度",
+   "back": "方向导数等于梯度与单位方向向量的内积。",
+   "chapterId": "ch17",
+   "tags": [
+    "微分"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "隐函数求导公式",
+   "back": "y'=-F_x/F_y，要求 F_y≠0。",
+   "chapterId": "ch18",
+   "tags": [
+    "隐函数"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "条件极值的方程组",
+   "back": "∇f=λ∇g，联合约束 g=0 求解。",
+   "chapterId": "ch18",
+   "tags": [
+    "极值"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "Γ 函数递推",
+   "back": "Γ(s+1)=sΓ(s)，Γ(n+1)=n!，Γ(1/2)=√π。",
+   "chapterId": "ch19",
+   "tags": [
+    "欧拉积分"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "B 函数与 Γ 函数的关系",
+   "back": "B(p,q)=Γ(p)Γ(q)/Γ(p+q)。",
+   "chapterId": "ch19",
+   "tags": [
+    "欧拉积分"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "两类曲线积分的关系",
+   "back": "∫Pdx+Qdy=∫(P cosα+Q cosβ)ds。",
+   "chapterId": "ch20",
+   "tags": [
+    "曲线积分"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "第二型曲线积分的计算",
+   "back": "参数化后 ∫[P x'(t)+Q y'(t)]dt，方向由参数方向定。",
+   "chapterId": "ch20",
+   "tags": [
+    "曲线积分"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "格林公式",
+   "back": "∮Pdx+Qdy=∬(Q_x-P_y)dσ，L 取正向。",
+   "chapterId": "ch21",
+   "tags": [
+    "重积分"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "路径无关的条件",
+   "back": "单连通区域上 Q_x=P_y，存在势函数。",
+   "chapterId": "ch21",
+   "tags": [
+    "重积分"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "球面坐标雅可比",
+   "back": "ρ²sinφ，不要与柱面的 r 混淆。",
+   "chapterId": "ch21",
+   "tags": [
+    "重积分"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "高斯公式",
+   "back": "∯P dydz+Q dzdx+R dxdy=∭(P_x+Q_y+R_z)dV，取外侧。",
+   "chapterId": "ch22",
+   "tags": [
+    "曲面积分"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "斯托克斯公式",
+   "back": "∮Pdx+Qdy+Rdz=∬(∇×F)·n dS，右手系定向。",
+   "chapterId": "ch22",
+   "tags": [
+    "曲面积分"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "向量函数可微的定义",
+   "back": "Δf=JΔx+o(‖Δx‖)，J 是雅可比矩阵。",
+   "chapterId": "ch23",
+   "tags": [
+    "向量微分"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "部分和",
+   "en": "",
+   "def": "级数前 n 项之和，级数收敛指它收敛",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "正项级数",
+   "en": "",
+   "def": "每项非负的级数，部分和单调递增",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "比值判别法",
+   "en": "",
+   "def": "用相邻项比的极限判断敛散",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "拉贝判别法",
+   "en": "",
+   "def": "比值法失效时用 n(u_n/u_{n+1}-1) 判敛",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "绝对收敛",
+   "en": "",
+   "def": "绝对值级数收敛",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "点态收敛",
+   "en": "",
+   "def": "每点各自收敛，N 可依赖 x",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "一致收敛",
+   "en": "",
+   "def": "整段区间共用一个 N",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "M 判别法",
+   "en": "",
+   "def": "通项被收敛数项级数控制则一致收敛",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "收敛半径",
+   "en": "",
+   "def": "幂级数收敛区间的半长",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "阿贝尔定理",
+   "en": "",
+   "def": "一点收敛则内点绝对收敛，一点发散则外点发散",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "傅里叶系数",
+   "en": "",
+   "def": "函数与三角基函数的内积除以基函数平方积分",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "狄利克雷条件",
+   "en": "",
+   "def": "连续或有限个第一类间断点、有限个极值点",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "重极限",
+   "en": "",
+   "def": "所有路径趋近都给出同一极限",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "累次极限",
+   "en": "",
+   "def": "先对一个变量取极限再对另一个",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "聚点",
+   "en": "",
+   "def": "任意去心邻域含集合中的点",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "偏导数",
+   "en": "",
+   "def": "只让一个变量变化时的变化率",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "可微",
+   "en": "",
+   "def": "增量可由线性函数逼近，误差为高阶小量",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "梯度",
+   "en": "",
+   "def": "偏导构成的向量，指向最陡上升方向",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "黑塞矩阵",
+   "en": "",
+   "def": "二阶偏导构成的对称矩阵",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "雅可比行列式",
+   "en": "",
+   "def": "坐标变换的局部伸缩比例",
+   "chapterIds": [
+    "ch18"
+   ]
+  },
+  {
+   "term": "条件极值",
+   "en": "",
+   "def": "在约束下求极值，用拉格朗日乘数法",
+   "chapterIds": [
+    "ch18"
+   ]
+  },
+  {
+   "term": "含参量积分",
+   "en": "",
+   "def": "被积函数或积分限依赖参数的积分",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "Γ 函数",
+   "en": "",
+   "def": "阶乘的连续推广，Γ(s+1)=sΓ(s)",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "B 函数",
+   "en": "",
+   "def": "与 Γ 函数关联的一类积分，B=ΓΓ/Γ",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "第一型曲线积分",
+   "en": "",
+   "def": "对弧长的积分，与方向无关",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "第二型曲线积分",
+   "en": "",
+   "def": "对坐标的积分，反向变号",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "达布和",
+   "en": "",
+   "def": "区域分割后取上确界或下确界构成的和",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "格林公式",
+   "en": "",
+   "def": "闭曲线积分等于区域上 Q_x-P_y 的二重积分",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "路径无关",
+   "en": "",
+   "def": "曲线积分只与端点有关，等价于存在势函数",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "高斯公式",
+   "en": "",
+   "def": "闭曲面通量等于体内散度的三重积分",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "斯托克斯公式",
+   "en": "",
+   "def": "空间闭曲线环量等于曲面上旋度的积分",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "散度",
+   "en": "",
+   "def": "向量场各分量偏导之和，描述源的强度",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "旋度",
+   "en": "",
+   "def": "描述向量场局部旋转的向量",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "雅可比矩阵",
+   "en": "",
+   "def": "向量函数的导数，元素为偏导",
+   "chapterIds": [
+    "ch23"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 12,
+  "concepts": 6
+ },
+ "signature": "a824627b68f3",
+ "contentHash": "b60e1b1ae498"
+}

@@ -1,0 +1,885 @@
+{
+ "repo": "analysis-handbook",
+ "bookSlug": "analysis-iii",
+ "title": "分析 III",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "03-分析III/manifest.json",
+ "stats": {
+  "chapters": 4,
+  "concepts": 5,
+  "quizzes": 14,
+  "cards": 20,
+  "glossary": 34
+ },
+ "chapters": [
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：测度论基础",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "analysis-handbook",
+    "path": "03-分析III/chapters/ch09-measure.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：积分理论",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "analysis-handbook",
+    "path": "03-分析III/chapters/ch10-integration-theory.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：流形与微分形式",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "analysis-handbook",
+    "path": "03-分析III/chapters/ch11-manifolds-forms.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：流形上的积分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "analysis-handbook",
+    "path": "03-分析III/chapters/ch12-manifold-integration.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c11",
+   "title": "σ-代数与测度",
+   "chapterIds": [
+    "ch09",
+    "ch10"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "analysis-handbook",
+    "path": "03-分析III/concepts/sigma-algebra-measure.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c12",
+   "title": "外测度与可测集",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "analysis-handbook",
+    "path": "03-分析III/concepts/outer-measure.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c13",
+   "title": "收敛定理",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "analysis-handbook",
+    "path": "03-分析III/concepts/convergence-theorems.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c14",
+   "title": "Lp 空间",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "analysis-handbook",
+    "path": "03-分析III/concepts/lp-spaces.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c15",
+   "title": "微分形式与斯托克斯定理",
+   "chapterIds": [
+    "ch11",
+    "ch12"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "analysis-handbook",
+    "path": "03-分析III/concepts/differential-forms-stokes.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch09",
+   "stem": "σ-代数不需要满足下列哪条？",
+   "options": [
+    "包含全集",
+    "对补集封闭",
+    "对可数并封闭",
+    "对任意并封闭"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "σ-代数只要求可数并封闭；任意并超出可数可加性的框架，也不需要。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch09",
+   "stem": "卡拉泰奥多里条件的作用是？",
+   "options": [
+    "定义外测度",
+    "筛选出可测集",
+    "证明选择公理",
+    "计算体积"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "条件 μ*(T) = μ*(T∩A) + μ*(T∩Aᶜ) 对所有 T 成立时称 A 可测，这是从外测度得到测度的筛子。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch09",
+   "stem": "康托集的性质是？",
+   "options": [
+    "可数且测度为 0",
+    "不可数且测度为 0",
+    "不可数且测度为正",
+    "可数且测度为正"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "康托集与 [0,1] 等势（不可数），但总长度（测度）为 0。元素多少与测度大小是两回事。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch10",
+   "stem": "勒贝格积分相对黎曼积分的核心优势是？",
+   "options": [
+    "能算更多初等函数",
+    "不需要测度",
+    "在更弱条件下交换极限与积分",
+    "只适用于连续函数"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "控制收敛定理只需逐点收敛 + 可积控制函数，黎曼积分通常要一致收敛。计算能力不是主要差别。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch10",
+   "stem": "控制收敛定理中“存在可积的 g 使 |fₙ| ≤ g”能否去掉？",
+   "options": [
+    "能，只要 fₙ 逐点收敛",
+    "不能，nχ_{(0,1/n)} 是反例",
+    "能，只要 fₙ 非负",
+    "能，只要测度有限"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "该例逐点收敛到 0，但积分恒为 1；没有可积控制函数，结论失效。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch10",
+   "stem": "换元公式中出现的因子是？",
+   "options": [
+    "det Dφ 的绝对值",
+    "det Dφ 的平方",
+    "‖Dφ‖",
+    "φ 的导数之和"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "雅可比行列式的绝对值是局部体积放大率；一维时就是 |φ′|。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch11",
+   "stem": "关于外微分，正确的说法是？",
+   "options": [
+    "d(dω) = ω",
+    "d(dω) = 0",
+    "d 只在 0-形式上定义",
+    "d 与拉回不可交换"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "d² = 0 是外微分的代数性质；恰当形式必闭，但闭不一定恰当。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch11",
+   "stem": "极坐标下 dx ∧ dy 等于？",
+   "options": [
+    "dr ∧ dθ",
+    "r dr ∧ dθ",
+    "r² dr ∧ dθ",
+    "dr ∧ dθ / r"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "直接计算得 dx ∧ dy = r dr ∧ dθ，因子 r 就是极坐标换元的雅可比行列式。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch11",
+   "stem": "黎曼度量给出的体积元是？",
+   "options": [
+    "det(g) dx",
+    "√|det(g)| dx¹∧…∧dxᵐ",
+    "trace(g) dx",
+    "‖g‖ dx"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "体积元是 √|det g| 乘以坐标楔积；正定度量可以去掉绝对值。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch12",
+   "stem": "流形上体积元的表达式是？",
+   "options": [
+    "dx¹∧…∧dxᵐ",
+    "√|det G| dx¹∧…∧dxᵐ",
+    "det(G) dx",
+    "√(trace G) dx"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "体积元 = √|det G| 乘坐标楔积；欧氏度量为 1，球坐标为 R² sin θ。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch12",
+   "stem": "斯托克斯定理 ∫_∂M ω = ∫_M dω 中，ω 必须是？",
+   "options": [
+    "任意函数",
+    "0-形式",
+    "m-形式",
+    "(m−1)-形式"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "d 把 (m−1)-形式变成 m-形式，才能在 m 维 M 上积分；边界是 (m−1) 维。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch12",
+   "stem": "球面 S² 的面积是？",
+   "options": [
+    "2πR²",
+    "4πR²",
+    "4πR³/3",
+    "πR²"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "∫₀^{2π}∫₀^{π} R² sin θ dθ dφ = 4πR²。4πR³/3 是球的体积。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "aiii-x1",
+   "chapterId": "__all__",
+   "stem": "把测度、积分、流形积分串起来，正确的逻辑顺序是？",
+   "options": [
+    "先定义积分再定义测度",
+    "σ-代数 → 测度 → 可测函数 → 积分 → 流形上的体积元",
+    "流形积分是独立理论，与测度无关",
+    "黎曼积分可以直接推广到流形"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "先有可测结构才有测度，才有可测函数与积分；流形上的体积测度是用坐标卡把局部勒贝格测度抬上去的。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "aiii-x2",
+   "chapterId": "__all__",
+   "stem": "关于斯托克斯定理与拓扑，正确的说法是？",
+   "options": [
+    "闭形式在任何流形上的积分都为 0",
+    "闭形式的积分可以非零，反映流形的洞",
+    "恰当形式不能积分",
+    "斯托克斯定理只对 1-形式成立"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "闭形式在带洞流形上的积分可以非零（如 ∮dz/z = 2πi），这正是德拉姆上同调捕捉的拓扑信息。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "σ-代数的三条公理？",
+   "back": "含全集；对补集封闭；对可数并封闭。",
+   "chapterId": "ch09",
+   "tags": [
+    "测度",
+    "σ-代数"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "外测度与测度的差别？",
+   "back": "外测度对所有子集有定义但只次可加；限制在可测集上才成为测度。",
+   "chapterId": "ch09",
+   "tags": [
+    "测度"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "卡拉泰奥多里条件？",
+   "back": "对所有 T，μ*(T)=μ*(T∩A)+μ*(T∩Aᶜ) 时称 A 可测。",
+   "chapterId": "ch09",
+   "tags": [
+    "测度",
+    "可测"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "康托集的测度与势？",
+   "back": "测度 0，但不可数。",
+   "chapterId": "ch09",
+   "tags": [
+    "反例"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "为什么不能给所有子集赋平移不变测度？",
+   "back": "与选择公理冲突：维塔利构造出不可测集。",
+   "chapterId": "ch09",
+   "tags": [
+    "测度",
+    "选择公理"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "简单函数与可测函数的关系？",
+   "back": "可测函数是简单函数列的几乎处处极限。",
+   "chapterId": "ch10",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "积分定义的三步？",
+   "back": "简单函数积分 → 非负函数取单调极限 → 一般函数拆正负部。",
+   "chapterId": "ch10",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "L1 完备化是什么意思？",
+   "back": "先定义简单函数上的积分，再按 L1 范数取完备化，得到博赫纳–勒贝格积分。",
+   "chapterId": "ch10",
+   "tags": [
+    "积分",
+    "完备"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "控制收敛的条件？",
+   "back": "fₙ→f a.e.，且存在可积 g 使 |fₙ|≤g a.e.。",
+   "chapterId": "ch10",
+   "tags": [
+    "收敛定理"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "Lp 的元素是什么？",
+   "back": "几乎处处相等的函数等价类，不是单个函数。",
+   "chapterId": "ch10",
+   "tags": [
+    "Lp"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "k-形式的定义？",
+   "back": "交替 k-线性映射，交换两个自变量变号。",
+   "chapterId": "ch11",
+   "tags": [
+    "形式"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "楔积的性质？",
+   "back": "α∧β=−β∧α，α∧α=0；dx∧dy 在向量组上取值等于行列式。",
+   "chapterId": "ch11",
+   "tags": [
+    "形式"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "d²=0 的含义？",
+   "back": "外微分的两次作用为零；恰当形式必闭。",
+   "chapterId": "ch11",
+   "tags": [
+    "形式"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "浸入与嵌入的差别？",
+   "back": "浸入要求切映射单射；嵌入还要求到像的同胚（不自交）。",
+   "chapterId": "ch11",
+   "tags": [
+    "流形"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "体积元与度量的关系？",
+   "back": "dV=√|det g| dx¹∧…∧dxᵐ，det g 是格拉姆行列式。",
+   "chapterId": "ch11",
+   "tags": [
+    "度量"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "流形上如何定义可测集？",
+   "back": "逐坐标卡：φ(A∩U) 是 ℝᵐ 的勒贝格可测集；与坐标卡无关。",
+   "chapterId": "ch12",
+   "tags": [
+    "流形",
+    "测度"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "斯托克斯定理的内容？",
+   "back": "∫_∂M ω = ∫_M dω，ω 是 (m−1)-形式，M 可定向有边。",
+   "chapterId": "ch12",
+   "tags": [
+    "斯托克斯"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "斯托克斯的四个特例？",
+   "back": "微积分基本定理、格林公式、高斯散度定理、经典斯托克斯公式。",
+   "chapterId": "ch12",
+   "tags": [
+    "斯托克斯"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "球面面积怎么算？",
+   "back": "∫₀^{2π}∫₀^{π} R² sin θ dθ dφ = 4πR²。",
+   "chapterId": "ch12",
+   "tags": [
+    "计算"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "闭形式积分非零说明什么？",
+   "back": "流形有洞；积分值反映同调/拓扑信息。",
+   "chapterId": "ch12",
+   "tags": [
+    "拓扑"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "σ-代数",
+   "en": "",
+   "def": "对补集与可数并封闭、含全集的集合族。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "测度",
+   "en": "",
+   "def": "σ-代数上的可数可加非负函数。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "博雷尔 σ-代数",
+   "en": "",
+   "def": "包含所有开集的最小 σ-代数。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "外测度",
+   "en": "",
+   "def": "用可数覆盖的体积下确界定义、对所有子集有定义的函数。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "可测集",
+   "en": "",
+   "def": "满足卡拉泰奥多里切割条件的集合。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "零测集",
+   "en": "",
+   "def": "测度为 0 的集合。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "几乎处处",
+   "en": "",
+   "def": "除一个零测集之外处处成立。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "勒贝格测度",
+   "en": "",
+   "def": "ℝⁿ 上由外测度限制得到的平移不变测度。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "豪斯多夫维数",
+   "en": "",
+   "def": "使豪斯多夫测度从无穷跳到零的临界维数。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "简单函数",
+   "en": "",
+   "def": "有限个特征函数的线性组合，只取有限多个值。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "可测函数",
+   "en": "",
+   "def": "简单函数列的几乎处处极限。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "博赫纳–勒贝格积分",
+   "en": "",
+   "def": "向量值函数通过 L1 完备化定义的积分。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "单调收敛定理",
+   "en": "",
+   "def": "非负递增函数列可无条件交换极限与积分。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "法图引理",
+   "en": "",
+   "def": "非负函数列给出 ∫liminf ≤ liminf∫ 的不等式。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "控制收敛定理",
+   "en": "",
+   "def": "存在可积控制函数时，逐点收敛可交换极限与积分。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Lp 空间",
+   "en": "",
+   "def": "p 次方可积函数的等价类空间，配 Lp 范数。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "赫尔德不等式",
+   "en": "",
+   "def": "‖fg‖₁ ≤ ‖f‖ₚ‖g‖_q，1/p+1/q=1。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "闵可夫斯基不等式",
+   "en": "",
+   "def": "Lp 范数满足三角不等式。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "富比尼定理",
+   "en": "",
+   "def": "乘积空间上的积分可化为累次积分。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "卷积",
+   "en": "",
+   "def": "(f∗g)(x)=∫f(x−y)g(y)dy，傅里叶变换下变乘积。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "磨光核",
+   "en": "",
+   "def": "光滑紧支、积分为 1 的非负函数，用于逼近光滑化。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "傅里叶变换",
+   "en": "",
+   "def": "f̂(ξ)=∫f(x)e^(−2πix·ξ)dx，L² 上是酉算子。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "子流形",
+   "en": "",
+   "def": "局部在坐标卡中表现为平面切片的子集。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "浸入",
+   "en": "",
+   "def": "切映射处处单射的光滑映射。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "嵌入",
+   "en": "",
+   "def": "到像为同胚的浸入。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "带边流形",
+   "en": "",
+   "def": "坐标卡取值于半空间，边界为 xₘ=0 的像。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "k-形式",
+   "en": "",
+   "def": "交替 k-线性映射，可楔积、拉回、外微分。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "外微分",
+   "en": "",
+   "def": "d(Σa_I dx^I)=Σda_I∧dx^I，满足 d²=0。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "闭形式",
+   "en": "",
+   "def": "dω=0 的形式。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "恰当形式",
+   "en": "",
+   "def": "等于 dη 的形式。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "黎曼度量",
+   "en": "",
+   "def": "每点切空间上的正定内积场。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "霍奇星",
+   "en": "",
+   "def": "依赖度量与定向、把 k-形式映为 (m−k)-形式的算子。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "体积元",
+   "en": "",
+   "def": "√|det g| dx¹∧…∧dxᵐ，流形上的积分缩放因子。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "斯托克斯定理",
+   "en": "",
+   "def": "∫_∂M ω = ∫_M dω，统一所有积分公式。",
+   "chapterIds": [
+    "ch12"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 4,
+  "concepts": 5
+ },
+ "signature": "ee7c8af98a07",
+ "contentHash": "a7903f4c37dc"
+}

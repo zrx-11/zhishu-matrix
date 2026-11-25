@@ -1,0 +1,2143 @@
+{
+ "repo": "additive-combinatorics-enlighten",
+ "bookSlug": "additive-combinatorics",
+ "title": "加性组合学",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-加性组合学/manifest.json",
+ "stats": {
+  "chapters": 13,
+  "concepts": 14,
+  "quizzes": 45,
+  "cards": 52,
+  "glossary": 52
+ },
+ "chapters": [
+  {
+   "id": "ch00",
+   "num": 0,
+   "title": "第 0 章：导论",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch00-导论.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：概率方法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch01-概率方法.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：和集估计",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch02-和集估计.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：加性几何",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch03-加性几何.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：傅立叶分析方法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch04-傅立叶分析.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：逆和集定理",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch05-逆和集定理.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：图论方法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch06-图论方法.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：Littlewood–Offord 问题",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch07-Littlewood-Offord.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：关联几何",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch08-关联几何.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：代数方法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch09-代数方法.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：k=3 的 Szemerédi 定理",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch10-Szemeredi-k3.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：k>3 的 Szemerédi 定理与 Gowers 范数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch11-Gowers范数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：和集中的长等差数列",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/chapters/ch12-和集中的长等差数列.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "加性集与和集",
+   "chapterIds": [
+    "ch00",
+    "ch02"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c01-加性集与和集.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "倍增常数",
+   "chapterIds": [
+    "ch02",
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c02-倍增常数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "Ruzsa 距离",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c03-Ruzsa距离.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "加性能量",
+   "chapterIds": [
+    "ch02",
+    "ch04"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c04-加性能量.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "覆盖引理",
+   "chapterIds": [
+    "ch02",
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c05-覆盖引理.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "Balog–Szemerédi–Gowers 定理",
+   "chapterIds": [
+    "ch02",
+    "ch06"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c06-BSG定理.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c07",
+   "title": "Freiman 同态与广义等差数列",
+   "chapterIds": [
+    "ch03",
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c07-Freiman同态与GAP.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c08",
+   "title": "傅立叶系数与线性偏差",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c08-傅立叶系数与线性偏差.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c09",
+   "title": "Bohr 集",
+   "chapterIds": [
+    "ch04",
+    "ch10"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c09-Bohr集.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c10",
+   "title": "Littlewood–Offord 集中",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c10-Littlewood-Offord集中.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c11",
+   "title": "Gowers 范数",
+   "chapterIds": [
+    "ch11"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c11-Gowers范数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c12",
+   "title": "Szemerédi 正则引理",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c12-正则引理.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c13",
+   "title": "组合零点定理",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c13-组合零点定理.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c14",
+   "title": "和积问题",
+   "chapterIds": [
+    "ch02",
+    "ch08",
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "additive-combinatorics-enlighten",
+    "path": "01-加性组合学/concepts/c14-和积问题.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q1",
+   "chapterId": "ch00",
+   "stem": "σ[A]=1 意味着什么？",
+   "options": [
+    "A 是空集",
+    "A 是子群或它的陪集",
+    "A 一定是等差数列",
+    "A 的倍增最大"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "σ=1 表示 |A+A|=|A|，集合对加法完全封闭，这正是子群或陪集的特征。等差数列的 σ 通常接近 2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch00",
+   "stem": "等比数列 {1,2,4,…,2^{n−1}} 的 σ 约为多少？",
+   "options": [
+    "1",
+    "2",
+    "n/2",
+    "n²"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "两两之和对应不同的指数组合，和集大小约为 n²/2 量级，除以 n 得到 n/2。这类集合在加法上接近随机。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch00",
+   "stem": "讨论和集之前必须先明确什么？",
+   "options": [
+    "环境群",
+    "集合的基数",
+    "元素的大小顺序",
+    "元素的奇偶性"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "同一个集合放进不同的群，和集可能完全不同。{1,2,3} 在整数里 |A+A|=5，在模 3 群里只有 3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch01",
+   "stem": "若 X 是非负整数值随机变量且 E X<1，能推出什么？",
+   "options": [
+    "存在一个样本使 X=0",
+    "所有样本都有 X=0",
+    "E X=0",
+    "X 恒等于 1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "若处处 X≥1，则 E X≥1，与 E X<1 矛盾，所以必有样本取 0。这是最基础的存在性论证。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch01",
+   "stem": "Chernoff 界是对哪个量使用 Markov 不等式得到的？",
+   "options": [
+    "X",
+    "e^{tX}",
+    "X²",
+    "log X"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "对 e^{tX} 用 Markov 得 P(S≥a) ≤ E e^{tS}/e^{ta}，再对 t 优化得到指数衰减。这是估计尾部的标准动作。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch01",
+   "stem": "Lovász 局部引理条件 e·p·(d+1)≤1 里的 d 指什么？",
+   "options": [
+    "坏事件的总数",
+    "环境群的维数",
+    "每个坏事件的相关事件数上限",
+    "随机变量的个数"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "d 是依赖图中的最大度，即一个坏事件最多与多少个其他坏事件相关。度越大，要求单个坏事件的概率越小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch02",
+   "stem": "Ruzsa 距离是用哪一类集合定义的？",
+   "options": [
+    "和集",
+    "差集",
+    "积集",
+    "补集"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "d(A,B)=log(|A−B|/√(|A||B|))。用差集是因为它更对称，A−A 含 0，三角不等式好证。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch02",
+   "stem": "加性能量 E(A,B) 的下界是什么？",
+   "options": [
+    "|A||B|",
+    "|A|²|B|²/|A+B|",
+    "|A+B|²",
+    "|A|²+|B|²"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "由柯西不等式：把每个和的表示数平方求和，不小于总数的平方除以和集大小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch02",
+   "stem": "BSG 定理保证的是什么？",
+   "options": [
+    "整个 A 的结构都好",
+    "A 本身就是 GAP",
+    "存在大子集，其和集只大常数倍",
+    "A 是子群"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "BSG 必须损失子集：存在 A 的子集与 B 的子集，各损失常数因子，而两者之和集只比 B 的子集大常数倍。不能指望它刻画整个集合。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch03",
+   "stem": "秩为 2、每个方向长度为 3 的 GAP 最多包含多少个点？",
+   "options": [
+    "16",
+    "9",
+    "12",
+    "6"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "每个方向取 0,1,2,3 共 4 种系数，4×4=16。这是体积上界，真 GAP 时取等。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch03",
+   "stem": "Brunn–Minkowski 不等式说的是什么可加？",
+   "options": [
+    "体积",
+    "线性尺度",
+    "元素个数",
+    "维数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "形式是 |A+B|^{1/d} ≥ |A|^{1/d}+|B|^{1/d}，即 d 次根意义下的尺度可加，体积按 d 次方增长。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch03",
+   "stem": "真 GAP 的定义是什么？",
+   "options": [
+    "方向线性无关",
+    "元素个数达到乘积上界",
+    "体积最小",
+    "秩等于 0"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "真是说不同的系数组合不撞车，元素数等于 ∏(N_i+1)。非真会塌缩，后续体积计数全部失效。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch04",
+   "stem": "卷积定理的正确形式是？",
+   "options": [
+    "(f*g) 的变换 = f 的变换乘 g 的变换",
+    "(f+g) 的变换 = 两者变换相加",
+    "(f*g) 的变换 = 两者变换相加",
+    "(fg) 的变换 = 两者变换卷积"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "卷积的傅立叶变换等于各自变换的乘积。这条定理把加法卷积变成逐点乘法，是整章的发动机。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch04",
+   "stem": "一个集合有明显线性偏差，说明什么？",
+   "options": [
+    "它完全随机",
+    "它在某个频率上分布不均",
+    "它的和集一定最大",
+    "它的能量一定最小"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "偏差意味着元素在某个特征的相位上偏向同一方向，通常对应一条等差结构，但不保证形状简单。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch04",
+   "stem": "加性能量用傅立叶系数怎么写？",
+   "options": [
+    "系数的模平方和",
+    "系数的模三次方和",
+    "系数的模四次方和",
+    "系数的模和"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "能量等于 Σ_ξ|Â(ξ)|⁴。四阶矩来自“两个和相等”对应两次卷积，Parseval 展开后自然是四次。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch05",
+   "stem": "e-变换的主要目的是什么？",
+   "options": [
+    "增大和集",
+    "保持和集不增并让集合更规整",
+    "减小集合大小",
+    "更换环境群"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "e-变换是归约工具：在不增大和集的前提下做对称化、极小化，让后续定理的条件成立。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch05",
+   "stem": "无挠情形下 Freiman 定理的结论是什么？",
+   "options": [
+    "A 是子群",
+    "A 落在低秩 GAP 里",
+    "A 一定是等差数列",
+    "A 没有加法关系"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "存在秩不超过 d(K)、大小不超过 C(K)|A| 的 GAP 包含 A，参数只依赖倍增常数 K。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch05",
+   "stem": "有挠群里处理结构问题的正确顺序是？",
+   "options": [
+    "直接套无挠版本",
+    "先分离挠部分再套定理",
+    "先取商群再取子群",
+    "先做傅立叶变换"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "有挠时 A 可能是子群加 GAP 的混合，必须先分离挠部分，再处理无挠部分。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch06",
+   "stem": "Turán 定理给出的独立集下界是？",
+   "options": [
+    "n²/(2e+n)",
+    "n/(2e)",
+    "e/n²",
+    "n²/e"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "n 个顶点、e 条边的图，独立集至少 n²/(2e+n)。它只保证存在，界通常很松。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch06",
+   "stem": "Plünnecke 不等式与 BSG 的关键差别是？",
+   "options": [
+    "前者要损失子集",
+    "前者不损失集合，直接控制多次和集",
+    "两者完全等价",
+    "后者不损失集合"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Plünnecke 是正向的：一次和集膨胀率小，则多次和集膨胀率也受控。BSG 是逆向的，必须挑子集。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch06",
+   "stem": "van der Waerden 定理断言染色区间里必然出现什么？",
+   "options": [
+    "单色团",
+    "单色等差数列",
+    "零和子集",
+    "大独立集"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "把足够长的整数区间染成 r 种颜色，必有一种颜色包含任意指定长度的等差数列。它是结构版的抽屉原理。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch07",
+   "stem": "步长全为 1 时，带符号和的最大重数是什么量级？",
+   "options": [
+    "2^d/√d",
+    "2^d/d",
+    "d",
+    "√d"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "二项式系数在中间最大，约 2^d/√d。这就是 Littlewood–Offord 问题里最集中的极端。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch07",
+   "stem": "Esséen 集中不等式依赖步长的哪个量？",
+   "options": [
+    "步长的最大值",
+    "步长的平方和",
+    "步长的个数",
+    "步长的乘积"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "上界形如 C/√(平方和)，本质是方差控制：带符号和的方差就是平方和。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch07",
+   "stem": "随机 Bernoulli 矩阵奇异的概率是什么量级？",
+   "options": [
+    "2^{-n}",
+    "n^{-1}",
+    "(1/2+o(1))^n",
+    "1/n²"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "奇异概率约 (1/2+o(1))^n。仅两列相同只能给出 n²2^{-n}，真正的成因是列的整数线性组合，要用逆 Littlewood–Offord。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch08",
+   "stem": "n 个顶点的平面简单图最多有多少条边（n≥3）？",
+   "options": [
+    "3n−6",
+    "2n−3",
+    "n²/2",
+    "4n−8"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "欧拉公式给出面数上界，每个面至少三条边，整理得 m≤3n−6。超过的部分必须靠交叉。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch08",
+   "stem": "Szemerédi–Trotter 定理中关联上界的指数是多少？",
+   "options": [
+    "1/2",
+    "2/3",
+    "3/4",
+    "1/3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "关联数不超过 P 的 2/3 次方乘 L 的 2/3 次方，再加 P 与 L 的一次项。2/3 来自交叉数下界与关联数的优化。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch08",
+   "stem": "实数域上的和积估计主要借助什么？",
+   "options": [
+    "组合零点定理",
+    "Stepanov 方法",
+    "关联几何",
+    "超图移除引理"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "加法结构对应斜线，乘法结构对应双曲线，两者的交点受关联上界控制，冲突给出下界。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch09",
+   "stem": "组合零点定理成立需要什么条件？",
+   "options": [
+    "任意环，系数非零",
+    "域，且最高次项系数非零",
+    "域，且所有系数非零",
+    "整环，常数项非零"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "必须是域，零点数不超过次数才可靠；同时要求最高项系数非零，否则多项式可在整个格点上取零。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch09",
+   "stem": "Erdős–Heilbronn 猜想给出的受限和集下界是？",
+   "options": [
+    "两倍集合大小",
+    "min(p, 2|A|−3)",
+    "|A|+|A|",
+    "四倍集合大小减三"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "在 ℤ/pℤ 中受限和集至少是 min(p, 2|A|−3)。p=7、A={0,1,3} 时恰好取到 3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch09",
+   "stem": "Stepanov 方法的核心依据是什么？",
+   "options": [
+    "零点数不超过多项式次数",
+    "次数不超过零点数",
+    "所有系数为零",
+    "域必须是无限的"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "构造一个在目标集合上处处为零的多项式，次数不能太小，由此反推集合大小的界。它和零点定理是同一枚硬币的两面。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch10",
+   "stem": "Szemerédi 定理的结论是什么？",
+   "options": [
+    "正上密度的整数集含任意长的等差数列",
+    "稠密集合至少含一个 3 项等差数列",
+    "随机集合含等差数列",
+    "所有整数集含等差数列"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "是任意长，不是固定长度。k=3 由 Roth 证明，一般情形由 Szemerédi 完成。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch10",
+   "stem": "密度增量策略为什么一定会终止？",
+   "options": [
+    "N 是有限的",
+    "密度每次增加，且有上界 1",
+    "偏差会自动消失",
+    "Bohr 集越来越大"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "每步密度至少增加一个只依赖当前密度的正量，而密度不超过 1，所以迭代次数有限。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch10",
+   "stem": "证明 k=3 的 Szemerédi 定理使用的是？",
+   "options": [
+    "Gowers 范数",
+    "超图移除引理",
+    "线性傅立叶分析",
+    "转移原理"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "3 项等差数列是中点关系，一个频率就能检测，所以线性傅立叶足够。k≥4 才需要 Gowers 范数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch11",
+   "stem": "k 项等差数列由哪个阶的 Gowers 范数控制？",
+   "options": [
+    "k−1 阶",
+    "k 阶",
+    "k+1 阶",
+    "2 阶"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "k 项 AP 对应 k−1 阶差分结构，需要 U^{k−1}。例如 4 项 AP 需要 U³。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch11",
+   "stem": "硬障碍指的是什么？",
+   "options": [
+    "线性相位",
+    "真正的高阶结构，如多项式相位或低维 GAP",
+    "随机噪声",
+    "可以忽略的小偏差"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "软障碍是线性相位造成的形式偏差，除掉相位就能消除；硬障碍是真正的高阶结构，必须识别出来才能继续。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch11",
+   "stem": "Green–Tao 定理证明中的核心技术是什么？",
+   "options": [
+    "密度增量",
+    "正则引理",
+    "转移原理",
+    "Stepanov 方法"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "素数密度为零，不能直接套 Szemerédi。先用筛法构造伪随机权重，在稠密模型里证，再转移回素数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q1",
+   "chapterId": "ch12",
+   "stem": "本章关于长等差数列的结论针对哪个对象？",
+   "options": [
+    "A 本身",
+    "lA",
+    "A−A",
+    "A 的补集"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "结论说的是多次和集 lA 含长等差数列，不能反推回 A。lA 比 A 大得多，结构也更规整。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q2",
+   "chapterId": "ch12",
+   "stem": "完全序列的定义是什么？",
+   "options": [
+    "每项可以重复使用",
+    "每项最多用一次就能表示所有足够大的整数",
+    "密度大于 1/2",
+    "一定含长等差数列"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "完全性看能否表示每个足够大的整数，与密度无关。二进制表示是次完全，不是完全。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q3",
+   "chapterId": "ch12",
+   "stem": "本章结论与 Szemerédi 定理在长度上的差别是？",
+   "options": [
+    "两者都是对数级",
+    "两者都是幂次级",
+    "本章幂次级，Szemerédi 是对数级",
+    "本章线性，Szemerédi 是幂次"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "和集把结构强度提升了一个档次：lA 里的等差数列长度是幂次的，而 A 本身只能保证对数级长度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "all-q1",
+   "chapterId": "__all__",
+   "stem": "BSG 定理在整本书里的作用是？",
+   "options": [
+    "把能量大转成存在结构好的子集",
+    "把和集小直接转成子群",
+    "把偏差转成 Bohr 集",
+    "把稀疏集合转成稠密集合"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "BSG 是能量与结构之间的转换器，全书使用频率最高。它必须损失子集，这一点要记住。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "all-q2",
+   "chapterId": "__all__",
+   "stem": "为什么 k=4 的 Szemerédi 定理不能用线性傅立叶证明？",
+   "options": [
+    "线性傅立叶只能检测一阶的中点结构",
+    "傅立叶变换在整数上不成立",
+    "四项等差数列根本不存在",
+    "傅立叶计算太慢"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "四项 AP 要求差分的差分相同，是二阶结构，需要三阶 Gowers 范数。线性傅立叶只看得到一个频率上的偏差。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "all-q3",
+   "chapterId": "__all__",
+   "stem": "Freiman 定理与逆 Littlewood–Offord 的共同点是？",
+   "options": [
+    "都用傅立叶分析",
+    "都能给出集合的精确形状",
+    "都给出低秩 GAP 型结构",
+    "都只适用于有限域"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "一个从和集小出发，一个从集中度高出发，结论都是落在低秩 GAP 里。这正是加性结构的统一形态。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "all-q4",
+   "chapterId": "__all__",
+   "stem": "实数域与有限域上的和积证明，方法差异是？",
+   "options": [
+    "都用关联几何",
+    "都用组合零点定理",
+    "都用概率方法",
+    "实数域用几何，有限域用代数"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "实数域有序和凸性，可以用斜线与双曲线的交点；有限域没有序，只能靠多项式零点定理或 Stepanov 方法。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "all-q5",
+   "chapterId": "__all__",
+   "stem": "Szemerédi 正则引理的作用是什么？",
+   "options": [
+    "估计素数密度",
+    "把任意图分解为均匀块加随机部分",
+    "直接构造长等差数列",
+    "证明 Parseval 恒等式"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "分块数量只依赖误差参数，不依赖图的规模。它是把任意结构变成随机结构加少量例外的通用工具。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "all-q6",
+   "chapterId": "__all__",
+   "stem": "Green–Tao 定理为什么不能直接使用 Szemerédi 定理？",
+   "options": [
+    "素数集不含等差数列",
+    "素数集的密度为零，密度定理不适用",
+    "素数集太大",
+    "Szemerédi 定理只对有限群成立"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Szemerédi 要求正上密度，素数的密度是 0。必须用转移原理，先在稠密均匀模型里证，再搬回素数。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "ch00-f1",
+   "front": "什么是加性集？为什么必须带上环境群？",
+   "back": "加性集是一对 (A,Z)：Z 是交换群，A 是 Z 的有限非空子集。同一个 A 放进不同的群，和集大小可以完全不同。",
+   "chapterId": "ch00",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch00-f2",
+   "front": "倍增常数 σ[A] 的定义与含义？",
+   "back": "σ[A]=|A+A|/|A|。接近 1 表示几乎对加法封闭，接近 |A| 表示加法上接近随机。",
+   "chapterId": "ch00",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch00-f3",
+   "front": "加性组合学的正问题和反问题分别问什么？",
+   "back": "正问题：给定 A 的结构，估计 |A+A|；反问题：给定 |A+A| 很小，反推 A 的结构。",
+   "chapterId": "ch00",
+   "tags": [
+    "框架"
+   ]
+  },
+  {
+   "id": "ch00-f4",
+   "front": "举出三个 σ 差别很大的集合。",
+   "back": "区间 [1,n]：σ≈2；等比数列 2^k：σ≈n/2；子群：σ=1。",
+   "chapterId": "ch00",
+   "tags": [
+    "实例"
+   ]
+  },
+  {
+   "id": "ch01-f1",
+   "front": "一阶矩方法的标准用法？",
+   "back": "把坏对象的个数写成随机变量 X，若 E X<1，则存在样本使 X=0，即存在一个没有坏对象的实例。",
+   "chapterId": "ch01",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "ch01-f2",
+   "front": "二阶矩给出的“X 大于 0”的下界是什么？",
+   "back": "P(X>0) ≥ (E X)²/E(X²)。它排除了随机变量集中在零附近的可能。",
+   "chapterId": "ch01",
+   "tags": [
+    "不等式"
+   ]
+  },
+  {
+   "id": "ch01-f3",
+   "front": "局部引理和 Janson 不等式分别适用于什么情形？",
+   "back": "局部引理要求依赖度有界（每个坏事件只与少数相关）；Janson 处理弱相关但依赖边多的求和情形。",
+   "chapterId": "ch01",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "ch01-f4",
+   "front": "概率方法能给出构造算法吗？",
+   "back": "一般不能。它只证明存在性，很多情形至今没有已知的确定性构造。",
+   "chapterId": "ch01",
+   "tags": [
+    "反模式"
+   ]
+  },
+  {
+   "id": "ch02-f1",
+   "front": "Ruzsa 距离的定义，为什么用差集？",
+   "back": "d(A,B)=log(|A−B|/√(|A||B|))。差集有对称性，A−A 含 0，便于证明三角不等式。",
+   "chapterId": "ch02",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch02-f2",
+   "front": "加性能量与和集大小的关系式？",
+   "back": "能量不小于 |A|²|B|²/|A+B|，由柯西不等式得到。能量大等价于和集小（定量版本）。",
+   "chapterId": "ch02",
+   "tags": [
+    "不等式"
+   ]
+  },
+  {
+   "id": "ch02-f3",
+   "front": "Ruzsa 覆盖引理的结论？",
+   "back": "若 |A+B|≤K|B|，则存在 A 的子集 A，大小不超过 K，使 A 被 A 加 B−B 覆盖。它把整体问题降成骨架问题。",
+   "chapterId": "ch02",
+   "tags": [
+    "结构"
+   ]
+  },
+  {
+   "id": "ch02-f4",
+   "front": "BSG 定理一句话？",
+   "back": "能量接近最大，则存在大子集 A、B（只损失常数因子），使两者之和集只比 B 大常数倍。",
+   "chapterId": "ch02",
+   "tags": [
+    "结构"
+   ]
+  },
+  {
+   "id": "ch03-f1",
+   "front": "GAP 的定义与体积上界？",
+   "back": "形如 a+[0,N₁]v₁+…+[0,N_d]v_d，元素数不超过各方向长度加一的乘积。",
+   "chapterId": "ch03",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch03-f2",
+   "front": "真 GAP 与非真的区别，为什么重要？",
+   "back": "真 GAP 的元素数等于乘积上界，不塌缩；非真会塌缩，基于体积的计数失效，需要真化。",
+   "chapterId": "ch03",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch03-f3",
+   "front": "Brunn–Minkowski 不等式的形式？",
+   "back": "|A+B|^{1/d} ≥ |A|^{1/d}+|B|^{1/d}，凸体的线性尺度可加。",
+   "chapterId": "ch03",
+   "tags": [
+    "不等式"
+   ]
+  },
+  {
+   "id": "ch03-f4",
+   "front": "Minkowski 格点定理的条件与结论？",
+   "back": "中心对称凸体 K，体积大于 2^d 倍格行列式，则 K 含非零格点。它把体积翻译成格点个数。",
+   "chapterId": "ch03",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch04-f1",
+   "front": "卷积定理为什么是傅立叶方法的核心？",
+   "back": "卷积的变换等于各自变换的乘积，把加法卷积变成逐点乘法，于是和集问题变成系数乘积问题。",
+   "chapterId": "ch04",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch04-f2",
+   "front": "Parseval 恒等式的内容？",
+   "back": "函数的平方和等于其傅立叶系数平方和除以群的大小。它是群上的勾股定理，也是能量估计的起点。",
+   "chapterId": "ch04",
+   "tags": [
+    "不等式"
+   ]
+  },
+  {
+   "id": "ch04-f3",
+   "front": "线性偏差的直观含义？",
+   "back": "集合元素在某个特征的相位上偏向同一方向，分布不均匀。通常对应一条等差结构，但不保证形状简单。",
+   "chapterId": "ch04",
+   "tags": [
+    "概念"
+   ]
+  },
+  {
+   "id": "ch04-f4",
+   "front": "Bohr 集的定义，为什么需要它？",
+   "back": "在给定的一组频率上同时接近 1 的元素的集合。它给出多频率同时对齐的正确几何，用于密度增量。",
+   "chapterId": "ch04",
+   "tags": [
+    "结构"
+   ]
+  },
+  {
+   "id": "ch05-f1",
+   "front": "e-变换的目标是什么？",
+   "back": "在不增大和集的前提下整理集合，使其对称、极小，满足后续定理的假设。",
+   "chapterId": "ch05",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "ch05-f2",
+   "front": "Freiman 同态的定义？",
+   "back": "保持加法关系的映射：若两组元素的和相等，则映射后的和也相等。它比群同态弱。",
+   "chapterId": "ch05",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch05-f3",
+   "front": "无挠 Freiman 定理的结论？",
+   "back": "和集大小不超过 K 倍集合大小，则 A 含于秩与大小都只依赖 K 的 GAP 中。",
+   "chapterId": "ch05",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch05-f4",
+   "front": "有挠群为什么不能直接套无挠定理？",
+   "back": "子群部分会破坏单一 GAP 包含的结论，必须先分离挠部分，再处理无挠部分。",
+   "chapterId": "ch05",
+   "tags": [
+    "反模式"
+   ]
+  },
+  {
+   "id": "ch06-f1",
+   "front": "Turán 定理的独立集下界？",
+   "back": "n 顶点 e 边的图，独立集至少是 n 的平方除以 2e+n。它只保证存在，界经常很松。",
+   "chapterId": "ch06",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch06-f2",
+   "front": "Sidon 集的定义？",
+   "back": "所有两两和（允许同元素）互不相同的集合。它是 Bh[g] 集在 g=1 时的情形。",
+   "chapterId": "ch06",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch06-f3",
+   "front": "Ramsey 与 van der Waerden 的关系？",
+   "back": "两者都是结构版抽屉原理：颜色数固定、长度固定，区间足够长时单色结构必然出现。",
+   "chapterId": "ch06",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch06-f4",
+   "front": "Plünnecke 不等式的形式与用途？",
+   "back": "一次和集膨胀率受控，则多次和集的膨胀率也受控。正向控制，不损失集合。",
+   "chapterId": "ch06",
+   "tags": [
+    "不等式"
+   ]
+  },
+  {
+   "id": "ch07-f1",
+   "front": "Littlewood–Offord 问题在问什么？",
+   "back": "给 d 个步长，问 2^d 个带符号和最多能有多少个相同；逆问题问若很集中，步长必须长什么样。",
+   "chapterId": "ch07",
+   "tags": [
+    "问题"
+   ]
+  },
+  {
+   "id": "ch07-f2",
+   "front": "步长全为 1 与步长为 2 的幂，集中度差别多大？",
+   "back": "全 1 时最大重数约 2^d/√d；2 的幂时每个和唯一，最大重数为 1。差别由整数关系决定。",
+   "chapterId": "ch07",
+   "tags": [
+    "实例"
+   ]
+  },
+  {
+   "id": "ch07-f3",
+   "front": "Esséen 集中不等式的形式与含义？",
+   "back": "集中概率的上界形如常数除以步长平方和的平方根。集中度受方差控制，只依赖平方和。",
+   "chapterId": "ch07",
+   "tags": [
+    "不等式"
+   ]
+  },
+  {
+   "id": "ch07-f4",
+   "front": "逆 Littlewood–Offord 的结论？",
+   "back": "集中度大，则绝大多数步长落在一个低秩 GAP 里（少数例外）。它是随机矩阵奇异概率估计的关键。",
+   "chapterId": "ch07",
+   "tags": [
+    "结构"
+   ]
+  },
+  {
+   "id": "ch08-f1",
+   "front": "交叉数下界 m−3n+6 从哪里来？",
+   "back": "欧拉公式：平面图边数不超过 3n−6，超出的边必须靠交叉塞进去。",
+   "chapterId": "ch08",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch08-f2",
+   "front": "Szemerédi–Trotter 定理的完整形式？",
+   "back": "关联数不超过 P 的 2/3 次方乘 L 的 2/3 次方，再加 P 与 L 的一次项，量级最优。",
+   "chapterId": "ch08",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch08-f3",
+   "front": "用关联几何证和积的直觉？",
+   "back": "加法结构对应斜线，乘法结构对应双曲线，两者交点受关联上界控制，不能同时很强。",
+   "chapterId": "ch08",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "ch08-f4",
+   "front": "有限域上的和积为什么要换方法？",
+   "back": "有限域没有序和凸性，几何论证失效，只能靠组合零点定理或 Stepanov 方法。",
+   "chapterId": "ch08",
+   "tags": [
+    "反模式"
+   ]
+  },
+  {
+   "id": "ch09-f1",
+   "front": "组合零点定理的完整陈述？",
+   "back": "次数不超过各变量上限之和、最高项系数非零，且每个集合大小超过对应上限，则格点上存在非零点。",
+   "chapterId": "ch09",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch09-f2",
+   "front": "受限和集是什么？Erdős–Heilbronn 猜想的值？",
+   "back": "禁止同元素相加的和集；猜想其大小至少是 min(p, 2|A|−3)（在 ℤ/pℤ 中）。",
+   "chapterId": "ch09",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch09-f3",
+   "front": "Davenport 常数与 Kemnitz 猜想？",
+   "back": "D(G) 是使任意 k 个元素都有非空零和子集的最小 k；Kemnitz 是平面格点版本，猜想 4n−3。",
+   "chapterId": "ch09",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch09-f4",
+   "front": "Stepanov 方法怎么用？",
+   "back": "构造在目标集合上处处为零的多项式，用零点数不超过次数反推集合大小。",
+   "chapterId": "ch09",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "ch10-f1",
+   "front": "Szemerédi 定理的陈述？",
+   "back": "正整数集若有正上密度，则含任意长的等差数列。k=3 由 Roth 用傅立叶证明。",
+   "chapterId": "ch10",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch10-f2",
+   "front": "密度增量的四个步骤？",
+   "back": "假设无 AP，用傅立叶找偏差，把偏差转成 Bohr 集上密度增加，迭代至密度超过 1。",
+   "chapterId": "ch10",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "ch10-f3",
+   "front": "为什么要分小挠和整数两种情形？",
+   "back": "小挠时 Bohr 集接近子群，增量好算；整数情形要做提升，把区间搬进循环群，密度会被稀释，需补偿。",
+   "chapterId": "ch10",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "ch10-f4",
+   "front": "正则引理的内容与用途？",
+   "back": "任意大图可分成常数多块，块内密度近似一致、块间近似随机；用于把结构分解成均匀加随机。",
+   "chapterId": "ch10",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch11-f1",
+   "front": "Gowers 范数 U^k 的定义骨架？",
+   "back": "对 x 和 k 个增量共 2^k 个变量求平均，取 f 在 2^k 个点的乘积的复共轭组合。",
+   "chapterId": "ch11",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch11-f2",
+   "front": "硬障碍与软障碍的区别？",
+   "back": "硬障碍是真正的高阶结构（多项式相位、低维 GAP）；软障碍是线性相位的形式偏差，除掉相位即可消除。",
+   "chapterId": "ch11",
+   "tags": [
+    "概念"
+   ]
+  },
+  {
+   "id": "ch11-f3",
+   "front": "Gowers 逆定理的结论？",
+   "back": "范数大，则存在次数不超过 k−1 的多项式相位，使 f 与该相位的相关性很大。",
+   "chapterId": "ch11",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "ch11-f4",
+   "front": "Green–Tao 定理的证明骨架？",
+   "back": "筛法构造伪随机权重，证明其在 Gowers 范数下均匀，对稠密模型用 Szemerédi，再转移回素数。",
+   "chapterId": "ch11",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "ch12-f1",
+   "front": "为什么 lA 比 A 更容易含长等差数列？",
+   "back": "多次相加把局部不规则性平均掉，值域变宽且结构更密；结论中的长度是幂次级。",
+   "chapterId": "ch12",
+   "tags": [
+    "概念"
+   ]
+  },
+  {
+   "id": "ch12-f2",
+   "front": "完全序列与次完全序列的区别？",
+   "back": "完全：每项最多用一次即可表示所有足够大的整数；次完全允许有限项数。二进制是次完全但不是完全。",
+   "chapterId": "ch12",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "ch12-f3",
+   "front": "这套结果与 Waring 问题的联系？",
+   "back": "令 A 为 k 次幂集合，lA 含长等差数列，配合局部覆盖与周期性论证可推出 Waring 型结论。",
+   "chapterId": "ch12",
+   "tags": [
+    "应用"
+   ]
+  },
+  {
+   "id": "ch12-f4",
+   "front": "本章结论与 Szemerédi 定理的长度对比？",
+   "back": "lA 中的 AP 长度是幂次级；A 本身只能保证对数级。这是和集提升结构强度的定量体现。",
+   "chapterId": "ch12",
+   "tags": [
+    "对比"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "加性集",
+   "en": "",
+   "def": "交换群里的一个有限非空子集，讨论和集时必须带上环境群",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "和集 A+B",
+   "en": "",
+   "def": "所有 a+b（a∈A，b∈B）组成的集合",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "差集 A−B",
+   "en": "",
+   "def": "所有 a−b 组成的集合，比和集更对称",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "小倍增",
+   "en": "",
+   "def": "σ 接近 1，集合几乎对加法封闭",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "随机集",
+   "en": "",
+   "def": "倍增常数接近最大值，加法关系稀少",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "广义等差数列 GAP",
+   "en": "",
+   "def": "起点加若干方向的整数系数组合，形如 a+[0,N₁]v₁+…",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "真 GAP",
+   "en": "",
+   "def": "元素个数达到 ∏(N_i+1) 上界、不发生塌缩的 GAP",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "真化",
+   "en": "",
+   "def": "换方向或升维，把非真 GAP 变成真 GAP 的操作",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "加性能量 E(A,B)",
+   "en": "",
+   "def": "满足 a+b=a'+b' 的四元组个数",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "覆盖引理",
+   "en": "",
+   "def": "和集小则存在小骨架，使整个集合被骨架加差集覆盖",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "BSG 定理",
+   "en": "",
+   "def": "能量大则存在大子集，其和集只比自身大常数倍",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "对称集",
+   "en": "",
+   "def": "满足 A=−A 的集合",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "部分和集",
+   "en": "",
+   "def": "集合在某个方向上投影得到的和集，用来控制不平衡性",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "特征",
+   "en": "",
+   "def": "群到单位圆的同态，满足 ξ(x+y)=ξ(x)ξ(y)",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "傅立叶系数 Â(ξ)",
+   "en": "",
+   "def": "A 在频率 ξ 上的投影，衡量偏差",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "卷积定理",
+   "en": "",
+   "def": "卷积的傅立叶变换等于各自变换的乘积",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "Bohr 集",
+   "en": "",
+   "def": "在若干频率上同时接近 1 的元素集合",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "(p) 常数",
+   "en": "",
+   "def": "衡量群里 p 元和为零的偏离程度的参数",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "Bh[g] 集",
+   "en": "",
+   "def": "每种和最多有 g 种表示的集合，Sidon 是 g=1",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "分离集",
+   "en": "",
+   "def": "元素之间没有短小整数线性关系的集合",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "e-变换",
+   "en": "",
+   "def": "保持和集不增、把集合整理得更对称的操作",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "Freiman 同态",
+   "en": "",
+   "def": "保持 a₁+a₂=a₃+a₄ 这类加法关系的映射",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "无挠",
+   "en": "",
+   "def": "群里没有满足 mx=0（m>0）的非零元素",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "万能环境群",
+   "en": "",
+   "def": "使 A 的所有加法关系都保持的最大环境群",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "Turán 定理",
+   "en": "",
+   "def": "n 顶点 e 边的图，独立集至少 n²/(2e+n)",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "Sidon 集",
+   "en": "",
+   "def": "所有两两和互不相同的集合",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "Ramsey 定理",
+   "en": "",
+   "def": "足够大的完全图染色后必有大单色团",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "van der Waerden 定理",
+   "en": "",
+   "def": "足够长的染色区间必有单色等差数列",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "Plünnecke 不等式",
+   "en": "",
+   "def": "一次和集膨胀率小，则多次和集膨胀率也受控",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "Littlewood–Offord 问题",
+   "en": "",
+   "def": "带符号和最多能重复多少次",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "集中函数",
+   "en": "",
+   "def": "随机和落在某点的概率上界",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "Esséen 不等式",
+   "en": "",
+   "def": "集中度受步长平方和控制的估计",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "关联",
+   "en": "",
+   "def": "点落在线上的一次计数",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "交叉数",
+   "en": "",
+   "def": "图在平面上绘制时边与边的交叉次数",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "网格分解",
+   "en": "",
+   "def": "把平面切成格子以控制点线关系的方法",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "组合零点定理",
+   "en": "",
+   "def": "次数与最高项系数控制格点上是否存在非零点",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "受限和集",
+   "en": "",
+   "def": "禁止同元素相加得到的和集",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "Davenport 常数",
+   "en": "",
+   "def": "任意 k 个元素都有非空零和子集的最小 k",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "Kemnitz 猜想",
+   "en": "",
+   "def": "Davenport 常数在平面格点上的版本，猜想值 4n−3",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "Stepanov 方法",
+   "en": "",
+   "def": "用\"零点数不超过次数\"反推集合大小",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "分圆域",
+   "en": "",
+   "def": "有理数域添加单位根得到的扩域",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "密度增量",
+   "en": "",
+   "def": "无 AP 时在子结构上密度变高，迭代至矛盾的策略",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "提升",
+   "en": "",
+   "def": "把区间里的集合搬到循环群里处理的技术",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "正则引理",
+   "en": "",
+   "def": "任意大图可分成常数多块，使块间近似随机",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Gowers 范数 U^k",
+   "en": "",
+   "def": "2^k 个变量上的平均，衡量 k 阶均匀性",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "硬障碍",
+   "en": "",
+   "def": "真正的高阶结构，如多项式相位或低维 GAP",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "软障碍",
+   "en": "",
+   "def": "线性相位造成的表面偏差，可除掉相位消除",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "Gowers 逆定理",
+   "en": "",
+   "def": "范数大则存在低次多项式相位解释偏差",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "超图移除引理",
+   "en": "",
+   "def": "删少量边即可破坏全部完全子超图",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "转移原理",
+   "en": "",
+   "def": "先用稠密均匀模型证明，再搬回稀疏集合",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "完全序列",
+   "en": "",
+   "def": "每项最多用一次就能表示所有足够大整数的序列",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "次完全序列",
+   "en": "",
+   "def": "允许有限项数的完全性版本",
+   "chapterIds": [
+    "ch12"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 13,
+  "concepts": 14
+ },
+ "signature": "0b803c49f2cd",
+ "contentHash": "92570f36637f"
+}

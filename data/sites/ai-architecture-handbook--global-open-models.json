@@ -1,0 +1,2626 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "global-open-models",
+ "title": "全球开放模型全谱：从 Llama 到 Qwen",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "23-global-open-models/manifest.json",
+ "stats": {
+  "chapters": 16,
+  "concepts": 12,
+  "quizzes": 53,
+  "cards": 48,
+  "glossary": 70
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：先定边界：开源、开放权重与“能下载”",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch01-boundary.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/docs/hub/model-cards"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：世界地图：六种骨架，而不是六个公司",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch02-world-map.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：Llama 家族：decoder-only 的行业基线",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch03-llama.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/meta-llama"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：Qwen 家族：从 0.5B 到 2.4T-A95B 的缩放路线",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch04-qwen.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/Qwen"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：Mistral 家族：滑窗、MoE 与多模态的三次转向",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch05-mistral.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/mistralai"
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：Gemma 家族：小模型、局部/全局交替与统一多模态",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch06-gemma.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/google"
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：Phi 与“小模型优先”路线",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch06"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch07-phi.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/microsoft"
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：北美开放权重：Falcon、BLOOM、OLMo、DBRX 与“非 Llama”路线",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch08-north-america.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：中国开放权重：GLM、Kimi、MiniMax、InternLM 与“多路线并行”",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch09-china.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：非 Transformer：RWKV、Mamba、Jamba 与混合注意力",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch09"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch10-non-transformer.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：MoE 世界：总参数、激活参数与路由的代价",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04",
+    "ch09"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch11-moe.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：多模态开放模型：图像怎么变成 token",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch11"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch12-multimodal.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：注意力与长上下文：MHA、GQA、MLA、滑窗与线性注意力",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch10",
+    "ch11"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch13-attention-context.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "ch14",
+   "num": 14,
+   "title": "第 14 章：许可证、数据与评测：开放模型的“隐形架构”",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch08",
+    "ch09"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch14-license-eval.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/docs/hub/model-cards"
+   }
+  },
+  {
+   "id": "ch15",
+   "num": 15,
+   "title": "第 15 章：读 config.json：把架构字段变成可计算的账",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch11",
+    "ch13"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch15-config.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/docs/transformers"
+   }
+  },
+  {
+   "id": "ch16",
+   "num": 16,
+   "title": "第 16 章：附录：全球开放权重模型索引",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch14",
+    "ch15"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/chapters/ch16-index.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "开放权重与开源",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c01-open-weights-vs-open-source.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/docs/hub/model-cards"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "decoder-only 与 encoder-decoder",
+   "chapterIds": [
+    "ch02",
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c02-decoder-only-vs-encoder-decoder.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "c03",
+   "title": "稠密与 MoE",
+   "chapterIds": [
+    "ch11"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c03-dense-vs-moe.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "c04",
+   "title": "MHA、GQA 与 MLA",
+   "chapterIds": [
+    "ch13"
+   ],
+   "prerequisites": [
+    "c03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c04-mha-gqa-mla.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "c05",
+   "title": "RoPE 与 YaRN",
+   "chapterIds": [
+    "ch13"
+   ],
+   "prerequisites": [
+    "c04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c05-rope-yarn.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "c06",
+   "title": "滑窗与局部/全局交替",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [
+    "c04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c06-sliding-local-global.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "c07",
+   "title": "线性注意力与 SSM",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [
+    "c04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c07-linear-attention-ssm.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "c08",
+   "title": "多模态连接器",
+   "chapterIds": [
+    "ch12"
+   ],
+   "prerequisites": [
+    "c02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c08-multimodal-connector.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "c09",
+   "title": "Tokenizer 与词表",
+   "chapterIds": [
+    "ch15"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c09-tokenizer-vocab.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/docs/transformers"
+   }
+  },
+  {
+   "id": "c10",
+   "title": "总参数与激活参数",
+   "chapterIds": [
+    "ch11"
+   ],
+   "prerequisites": [
+    "c03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c10-total-vs-active-params.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/models"
+   }
+  },
+  {
+   "id": "c11",
+   "title": "许可证族",
+   "chapterIds": [
+    "ch14"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c11-license-families.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/docs/hub/model-cards"
+   }
+  },
+  {
+   "id": "c12",
+   "title": "Benchmark 污染",
+   "chapterIds": [
+    "ch14"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "23-global-open-models/concepts/c12-benchmark-contamination.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/docs/hub/model-cards"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "“开放权重”最准确的含义是？",
+   "options": [
+    "模型参数可下载",
+    "训练数据公开",
+    "训练代码公开",
+    "许可证允许商用"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "开放权重只承诺参数可获取；代码、数据、商用权利要另看。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "Apache 2.0 与 CC-BY-NC 最关键的区别是？",
+   "options": [
+    "前者允许商用，后者禁止商用",
+    "前者禁止修改，后者允许",
+    "两者都禁止商用",
+    "前者只允许研究"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "Apache 2.0 允许商用；CC-BY-NC 的 NC 就是非商用。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "本册为什么按“家族”而不是按每个 checkpoint 组织？",
+   "options": [
+    "checkpoint 数量无穷且架构重复",
+    "家族名字更好听",
+    "每个 checkpoint 都有独立架构",
+    "Hugging Face 不支持 checkpoint"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "量化/微调/合并版大量重复，家族级才能建立结构感。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "下列哪一项不是本章说的“结构旋钮”？",
+   "options": [
+    "学习率",
+    "注意力类型",
+    "FFN 类型",
+    "位置编码"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "学习率是训练超参，不是模型结构。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02",
+   "stem": "MoE 的“总参数”和“激活参数”分别决定什么？",
+   "options": [
+    "显存 / 每 token 算力",
+    "算力 / 显存",
+    "都决定显存",
+    "都决定算力"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "总参数要全装，决定显存；激活参数决定每 token 计算量。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch02",
+   "stem": "线性注意力主要解决什么问题？",
+   "options": [
+    "长序列的二次复杂度",
+    "词表太小",
+    "多模态编码",
+    "许可证问题"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "它把注意力复杂度从 O(n^2) 降到 O(n)，代价是状态容量有限。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch03",
+   "stem": "Llama 1 定下的四个结构默认值不包括？",
+   "options": [
+    "MoE 路由",
+    "RoPE",
+    "SwiGLU",
+    "RMSNorm"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "Llama 1 是 dense，没有 MoE。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch03",
+   "stem": "Llama 2 70B 用 GQA 主要省哪部分显存？",
+   "options": [
+    "KV cache",
+    "词表 embedding",
+    "FFN 权重",
+    "输出头"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "64 个 Q 头共享 8 组 K/V，KV cache 降到 MHA 的 1/8。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch03",
+   "stem": "Llama 4 Scout 的“17B”指什么？",
+   "options": [
+    "每 token 激活参数",
+    "总参数",
+    "专家数",
+    "上下文长度"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "Scout 总参数约 109B，17B 是激活参数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch03",
+   "stem": "Llama 3.3 70B 在 128K 下单序列 KV 约多少？",
+   "options": [
+    "40 GiB",
+    "4 GiB",
+    "140 GiB",
+    "400 GiB"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "0.3125 MiB/token × 131072 ≈ 40 GiB。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch04",
+   "stem": "Qwen3.8-2.4T-A95B 的 95B 指什么？",
+   "options": [
+    "每 token 激活参数",
+    "总参数",
+    "专家数",
+    "KV 头数"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "A95B 的 A 是 active；2.4T 是总参数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch04",
+   "stem": "Qwen3.5-397B-A17B 的专家数和 top-k 是？",
+   "options": [
+    "512 / 10",
+    "256 / 8",
+    "128 / 8",
+    "896 / 8"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "config：512 专家，top-10，专家宽度 1024。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch04",
+   "stem": "Qwen3.8-27B 的 KV 头数和 head_dim 是？",
+   "options": [
+    "4 / 256",
+    "8 / 128",
+    "16 / 128",
+    "32 / 256"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "text_config：4 个 KV 头，head_dim 256。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch04",
+   "stem": "Qwen 的三条子路线不包括？",
+   "options": [
+    "encoder-decoder",
+    "小尺寸 dense",
+    "大尺寸 MoE",
+    "混合线性注意力"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "Qwen 主线是 decoder-only；encoder-decoder 不是它的子路线。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch05",
+   "stem": "Mistral 7B 的滑窗大小是？",
+   "options": [
+    "4096",
+    "1024",
+    "32768",
+    "128"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "Mistral 7B 用 4096 滑动窗口，最大位置 32K。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch05",
+   "stem": "Mixtral 8x7B 的总参数 / 激活参数约是？",
+   "options": [
+    "46.7B / 12.9B",
+    "56B / 56B",
+    "12.9B / 46.7B",
+    "141B / 39B"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "8 个专家都装，top-2 只算 2 个。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch05",
+   "stem": "Mistral Small 4 119B 的 KV 头数是？",
+   "options": [
+    "32",
+    "4",
+    "8",
+    "64"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "config：32 Q/32 KV，是 MHA，不是 GQA。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch06",
+   "stem": "Gemma 3 的局部/全局比例是？",
+   "options": [
+    "5:1",
+    "1:1",
+    "1:5",
+    "全局部"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "每 6 层 5 层局部、1 层全局；Gemma 2 约 1:1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch06",
+   "stem": "QK-Norm 主要解决什么问题？",
+   "options": [
+    "大 head_dim 下 attention logits 爆炸",
+    "词表太大",
+    "专家不均衡",
+    "KV 头太少"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "对 Q/K 归一化，稳定长上下文训练。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch06",
+   "stem": "Gemma 4 12B 的架构特点是？",
+   "options": [
+    "统一 any-to-any",
+    "纯文本 dense",
+    "8 专家 MoE",
+    "纯 SSM"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "Gemma4Unified 处理文/图/音，262K。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch07",
+   "stem": "Phi-4 14B 的层数、hidden、Q/KV 是？",
+   "options": [
+    "40 / 5120 / 40 / 10",
+    "32 / 3072 / 32 / 32",
+    "48 / 4096 / 32 / 8",
+    "62 / 5376 / 32 / 16"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "Phi-4：40 层、5120、40 Q/10 KV、16K。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch07",
+   "stem": "Phi-4-mini 在 128K 下单序列 KV 约多少？",
+   "options": [
+    "16 GiB",
+    "4 GiB",
+    "64 GiB",
+    "1 GiB"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "32 层×8 KV×128 维×2 字节×2=0.125 MiB/token，128K≈16 GiB。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch07",
+   "stem": "Phi 系列最核心的竞争力是？",
+   "options": [
+    "数据课程与小模型训练",
+    "MoE 路由",
+    "线性注意力",
+    "多模态生成"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "结构基本是 Llama 式；数据和训练配方是差异。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch08",
+   "stem": "BLOOM 176B 的层数、hidden、头数是？",
+   "options": [
+    "70 / 14336 / 112",
+    "80 / 8192 / 64",
+    "32 / 4096 / 32",
+    "60 / 6144 / 48"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "BLOOM 176B：70 层、14336、112 头、2048 上下文。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch08",
+   "stem": "OLMo 与 Llama 最大的差别是？",
+   "options": [
+    "OLMo 开放数据/代码/训练日志",
+    "OLMo 没有注意力",
+    "OLMo 是 MoE",
+    "OLMo 不能商用"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "OLMo 是全开放研究线；Llama 主要开放权重。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch08",
+   "stem": "Command R+ 的许可证是？",
+   "options": [
+    "CC-BY-NC 4.0",
+    "Apache 2.0",
+    "MIT",
+    "Llama Community"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "CC-BY-NC 禁止商用，商用需另获授权。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch09",
+   "stem": "GLM-5.3 的 model_type 是？",
+   "options": [
+    "glm_moe_dsa",
+    "llama",
+    "mixtral",
+    "kimi_linear"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "MoE + DSA 稀疏注意力；78 层、6144、64/64、256 专家 top-8。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch09",
+   "stem": "Kimi K3 的专家数是？",
+   "options": [
+    "896",
+    "128",
+    "256",
+    "512"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "config：896 专家，93 层、7168、96/96、1M。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q29",
+   "chapterId": "ch09",
+   "stem": "MiniMax M3 的 4 个 KV 头 + 1M 上下文说明什么？",
+   "options": [
+    "朴素 KV 约 240 GiB，必须稀疏/压缩",
+    "它不需要 KV",
+    "它是 dense",
+    "它只有 4 层"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "2×60×4×128×2=0.234 MiB/token，1M≈240 GiB。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q30",
+   "chapterId": "ch09",
+   "stem": "Intern-S2 的 text model_type 是？",
+   "options": [
+    "qwen3_5_moe_text",
+    "llama",
+    "glm_moe_dsa",
+    "step5"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "它复用 Qwen3.5 MoE 骨架，做多模态/数据创新。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q31",
+   "chapterId": "ch10",
+   "stem": "SSM 的递推式是？",
+   "options": [
+    "h_t = A h_{t-1} + B x_t",
+    "h_t = QK^T V",
+    "h_t = softmax(x)",
+    "h_t = W x + b"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "状态递推，输出 y_t=C h_t；状态维度固定。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q32",
+   "chapterId": "ch10",
+   "stem": "Jamba 的架构是？",
+   "options": [
+    "Transformer + Mamba 混合",
+    "纯 SSM",
+    "纯 RNN",
+    "纯 CNN"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "混合架构，保留部分注意力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q33",
+   "chapterId": "ch10",
+   "stem": "Kimi K3 与 Qwen3-Next 的共同点是？",
+   "options": [
+    "线性/混合注意力 + MoE",
+    "都是 dense",
+    "都是 encoder-decoder",
+    "都没有专家"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "大部分层线性、少量全注意力，外加 MoE。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q34",
+   "chapterId": "ch11",
+   "stem": "“2.4T-A95B”最准确读法是？",
+   "options": [
+    "总参数 2.4T，每 token 激活 95B",
+    "总参数 95B，激活 2.4T",
+    "两者都是总参数",
+    "两者都是激活参数"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "A 是 active，总参数和激活参数分开。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q35",
+   "chapterId": "ch11",
+   "stem": "Qwen3.8-2.4T 的专家数、top-k、专家宽度是？",
+   "options": [
+    "512 / 10 / 2048",
+    "256 / 8 / 1024",
+    "128 / 8 / 1536",
+    "896 / 8 / 3072"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "config：512 专家、top-10、moe_intermediate 2048。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q36",
+   "chapterId": "ch11",
+   "stem": "共享专家的主要作用是？",
+   "options": [
+    "承担通用能力，缓解路由碎片化",
+    "增加路由层数",
+    "替代 KV cache",
+    "减少词表"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "所有 token 都走共享专家，学通用知识。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q37",
+   "chapterId": "ch11",
+   "stem": "Mixtral 8x7B 每 token 激活约多少？",
+   "options": [
+    "12.9B",
+    "46.7B",
+    "7B",
+    "56B"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "top-2 专家 + 注意力/embedding，约 12.9B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q38",
+   "chapterId": "ch12",
+   "stem": "448×448 图像、patch 14，token 数是多少？",
+   "options": [
+    "1024",
+    "256",
+    "512",
+    "4096"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "(448/14)^2=32^2=1024；2×2 合并后 256。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q39",
+   "chapterId": "ch12",
+   "stem": "图像 token 对 KV cache 的影响是？",
+   "options": [
+    "和文本 token 一样占 KV",
+    "完全不占",
+    "只占权重",
+    "只占词表"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "图像 token 进同一序列、同一 KV。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q40",
+   "chapterId": "ch12",
+   "stem": "Janus 的双系统是指？",
+   "options": [
+    "理解头 + 生成头",
+    "文本头 + 音频头",
+    "编码器 + 解码器",
+    "MoE + dense"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "理解与生成解耦，避免目标冲突。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q41",
+   "chapterId": "ch13",
+   "stem": "GQA 的 KV/token/layer 公式是？",
+   "options": [
+    "2 × H_kv × d_head × b",
+    "2 × H × d_head × b",
+    "H × d_head × b",
+    "2 × L × H × b"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "只有 KV 头数参与；H_kv 是组数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q42",
+   "chapterId": "ch13",
+   "stem": "Llama 3.3 70B 在 32K 下单序列 KV 约多少？",
+   "options": [
+    "10 GiB",
+    "40 GiB",
+    "4 GiB",
+    "100 GiB"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "0.3125 MiB × 32768 ≈ 10 GiB。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q43",
+   "chapterId": "ch13",
+   "stem": "1M 上下文模型为什么必须稀疏/压缩？",
+   "options": [
+    "朴素 KV 可达数百 GiB",
+    "因为词表太大",
+    "因为层数太少",
+    "因为不能用 GPU"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "例如 MiniMax M3 朴素 KV 约 240 GiB。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q44",
+   "chapterId": "ch13",
+   "stem": "YaRN 的 factor 表示什么？",
+   "options": [
+    "长度外推倍数",
+    "KV 头数",
+    "专家数",
+    "学习率"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "factor=8 把 8K 训练长度外推到 64K 量级。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q45",
+   "chapterId": "ch14",
+   "stem": "CC-BY-NC 的核心限制是？",
+   "options": [
+    "禁止商用",
+    "禁止修改",
+    "禁止再分发",
+    "禁止研究"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "NC = NonCommercial；研究可以，商用要授权。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q46",
+   "chapterId": "ch14",
+   "stem": "OLMo 比 Llama 更适合训练复现，因为？",
+   "options": [
+    "开放数据/代码/日志",
+    "参数更大",
+    "没有注意力",
+    "许可证更严"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "OLMo 是全开放研究线。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q47",
+   "chapterId": "ch14",
+   "stem": "检测 benchmark 污染的可行方法是？",
+   "options": [
+    "改写题目/换数字重测",
+    "只看排行榜",
+    "只看模型大小",
+    "只跑一个样本"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "改写后分数大跌说明可能靠记忆。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q48",
+   "chapterId": "ch15",
+   "stem": "`architectures` 和 `model_type` 的区别是？",
+   "options": [
+    "前者是类名，后者是配置族",
+    "两者完全一样",
+    "前者是许可证",
+    "后者是参数量"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "`LlamaForCausalLM` vs `llama`。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q49",
+   "chapterId": "ch15",
+   "stem": "`num_experts` 和 `num_experts_per_tok` 的区别是？",
+   "options": [
+    "总专家数 / top-k",
+    "top-k / 总专家数",
+    "层数 / 头数",
+    "词表 / 上下文"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "前者是全部专家，后者是每 token 选几个。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q50",
+   "chapterId": "ch15",
+   "stem": "Qwen3.8-2.4T 的 95B 激活大致来自？",
+   "options": [
+    "top-10 专家 + 注意力/embedding",
+    "全部 512 专家",
+    "只 embedding",
+    "只 KV cache"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "10 个专家×92 层≈46B，加注意力/embedding 到 95B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q51",
+   "chapterId": "ch16",
+   "stem": "本索引的收录口径是？",
+   "options": [
+    "官方公开、可下载权重的主要家族",
+    "所有微调/量化 checkpoint",
+    "所有论文",
+    "所有 API 模型"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "家族级，不逐 checkpoint。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q52",
+   "chapterId": "ch16",
+   "stem": "MoE 权重显存按哪个参数估？",
+   "options": [
+    "总参数",
+    "激活参数",
+    "KV 头数",
+    "词表"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "全部专家都要装，按总参数；算力按激活。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q53",
+   "chapterId": "ch16",
+   "stem": "选型的正确顺序是？",
+   "options": [
+    "许可证 → 显存 → 上下文 → 任务",
+    "参数 → 名字 → 排行榜",
+    "价格 → 颜色 → 品牌",
+    "上下文 → 许可证 → 参数量"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "许可证不合格直接排除；再算显存/上下文。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "开放权重 vs 开源",
+   "back": "权重可下载 ≠ 代码/数据/商用权利都开放",
+   "chapterId": "ch01",
+   "tags": [
+    "边",
+    "界"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "判断顺序",
+   "back": "许可证 → 权重 → 代码 → 数据",
+   "chapterId": "ch01",
+   "tags": [
+    "边",
+    "界"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "本册口径",
+   "back": "官方公开、可下载权重、主要家族；不逐 checkpoint",
+   "chapterId": "ch01",
+   "tags": [
+    "边",
+    "界"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "六旋钮",
+   "back": "注意力、FFN、归一化、位置、激活、模态",
+   "chapterId": "ch02",
+   "tags": [
+    "骨",
+    "架"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "六骨架",
+   "back": "dense、MoE、encoder-decoder、线性/SSM、多模态、扩散",
+   "chapterId": "ch02",
+   "tags": [
+    "骨",
+    "架"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "读卡六维",
+   "back": "骨架、规模、注意力、FFN、上下文、许可证",
+   "chapterId": "ch02",
+   "tags": [
+    "骨",
+    "架"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "Llama 1 默认值",
+   "back": "RoPE、SwiGLU、RMSNorm、decoder-only",
+   "chapterId": "ch03",
+   "tags": [
+    "L",
+    "l",
+    "a",
+    "m",
+    "a"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "Llama 4 激活",
+   "back": "Scout 17B/109B，Maverick 17B/400B",
+   "chapterId": "ch03",
+   "tags": [
+    "L",
+    "l",
+    "a",
+    "m",
+    "a"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "Llama 3.3 70B KV",
+   "back": "0.3125 MiB/token；128K≈40 GiB",
+   "chapterId": "ch03",
+   "tags": [
+    "L",
+    "l",
+    "a",
+    "m",
+    "a"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "Qwen 三条路线",
+   "back": "小 dense、大 MoE、混合线性",
+   "chapterId": "ch04",
+   "tags": [
+    "Q",
+    "w",
+    "e",
+    "n"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "Qwen3.8-2.4T",
+   "back": "92 层、8192、512 专家 top-10、262K",
+   "chapterId": "ch04",
+   "tags": [
+    "Q",
+    "w",
+    "e",
+    "n"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "Qwen3.8-27B KV",
+   "back": "0.25 MiB/token；262K≈64 GiB",
+   "chapterId": "ch04",
+   "tags": [
+    "Q",
+    "w",
+    "e",
+    "n"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "Mistral 7B",
+   "back": "32 层、4096、GQA 8 KV、滑窗 4096",
+   "chapterId": "ch05",
+   "tags": [
+    "M",
+    "i",
+    "s",
+    "t",
+    "r",
+    "a",
+    "l"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "Mixtral 8x7B",
+   "back": "46.7B 总 / 12.9B 激活，8 专家 top-2",
+   "chapterId": "ch05",
+   "tags": [
+    "M",
+    "i",
+    "s",
+    "t",
+    "r",
+    "a",
+    "l"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "Mistral Small 4",
+   "back": "36 层、32/32 KV、128 专家 top-4、1M",
+   "chapterId": "ch05",
+   "tags": [
+    "M",
+    "i",
+    "s",
+    "t",
+    "r",
+    "a",
+    "l"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "Gemma 3",
+   "back": "5:1 局部/全局、QK-Norm、128K",
+   "chapterId": "ch06",
+   "tags": [
+    "G",
+    "e",
+    "m",
+    "m",
+    "a"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "Gemma 4 12B",
+   "back": "48 层、3840、16/8、262K、any-to-any",
+   "chapterId": "ch06",
+   "tags": [
+    "G",
+    "e",
+    "m",
+    "m",
+    "a"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "Gemma 3 27B KV",
+   "back": "16 KV、128 维；128K≈62 GiB",
+   "chapterId": "ch06",
+   "tags": [
+    "G",
+    "e",
+    "m",
+    "m",
+    "a"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "Phi-4",
+   "back": "40 层、5120、40/10、16K、14B",
+   "chapterId": "ch07",
+   "tags": [
+    "P",
+    "h",
+    "i"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "Phi-4-mini",
+   "back": "32 层、3072、24/8、128K、3.8B",
+   "chapterId": "ch07",
+   "tags": [
+    "P",
+    "h",
+    "i"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "Phi 核心",
+   "back": "数据课程 + 小模型 + 长训练",
+   "chapterId": "ch07",
+   "tags": [
+    "P",
+    "h",
+    "i"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "Falcon",
+   "back": "MQA、多语言；H1 混合",
+   "chapterId": "ch08",
+   "tags": [
+    "北",
+    "美"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "BLOOM",
+   "back": "70 层、14336、112 头、2048",
+   "chapterId": "ch08",
+   "tags": [
+    "北",
+    "美"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "OLMo",
+   "back": "开放数据/代码/日志",
+   "chapterId": "ch08",
+   "tags": [
+    "北",
+    "美"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "GLM-5.3",
+   "back": "78 层、6144、64/64、256 专家 top-8、1M",
+   "chapterId": "ch09",
+   "tags": [
+    "中",
+    "国"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "Kimi K3",
+   "back": "93 层、7168、96/96、896 专家、1M",
+   "chapterId": "ch09",
+   "tags": [
+    "中",
+    "国"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "MiniMax M3",
+   "back": "60 层、6144、64/4、top-4+1、1M",
+   "chapterId": "ch09",
+   "tags": [
+    "中",
+    "国"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "SSM",
+   "back": "h_t=A h_{t-1}+B x_t；y_t=C h_t",
+   "chapterId": "ch10",
+   "tags": [
+    "非",
+    " ",
+    "T",
+    "r",
+    "a",
+    "n",
+    "s",
+    "f",
+    "o",
+    "r",
+    "m",
+    "e",
+    "r"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "Jamba",
+   "back": "Transformer + Mamba 混合",
+   "chapterId": "ch10",
+   "tags": [
+    "非",
+    " ",
+    "T",
+    "r",
+    "a",
+    "n",
+    "s",
+    "f",
+    "o",
+    "r",
+    "m",
+    "e",
+    "r"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "混合注意力",
+   "back": "大部分线性 + 少量全注意力",
+   "chapterId": "ch10",
+   "tags": [
+    "非",
+    " ",
+    "T",
+    "r",
+    "a",
+    "n",
+    "s",
+    "f",
+    "o",
+    "r",
+    "m",
+    "e",
+    "r"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "总参/激活",
+   "back": "总参=显存；激活=每 token 算力",
+   "chapterId": "ch11",
+   "tags": [
+    "M",
+    "o",
+    "E"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "Qwen3.8-2.4T",
+   "back": "2.4T 总 / 95B 激活，512 专家 top-10",
+   "chapterId": "ch11",
+   "tags": [
+    "M",
+    "o",
+    "E"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "共享专家",
+   "back": "所有 token 都走，学通用能力",
+   "chapterId": "ch11",
+   "tags": [
+    "M",
+    "o",
+    "E"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "图像 token",
+   "back": "448/14=32，32²=1024；2×2 合并=256",
+   "chapterId": "ch12",
+   "tags": [
+    "多",
+    "模",
+    "态"
+   ]
+  },
+  {
+   "id": "f35",
+   "front": "多模态三段式",
+   "back": "ViT → 连接器 → LLM",
+   "chapterId": "ch12",
+   "tags": [
+    "多",
+    "模",
+    "态"
+   ]
+  },
+  {
+   "id": "f36",
+   "front": "Janus",
+   "back": "理解头 + 生成头双系统",
+   "chapterId": "ch12",
+   "tags": [
+    "多",
+    "模",
+    "态"
+   ]
+  },
+  {
+   "id": "f37",
+   "front": "GQA 公式",
+   "back": "2 × L × H_kv × d_head × b",
+   "chapterId": "ch13",
+   "tags": [
+    "注",
+    "意",
+    "力"
+   ]
+  },
+  {
+   "id": "f38",
+   "front": "1M KV",
+   "back": "朴素可达数百 GiB，必须稀疏/压缩",
+   "chapterId": "ch13",
+   "tags": [
+    "注",
+    "意",
+    "力"
+   ]
+  },
+  {
+   "id": "f39",
+   "front": "YaRN",
+   "back": "factor 外推倍数；original 原训练长度",
+   "chapterId": "ch13",
+   "tags": [
+    "注",
+    "意",
+    "力"
+   ]
+  },
+  {
+   "id": "f40",
+   "front": "许可证",
+   "back": "Apache/MIT 宽松；Llama/Gemma 有条件；CC-BY-NC 禁商用",
+   "chapterId": "ch14",
+   "tags": [
+    "合",
+    "规"
+   ]
+  },
+  {
+   "id": "f41",
+   "front": "开放数据",
+   "back": "OLMo/Pythia/DCLM 可复现",
+   "chapterId": "ch14",
+   "tags": [
+    "合",
+    "规"
+   ]
+  },
+  {
+   "id": "f42",
+   "front": "污染检测",
+   "back": "改写题目/换数字重测",
+   "chapterId": "ch14",
+   "tags": [
+    "合",
+    "规"
+   ]
+  },
+  {
+   "id": "f43",
+   "front": "config 字段",
+   "back": "architectures/model_type/层数/hidden/QKV/专家/上下文",
+   "chapterId": "ch15",
+   "tags": [
+    "工",
+    "具"
+   ]
+  },
+  {
+   "id": "f44",
+   "front": "MoE 参数估算",
+   "back": "E × 3 × H × F_exp × L",
+   "chapterId": "ch15",
+   "tags": [
+    "工",
+    "具"
+   ]
+  },
+  {
+   "id": "f45",
+   "front": "KV 估算",
+   "back": "2 × L × H_kv × d_head × b",
+   "chapterId": "ch15",
+   "tags": [
+    "工",
+    "具"
+   ]
+  },
+  {
+   "id": "f46",
+   "front": "选型顺序",
+   "back": "许可证 → 显存 → 上下文 → 任务",
+   "chapterId": "ch16",
+   "tags": [
+    "索",
+    "引"
+   ]
+  },
+  {
+   "id": "f47",
+   "front": "MoE 显存",
+   "back": "按总参数，不按激活参数",
+   "chapterId": "ch16",
+   "tags": [
+    "索",
+    "引"
+   ]
+  },
+  {
+   "id": "f48",
+   "front": "索引口径",
+   "back": "家族级，不逐 checkpoint",
+   "chapterId": "ch16",
+   "tags": [
+    "索",
+    "引"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "Transformer",
+   "en": "",
+   "def": "由自注意力、FFN、残差和归一化堆叠成的序列模型骨架",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "decoder-only",
+   "en": "",
+   "def": "只用因果解码器、按下一个 token 预测训练的架构",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "encoder-decoder",
+   "en": "",
+   "def": "编码器双向读输入、解码器自回归生成的架构",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "注意力",
+   "en": "",
+   "def": "让每个 token 根据相关性聚合其他 token 信息的机制",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "自注意力",
+   "en": "",
+   "def": "Q/K/V 都来自同一序列的注意力",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "因果掩码",
+   "en": "",
+   "def": "禁止 token 看到未来位置的掩码",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "MHA",
+   "en": "",
+   "def": "每个 Q 头有独立 K/V 的多头注意力",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "MQA",
+   "en": "",
+   "def": "所有 Q 头共享 1 组 K/V 的多查询注意力",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "GQA",
+   "en": "",
+   "def": "Q 头分组共享 K/V 的分组查询注意力",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "MLA",
+   "en": "",
+   "def": "把 K/V 压成低秩潜向量再投影的多头潜在注意力",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "KV cache",
+   "en": "",
+   "def": "推理时缓存的 Key/Value，避免每步重算历史",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "RoPE",
+   "en": "",
+   "def": "用旋转位置编码让注意力只看相对位置的方案",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "YaRN",
+   "en": "",
+   "def": "通过改旋转频率/温度把上下文外推的方法",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "ALiBi",
+   "en": "",
+   "def": "用距离线性偏置代替位置编码的方案",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "sliding window",
+   "en": "",
+   "def": "每个 token 只看最近 W 个 token 的注意力",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "局部/全局注意力",
+   "en": "",
+   "def": "多数层看局部窗口、少数层看全序列的交替设计",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "RMSNorm",
+   "en": "",
+   "def": "只按均方根归一化、不减均值的归一化",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "LayerNorm",
+   "en": "",
+   "def": "减均值、除标准差再仿射的归一化",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "QK-Norm",
+   "en": "",
+   "def": "注意力前对 Q/K 做归一化，稳定大 head_dim 训练",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "SwiGLU",
+   "en": "",
+   "def": "用 Swish 门控的两个线性投影组成的 FFN",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "FFN",
+   "en": "",
+   "def": "Transformer 层里的前馈网络",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "MoE",
+   "en": "",
+   "def": "把 FFN 拆成多个专家、每 token 只激活 top-k 的架构",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "router",
+   "en": "",
+   "def": "给每个 token 选择专家并输出权重的门控网络",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "top-k",
+   "en": "",
+   "def": "每个 token 只激活的专家数量",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "expert",
+   "en": "",
+   "def": "MoE 中独立的一套 FFN 参数",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "shared expert",
+   "en": "",
+   "def": "所有 token 都经过的通用专家",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "total params",
+   "en": "",
+   "def": "模型全部权重，决定显存",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "active params",
+   "en": "",
+   "def": "每 token 实际参与计算的权重，决定算力",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "expert parallelism",
+   "en": "",
+   "def": "把不同专家放到不同设备上的并行方式",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "load balancing",
+   "en": "",
+   "def": "让 token 均匀分配到专家的训练约束",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "dense",
+   "en": "",
+   "def": "每个 token 都走同一套 FFN 的模型",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "sparse attention",
+   "en": "",
+   "def": "每 token 只和部分历史做注意力的机制",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "DSA",
+   "en": "",
+   "def": "用索引器选 top-k 历史 token 的稀疏注意力",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "linear attention",
+   "en": "",
+   "def": "用核函数/递归把注意力降到 O(n) 的方案",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "SSM",
+   "en": "",
+   "def": "用固定状态递推建模序列的状态空间模型",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Mamba",
+   "en": "",
+   "def": "带选择性状态的空间状态模型",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "RWKV",
+   "en": "",
+   "def": "RNN 化 Transformer，time-mix + channel-mix",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "hybrid architecture",
+   "en": "",
+   "def": "线性/SSM 层与全注意力层混合的架构",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Jamba",
+   "en": "",
+   "def": "Transformer + Mamba 的混合模型",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Griffin",
+   "en": "",
+   "def": "RG-LRU + 局部注意力的混合模型",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "xLSTM",
+   "en": "",
+   "def": "指数门控 + 矩阵记忆的 LSTM 变体",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "multimodal",
+   "en": "",
+   "def": "同时处理文本、图像、音频等模态的模型",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "ViT",
+   "en": "",
+   "def": "把图像切 patch 后用 Transformer 编码的视觉模型",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "patch",
+   "en": "",
+   "def": "图像切分后的固定大小块",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "connector",
+   "en": "",
+   "def": "把视觉/音频特征投到语言模型维度的模块",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "resampler",
+   "en": "",
+   "def": "用固定查询把变长视觉特征压成固定 token 的模块",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "early fusion",
+   "en": "",
+   "def": "在较早层把多模态 token 拼在一起的融合",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "late fusion",
+   "en": "",
+   "def": "只把视觉特征当外挂、在输入端拼接的融合",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "any-to-any",
+   "en": "",
+   "def": "文本/图像/音频等任意模态到任意模态的模型",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "image token",
+   "en": "",
+   "def": "图像 patch 经编码器/连接器后得到的 token",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "tokenizer",
+   "en": "",
+   "def": "把文本切成 token 的组件",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "vocab",
+   "en": "",
+   "def": "tokenizer 的词表大小",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "embedding",
+   "en": "",
+   "def": "把 token id 映射成向量的矩阵",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "logits",
+   "en": "",
+   "def": "模型输出头得到的未归一化分数",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "softmax",
+   "en": "",
+   "def": "把 logits 变成概率分布的归一化",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "context length",
+   "en": "",
+   "def": "模型能处理的最大 token 数",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "prefill",
+   "en": "",
+   "def": "推理时一次性处理输入前缀的阶段",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "decode",
+   "en": "",
+   "def": "推理时逐 token 生成的阶段",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "quantization",
+   "en": "",
+   "def": "把权重/激活降到低精度以省显存",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "FP8",
+   "en": "",
+   "def": "8 位浮点量化格式",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "INT4",
+   "en": "",
+   "def": "4 位整数量化格式",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "license",
+   "en": "",
+   "def": "决定能否商用/修改/再分发的法律条款",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "Apache 2.0",
+   "en": "",
+   "def": "允许商用、修改、再分发的宽松许可证",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "MIT",
+   "en": "",
+   "def": "比 Apache 更短更宽松的许可证",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "Llama Community",
+   "en": "",
+   "def": "Llama 系列的自定义社区许可证",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "Gemma Terms",
+   "en": "",
+   "def": "Gemma 系列的自定义使用条款",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "CC-BY-NC",
+   "en": "",
+   "def": "禁止商用的 Creative Commons 许可证",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "open weights",
+   "en": "",
+   "def": "权重可下载，但不等于代码/数据/商用权利全开放",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "benchmark contamination",
+   "en": "",
+   "def": "评测题出现在训练数据里导致分数虚高",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "model card",
+   "en": "",
+   "def": "模型卡：许可证、数据、评测、限制的说明页",
+   "chapterIds": [
+    "ch14"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 16,
+  "concepts": 12
+ },
+ "signature": "b4b9ecf1ca29",
+ "contentHash": "5f8934eb3a93"
+}

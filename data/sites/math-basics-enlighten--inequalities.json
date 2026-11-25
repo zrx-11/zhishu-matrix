@@ -1,0 +1,556 @@
+{
+ "repo": "math-basics-enlighten",
+ "bookSlug": "inequalities",
+ "title": "不等式",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "05-不等式/manifest.json",
+ "stats": {
+  "chapters": 4,
+  "concepts": 2,
+  "quizzes": 10,
+  "cards": 14,
+  "glossary": 10
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：不等式的性质与同解变形",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "05-不等式/chapters/ch01-properties.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-05-不等式 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：二次不等式与高次不等式",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "05-不等式/chapters/ch02-quadratic-poly.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-05-不等式 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：绝对值不等式与无理不等式",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "05-不等式/chapters/ch03-absolute-radical.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-05-不等式 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：不等式的证明",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "05-不等式/chapters/ch04-proof.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-05-不等式 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "同解变形与变号",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "ch01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "05-不等式/concepts/c01-equivalent-inequality.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-05-不等式 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "符号表与穿针引线",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "ch02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "05-不等式/concepts/c02-sign-chart.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-05-不等式 华昌年.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "若 a>b，则下列一定成立的是：",
+   "options": [
+    "a²>b²",
+    "−2a>−2b",
+    "a−3>b−3",
+    "1/a>1/b"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "两边同减 3 不变号，C 恒成立。A 在 a=1、b=−2 时不成立；B 应变为 −2a<−2b；D 要求同号。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "解不等式 −3x≥6，解集是：",
+   "options": [
+    "x≥−2",
+    "x≤−2",
+    "x≥2",
+    "x≤2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "两边除以 −3（负数），不等号反向：x≤−2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "不等式 x²−4x+3<0 的解集是：",
+   "options": [
+    "(1,3)",
+    "(−∞,1)∪(3,+∞)",
+    "[1,3]",
+    "(−3,−1)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "(x−1)(x−3)<0，开口向上，两根之间为负，解集 (1,3)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "不等式 (x−2)²(x+1)>0 的解集是：",
+   "options": [
+    "x>−1",
+    "x>−1 且 x≠2",
+    "x<−1",
+    "全体实数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "x=−1 处穿根、x=2 处偶次不穿；x>−1 且 x≠2 时为正，x=−1 时为零。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "不等式 |x−2|<3 的解集是：",
+   "options": [
+    "(−1,5)",
+    "(−5,−1)",
+    "(2,5)",
+    "(−∞,5)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "到 2 的距离小于 3，即 −3<x−2<3，得 −1<x<5。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "解 √(x−1)<2 时，正确的第一步是：",
+   "options": [
+    "两边平方",
+    "移项",
+    "确定定义域 x≥1",
+    "讨论 x 的正负"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "根号要求被开方数非负，先得 x≥1；再平方得 x−1<4，即 x<5，合起来 1≤x<5。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "用比较法证明 a²+b²≥2ab 时，关键一步是：",
+   "options": [
+    "移项得 a²+b²−2ab≥0",
+    "两边同除 2",
+    "取 a=b=1 验证",
+    "两边开方"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "作差后配方得 (a−b)²≥0，这是证明的核心；只代特殊值不算证明。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "对正数 a、b，等号成立的条件是：",
+   "options": [
+    "a=b",
+    "a+b=0",
+    "ab=1",
+    "a=2b"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "(a+b)/2≥√(ab) 的等号当且仅当 a=b 时成立。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "__all__",
+   "stem": "不等式 (x−1)(x+2)>0 的解集是：",
+   "options": [
+    "(−2,1)",
+    "(−∞,−2)∪(1,+∞)",
+    "[−2,1]",
+    "(−∞,1)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "开口向上，两根 −2、1 之外为正。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "__all__",
+   "stem": "若 a>b，则下列一定成立的是：",
+   "options": [
+    "a²>b²",
+    "a−c>b−c",
+    "ac>bc",
+    "1/a<1/b"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "同减一个数不变号；其余选项在 c 符号不定或 a 为负时不成立。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：不等式的性质与同解变形」的一句话核心是什么？",
+   "back": "不等式只有一条铁律：两边同乘（除）一个负数，不等号方向必须反过来。",
+   "chapterId": "ch01",
+   "tags": [
+    "inequalities",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：二次不等式与高次不等式」的一句话核心是什么？",
+   "back": "二次不等式的解集由“开口方向 + 零点位置”决定；高次不等式用数轴上的符号变化判断。",
+   "chapterId": "ch02",
+   "tags": [
+    "inequalities",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：绝对值不等式与无理不等式」的一句话核心是什么？",
+   "back": "绝对值是距离，无理不等式要先保证根号有意义，再平方——两步顺序不能颠倒。",
+   "chapterId": "ch03",
+   "tags": [
+    "inequalities",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "「第 4 章：不等式的证明」的一句话核心是什么？",
+   "back": "证明不等式就是证明“差非负”或“由已知不等式推过来”；分析法从结论倒着找条件。",
+   "chapterId": "ch04",
+   "tags": [
+    "inequalities",
+    "核心"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「同解不等式」？",
+   "back": "解集完全相同的不等式。",
+   "chapterId": "ch01",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「可乘性」？",
+   "back": "两边同乘正数不变号、乘负数变号的性质。",
+   "chapterId": "ch01",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「解集」？",
+   "back": "使不等式成立的所有取值组成的集合。",
+   "chapterId": "ch01",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「穿针引线法」？",
+   "back": "按零点次数在数轴上交替取符号解高次不等式的方法。",
+   "chapterId": "ch02",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「重根」？",
+   "back": "方程中重复出现的根，对应因式的幂次大于 1。",
+   "chapterId": "ch02",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「绝对值不等式」？",
+   "back": "含 |x| 或 |ax+b| 的不等式，按距离意义转化。",
+   "chapterId": "ch03",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「无理不等式」？",
+   "back": "根号内含有未知数的不等式。",
+   "chapterId": "ch03",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「比较法」？",
+   "back": "作差或作商判断大小的证明方法。",
+   "chapterId": "ch04",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "什么是「分析法」？",
+   "back": "从结论出发寻找充分条件的证明方法。",
+   "chapterId": "ch04",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "什么是「基本不等式」？",
+   "back": "a²+b²≥2ab；(a+b)/2≥√(ab)（a,b>0）。",
+   "chapterId": "ch04",
+   "tags": [
+    "inequalities",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "同解不等式",
+   "en": "",
+   "def": "解集完全相同的不等式。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "可乘性",
+   "en": "",
+   "def": "两边同乘正数不变号、乘负数变号的性质。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "解集",
+   "en": "",
+   "def": "使不等式成立的所有取值组成的集合。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "穿针引线法",
+   "en": "",
+   "def": "按零点次数在数轴上交替取符号解高次不等式的方法。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "重根",
+   "en": "",
+   "def": "方程中重复出现的根，对应因式的幂次大于 1。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "绝对值不等式",
+   "en": "",
+   "def": "含 |x| 或 |ax+b| 的不等式，按距离意义转化。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "无理不等式",
+   "en": "",
+   "def": "根号内含有未知数的不等式。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "比较法",
+   "en": "",
+   "def": "作差或作商判断大小的证明方法。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "分析法",
+   "en": "",
+   "def": "从结论出发寻找充分条件的证明方法。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "基本不等式",
+   "en": "",
+   "def": "a²+b²≥2ab；(a+b)/2≥√(ab)（a,b>0）。",
+   "chapterIds": [
+    "ch04"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 4,
+  "concepts": 2
+ },
+ "signature": "d747595a5ac0",
+ "contentHash": "aa802967d0d2",
+ "duplicateGroup": "d747595a5ac0"
+}

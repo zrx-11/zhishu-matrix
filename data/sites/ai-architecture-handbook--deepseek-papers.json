@@ -1,0 +1,1004 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "deepseek-papers",
+ "title": "案例论文拆解：DeepSeek R1 / V4 / V4.1",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "02-paper-teardown/manifest.json",
+ "stats": {
+  "chapters": 5,
+  "concepts": 15,
+  "quizzes": 12,
+  "cards": 16,
+  "glossary": 26
+ },
+ "chapters": [
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：R1 论文拆解（上）：先学会读论文，再看 R1-Zero",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/chapters/ch06-r1-part1.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-R1 论文（arXiv:2501.12948）§1–§3"
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：R1 论文拆解（下）：四阶段流水线、蒸馏与局限",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch06"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/chapters/ch07-r1-part2.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-R1 论文 §2–§4、§6"
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：V4 论文拆解：百万上下文的成本怎么砍",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch07"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/chapters/ch08-v4.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4 技术报告（arXiv:2606.19348）§2–§5"
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：V4.1 论文拆解：非对称 CED 与 KV cache 极限",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch08"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/chapters/ch09-v41.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4.1-Flash 论文（arXiv:2609.19969）§2–§5"
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "附录：论文公式逐项拆解",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch09"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/chapters/ch10-formulas.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 公式附录"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c17",
+   "title": "GRPO（组相对策略优化）",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "concepts/c17-grpo-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c17-grpo.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-R1 论文 §2.2"
+   }
+  },
+  {
+   "id": "c18",
+   "title": "规则奖励",
+   "chapterIds": [
+    "ch06",
+    "ch07"
+   ],
+   "prerequisites": [
+    "c17"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c18-rule-reward.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-R1 论文 §2.2"
+   }
+  },
+  {
+   "id": "c19",
+   "title": "冷启动",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c19-cold-start.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-R1 论文 §2.3.1"
+   }
+  },
+  {
+   "id": "c20",
+   "title": "拒绝采样",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [
+    "c17",
+    "c19"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c20-rejection-sampling.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-R1 论文 §2.3.2"
+   }
+  },
+  {
+   "id": "c21",
+   "title": "知识蒸馏",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [
+    "c20"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c21-distillation.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-R1 论文 §2.3.3"
+   }
+  },
+  {
+   "id": "c22",
+   "title": "CSA（压缩稀疏注意力）",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "concepts/c22-csa-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c22-csa.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4 技术报告 §2.3.1"
+   }
+  },
+  {
+   "id": "c23",
+   "title": "HCA（重度压缩注意力）",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [
+    "c22"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c23-hca.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4 技术报告 §2.3.2"
+   }
+  },
+  {
+   "id": "c24",
+   "title": "mHC（流形约束超连接）",
+   "chapterIds": [
+    "ch08",
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "concepts/c24-mhc-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c24-mhc.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4 技术报告 §2.2"
+   }
+  },
+  {
+   "id": "c25",
+   "title": "Muon 优化器",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c25-muon.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4 技术报告 §2.4"
+   }
+  },
+  {
+   "id": "c26",
+   "title": "CED（因果编码器—解码器）",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [
+    "c28"
+   ],
+   "brief": "",
+   "depth": "concepts/c26-ced-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c26-ced.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4.1-Flash 论文 §2.2"
+   }
+  },
+  {
+   "id": "c27",
+   "title": "CSA2（压缩稀疏注意力 2）",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [
+    "c22",
+    "c23",
+    "c26"
+   ],
+   "brief": "",
+   "depth": "concepts/c27-csa2-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c27-csa2.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4.1-Flash 论文 §2.3"
+   }
+  },
+  {
+   "id": "c28",
+   "title": "SWA（滑动窗口注意力）",
+   "chapterIds": [
+    "ch08",
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c28-swa.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4/V4.1 技术报告"
+   }
+  },
+  {
+   "id": "c29",
+   "title": "Engram（条件记忆）",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c29-engram.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4.1-Flash 论文 §2.4.2"
+   }
+  },
+  {
+   "id": "c30",
+   "title": "DSpark（投机解码）",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [
+    "c28"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c30-dspark.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4.1-Flash 论文 §2.4.3"
+   }
+  },
+  {
+   "id": "c31",
+   "title": "FP4 量化",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "02-paper-teardown/concepts/c31-fp4.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4/V4.1 技术报告"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch06",
+   "stem": "R1-Zero 的奖励由哪两部分组成？",
+   "options": [
+    "过程奖励 + 结果奖励",
+    "准确性奖励 + 格式奖励",
+    "人类偏好 + 长度惩罚",
+    "价值模型 + 策略模型"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c18",
+   "explain": "论文明确只用规则化的准确性奖励和格式奖励。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch06",
+   "stem": "GRPO 中优势的分母是组内______。",
+   "options": [],
+   "answer": "标准差",
+   "type": "blank",
+   "conceptId": "c17",
+   "explain": "优势 =（奖励 - 组内均值）/ 组内标准差。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch06",
+   "stem": "R1-Zero 的初始基座是哪个模型？",
+   "options": [
+    "DeepSeek-V3-Base",
+    "DeepSeek-V4-Flash",
+    "Qwen-7B",
+    "Llama-70B"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c17",
+   "explain": "R1-Zero 从 V3-Base 出发做纯 RL。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch07",
+   "stem": "R1 的冷启动数据规模大约是多少？",
+   "options": [
+    "几千条",
+    "80 万条",
+    "8 万条",
+    "45T token"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c19",
+   "explain": "冷启动是几千条人工高质量长链推理。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch07",
+   "stem": "R1 的蒸馏阶段使用什么训练方式？",
+   "options": [
+    "强化学习",
+    "监督微调",
+    "蒙特卡洛树搜索",
+    "过程奖励模型"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c21",
+   "explain": "蒸馏阶段用 R1 生成的数据做 SFT，不再跑 RL。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch07",
+   "stem": "论文明确列为失败尝试的是哪一项？",
+   "options": [
+    "GRPO",
+    "过程奖励模型（PRM）",
+    "冷启动",
+    "拒绝采样"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c17",
+   "explain": "论文的 Unsuccessful Attempts 节写了 PRM 和 MCTS 的失败。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch08",
+   "stem": "V4 的 CSA 压缩率是多少？",
+   "options": [
+    "2:1",
+    "4:1",
+    "64:1",
+    "128:1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c22",
+   "explain": "CSA 每 4 个 token 压成 1 条，HCA 是 128:1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch08",
+   "stem": "V4 的 HCA 压缩率是多少？",
+   "options": [
+    "2:1",
+    "4:1",
+    "64:1",
+    "128:1"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "c23",
+   "explain": "HCA 每 128 个 token 压成 1 条，压缩后做稠密注意力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch08",
+   "stem": "mHC 的混合矩阵被约束成什么？",
+   "options": [
+    "只有行和为 1",
+    "双随机矩阵",
+    "正交矩阵",
+    "稀疏矩阵"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c24",
+   "explain": "双随机要求行和、列和都为 1，元素非负。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch09",
+   "stem": "V4.1 的 CED 中，解码器全局 KV 来自哪里？",
+   "options": [
+    "每层自己的隐藏状态",
+    "编码器第 20 层的隐藏状态",
+    "输入 embedding",
+    "Engram 查表"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c26",
+   "explain": "公式 C_l=H_20 W_l^KV，l>20。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch09",
+   "stem": "V4.1 的全局 KV cache 是每 token ______ 字节。",
+   "options": [],
+   "answer": "890",
+   "type": "blank",
+   "conceptId": "c27",
+   "explain": "论文摘要与图 1 都给出 890 B/token。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch09",
+   "stem": "CSA2 的 Reuse 模式复用了什么？",
+   "options": [
+    "只复用 Q",
+    "主 KV 和 top-k 索引",
+    "只复用位置编码",
+    "完全重新计算"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c27",
+   "explain": "Reuse 模式连主 KV 和上一层选好的 top-k 索引一起复用。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "R1-Zero 的两类奖励？",
+   "back": "准确性奖励（答案对错）和格式奖励（推理/答案标签）。",
+   "chapterId": "ch06",
+   "tags": [
+    "R1",
+    "奖励"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "GRPO 的优势怎么算？",
+   "back": "（该回答奖励 - 组内均值）/ 组内标准差。",
+   "chapterId": "ch06",
+   "tags": [
+    "R1",
+    "GRPO"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "“aha moment”指什么？",
+   "back": "训练中模型自发出现停下来重新检查、反思的行为。",
+   "chapterId": "ch06",
+   "tags": [
+    "R1",
+    "现象"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "R1-Zero 不能直接上线的原因？",
+   "back": "可读性差、中英混杂、格式不合规。",
+   "chapterId": "ch06",
+   "tags": [
+    "R1",
+    "局限"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "冷启动解决什么问题？",
+   "back": "用几千条高质量长链推理稳定格式和可读性。",
+   "chapterId": "ch07",
+   "tags": [
+    "R1",
+    "冷启动"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "R1 的四个训练阶段？",
+   "back": "冷启动 SFT → 推理 RL → 拒绝采样 SFT → 推理+通用 RL。",
+   "chapterId": "ch07",
+   "tags": [
+    "R1",
+    "流程"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "R1 的 SFT 数据规模？",
+   "back": "约 80 万条，60 万推理 + 20 万通用。",
+   "chapterId": "ch07",
+   "tags": [
+    "R1",
+    "数据"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "R1 蒸馏用什么数据、什么方式？",
+   "back": "R1 生成并筛选约 8 万条，学生做 SFT。",
+   "chapterId": "ch07",
+   "tags": [
+    "R1",
+    "蒸馏"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "CSA 的两个动作？",
+   "back": "每 4 token 压 1 条 + top-k 稀疏选择。",
+   "chapterId": "ch08",
+   "tags": [
+    "V4",
+    "CSA"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "HCA 为什么不做稀疏？",
+   "back": "压缩到 1/128 后候选很少，稠密算也可接受。",
+   "chapterId": "ch08",
+   "tags": [
+    "V4",
+    "HCA"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "mHC 为什么用双随机约束？",
+   "back": "保证混合是凸组合，不放大信号，训练稳定。",
+   "chapterId": "ch08",
+   "tags": [
+    "V4",
+    "mHC"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "Muon 和 AdamW 的核心区别？",
+   "back": "Muon 对梯度矩阵整体正交化，AdamW 逐元素自适应。",
+   "chapterId": "ch08",
+   "tags": [
+    "V4",
+    "优化器"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "CED 的 prefill 为什么能减半？",
+   "back": "只算前 20 层编码器，解码器全局 KV 由 H20 投影。",
+   "chapterId": "ch09",
+   "tags": [
+    "V4.1",
+    "CED"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "CSA2 的三种模式？",
+   "back": "Full（完整算）、Reindex（复用 KV 重选 top-k）、Reuse（复用 KV 和索引）。",
+   "chapterId": "ch09",
+   "tags": [
+    "V4.1",
+    "CSA2"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "Engram 怎么省计算？",
+   "back": "N-gram 哈希查表，O(1) 内存访问替代矩阵乘法。",
+   "chapterId": "ch09",
+   "tags": [
+    "V4.1",
+    "Engram"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "DSpark 和 MTP 的分工？",
+   "back": "MTP 偏训练信号，DSpark 是独立训练的推理 drafter。",
+   "chapterId": "ch09",
+   "tags": [
+    "V4.1",
+    "DSpark"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "R1-Zero",
+   "en": "",
+   "def": "V3-Base 直接做纯 RL、不做冷启动得到的推理模型。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "GRPO",
+   "en": "",
+   "def": "用组内相对优势替代价值模型的策略优化算法。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "规则奖励",
+   "en": "",
+   "def": "用确定性规则判分，如答案匹配、格式检查。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "冷启动",
+   "en": "",
+   "def": "RL 前用少量高质量长链推理做 SFT，稳定格式。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "拒绝采样",
+   "en": "",
+   "def": "生成多个回答，只保留达标样本做 SFT。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "知识蒸馏",
+   "en": "",
+   "def": "让学生模型学习教师模型的输出。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "奖励黑客",
+   "en": "",
+   "def": "模型钻奖励漏洞拿高分但没真完成任务。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "过程奖励模型（PRM）",
+   "en": "",
+   "def": "给推理每一步打分的奖励模型，R1 尝试后未作主方案。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "MCTS",
+   "en": "",
+   "def": "蒙特卡洛树搜索，R1 尝试后未作主方案。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "CSA",
+   "en": "",
+   "def": "每 4 个 token 压 1 条再做 top-k 稀疏的注意力。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "HCA",
+   "en": "",
+   "def": "每 128 个 token 压 1 条再做稠密注意力的注意力。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "mHC",
+   "en": "",
+   "def": "用双随机矩阵混合多条残差流的超连接。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "Muon",
+   "en": "",
+   "def": "对梯度矩阵做正交化的优化器。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "Sinkhorn-Knopp",
+   "en": "",
+   "def": "交替行列归一化，把矩阵投影到双随机流形。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "双随机矩阵",
+   "en": "",
+   "def": "行和、列和都为 1 的非负矩阵。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "CED",
+   "en": "",
+   "def": "前半编码器、后半解码器，解码全局 KV 由编码器末端投影。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "CSA2",
+   "en": "",
+   "def": "CSA 的跨层复用版本，有 Full/Reindex/Reuse 三模式。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "SWA",
+   "en": "",
+   "def": "只看最近固定窗口的滑动窗口注意力。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "SWA Bounded Replay",
+   "en": "",
+   "def": "只回放最近一个窗口重建 SWA 缓存。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "Engram",
+   "en": "",
+   "def": "用哈希查表的条件记忆模块。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "DSpark",
+   "en": "",
+   "def": "V4.1 独立训练的投机解码 drafter。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "FP4",
+   "en": "",
+   "def": "4 位浮点量化，存储和带宽约为 FP16 的 1/4。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "全局 KV cache",
+   "en": "",
+   "def": "常驻 HBM 的主 KV 缓存；V4.1 为 890 B/token。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "持久 KV cache",
+   "en": "",
+   "def": "放 SSD/主机内存、用于前缀复用的缓存。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "预填充（prefill）",
+   "en": "",
+   "def": "一次性读入整段输入并建立 KV cache。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "解码（decode）",
+   "en": "",
+   "def": "逐 token 生成输出。",
+   "chapterIds": [
+    "ch09"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 5,
+  "concepts": 15
+ },
+ "signature": "54bc5f263075",
+ "contentHash": "e8497bb829ba"
+}

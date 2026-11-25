@@ -1,0 +1,2447 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "deepseek-family",
+ "title": "案例全谱：DeepSeek 一代到 V4.1",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "09-deepseek-family/manifest.json",
+ "stats": {
+  "chapters": 14,
+  "concepts": 13,
+  "quizzes": 42,
+  "cards": 44,
+  "glossary": 68
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：家族地图",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch01-family-map.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/deepseek-ai"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：Dense 起步：LLM、Coder 与 Math",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch02-dense-era.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2401.02954"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：DeepSeekMoE：把 FFN 拆成细粒度专家",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch03-moe.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2401.06066"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：V2 代：MLA + DeepSeekMoE 的组合",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch04-v2-mla.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2405.04434"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：V3 代：671B/37B 的骨架",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch05-v3.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2412.19437"
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：R1 代：同一副骨架，换训练目标",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch06-r1.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2501.12948"
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：V3.1 / V3.2：从推理模型到 Agent 模型",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05",
+    "ch06"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch07-v31-v32.md"
+   },
+   "bookSource": {
+    "file": "https://api-docs.deepseek.com/zh-cn/updates/"
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：V4 代：百万上下文成为默认",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch07"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch08-v4.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2606.19348"
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：V4.1：把 KV cache 压到 890 B/token",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch08"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch09-v41.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2609.19969"
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：多模态与专用模型",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch07"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch10-multimodal-special.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/deepseek-ai"
+   }
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：全家族对比与选型",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch09"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch11-compare.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/deepseek-ai"
+   }
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "附录：105+ 张模型卡索引",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch11"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch12-model-index.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/api/models?author=deepseek-ai&limit=200"
+   }
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：手算手册：从参数量到 KV 账",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch09",
+    "ch12"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch13-hand-calc.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2609.19969"
+   }
+  },
+  {
+   "id": "ch14",
+   "num": 14,
+   "title": "第 14 章：源码地图：拿到 config.json 和 modeling 文件怎么读",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch09",
+    "ch13"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/chapters/ch14-source-map.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/deepseek-ai"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "稠密模型与 MoE",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c01-dense-vs-moe.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2401.06066"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "总参数与激活参数",
+   "chapterIds": [
+    "ch04",
+    "ch05",
+    "ch09"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c02-total-vs-active.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2412.19437"
+   }
+  },
+  {
+   "id": "c03",
+   "title": "GQA（分组查询注意力）",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c03-gqa.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2401.02954"
+   }
+  },
+  {
+   "id": "c04",
+   "title": "MLA（多头潜在注意力）",
+   "chapterIds": [
+    "ch04",
+    "ch05"
+   ],
+   "prerequisites": [
+    "c03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c04-mla.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2405.04434"
+   }
+  },
+  {
+   "id": "c05",
+   "title": "DeepSeekMoE",
+   "chapterIds": [
+    "ch03",
+    "ch04",
+    "ch05"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c05-deepseekmoe.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2401.06066"
+   }
+  },
+  {
+   "id": "c06",
+   "title": "MTP（多 token 预测）",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "c02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c06-mtp.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2412.19437"
+   }
+  },
+  {
+   "id": "c07",
+   "title": "GRPO（组相对策略优化）",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c07-grpo.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2501.12948"
+   }
+  },
+  {
+   "id": "c08",
+   "title": "DSA（DeepSeek 稀疏注意力）",
+   "chapterIds": [
+    "ch07",
+    "ch08"
+   ],
+   "prerequisites": [
+    "c04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c08-dsa.md"
+   },
+   "bookSource": {
+    "file": "https://api-docs.deepseek.com/zh-cn/updates/"
+   }
+  },
+  {
+   "id": "c09",
+   "title": "CSA 与 HCA",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [
+    "c08"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c09-csa-hca.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2606.19348"
+   }
+  },
+  {
+   "id": "c10",
+   "title": "mHC（流形约束超连接）",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c10-mhc.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2606.19348"
+   }
+  },
+  {
+   "id": "c11",
+   "title": "CED 与 CSA2",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [
+    "c09"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c11-ced-csa2.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2609.19969"
+   }
+  },
+  {
+   "id": "c12",
+   "title": "Engram 与 DSpark",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [
+    "c02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c12-engram-dspark.md"
+   },
+   "bookSource": {
+    "file": "https://arxiv.org/abs/2609.19969"
+   }
+  },
+  {
+   "id": "c13",
+   "title": "视觉压缩：VL、OCR 与 Janus",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "09-deepseek-family/concepts/c13-visual-compression.md"
+   },
+   "bookSource": {
+    "file": "https://huggingface.co/deepseek-ai"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "DeepSeek 四代结构主线的最合理排序是？",
+   "options": [
+    "dense → MoE → MLA + MoE → 稀疏注意力/百万上下文",
+    "MoE → dense → MLA → CNN",
+    "dense → MLA → MoE → RNN",
+    "V2 → V3 → V1 → V4"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "先 dense，再把 FFN 拆成 MoE，再用 MLA 压 KV，最后用 DSA/CSA 做稀疏长上下文。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "模型卡写“671B/37B”，这两个数分别指？",
+   "options": [
+    "671B 激活，37B 总参数",
+    "671B 总参数，37B 每 token 激活",
+    "两者都是总参数",
+    "两者都是激活参数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "MoE 的总参数要全装，激活参数决定每 token 算力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "哪个 checkpoint 第一次把 `architectures` 换成 `DeepseekV32ForCausalLM`？",
+   "options": [
+    "V3",
+    "V3.1",
+    "V3.2-Exp",
+    "V3.1-Terminus"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "V3.2-Exp 引入 DSA，结构标识随之变化；V3.1 仍是 V3 结构。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "DeepSeek-LLM 67B 的 KV 头数是多少？",
+   "options": [
+    "64",
+    "8",
+    "32",
+    "16"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "67B 是 64 个查询头、8 个 KV 头的 GQA。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02",
+   "stem": "Coder 的 FIM 训练对应哪种任务？",
+   "options": [
+    "中间填空补全",
+    "图像分类",
+    "语音识别",
+    "机器翻译"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "FIM 把代码中间挖掉，让模型根据前后文补回，对应 IDE 中间补全。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch02",
+   "stem": "DeepSeek-Coder-V2 属于哪个家族？",
+   "options": [
+    "第一代 dense Coder",
+    "V3 家族",
+    "V2 家族",
+    "Janus"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "Coder-V2 是 236B/21B 的 V2 骨架代码继续预训练，不是 dense Coder 放大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch03",
+   "stem": "DeepSeekMoE 16B 每 token 选几个路由专家？",
+   "options": [
+    "2",
+    "6",
+    "8",
+    "64"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "top-6 路由专家，另有 2 个共享专家始终激活。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch03",
+   "stem": "共享专家的主要作用是什么？",
+   "options": [
+    "学通用知识，减少路由专家重复学习",
+    "只处理英文",
+    "替代注意力",
+    "只做负载均衡"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "共享专家始终激活，兜住通用语言知识；路由专家专注细分知识。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch03",
+   "stem": "MoE 的显存占用主要按什么估？",
+   "options": [
+    "激活参数",
+    "top-k",
+    "总参数",
+    "词表大小"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "所有专家都要存，显存按总参数；算力按激活参数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch04",
+   "stem": "MLA 推理时持久缓存的核心内容是什么？",
+   "options": [
+    "每个头的完整 K/V",
+    "低维潜向量 c 和解耦 RoPE key",
+    "只有 Query",
+    "整个隐藏层"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "MLA 缓存 512 维潜向量 + 64 维 RoPE key，计算时再上投影还原 K/V。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch04",
+   "stem": "V2 的路由专家数量是多少？",
+   "options": [
+    "64",
+    "128",
+    "160",
+    "256"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "V2 是 160 个路由专家 + 2 个共享专家，top-6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch04",
+   "stem": "V2-Lite 的总参数/激活参数约多少？",
+   "options": [
+    "16B/2.4B",
+    "236B/21B",
+    "671B/37B",
+    "7B/7B"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "V2-Lite 保留完整 MLA + MoE 结构，规模缩到 16B/2.4B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch05",
+   "stem": "V3 的 MTP 在位置 t 额外预测哪个 token？",
+   "options": [
+    "t+1",
+    "t+2",
+    "t-1",
+    "随机位置"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "MTP 在预测 t+1 的同时额外预测 t+2，增加训练信号密度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch05",
+   "stem": "V3 有多少个路由专家？",
+   "options": [
+    "64",
+    "160",
+    "256",
+    "384"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "V3 是 256 路由 + 1 共享，top-8；384 是 V4-Pro。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch05",
+   "stem": "HuggingFace 上 V3 的 685B 权重由什么组成？",
+   "options": [
+    "671B 主模型 + 14B MTP",
+    "685B 全是主模型",
+    "671B + 14B 视觉编码器",
+    "685B 全是专家"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "V3 主模型 671B，MTP 模块 14B，合计约 685B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch06",
+   "stem": "R1-Zero 与 R1 的关键区别是什么？",
+   "options": [
+    "有没有冷启动 SFT",
+    "参数规模不同",
+    "注意力不同",
+    "词表不同"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "R1-Zero 从 Base 直接纯 RL；R1 先做冷启动 SFT，再做推理 RL、拒绝采样和再对齐。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch06",
+   "stem": "GRPO 的优势怎么算？",
+   "options": [
+    "用 value model 估",
+    "组内奖励减均值、除以标准差",
+    "直接取奖励",
+    "用人类偏好打分"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "GRPO 对同一题采一组回答，做组内标准化；全对/全错组标准差为 0，没有梯度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch06",
+   "stem": "R1 蒸馏的 Qwen-7B 学生模型是什么架构？",
+   "options": [
+    "DeepSeek V3 MoE",
+    "MLA",
+    "Qwen dense",
+    "CNN"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "蒸馏学生是 Qwen2.5/Llama dense，继承 R1 的输出分布，不继承 DeepSeek MoE 结构。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch07",
+   "stem": "V3.2-Exp 的结构变化是什么？",
+   "options": [
+    "换成 dense",
+    "引入 DSA 稀疏注意力",
+    "去掉 MoE",
+    "改成 CNN"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "DSA 用轻量索引器 + top-k，把长上下文注意力成本从 O(L^2) 降到约 O(Lk)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch07",
+   "stem": "V3.2 的“思考融入工具调用”指什么？",
+   "options": [
+    "思考与工具调用交替进行",
+    "只思考不调工具",
+    "只调工具不思考",
+    "两个模型分别做"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "V3.2 在思考模式下可以多轮“想 → 调工具 → 再想”，同时支持思考/非思考工具调用。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch07",
+   "stem": "V3.2-Speciale 的主要限制是什么？",
+   "options": [
+    "没有公开权重",
+    "不支持中文",
+    "不支持工具调用，偏研究评测",
+    "只有 7B"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "Speciale 是长思考增强版，只通过临时 API 开放，不支持工具调用。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch08",
+   "stem": "V4-Pro 的总参数/激活约多少？",
+   "options": [
+    "1.6T/49B",
+    "284B/13B",
+    "671B/37B",
+    "552B/8B"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "V4-Pro 是 1.6T 总参数、49B 激活；V4-Flash 是 284B/13B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch08",
+   "stem": "CSA 的 m=4 表示什么？",
+   "options": [
+    "4 个注意力头",
+    "每 4 个 token 的 KV 压成一个条目",
+    "4 层",
+    "top-k=4"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "CSA 按每 4 个 token 压一个条目，再做 top-k 稀疏选择。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch08",
+   "stem": "mHC 的 Sinkhorn 迭代目标是什么？",
+   "options": [
+    "稀疏矩阵",
+    "单位矩阵",
+    "双随机矩阵",
+    "对角矩阵"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "Sinkhorn 交替行/列归一化，把混合矩阵约束成每行和 1、每列和 1 的双随机矩阵。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch09",
+   "stem": "V4.1 的主干参数是多少？",
+   "options": [
+    "284B",
+    "552B",
+    "1.6T",
+    "671B"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "V4.1 是 552B 主干 + 196B Engram，HF 总权重约 763B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch09",
+   "stem": "CED 的解码器全局 KV 来自哪里？",
+   "options": [
+    "每层自己算",
+    "输入 embedding",
+    "编码器第 20 层隐藏状态投影",
+    "Engram 查表"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "解码器第 l 层全局 KV = H20 乘投影矩阵，prefill 只算前 20 层编码器。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch09",
+   "stem": "CSA2 的 Reuse 模式复用了什么？",
+   "options": [
+    "KV 和上一层 top-k 索引",
+    "只复用 Q",
+    "只复用位置编码",
+    "完全重算"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "Reuse 复用主 KV 和上一层选好的 top-k 索引；分布漂移时改用 Reindex。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch09",
+   "stem": "V4.1 的 890 B/token 指什么？",
+   "options": [
+    "每 token 全部缓存",
+    "每 token 全局 KV 的稳态占用",
+    "每 token 的模型权重",
+    "每 token 的激活参数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "890 B/token 是全局 KV，不含持久 KV、SWA、Engram、激活和框架开销。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q29",
+   "chapterId": "ch10",
+   "stem": "VL2 的 1.0B/2.8B/4.5B 指什么？",
+   "options": [
+    "总参数",
+    "激活参数",
+    "层数",
+    "上下文长度"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c13",
+   "explain": "VL2 Tiny/Small/Base 的激活参数分别是 1.0B/2.8B/4.5B，总参数更高。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q30",
+   "chapterId": "ch10",
+   "stem": "Janus 的“解耦视觉编码”指什么？",
+   "options": [
+    "理解和生成用不同视觉路径",
+    "只用一种编码器",
+    "不用视觉编码器",
+    "只做生成"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c13",
+   "explain": "理解用 SigLIP-L 这类语义编码器，生成用 VQ tokenizer，两条路径分开。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q31",
+   "chapterId": "ch10",
+   "stem": "Prover-V2-671B 用哪代语言主干？",
+   "options": [
+    "V2",
+    "V4",
+    "V3",
+    "Janus"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "Prover-V2-671B 直接用 V3 的 61 层/7168 维/256 路由结构，做 Lean 证明训练。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q32",
+   "chapterId": "ch10",
+   "stem": "OCR2 的核心结构变化是什么？",
+   "options": [
+    "换成 dense",
+    "视觉因果流",
+    "去掉视觉编码器",
+    "改成 CNN"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c13",
+   "explain": "OCR2 用 Visual Causal Flow 按阅读顺序处理版面，仍是 3B 级 MoE。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q33",
+   "chapterId": "ch11",
+   "stem": "哪个模型首次引入 MLA？",
+   "options": [
+    "V3",
+    "V2",
+    "R1",
+    "V4"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "V2 是第一个把 MLA + DeepSeekMoE 上生产规模的模型。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q34",
+   "chapterId": "ch11",
+   "stem": "哪个模型首次引入 DSA？",
+   "options": [
+    "V2",
+    "V3.1",
+    "V3.2-Exp",
+    "V4.1"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "V3.2-Exp 于 2025-09-29 引入 DSA，API 价格降 50% 以上。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q35",
+   "chapterId": "ch11",
+   "stem": "V4.1 的 552B 和 196B 分别是什么？",
+   "options": [
+    "主干 + Engram",
+    "两次专家数",
+    "训练/推理参数",
+    "视觉/文本参数"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "552B 是主干，196B 是 Engram 查表参数；prefill/decode 激活是 8B/16B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q36",
+   "chapterId": "ch11",
+   "stem": "下列哪类许可证商用限制最少？",
+   "options": [
+    "MIT/Apache 2.0",
+    "DeepSeek Model License",
+    "无许可证",
+    "仅研究许可"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "MIT/Apache 2.0 是 OSI 开源许可证；DeepSeek Model License 是自定义开放权重条款。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q37",
+   "chapterId": "ch13",
+   "stem": "dense 模型参数量粗估公式是？",
+   "options": [
+    "12Ld²",
+    "Ld",
+    "2Ld",
+    "4Ld²"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "注意力约 4d² + FFN 约 8d²，合计 12d² 每层。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q38",
+   "chapterId": "ch13",
+   "stem": "V3 的注意力部分粗估多少 B？",
+   "options": [
+    "约 12.54B",
+    "约 2.55B",
+    "约 653.9B",
+    "约 671B"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "61 层 × 4 × 7168² ≈ 12.54B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q39",
+   "chapterId": "ch13",
+   "stem": "V3 的 128K 单序列 KV 约多少？",
+   "options": [
+    "约 9.21 GB",
+    "约 890 MB",
+    "约 48 GB",
+    "约 1.34 TB"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "70,272 B/token × 131,072 ≈ 9.21 GB。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q40",
+   "chapterId": "ch13",
+   "stem": "V4.1 的 1M 单序列全局 KV 约多少？",
+   "options": [
+    "约 890 MB",
+    "约 9 GB",
+    "约 48 GB",
+    "约 2.4 TB"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "890 B/token × 1M = 890 MB，只是全局 KV。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q41",
+   "chapterId": "ch14",
+   "stem": "`first_k_dense_replace=3` 意味着什么？",
+   "options": [
+    "前 3 层是 dense FFN",
+    "前 3 层是 MoE",
+    "只有 3 层",
+    "3 个共享专家"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "前 3 层用 dense FFN，之后才换成 MoE。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q42",
+   "chapterId": "ch14",
+   "stem": "MLA 缓存的两个张量是什么？",
+   "options": [
+    "c 和 k_pe",
+    "q 和 k",
+    "k_nope 和 v",
+    "全部 K/V"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "缓存潜向量 c 和 RoPE key k_pe；k_nope/v 计算时还原。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "DeepSeek 四代结构主线",
+   "back": "dense → MoE → MLA + MoE → DSA/CSA + 百万上下文",
+   "chapterId": "ch01",
+   "tags": [
+    "主",
+    "线",
+    ",",
+    "代",
+    "际"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "671B/37B 各指什么",
+   "back": "671B 总参数（显存），37B 每 token 激活（算力）",
+   "chapterId": "ch01",
+   "tags": [
+    "参",
+    "数",
+    ",",
+    "M",
+    "o",
+    "E"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "DeepSeek-LLM 67B 的注意力",
+   "back": "64 查询头 / 8 KV 头，GQA",
+   "chapterId": "ch02",
+   "tags": [
+    "L",
+    "L",
+    "M",
+    ",",
+    "G",
+    "Q",
+    "A"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "Coder 的 FIM 是什么",
+   "back": "中间填空：挖掉代码中间，按前后文补回",
+   "chapterId": "ch02",
+   "tags": [
+    "C",
+    "o",
+    "d",
+    "e",
+    "r",
+    ",",
+    "F",
+    "I",
+    "M"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "Coder-V2 属于哪个家族",
+   "back": "V2 家族，236B/21B 的代码继续预训练",
+   "chapterId": "ch02",
+   "tags": [
+    "C",
+    "o",
+    "d",
+    "e",
+    "r",
+    "-",
+    "V",
+    "2",
+    ",",
+    "V",
+    "2"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "DeepSeekMoE 的两个设计",
+   "back": "细粒度专家分割 + 共享专家隔离",
+   "chapterId": "ch03",
+   "tags": [
+    "M",
+    "o",
+    "E",
+    ",",
+    "专",
+    "家"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "DeepSeekMoE 16B 路由配置",
+   "back": "64 路由 + 2 共享，top-6，激活约 2.8B",
+   "chapterId": "ch03",
+   "tags": [
+    "M",
+    "o",
+    "E",
+    ",",
+    "配",
+    "置"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "MLA 缓存什么",
+   "back": "512 维潜向量 c + 64 维 RoPE key，不缓存完整 K/V",
+   "chapterId": "ch04",
+   "tags": [
+    "M",
+    "L",
+    "A",
+    ",",
+    "K",
+    "V"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "V2 的专家配置",
+   "back": "160 路由 + 2 共享，top-6，60 层，5120 维",
+   "chapterId": "ch04",
+   "tags": [
+    "V",
+    "2",
+    ",",
+    "配",
+    "置"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "V2-Lite 的规模",
+   "back": "16B 总 / 2.4B 激活，保留 MLA + MoE",
+   "chapterId": "ch04",
+   "tags": [
+    "V",
+    "2",
+    "-",
+    "L",
+    "i",
+    "t",
+    "e"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "V3 的专家配置",
+   "back": "256 路由 + 1 共享，top-8，61 层，7168 维",
+   "chapterId": "ch05",
+   "tags": [
+    "V",
+    "3",
+    ",",
+    "配",
+    "置"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "V3 的 685B 是什么",
+   "back": "671B 主模型 + 14B MTP",
+   "chapterId": "ch05",
+   "tags": [
+    "V",
+    "3",
+    ",",
+    "M",
+    "T",
+    "P"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "MTP 预测哪个位置",
+   "back": "在 t 额外预测 t+2，损失两项相加",
+   "chapterId": "ch05",
+   "tags": [
+    "M",
+    "T",
+    "P"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "无辅助损失均衡怎么做",
+   "back": "给每个专家可学习偏置，按负载调高/调低，不加辅助损失",
+   "chapterId": "ch05",
+   "tags": [
+    "M",
+    "o",
+    "E",
+    ",",
+    "均",
+    "衡"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "R1-Zero 与 R1 的区别",
+   "back": "R1-Zero 纯 RL 无冷启动；R1 四阶段含冷启动/拒绝采样/再对齐",
+   "chapterId": "ch06",
+   "tags": [
+    "R",
+    "1",
+    ",",
+    "R",
+    "L"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "GRPO 优势公式",
+   "back": "(r_i - 组均值) / 组标准差",
+   "chapterId": "ch06",
+   "tags": [
+    "G",
+    "R",
+    "P",
+    "O"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "R1 蒸馏学生架构",
+   "back": "Qwen2.5 / Llama dense，不是 DeepSeek MoE",
+   "chapterId": "ch06",
+   "tags": [
+    "R",
+    "1",
+    ",",
+    "蒸",
+    "馏"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "V3.1 的核心变化",
+   "back": "同结构，混合推理模板：思考/非思考一个模型",
+   "chapterId": "ch07",
+   "tags": [
+    "V",
+    "3",
+    ".",
+    "1"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "V3.2-Exp 的核心变化",
+   "back": "DSA 稀疏注意力，architectures 变 DeepseekV32ForCausalLM",
+   "chapterId": "ch07",
+   "tags": [
+    "V",
+    "3",
+    ".",
+    "2",
+    ",",
+    "D",
+    "S",
+    "A"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "V3.2 的 Agent 训练规模",
+   "back": "1800+ 环境、85k+ 指令，思考嵌入工具调用",
+   "chapterId": "ch07",
+   "tags": [
+    "V",
+    "3",
+    ".",
+    "2",
+    ",",
+    "A",
+    "g",
+    "e",
+    "n",
+    "t"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "V3.2-Speciale 的限制",
+   "back": "只支持长思考，不支持工具调用，临时 API",
+   "chapterId": "ch07",
+   "tags": [
+    "V",
+    "3",
+    ".",
+    "2",
+    "-",
+    "S",
+    "p",
+    "e",
+    "c",
+    "i",
+    "a",
+    "l",
+    "e"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "V4-Pro 配置",
+   "back": "1.6T/49B，61 层，384 路由 + 1 共享，top-6，1M",
+   "chapterId": "ch08",
+   "tags": [
+    "V",
+    "4",
+    ",",
+    "配",
+    "置"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "V4-Flash 配置",
+   "back": "284B/13B，43 层，256 路由 + 1 共享，top-6，1M",
+   "chapterId": "ch08",
+   "tags": [
+    "V",
+    "4",
+    ",",
+    "配",
+    "置"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "CSA 的 m=4",
+   "back": "每 4 个 token 的 KV 压成一个条目，再做 top-k",
+   "chapterId": "ch08",
+   "tags": [
+    "V",
+    "4",
+    ",",
+    "C",
+    "S",
+    "A"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "mHC 的约束",
+   "back": "残差流扩 4 倍，混合矩阵用 Sinkhorn 约束成双随机",
+   "chapterId": "ch08",
+   "tags": [
+    "V",
+    "4",
+    ",",
+    "m",
+    "H",
+    "C"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "V4.1 的参数口径",
+   "back": "552B 主干 + 196B Engram，HF 约 763B，8B/16B 激活",
+   "chapterId": "ch09",
+   "tags": [
+    "V",
+    "4",
+    ".",
+    "1",
+    ",",
+    "配",
+    "置"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "CED 的 KV 来源",
+   "back": "解码器全局 KV = 编码器第 20 层隐藏状态投影",
+   "chapterId": "ch09",
+   "tags": [
+    "V",
+    "4",
+    ".",
+    "1",
+    ",",
+    "C",
+    "E",
+    "D"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "CSA2 三模式",
+   "back": "Full / Reindex / Reuse",
+   "chapterId": "ch09",
+   "tags": [
+    "V",
+    "4",
+    ".",
+    "1",
+    ",",
+    "C",
+    "S",
+    "A",
+    "2"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "890 B/token 指什么",
+   "back": "每 token 全局 KV 稳态占用，1M 单序列约 890 MB",
+   "chapterId": "ch09",
+   "tags": [
+    "V",
+    "4",
+    ".",
+    "1",
+    ",",
+    "K",
+    "V"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "VL2 的激活参数",
+   "back": "Tiny/Small/Base 分别 1.0B/2.8B/4.5B",
+   "chapterId": "ch10",
+   "tags": [
+    "V",
+    "L",
+    "2"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "Janus 的解耦",
+   "back": "理解用语义编码器，生成用 VQ tokenizer",
+   "chapterId": "ch10",
+   "tags": [
+    "J",
+    "a",
+    "n",
+    "u",
+    "s"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "OCR 的核心",
+   "back": "光学压缩：整页图 → 少量视觉 token → 语言模型恢复",
+   "chapterId": "ch10",
+   "tags": [
+    "O",
+    "C",
+    "R"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "Prover-V2 与 Math-V2 分工",
+   "back": "Prover 做 Lean 形式化；Math-V2 做自然语言自验证",
+   "chapterId": "ch10",
+   "tags": [
+    "P",
+    "r",
+    "o",
+    "v",
+    "e",
+    "r",
+    ",",
+    "M",
+    "a",
+    "t",
+    "h",
+    "-",
+    "V",
+    "2"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "首次引入 MLA 的模型",
+   "back": "V2",
+   "chapterId": "ch11",
+   "tags": [
+    "M",
+    "L",
+    "A",
+    ",",
+    "V",
+    "2"
+   ]
+  },
+  {
+   "id": "f35",
+   "front": "首次引入 DSA 的模型",
+   "back": "V3.2-Exp",
+   "chapterId": "ch11",
+   "tags": [
+    "D",
+    "S",
+    "A",
+    ",",
+    "V",
+    "3",
+    ".",
+    "2"
+   ]
+  },
+  {
+   "id": "f36",
+   "front": "许可证三档",
+   "back": "MIT / Apache 2.0 / DeepSeek Model License",
+   "chapterId": "ch11",
+   "tags": [
+    "许",
+    "可",
+    "证"
+   ]
+  },
+  {
+   "id": "f37",
+   "front": "dense 参数量粗估公式",
+   "back": "12Ld²（注意力 4d² + FFN 8d²）",
+   "chapterId": "ch13",
+   "tags": [
+    "手算",
+    "参数"
+   ]
+  },
+  {
+   "id": "f38",
+   "front": "V3 的 671B 大致由哪三块组成",
+   "back": "注意力约 12.54B + 路由专家约 653.9B + 共享约 2.55B",
+   "chapterId": "ch13",
+   "tags": [
+    "V3",
+    "手算"
+   ]
+  },
+  {
+   "id": "f39",
+   "front": "V3 每 token 每层 MLA 缓存多少字节",
+   "back": "(512+64)×2 = 1152 B",
+   "chapterId": "ch13",
+   "tags": [
+    "MLA",
+    "KV"
+   ]
+  },
+  {
+   "id": "f40",
+   "front": "V3 的 128K 单序列 KV 约多少",
+   "back": "70,272 B/token × 131,072 ≈ 9.21 GB",
+   "chapterId": "ch13",
+   "tags": [
+    "KV",
+    "V3"
+   ]
+  },
+  {
+   "id": "f41",
+   "front": "V4.1 的 1M 单序列全局 KV 约多少",
+   "back": "890 B × 1M = 890 MB；50 并发约 44.5 GB",
+   "chapterId": "ch13",
+   "tags": [
+    "V4.1",
+    "KV"
+   ]
+  },
+  {
+   "id": "f42",
+   "front": "GRPO 奖励 [1,1,0,0] 的优势",
+   "back": "均值 0.5，标准差 0.5，优势 [1,1,-1,-1]",
+   "chapterId": "ch13",
+   "tags": [
+    "GRPO",
+    "手算"
+   ]
+  },
+  {
+   "id": "f43",
+   "front": "`first_k_dense_replace=3` 意味着什么",
+   "back": "前 3 层是 dense FFN，从第 4 层起才是 MoE",
+   "chapterId": "ch14",
+   "tags": [
+    "config",
+    "MoE"
+   ]
+  },
+  {
+   "id": "f44",
+   "front": "MLA 缓存哪两个张量",
+   "back": "潜向量 c 和 RoPE key k_pe；k_nope/v 计算时还原",
+   "chapterId": "ch14",
+   "tags": [
+    "MLA",
+    "源码"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "Transformer",
+   "en": "",
+   "def": "由自注意力 + FFN + 残差组成的序列模型骨架",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "稠密模型",
+   "en": "",
+   "def": "每个 token 都走同一套 FFN 的模型",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "MoE",
+   "en": "",
+   "def": "混合专家：FFN 拆成多个专家，每个 token 只走 top-k",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "路由专家",
+   "en": "",
+   "def": "由门控选择是否激活的专家",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "共享专家",
+   "en": "",
+   "def": "始终激活、负责通用知识的专家",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "门控",
+   "en": "",
+   "def": "给 token 和专家打分、决定路由的模块",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "top-k",
+   "en": "",
+   "def": "每个 token 只选分数最高的 k 个专家",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "总参数",
+   "en": "",
+   "def": "模型全部权重数量，决定显存",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "激活参数",
+   "en": "",
+   "def": "每个 token 实际参与计算的权重数量，决定算力",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "专家并行",
+   "en": "",
+   "def": "把不同专家放到不同设备上的并行方式",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "负载均衡",
+   "en": "",
+   "def": "让各专家处理量接近，避免专家塌缩",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "专家塌缩",
+   "en": "",
+   "def": "门控总选少数专家，其余专家学不到东西",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "辅助损失",
+   "en": "",
+   "def": "加在主损失外、用来拉平专家负载的损失项",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "无辅助损失均衡",
+   "en": "",
+   "def": "用可学习专家偏置代替辅助损失的均衡方法",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "MHA",
+   "en": "",
+   "def": "多头注意力：每个头有独立 Q/K/V",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "GQA",
+   "en": "",
+   "def": "分组查询注意力：多个查询头共享一组 K/V",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "MQA",
+   "en": "",
+   "def": "多查询注意力：所有查询头共享一组 K/V",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "KV cache",
+   "en": "",
+   "def": "解码时缓存历史 K/V，避免重复计算",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "MLA",
+   "en": "",
+   "def": "多头潜在注意力：缓存低维潜向量 + RoPE key",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "潜向量",
+   "en": "",
+   "def": "低维压缩表示，MLA 缓存的核心",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "RoPE",
+   "en": "",
+   "def": "旋转位置编码，把位置信息编码进 Q/K",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "解耦 RoPE",
+   "en": "",
+   "def": "MLA 中单独保留的 RoPE key 部分",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "上下文长度",
+   "en": "",
+   "def": "模型一次能处理的 token 数",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "FIM",
+   "en": "",
+   "def": "中间填空：挖掉中间片段让模型补回",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "代码续写",
+   "en": "",
+   "def": "根据前缀继续生成代码",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "Coder-V2",
+   "en": "",
+   "def": "V2 骨架的代码继续预训练模型",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "V2-Lite",
+   "en": "",
+   "def": "V2 的 16B/2.4B 缩小版",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "MTP",
+   "en": "",
+   "def": "多 token 预测：额外预测 t+2",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "投机解码",
+   "en": "",
+   "def": "小模型先猜、大模型验证的加速方法",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "FP8",
+   "en": "",
+   "def": "8 位浮点训练/推理精度",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "FP4",
+   "en": "",
+   "def": "4 位浮点精度，V4/V4.1 用于权重/KV",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "DualPipe",
+   "en": "",
+   "def": "双向流水线并行",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "EPLB",
+   "en": "",
+   "def": "专家并行负载均衡",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "3FS",
+   "en": "",
+   "def": "DeepSeek 的分布式文件系统",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "R1-Zero",
+   "en": "",
+   "def": "不做冷启动、直接纯 RL 的推理模型",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "GRPO",
+   "en": "",
+   "def": "组相对策略优化：组内标准化算优势",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "规则奖励",
+   "en": "",
+   "def": "用可验证规则给回答打分，不训练奖励模型",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "冷启动 SFT",
+   "en": "",
+   "def": "先用少量高质量长 CoT 数据做监督微调",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "拒绝采样",
+   "en": "",
+   "def": "只保留答案正确/格式合格的采样结果",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "蒸馏",
+   "en": "",
+   "def": "用大模型输出微调小模型，学生架构可不同",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "长 CoT",
+   "en": "",
+   "def": "长链思维：先写推理过程再给答案",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "混合推理",
+   "en": "",
+   "def": "一个模型同时支持思考/非思考模式",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "DSA",
+   "en": "",
+   "def": "DeepSeek 稀疏注意力：索引器 + top-k",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "索引器",
+   "en": "",
+   "def": "给 query-历史 token 打分的小模块",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "Agent",
+   "en": "",
+   "def": "能多轮调工具、观察结果、继续行动的系统",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "Agent RL",
+   "en": "",
+   "def": "用环境反馈训练 Agent 的强化学习",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "V3.2-Speciale",
+   "en": "",
+   "def": "V3.2 的长思考增强版，偏评测",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "CSA",
+   "en": "",
+   "def": "压缩稀疏注意力：每 m 个 token 压一个条目",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "HCA",
+   "en": "",
+   "def": "重度压缩注意力：每 m′ 个 token 压一个块",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "SWA",
+   "en": "",
+   "def": "滑动窗口注意力：只算最近窗口",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "mHC",
+   "en": "",
+   "def": "流形约束超连接：残差流扩容 + 双随机混合",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "Sinkhorn",
+   "en": "",
+   "def": "交替行/列归一化，逼近双随机矩阵",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "双随机矩阵",
+   "en": "",
+   "def": "每行和 1、每列和 1、元素非负的矩阵",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "Muon",
+   "en": "",
+   "def": "对矩阵参数做正交化的优化器",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "CED",
+   "en": "",
+   "def": "非对称编码器-解码器：20 层编码 + 20 层解码",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "CSA2",
+   "en": "",
+   "def": "跨层复用 KV/索引的压缩稀疏注意力",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "Reuse",
+   "en": "",
+   "def": "复用 KV 和上一层 top-k 索引",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "Reindex",
+   "en": "",
+   "def": "复用 KV 但重建索引",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "Engram",
+   "en": "",
+   "def": "N-gram 哈希查表记忆模块",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "DSpark",
+   "en": "",
+   "def": "独立训练的投机解码 drafter",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "VL2",
+   "en": "",
+   "def": "基于 DeepSeekMoE-27B 的视觉语言模型",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Janus",
+   "en": "",
+   "def": "解耦视觉编码的理解+生成统一模型",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "光学压缩",
+   "en": "",
+   "def": "把整页图压成少量视觉 token",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Prover-V2",
+   "en": "",
+   "def": "用 V3 主干做 Lean 形式化证明的模型",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Math-V2",
+   "en": "",
+   "def": "基于 V3.2-Exp-Base 的自验证数学证明模型",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "模型卡",
+   "en": "",
+   "def": "HuggingFace 上描述权重、配置、许可证的页面",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "开放权重",
+   "en": "",
+   "def": "权重公开，但训练数据/流程未必公开",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "DeepSeek Model License",
+   "en": "",
+   "def": "DeepSeek 自定义开放权重许可证",
+   "chapterIds": [
+    "ch11"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 14,
+  "concepts": 13
+ },
+ "signature": "eb94e5cfc3ac",
+ "contentHash": "7a1a40659919"
+}

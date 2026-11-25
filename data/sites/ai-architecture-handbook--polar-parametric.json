@@ -1,0 +1,461 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "polar-parametric",
+ "title": "极坐标与参数方程",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/20-极坐标与参数方程/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 11,
+  "glossary": 8
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：极坐标",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/20-极坐标与参数方程/chapters/ch01-polar.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-20-极坐标与参数方程 赵霖.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：参数方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/20-极坐标与参数方程/chapters/ch02-parametric.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-20-极坐标与参数方程 赵霖.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：互化、范围与最值",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/20-极坐标与参数方程/chapters/ch03-conversion-extremum.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-20-极坐标与参数方程 赵霖.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "表示与不变量",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/20-极坐标与参数方程/concepts/c01-representation.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-20-极坐标与参数方程 赵霖.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "范围限制",
+   "chapterIds": [
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/20-极坐标与参数方程/concepts/c02-domain-restriction.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-20-极坐标与参数方程 赵霖.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "极坐标 (2, π/2) 对应的直角坐标是：",
+   "options": [
+    "(2,0)",
+    "(0,2)",
+    "(0,−2)",
+    "(−2,0)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "x=2cos90°=0，y=2sin90°=2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "圆心在极点、半径为 3 的圆的极坐标方程是：",
+   "options": [
+    "ρ=3",
+    "ρ=6cosθ",
+    "θ=3",
+    "ρ=3cosθ"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "到极点距离恒为 3，即 ρ=3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "圆 x²+y²=9 的一个参数方程是：",
+   "options": [
+    "x=3cosθ，y=3sinθ",
+    "x=9cosθ，y=9sinθ",
+    "x=3θ，y=3θ",
+    "x=cosθ，y=sinθ"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "半径 3 的圆，参数方程 x=3cosθ、y=3sinθ。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "参数方程 x=t²，y=t（t≥0）化为普通方程是：",
+   "options": [
+    "y²=x（x≥0）",
+    "y²=x（x∈R）",
+    "y=x²",
+    "x=y²"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "t=√x≥0，y=√x，平方得 y²=x，且 x≥0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "把 x=cosθ、y=sinθ 消参后得到：",
+   "options": [
+    "x²+y²=1",
+    "x+y=1",
+    "y=x",
+    "x²−y²=1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "由 cos²θ+sin²θ=1 得 x²+y²=1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "椭圆 x=3cosθ、y=2sinθ 上点到原点距离的最大值是：",
+   "options": [
+    "3",
+    "2",
+    "√13",
+    "5"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "距离平方 9cos²+4sin²=4+5cos²，最大 9，距离最大 3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "极坐标 (4, π) 对应的直角坐标是：",
+   "options": [
+    "(4,0)",
+    "(−4,0)",
+    "(0,4)",
+    "(0,−4)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "x=4cos180°=−4，y=4sin180°=0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "参数方程 x=2t，y=t²（t∈R）化为普通方程是：",
+   "options": [
+    "y=x²/4",
+    "y=4x²",
+    "y=x²",
+    "x=y²/4"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "t=x/2，y=(x/2)²=x²/4。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：极坐标」的一句话核心是什么？",
+   "back": "极坐标用一个距离和一个角定位；同一个点有无穷多组极坐标。",
+   "chapterId": "ch01",
+   "tags": [
+    "polar-parametric",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：参数方程」的一句话核心是什么？",
+   "back": "参数方程用第三个变量 t（或 θ）同时表示 x 与 y，把曲线变成“随参数运动的一条轨迹”。",
+   "chapterId": "ch02",
+   "tags": [
+    "polar-parametric",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：互化、范围与最值」的一句话核心是什么？",
+   "back": "换表示是为了好算，不是为了好看；每次换完都要核对范围。",
+   "chapterId": "ch03",
+   "tags": [
+    "polar-parametric",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「极坐标」？",
+   "back": "用距离与极角表示点的坐标。",
+   "chapterId": "ch01",
+   "tags": [
+    "polar-parametric",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「极点」？",
+   "back": "极坐标的定点。",
+   "chapterId": "ch01",
+   "tags": [
+    "polar-parametric",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「极轴」？",
+   "back": "极坐标的基准射线。",
+   "chapterId": "ch01",
+   "tags": [
+    "polar-parametric",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「互化」？",
+   "back": "极坐标与直角坐标之间的转换。",
+   "chapterId": "ch01",
+   "tags": [
+    "polar-parametric",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「参数方程」？",
+   "back": "用参数 t 表示 x、y 的方程。",
+   "chapterId": "ch02",
+   "tags": [
+    "polar-parametric",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「消参」？",
+   "back": "从参数方程消去参数得到普通方程。",
+   "chapterId": "ch02",
+   "tags": [
+    "polar-parametric",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「离心角」？",
+   "back": "椭圆参数方程中的 θ。",
+   "chapterId": "ch02",
+   "tags": [
+    "polar-parametric",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「增点」？",
+   "back": "互化或消参后多出来的、不属于原曲线的点。",
+   "chapterId": "ch03",
+   "tags": [
+    "polar-parametric",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "极坐标",
+   "en": "",
+   "def": "用距离与极角表示点的坐标。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "极点",
+   "en": "",
+   "def": "极坐标的定点。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "极轴",
+   "en": "",
+   "def": "极坐标的基准射线。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "互化",
+   "en": "",
+   "def": "极坐标与直角坐标之间的转换。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "参数方程",
+   "en": "",
+   "def": "用参数 t 表示 x、y 的方程。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "消参",
+   "en": "",
+   "def": "从参数方程消去参数得到普通方程。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "离心角",
+   "en": "",
+   "def": "椭圆参数方程中的 θ。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "增点",
+   "en": "",
+   "def": "互化或消参后多出来的、不属于原曲线的点。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "55b737db706b",
+ "contentHash": "58bc57813236",
+ "duplicateGroup": "55b737db706b"
+}

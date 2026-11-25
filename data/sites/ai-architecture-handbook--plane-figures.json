@@ -1,0 +1,477 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "plane-figures",
+ "title": "直线形",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/11-直线形/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 12,
+  "glossary": 9
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：角与平行线",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/11-直线形/chapters/ch01-angles-parallel.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-11-直线形 毛鸿翔.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：三角形与全等",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/11-直线形/chapters/ch02-triangle-congruence.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-11-直线形 毛鸿翔.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：相似、比例与图形变换",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/11-直线形/chapters/ch03-similarity-transform.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-11-直线形 毛鸿翔.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "判定与性质",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/11-直线形/concepts/c01-criterion-property.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-11-直线形 毛鸿翔.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "不变量",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/11-直线形/concepts/c02-invariant.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-11-直线形 毛鸿翔.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "两条平行线被第三条直线所截，同旁内角的关系是：",
+   "options": [
+    "相等",
+    "互补",
+    "互余",
+    "无法确定"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "两直线平行时同旁内角之和为 180°，即互补。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "一个三角形的两个内角分别为 50° 和 60°，第三个内角是：",
+   "options": [
+    "60°",
+    "70°",
+    "80°",
+    "90°"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "180°−50°−60°=70°。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "下列条件能判定两个三角形全等的是：",
+   "options": [
+    "两边及其中一边的对角对应相等",
+    "三个角对应相等",
+    "两边及其夹角对应相等",
+    "周长相等"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "SAS 是标准判定；SSA 与 AAA 都不足以判定全等。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "三角形两边长为 3 和 7，第三边 x 的取值范围是：",
+   "options": [
+    "3<x<7",
+    "4<x<10",
+    "0<x<10",
+    "x>4"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "两边之差 4 < x < 两边之和 10。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "两个相似三角形的相似比为 1:2，则面积比为：",
+   "options": [
+    "1:2",
+    "1:4",
+    "2:1",
+    "1:√2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "面积比是相似比的平方，即 1:4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "下列变换中，属于相似变换而非全等变换的是：",
+   "options": [
+    "平移",
+    "旋转",
+    "轴对称",
+    "位似"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "位似会按比例改变大小，只保持形状；其余三种保形状也保大小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "两个相似三角形的面积比为 9:16，则相似比为：",
+   "options": [
+    "9:16",
+    "3:4",
+    "4:3",
+    "81:256"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "相似比是面积比的平方根，√(9/16)=3/4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "下列条件中不能判定两个三角形全等的是：",
+   "options": [
+    "三边对应相等",
+    "两角及夹边对应相等",
+    "两边及其中一边的对角对应相等",
+    "两边及其夹角对应相等"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "SSA 存在两种可能图形，不能判定全等。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：角与平行线」的一句话核心是什么？",
+   "back": "平行线把“角相等”变成可传递的结论，这是整个平面几何的第一台发动机。",
+   "chapterId": "ch01",
+   "tags": [
+    "plane-figures",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：三角形与全等」的一句话核心是什么？",
+   "back": "全等就是“完全重合”；四组判定条件都是在说“三条边、三个角里够用的那几条”。",
+   "chapterId": "ch02",
+   "tags": [
+    "plane-figures",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：相似、比例与图形变换」的一句话核心是什么？",
+   "back": "相似是“形状不变、大小按比例”；变换是“搬动图形但保留某些性质”。",
+   "chapterId": "ch03",
+   "tags": [
+    "plane-figures",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「余角」？",
+   "back": "两角之和为 90°。",
+   "chapterId": "ch01",
+   "tags": [
+    "plane-figures",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「补角」？",
+   "back": "两角之和为 180°。",
+   "chapterId": "ch01",
+   "tags": [
+    "plane-figures",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「对顶角」？",
+   "back": "两直线相交形成的顶点相对的两个角。",
+   "chapterId": "ch01",
+   "tags": [
+    "plane-figures",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「同位角」？",
+   "back": "两条直线被第三条直线所截，位置相同的一对角。",
+   "chapterId": "ch01",
+   "tags": [
+    "plane-figures",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「全等」？",
+   "back": "能完全重合的两个图形。",
+   "chapterId": "ch02",
+   "tags": [
+    "plane-figures",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「SSA」？",
+   "back": "两边及其中一边的对角，不能判定全等。",
+   "chapterId": "ch02",
+   "tags": [
+    "plane-figures",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「相似」？",
+   "back": "对应角相等、对应边成比例的两个图形。",
+   "chapterId": "ch03",
+   "tags": [
+    "plane-figures",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「相似比」？",
+   "back": "相似图形对应线段的比值。",
+   "chapterId": "ch03",
+   "tags": [
+    "plane-figures",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「位似」？",
+   "back": "从一点出发按比例缩放的相似变换。",
+   "chapterId": "ch03",
+   "tags": [
+    "plane-figures",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "余角",
+   "en": "",
+   "def": "两角之和为 90°。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "补角",
+   "en": "",
+   "def": "两角之和为 180°。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "对顶角",
+   "en": "",
+   "def": "两直线相交形成的顶点相对的两个角。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "同位角",
+   "en": "",
+   "def": "两条直线被第三条直线所截，位置相同的一对角。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "全等",
+   "en": "",
+   "def": "能完全重合的两个图形。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "SSA",
+   "en": "",
+   "def": "两边及其中一边的对角，不能判定全等。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "相似",
+   "en": "",
+   "def": "对应角相等、对应边成比例的两个图形。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "相似比",
+   "en": "",
+   "def": "相似图形对应线段的比值。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "位似",
+   "en": "",
+   "def": "从一点出发按比例缩放的相似变换。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "274d5523acc8",
+ "contentHash": "3944b13c7310",
+ "duplicateGroup": "274d5523acc8"
+}

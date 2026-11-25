@@ -1,0 +1,415 @@
+{
+ "repo": "chem-zhishu",
+ "bookSlug": "organic-chem",
+ "title": "基础有机化学：从碳骨架到手性",
+ "discipline": "chem",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "05-有机化学基础/manifest.json",
+ "stats": {
+  "chapters": 4,
+  "concepts": 1,
+  "quizzes": 8,
+  "cards": 8,
+  "glossary": 8
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：有机化学的结构语言",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "05-有机化学基础/chapters/ch01-有机结构语言.md"
+   },
+   "bookSource": {
+    "file": "《基础有机化学》上册·绪论"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：烷烃与构象",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "05-有机化学基础/chapters/ch02-烷烃与构象.md"
+   },
+   "bookSource": {
+    "file": "《基础有机化学》上册·饱和烃"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：烯烃与亲电加成",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "05-有机化学基础/chapters/ch03-烯烃与亲电加成.md"
+   },
+   "bookSource": {
+    "file": "《基础有机化学》上册·烯烃"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：芳香烃、卤代烃与立体化学",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "05-有机化学基础/chapters/ch04-芳香烃卤代烃与立体化学.md"
+   },
+   "bookSource": {
+    "file": "《基础有机化学》上册·芳香烃、卤代烃、立体化学"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "手性与对映异构",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "concepts/c01-手性-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "05-有机化学基础/concepts/c01-手性.md"
+   },
+   "bookSource": {
+    "file": "《基础有机化学》上册·立体化学"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "下列属于官能团的是？",
+   "options": [
+    "—CH3",
+    "—OH",
+    "—C2H5",
+    "苯环"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "羟基是官能团；甲基、乙基是取代基。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "C4H10 的同分异构体有几种？",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "正丁烷和异丁烷两种。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "甲烷的空间构型是？",
+   "options": [
+    "平面正方形",
+    "正四面体",
+    "三角锥",
+    "直线形"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "sp3 杂化，四个键指向四面体顶点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "乙烷最稳定的构象是？",
+   "options": [
+    "交叉式",
+    "重叠式",
+    "半重叠式",
+    "平面式"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "交叉式氢与氢错开，排斥最小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "丙烯与 HBr 加成的主要产物是？",
+   "options": [
+    "1-溴丙烷",
+    "2-溴丙烷",
+    "1,2-二溴丙烷",
+    "丙醇"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "马氏规则，H 加在含氢多的碳上。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "下列能发生顺反异构的是？",
+   "options": [
+    "CH2=CH2",
+    "CH2=CHCH3",
+    "CH3CH=CHCH3",
+    "CH2=C(CH3)2"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "两个双键碳各连两个不同基团。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "苯的硝化反应条件是？",
+   "options": [
+    "浓硝酸、浓硫酸、加热",
+    "稀硝酸、常温",
+    "氯气、光照",
+    "氢氧化钠、加热"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "混酸硝化，浓硫酸作催化剂和脱水剂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "下列化合物中有手性碳的是？",
+   "options": [
+    "CH3Cl",
+    "CH2Cl2",
+    "CH3CHClCH3",
+    "CH3CHClCH2CH3"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "2 号碳连 H、Cl、CH3、C2H5 四个不同基团。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "有机化学的结构语言：一句话核心是什么？",
+   "back": "有机分子靠碳骨架加官能团两件事描述；同一分子式画出不同骨架，就是不同物质。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "有机化学的结构语言最容易错在哪？",
+   "back": "分子式相同不一定是同一种物质。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01",
+    "易错"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "烷烃与构象：一句话核心是什么？",
+   "back": "烷烃的 C—C 单键可以自由旋转，不同旋转角度形成不同构象；化学性质以自由基取代为主。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "烷烃与构象最容易错在哪？",
+   "back": "构象不同不断键，是同一物质。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02",
+    "易错"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "烯烃与亲电加成：一句话核心是什么？",
+   "back": "C=C 由一个 σ 键和一个 π 键组成，π 电子云暴露在外，容易被亲电试剂进攻发生加成。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "烯烃与亲电加成最容易错在哪？",
+   "back": "过氧化物存在下 HBr 加成是反马氏，是特例。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03",
+    "易错"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "芳香烃、卤代烃与立体化学：一句话核心是什么？",
+   "back": "苯环的 π 电子离域使体系特别稳定，倾向取代；手性来自四个不同基团连在同一个碳上。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "芳香烃、卤代烃与立体化学最容易错在哪？",
+   "back": "R 不一定是右旋，S 不一定是左旋，必须实测。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04",
+    "易错"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "键线式",
+   "en": "",
+   "def": "省略碳和碳氢键、只画碳骨架与官能团的结构式",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "同分异构体",
+   "en": "",
+   "def": "分子式相同、结构不同的化合物",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "构象",
+   "en": "",
+   "def": "单键旋转形成的不同空间排列，不断键即可互变",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "马氏规则",
+   "en": "",
+   "def": "不对称烯烃与 HX 加成时 H 加在含氢较多的碳上",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "芳香性",
+   "en": "",
+   "def": "环状、平面、π 电子数为 4n+2 的体系具有的特殊稳定性",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "手性碳",
+   "en": "",
+   "def": "连有四个不同基团的碳原子",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "对映异构体",
+   "en": "",
+   "def": "互为镜像、不能重合的一对立体异构体",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "外消旋体",
+   "en": "",
+   "def": "等量对映异构体的混合物，旋光相互抵消",
+   "chapterIds": [
+    "ch04"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 4,
+  "concepts": 1
+ },
+ "signature": "ed0cb045ae08",
+ "contentHash": "05f6249164f6"
+}

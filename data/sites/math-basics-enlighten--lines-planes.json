@@ -1,0 +1,459 @@
+{
+ "repo": "math-basics-enlighten",
+ "bookSlug": "lines-planes",
+ "title": "直线与平面",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "13-直线与平面/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 11,
+  "glossary": 8
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：空间的位置关系与平行",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "13-直线与平面/chapters/ch01-parallel.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-13-直线与平面 顾观煦.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：垂直关系与三垂线定理",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "13-直线与平面/chapters/ch02-perpendicular.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-13-直线与平面 顾观煦.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：空间角与距离",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "13-直线与平面/chapters/ch03-angles-distance.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-13-直线与平面 顾观煦.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "判定与性质",
+   "chapterIds": [
+    "ch01",
+    "ch02"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "13-直线与平面/concepts/c01-criterion-property-3d.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-13-直线与平面 顾观煦.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "射影与三垂线",
+   "chapterIds": [
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "13-直线与平面/concepts/c02-projection.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-13-直线与平面 顾观煦.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "空间中两条直线的位置关系共有几种：",
+   "options": [
+    "2 种",
+    "3 种",
+    "4 种",
+    "1 种"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "相交、平行、异面三种。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "线面平行的判定定理中，平面外直线需要与平面内的哪条直线平行：",
+   "options": [
+    "任意一条",
+    "一条",
+    "两条相交直线",
+    "两条平行直线"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "只需与平面内的一条直线平行即可判定线面平行。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "判定一条直线垂直于一个平面，需要它垂直于平面内：",
+   "options": [
+    "一条直线",
+    "两条平行直线",
+    "两条相交直线",
+    "三条直线"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "两条相交直线确定平面的方向，缺“相交”条件不成立。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "三垂线定理的作用是：",
+   "options": [
+    "把面面垂直化为线面垂直",
+    "把空间垂直化为平面内的垂直",
+    "求体积",
+    "判断平行"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "它通过射影把空间中的垂直关系转化为平面内的垂直关系。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "二面角的平面角的两条边必须：",
+   "options": [
+    "都垂直于棱",
+    "互相平行",
+    "都在同一平面内",
+    "都过棱的中点"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "在棱上取一点，分别在两个面内作垂直于棱的射线，这两条射线所成的角才是平面角。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "直线与平面所成角的范围是：",
+   "options": [
+    "(0°,90°)",
+    "[0°,90°]",
+    "[0°,180°]",
+    "(0°,180°)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "平行时为 0°，垂直时为 90°，故范围是 [0°,90°]。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "空间中两条直线都平行于第三条直线，则这两条直线：",
+   "options": [
+    "一定相交",
+    "一定平行",
+    "一定异面",
+    "可能异面"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "平行的传递性在空间中仍成立，故两直线平行。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "直线 l 垂直于平面 α 内两条相交直线，则：",
+   "options": [
+    "l 平行于 α",
+    "l 垂直于 α",
+    "l 在 α 内",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "这正是线面垂直的判定定理。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：空间的位置关系与平行」的一句话核心是什么？",
+   "back": "空间里“不相交”不等于“平行”；判定与性质定理必须成对使用。",
+   "chapterId": "ch01",
+   "tags": [
+    "lines-planes",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：垂直关系与三垂线定理」的一句话核心是什么？",
+   "back": "线面垂直是空间垂直的总枢纽：一条直线垂直于平面内两条相交直线，就垂直于整个平面。",
+   "chapterId": "ch02",
+   "tags": [
+    "lines-planes",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：空间角与距离」的一句话核心是什么？",
+   "back": "空间里的角都要先“作出平面角”再计算；距离都要先“作出垂线段”。",
+   "chapterId": "ch03",
+   "tags": [
+    "lines-planes",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「异面直线」？",
+   "back": "不同在任何一个平面内的两条直线。",
+   "chapterId": "ch01",
+   "tags": [
+    "lines-planes",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「线面平行」？",
+   "back": "直线与平面没有公共点。",
+   "chapterId": "ch01",
+   "tags": [
+    "lines-planes",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「线面垂直」？",
+   "back": "直线垂直于平面内所有直线。",
+   "chapterId": "ch02",
+   "tags": [
+    "lines-planes",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「射影」？",
+   "back": "斜线在平面内的正投影。",
+   "chapterId": "ch02",
+   "tags": [
+    "lines-planes",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「三垂线定理」？",
+   "back": "平面内直线垂直于射影则垂直于斜线。",
+   "chapterId": "ch02",
+   "tags": [
+    "lines-planes",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「二面角」？",
+   "back": "两个半平面所成的图形。",
+   "chapterId": "ch03",
+   "tags": [
+    "lines-planes",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「平面角」？",
+   "back": "二面角中在棱上取点、两面内垂直棱的两射线夹角。",
+   "chapterId": "ch03",
+   "tags": [
+    "lines-planes",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「线面角」？",
+   "back": "斜线与射影所成的角。",
+   "chapterId": "ch03",
+   "tags": [
+    "lines-planes",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "异面直线",
+   "en": "",
+   "def": "不同在任何一个平面内的两条直线。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "线面平行",
+   "en": "",
+   "def": "直线与平面没有公共点。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "线面垂直",
+   "en": "",
+   "def": "直线垂直于平面内所有直线。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "射影",
+   "en": "",
+   "def": "斜线在平面内的正投影。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "三垂线定理",
+   "en": "",
+   "def": "平面内直线垂直于射影则垂直于斜线。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "二面角",
+   "en": "",
+   "def": "两个半平面所成的图形。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "平面角",
+   "en": "",
+   "def": "二面角中在棱上取点、两面内垂直棱的两射线夹角。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "线面角",
+   "en": "",
+   "def": "斜线与射影所成的角。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "bf08d0b852ce",
+ "contentHash": "db4f8f6fe26d",
+ "duplicateGroup": "bf08d0b852ce"
+}

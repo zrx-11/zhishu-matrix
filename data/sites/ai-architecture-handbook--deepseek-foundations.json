@@ -1,0 +1,1143 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "deepseek-foundations",
+ "title": "基础篇：从数字到 Transformer",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-foundations/manifest.json",
+ "stats": {
+  "chapters": 6,
+  "concepts": 16,
+  "quizzes": 15,
+  "cards": 20,
+  "glossary": 23
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：数字怎么变成“意思”：向量、矩阵与 softmax",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/chapters/ch01-vectors-matrices-softmax.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 基础数学"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：模型怎么学会：参数、损失、梯度",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/chapters/ch02-learning-parameters.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 训练基础"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：注意力机制：一句话里谁该看谁",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01",
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/chapters/ch03-attention.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 注意力机制"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：Transformer 一层一层拆",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/chapters/ch04-transformer-block.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · Transformer"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：DeepSeek-V3 的三块地基",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03",
+    "ch04"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/chapters/ch05-v3-foundations.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V3 技术报告（arXiv:2412.19437）§2"
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "附录：形状、公式与手算清单",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/chapters/ch06-shapes-formulas.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 手算附录"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "向量",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c01-vector.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 基础数学"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "矩阵乘法",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c02-matrix-multiplication.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 基础数学"
+   }
+  },
+  {
+   "id": "c03",
+   "title": "softmax",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c03-softmax.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 基础数学"
+   }
+  },
+  {
+   "id": "c04",
+   "title": "参数与损失",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "c02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c04-parameters-loss.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 训练基础"
+   }
+  },
+  {
+   "id": "c05",
+   "title": "梯度下降",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "c04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c05-gradient-descent.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 训练基础"
+   }
+  },
+  {
+   "id": "c06",
+   "title": "注意力",
+   "chapterIds": [
+    "ch03",
+    "ch04"
+   ],
+   "prerequisites": [
+    "c02",
+    "c03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c06-attention.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 注意力"
+   }
+  },
+  {
+   "id": "c07",
+   "title": "Q / K / V",
+   "chapterIds": [
+    "ch03",
+    "ch05"
+   ],
+   "prerequisites": [
+    "c06"
+   ],
+   "brief": "",
+   "depth": "concepts/c07-qkv-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c07-qkv.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 注意力"
+   }
+  },
+  {
+   "id": "c08",
+   "title": "残差连接",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [
+    "c02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c08-residual.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · Transformer"
+   }
+  },
+  {
+   "id": "c09",
+   "title": "RMSNorm",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [
+    "c01",
+    "c08"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c09-rmsnorm.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · Transformer"
+   }
+  },
+  {
+   "id": "c10",
+   "title": "前馈网络（FFN）",
+   "chapterIds": [
+    "ch04",
+    "ch05"
+   ],
+   "prerequisites": [
+    "c02",
+    "c09"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c10-ffn.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · Transformer"
+   }
+  },
+  {
+   "id": "c11",
+   "title": "自回归生成",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [
+    "c03",
+    "c04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c11-autoregressive.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 生成"
+   }
+  },
+  {
+   "id": "c12",
+   "title": "MLA（多头潜在注意力）",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "c07",
+    "c16"
+   ],
+   "brief": "",
+   "depth": "concepts/c12-mla-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c12-mla.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V3 技术报告 §2.1"
+   }
+  },
+  {
+   "id": "c13",
+   "title": "DeepSeekMoE",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "c03",
+    "c10"
+   ],
+   "brief": "",
+   "depth": "concepts/c13-moe-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c13-deepseekmoe.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V3 技术报告 §2.2"
+   }
+  },
+  {
+   "id": "c14",
+   "title": "MTP（多 token 预测）",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "c11"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c14-mtp.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V3 技术报告 §2.3"
+   }
+  },
+  {
+   "id": "c15",
+   "title": "负载均衡",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "c03",
+    "c13"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c15-load-balancing.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V3 技术报告 §2.2"
+   }
+  },
+  {
+   "id": "c16",
+   "title": "KV cache",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "c07",
+    "c11"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "01-foundations/concepts/c16-kv-cache.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V3 技术报告 §2.1"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "一个 2×3 矩阵乘一个 3 维向量，结果是什么形状？",
+   "options": [
+    "2×3 矩阵",
+    "3 维向量",
+    "2 维向量",
+    "一个标量"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "左矩阵两行，每行与 3 维向量做一次加权求和，得到两个数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "对分数 [0, 0, 0] 做 softmax，输出是什么？",
+   "options": [
+    "[0, 0, 0]",
+    "[1/3, 1/3, 1/3]",
+    "[1, 0, 0]",
+    "[3, 3, 3]"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "三个 e^0=1，总和 3，各占三分之一。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "embedding 表在模型里做什么？",
+   "options": [
+    "把 token 编号映射成向量",
+    "把向量压缩成标量",
+    "把句子翻译成英文",
+    "计算损失"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "embedding 表按 token 编号查出一串固定长度的向量。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "梯度为正时，梯度下降会把参数往哪个方向更新？",
+   "options": [
+    "增大",
+    "减小",
+    "不变",
+    "随机"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "更新规则是减去学习率乘梯度，梯度为正就减小参数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02",
+   "stem": "w=1、x=2、y=3，损失 L=(wx-y)^2，对 w 的梯度是多少？",
+   "options": [
+    "-4",
+    "4",
+    "-2",
+    "2"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "2(wx-y)x = 2(2-3)×2 = -4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch02",
+   "stem": "学习率取得过大，训练曲线通常会出现什么？",
+   "options": [
+    "收敛更快且稳定",
+    "损失震荡或发散",
+    "参数不再更新",
+    "模型自动变小"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "步子太大会跨过谷底，损失震荡甚至变成 NaN。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch03",
+   "stem": "注意力里真正被加权混合的是哪一项？",
+   "options": [
+    "Query",
+    "Key",
+    "Value",
+    "因果掩码"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "Q 和 K 只用于算分数，输出是 V 的加权和。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch03",
+   "stem": "分数 [1, 1, 1] 经过 softmax 后的权重是什么？",
+   "options": [
+    "[1, 0, 0]",
+    "[1/3, 1/3, 1/3]",
+    "[0.5, 0.5, 0]",
+    "[3, 3, 3]"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "三个 e^1 相等，各占三分之一。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch03",
+   "stem": "注意力分数为什么要除以 sqrt(d_k)？",
+   "options": [
+    "让分数更大",
+    "防止 softmax 过度集中",
+    "增加注意力头数",
+    "去掉位置信息"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "维度高时点积数值大，softmax 会过度集中，梯度变小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch04",
+   "stem": "一个 Transformer 层里，残差连接加在哪两处？",
+   "options": [
+    "只在注意力后",
+    "只在 FFN 后",
+    "注意力和 FFN 后各一次",
+    "每层最后只加一次"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "注意力和 FFN 是两个子层，各自带残差。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch04",
+   "stem": "输入形状 [6, 16] 经过 4 倍 FFN 后，中间层形状是什么？",
+   "options": [
+    "[6, 16]",
+    "[6, 64]",
+    "[24, 16]",
+    "[6, 4]"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "隐藏维度 16 放大 4 倍是 64，token 数不变。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch04",
+   "stem": "为什么位置信息必须显式注入 Transformer？",
+   "options": [
+    "让模型知道词序",
+    "减少参数量",
+    "加速训练",
+    "替代注意力"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "查表得到的 token 向量不含顺序信息，不注入位置就分不清词序。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch05",
+   "stem": "MLA 推理时缓存的核心内容是什么？",
+   "options": [
+    "每个头的完整 K 和 V",
+    "低维潜向量和 RoPE key",
+    "只有 Query",
+    "整个隐藏层输出"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "MLA 缓存压缩后的 c_KV 和承载位置的 RoPE key。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch05",
+   "stem": "DeepSeekMoE 中共享专家的作用是什么？",
+   "options": [
+    "只处理英文",
+    "始终激活，兜住通用知识",
+    "只处理数学题",
+    "替代注意力"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c13",
+   "explain": "共享专家对所有 token 生效，减少路由专家重复学习通用知识。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch05",
+   "stem": "MTP 在训练时额外预测哪个位置？",
+   "options": [
+    "只预测 t+1",
+    "额外预测 t+2",
+    "预测前一个 token",
+    "随机位置"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c14",
+   "explain": "在位置 t 额外预测 t+2，增加训练信号密度。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "向量在模型里是什么？",
+   "back": "一串有顺序的数字，长度叫维度。",
+   "chapterId": "ch01",
+   "tags": [
+    "基础",
+    "向量"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "矩阵乘法的计算规则？",
+   "back": "左矩阵每一行与右矩阵每一列做点积。",
+   "chapterId": "ch01",
+   "tags": [
+    "基础",
+    "矩阵"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "softmax 的两个关键性质？",
+   "back": "输出非负、总和为 1，并且保持原有大小顺序。",
+   "chapterId": "ch01",
+   "tags": [
+    "基础",
+    "softmax"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "embedding 表做什么？",
+   "back": "把 token 编号映射成固定长度的向量。",
+   "chapterId": "ch01",
+   "tags": [
+    "基础",
+    "embedding"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "参数、损失、梯度各是什么？",
+   "back": "参数是可调旋钮，损失是差距分数，梯度是损失对参数的变化率。",
+   "chapterId": "ch02",
+   "tags": [
+    "训练",
+    "基础"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "梯度下降的更新公式？",
+   "back": "w ← w - η·∂L/∂w。",
+   "chapterId": "ch02",
+   "tags": [
+    "训练",
+    "梯度"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "学习率过大和过小分别会怎样？",
+   "back": "过大震荡或发散，过小学得慢。",
+   "chapterId": "ch02",
+   "tags": [
+    "训练",
+    "学习率"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "过拟合是什么？",
+   "back": "训练集损失很小，换一批数据表现变差。",
+   "chapterId": "ch02",
+   "tags": [
+    "训练",
+    "泛化"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "Q、K、V 各自负责什么？",
+   "back": "Q 找信息，K 提供标签，V 提供实际内容。",
+   "chapterId": "ch03",
+   "tags": [
+    "注意力",
+    "QKV"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "注意力分数怎么算？",
+   "back": "Q 与 K 点积，除以 sqrt(d_k)，再 softmax。",
+   "chapterId": "ch03",
+   "tags": [
+    "注意力",
+    "公式"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "为什么要除以 sqrt(d_k)？",
+   "back": "防止高维点积过大，softmax 过度集中导致梯度消失。",
+   "chapterId": "ch03",
+   "tags": [
+    "注意力",
+    "缩放"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "因果掩码的作用？",
+   "back": "把未来位置的分数设为负无穷，禁止模型偷看答案。",
+   "chapterId": "ch03",
+   "tags": [
+    "注意力",
+    "掩码"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "Transformer 一层有哪两段？",
+   "back": "多头注意力和前馈网络，各自带残差与归一化。",
+   "chapterId": "ch04",
+   "tags": [
+    "Transformer",
+    "结构"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "残差连接的公式？",
+   "back": "y = x + Layer(x)。",
+   "chapterId": "ch04",
+   "tags": [
+    "Transformer",
+    "残差"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "RMSNorm 与 LayerNorm 的区别？",
+   "back": "RMSNorm 不减均值，只除以均方根，计算更快。",
+   "chapterId": "ch04",
+   "tags": [
+    "Transformer",
+    "归一化"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "FFN 的形状怎么变？",
+   "back": "先升到约 4 倍中间维度，激活后再降回隐藏维度。",
+   "chapterId": "ch04",
+   "tags": [
+    "Transformer",
+    "FFN"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "MLA 缓存什么？",
+   "back": "低维潜向量 c_KV 和解耦的 RoPE key。",
+   "chapterId": "ch05",
+   "tags": [
+    "DeepSeek",
+    "MLA"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "DeepSeekMoE 的结构？",
+   "back": "1 个共享专家 + 多个细粒度路由专家，每 token 激活 top-k 个路由专家。",
+   "chapterId": "ch05",
+   "tags": [
+    "DeepSeek",
+    "MoE"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "MTP 的训练目标？",
+   "back": "在每个位置额外预测未来第 2 个 token。",
+   "chapterId": "ch05",
+   "tags": [
+    "DeepSeek",
+    "MTP"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "无辅助损失负载均衡怎么做？",
+   "back": "给每个专家一个可学习偏置，按负载调偏置，不往主损失加辅助项。",
+   "chapterId": "ch05",
+   "tags": [
+    "DeepSeek",
+    "负载均衡"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "向量",
+   "en": "",
+   "def": "一串有顺序的数字，长度叫维度。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "矩阵乘法",
+   "en": "",
+   "def": "左矩阵每行与右矩阵每列做点积，得到新矩阵。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "softmax",
+   "en": "",
+   "def": "把分数转成非负、总和为 1 的权重。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "token",
+   "en": "",
+   "def": "模型处理文本的基本单位，可以是一个字、一个词或词的一部分。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "embedding",
+   "en": "",
+   "def": "把 token 编号映射成固定长度向量的表。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "参数",
+   "en": "",
+   "def": "模型里可训练的数值，比如矩阵元素。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "损失",
+   "en": "",
+   "def": "衡量预测与正确答案差距的标量。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "梯度",
+   "en": "",
+   "def": "损失对参数的变化率，指示更新方向。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "学习率",
+   "en": "",
+   "def": "每次参数更新走多大的一步。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "过拟合",
+   "en": "",
+   "def": "训练集上损失很小，换数据就变差。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "注意力",
+   "en": "",
+   "def": "按 token 间相似度加权收集信息的机制。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "Q / K / V",
+   "en": "",
+   "def": "查询、键、值，同一输入的三次投影。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "多头注意力",
+   "en": "",
+   "def": "并行多套 Q/K/V，捕捉不同关系。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "因果掩码",
+   "en": "",
+   "def": "禁止每个 token 看到未来 token。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "残差连接",
+   "en": "",
+   "def": "把子层输入加到子层输出。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "RMSNorm",
+   "en": "",
+   "def": "用均方根缩放向量的归一化。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "FFN",
+   "en": "",
+   "def": "对每个 token 独立做升维-激活-降维。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "自回归生成",
+   "en": "",
+   "def": "逐个预测下一个 token 并接回输入。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "MLA",
+   "en": "",
+   "def": "用低维潜向量压缩 KV cache 的注意力。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "DeepSeekMoE",
+   "en": "",
+   "def": "共享专家 + 细粒度路由专家的混合专家结构。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "MTP",
+   "en": "",
+   "def": "训练时额外预测未来第 2 个 token。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "KV cache",
+   "en": "",
+   "def": "推理时缓存历史 token 的 K/V。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "专家塌缩",
+   "en": "",
+   "def": "MoE 路由总选少数专家，其他专家学不到东西。",
+   "chapterIds": [
+    "ch05"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 6,
+  "concepts": 16
+ },
+ "signature": "3b93b7afb0f5",
+ "contentHash": "7d4c0bc8ed6c"
+}

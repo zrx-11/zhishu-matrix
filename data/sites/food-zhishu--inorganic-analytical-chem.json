@@ -1,0 +1,3758 @@
+{
+ "repo": "food-zhishu",
+ "bookSlug": "inorganic-analytical-chem",
+ "title": "无机及分析化学：食品检验衔接版",
+ "discipline": "chem",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "03-无机及分析化学/manifest.json",
+ "stats": {
+  "chapters": 13,
+  "concepts": 6,
+  "quizzes": 130,
+  "cards": 52,
+  "glossary": 87
+ },
+ "chapters": [
+  {
+   "id": "ch00",
+   "num": 0,
+   "title": "第 0 章：化学基础常识（零基础入口）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch00-化学基础常识.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》绪论 + 自编基础讲义"
+   }
+  },
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：物质结构",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch00"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch01-物质结构.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 1 章；《学习指导》第 4 章"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：化学反应速率与化学平衡",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch02-速率与平衡.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 2 章；《学习指导》第 2、3 章"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：重要元素及其化合物",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch03-元素化学.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 3 章；《学习指导》第 5 章"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：定量分析基础",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch00"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch04-定量分析基础.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 4 章；《学习指导》第 9 章"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：滴定分析基础",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch05-滴定分析基础.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 4 章；《学习指导》第 10 章"
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：酸碱平衡与酸碱滴定",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05",
+    "ch02"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch06-酸碱滴定.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 5 章；《学习指导》第 6 章"
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：配位化合物与配位滴定",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05",
+    "ch01"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch07-配位滴定.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 6 章；《学习指导》第 7 章"
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：氧化还原与电极电势",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01",
+    "ch03"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch08-电极电势.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 7 章；《学习指导》第 8 章"
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：氧化还原滴定法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch08",
+    "ch05"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch09-氧化还原滴定.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 7 章；《学习指导》第 10 章"
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：沉淀溶解平衡、沉淀滴定与重量分析",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch06",
+    "ch05"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch10-沉淀与重量分析.md"
+   },
+   "bookSource": {
+    "file": "《无机及分析化学》第 8 章；《学习指导》第 6、11 章"
+   }
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：紫外-可见分光光度法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch11-分光光度法.md"
+   },
+   "bookSource": {
+    "file": "《学习指导》第 12 章；《无机及分析化学》第 9 章"
+   }
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：电位分析法与分离方法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch08",
+    "ch10"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/chapters/ch12-电位分析法与分离方法.md"
+   },
+   "bookSource": {
+    "file": "《学习指导》第 13、14 章；《无机及分析化学》第 9 章"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "物质的量",
+   "chapterIds": [
+    "ch00",
+    "ch04",
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "concepts/c01-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/concepts/c01-mole.md"
+   },
+   "bookSource": {
+    "file": "第 0 章 + 第 5 章"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "化学平衡与平衡常数",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/concepts/c02-equilibrium.md"
+   },
+   "bookSource": {
+    "file": "第 2 章"
+   }
+  },
+  {
+   "id": "c03",
+   "title": "酸碱质子理论与 pH",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [
+    "c02"
+   ],
+   "brief": "",
+   "depth": "concepts/c03-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/concepts/c03-acid-base.md"
+   },
+   "bookSource": {
+    "file": "第 6 章"
+   }
+  },
+  {
+   "id": "c04",
+   "title": "条件稳定常数",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [
+    "c03"
+   ],
+   "brief": "",
+   "depth": "concepts/c04-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/concepts/c04-conditional-k.md"
+   },
+   "bookSource": {
+    "file": "第 7 章"
+   }
+  },
+  {
+   "id": "c05",
+   "title": "电极电势与 Nernst 方程",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "concepts/c05-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/concepts/c05-electrode.md"
+   },
+   "bookSource": {
+    "file": "第 8 章"
+   }
+  },
+  {
+   "id": "c06",
+   "title": "朗伯-比尔定律",
+   "chapterIds": [
+    "ch11"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "03-无机及分析化学/concepts/c06-beer.md"
+   },
+   "bookSource": {
+    "file": "第 11 章"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch00",
+   "stem": "下列物质属于化合物的是（ ）。",
+   "options": [
+    "O₂",
+    "NaCl",
+    "空气",
+    "铜"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "NaCl 由两种元素组成，是化合物。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch00",
+   "stem": "K₂Cr₂O₇ 中 Cr 的化合价是（ ）。",
+   "options": [
+    "+3",
+    "+6",
+    "+7",
+    "+2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "2×(+1)+2x+7×(−2)=0，x=+6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch00",
+   "stem": "标准状况下 2.24 L CO₂ 的物质的量是（ ）。",
+   "options": [
+    "0.1 mol",
+    "1 mol",
+    "2.24 mol",
+    "22.4 mol"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "2.24/22.4=0.1 mol。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch00",
+   "stem": "0.2 mol/L NaOH 溶液 100 mL 中含 NaOH 的物质的量是（ ）。",
+   "options": [
+    "0.02 mol",
+    "0.2 mol",
+    "2 mol",
+    "0.1 mol"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "0.2×0.100=0.020 mol。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch00",
+   "stem": "判断：将浓硫酸倒入水中并搅拌，是正确的稀释操作。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "浓硫酸密度大，倒入水中会下沉，搅拌散热；反过来会暴沸。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch00",
+   "stem": "36 g H₂O 中含有的水分子数约为（ ）",
+   "options": [
+    "6.022×10²³",
+    "1.204×10²⁴",
+    "3.011×10²³",
+    "1.806×10²⁴"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "n=36/18=2 mol，N=2×6.022×10²³=1.204×10²⁴。变式：质量翻倍，物质的量翻倍。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch00",
+   "stem": "KMnO₄ 中 Mn 的化合价是（ ）",
+   "options": [
+    "+3",
+    "+5",
+    "+7",
+    "+6"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "K +1、O −2，1+x+4×(−2)=0，x=+7。变式：把 K₂Cr₂O₇ 换成 KMnO₄。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch00",
+   "stem": "标准状况下 11.2 L N₂ 的物质的量是（ ）",
+   "options": [
+    "0.25 mol",
+    "0.50 mol",
+    "1.0 mol",
+    "2.0 mol"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "n=11.2/22.4=0.50 mol。变式：气体体积翻倍，物质的量翻倍。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch00",
+   "stem": "0.50 mol/L NaOH 溶液 200 mL 中 NaOH 的物质的量是（ ）",
+   "options": [
+    "0.010 mol",
+    "0.050 mol",
+    "0.10 mol",
+    "0.20 mol"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "n=cV=0.50×0.200=0.10 mol。变式：浓度和体积同时改变，先统一单位再乘。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch00",
+   "stem": "判断：将水缓慢倒入浓硫酸中并搅拌，是正确的稀释操作。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "错误。必须把浓硫酸缓慢倒入水中，边加边搅拌；反过来会暴沸溅出。变式：把操作顺序颠倒。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch01",
+   "stem": "下列电子排布正确的是（ ）。",
+   "options": [
+    "Cr [Ar]3d⁴4s²",
+    "Cu [Ar]3d⁹4s²",
+    "Fe³⁺ [Ar]3d⁵",
+    "Fe²⁺ [Ar]3d⁴4s²"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Cr 应为 3d⁵4s¹，Cu 应为 3d¹⁰4s¹，Fe²⁺ 应为 3d⁶。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch01",
+   "stem": "SO₂ 的中心原子杂化方式和分子构型是（ ）。",
+   "options": [
+    "sp，直线",
+    "sp²，V 形",
+    "sp³，三角锥",
+    "sp²，平面三角"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "S 有 1 对孤对、2 个 σ 键，电子对 3 对，sp²，V 形。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch01",
+   "stem": "下列物质沸点最高的是（ ）。",
+   "options": [
+    "CH₄",
+    "H₂O",
+    "H₂S",
+    "CO₂"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "水有分子间氢键。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch01",
+   "stem": "下列晶体中，熔融状态下能导电的是（ ）。",
+   "options": [
+    "金刚石",
+    "NaCl",
+    "冰",
+    "I₂"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "离子晶体熔融产生自由移动的离子。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch01",
+   "stem": "判断：电负性差值越大，形成的化学键一定越接近离子键。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "还要看原子半径、极化作用等因素；BeCl₂ 等虽有较大差值，仍表现共价性。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch01",
+   "stem": "Cu 原子的基态电子排布为（ ）",
+   "options": [
+    "[Ar]3d⁹4s²",
+    "[Ar]3d¹⁰4s¹",
+    "[Ar]3d⁸4s²",
+    "[Ar]3d¹⁰4s²"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Cu 为 3d¹⁰4s¹ 的半充满/全充满稳定结构。变式：从 Cr 换成 Cu，反常规则相同。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch01",
+   "stem": "H₂O 分子的中心原子杂化方式和空间构型是（ ）",
+   "options": [
+    "sp²，平面三角形",
+    "sp³，V 形",
+    "sp，直线形",
+    "sp³，三角锥"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "O 有 2 个成键电子对和 2 对孤对电子，sp³ 杂化，V 形。变式：从 SO₂ 换成 H₂O，孤对电子数不同。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch01",
+   "stem": "下列物质中沸点最高的是（ ）",
+   "options": [
+    "HCl",
+    "HBr",
+    "HF",
+    "HI"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "HF 分子间有氢键，沸点最高。变式：把卤化氢放在一起，先找氢键。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch01",
+   "stem": "下列晶体中，固态能导电的是（ ）",
+   "options": [
+    "NaCl",
+    "石墨",
+    "金刚石",
+    "冰"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "石墨层内有离域电子，固态能导电；其余固态不导电。变式：把“熔融导电”改成“固态导电”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch01",
+   "stem": "判断：离子键一定由金属元素和非金属元素形成。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "错误。NH₄Cl 中 NH₄⁺ 与 Cl⁻ 之间是离子键，但没有金属元素。变式：把“电负性差值”换成“金属—非金属”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch02",
+   "stem": "对反应 2SO₂ + O₂ ⇌ 2SO₃，Kp 的表达式是（ ）。",
+   "options": [
+    "p(SO₃)²/[p(SO₂)²p(O₂)]",
+    "p(SO₂)²p(O₂)/p(SO₃)²",
+    "p(SO₃)/[p(SO₂)p(O₂)]",
+    "p(SO₂)p(O₂)/p(SO₃)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "生成物分压的幂除以反应物分压的幂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch02",
+   "stem": "某反应速率方程 v = k[A]²[B]，总反应级数是（ ）。",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "0"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "2+1=3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch02",
+   "stem": "升高温度使平衡常数 K 增大，说明该反应（ ）。",
+   "options": [
+    "放热",
+    "吸热",
+    "ΔH=0",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "升温向吸热方向移动，K 增大说明正反应吸热。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch02",
+   "stem": "1.0 L 容器中初始 0.20 mol A，平衡时 A 剩 0.10 mol，反应 A ⇌ B，K 为（ ）。",
+   "options": [
+    "0.10",
+    "0.50",
+    "1.0",
+    "2.0"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "[A]=0.10，[B]=0.10，K=0.10/0.10=1.0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch02",
+   "stem": "判断：活化能越大，反应速率一定越慢。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "速率还受指前因子、浓度、温度影响；活化能只是温度敏感性的一个因素。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch02",
+   "stem": "反应 N₂ + 3H₂ ⇌ 2NH₃ 的 Kp 表达式为（ ）",
+   "options": [
+    "p(NH₃)²/[p(N₂)p(H₂)³]",
+    "p(N₂)p(H₂)³/p(NH₃)²",
+    "p(NH₃)/[p(N₂)p(H₂)]",
+    "p(NH₃)³/[p(N₂)p(H₂)]"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "生成物分压的系数次方在分子，反应物在分母。变式：把 SO₂ 氧化换成合成氨。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch02",
+   "stem": "反应速率方程 v=k[A][B]²，总反应级数是（ ）",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "总级数=各浓度项指数之和=1+2=3。变式：把 v=k[A]²[B] 的指数换位置，总级数不变。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch02",
+   "stem": "升高温度使平衡常数 K 减小，说明该反应（ ）",
+   "options": [
+    "吸热",
+    "放热",
+    "气体分子数增加",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "升温 K 减小，平衡逆向，逆向吸热，所以正反应放热。变式：把“K 增大”改成“K 减小”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q29",
+   "chapterId": "ch02",
+   "stem": "1.0 L 容器中初始 0.40 mol A，平衡时 A 剩 0.10 mol，反应 A ⇌ B，K 为（ ）",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "A 转化 0.30 mol，生成 B 0.30 mol；K=[B]/[A]=0.30/0.10=3。变式：初始量变了，用变化量算平衡量。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q30",
+   "chapterId": "ch02",
+   "stem": "判断：催化剂能改变反应的平衡常数。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "错误。催化剂只降低活化能、加快达到平衡，不改变 K。变式：把“速率”换成“平衡常数”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q31",
+   "chapterId": "ch03",
+   "stem": "下列物质中，O 的化合价为 −1 的是（ ）。",
+   "options": [
+    "H₂O",
+    "H₂O₂",
+    "O₂",
+    "OF₂"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "H₂O₂ 中 O 为 −1，H 为 +1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q32",
+   "chapterId": "ch03",
+   "stem": "能与 NaOH 溶液反应放出氢气的是（ ）。",
+   "options": [
+    "Cu",
+    "Fe",
+    "Al",
+    "Ag"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Al 与强碱反应：2Al + 2NaOH + 2H₂O = 2NaAlO₂ + 3H₂↑。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q33",
+   "chapterId": "ch03",
+   "stem": "鉴别 Fe³⁺ 最灵敏的试剂是（ ）。",
+   "options": [
+    "NaOH",
+    "KSCN",
+    "HCl",
+    "BaCl₂"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Fe³⁺ 与 SCN⁻ 生成血红色配合物。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q34",
+   "chapterId": "ch03",
+   "stem": "下列反应中，SO₂ 作氧化剂的是（ ）。",
+   "options": [
+    "SO₂ + H₂O",
+    "2SO₂ + O₂",
+    "SO₂ + 2H₂S",
+    "SO₂ + NaOH"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "SO₂ 中 S 为 +4，与 H₂S 反应生成 S（0），SO₂ 被还原，作氧化剂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q35",
+   "chapterId": "ch03",
+   "stem": "判断：浓硫酸与铜反应生成 SO₂，说明浓硫酸有强氧化性。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Cu 被氧化为 Cu²⁺，S(+6) 被还原为 S(+4)，浓硫酸作氧化剂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q36",
+   "chapterId": "ch03",
+   "stem": "下列物质中，O 的化合价为 −1 的是（ ）",
+   "options": [
+    "H₂O",
+    "Na₂O₂",
+    "OF₂",
+    "CO₂"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Na₂O₂ 是过氧化物，O 为 −1；H₂O、CO₂ 中 −2，OF₂ 中 +2。变式：从 H₂O₂ 换成 Na₂O₂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q37",
+   "chapterId": "ch03",
+   "stem": "下列金属中，不与 NaOH 溶液反应放出氢气的是（ ）",
+   "options": [
+    "Al",
+    "Zn",
+    "Cu",
+    "Mg"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Cu 不与 NaOH 反应；Al、Zn 是两性金属，能反应放 H₂。变式：从“能反应”改成“不能反应”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q38",
+   "chapterId": "ch03",
+   "stem": "检验 Fe²⁺ 最灵敏的试剂是（ ）",
+   "options": [
+    "KSCN",
+    "K₃[Fe(CN)₆]",
+    "NaOH",
+    "HCl"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Fe²⁺ 与 K₃[Fe(CN)₆] 生成滕氏蓝；KSCN 主要检验 Fe³⁺。变式：从 Fe³⁺ 换成 Fe²⁺，指示剂要换。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q39",
+   "chapterId": "ch03",
+   "stem": "下列反应中，SO₂ 作还原剂的是（ ）",
+   "options": [
+    "SO₂ + 2H₂S = 3S + 2H₂O",
+    "SO₂ + H₂O = H₂SO₃",
+    "SO₂ + Cl₂ + 2H₂O = H₂SO₄ + 2HCl",
+    "SO₂ + CaO = CaSO₃"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "SO₂ 被 Cl₂ 氧化为 H₂SO₄，作还原剂；与 H₂S 反应时 SO₂ 作氧化剂。变式：从“作氧化剂”改成“作还原剂”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q40",
+   "chapterId": "ch03",
+   "stem": "判断：浓硫酸与铜反应需要加热。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "正确。常温下浓硫酸与铜不反应，加热才反应生成 SO₂。变式：把“能反应”改成“反应条件”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q41",
+   "chapterId": "ch04",
+   "stem": "下列数据中，有效数字为 3 位的是（ ）。",
+   "options": [
+    "0.0120",
+    "1.200",
+    "1200",
+    "0.1200"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "0.0120 中 1、2、0 为有效数字，共 3 位；1.200 与 0.1200 都是 4 位；1200 位数模糊。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q42",
+   "chapterId": "ch04",
+   "stem": "下列情况属于系统误差的是（ ）。",
+   "options": [
+    "天平未校准",
+    "读数时偶尔看错",
+    "加错试剂",
+    "温度微小波动"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "仪器未校准有固定方向，属系统误差。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q43",
+   "chapterId": "ch04",
+   "stem": "测定值为 10.20，真实值为 10.00，相对误差为（ ）。",
+   "options": [
+    "0.20%",
+    "2.0%",
+    "2.0",
+    "0.020%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "0.20/10.00×100%=2.0%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q44",
+   "chapterId": "ch04",
+   "stem": "计算 12.34 + 1.2，结果应写成（ ）。",
+   "options": [
+    "13.54",
+    "13.5",
+    "13.6",
+    "14"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "1.2 只有 1 位小数，结果保留 1 位小数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q45",
+   "chapterId": "ch04",
+   "stem": "判断：置信度越高，置信区间越窄。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "置信度越高，区间越宽；n 越大，区间越窄。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q46",
+   "chapterId": "ch04",
+   "stem": "下列数据中，有效数字为 4 位的是（ ）",
+   "options": [
+    "0.012",
+    "1.20",
+    "1200",
+    "0.1200"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "0.1200 中 1、2、0、0 都是有效数字，共 4 位；0.012 是 2 位，1.20 是 3 位，1200 位数模糊。变式：把“3 位”改成“4 位”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q47",
+   "chapterId": "ch04",
+   "stem": "下列情况属于随机误差的是（ ）",
+   "options": [
+    "天平未校准",
+    "读数时偶尔偏大",
+    "试剂含杂质",
+    "方法本身有缺陷"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "偶然的读数偏大属于随机误差；其余是系统误差。变式：从“系统误差”改成“随机误差”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q48",
+   "chapterId": "ch04",
+   "stem": "测定值为 9.80，真实值为 10.00，相对误差为（ ）",
+   "options": [
+    "+2.0%",
+    "−2.0%",
+    "+0.2%",
+    "−0.2%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "相对误差=(9.80−10.00)/10.00×100%=−2.0%。变式：把测定值从偏大改成偏小，符号变负。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q49",
+   "chapterId": "ch04",
+   "stem": "计算 12.34 × 1.2，结果应写成（ ）",
+   "options": [
+    "14.8",
+    "15",
+    "14.81",
+    "15.0"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "乘除按有效数字位数最少，1.2 是 2 位，结果保留 2 位：15。变式：从加法换成乘法，规则变了。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q50",
+   "chapterId": "ch04",
+   "stem": "判断：置信度越低，置信区间越窄。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "正确。置信度降低，要求的区间变窄；置信度越高，区间越宽。变式：把“越高”改成“越低”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q51",
+   "chapterId": "ch05",
+   "stem": "下列物质可以直接配制标准溶液的是（ ）。",
+   "options": [
+    "NaOH",
+    "HCl",
+    "K₂Cr₂O₇",
+    "KMnO₄"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "K₂Cr₂O₇ 是基准物质，稳定、纯度高；其余需标定。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q52",
+   "chapterId": "ch05",
+   "stem": "滴定反应要求 K 一般大于（ ）。",
+   "options": [
+    "10²",
+    "10⁴",
+    "10⁸",
+    "10¹⁰"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "反应要完全，平衡常数一般要求 10⁸ 以上。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q53",
+   "chapterId": "ch05",
+   "stem": "用 0.1000 mol/L NaOH 滴定 25.00 mL HCl，消耗 20.00 mL，c(HCl) 为（ ）。",
+   "options": [
+    "0.08000",
+    "0.1000",
+    "0.1250",
+    "0.2000"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "0.1000×20.00/25.00=0.08000 mol/L。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q54",
+   "chapterId": "ch05",
+   "stem": "Na₂CO₃ 与 HCl 的计量系数比 a/b（Na₂CO₃/HCl）是（ ）。",
+   "options": [
+    "1:1",
+    "1:2",
+    "2:1",
+    "1:3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Na₂CO₃ + 2HCl，1 mol Na₂CO₃ 消耗 2 mol HCl。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q55",
+   "chapterId": "ch05",
+   "stem": "判断：标定标准溶液时，平行测定 3 次，相对偏差应不超过 0.1%。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "这是分析化学对标准溶液标定的常规要求。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q56",
+   "chapterId": "ch05",
+   "stem": "下列物质中，必须标定后才能配制标准溶液的是（ ）",
+   "options": [
+    "NaCl",
+    "K₂Cr₂O₇",
+    "NaOH",
+    "Na₂CO₃"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "NaOH 吸水和 CO₂，不能直接配；K₂Cr₂O₇、NaCl、Na₂CO₃ 可作基准物质。变式：从“可直接配”改成“必须标定”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q57",
+   "chapterId": "ch05",
+   "stem": "滴定反应要求平衡常数一般不小于（ ）",
+   "options": [
+    "10²",
+    "10⁴",
+    "10⁶",
+    "10⁸"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "反应要完全，K 一般要求 10⁸ 以上。变式：把“大于”改成“不小于”，数值不变。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q58",
+   "chapterId": "ch05",
+   "stem": "用 0.1000 mol/L NaOH 滴定 20.00 mL HCl，消耗 25.00 mL，c(HCl) 为（ ）",
+   "options": [
+    "0.08000 mol/L",
+    "0.1000 mol/L",
+    "0.1250 mol/L",
+    "0.2000 mol/L"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "c=0.1000×25.00/20.00=0.1250 mol/L。变式：把酸、碱体积对调。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q59",
+   "chapterId": "ch05",
+   "stem": "H₂C₂O₄ 与 NaOH 的计量系数比 n(H₂C₂O₄):n(NaOH) 为（ ）",
+   "options": [
+    "1:1",
+    "1:2",
+    "2:1",
+    "1:3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "H₂C₂O₄ + 2NaOH = Na₂C₂O₄ + 2H₂O，1 mol 草酸消耗 2 mol NaOH。变式：从 Na₂CO₃/HCl 换成草酸/NaOH。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q60",
+   "chapterId": "ch05",
+   "stem": "判断：标定标准溶液时，平行测定 3 次，相对偏差应不超过 0.2%。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "错误。常规要求相对偏差不超过 0.1%，0.2% 放宽了一倍。变式：把 0.1% 改成 0.2%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q61",
+   "chapterId": "ch06",
+   "stem": "0.10 mol/L HAc（Ka=1.8×10⁻⁵）的 pH 约为（ ）。",
+   "options": [
+    "1.00",
+    "2.87",
+    "4.74",
+    "7.00"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "sqrt(1.8×10⁻⁶)=1.34×10⁻³，pH=2.87。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q62",
+   "chapterId": "ch06",
+   "stem": "强酸滴定弱碱，计量点显（ ）。",
+   "options": [
+    "酸性",
+    "中性",
+    "碱性",
+    "无法判断"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "生成强酸弱碱盐，阳离子水解显酸性。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q63",
+   "chapterId": "ch06",
+   "stem": "下列指示剂适合强酸强碱滴定的是（ ）。",
+   "options": [
+    "酚酞",
+    "甲基橙",
+    "甲基红",
+    "都可以"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "强酸强碱突跃宽，三种指示剂都能用。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q64",
+   "chapterId": "ch06",
+   "stem": "二元弱酸分步滴定的条件是（ ）。",
+   "options": [
+    "cKa ≥ 10⁻⁸ 且 Ka1/Ka2 ≥ 10⁴",
+    "cKa ≥ 10⁻⁶ 且 Ka1/Ka2 ≥ 10²",
+    "只要 Ka1 > Ka2",
+    "只要浓度大"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "两步都要完全，且第一步与第二步差别足够大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q65",
+   "chapterId": "ch06",
+   "stem": "双指示剂法测定混合碱，V₁ > V₂，组成可能是（ ）。",
+   "options": [
+    "Na₂CO₃",
+    "NaHCO₃",
+    "NaOH + Na₂CO₃",
+    "Na₂CO₃ + NaHCO₃"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "V₁ > V₂ 说明有 NaOH，且部分 Na₂CO₃ 在第一步被中和到 NaHCO₃。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q66",
+   "chapterId": "ch06",
+   "stem": "0.010 mol/L HAc（Ka=1.8×10⁻⁵）的 pH 约为（ ）",
+   "options": [
+    "2.87",
+    "3.37",
+    "4.74",
+    "2.37"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "[H⁺]=√(1.8×10⁻⁷)=4.24×10⁻⁴，pH=3.37。变式：浓度从 0.10 降到 0.010。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q67",
+   "chapterId": "ch06",
+   "stem": "强碱滴定弱酸，计量点显（ ）",
+   "options": [
+    "酸性",
+    "中性",
+    "碱性",
+    "无法判断"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "生成弱酸强碱盐，酸根水解显碱性。变式：把“强酸滴定弱碱”反过来。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q68",
+   "chapterId": "ch06",
+   "stem": "强酸滴定弱碱，计量点附近应选（ ）",
+   "options": [
+    "酚酞",
+    "甲基橙",
+    "百里酚酞",
+    "石蕊"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "计量点显酸性，突跃在酸性区，选甲基橙或甲基红。变式：把“强碱滴定弱酸”反过来。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q69",
+   "chapterId": "ch06",
+   "stem": "H₂C₂O₄ 的 Ka₁=5.9×10⁻²、Ka₂=6.4×10⁻⁵，用 NaOH 滴定可（ ）",
+   "options": [
+    "一步滴定到第二计量点",
+    "两步分别滴定",
+    "只有第一步可滴定",
+    "不能滴定"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "Ka₁/Ka₂≈920<10⁴，不能分步；cKa₂ 足够，可一次滴到第二计量点。变式：把 H₃PO₄ 换回草酸，先算 Ka 比值。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q70",
+   "chapterId": "ch06",
+   "stem": "双指示剂法测定混合碱，V₁ < V₂，组成可能是（ ）",
+   "options": [
+    "NaOH",
+    "Na₂CO₃",
+    "NaOH+Na₂CO₃",
+    "Na₂CO₃+NaHCO₃"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "V₁<V₂ 说明第二步有额外的 NaHCO₃，组成为 Na₂CO₃+NaHCO₃。变式：把 V₁>V₂ 改成 V₁<V₂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q71",
+   "chapterId": "ch07",
+   "stem": "[Cu(NH₃)₄]SO₄ 的中心离子和配位数是（ ）。",
+   "options": [
+    "Cu²⁺，4",
+    "Cu²⁺，6",
+    "NH₃，4",
+    "SO₄²⁻，4"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "中心离子 Cu²⁺，4 个 NH₃ 配体。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q72",
+   "chapterId": "ch07",
+   "stem": "EDTA 与金属离子通常形成（ ）配合物。",
+   "options": [
+    "1:1",
+    "1:2",
+    "2:1",
+    "1:4"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "EDTA 六齿配体，一个分子与一个金属离子配位。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q73",
+   "chapterId": "ch07",
+   "stem": "pH 降低，EDTA 的酸效应系数 αY(H)（ ）。",
+   "options": [
+    "增大",
+    "减小",
+    "不变",
+    "先增后减"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "酸度越高，Y⁴⁻ 越少，αY(H) 越大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q74",
+   "chapterId": "ch07",
+   "stem": "铬黑 T 常用于测定（ ）。",
+   "options": [
+    "Ca²⁺、Mg²⁺",
+    "Fe³⁺",
+    "Cl⁻",
+    "SO₄²⁻"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "EBT 在 pH 10 与 Ca²⁺、Mg²⁺ 显色。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q75",
+   "chapterId": "ch07",
+   "stem": "判断：配位滴定的最低 pH 由 lgK'≥8 决定。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "K' 足够大才能定量滴定，酸效应曲线给出对应 pH。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q76",
+   "chapterId": "ch07",
+   "stem": "[Fe(CN)₆]³⁻ 的中心离子和配位数是（ ）",
+   "options": [
+    "Fe³⁺，6",
+    "Fe²⁺，6",
+    "Fe³⁺，3",
+    "CN⁻，6"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "中心离子 Fe³⁺，6 个 CN⁻ 配体，配位数 6。变式：从 Cu—NH₃ 换成 Fe—CN。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q77",
+   "chapterId": "ch07",
+   "stem": "EDTA 与 Al³⁺ 通常形成（ ）配合物",
+   "options": [
+    "1:1",
+    "1:2",
+    "2:1",
+    "1:3"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "EDTA 六齿配体，一个分子配一个金属离子，1:1。变式：把金属离子从 Cu²⁺ 换成 Al³⁺。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q78",
+   "chapterId": "ch07",
+   "stem": "pH 升高，EDTA 的酸效应系数 αY(H)（ ）",
+   "options": [
+    "增大",
+    "减小",
+    "不变",
+    "先增后减"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "pH 升高，H⁺ 减少，游离 Y⁴⁻ 增多，αY(H) 减小，极限为 1。变式：把“降低”改成“升高”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q79",
+   "chapterId": "ch07",
+   "stem": "二甲酚橙常用于（ ）条件下测定 Zn²⁺、Pb²⁺",
+   "options": [
+    "pH 10",
+    "pH 5–6",
+    "pH 1–2",
+    "pH 13"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "二甲酚橙在 pH 5–6 使用；铬黑 T 才用于 pH 10 测 Ca²⁺、Mg²⁺。变式：从铬黑 T 换成二甲酚橙。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q80",
+   "chapterId": "ch07",
+   "stem": "lgKf=10.0，某 pH 下 lgαY(H)=4.0，该金属离子（ ）",
+   "options": [
+    "能准确滴定",
+    "不能准确滴定",
+    "刚好能滴定",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "lgK'=10.0−4.0=6.0<8，不能准确滴定。变式：从“最低 pH”改成“判断可行性”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q81",
+   "chapterId": "ch08",
+   "stem": "下列电对中，氧化型氧化能力最强的是（ ）。",
+   "options": [
+    "Zn²⁺/Zn",
+    "Cu²⁺/Cu",
+    "Fe³⁺/Fe²⁺",
+    "MnO₄⁻/Mn²⁺"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "E°=1.51 V 最大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q82",
+   "chapterId": "ch08",
+   "stem": "电池 (−) Zn | Zn²⁺ || Cu²⁺ | Cu (+) 的 E° 为（ ）。",
+   "options": [
+    "0.34 V",
+    "0.76 V",
+    "1.10 V",
+    "1.51 V"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "0.34−(−0.76)=1.10 V。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q83",
+   "chapterId": "ch08",
+   "stem": "对电极反应 MnO₄⁻ + 8H⁺ + 5e⁻ → Mn²⁺ + 4H₂O，n 等于（ ）。",
+   "options": [
+    "3",
+    "5",
+    "8",
+    "1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "转移 5 个电子。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q84",
+   "chapterId": "ch08",
+   "stem": "pH 升高，MnO₄⁻/Mn²⁺ 的电极电势（ ）。",
+   "options": [
+    "升高",
+    "降低",
+    "不变",
+    "先升后降"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "Nernst 方程中 [H⁺] 在分子，pH 升高 [H⁺] 降低，E 降低。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q85",
+   "chapterId": "ch08",
+   "stem": "判断：E° 越大的电对，其还原型还原能力越强。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "E° 越大，氧化型氧化能力越强，还原型还原能力越弱。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q86",
+   "chapterId": "ch08",
+   "stem": "下列电对中，还原型还原能力最强的是（ ）",
+   "options": [
+    "Zn²⁺/Zn",
+    "Cu²⁺/Cu",
+    "Fe³⁺/Fe²⁺",
+    "I₂/I⁻"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "E° 越小，还原型越易失电子，还原能力越强；Zn 的 E° 最低。变式：从“氧化型”改成“还原型”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q87",
+   "chapterId": "ch08",
+   "stem": "电池 (−) Cu | Cu²⁺ || Ag⁺ | Ag (+) 的 E° 为（ ）",
+   "options": [
+    "0.34 V",
+    "0.80 V",
+    "0.46 V",
+    "1.14 V"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "E°=0.80−0.34=0.46 V。变式：把 Zn-Cu 换成 Cu-Ag。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q88",
+   "chapterId": "ch08",
+   "stem": "电极反应 Cr₂O₇²⁻ + 14H⁺ + 6e⁻ → 2Cr³⁺ + 7H₂O 中 n 等于（ ）",
+   "options": [
+    "3",
+    "5",
+    "6",
+    "7"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "转移 6 个电子，n=6。变式：从 MnO₄⁻ 换成 Cr₂O₇²⁻。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q89",
+   "chapterId": "ch08",
+   "stem": "增大 [H⁺]，MnO₄⁻/Mn²⁺ 的电极电势（ ）",
+   "options": [
+    "升高",
+    "降低",
+    "不变",
+    "先升后降"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "H⁺ 在氧化型一侧，[H⁺] 增大，E 升高，氧化性增强。变式：把“pH 升高”改成“[H⁺] 增大”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q90",
+   "chapterId": "ch08",
+   "stem": "判断：E° 越小，电对氧化型的氧化能力越强。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "错误。E° 越小，氧化型氧化能力越弱，还原型还原能力越强。变式：把“还原型”改成“氧化型”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q91",
+   "chapterId": "ch09",
+   "stem": "KMnO₄ 滴定不能在（ ）介质中进行。",
+   "options": [
+    "H₂SO₄",
+    "HCl",
+    "H₃PO₄",
+    "水"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Cl⁻ 会被 KMnO₄ 氧化。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q92",
+   "chapterId": "ch09",
+   "stem": "碘量法常用的指示剂是（ ）。",
+   "options": [
+    "酚酞",
+    "甲基橙",
+    "淀粉",
+    "铬黑 T"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "淀粉遇 I₂ 变蓝。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q93",
+   "chapterId": "ch09",
+   "stem": "用 Na₂C₂O₄ 标定 KMnO₄，n(MnO₄⁻):n(C₂O₄²⁻) 为（ ）。",
+   "options": [
+    "1:1",
+    "2:5",
+    "5:2",
+    "1:2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "2MnO₄⁻ 对应 5C₂O₄²⁻。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q94",
+   "chapterId": "ch09",
+   "stem": "间接碘量法测 Cu²⁺，1 mol Cu²⁺ 对应 Na₂S₂O₃ 的物质的量为（ ）。",
+   "options": [
+    "0.5",
+    "1",
+    "2",
+    "3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "2Cu²⁺ 生成 1I₂，1I₂ 消耗 2S₂O₃²⁻，所以 1Cu²⁺ 对应 1S₂O₃²⁻。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q95",
+   "chapterId": "ch09",
+   "stem": "判断：K₂Cr₂O₇ 可以直接配制标准溶液。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "K₂Cr₂O₇ 纯度高、稳定，是基准物质。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q96",
+   "chapterId": "ch09",
+   "stem": "KMnO₄ 法常用的酸化剂是（ ）",
+   "options": [
+    "HCl",
+    "HNO₃",
+    "H₂SO₄",
+    "HAc"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "用 H₂SO₄；HCl 中 Cl⁻ 会被氧化，HNO₃ 本身有氧化性。变式：从“不能用什么”改成“用什么”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q97",
+   "chapterId": "ch09",
+   "stem": "K₂Cr₂O₇ 法常用的指示剂是（ ）",
+   "options": [
+    "淀粉",
+    "二苯胺磺酸钠",
+    "酚酞",
+    "铬黑 T"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "K₂Cr₂O₇ 法用二苯胺磺酸钠，终点无色变紫红。变式：从碘量法换成重铬酸钾法。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q98",
+   "chapterId": "ch09",
+   "stem": "用 K₂Cr₂O₇ 滴定 Fe²⁺，n(Cr₂O₇²⁻):n(Fe²⁺) 为（ ）",
+   "options": [
+    "1:1",
+    "1:3",
+    "1:6",
+    "6:1"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Cr₂O₇²⁻ + 6Fe²⁺ + 14H⁺ = 2Cr³⁺ + 6Fe³⁺ + 7H₂O，1:6。变式：从 MnO₄⁻/C₂O₄²⁻ 换成 Cr₂O₇²⁻/Fe²⁺。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q99",
+   "chapterId": "ch09",
+   "stem": "间接碘量法测 H₂O₂，1 mol H₂O₂ 对应 Na₂S₂O₃ 的物质的量为（ ）",
+   "options": [
+    "1 mol",
+    "2 mol",
+    "3 mol",
+    "4 mol"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "H₂O₂ 氧化 2I⁻ 生成 1I₂，1I₂ 消耗 2S₂O₃²⁻，所以 1:2。变式：从 Cu²⁺ 换成 H₂O₂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q100",
+   "chapterId": "ch09",
+   "stem": "判断：Na₂S₂O₃ 可以直接配制标准溶液。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "错误。Na₂S₂O₃ 不稳定，需用 K₂Cr₂O₇ 或 KIO₃ 标定。变式：把 K₂Cr₂O₇ 换成 Na₂S₂O₃。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q101",
+   "chapterId": "ch10",
+   "stem": "AgCl 在纯水中的溶解度约为（ ）mol/L（Ksp=1.8×10⁻¹⁰）。",
+   "options": [
+    "1.3×10⁻⁵",
+    "1.8×10⁻¹⁰",
+    "9.0×10⁻¹¹",
+    "1.8×10⁻⁵"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "s=sqrt(1.8×10⁻¹⁰)=1.34×10⁻⁵。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q102",
+   "chapterId": "ch10",
+   "stem": "莫尔法使用的指示剂是（ ）。",
+   "options": [
+    "K₂CrO₄",
+    "铁铵矾",
+    "荧光黄",
+    "淀粉"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Ag⁺ 与 CrO₄²⁻ 生成砖红色 Ag₂CrO₄。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q103",
+   "chapterId": "ch10",
+   "stem": "佛尔哈德法通常在（ ）条件下进行。",
+   "options": [
+    "强碱性",
+    "中性",
+    "酸性",
+    "任意"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "铁铵矾指示剂在酸性条件下使用，避免 Fe³⁺ 水解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q104",
+   "chapterId": "ch10",
+   "stem": "由 Fe₂O₃ 称量形式求 Fe 的换算因数是（ ）。",
+   "options": [
+    "M(Fe)/M(Fe₂O₃)",
+    "2M(Fe)/M(Fe₂O₃)",
+    "M(Fe₂O₃)/2M(Fe)",
+    "3M(Fe)/M(Fe₂O₃)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "1 mol Fe₂O₃ 含 2 mol Fe。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q105",
+   "chapterId": "ch10",
+   "stem": "判断：分步沉淀时，Ksp 小的物质一定先沉淀。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "还要看离子浓度，比较开始沉淀所需沉淀剂浓度，不能只看 Ksp。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q106",
+   "chapterId": "ch10",
+   "stem": "AgBr 的 Ksp=5.0×10⁻¹³，其在纯水中的溶解度约为（ ）",
+   "options": [
+    "7.1×10⁻⁷ mol/L",
+    "7.1×10⁻⁶ mol/L",
+    "2.5×10⁻¹³ mol/L",
+    "5.0×10⁻¹³ mol/L"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "AB 型 s=√Ksp=√(5.0×10⁻¹³)=7.1×10⁻⁷。变式：把 AgCl 换成 AgBr，公式不变。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q107",
+   "chapterId": "ch10",
+   "stem": "佛尔哈德法使用的指示剂是（ ）",
+   "options": [
+    "K₂CrO₄",
+    "铁铵矾",
+    "荧光黄",
+    "淀粉"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "佛尔哈德法用铁铵矾，终点出现血红色 FeSCN²⁺。变式：从莫尔法换成佛尔哈德法。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q108",
+   "chapterId": "ch10",
+   "stem": "莫尔法适用的 pH 范围是（ ）",
+   "options": [
+    "1–3",
+    "3–5",
+    "6.5–10.5",
+    "12–14"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "中性或弱碱性，pH 6.5–10.5；酸性 CrO₄²⁻ 变 Cr₂O₇²⁻，碱性 Ag⁺ 生成 Ag₂O。变式：从佛尔哈德法的酸性改成莫尔法的 pH。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q109",
+   "chapterId": "ch10",
+   "stem": "由 BaSO₄ 称量形式求 Ba 的换算因数为（ ）",
+   "options": [
+    "M(Ba)/M(BaSO₄)",
+    "2M(Ba)/M(BaSO₄)",
+    "M(BaSO₄)/M(Ba)",
+    "M(Ba)/2M(BaSO₄)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "1 mol BaSO₄ 含 1 mol Ba，F=M(Ba)/M(BaSO₄)。变式：从 Fe₂O₃/Fe 换成 BaSO₄/Ba，系数变了。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q110",
+   "chapterId": "ch10",
+   "stem": "判断：分步沉淀时，开始沉淀所需沉淀剂浓度小的物质先沉淀。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "正确。比较的是开始沉淀所需的沉淀剂浓度，不是只看 Ksp。变式：把“Ksp 小”改成“所需浓度小”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q111",
+   "chapterId": "ch11",
+   "stem": "朗伯-比尔定律的表达式是（ ）。",
+   "options": [
+    "A=εbc",
+    "A=ε/bc",
+    "A=bc/ε",
+    "A=εb/c"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "吸光度与浓度、光程成正比。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q112",
+   "chapterId": "ch11",
+   "stem": "某溶液 A=1.0，透光率 T 为（ ）。",
+   "options": [
+    "10%",
+    "20%",
+    "50%",
+    "90%"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "T=10^-1=0.10。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q113",
+   "chapterId": "ch11",
+   "stem": "分光光度法最佳吸光度范围一般是（ ）。",
+   "options": [
+    "0–0.1",
+    "0.2–0.8",
+    "1.0–2.0",
+    "任意"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "此范围相对误差较小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q114",
+   "chapterId": "ch11",
+   "stem": "下列不属于偏离比尔定律的化学因素的是（ ）。",
+   "options": [
+    "溶液浓度过高",
+    "显色反应不完全",
+    "单色光不纯",
+    "pH 改变"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "单色光不纯是仪器因素。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q115",
+   "chapterId": "ch11",
+   "stem": "判断：摩尔吸光系数 ε 越大，方法灵敏度越高。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "ε 越大，单位浓度产生的 A 越大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q116",
+   "chapterId": "ch11",
+   "stem": "透光率 T 与吸光度 A 的关系是（ ）",
+   "options": [
+    "T=10⁻ᴬ",
+    "T=A",
+    "T=1/A",
+    "T=10ᴬ"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "A=−lgT，所以 T=10⁻ᴬ。变式：从 A=εbc 换成 A 与 T 的关系。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q117",
+   "chapterId": "ch11",
+   "stem": "某溶液 A=0.301，透光率 T 约为（ ）",
+   "options": [
+    "10%",
+    "50%",
+    "30%",
+    "70%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "T=10⁻⁰·³⁰¹≈0.50=50%。变式：把 A=1.0 换成 A=0.301。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q118",
+   "chapterId": "ch11",
+   "stem": "某溶液 A=1.5，最合理的处理是（ ）",
+   "options": [
+    "直接测量",
+    "稀释后重测",
+    "换更浓的溶液",
+    "关掉光源"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "A 超出 0.2–0.8 最佳范围，应稀释使 A 落入范围。变式：从“最佳范围”改成“超出范围怎么办”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q119",
+   "chapterId": "ch11",
+   "stem": "下列属于偏离比尔定律的仪器因素的是（ ）",
+   "options": [
+    "溶液浓度过高",
+    "显色反应不完全",
+    "单色光不纯",
+    "pH 改变"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "单色光不纯是仪器因素；其余是化学因素。变式：把“化学因素”改成“仪器因素”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q120",
+   "chapterId": "ch11",
+   "stem": "判断：标准曲线的斜率越大，方法灵敏度越高。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "正确。斜率大表示单位浓度产生的 A 大，灵敏度高。变式：把“ε 大”换成“斜率大”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q121",
+   "chapterId": "ch12",
+   "stem": "25℃ 时，pH 每改变 1 个单位，玻璃电极电势改变约（ ）。",
+   "options": [
+    "0.0592 V",
+    "0.592 V",
+    "5.92 V",
+    "0.00592 V"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "能斯特斜率 2.303RT/F=0.0592 V。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q122",
+   "chapterId": "ch12",
+   "stem": "下列属于参比电极的是（ ）。",
+   "options": [
+    "玻璃电极",
+    "氟离子电极",
+    "饱和甘汞电极",
+    "铂电极"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "SCE 电势稳定，作参比。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q123",
+   "chapterId": "ch12",
+   "stem": "分配比 D=4，V水=2V有机，一次萃取率为（ ）。",
+   "options": [
+    "33%",
+    "50%",
+    "67%",
+    "80%"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "E=4/(4+2)=0.667。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q124",
+   "chapterId": "ch12",
+   "stem": "离子交换树脂去除水中阳离子，使用的是（ ）。",
+   "options": [
+    "阳离子交换树脂",
+    "阴离子交换树脂",
+    "活性炭",
+    "硅胶"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "阳离子交换树脂以 H⁺ 交换阳离子。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q125",
+   "chapterId": "ch12",
+   "stem": "判断：电位滴定不需要指示剂，适用于有色或浑浊溶液。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "电位滴定用电势突跃判断终点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q126",
+   "chapterId": "ch12",
+   "stem": "25℃ 时，pH 改变 2 个单位，玻璃电极电势改变约（ ）",
+   "options": [
+    "59 mV",
+    "118 mV",
+    "29.5 mV",
+    "5.9 mV"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "每 pH 单位约 59 mV，2 个单位约 118 mV。变式：把“1 个单位”改成“2 个单位”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q127",
+   "chapterId": "ch12",
+   "stem": "下列属于指示电极的是（ ）",
+   "options": [
+    "饱和甘汞电极",
+    "Ag/AgCl 电极",
+    "玻璃电极",
+    "标准氢电极"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "玻璃电极的电势随 H⁺ 浓度变化，是指示电极；其余可作参比。变式：从“参比”改成“指示”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q128",
+   "chapterId": "ch12",
+   "stem": "分配比 D=4，V有机=2V水，一次萃取率为（ ）",
+   "options": [
+    "50%",
+    "67%",
+    "80%",
+    "88.9%"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "E=4/(4+0.5)=88.9%。变式：把“V水=2V有机”反过来。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q129",
+   "chapterId": "ch12",
+   "stem": "阴离子交换树脂主要用于去除水中的（ ）",
+   "options": [
+    "阳离子",
+    "阴离子",
+    "有机物",
+    "气体"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "阴离子交换树脂以 OH⁻ 交换阴离子。变式：从阳离子交换改成阴离子交换。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q130",
+   "chapterId": "ch12",
+   "stem": "判断：Gran 作图法可用于确定电位滴定终点。",
+   "options": [
+    "正确",
+    "错误"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "正确。Gran 作图把计量点前后的线性段外推，交点即终点。变式：从“电位滴定适用有色溶液”换成“终点判断方法”。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "物质分类只看哪两件事？",
+   "back": "是不是只有一种物质；由几种元素组成。",
+   "chapterId": "ch00",
+   "tags": [
+    "ch00"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "常见元素化合价怎么记？",
+   "back": "H +1、O −2、Na/K +1、Ca/Mg/Ba +2、Al +3；化合物代数和为零。",
+   "chapterId": "ch00",
+   "tags": [
+    "ch00"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "离子方程式拆什么、不拆什么？",
+   "back": "强酸强碱可溶盐拆；难溶物、气体、弱电解质、水不拆。",
+   "chapterId": "ch00",
+   "tags": [
+    "ch00"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "物质的量四个公式？",
+   "back": "n=m/M、n=N/NA、n=V/Vm、c=n/V。",
+   "chapterId": "ch00",
+   "tags": [
+    "ch00"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "四个量子数各管什么？",
+   "back": "n 主量子数管能层；l 管亚层形状；m 管轨道取向；ms 管自旋。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "电子排布三原则？",
+   "back": "能量最低、泡利不相容、洪特规则。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "VSEPR 判断分子构型的第一步？",
+   "back": "算中心原子价层电子对数，再看孤对电子数。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "四类晶体是什么？",
+   "back": "离子晶体、分子晶体、原子晶体、金属晶体。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "速率方程一般形式？",
+   "back": "v=k[A]^m[B]^n，m+n 为反应级数。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "Arrhenius 公式？",
+   "back": "k=A e^(-Ea/RT)，升温 k 增大。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "Q 与 K 比较怎么判断方向？",
+   "back": "Q<K 正向，Q=K 平衡，Q>K 逆向。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "勒夏特列原理四句话？",
+   "back": "增压向气少，升温向吸热，增浓向消耗，催化剂不移动。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "卤素氧化性顺序？",
+   "back": "F2>Cl2>Br2>I2；还原性 I->Br->Cl->F-。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "SO2 和 SO3 的性质差异？",
+   "back": "SO2 既有氧化性又有还原性；SO3 主要是酸性氧化物。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "浓硝酸与稀硝酸和铜反应产物？",
+   "back": "浓硝酸放 NO2，稀硝酸放 NO。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "Fe2+、Fe3+、Cu2+ 常见颜色？",
+   "back": "Fe2+ 浅绿，Fe3+ 黄，Cu2+ 蓝。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "误差分哪三类？",
+   "back": "系统误差、随机误差、过失。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "有效数字加减、乘除规则？",
+   "back": "加减按小数点后位数最少；乘除按有效数字位数最少。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "Q 检验用来做什么？",
+   "back": "判断可疑值是否应舍弃。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "置信区间表示什么？",
+   "back": "在一定置信度下真值所在的区间。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "化学计量点与滴定终点的区别？",
+   "back": "计量点是理论完全点；终点是指示剂变色点，两者有误差。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "基准物质四条件？",
+   "back": "纯度高、稳定、按计量反应、摩尔质量大。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "直接法与标定法各用于什么？",
+   "back": "基准物质直接配；NaOH、HCl、KMnO4、Na2S2O3 需标定。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "滴定计算通式？",
+   "back": "nA=(a/b)nB；cAVA=(a/b)cBVB。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "Ka 与 Kb 的关系？",
+   "back": "Ka·Kb=Kw；酸越强共轭碱越弱。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "缓冲溶液 pH 公式？",
+   "back": "pH=pKa+lg([A-]/[HA])。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "指示剂怎么选？",
+   "back": "变色范围落在突跃内，尽量靠近计量点。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "混合碱双指示剂 V1、V2 怎么判断？",
+   "back": "V1>V2 含 NaOH；V2>V1 含 NaHCO3；V1=V2 只有 Na2CO3。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "EDTA 与金属的配位比？",
+   "back": "通常 1:1。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "酸效应系数怎么定义？",
+   "back": "αY(H)=cY/[Y4-]，≥1。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "条件稳定常数公式？",
+   "back": "lgK'=lgKf−lgαY(H)（只考虑酸效应）。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "金属指示剂变色条件？",
+   "back": "MIn 要比 MY 不稳定，EDTA 才能夺走 M。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "标准电极电势是强度还是广度性质？",
+   "back": "强度性质，与配平系数无关。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "Nernst 方程？",
+   "back": "E=E°+(0.0592/n)lg([Ox]/[Red])。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f35",
+   "front": "ΔG° 与 E° 关系？",
+   "back": "ΔG°=−nFE°。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f36",
+   "front": "由 E° 求 K？",
+   "back": "lgK=nE°/0.0592。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f37",
+   "front": "KMnO4 法为什么用 H2SO4 不用 HCl？",
+   "back": "Cl- 会被 MnO4- 氧化，消耗滴定剂。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09"
+   ]
+  },
+  {
+   "id": "f38",
+   "front": "K2Cr2O7 法指示剂？",
+   "back": "二苯胺磺酸钠，终点无色变紫红。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09"
+   ]
+  },
+  {
+   "id": "f39",
+   "front": "碘量法两种方式？",
+   "back": "直接法测还原性物质；间接法测氧化性物质。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09"
+   ]
+  },
+  {
+   "id": "f40",
+   "front": "淀粉指示剂何时加？",
+   "back": "接近终点时加，避免吸附 I2。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09"
+   ]
+  },
+  {
+   "id": "f41",
+   "front": "AB 型与 A2B 型溶解度公式？",
+   "back": "AB 型 s=√Ksp；A2B/AB2 型 s=∛(Ksp/4)。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f42",
+   "front": "分步沉淀看什么？",
+   "back": "看开始沉淀所需沉淀剂浓度，不是只看 Ksp。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f43",
+   "front": "三种沉淀滴定法条件？",
+   "back": "莫尔法中性/弱碱；佛尔哈德法酸性；法扬司法吸附指示剂。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f44",
+   "front": "换算因数怎么写？",
+   "back": "F=aM(待测)/bM(称量形式)。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f45",
+   "front": "A、T 关系？",
+   "back": "A=−lgT，T=10^-A。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11"
+   ]
+  },
+  {
+   "id": "f46",
+   "front": "朗伯-比尔定律？",
+   "back": "A=εbc。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11"
+   ]
+  },
+  {
+   "id": "f47",
+   "front": "为什么选 λmax？",
+   "back": "灵敏度最高，波长微小变化影响小。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11"
+   ]
+  },
+  {
+   "id": "f48",
+   "front": "偏离比尔定律的仪器原因？",
+   "back": "单色光不纯、杂散光、吸收池不匹配。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11"
+   ]
+  },
+  {
+   "id": "f49",
+   "front": "参比电极与指示电极区别？",
+   "back": "参比电势固定；指示电势随待测离子变。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  },
+  {
+   "id": "f50",
+   "front": "玻璃电极 pH 响应？",
+   "back": "E=K−0.0592pH（25℃）。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  },
+  {
+   "id": "f51",
+   "front": "萃取率公式？",
+   "back": "E=D/(D+V水/V有机)×100%。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  },
+  {
+   "id": "f52",
+   "front": "分离方法四类？",
+   "back": "沉淀、萃取、离子交换、色谱。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "纯净物",
+   "en": "",
+   "def": "只由一种物质组成、有固定组成的体系",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "混合物",
+   "en": "",
+   "def": "由两种或多种物质组成、各组分保持自身性质的体系",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "单质",
+   "en": "",
+   "def": "由同种元素组成的纯净物",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "化合物",
+   "en": "",
+   "def": "由两种或多种元素组成的纯净物",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "化合价",
+   "en": "",
+   "def": "元素在化合物中的氧化数，化合物中各元素代数和为零",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "离子方程式",
+   "en": "",
+   "def": "把可溶性强电解质拆成离子、删去不参加反应的离子后的方程式",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "物质的量",
+   "en": "",
+   "def": "表示粒子集合体多少的物理量，单位 mol",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "摩尔",
+   "en": "",
+   "def": "物质的量的单位，1 mol 含 6.022×10²³ 个粒子",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "摩尔质量",
+   "en": "",
+   "def": "1 mol 物质的质量，单位 g/mol，数值等于相对分子质量",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "气体摩尔体积",
+   "en": "",
+   "def": "标准状况下 1 mol 气体约占 22.4 L",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "物质的量浓度",
+   "en": "",
+   "def": "单位体积溶液中所含溶质的物质的量，c=n/V",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "稀释定律",
+   "en": "",
+   "def": "稀释前后溶质物质的量不变，c1V1=c2V2",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "原子序数",
+   "en": "",
+   "def": "原子核内质子数，决定元素种类",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "同位素",
+   "en": "",
+   "def": "质子数相同、中子数不同的原子",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "量子数",
+   "en": "",
+   "def": "描述核外电子运动状态的四个整数：n、l、m、ms",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "电子排布",
+   "en": "",
+   "def": "电子按能量最低、泡利不相容、洪特规则填入原子轨道",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "电离能",
+   "en": "",
+   "def": "气态基态原子失去一个电子所需的最小能量",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "电负性",
+   "en": "",
+   "def": "原子在化合物中吸引电子的能力",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "离子键",
+   "en": "",
+   "def": "阴、阳离子间通过静电引力形成的化学键",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "共价键",
+   "en": "",
+   "def": "原子间通过共用电子对形成的化学键",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "杂化轨道",
+   "en": "",
+   "def": "原子轨道重新组合成能量相同、方向不同的新轨道",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "氢键",
+   "en": "",
+   "def": "与电负性强的原子相连的 H 与另一电负性原子间的弱作用",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "晶格能",
+   "en": "",
+   "def": "气态离子形成 1 mol 离子晶体所释放的能量",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "反应速率",
+   "en": "",
+   "def": "单位时间内反应物浓度或生成物浓度的变化",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "速率常数",
+   "en": "",
+   "def": "速率方程中的比例系数 k，与浓度无关、随温度变",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "反应级数",
+   "en": "",
+   "def": "速率方程中各浓度项的指数之和",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "活化能",
+   "en": "",
+   "def": "反应物分子变为活化分子所需的最低能量",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "催化剂",
+   "en": "",
+   "def": "改变反应速率、自身质量和性质在反应前后不变的物质",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "化学平衡",
+   "en": "",
+   "def": "正逆反应速率相等、各组分浓度不再改变的状态",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "平衡常数",
+   "en": "",
+   "def": "平衡时生成物浓度系数次方乘积与反应物之比",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "反应商",
+   "en": "",
+   "def": "任意时刻按平衡常数形式计算的浓度比值 Q",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "勒夏特列原理",
+   "en": "",
+   "def": "改变条件时平衡向减弱这种改变的方向移动",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "转化率",
+   "en": "",
+   "def": "已转化的反应物占起始反应物的百分比",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "溶度积",
+   "en": "",
+   "def": "难溶电解质饱和溶液中离子浓度系数次方的乘积 Ksp",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "同离子效应",
+   "en": "",
+   "def": "加入含相同离子的电解质使难溶物溶解度降低",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "盐效应",
+   "en": "",
+   "def": "加入不含相同离子的强电解质使溶解度略增",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "分步沉淀",
+   "en": "",
+   "def": "多种离子共存时，先达到 Ksp 的先沉淀",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "沉淀转化",
+   "en": "",
+   "def": "Ksp 大的沉淀转化为 Ksp 小的沉淀",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "配位化合物",
+   "en": "",
+   "def": "由中心离子或原子与配体形成的复杂化合物",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "配体",
+   "en": "",
+   "def": "提供孤对电子与中心离子配位的分子或离子",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "配位数",
+   "en": "",
+   "def": "直接与中心离子配位的配位原子数",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "稳定常数",
+   "en": "",
+   "def": "配位反应平衡常数 Kf，越大配合物越稳定",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "酸效应系数",
+   "en": "",
+   "def": "EDTA 总浓度与游离 Y4- 浓度之比 αY(H)",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "条件稳定常数",
+   "en": "",
+   "def": "扣掉副反应后的有效稳定常数 K'",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "金属指示剂",
+   "en": "",
+   "def": "与金属离子形成有色配合物、终点变色的配体",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "掩蔽",
+   "en": "",
+   "def": "用掩蔽剂与干扰离子反应，降低其有效浓度",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "解蔽",
+   "en": "",
+   "def": "把已被掩蔽的离子重新释放出来",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "氧化数",
+   "en": "",
+   "def": "假设成键电子完全归电负性大原子后某原子的电荷数",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "氧化剂",
+   "en": "",
+   "def": "自身被还原、使对方氧化的物质",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "还原剂",
+   "en": "",
+   "def": "自身被氧化、使对方还原的物质",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "电极电势",
+   "en": "",
+   "def": "电极中氧化型得电子能力的量度",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "标准电极电势",
+   "en": "",
+   "def": "标准状态下以标准氢电极为基准测得的电极电势",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "原电池",
+   "en": "",
+   "def": "把氧化还原反应拆成两个半反应、电子经外电路流动的装置",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "盐桥",
+   "en": "",
+   "def": "连接两个半电池、平衡电荷的装置",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "条件电极电势",
+   "en": "",
+   "def": "扣掉配位、沉淀等副反应后的实际电极电势",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "滴定",
+   "en": "",
+   "def": "用标准溶液逐滴加入待测液直到反应完全的操作",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "化学计量点",
+   "en": "",
+   "def": "按计量关系恰好反应完全的理论点",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "滴定终点",
+   "en": "",
+   "def": "指示剂变色、停止滴定的点",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "基准物质",
+   "en": "",
+   "def": "能直接配制标准溶液、纯度高且稳定的物质",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "标定",
+   "en": "",
+   "def": "用基准物质或已知浓度溶液确定标准溶液浓度的操作",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "滴定度",
+   "en": "",
+   "def": "每毫升滴定剂相当于待测物的质量",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "突跃范围",
+   "en": "",
+   "def": "计量点附近 pH 或电势急剧变化的范围",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "缓冲溶液",
+   "en": "",
+   "def": "能抵抗少量酸碱、pH 基本不变的溶液",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "分布系数",
+   "en": "",
+   "def": "某物种占总浓度的分数",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "共轭酸碱对",
+   "en": "",
+   "def": "相差一个质子的一对酸和碱",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "重量分析",
+   "en": "",
+   "def": "通过称量沉淀或灼烧产物求待测组分含量的方法",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "沉淀形式",
+   "en": "",
+   "def": "沉淀剂与待测物反应生成的沉淀",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "称量形式",
+   "en": "",
+   "def": "沉淀经过滤、灼烧后实际称量的物质",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "换算因数",
+   "en": "",
+   "def": "待测物摩尔质量与称量形式摩尔质量之比（含系数）",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "共沉淀",
+   "en": "",
+   "def": "沉淀时杂质被吸附、夹带或混晶一起沉淀",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "后沉淀",
+   "en": "",
+   "def": "沉淀放置后杂质在沉淀表面继续沉淀",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "莫尔法",
+   "en": "",
+   "def": "以 K2CrO4 为指示剂、用 AgNO3 滴定 Cl- 的方法",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "佛尔哈德法",
+   "en": "",
+   "def": "以铁铵矾为指示剂、用 NH4SCN 滴定 Ag+ 的方法",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "法扬司法",
+   "en": "",
+   "def": "用吸附指示剂判断终点的沉淀滴定法",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "吸光度",
+   "en": "",
+   "def": "A=-lgT，表示溶液对光的吸收程度",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "透光率",
+   "en": "",
+   "def": "透射光强度与入射光强度之比 T=I/I0",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "摩尔吸光系数",
+   "en": "",
+   "def": "A=εbc 中的 ε，表示物质在特定波长下的吸光能力",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "标准曲线",
+   "en": "",
+   "def": "用系列标准溶液测 A、作 A-c 图求未知浓度的方法",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "参比电极",
+   "en": "",
+   "def": "电势已知且稳定、不随待测离子浓度变化的电极",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "指示电极",
+   "en": "",
+   "def": "电势随待测离子浓度变化的电极",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "离子选择性电极",
+   "en": "",
+   "def": "对特定离子有选择性响应的电极",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "电位滴定",
+   "en": "",
+   "def": "用电势突跃判断终点的滴定方法",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "分配系数",
+   "en": "",
+   "def": "物质在两种溶剂中浓度之比 KD",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "分配比",
+   "en": "",
+   "def": "两相中总浓度之比 D",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "萃取率",
+   "en": "",
+   "def": "被萃取到有机相的目标物占总量的百分比",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "离子交换",
+   "en": "",
+   "def": "溶液离子与树脂上可交换离子发生交换的分离方法",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "色谱",
+   "en": "",
+   "def": "利用组分在固定相和流动相中分配差异实现分离的方法",
+   "chapterIds": [
+    "ch12"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 13,
+  "concepts": 6
+ },
+ "signature": "e59ca27e0f0f",
+ "contentHash": "28d2b7737f2c",
+ "duplicateGroup": "e59ca27e0f0f"
+}

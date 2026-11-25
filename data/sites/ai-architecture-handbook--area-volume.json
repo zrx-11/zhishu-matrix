@@ -1,0 +1,475 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "area-volume",
+ "title": "面积与体积",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/14-面积与体积/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 12,
+  "glossary": 9
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：平面图形的面积",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/14-面积与体积/chapters/ch01-plane-area.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-14-面积与体积 吕林根.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：圆、扇形与曲线形面积",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/14-面积与体积/chapters/ch02-circle-area.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-14-面积与体积 吕林根.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：立体图形的体积",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/14-面积与体积/chapters/ch03-solid-volume.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-14-面积与体积 吕林根.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "割补与极限",
+   "chapterIds": [
+    "ch01",
+    "ch02"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/14-面积与体积/concepts/c01-dissection-limit.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-14-面积与体积 吕林根.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "统一公式",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/14-面积与体积/concepts/c02-unified-formula.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-14-面积与体积 吕林根.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "三角形底为 8、高为 5，面积是：",
+   "options": [
+    "40",
+    "20",
+    "13",
+    "10"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "S=8×5/2=20。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "把一个图形按 1:3 放大，面积变为原来的：",
+   "options": [
+    "3 倍",
+    "6 倍",
+    "9 倍",
+    "1/3"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "面积比是相似比的平方，3²=9。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "半径为 3 的圆，面积是：",
+   "options": [
+    "6π",
+    "9π",
+    "3π",
+    "12π"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "S=πr²=9π。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "半径为 4、圆心角为 90° 的扇形面积是：",
+   "options": [
+    "4π",
+    "8π",
+    "2π",
+    "16π"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "90°=π/2，S=(1/2)×16×π/2=4π。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "圆锥底面半径 3、高 4，体积是：",
+   "options": [
+    "12π",
+    "36π",
+    "16π",
+    "4π"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "V=(1/3)π×9×4=12π。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "半径为 3 的球的体积是：",
+   "options": [
+    "12π",
+    "36π",
+    "27π",
+    "9π"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "V=(4/3)π×27=36π。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "圆柱底面半径 2、高 6，体积是：",
+   "options": [
+    "24π",
+    "12π",
+    "8π",
+    "36π"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "V=π×4×6=24π。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "用辛普森公式求半径为 r 的球体积，代入 S顶=S底=0、S中=πr²，得到：",
+   "options": [
+    "(2/3)πr³",
+    "(4/3)πr³",
+    "πr³",
+    "(1/3)πr³"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "V=(2r/6)(0+4πr²+0)=(4/3)πr³，与球体积公式一致。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：平面图形的面积」的一句话核心是什么？",
+   "back": "所有直线图形的面积公式都从“矩形面积＝长×宽”出发，靠割补推出来。",
+   "chapterId": "ch01",
+   "tags": [
+    "area-volume",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：圆、扇形与曲线形面积」的一句话核心是什么？",
+   "back": "圆面积是把圆切成无数个小扇形拼成矩形得到的：S=πr²，周长 C=2πr。",
+   "chapterId": "ch02",
+   "tags": [
+    "area-volume",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：立体图形的体积」的一句话核心是什么？",
+   "back": "柱是“底面积乘高”，锥是柱的三分之一，台是两锥相减，球是 4πr³/3；辛普森公式把它们合成一条。",
+   "chapterId": "ch03",
+   "tags": [
+    "area-volume",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「面积」？",
+   "back": "图形包含的单位正方形个数。",
+   "chapterId": "ch01",
+   "tags": [
+    "area-volume",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「割补法」？",
+   "back": "剪切重拼求面积的方法。",
+   "chapterId": "ch01",
+   "tags": [
+    "area-volume",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「等积变形」？",
+   "back": "形状改变而面积不变的变形。",
+   "chapterId": "ch01",
+   "tags": [
+    "area-volume",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「圆周率」？",
+   "back": "圆周长与直径之比 π。",
+   "chapterId": "ch02",
+   "tags": [
+    "area-volume",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「扇形」？",
+   "back": "两条半径与一段弧围成的图形。",
+   "chapterId": "ch02",
+   "tags": [
+    "area-volume",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「弓形」？",
+   "back": "弦与弧围成的图形。",
+   "chapterId": "ch02",
+   "tags": [
+    "area-volume",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「祖暅原理」？",
+   "back": "等高处截面积相等的两个立体体积相等。",
+   "chapterId": "ch03",
+   "tags": [
+    "area-volume",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「辛普森公式」？",
+   "back": "V=(h/6)(S顶+4S中+S底)。",
+   "chapterId": "ch03",
+   "tags": [
+    "area-volume",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「台体」？",
+   "back": "锥体被平行于底面的平面截去上部后的部分。",
+   "chapterId": "ch03",
+   "tags": [
+    "area-volume",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "面积",
+   "en": "",
+   "def": "图形包含的单位正方形个数。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "割补法",
+   "en": "",
+   "def": "剪切重拼求面积的方法。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "等积变形",
+   "en": "",
+   "def": "形状改变而面积不变的变形。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "圆周率",
+   "en": "",
+   "def": "圆周长与直径之比 π。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "扇形",
+   "en": "",
+   "def": "两条半径与一段弧围成的图形。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "弓形",
+   "en": "",
+   "def": "弦与弧围成的图形。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "祖暅原理",
+   "en": "",
+   "def": "等高处截面积相等的两个立体体积相等。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "辛普森公式",
+   "en": "",
+   "def": "V=(h/6)(S顶+4S中+S底)。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "台体",
+   "en": "",
+   "def": "锥体被平行于底面的平面截去上部后的部分。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "58ac28e8afe9",
+ "contentHash": "1b05e51fa244",
+ "duplicateGroup": "58ac28e8afe9"
+}

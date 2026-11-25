@@ -1,0 +1,1102 @@
+{
+ "repo": "chem-zhishu",
+ "bookSlug": "general-chem",
+ "title": "普通化学原理：大学化学的主干",
+ "discipline": "chem",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "02-普通化学原理/manifest.json",
+ "stats": {
+  "chapters": 12,
+  "concepts": 5,
+  "quizzes": 24,
+  "cards": 24,
+  "glossary": 10
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：气体",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch01-气体.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第2章"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：热力学第一定律与焓",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch02-热力学第一定律.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第5章"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：热化学与盖斯定律",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch03-热化学.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第5章"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：熵与吉布斯自由能",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02",
+    "ch03"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch04-熵与吉布斯自由能.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第5章"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：化学平衡",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03",
+    "ch04"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch05-化学平衡.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第6章"
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：酸碱电离平衡与缓冲溶液",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch06-酸碱平衡.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第8章"
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：沉淀溶解平衡",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05",
+    "ch06"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch07-沉淀溶解平衡.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第9章"
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：氧化还原与电化学",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04",
+    "ch05"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch08-电化学.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第10章"
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：化学反应速率",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch09-反应速率.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第7章"
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：原子结构",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch10-原子结构.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第11章"
+   }
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：化学键与分子结构",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch10"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch11-分子结构.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第12章"
+   }
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：晶体结构与配位化合物",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch11"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/chapters/ch12-晶体与配位.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第13、14章"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "化学平衡常数",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "ch04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/concepts/c01-化学平衡常数.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第6章"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "吉布斯自由能",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "concepts/c02-吉布斯自由能-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/concepts/c02-吉布斯自由能.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第5章"
+   }
+  },
+  {
+   "id": "c03",
+   "title": "电极电势与 Nernst 方程",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [
+    "c02",
+    "ch05"
+   ],
+   "brief": "",
+   "depth": "concepts/c03-电极电势-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/concepts/c03-电极电势.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第10章"
+   }
+  },
+  {
+   "id": "c04",
+   "title": "原子轨道与量子数",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/concepts/c04-原子轨道.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第11章"
+   }
+  },
+  {
+   "id": "c05",
+   "title": "杂化轨道",
+   "chapterIds": [
+    "ch11"
+   ],
+   "prerequisites": [
+    "c04"
+   ],
+   "brief": "",
+   "depth": "concepts/c05-杂化轨道-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "02-普通化学原理/concepts/c05-杂化轨道.md"
+   },
+   "bookSource": {
+    "file": "《普通化学原理》第12章"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "25℃、100 kPa 下 2 mol N2 的体积约为？",
+   "options": [
+    "24.8 L",
+    "49.6 L",
+    "22.4 L",
+    "98.2 L"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "V=nRT/p=2×8.314×298.15/100000≈0.0496 m3=49.6 L。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "容器中 0.2 mol O2 与 0.8 mol N2，总压 100 kPa，O2 分压为？",
+   "options": [
+    "20 kPa",
+    "80 kPa",
+    "100 kPa",
+    "8 kPa"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "摩尔分数 0.2，分压=0.2×100=20 kPa。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "下列属于状态函数的是？",
+   "options": [
+    "Q",
+    "W",
+    "H",
+    "反应热"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "焓只由状态决定，Q、W 是过程量。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "恒压下某反应放热 50 kJ，ΔH 为？",
+   "options": [
+    "+50 kJ",
+    "-50 kJ",
+    "0",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "放热 Qp<0，恒压热等于 ΔH。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "热化学方程式中 ΔH=+58 kJ/mol 表示？",
+   "options": [
+    "放热",
+    "吸热",
+    "不吸不放",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "ΔH 为正表示体系吸热。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "N2+3H2→2NH3，ΔH=-92 kJ/mol；写成 ½N2+1.5H2→NH3 时 ΔH 为？",
+   "options": [
+    "-92 kJ/mol",
+    "-46 kJ/mol",
+    "+46 kJ/mol",
+    "-184 kJ/mol"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "系数减半，ΔH 也减半。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "下列过程熵增的是？",
+   "options": [
+    "水结冰",
+    "气体液化",
+    "CaCO3 分解产生 CO2",
+    "溶液结晶"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "固体分解出气体，混乱度增大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "ΔH=-50 kJ/mol、ΔS=-100 J/(mol·K)，298 K 时反应？",
+   "options": [
+    "自发",
+    "不自发",
+    "处于平衡",
+    "无法判断"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "ΔG=-50-298×(-0.1)=-20.2 kJ/mol<0，自发。单位要先换成 kJ。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch05",
+   "stem": "C(s)+CO2(g)⇌2CO(g) 的 Kc 表达式是？",
+   "options": [
+    "[CO]2/[CO2]",
+    "[CO]2/([C][CO2])",
+    "[CO2]/[CO]2",
+    "[C][CO2]/[CO]2"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "纯固体 C 不写入平衡常数表达式。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch05",
+   "stem": "某温度 K=10，当前 Q=5，反应向？",
+   "options": [
+    "正方向",
+    "逆方向",
+    "不移动",
+    "先正后逆"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "Q<K，生成物不足，向正方向进行。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch06",
+   "stem": "0.01 mol/L HCl 的 pH 是？",
+   "options": [
+    "1",
+    "2",
+    "7",
+    "12"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "强酸完全电离，[H+]=0.01，pH=2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch06",
+   "stem": "缓冲溶液 pH 的计算式是？",
+   "options": [
+    "pH=pKa+lg([碱]/[酸])",
+    "pH=pKa-lg([碱]/[酸])",
+    "pH=pKw-pKa",
+    "pH=-lgKa"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Henderson-Hasselbalch 方程：pH=pKa+lg([A-]/[HA])。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch07",
+   "stem": "BaSO4 的 Ksp 表达式是？",
+   "options": [
+    "[Ba2+][SO4^2-]",
+    "[Ba2+]+[SO4^2-]",
+    "[BaSO4]/([Ba2+][SO4^2-])",
+    "[Ba2+][SO4^2-]/[BaSO4]"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "固体不写入 Ksp 表达式。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch07",
+   "stem": "AgCl 在 0.10 mol/L NaCl 中的溶解度比纯水中？",
+   "options": [
+    "更大",
+    "更小",
+    "相同",
+    "无法比较"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "同离子效应使平衡向沉淀方向移动，溶解度降低。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch08",
+   "stem": "原电池中电子从？",
+   "options": [
+    "正极流向负极",
+    "负极流向正极",
+    "溶液流向电极",
+    "盐桥流向电极"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "负极失电子，电子经外电路流向正极。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch08",
+   "stem": "E°(Ag+/Ag)=+0.80 V，E°(Cu2+/Cu)=+0.34 V，Cu+2Ag+→Cu2++2Ag 的电动势是？",
+   "options": [
+    "1.14 V",
+    "0.46 V",
+    "-0.46 V",
+    "0.23 V"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "E=0.80-0.34=0.46 V。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch09",
+   "stem": "某反应浓度加倍，速率变为 4 倍，反应级数是？",
+   "options": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "v∝[A]^2，浓度 2 倍则速率 4 倍。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch09",
+   "stem": "催化剂对平衡的影响是？",
+   "options": [
+    "向正方向移动",
+    "向逆方向移动",
+    "不移动",
+    "改变 K"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "催化剂同等加快正逆反应，不改变平衡位置和 K。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch10",
+   "stem": "n=3 时 l 可以取？",
+   "options": [
+    "0、1、2",
+    "1、2、3",
+    "0、1、2、3",
+    "只有 3"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "l 取 0 到 n-1，即 0、1、2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch10",
+   "stem": "1s2 2s2 2p6 3s2 3p5 是几号元素？",
+   "options": [
+    "15",
+    "16",
+    "17",
+    "18"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "电子总数 2+2+6+2+5=17，是氯。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch11",
+   "stem": "CH4 的中心原子杂化类型是？",
+   "options": [
+    "sp",
+    "sp2",
+    "sp3",
+    "未杂化"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "4 个 σ 键、无孤对，4 对电子，sp3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch11",
+   "stem": "NH3 的空间构型是？",
+   "options": [
+    "平面三角形",
+    "三角锥",
+    "正四面体",
+    "直线形"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "4 对电子中有 1 对孤对，三角锥。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch12",
+   "stem": "下列晶体中熔点最高的是？",
+   "options": [
+    "NaCl",
+    "干冰",
+    "金刚石",
+    "冰"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "金刚石是共价晶体，整个晶体由共价键连接。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch12",
+   "stem": "[Cu(NH3)4]2+ 的中心离子和配位数是？",
+   "options": [
+    "Cu2+、4",
+    "Cu2+、6",
+    "Cu+、4",
+    "NH3、4"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "中心离子 Cu2+，4 个 NH3 配体，配位数 4。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "气体：一句话核心是什么？",
+   "back": "理想气体把分子当成没有体积、彼此不吸引的质点，pV=nRT 是这种假设下的状态方程。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "气体最容易错在哪？",
+   "back": "温度必须用 K，不能用摄氏度。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01",
+    "易错"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "热力学第一定律与焓：一句话核心是什么？",
+   "back": "能量守恒：体系内能的改变，等于它吸收的热加上外界对它做的功。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "热力学第一定律与焓最容易错在哪？",
+   "back": "焓不是热，只有恒压且只做体积功时 ΔH 才等于 Qp。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02",
+    "易错"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "热化学与盖斯定律：一句话核心是什么？",
+   "back": "反应热只由始末态决定，可以把已知反应像代数式一样相加。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "热化学与盖斯定律最容易错在哪？",
+   "back": "热化学方程式必须标物质状态。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03",
+    "易错"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "熵与吉布斯自由能：一句话核心是什么？",
+   "back": "自发性由放热和熵增共同决定，ΔG = ΔH - TΔS 把两者合成一个判据。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "熵与吉布斯自由能最容易错在哪？",
+   "back": "ΔG<0 只说明方向，不说明速率。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04",
+    "易错"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "化学平衡：一句话核心是什么？",
+   "back": "平衡常数 K 只随温度变化；Q 与 K 的比较告诉你反应往哪边走。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "化学平衡最容易错在哪？",
+   "back": "催化剂不改变 K。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05",
+    "易错"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "酸碱电离平衡与缓冲溶液：一句话核心是什么？",
+   "back": "酸碱反应是质子转移；弱酸的 Ka 与共轭碱的 Kb 通过 Kw 联系。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "酸碱电离平衡与缓冲溶液最容易错在哪？",
+   "back": "pH=7 只在 25℃ 是中性。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06",
+    "易错"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "沉淀溶解平衡：一句话核心是什么？",
+   "back": "难溶电解质并非完全不溶，Ksp 是溶解与沉淀平衡的定量表达。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "沉淀溶解平衡最容易错在哪？",
+   "back": "Ksp 小的先沉淀，不是大的先沉淀。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07",
+    "易错"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "氧化还原与电化学：一句话核心是什么？",
+   "back": "氧化还原是电子转移；原电池把这种转移拆成两半，让电子走外电路做功。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "氧化还原与电化学最容易错在哪？",
+   "back": "原电池负极是阳极（氧化），别和电解池混。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08",
+    "易错"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "化学反应速率：一句话核心是什么？",
+   "back": "速率由活化能和碰撞频率决定；催化剂降低能垒，不改平衡。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "化学反应速率最容易错在哪？",
+   "back": "反应级数不一定等于方程式系数。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09",
+    "易错"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "原子结构：一句话核心是什么？",
+   "back": "电子没有确定轨道，只有概率分布；量子数描述这种分布的形状、方向和能量。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "原子结构最容易错在哪？",
+   "back": "Cr、Cu 的排布是半充满/全充满特例。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10",
+    "易错"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "化学键与分子结构：一句话核心是什么？",
+   "back": "分子形状由中心原子周围电子对互相排斥决定；杂化轨道是为成键重组的轨道。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "化学键与分子结构最容易错在哪？",
+   "back": "有极性键的分子不一定有极性。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11",
+    "易错"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "晶体结构与配位化合物：一句话核心是什么？",
+   "back": "晶体性质由构成粒子和粒子间作用力决定；配合物是中心离子与配体通过配位键结合的整体。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "晶体结构与配位化合物最容易错在哪？",
+   "back": "配位数不一定等于配体个数。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12",
+    "易错"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "状态函数",
+   "en": "",
+   "def": "只由体系当前状态决定、与路径无关的物理量",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "焓",
+   "en": "",
+   "def": "H = U + pV，恒压热等于 ΔH",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "熵",
+   "en": "",
+   "def": "体系混乱度的量度，单位 J/(mol·K)",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "吉布斯自由能",
+   "en": "",
+   "def": "G = H - TS，恒温恒压下 ΔG<0 自发",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "平衡常数",
+   "en": "",
+   "def": "平衡时生成物浓度幂之积与反应物浓度幂之积的比值",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "缓冲溶液",
+   "en": "",
+   "def": "能抵抗少量酸碱、pH 基本不变的溶液",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "溶度积",
+   "en": "",
+   "def": "难溶电解质饱和溶液中离子浓度幂之积",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "标准电极电势",
+   "en": "",
+   "def": "电极相对标准氢电极的电势",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "活化能",
+   "en": "",
+   "def": "反应物分子变成活化分子所需的最小能量",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "杂化",
+   "en": "",
+   "def": "原子轨道重新组合成能量相同、方向更合理的新轨道",
+   "chapterIds": [
+    "ch11"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 12,
+  "concepts": 5
+ },
+ "signature": "7772a2d48733",
+ "contentHash": "341aa4f6eda9"
+}

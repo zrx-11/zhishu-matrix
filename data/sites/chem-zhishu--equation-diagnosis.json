@@ -1,0 +1,482 @@
+{
+ "repo": "chem-zhishu",
+ "bookSlug": "equation-diagnosis",
+ "title": "陌生方程式：诊断与训练",
+ "discipline": "chem",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "06-陌生方程式诊断/manifest.json",
+ "stats": {
+  "chapters": 1,
+  "concepts": 1,
+  "quizzes": 21,
+  "cards": 2,
+  "glossary": 5
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：陌生方程式书写的五步法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "06-陌生方程式诊断/chapters/ch01-陌生方程式五步法.md"
+   },
+   "bookSource": {
+    "file": "《陌生方程式的书写查缺补漏》增分点一至三"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "陌生方程式五步法",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "06-陌生方程式诊断/concepts/c01-五步法.md"
+   },
+   "bookSource": {
+    "file": "《陌生方程式的书写查缺补漏》"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "Na2S2O3 在酸性溶液中分解，生成黄色沉淀和刺激性气体，离子方程式是？",
+   "options": [
+    "S2O3^2- + 2H+ → S↓ + SO2↑ + H2O",
+    "S2O3^2- + H+ → S↓ + SO2↑ + H2O",
+    "S2O3^2- + 2H+ → S↓ + SO3^2- + H2O",
+    "S2O3^2- + 2H+ → H2S↑ + SO2↑ + H2O"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "S 歧化为 0 价和 +4 价，补 2H+ 和 1H2O，电荷 -2+2=0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "Na2S2O3 被 Cl2 氧化为 SO4^2-，离子方程式是？",
+   "options": [
+    "S2O3^2- + 4Cl2 + 5H2O → 2SO4^2- + 8Cl- + 10H+",
+    "S2O3^2- + 2Cl2 + 3H2O → 2SO4^2- + 4Cl- + 6H+",
+    "S2O3^2- + 4Cl2 + 3H2O → 2SO4^2- + 8Cl- + 6H+",
+    "S2O3^2- + Cl2 + H2O → SO4^2- + 2Cl- + 2H+"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "两个 S 共失 8e，需要 4 个 Cl2；补 5H2O 和 10H+ 后电荷 -2 对 -2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "NaBH4 与水反应生成 NaBO2 和 H2，化学方程式是？",
+   "options": [
+    "NaBH4 + 2H2O → NaBO2 + 4H2↑",
+    "NaBH4 + H2O → NaBO2 + 2H2↑",
+    "NaBH4 + 3H2O → NaBO2 + 5H2↑",
+    "NaBH4 + 2H2O → NaOH + B(OH)3 + 2H2↑"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "Na1、B1、O2；H 左边 4+4=8，右边 4H2=8。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch01",
+   "stem": "硫与热的 NaOH 溶液反应，产物中硫的最高价为 +4，离子方程式是？",
+   "options": [
+    "3S + 6OH- → 2S^2- + SO3^2- + 3H2O",
+    "3S + 6OH- → 2S^2- + SO4^2- + 3H2O",
+    "S + 2OH- → S^2- + H2O",
+    "2S + 4OH- → S^2- + SO2↑ + 2H2O"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "S 歧化：2 个降到 -2，1 个升到 +4；电荷左边 -6，右边 -4-2=-6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch01",
+   "stem": "NaClO3 与盐酸反应生成 ClO2，化学方程式是？",
+   "options": [
+    "2NaClO3 + 4HCl → 2ClO2↑ + Cl2↑ + 2NaCl + 2H2O",
+    "NaClO3 + 2HCl → ClO2↑ + Cl2↑ + NaCl + H2O",
+    "2NaClO3 + 2HCl → 2ClO2↑ + 2NaCl + H2O",
+    "NaClO3 + 6HCl → ClO2↑ + 3Cl2↑ + NaCl + 3H2O"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "2 个 Cl(+5) 得 2e，2 个 Cl(-1) 失 2e 生成 Cl2；补 2NaCl 和 2H2O。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch01",
+   "stem": "足量铁粉与稀硝酸反应生成 NO，化学方程式是？",
+   "options": [
+    "Fe + 4HNO3(稀) → Fe(NO3)3 + NO↑ + 2H2O",
+    "Fe + 4HNO3(稀) → Fe(NO3)2 + 2NO2↑ + 2H2O",
+    "3Fe + 8HNO3(稀) → 3Fe(NO3)2 + 2NO↑ + 4H2O",
+    "Fe + 2HNO3(稀) → Fe(NO3)2 + H2↑"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "Fe 0→+3 失 3e，N +5→+2 得 3e，1:1；再补 3 个 NO3- 和 2H2O。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch01",
+   "stem": "酸性溶液中 Ca(NO2)2 分解产生 NO，离子方程式是？",
+   "options": [
+    "3NO2- + 2H+ → 2NO↑ + NO3- + H2O",
+    "2NO2- + 2H+ → NO↑ + NO3- + H2O",
+    "NO2- + H+ → NO↑ + OH-",
+    "3NO2- + 2H+ → 2NO↑ + NO3- + 2H2O"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "N 歧化：2 个降到 +2，1 个升到 +5；电荷 -3+2=-1 对 -1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch01",
+   "stem": "H3AsO3 被 MnO2 氧化为 H3AsO4，离子方程式是？",
+   "options": [
+    "H3AsO3 + MnO2 + 2H+ → H3AsO4 + Mn2+ + H2O",
+    "H3AsO3 + MnO2 → H3AsO4 + Mn2+ + H2O",
+    "H3AsO3 + MnO2 + 4H+ → H3AsO4 + Mn2+ + 2H2O",
+    "2H3AsO3 + MnO2 → 2H3AsO4 + Mn2+"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "As +3→+5 失 2e，Mn +4→+2 得 2e，1:1；补 2H+ 和 1H2O。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch01",
+   "stem": "K4[Fe(CN)6] 爆炸分解，生成 KCN 和三种稳定单质，化学方程式是？",
+   "options": [
+    "K4[Fe(CN)6] → 4KCN + Fe + 2C + N2↑",
+    "K4[Fe(CN)6] → 4KCN + Fe + C + N2↑",
+    "K4[Fe(CN)6] → 2KCN + Fe + 2C + 2N2↑",
+    "K4[Fe(CN)6] → 4KCN + FeC2 + N2↑"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "三种单质是 Fe、C、N2；C 6=4+2，N 6=4+2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch01",
+   "stem": "碱性条件下 ClO- 将 CN- 氧化为 CNO-，离子方程式是？",
+   "options": [
+    "CN- + ClO- → CNO- + Cl-",
+    "CN- + 2ClO- → CNO- + 2Cl-",
+    "CN- + ClO- + H2O → CNO- + Cl- + 2H+",
+    "2CN- + ClO- → 2CNO- + Cl-"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "C +2→+4 失 2e，Cl +1→-1 得 2e，1:1；原子和电荷都平。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch01",
+   "stem": "酸性条件下 CNO- 继续被 ClO- 氧化为 N2 和 CO2，离子方程式是？",
+   "options": [
+    "2CNO- + 3ClO- + 2H+ → N2↑ + 2CO2↑ + 3Cl- + H2O",
+    "2CNO- + 3ClO- + H2O → N2↑ + 2CO2↑ + 3Cl- + 2OH-",
+    "CNO- + ClO- + H+ → N2↑ + CO2↑ + Cl- + H2O",
+    "2CNO- + 2ClO- + 2H+ → N2↑ + 2CO2↑ + 2Cl- + H2O"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "N -3→0 共失 6e，3 个 ClO- 共得 6e；O 左边 2+3=5，右边 4+1=5。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch01",
+   "stem": "丙烷燃料电池以熔融碳酸盐为电解质，正极反应式是？",
+   "options": [
+    "O2 + 2CO2 + 4e- → 2CO3^2-",
+    "O2 + 4e- → 2O^2-",
+    "O2 + 2H2O + 4e- → 4OH-",
+    "CO3^2- + H2O → CO2 + 2OH-"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "正极 O2 得电子，在碳酸盐环境中与 CO2 结合生成 CO3^2-；电荷 -4 对 -4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch01",
+   "stem": "镁着火不能用 CO2 灭火，化学方程式是？",
+   "options": [
+    "2Mg + CO2 → 2MgO + C",
+    "Mg + CO2 → MgO + CO",
+    "Mg + 2CO2 → MgO + 2CO",
+    "2Mg + 2CO2 → 2MgO + C2"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "Mg 0→+2 失 4e，C +4→0 得 4e；2:1 配平。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch01",
+   "stem": "AgCl 白色沉淀遇 KBr 转化为淡黄色沉淀，离子方程式是？",
+   "options": [
+    "AgCl(s) + Br- → AgBr(s) + Cl-",
+    "AgCl + Br- → AgBr + Cl",
+    "Ag+ + Br- → AgBr↓",
+    "AgCl + KBr → AgBr + KCl"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "沉淀转化；AgCl 难溶写化学式不拆，K+ 是旁观离子。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch01",
+   "stem": "酸性条件下 MnO4- 氧化 C2O4^2-，离子方程式是？",
+   "options": [
+    "2MnO4- + 5C2O4^2- + 16H+ → 2Mn2+ + 10CO2↑ + 8H2O",
+    "2MnO4- + 5C2O4^2- + 8H+ → 2Mn2+ + 10CO2↑ + 4H2O",
+    "MnO4- + C2O4^2- + 8H+ → Mn2+ + 2CO2↑ + 4H2O",
+    "2MnO4- + 3C2O4^2- + 12H+ → 2Mn2+ + 6CO2↑ + 6H2O"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "Mn 得 5e×2=10e，5 个 C2O4^2- 失 10e；补 16H+ 和 8H2O 后电荷 +4 对 +4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch01",
+   "stem": "NH3 与 NO2 反应生成 N2 和 H2O，化学方程式是？",
+   "options": [
+    "8NH3 + 6NO2 → 7N2 + 12H2O",
+    "4NH3 + 6NO2 → 5N2 + 6H2O",
+    "8NH3 + 6NO2 → 7N2 + 6H2O",
+    "2NH3 + 3NO2 → 3N2 + 2H2O"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "N 从 -3 和 +4 归中到 0；N 8+6=14，7N2=14，H 24=24。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch01",
+   "stem": "少量 NH3 与过量 Cl2 反应生成酸性气体和 NCl3，化学方程式是？",
+   "options": [
+    "NH3 + 3Cl2 → NCl3 + 3HCl",
+    "NH3 + Cl2 → NCl3 + HCl",
+    "2NH3 + 3Cl2 → 2NCl3 + 3H2",
+    "NH3 + 2Cl2 → NCl2 + 2HCl"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "N -3→+3 失 6e，3 个 Cl2 共得 6e；NCl3 中 N、Cl 均满足 8 电子结构。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch01",
+   "stem": "酸性条件下 Cr2O7^2- 氧化 SO3^2- 为 SO4^2-，离子方程式是？",
+   "options": [
+    "Cr2O7^2- + 3SO3^2- + 8H+ → 2Cr3+ + 3SO4^2- + 4H2O",
+    "Cr2O7^2- + 3SO3^2- + 6H+ → 2Cr3+ + 3SO4^2- + 3H2O",
+    "Cr2O7^2- + SO3^2- + 8H+ → 2Cr3+ + SO4^2- + 4H2O",
+    "Cr2O7^2- + 3SO3^2- + 14H+ → 2Cr3+ + 3SO4^2- + 7H2O"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "Cr 得 3e×2=6e，S 失 2e×3=6e；补 8H+ 和 4H2O 后电荷 0 对 0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch01",
+   "stem": "CeO2 在稀硫酸和 H2O2 作用下生成 Ce3+，化学方程式是？",
+   "options": [
+    "2CeO2 + H2O2 + 3H2SO4 → Ce2(SO4)3 + O2↑ + 4H2O",
+    "CeO2 + H2O2 + H2SO4 → CeSO4 + O2↑ + 2H2O",
+    "2CeO2 + H2O2 + 2H2SO4 → Ce2(SO4)3 + O2↑ + 2H2O",
+    "CeO2 + H2O2 + 2H2SO4 → Ce(SO4)2 + 3H2O"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "Ce +4→+3 得 1e×2=2e；H2O2 中 O -1→0 失 2e；补 3H2SO4 成盐。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch01",
+   "stem": "EDTA 滴定：2.6826 g 样品配成 250 mL，取 25.00 mL 用 0.04000 mol/L EDTA 消耗 25.50 mL，NiSO4·nH2O 的 n 是多少？（填整数）",
+   "options": [],
+   "answer": "6",
+   "type": "blank",
+   "conceptId": "c01",
+   "explain": "25.00 mL 中 Ni2+ 为 0.04000×0.02550=1.020×10^-3 mol，250 mL 中 1.020×10^-2 mol；M=2.6826/0.01020=263.0，减去 NiSO4 的 154.75 得 108.2，除以 18.02 得 6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch01",
+   "stem": "金属钠与 H2 反应生成甲，4.80 g 甲完全分解得到 2.24 L（标况）H2，甲的化学式是？",
+   "options": [],
+   "answer": "NaH",
+   "type": "blank",
+   "conceptId": "c01",
+   "explain": "2.24 L H2 为 0.1 mol，含 H 0.2 mol；4.80 g 中 Na 为 0.2 mol（4.6 g），H 0.2 mol（0.2 g），故为 NaH。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "陌生方程式书写的五步法：一句话核心是什么？",
+   "back": "陌生方程式靠信息、类型、产物、配平、检查这条固定流水线推出来。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "陌生方程式书写的五步法最容易错在哪？",
+   "back": "产物多数要自己推，题里不会全给。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01",
+    "易错"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "信息型方程式",
+   "en": "",
+   "def": "题干给出现象或流程，需要自己推断产物的方程式",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "电荷守恒",
+   "en": "",
+   "def": "离子方程式左右两边电荷代数和相等",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "电子守恒",
+   "en": "",
+   "def": "氧化还原中得失电子总数相等",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "电极反应式",
+   "en": "",
+   "def": "只写正极或负极（阳极或阴极）的半反应式",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "熔融碳酸盐环境",
+   "en": "",
+   "def": "燃料电池中以 CO3^2- 为载流子的电解质环境",
+   "chapterIds": [
+    "ch01"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 1,
+  "concepts": 1
+ },
+ "signature": "1480f269b25b",
+ "contentHash": "91edecd00612"
+}

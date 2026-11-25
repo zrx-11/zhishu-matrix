@@ -1,0 +1,884 @@
+{
+ "repo": "chem-zhishu",
+ "bookSlug": "zero-basis-chem",
+ "title": "零基础入门：化学的第一套语言",
+ "discipline": "chem",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-零基础入门/manifest.json",
+ "stats": {
+  "chapters": 10,
+  "concepts": 3,
+  "quizzes": 20,
+  "cards": 20,
+  "glossary": 8
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：物质怎么分类",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch01-物质分类.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第一节 + 高中化学基础知识大全"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：原子、分子、离子",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch02-微观粒子.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第二节"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：化学式与化合价",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch03-化学式与化合价.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第三节"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：化学方程式与配平",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch04-化学方程式与配平.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第三节 + 高中化学基础知识大全"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：物质的量",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch05-物质的量.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第二节 核心计算体系"
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：电解质与离子反应",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04",
+    "ch05"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch06-离子反应.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第四节"
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：氧化还原反应",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04",
+    "ch06"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch07-氧化还原.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第三节 + 高中化学基础知识大全"
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：元素周期表与化学键",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02",
+    "ch07"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch08-元素周期表与化学键.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第五节 + 高中化学基础知识大全"
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：反应速率与化学平衡",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch07"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch09-速率与平衡.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第六节"
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：有机化学初识",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch08"
+   ],
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/chapters/ch10-有机化学初识.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第七节"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "物质的量",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/concepts/c01-物质的量.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》核心计算体系"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "离子方程式",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [
+    "ch04",
+    "ch05"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/concepts/c02-离子方程式.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第四节"
+   }
+  },
+  {
+   "id": "c03",
+   "title": "氧化还原反应",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [
+    "ch04",
+    "c02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "chem-zhishu",
+    "path": "01-零基础入门/concepts/c03-氧化还原.md"
+   },
+   "bookSource": {
+    "file": "《基础概念》第三节"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "下列属于纯净物的是？",
+   "options": [
+    "洁净的空气",
+    "冰水混合物",
+    "生理盐水",
+    "大理石"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "冰和水都是 H2O，只有一种物质；其余都含多种物质。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "下列物质中属于氧化物的是？",
+   "options": [
+    "O2",
+    "KClO3",
+    "Fe3O4",
+    "H2SO4"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Fe3O4 只含 Fe、O 两种元素；A 是单质，B、D 含三种元素。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "17O 的质子数、中子数、电子数分别是？",
+   "options": [
+    "8、9、8",
+    "9、8、9",
+    "8、9、9",
+    "17、8、17"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "O 的原子序数 8，质子数 8；中子数 17-8=9；中性原子电子数=质子数=8。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "Mg2+ 的质子数为 12，它的电子数是多少？",
+   "options": [],
+   "answer": "10",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "带 2 个单位正电，电子比质子少 2 个：12-2=10。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "氧化铁的化学式是？",
+   "options": [
+    "FeO",
+    "Fe2O3",
+    "Fe3O4",
+    "Fe(OH)3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "铁为 +3，氧为 -2，交叉得 Fe2O3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "KMnO4 中 Mn 的化合价是多少？（写带符号的数字，如 +7）",
+   "options": [],
+   "answer": "+7",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "K 为 +1，O 为 -2，设 Mn 为 x：1+x+4×(-2)=0，x=+7。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "配平 Al + O2 → Al2O3，正确系数是？",
+   "options": [
+    "2、1、1",
+    "4、3、2",
+    "2、3、2",
+    "4、2、2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "2 个 Al2O3 含 4 个 Al、6 个 O，需要 3 个 O2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "配平时允许改动的是？",
+   "options": [
+    "化学式右下角的下标",
+    "元素符号",
+    "前面的系数",
+    "反应条件"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "只能改系数，改下标就改变了物质本身。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch05",
+   "stem": "18 g 水的物质的量是多少？（M=18 g/mol）",
+   "options": [
+    "0.5 mol",
+    "1 mol",
+    "2 mol",
+    "18 mol"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "n=m/M=18/18=1 mol。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch05",
+   "stem": "标准状况下 11.2 L CO2 的质量是多少克？（M=44 g/mol，填数字）",
+   "options": [],
+   "answer": "22",
+   "type": "blank",
+   "conceptId": "c01",
+   "explain": "n=11.2/22.4=0.5 mol；m=0.5×44=22 g。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch06",
+   "stem": "下列物质属于强电解质的是？",
+   "options": [
+    "CH3COOH",
+    "NH3·H2O",
+    "NaCl",
+    "蔗糖"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "NaCl 是盐，完全电离；A、B 是弱电解质，D 是非电解质。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch06",
+   "stem": "CaCO3 与盐酸反应的离子方程式中，CaCO3 应怎么写？",
+   "options": [
+    "拆成 Ca2+ 和 CO3^2-",
+    "写化学式不拆",
+    "写成 CaO 和 CO2",
+    "删掉不写"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "CaCO3 难溶，不能拆，必须写化学式。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch07",
+   "stem": "下列反应属于氧化还原反应的是？",
+   "options": [
+    "NaOH+HCl→NaCl+H2O",
+    "CaCO3→CaO+CO2",
+    "Zn+CuSO4→ZnSO4+Cu",
+    "CO2+Ca(OH)2→CaCO3+H2O"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "Zn 0→+2，Cu +2→0，有化合价变化。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch07",
+   "stem": "Fe + 2HCl → FeCl2 + H2 中，氧化剂是？",
+   "options": [
+    "Fe",
+    "HCl",
+    "FeCl2",
+    "H2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "HCl 中的 H 从 +1 降到 0，得电子，是氧化剂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch08",
+   "stem": "下列化合物中只含共价键的是？",
+   "options": [
+    "NaCl",
+    "NaOH",
+    "CO2",
+    "K2O"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "CO2 由 C、O 非金属原子通过共价键结合。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch08",
+   "stem": "Na、Mg、Al 金属性由强到弱的顺序是？",
+   "options": [
+    "Al>Mg>Na",
+    "Na>Mg>Al",
+    "Mg>Na>Al",
+    "Na>Al>Mg"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "同周期从左到右金属性减弱。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch09",
+   "stem": "升高温度，反应速率通常？",
+   "options": [
+    "一定加快",
+    "一定减慢",
+    "不变",
+    "无法判断"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "升温使活化分子比例增加，正逆反应速率都加快。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch09",
+   "stem": "2SO2+O2⇌2SO3（放热）增大压强，平衡向？",
+   "options": [
+    "正反应方向",
+    "逆反应方向",
+    "不移动",
+    "先正后逆"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "右边气体分子数少，加压向分子数少的方向移动。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch10",
+   "stem": "下列属于有机物的是？",
+   "options": [
+    "CO2",
+    "CH4",
+    "Na2CO3",
+    "H2CO3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "CH4 是含碳的烃；其余归为无机物。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch10",
+   "stem": "乙烯与溴水反应属于？",
+   "options": [
+    "取代反应",
+    "加成反应",
+    "酯化反应",
+    "复分解反应"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "碳碳双键打开，溴原子加在两个碳上。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "物质怎么分类：一句话核心是什么？",
+   "back": "分类只看两件事：里面是不是只有一种东西，以及它由几种元素组成。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "物质怎么分类最容易错在哪？",
+   "back": "冰水混合物是纯净物，不是混合物。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01",
+    "易错"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "原子、分子、离子：一句话核心是什么？",
+   "back": "化学反应只动最外层电子，原子核不变；带电与否看质子数和电子数是否相等。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "原子、分子、离子最容易错在哪？",
+   "back": "NaCl 固体不导电，但里面有离子，只是不能自由移动。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02",
+    "易错"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "化学式与化合价：一句话核心是什么？",
+   "back": "化学式是物质的配方标签：元素种类不能错，正负化合价代数和必须为零。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "化学式与化合价最容易错在哪？",
+   "back": "配平不能改化学式右下角的下标。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03",
+    "易错"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "化学方程式与配平：一句话核心是什么？",
+   "back": "方程式是化学反应的账单：反应前后每种元素的原子个数必须一模一样。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "化学方程式与配平最容易错在哪？",
+   "back": "有化合价变化时，先电子守恒，再数原子。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04",
+    "易错"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "物质的量：一句话核心是什么？",
+   "back": "摩尔把数不清的微粒换成可以称量的份数，1 mol 就是 6.02×10²³ 个。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "物质的量最容易错在哪？",
+   "back": "22.4 L/mol 只对气体、只在标准状况成立。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05",
+    "易错"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "电解质与离子反应：一句话核心是什么？",
+   "back": "离子方程式只留下真正参加反应的离子，但难溶物、气体、水、弱电解质不能拆。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "电解质与离子反应最容易错在哪？",
+   "back": "能导电的铜不是电解质，电解质必须是化合物。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06",
+    "易错"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "氧化还原反应：一句话核心是什么？",
+   "back": "升失氧、降得还：化合价升高、失电子、被氧化；降低、得电子、被还原。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "氧化还原反应最容易错在哪？",
+   "back": "氧化剂被还原，不是被氧化。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07",
+    "易错"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "元素周期表与化学键：一句话核心是什么？",
+   "back": "周期表按电子层数分行、按最外层电子数分列；原子靠凑成稳定电子结构成键。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "元素周期表与化学键最容易错在哪？",
+   "back": "NaOH 有共价键，但它是离子化合物。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08",
+    "易错"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "反应速率与化学平衡：一句话核心是什么？",
+   "back": "速率管多快，平衡管最终生成多少；催化剂只改速率，不改平衡。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "反应速率与化学平衡最容易错在哪？",
+   "back": "平衡时反应没有停止，v正 = v逆 ≠ 0。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09",
+    "易错"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "有机化学初识：一句话核心是什么？",
+   "back": "有机化学研究含碳化合物，碳能形成四个共价键，官能团决定性质。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "有机化学初识最容易错在哪？",
+   "back": "CO2、碳酸盐是无机物，不是有机物。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10",
+    "易错"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "纯净物",
+   "en": "",
+   "def": "只由一种物质组成、有固定化学式的体系",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "电解质",
+   "en": "",
+   "def": "在水溶液或熔融状态下能导电的化合物",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "离子方程式",
+   "en": "",
+   "def": "删去旁观离子后只保留实际参加反应离子的方程式",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "氧化剂",
+   "en": "",
+   "def": "得电子、化合价降低、被还原的物质",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "还原剂",
+   "en": "",
+   "def": "失电子、化合价升高、被氧化的物质",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "物质的量",
+   "en": "",
+   "def": "表示微粒集合份数的物理量，单位 mol",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "摩尔质量",
+   "en": "",
+   "def": "1 mol 物质的质量，单位 g/mol",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "官能团",
+   "en": "",
+   "def": "决定有机物化学性质的原子或原子团",
+   "chapterIds": [
+    "ch10"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 10,
+  "concepts": 3
+ },
+ "signature": "7a18143476b0",
+ "contentHash": "81153cba0206"
+}

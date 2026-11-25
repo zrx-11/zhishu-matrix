@@ -1,0 +1,925 @@
+{
+ "repo": "ode-enlighten",
+ "bookSlug": "xitijiexi-ode",
+ "title": "常微分方程（第四版）习题详解",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "03-习题详解-第四版/manifest.json",
+ "stats": {
+  "chapters": 8,
+  "concepts": 3,
+  "quizzes": 18,
+  "cards": 16,
+  "glossary": 32
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：绪论与基本概念",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/chapters/ch01-绪论与基本概念.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：一阶方程初等解法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/chapters/ch02-一阶初等解法.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：存在唯一性与奇解",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/chapters/ch03-存在唯一性.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：高阶线性方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/chapters/ch04-高阶线性方程.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：线性微分方程组",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/chapters/ch05-线性方程组.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：非线性与稳定性",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/chapters/ch06-非线性与稳定性.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：一阶线性偏微分方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/chapters/ch07-一阶线性偏微分方程.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：边值问题",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/chapters/ch08-边值问题.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "曲线族与微分方程",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/concepts/c01-曲线族与方程.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "朗斯基行列式",
+   "chapterIds": [
+    "ch04",
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/concepts/c02-朗斯基行列式.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "格林函数",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "03-习题详解-第四版/concepts/c03-格林函数.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "y=C₁x+C₂x² 满足的方程阶数是？",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "不确定"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "两个独立参数，二阶。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "判断「是解」的关键是？",
+   "options": [
+    "某点成立",
+    "区间上恒等",
+    "有导数",
+    "连续"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "必须恒等。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "解 y′+2xy=x 的积分因子？",
+   "options": [
+    "e^(x²)",
+    "e^(2x)",
+    "x²",
+    "e^(−x²)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "∫2x dx=x²。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "克莱罗方程 y=xp+p³ 的奇解？",
+   "options": [
+    "直线族",
+    "y=−x²/4",
+    "y=−2p³ 消参",
+    "无奇解"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "x=−3p² 后消参。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "y′=y^(1/3)，y(0)=0 的解数？",
+   "options": [
+    "1",
+    "2",
+    "无穷多",
+    "0"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "李普希茨失效。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "y′=y²，y(0)=1 的区间？",
+   "options": [
+    "R",
+    "(−∞,1)",
+    "(0,1)",
+    "(1,∞)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "1/(1−x)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "y″+y=x 的特解？",
+   "options": [
+    "x",
+    "x/2",
+    "cos x",
+    "x²"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "0 不是特征根。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "欧拉方程 x²y″+xy′−y=0 的解？",
+   "options": [
+    "C₁x+C₂/x",
+    "C₁cos+C₂sin",
+    "C₁e^x",
+    "C₁x²"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "r²−1=0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch05",
+   "stem": "基解矩阵要验几步？",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "不必验"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Φ′=AΦ 与 det≠0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch05",
+   "stem": "det Φ(t) 等于？",
+   "options": [
+    "1",
+    "det Φ(0)e^(t tr A)",
+    "e^(t)",
+    "det A"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "刘维尔公式。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch06",
+   "stem": "特征值 −1±2i 对应？",
+   "options": [
+    "稳定结点",
+    "稳定焦点",
+    "不稳定焦点",
+    "中心"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "复根带负实部。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch06",
+   "stem": "捕获域需要几个条件？",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "内外边界 + 无平衡点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch07",
+   "stem": "x u_x+y u_y=0 的通解？",
+   "options": [
+    "F(x−y)",
+    "F(y/x)",
+    "F(xy)",
+    "F(x+y)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "特征线 y/x=const。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch07",
+   "stem": "非特征条件？",
+   "options": [
+    "a x_τ−b y_τ≠0",
+    "a y_τ−b x_τ≠0",
+    "a+b≠0",
+    "x_τ+y_τ≠0"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "横截条件。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch08",
+   "stem": "y″+π²y=0，y(0)=y(1)=0 有非零解吗？",
+   "options": [
+    "有",
+    "无",
+    "唯一",
+    "不确定"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "sin πx 是解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch08",
+   "stem": "格林函数在 x=s 处？",
+   "options": [
+    "连续且导数跃 1",
+    "间断",
+    "导数为 0",
+    "等于 1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "δ 源特征。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "__all",
+   "stem": "解完一阶方程最容易漏什么？",
+   "options": [
+    "积分常数",
+    "常数解",
+    "定义域",
+    "单位"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "分离变量时丢掉 g(y)=0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "__all",
+   "stem": "这本书与教材的关系？",
+   "options": [
+    "替代教材",
+    "配套刷题",
+    "进阶理论",
+    "习题答案汇编"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "定位是刷题伴侣。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "n 参数曲线族对应几阶方程？",
+   "back": "n 阶。",
+   "chapterId": "ch01",
+   "tags": [
+    "对应"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "等斜线是什么？",
+   "back": "斜率相同的点连成的线。",
+   "chapterId": "ch01",
+   "tags": [
+    "几何"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "三个凑微分公式？",
+   "back": "d(xy)、d(y/x)、d(ln r)。",
+   "chapterId": "ch02",
+   "tags": [
+    "技巧"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "线性方程积分因子？",
+   "back": "e^(∫P dx)。",
+   "chapterId": "ch02",
+   "tags": [
+    "公式"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "判唯一看什么？",
+   "back": "∂f/∂y 是否有界。",
+   "chapterId": "ch03",
+   "tags": [
+    "判据"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "奇解五步？",
+   "back": "通解、判别式、回代、相切、李普希茨失效。",
+   "chapterId": "ch03",
+   "tags": [
+    "流程"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "共振乘 x 几次？",
+   "back": "重数。",
+   "chapterId": "ch04",
+   "tags": [
+    "规则"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "朗斯基为零的含义？",
+   "back": "同解时线性相关。",
+   "chapterId": "ch04",
+   "tags": [
+    "易错"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "验基解矩阵两步？",
+   "back": "Φ′=AΦ、det≠0。",
+   "chapterId": "ch05",
+   "tags": [
+    "流程"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "刘维尔公式？",
+   "back": "det Φ=e^(t tr A)。",
+   "chapterId": "ch05",
+   "tags": [
+    "公式"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "二次型 V 导数？",
+   "back": "xᵀ(AᵀP+PA)x。",
+   "chapterId": "ch06",
+   "tags": [
+    "公式"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "五步稳定分析？",
+   "back": "平衡点、J、特征值、符号、补 V。",
+   "chapterId": "ch06",
+   "tags": [
+    "流程"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "齐次 PDE 通解？",
+   "back": "u=F(Φ)。",
+   "chapterId": "ch07",
+   "tags": [
+    "公式"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "非特征条件？",
+   "back": "a y_τ−b x_τ≠0。",
+   "chapterId": "ch07",
+   "tags": [
+    "判据"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "格林函数三性质？",
+   "back": "齐次、连续、导跃 1。",
+   "chapterId": "ch08",
+   "tags": [
+    "性质"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "边值共振？",
+   "back": "λ 等于特征值。",
+   "chapterId": "ch08",
+   "tags": [
+    "易错"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "曲线族",
+   "en": "",
+   "def": "含参数的曲线集合",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "通解",
+   "en": "",
+   "def": "含 n 个独立常数的解",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "特解",
+   "en": "",
+   "def": "由初值定出的解",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "等斜线",
+   "en": "",
+   "def": "斜率相同的点的轨迹",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "分离变量",
+   "en": "",
+   "def": "变量各自归边后积分",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "积分因子",
+   "en": "",
+   "def": "使方程恰当的乘子",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "克莱罗方程",
+   "en": "",
+   "def": "y=xp+g(p)",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "拉格朗日方程",
+   "en": "",
+   "def": "y=xf(p)+g(p)",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "参数表示",
+   "en": "",
+   "def": "用 p 作参数表示解",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "李普希茨",
+   "en": "",
+   "def": "差被常数乘距离控制",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "皮卡迭代",
+   "en": "",
+   "def": "逐次逼近",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "奇解",
+   "en": "",
+   "def": "族外包络",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "最大存在区间",
+   "en": "",
+   "def": "解能延伸的最大区间",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "特征方程",
+   "en": "",
+   "def": "常系数方程的代数式",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "待定系数",
+   "en": "",
+   "def": "按右端猜特解",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "共振",
+   "en": "",
+   "def": "右端频率等于固有频率",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "朗斯基行列式",
+   "en": "",
+   "def": "判线性相关的行列式",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "欧拉方程",
+   "en": "",
+   "def": "可用 x=eᵗ 化简的方程",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "基解矩阵",
+   "en": "",
+   "def": "线性无关解排成的矩阵",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "刘维尔公式",
+   "en": "",
+   "def": "det Φ=e^(t tr A)",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "矩阵指数",
+   "en": "",
+   "def": "e^(At)",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "雅可比矩阵",
+   "en": "",
+   "def": "右端对状态的偏导",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "平衡点",
+   "en": "",
+   "def": "右端为零的点",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "渐近稳定",
+   "en": "",
+   "def": "稳定且趋于平衡点",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "极限环",
+   "en": "",
+   "def": "孤立闭轨",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "捕获域",
+   "en": "",
+   "def": "轨线进得去出不来的区域",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "首次积分",
+   "en": "",
+   "def": "沿轨线取常数",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "特征线",
+   "en": "",
+   "def": "PDE 沿之降为 ODE",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "非特征条件",
+   "en": "",
+   "def": "初值曲线横截特征方向",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "格林函数",
+   "en": "",
+   "def": "单位点源响应",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "特征函数展开",
+   "en": "",
+   "def": "按特征函数分解右端",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "共振（边值）",
+   "en": "",
+   "def": "λ 等于特征值",
+   "chapterIds": [
+    "ch08"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 8,
+  "concepts": 3
+ },
+ "signature": "eb1fba10dda2",
+ "contentHash": "01aa078c0679"
+}

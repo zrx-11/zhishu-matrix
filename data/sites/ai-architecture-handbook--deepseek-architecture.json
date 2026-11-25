@@ -1,0 +1,763 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "deepseek-architecture",
+ "title": "案例架构：DeepSeek 三代设计逻辑",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "03-architecture/manifest.json",
+ "stats": {
+  "chapters": 5,
+  "concepts": 5,
+  "quizzes": 12,
+  "cards": 16,
+  "glossary": 20
+ },
+ "chapters": [
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：三代架构总览：瓶颈迁移与注意力演进",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/chapters/ch10-overview.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V3/V4/V4.1 技术报告"
+   }
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：效率组件：MoE、mHC、Muon、Engram、DSpark",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch10"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/chapters/ch11-components.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4/V4.1 技术报告"
+   }
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：训练与后训练：预训练、RL、蒸馏、数据工程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch11"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/chapters/ch12-training.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-R1/V4/V4.1 技术报告"
+   }
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：综合检验：写一份架构评审报告",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch12"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/chapters/ch13-review.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 综合任务"
+   }
+  },
+  {
+   "id": "ch14",
+   "num": 14,
+   "title": "附录：1M 上下文选型算例",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch13"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/chapters/ch14-selection.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 选型附录"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c32",
+   "title": "推理 FLOPs",
+   "chapterIds": [
+    "ch10",
+    "ch13"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/concepts/c32-inference-flops.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4/V4.1 技术报告"
+   }
+  },
+  {
+   "id": "c33",
+   "title": "奖励模型",
+   "chapterIds": [
+    "ch12"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/concepts/c33-reward-model.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-R1/V4 技术报告"
+   }
+  },
+  {
+   "id": "c34",
+   "title": "OPD（在线策略蒸馏）",
+   "chapterIds": [
+    "ch12"
+   ],
+   "prerequisites": [
+    "c33"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/concepts/c34-opd.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4/V4.1 技术报告 §5"
+   }
+  },
+  {
+   "id": "c35",
+   "title": "数据工程",
+   "chapterIds": [
+    "ch12"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/concepts/c35-data-engineering.md"
+   },
+   "bookSource": {
+    "file": "DeepSeek-V4.1 论文 §5"
+   }
+  },
+  {
+   "id": "c36",
+   "title": "架构取舍",
+   "chapterIds": [
+    "ch10",
+    "ch11",
+    "ch13"
+   ],
+   "prerequisites": [
+    "c32"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "03-architecture/concepts/c36-architecture-tradeoffs.md"
+   },
+   "bookSource": {
+    "file": "本课程整理 · 架构分析"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch10",
+   "stem": "R1 相对于 V3 的主要变化是什么？",
+   "options": [
+    "注意力结构",
+    "后训练方法",
+    "层数",
+    "词表大小"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c36",
+   "explain": "R1 的模型结构与 V3 相同，变化在 RL 后训练。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch10",
+   "stem": "V4 的 CSA 和 HCA 压缩率分别是？",
+   "options": [
+    "4:1 和 128:1",
+    "2:1 和 64:1",
+    "8:1 和 256:1",
+    "1:1 和 1:1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c36",
+   "explain": "CSA 4:1，HCA 128:1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch10",
+   "stem": "V4.1-Flash 的 prefill 激活参数约是多少？",
+   "options": [
+    "8B",
+    "13B",
+    "16B",
+    "49B"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c32",
+   "explain": "CED 让 prefill 只跑编码器路径，约 8B；decode 16B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch11",
+   "stem": "MoE 主要省的是哪一项？",
+   "options": [
+    "显存占用",
+    "单 token 计算量",
+    "通信量",
+    "词表大小"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c36",
+   "explain": "MoE 只激活部分专家，计算按激活参数算，但所有权重仍要存。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch11",
+   "stem": "mHC 的混合矩阵被约束成什么？",
+   "options": [
+    "正交矩阵",
+    "双随机矩阵",
+    "对角矩阵",
+    "稀疏矩阵"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c36",
+   "explain": "行和、列和为 1，非负，保证混合不放大信号。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch11",
+   "stem": "Engram 的核心机制是什么？",
+   "options": [
+    "矩阵乘法",
+    "哈希查表",
+    "注意力",
+    "卷积"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c36",
+   "explain": "Engram 用 N-gram 哈希查表，O(1) 内存访问。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch12",
+   "stem": "V4 用什么方法合并多个领域专家？",
+   "options": [
+    "权重平均",
+    "混合 RL",
+    "在线策略蒸馏（OPD）",
+    "直接 SFT"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c34",
+   "explain": "V4 用 10 多个教师做全词表 OPD。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch12",
+   "stem": "V4.1 后训练的主要创新在哪里？",
+   "options": [
+    "新的 RL 算法",
+    "新的 OPD 算法",
+    "数据与环境流水线",
+    "新的 SFT 损失"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c35",
+   "explain": "论文明确说算法没有新东西，收益来自数据与环境工程。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch12",
+   "stem": "R1 四阶段中的第一步是什么？",
+   "options": [
+    "推理 RL",
+    "冷启动 SFT",
+    "拒绝采样",
+    "蒸馏"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c35",
+   "explain": "R1 先做几千条冷启动 SFT，再做 RL。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch13",
+   "stem": "1M token、每 token 890 B，单请求全局 KV 约多少？",
+   "options": [
+    "89 MB",
+    "890 MB",
+    "8.9 GB",
+    "89 GB"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c32",
+   "explain": "10^6 × 890 = 8.9×10^8 字节，约 890 MB。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch13",
+   "stem": "输入/输出比 200:1 时，哪种架构收益最明显？",
+   "options": [
+    "MoE",
+    "CED",
+    "Engram",
+    "mHC"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c32",
+   "explain": "CED 省的是 prefill，输入占比越高收益越大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch13",
+   "stem": "架构选型的原则是什么？",
+   "options": [
+    "永远选最强模型",
+    "满足要求下总成本最低",
+    "压缩率最高",
+    "参数最大"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c36",
+   "explain": "选型是够用 + 总成本最低，不是最强。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "R1 改变了模型架构吗？",
+   "back": "没有，R1 结构与 V3 相同，变的是后训练。",
+   "chapterId": "ch10",
+   "tags": [
+    "架构",
+    "R1"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "三代架构的瓶颈迁移顺序？",
+   "back": "KV cache → 注意力 FLOPs + KV → prefill + KV 存储/带宽。",
+   "chapterId": "ch10",
+   "tags": [
+    "架构",
+    "瓶颈"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "MLA 解决什么？",
+   "back": "用低维潜向量压 KV cache，支撑 128K 上下文。",
+   "chapterId": "ch10",
+   "tags": [
+    "架构",
+    "MLA"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "CSA2 多了哪个压缩维度？",
+   "back": "层维度：跨层复用主 KV、索引器 K 和 top-k 索引。",
+   "chapterId": "ch10",
+   "tags": [
+    "架构",
+    "CSA2"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "MoE 的总参数和激活参数区别？",
+   "back": "总参数是全部专家，激活参数是单 token 实际用到的部分。",
+   "chapterId": "ch11",
+   "tags": [
+    "组件",
+    "MoE"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "mHC 的约束和投影方法？",
+   "back": "双随机矩阵，Sinkhorn-Knopp 迭代。",
+   "chapterId": "ch11",
+   "tags": [
+    "组件",
+    "mHC"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "Muon 怎么更新？",
+   "back": "Newton-Schulz 正交化梯度矩阵，再动量更新。",
+   "chapterId": "ch11",
+   "tags": [
+    "组件",
+    "Muon"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "Engram 为什么 O(1)？",
+   "back": "哈希查表，不需要矩阵乘法。",
+   "chapterId": "ch11",
+   "tags": [
+    "组件",
+    "Engram"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "R1 后训练四阶段？",
+   "back": "冷启动 SFT → 推理 RL → 拒绝采样 SFT → 推理+通用 RL。",
+   "chapterId": "ch12",
+   "tags": [
+    "训练",
+    "R1"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "V4 后训练两阶段？",
+   "back": "领域专家 SFT+GRPO → 多教师 OPD。",
+   "chapterId": "ch12",
+   "tags": [
+    "训练",
+    "V4"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "OPD 的“在线”指什么？",
+   "back": "轨迹由学生自己生成，教师在这些轨迹上给 logits。",
+   "chapterId": "ch12",
+   "tags": [
+    "训练",
+    "OPD"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "V4 的稳定性手段？",
+   "back": "Anticipatory Routing、SwiGLU Clamping、mHC、Muon。",
+   "chapterId": "ch12",
+   "tags": [
+    "训练",
+    "稳定性"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "单请求 KV 怎么算？",
+   "back": "token 数 × 每 token 字节数。",
+   "chapterId": "ch13",
+   "tags": [
+    "选型",
+    "KV"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "CED 适合什么负载？",
+   "back": "输入密集、prefill 占比高的智能体负载。",
+   "chapterId": "ch13",
+   "tags": [
+    "选型",
+    "CED"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "选型三问？",
+   "back": "瓶颈是什么、代价是什么、实验验证了什么。",
+   "chapterId": "ch13",
+   "tags": [
+    "选型",
+    "方法"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "评审报告六节？",
+   "back": "画像、瓶颈、对比、建议、风险、结论。",
+   "chapterId": "ch13",
+   "tags": [
+    "选型",
+    "报告"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "瓶颈迁移",
+   "en": "",
+   "def": "部署瓶颈从 KV cache 转向 FLOPs 再转向 prefill/带宽。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "激活参数",
+   "en": "",
+   "def": "单个 token 实际参与计算的参数。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "总参数",
+   "en": "",
+   "def": "模型全部参数，MoE 中远大于激活参数。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "非对称架构",
+   "en": "",
+   "def": "prefill 和 decode 走不同计算路径的架构。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "专家并行",
+   "en": "",
+   "def": "把 MoE 专家分布到不同设备上。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "路由",
+   "en": "",
+   "def": "决定 token 进入哪些专家的机制。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "双随机矩阵",
+   "en": "",
+   "def": "行和、列和都为 1 的非负矩阵。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "正交化",
+   "en": "",
+   "def": "把梯度矩阵的奇异值拉到接近 1。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "压缩维度",
+   "en": "",
+   "def": "条目大小、序列长度、层数、位宽四个可压缩方向。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "prefill",
+   "en": "",
+   "def": "读入整段输入并建立 KV cache 的阶段。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "decode",
+   "en": "",
+   "def": "逐 token 生成输出的阶段。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "OPD",
+   "en": "",
+   "def": "学生在自己轨迹上向多个教师做全词表蒸馏。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "GRM",
+   "en": "",
+   "def": "生成式奖励模型，模型自己生成评分理由和分数。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "DSec",
+   "en": "",
+   "def": "V4.1 用于大规模智能体 RL 的弹性计算沙箱。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "任务三元组",
+   "en": "",
+   "def": "问题、环境、验证系统。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "effort",
+   "en": "",
+   "def": "1–100 的推理力度标量，控制输出长度。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "全局 KV cache",
+   "en": "",
+   "def": "常驻 HBM 的主 KV 缓存。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "持久 KV cache",
+   "en": "",
+   "def": "放 SSD/主机内存、用于前缀复用的缓存。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "算术强度",
+   "en": "",
+   "def": "每字节内存访问对应的计算量。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "选型",
+   "en": "",
+   "def": "在负载、成本、质量约束下选最合适的模型。",
+   "chapterIds": [
+    "ch13"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 5,
+  "concepts": 5
+ },
+ "signature": "231c9f61f7ca",
+ "contentHash": "b45f5164e352"
+}

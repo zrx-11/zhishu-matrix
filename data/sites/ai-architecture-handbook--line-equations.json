@@ -1,0 +1,459 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "line-equations",
+ "title": "直线方程",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/18-直线方程/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 11,
+  "glossary": 8
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：倾斜角与斜率",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/18-直线方程/chapters/ch01-slope.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-18-直线方程 章士藻.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：直线方程的五种形式",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/18-直线方程/chapters/ch02-forms.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-18-直线方程 章士藻.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：位置关系与距离",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/18-直线方程/chapters/ch03-position-distance.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-18-直线方程 章士藻.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "斜率与方向",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/18-直线方程/concepts/c01-slope-direction.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-18-直线方程 章士藻.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "形式与适用条件",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "ch02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/18-直线方程/concepts/c02-form-conditions.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-18-直线方程 章士藻.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "过点 (1,1) 与 (3,5) 的直线斜率是：",
+   "options": [
+    "1",
+    "2",
+    "4",
+    "1/2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "k=(5−1)/(3−1)=2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "直线 x=4 的斜率：",
+   "options": [
+    "0",
+    "1",
+    "不存在",
+    "4"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "竖直线与 x 轴垂直，倾斜角 90°，正切无定义，故斜率不存在。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "过点 (1,2) 且斜率为 3 的直线方程是：",
+   "options": [
+    "y−2=3(x−1)",
+    "y+2=3(x+1)",
+    "y=3x",
+    "3x−y+1=0"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "点斜式直接写成 y−2=3(x−1)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "直线 2x−3y+6=0 的斜率是：",
+   "options": [
+    "2/3",
+    "−2/3",
+    "3/2",
+    "−3/2"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "k=−A/B=−2/(−3)=2/3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "直线 y=3x+1 与 y=3x−2 的位置关系是：",
+   "options": [
+    "相交",
+    "平行",
+    "重合",
+    "垂直"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "斜率相同、截距不同，故平行。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "点 (2,1) 到直线 x−y+1=0 的距离是：",
+   "options": [
+    "2",
+    "√2",
+    "1",
+    "2√2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "|2−1+1|/√2=2/√2=√2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "过点 (0,2) 且与直线 y=2x+1 平行的直线方程是：",
+   "options": [
+    "y=2x+2",
+    "y=−2x+2",
+    "y=x+2",
+    "y=2x−2"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "平行则斜率相同为 2，过 (0,2) 得 y=2x+2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "直线 3x+4y−10=0 与 3x+4y+5=0 之间的距离是：",
+   "options": [
+    "3",
+    "15",
+    "5",
+    "1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "d=|−10−5|/√(9+16)=15/5=3。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：倾斜角与斜率」的一句话核心是什么？",
+   "back": "斜率是直线倾斜程度的数：k=tanα，α 是倾斜角；竖直直线没有斜率。",
+   "chapterId": "ch01",
+   "tags": [
+    "line-equations",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：直线方程的五种形式」的一句话核心是什么？",
+   "back": "五种形式是同一件事的五种写法；选哪种取决于题目给了什么条件。",
+   "chapterId": "ch02",
+   "tags": [
+    "line-equations",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：位置关系与距离」的一句话核心是什么？",
+   "back": "平行看斜率相等，垂直看斜率乘积为 −1；距离靠“点到直线的公式”。",
+   "chapterId": "ch03",
+   "tags": [
+    "line-equations",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「倾斜角」？",
+   "back": "直线向上方向与 x 轴正方向的夹角。",
+   "chapterId": "ch01",
+   "tags": [
+    "line-equations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「斜率」？",
+   "back": "倾斜角的正切，反映直线的倾斜程度。",
+   "chapterId": "ch01",
+   "tags": [
+    "line-equations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「点斜式」？",
+   "back": "y−y₀=k(x−x₀)。",
+   "chapterId": "ch02",
+   "tags": [
+    "line-equations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「斜截式」？",
+   "back": "y=kx+b。",
+   "chapterId": "ch02",
+   "tags": [
+    "line-equations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「截距式」？",
+   "back": "x/a+y/b=1。",
+   "chapterId": "ch02",
+   "tags": [
+    "line-equations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「一般式」？",
+   "back": "Ax+By+C=0（A、B 不全为零）。",
+   "chapterId": "ch02",
+   "tags": [
+    "line-equations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「点到直线距离」？",
+   "back": "点与直线上最近点的距离。",
+   "chapterId": "ch03",
+   "tags": [
+    "line-equations",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「夹角」？",
+   "back": "两直线所成的锐角或直角。",
+   "chapterId": "ch03",
+   "tags": [
+    "line-equations",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "倾斜角",
+   "en": "",
+   "def": "直线向上方向与 x 轴正方向的夹角。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "斜率",
+   "en": "",
+   "def": "倾斜角的正切，反映直线的倾斜程度。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "点斜式",
+   "en": "",
+   "def": "y−y₀=k(x−x₀)。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "斜截式",
+   "en": "",
+   "def": "y=kx+b。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "截距式",
+   "en": "",
+   "def": "x/a+y/b=1。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "一般式",
+   "en": "",
+   "def": "Ax+By+C=0（A、B 不全为零）。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "点到直线距离",
+   "en": "",
+   "def": "点与直线上最近点的距离。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "夹角",
+   "en": "",
+   "def": "两直线所成的锐角或直角。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "ca97cc7faf17",
+ "contentHash": "b8be94a4addc",
+ "duplicateGroup": "ca97cc7faf17"
+}

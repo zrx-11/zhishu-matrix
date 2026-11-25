@@ -1,0 +1,1209 @@
+{
+ "repo": "ode-enlighten",
+ "bookSlug": "dingtongren-ode",
+ "title": "常微分方程教程（丁同仁·李承治）",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "05-丁同仁-常微分方程教程/manifest.json",
+ "stats": {
+  "chapters": 11,
+  "concepts": 4,
+  "quizzes": 24,
+  "cards": 22,
+  "glossary": 40
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：基本概念",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch01-基本概念.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：初等积分法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch02-初等积分法.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：存在和唯一性定理",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch03-存在唯一性.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：一阶隐式方程与奇解",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch04-隐式方程与奇解.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：解对初值和参数的连续可微性",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch05-解对初值依赖.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：线性微分方程组与高阶线性方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch06-线性方程组.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：解析理论",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch07-解析理论.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：定性理论",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch08-定性理论.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：边值问题",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch09-边值问题.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：首次积分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch10-首次积分.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：一阶偏微分方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/chapters/ch11-一阶偏微分方程.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "奇解与包络",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/concepts/c01-奇解与包络.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "变分方程",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/concepts/c02-变分方程.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "弗雷德霍姆二择一",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/concepts/c03-弗雷德霍姆二择一.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "李雅普诺夫函数",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ode-enlighten",
+    "path": "05-丁同仁-常微分方程教程/concepts/c04-李雅普诺夫函数.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "y(x)=y(x+1) 是常微分方程吗？",
+   "options": [
+    "是",
+    "不是，无导数",
+    "是，一阶",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "方程中不含导数，是函数方程。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "y=1/x 作为 y′=−y² 的解，其最大存在区间是？",
+   "options": [
+    "R",
+    "(0,+∞) 或 (−∞,0)",
+    "[1,+∞)",
+    "(−1,1)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "0 点无定义，区间必须避开。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "(2x+y)dx+(x+2y)dy=0 是恰当方程吗？",
+   "options": [
+    "是",
+    "否",
+    "需积分因子",
+    "无法判断"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "P_y=1=Q_x。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "积分因子 μ 的方程为什么一般难解？",
+   "options": [
+    "它是二阶方程",
+    "它本身是一阶偏微分方程",
+    "它无解",
+    "它需要数值方法"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "含 μ_x 与 μ_y，故只做退化情形。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "皮卡定理中 h=min(a,b/M) 的作用？",
+   "options": [
+    "保证迭代不跑出矩形",
+    "保证唯一",
+    "保证收敛速度",
+    "无关紧要"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "使 |φₙ−y₀|≤Mh≤b。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "皮亚诺定理比皮卡定理弱在哪？",
+   "options": [
+    "不保证存在",
+    "不保证唯一",
+    "不保证连续",
+    "不保证可微"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "只要求连续，因此只保证存在。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "奇解的必要条件之一是？",
+   "options": [
+    "与通解族相切",
+    "是常数解",
+    "是多项式",
+    "定义在全实轴"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "三个条件：是解、相切、不在族内。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "奇解处李普希茨条件必然？",
+   "options": [
+    "成立",
+    "失效",
+    "无关",
+    "需验证"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "否则唯一性禁止两条曲线相切而过。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch05",
+   "stem": "连续依赖估计中的放大因子？",
+   "options": [
+    "e^(L|x−x₀|)",
+    "L",
+    "M",
+    "1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "格朗沃尔引理给出。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch05",
+   "stem": "解对参数可微时，方程比变分方程多哪项？",
+   "options": [
+    "f_x",
+    "f_μ",
+    "f_y",
+    "常数项"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "参数直接进入方程产生源项。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch06",
+   "stem": "齐次线性方程组解空间维数是？",
+   "options": [
+    "1",
+    "m",
+    "n",
+    "无穷"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "等于未知量个数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch06",
+   "stem": "常数变易公式中 Φ⁻¹ 的作用？",
+   "options": [
+    "求逆矩阵",
+    "把非齐次项翻译成基坐标",
+    "归一化",
+    "判可逆"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "相当于坐标变换。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch07",
+   "stem": "柯西定理要求右端？",
+   "options": [
+    "连续",
+    "李普希茨",
+    "解析",
+    "有界"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "解析性给出解析解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch07",
+   "stem": "正则奇点的指标方程形式？",
+   "options": [
+    "r²+p₀r+q₀=0",
+    "r(r−1)+p₀r+q₀=0",
+    "r+p₀=0",
+    "r²=q₀"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "由最低次幂系数为零得到。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch08",
+   "stem": "p=0、q>0 的线性平面系统是？",
+   "options": [
+    "鞍点",
+    "结点",
+    "中心",
+    "焦点"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "特征值纯虚。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch08",
+   "stem": "第二方法判渐近稳定的条件？",
+   "options": [
+    "V 正定，V̇ 负半定",
+    "V 正定，V̇ 负定",
+    "V 负定",
+    "V̇=0"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "负半定只能给稳定。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch09",
+   "stem": "y″+y=0，y(0)=0，y(π)=1 的解？",
+   "options": [
+    "唯一",
+    "两个",
+    "无解",
+    "无穷多"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "A sin π=0≠1，矛盾。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch09",
+   "stem": "弗雷德霍姆二择一的内容？",
+   "options": [
+    "齐次零解 ⇔ 非齐次唯一可解",
+    "齐次有解 ⇔ 非齐次有解",
+    "总是有解",
+    "总是无解"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "线性算子可逆性的等价表述。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch10",
+   "stem": "F=x²+y² 是 x′=−y、y′=x 的首次积分吗？",
+   "options": [
+    "是",
+    "否",
+    "只在一处",
+    "无法判断"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "∇F·X=−2xy+2xy=0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch10",
+   "stem": "n 维系统独立首次积分最多几个？",
+   "options": [
+    "n",
+    "n−1",
+    "n+1",
+    "无穷"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "维数计数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch11",
+   "stem": "齐次 PDE 通解形式？",
+   "options": [
+    "u=F(Φ)",
+    "u=Φ",
+    "u=常数",
+    "u=x+y"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Φ 为首次积分。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch11",
+   "stem": "非特征条件的作用？",
+   "options": [
+    "保证解唯一确定",
+    "保证解存在",
+    "保证解光滑",
+    "保证解有界"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "切向不能与特征向重合。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "__all",
+   "stem": "这本书把奇解单列一章的理由是？",
+   "options": [
+    "奇解是独立技巧",
+    "奇解是唯一性失效的几何体现",
+    "奇解常见",
+    "奇解可求"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "放在存在唯一性之后才讲得通。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "__all",
+   "stem": "皮卡与皮亚诺两条证明路线的根本差别是？",
+   "options": [
+    "构造 vs 紧性",
+    "实数 vs 复数",
+    "线性 vs 非线性",
+    "局部 vs 整体"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "迭代构造 vs Ascoli 紧性。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "解为何必须在区间上定义？",
+   "back": "因为解要在区间上恒等成立，端点处可能无定义。",
+   "chapterId": "ch01",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "通解为什么含 n 个常数？",
+   "back": "n 阶方程要积 n 次分。",
+   "chapterId": "ch01",
+   "tags": [
+    "理解"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "恰当方程判据？",
+   "back": "P_y=Q_x。",
+   "chapterId": "ch02",
+   "tags": [
+    "判据"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "μ 只依赖 x 的判据？",
+   "back": "(P_y−Q_x)/Q 只含 x。",
+   "chapterId": "ch02",
+   "tags": [
+    "公式"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "皮卡四步？",
+   "back": "积分方程、迭代、阶乘估计、收敛加格朗沃尔。",
+   "chapterId": "ch03",
+   "tags": [
+    "证明"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "皮亚诺用哪条紧性定理？",
+   "back": "Ascoli-Arzelà。",
+   "chapterId": "ch03",
+   "tags": [
+    "证明"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "奇解三条件？",
+   "back": "是解、相切、不在族内。",
+   "chapterId": "ch04",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "判别式之后必须做什么？",
+   "back": "回代检验是否为解。",
+   "chapterId": "ch04",
+   "tags": [
+    "易错"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "变分方程初值？",
+   "back": "I。",
+   "chapterId": "ch05",
+   "tags": [
+    "公式"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "证明可微性为何要先做差商估计？",
+   "back": "不能直接交换求导与积分。",
+   "chapterId": "ch05",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "齐次方程组解空间维数？",
+   "back": "m。",
+   "chapterId": "ch06",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "常数变易公式？",
+   "back": "y=Φ[C+∫Φ⁻¹f]。",
+   "chapterId": "ch06",
+   "tags": [
+    "公式"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "柯西定理结论？",
+   "back": "解析右端 ⇒ 解析解。",
+   "chapterId": "ch07",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "指标方程两根差整数时会怎样？",
+   "back": "第二个解可能带对数。",
+   "chapterId": "ch07",
+   "tags": [
+    "例外"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "双曲平衡点定义？",
+   "back": "特征值实部全不为零。",
+   "chapterId": "ch08",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "庞加莱-本迪克松三条件？",
+   "back": "平面、捕获域、无平衡点。",
+   "chapterId": "ch08",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "二择一内容？",
+   "back": "齐次零解 ⇔ 非齐次唯一可解。",
+   "chapterId": "ch09",
+   "tags": [
+    "定理"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "S-L 特征函数正交的权？",
+   "back": "ρ(x)。",
+   "chapterId": "ch09",
+   "tags": [
+    "公式"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "首次积分条件式？",
+   "back": "X·∇F=0。",
+   "chapterId": "ch10",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "Volterra 为何有闭轨？",
+   "back": "首次积分等值线闭合。",
+   "chapterId": "ch10",
+   "tags": [
+    "应用"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "齐次 PDE 通解？",
+   "back": "u=F(Φ)。",
+   "chapterId": "ch11",
+   "tags": [
+    "公式"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "非特征条件？",
+   "back": "a dy₀/dτ−b dx₀/dτ≠0。",
+   "chapterId": "ch11",
+   "tags": [
+    "判据"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "常微分方程",
+   "en": "",
+   "def": "一元未知函数及其导数构成的方程",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "阶",
+   "en": "",
+   "def": "方程中出现的最高阶导数阶数",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "积分曲线",
+   "en": "",
+   "def": "一阶方程的解在平面上的曲线",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "线素场",
+   "en": "",
+   "def": "每点标出斜率的短线集合",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "等斜线",
+   "en": "",
+   "def": "斜率相同的点连成的线",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "恰当方程",
+   "en": "",
+   "def": "左端为全微分的方程",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "积分因子",
+   "en": "",
+   "def": "使方程变为恰当方程的乘子",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "平移型方程",
+   "en": "",
+   "def": "y′=f(ax+by+c) 型",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "齐次型方程",
+   "en": "",
+   "def": "y′=φ(y/x) 型",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "隐式方程",
+   "en": "",
+   "def": "未解出导数的方程",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "奇解",
+   "en": "",
+   "def": "与通解族相切且不在族内的解",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "包络",
+   "en": "",
+   "def": "与曲线族每条都相切的曲线",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "p-判别式",
+   "en": "",
+   "def": "消去 p 得到的候选曲线",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "C-判别式",
+   "en": "",
+   "def": "消去 C 得到的包络候选",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "皮卡定理",
+   "en": "",
+   "def": "连续 + 李普希茨 ⇒ 唯一解",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "皮亚诺定理",
+   "en": "",
+   "def": "连续 ⇒ 存在解",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "欧拉折线",
+   "en": "",
+   "def": "用折线逼近积分曲线",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "格朗沃尔引理",
+   "en": "",
+   "def": "积分不等式的放大估计",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "饱和解",
+   "en": "",
+   "def": "不能继续延拓的解",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "变分方程",
+   "en": "",
+   "def": "Φ′=f_yΦ",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "基解矩阵",
+   "en": "",
+   "def": "线性无关解组成的矩阵",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "常数变易",
+   "en": "",
+   "def": "用基解矩阵构造非齐次解",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "矩阵指数",
+   "en": "",
+   "def": "e^(At)，常系数系统的基解矩阵",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "若尔当块",
+   "en": "",
+   "def": "重特征值对应的标准形块",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "柯西定理",
+   "en": "",
+   "def": "解析右端 ⇒ 解析解",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "常点",
+   "en": "",
+   "def": "系数解析的点",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "正则奇点",
+   "en": "",
+   "def": "系数极点阶数受限的奇点",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "指标方程",
+   "en": "",
+   "def": "定弗罗贝尼乌斯指数的方程",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "相空间",
+   "en": "",
+   "def": "状态所在的空间",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "轨线",
+   "en": "",
+   "def": "相空间中不含时间的曲线",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "李雅普诺夫稳定",
+   "en": "",
+   "def": "初值近则轨线不跑远",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "渐近稳定",
+   "en": "",
+   "def": "稳定且趋于平衡点",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "双曲平衡点",
+   "en": "",
+   "def": "特征值实部均不为零",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "庞加莱-本迪克松定理",
+   "en": "",
+   "def": "平面捕获域无平衡点则有闭轨",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "结构稳定",
+   "en": "",
+   "def": "微扰不改变相图拓扑",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "斯特姆-刘维尔问题",
+   "en": "",
+   "def": "自伴特征值问题",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "弗雷德霍姆二择一",
+   "en": "",
+   "def": "齐次零解 ⇔ 非齐次唯一可解",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "首次积分",
+   "en": "",
+   "def": "沿轨线取常数的函数",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "特征线",
+   "en": "",
+   "def": "PDE 沿之降为 ODE 的曲线",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "非特征条件",
+   "en": "",
+   "def": "初始曲线横截特征方向的判据",
+   "chapterIds": [
+    "ch11"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 11,
+  "concepts": 4
+ },
+ "signature": "26191f2ac165",
+ "contentHash": "2903a4ecd4ae"
+}

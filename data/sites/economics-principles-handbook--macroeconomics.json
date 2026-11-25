@@ -1,0 +1,2693 @@
+{
+ "repo": "economics-principles-handbook",
+ "bookSlug": "macroeconomics",
+ "title": "经济学原理·宏观经济学分册",
+ "discipline": "general",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "02-宏观经济学分册/manifest.json",
+ "stats": {
+  "chapters": 14,
+  "concepts": 7,
+  "quizzes": 56,
+  "cards": 73,
+  "glossary": 80
+ },
+ "chapters": [
+  {
+   "id": "ch23",
+   "num": 23,
+   "title": "第 23 章：一国收入的衡量",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch23-一国收入的衡量.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch24",
+   "num": 24,
+   "title": "第 24 章：生活费用的衡量",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch24-生活费用的衡量.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch25",
+   "num": 25,
+   "title": "第 25 章：生产与增长",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch25-生产与增长.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch26",
+   "num": 26,
+   "title": "第 26 章：储蓄、投资和金融体系",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch26-储蓄投资和金融体系.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch27",
+   "num": 27,
+   "title": "第 27 章：金融学的基本工具",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch27-金融学的基本工具.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch28",
+   "num": 28,
+   "title": "第 28 章：失业",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch28-失业.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch29",
+   "num": 29,
+   "title": "第 29 章：货币制度",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch29-货币制度.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch30",
+   "num": 30,
+   "title": "第 30 章：货币增长与通货膨胀",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch30-货币增长与通货膨胀.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch31",
+   "num": 31,
+   "title": "第 31 章：开放经济的基本概念",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch31-开放经济的基本概念.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch32",
+   "num": 32,
+   "title": "第 32 章：开放经济的宏观经济理论",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch32-开放经济的宏观经济理论.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch33",
+   "num": 33,
+   "title": "第 33 章：总需求与总供给",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch33-总需求与总供给.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch34",
+   "num": 34,
+   "title": "第 34 章：货币政策和财政政策对总需求的影响",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch34-货币政策和财政政策对总需求的影响.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch35",
+   "num": 35,
+   "title": "第 35 章：通货膨胀与失业之间的短期权衡取舍",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch35-通货膨胀与失业之间的短期权衡取舍.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch36",
+   "num": 36,
+   "title": "第 36 章：宏观经济政策的六个争论问题",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/chapters/ch36-宏观经济政策的六个争论问题.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "m01",
+   "title": "GDP 与长期增长",
+   "chapterIds": [
+    "ch23",
+    "ch25"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/concepts/gdp-growth.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "m02",
+   "title": "通货膨胀",
+   "chapterIds": [
+    "ch24",
+    "ch29",
+    "ch30",
+    "ch35"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/concepts/inflation.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "m03",
+   "title": "货币与银行体系",
+   "chapterIds": [
+    "ch29",
+    "ch30",
+    "ch34"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/concepts/money-banking.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "m04",
+   "title": "利率与可贷资金",
+   "chapterIds": [
+    "ch26",
+    "ch27",
+    "ch32"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/concepts/loanable-funds.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "m05",
+   "title": "总需求与总供给",
+   "chapterIds": [
+    "ch33",
+    "ch34",
+    "ch35"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/concepts/ad-as.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "m06",
+   "title": "菲利普斯曲线",
+   "chapterIds": [
+    "ch35",
+    "ch36"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/concepts/phillips-curve.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "m07",
+   "title": "开放经济",
+   "chapterIds": [
+    "ch31",
+    "ch32"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "02-宏观经济学分册/concepts/open-economy.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch23",
+   "stem": "下列哪一项计入当年的 GDP？",
+   "options": [
+    "二手车的转手价格",
+    "政府发放的失业救济金",
+    "新建住宅的建造价值",
+    "购买某公司股票"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "新建住宅属于投资（I），计入 GDP。二手车只计中介佣金，救济金是转移支付，买股票是资产换手，都不计入。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch23",
+   "stem": "某国名义 GDP 为 550 亿元，按基年价格计算的实际 GDP 为 385 亿元。GDP 平减指数约为？",
+   "options": [
+    "100",
+    "130",
+    "142.9",
+    "165"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "平减指数 = 名义 ÷ 实际 × 100 = 550 ÷ 385 × 100 ≈ 142.9，说明价格水平比基年高约 43%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch23",
+   "stem": "支出法下，进口消费品为什么要从总支出中减去？",
+   "options": [
+    "因为进口品价格更高",
+    "因为它已被计入消费但并非本国生产",
+    "因为进口要交关税",
+    "因为进口品不计入统计口径"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "消费者买进口货时这笔钱算在 C 里，但它不是本国生产的，所以通过 NX = 出口 − 进口 把它扣除。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch23",
+   "stem": "GDP 无法反映下列哪些内容？",
+   "options": [
+    "家务劳动的价值",
+    "收入分配状况",
+    "环境破坏的成本",
+    "产品的质量改进"
+   ],
+   "answer": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "GDP 只统计有市场价格的最终产品，不反映分配、环境、家务与质量变化，因此不能等同于福利。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch24",
+   "stem": "篮子为 4 个苹果与 2 条面包。基年成本 14 元，当期成本 20 元。CPI 约为？",
+   "options": [
+    "120",
+    "135",
+    "142.9",
+    "150"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "CPI = 20 ÷ 14 × 100 ≈ 142.9，表示价格水平比基年高约 42.9%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch24",
+   "stem": "CPI 与 GDP 平减指数最重要的差别是？",
+   "options": [
+    "CPI 只统计消费品，平减指数覆盖全部国内生产",
+    "CPI 每月公布，平减指数每年公布",
+    "CPI 不含服务，平减指数含服务",
+    "两者完全相同"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "CPI 只用消费者篮子（含进口消费品），平减指数覆盖国内生产的全部产品（含投资品与出口），两者数值与用途都不同。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch24",
+   "stem": "名义利率 6%，通胀率 4%，实际利率约为？",
+   "options": [
+    "10%",
+    "2%",
+    "1.5%",
+    "−2%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "实际利率 ≈ 名义利率 − 通胀率 = 2%。影响储蓄与借贷决策的是实际利率，而不是挂牌的名义利率。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch24",
+   "stem": "按物价指数自动调整工资或养老金的做法叫什么？（两个字）",
+   "options": [],
+   "answer": "指数化",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "指数化能避免通胀侵蚀实际收入，但可能形成工资与物价互相推动的螺旋。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch25",
+   "stem": "70 法则下，年增长 7% 的经济翻倍约需多少年？",
+   "options": [
+    "7 年",
+    "10 年",
+    "20 年",
+    "35 年"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "70 ÷ 7 = 10 年。增长 2% 则需 35 年，复利效应下差距悬殊。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch25",
+   "stem": "「追赶效应」存在的原因是？",
+   "options": [
+    "穷国人口多",
+    "穷国资本少，每增加一单位资本的增产效果更明显",
+    "穷国技术更好",
+    "发达国家不愿意增长"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "资本边际收益递减意味着一单位资本在资本存量低的穷国产生更大的产出增量，因此穷国有更快的增长潜力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch25",
+   "stem": "下列哪项不是决定生产率的核心因素？",
+   "options": [
+    "物质资本",
+    "人力资本",
+    "货币发行量",
+    "技术知识"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "生产率由物质资本、人力资本、自然资源与技术决定。货币量影响价格水平，不影响生产率。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch25",
+   "stem": "有利于长期增长的政策包括？",
+   "options": [
+    "保护产权与政治稳定",
+    "提高储蓄率并投资于资本",
+    "普及教育与改善健康",
+    "闭关限制进口"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "前三项分别对应制度、资本、人力资本。闭关限制进口通常不利于技术引进与专业化分工。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch26",
+   "stem": "在可贷资金市场模型中，资金的供给来自？",
+   "options": [
+    "投资",
+    "储蓄",
+    "政府支出",
+    "进口"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "储蓄提供可贷资金，投资形成需求；两者相交决定利率。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch26",
+   "stem": "政府预算赤字扩大，在其他条件不变时通常导致？",
+   "options": [
+    "利率下降、投资增加",
+    "利率上升、私人投资减少",
+    "利率不变",
+    "储蓄减少、投资增加"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "赤字增加资金需求，需求曲线右移，利率上升，部分私人投资被挤出。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch26",
+   "stem": "宏观意义上的「投资」指？",
+   "options": [
+    "购买股票",
+    "购买债券",
+    "购买新机器与厂房",
+    "把钱存入银行"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "宏观投资指形成新资本（设备、厂房、住宅、库存）；买卖股票债券只是资产转手。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch26",
+   "stem": "金融中介包括？",
+   "options": [
+    "商业银行",
+    "共同基金",
+    "债券发行企业",
+    "中央银行"
+   ],
+   "answer": [
+    0,
+    1,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "银行、共同基金、央行都属于中介类机构；债券发行企业是资金需求方，通过金融市场直接融资。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch27",
+   "stem": "三年后获得 100 万元，贴现率 5%，现值约为？",
+   "options": [
+    "85 万",
+    "86.4 万",
+    "95 万",
+    "115 万"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "PV = 100 ÷ 1.05³ ≈ 86.4 万元；今天的 86.4 万按 5% 复利三年正好变成 100 万。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch27",
+   "stem": "分散化投资能消除哪类风险？",
+   "options": [
+    "市场风险",
+    "个别企业或行业的风险",
+    "通货膨胀风险",
+    "利率风险"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "企业特有风险可通过持有不相关资产抵消；市场风险影响全部资产，分散无法消除。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch27",
+   "stem": "保险的期望赔付通常低于保费，为什么人们还买？",
+   "options": [
+    "因为保险公司会返还",
+    "因为保险买的是对灾难的确定性，大额损失无法承受",
+    "因为保费可以抵税",
+    "因为保单可以转卖"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "保险把不确定的大额损失换成确定的小额支出，对无法承受灾难的人是理性选择，尽管期望值为负。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch27",
+   "stem": "有效市场假说若成立，下列哪项推论最直接？",
+   "options": [
+    "主动选股难以稳定跑赢指数",
+    "股票价格永远不波动",
+    "公司分红必然增加",
+    "利率会下降"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "价格已反映公开信息，短期变动不可预测，因此被动指数投资在多数人身上优于主动选股。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch28",
+   "stem": "劳动力 1000 万，失业 60 万，失业率是？",
+   "options": [
+    "6%",
+    "6.4%",
+    "5.6%",
+    "无法计算"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "失业率 = 60 ÷ 1000 = 6%。注意分母是劳动力，不包含不找工作的人。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch28",
+   "stem": "矿工因煤矿关闭而失去工作，又不会其他技能，这属于？",
+   "options": [
+    "摩擦性失业",
+    "结构性失业",
+    "周期性失业",
+    "季节性失业"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "技能与岗位需求不匹配属于结构性失业，需要培训或迁移来解决，耗时最长。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch28",
+   "stem": "大量失业者放弃求职退出劳动力，会造成？",
+   "options": [
+    "失业率上升",
+    "失业率下降但劳动参与率也下降",
+    "失业率不变",
+    "自然失业率上升"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "退出劳动力后不再计入失业人数，失业率下降，但劳动参与率同步下降，真实就业状况被掩盖。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch28",
+   "stem": "把工资抬到均衡之上、造成结构性失业的因素包括？",
+   "options": [
+    "最低工资法",
+    "工会集体谈判",
+    "效率工资",
+    "职业介绍所"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "前三种都直接抬高工资；职业介绍所降低搜寻摩擦，属于缓解摩擦性失业的措施。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch29",
+   "stem": "货币三项职能中最关键的是？",
+   "options": [
+    "交换媒介",
+    "计价单位",
+    "价值储藏",
+    "保值增值"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "被广泛接受作为交换媒介是货币的本质特征；计价单位与价值储藏是派生的功能。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch29",
+   "stem": "准备金率为 10%，最初存入 1000 元，理论上银行体系最终可形成的存款总额约为？",
+   "options": [
+    "1000 元",
+    "10000 元",
+    "1900 元",
+    "1100 元"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "货币乘数 = 1 ÷ 0.1 = 10，1000 × 10 = 10000 元。现实中因现金漏出与超额准备金，实际数值更小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch29",
+   "stem": "央行在公开市场买进政府债券的直接效果是？",
+   "options": [
+    "减少银行体系准备金",
+    "增加银行体系准备金，货币供给增加",
+    "提高准备金率",
+    "减少货币供给"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "央行买入债券付出资金，银行体系准备金增加，通过乘数放大为更多存款，货币供给上升。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch29",
+   "stem": "资产转换成交换媒介的容易程度叫什么？（三个字）",
+   "options": [],
+   "answer": "流动性",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "现金流动性最高，活期存款次之，房产最低。M1、M2 的划分就是按流动性排序。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch30",
+   "stem": "货币量增长 20%，实际产出增长 3%，流通速度不变，物价大致上涨？",
+   "options": [
+    "3%",
+    "17%",
+    "20%",
+    "23%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "P = MV/Y，变化率约 1.20 ÷ 1.03 − 1 ≈ 16.5%，四舍五入约 17%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch30",
+   "stem": "费雪效应的内容是？",
+   "options": [
+    "通胀上升时名义利率随之上升",
+    "通胀上升时名义利率下降",
+    "实际利率永远不变",
+    "货币量与物价无关"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "贷款人要求名义利率覆盖预期通胀，因此名义利率 = 实际利率 + 通胀率，二者同向变动。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch30",
+   "stem": "下列哪一项不是通胀的成本？",
+   "options": [
+    "皮鞋成本",
+    "菜单成本",
+    "税制扭曲",
+    "产出必然下降"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "通胀的成本主要是皮鞋成本、菜单成本、税制扭曲、相对价格混乱与财富再分配；通胀本身不必然导致产出下降。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch30",
+   "stem": "关于通胀税，正确的说法是？",
+   "options": [
+    "靠印钞为支出融资，等于向持币者征税",
+    "无需立法即可征收，因此隐蔽",
+    "对持有现金比例高的低收入者更不利",
+    "它只影响富人"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "通胀税隐蔽且累退，低收入者财富中现金占比更高，承担的比例更大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch31",
+   "stem": "一国净出口为正（贸易顺差），意味着？",
+   "options": [
+    "该国的储蓄超过投资，资金净流出",
+    "该国的投资超过储蓄，资金净流入",
+    "该国一定有资本外逃",
+    "该国货币一定升值"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "由 NX = S − I，顺差意味储蓄大于投资，多出的资金借给外国，形成资本净流出。顺差与资本净流出是同一件事的两面。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch31",
+   "stem": "名义汇率 7 元/美元，中国物价指数 110，美国 100。实际汇率是？",
+   "options": [
+    "7.0",
+    "7.7",
+    "6.4",
+    "0.7"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "实际汇率 = 名义汇率 × 国内物价 ÷ 国外物价 = 7 × 110 ÷ 100 = 7.7，表示中国商品相对变贵。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch31",
+   "stem": "购买力平价理论在现实中不完全成立，主要原因是？",
+   "options": [
+    "各国货币不同",
+    "许多商品与服务无法跨国搬运，且存在壁垒",
+    "汇率由政府规定",
+    "各国人口不同"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "理发、房租、医疗等服务不可贸易，加上关税与运输成本，套利无法把价格拉平，因此 PPP 只在长期、可贸易品上部分成立。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch31",
+   "stem": "衡量两国商品相对价格、等于名义汇率乘两国物价之比的汇率叫什么？（四个字）",
+   "options": [],
+   "answer": "实际汇率",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "实际汇率衡量本国商品的相对价格，决定出口竞争力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch32",
+   "stem": "政府预算赤字扩大，在开放经济中通常导致？",
+   "options": [
+    "利率上升、本币升值、净出口减少",
+    "利率下降、本币贬值、净出口增加",
+    "利率不变、净出口不变",
+    "利率上升、本币贬值"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "赤字抬高利率，资本净流出减少，本币升值，出口变贵、进口变便宜，净出口减少，贸易逆差扩大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch32",
+   "stem": "限制进口的贸易政策对贸易余额的长期影响是？",
+   "options": [
+    "显著改善贸易余额",
+    "基本不改变贸易余额，只改变贸易构成与数量",
+    "必然扩大逆差",
+    "使本币贬值"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "进口减少使本币升值、出口同步减少，NX = S − I 未变，因此总量不变，只改变贸易结构与规模。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch32",
+   "stem": "资本外逃会带来？",
+   "options": [
+    "本币升值、利率下降",
+    "本币贬值、利率上升",
+    "本币升值、利率上升",
+    "本币贬值、利率下降"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "资金流出使外汇市场本币供给增加、本币贬值；同时国内可贷资金减少，利率上升。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch32",
+   "stem": "在开放经济两市场模型中，连接可贷资金市场与外汇市场的是？",
+   "options": [
+    "资本净流出",
+    "国内利率",
+    "汇率",
+    "政府税收"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "利率决定资本净流出，资本净流出又进入外汇市场决定汇率，这条链连接两个市场。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch33",
+   "stem": "总需求曲线向下倾斜的原因不包括？",
+   "options": [
+    "财富效应",
+    "利率效应",
+    "汇率效应",
+    "商品价格越低越多人买"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "单个商品降价带来的替代效应是微观机制；AD 向下源于物价水平通过财富、利率、汇率影响总支出。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch33",
+   "stem": "长期总供给曲线是垂直线，原因是？",
+   "options": [
+    "价格水平不影响长期产量，产量由资本、劳动与技术决定",
+    "企业长期不调整价格",
+    "政府管制价格",
+    "货币量固定"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "长期所有价格与工资都能调整，产量回到自然产出率，由要素与技术决定，与物价水平无关。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch33",
+   "stem": "石油价格暴涨导致？",
+   "options": [
+    "SRAS 左移，产量下降、物价上升",
+    "AD 右移，产量与物价上升",
+    "LRAS 右移",
+    "失业下降"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "投入品涨价抬高生产成本，短期总供给左移，出现产量下降与物价上升并存的滞胀。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch33",
+   "stem": "下列哪些因素会使总需求曲线整体右移？",
+   "options": [
+    "政府购买增加",
+    "企业投资信心上升",
+    "物价水平下降",
+    "外国对本国产品需求增加"
+   ],
+   "answer": [
+    0,
+    1,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "物价下降是沿曲线移动；C、I、G、NX 的外生变化才使整条曲线移动。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch34",
+   "stem": "流动性偏好理论中，货币供给曲线画成垂直线是因为？",
+   "options": [
+    "货币供给由央行决定，与利率无关",
+    "人们不持有货币",
+    "利率固定",
+    "货币需求不变"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "货币供给由央行政策决定，不随利率变化；需求随利率上升而下降，两者交点决定利率。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch34",
+   "stem": "MPC 为 0.8，政府购买增加 100 亿元，总需求约增加？",
+   "options": [
+    "100 亿",
+    "180 亿",
+    "400 亿",
+    "500 亿"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "支出乘数 = 1 ÷ (1−0.8) = 5，100 × 5 = 500 亿元。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch34",
+   "stem": "等额减税与政府购买相比，对总需求的刺激通常？",
+   "options": [
+    "更大",
+    "相同",
+    "更小，因为部分减税被储蓄",
+    "无法比较"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "税收乘数 = −MPC/(1−MPC)，MPC=0.8 时为 −4，减税 100 亿只增加 400 亿总需求，小于政府购买的 500 亿。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch34",
+   "stem": "属于自动稳定器的有？",
+   "options": [
+    "累进所得税",
+    "失业保险",
+    "一次性基建投资",
+    "转移支付"
+   ],
+   "answer": [
+    0,
+    1,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "自动稳定器不需要决策即随经济状况自动变化；一次性基建投资需要立法批准，属于相机抉择。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch35",
+   "stem": "长期菲利普斯曲线为什么是垂直的？",
+   "options": [
+    "失业率与通胀率无关，失业回到自然率",
+    "通胀永远为零",
+    "政府控制工资",
+    "企业不提价"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "长期预期完全调整，实际通胀等于预期通胀，产量与失业回到自然水平，通胀高低不再影响失业。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch35",
+   "stem": "菲利普斯曲线与 AD-AS 模型的关系是？",
+   "options": [
+    "两个独立理论",
+    "同一模型的两种坐标表达",
+    "菲利普斯曲线更早出现因此更准确",
+    "完全矛盾"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "AD 扩张使产量上升、物价上升，对应失业下降、通胀上升，正是短期菲利普斯曲线的向下倾斜。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch35",
+   "stem": "牺牲率为 3，通胀从 6% 降到 2%，累计产出损失约为？",
+   "options": [
+    "4%",
+    "6%",
+    "12%",
+    "18%"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "降 4 个百分点 × 牺牲率 3 = 12% 的年度产出损失。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch35",
+   "stem": "使短期菲利普斯曲线上移（同样失业率对应更高通胀）的因素有？",
+   "options": [
+    "预期通胀上升",
+    "供给冲击",
+    "自然失业率下降",
+    "工资合同指数化"
+   ],
+   "answer": [
+    0,
+    1,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "预期上升、供给冲击、工资指数化都会抬高短期曲线；自然失业率下降是长期曲线的左移。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch36",
+   "stem": "反对「决策者应积极稳定经济」的核心理由是？",
+   "options": [
+    "衰退有益",
+    "政策存在时滞且预测不准",
+    "政府没有工具",
+    "市场会自动恢复"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "识别、立法、执行、见效各环节都有时滞，加上预测误差，政策可能在错误的时点发力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch36",
+   "stem": "主张央行设定 2% 而非 0% 通胀目标的理由不包括？",
+   "options": [
+    "避免滑入通缩",
+    "给名义工资调整留缓冲",
+    "消除全部通胀成本",
+    "保留降息空间"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "正通胀仍带来皮鞋成本、菜单成本等，只是量级较小；设 2% 是为了避免通缩与工资调整困难，不是消除成本。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch36",
+   "stem": "衰退期强行平衡预算的主要问题是？",
+   "options": [
+    "会推高通胀",
+    "等于紧缩，加深衰退",
+    "会降低利率",
+    "会减少失业"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "衰退时税收自动下降、支出自动上升，强行平衡意味着增税减支，抵消自动稳定器，加深衰退。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch36",
+   "stem": "支持「为鼓励储蓄修改税法」的论据包括？",
+   "options": [
+    "储蓄是资本来源、能提高生产率",
+    "现行税制对利息与资本利得征税等于惩罚储蓄",
+    "减税主要惠及富人所以更公平",
+    "储蓄增加能降低对外资依赖"
+   ],
+   "answer": [
+    0,
+    1,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "公平性恰恰是反对意见：减税受益者多为富人，因此第三项不成立。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f-ch23-01",
+   "front": "GDP 定义的四个限定",
+   "back": "一国境内、一定时期、最终产品与服务、市场价值。",
+   "chapterId": "ch23",
+   "tags": [
+    "GDP"
+   ]
+  },
+  {
+   "id": "f-ch23-02",
+   "front": "支出法的四项",
+   "back": "C 消费 + I 投资 + G 政府购买 + NX 净出口；进口通过 NX 扣除。",
+   "chapterId": "ch23",
+   "tags": [
+    "GDP",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch23-03",
+   "front": "名义 GDP 与实际 GDP 的差别",
+   "back": "名义用当期价格，实际用基年价格；实际剔除了价格变动，反映真实产量。",
+   "chapterId": "ch23",
+   "tags": [
+    "GDP"
+   ]
+  },
+  {
+   "id": "f-ch23-04",
+   "front": "GDP 平减指数的算法",
+   "back": "名义 GDP ÷ 实际 GDP × 100；其百分比变化即通胀率的近似。",
+   "chapterId": "ch23",
+   "tags": [
+    "GDP",
+    "通胀"
+   ]
+  },
+  {
+   "id": "f-ch23-05",
+   "front": "GDP 的四类盲区",
+   "back": "家务与自给劳动、地下经济、分配与环境、闲暇与质量改进。",
+   "chapterId": "ch23",
+   "tags": [
+    "GDP",
+    "局限"
+   ]
+  },
+  {
+   "id": "f-ch24-01",
+   "front": "CPI 的三步算法",
+   "back": "定篮子、查当期价格、算「当期成本 ÷ 基期成本 × 100」。",
+   "chapterId": "ch24",
+   "tags": [
+    "CPI",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch24-02",
+   "front": "CPI 高估通胀的三个原因",
+   "back": "替代偏差、新产品出现、质量改进未被计入。",
+   "chapterId": "ch24",
+   "tags": [
+    "CPI",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch24-03",
+   "front": "CPI 与平减指数的三点差别",
+   "back": "覆盖范围（消费 vs 全部生产）、是否含进口、篮子固定还是随产量变化。",
+   "chapterId": "ch24",
+   "tags": [
+    "CPI"
+   ]
+  },
+  {
+   "id": "f-ch24-04",
+   "front": "实际利率的算法与作用",
+   "back": "实际利率 ≈ 名义利率 − 通胀率；影响储蓄、借贷与投资决策。",
+   "chapterId": "ch24",
+   "tags": [
+    "利率"
+   ]
+  },
+  {
+   "id": "f-ch24-05",
+   "front": "指数化的利弊",
+   "back": "利：保住实际收入；弊：可能形成工资与物价螺旋。",
+   "chapterId": "ch24",
+   "tags": [
+    "通胀"
+   ]
+  },
+  {
+   "id": "f-ch25-01",
+   "front": "生产率与生活水平的关系",
+   "back": "人均生活水平由生产率（每劳动小时的产出）决定，而不是工作时长或资源禀赋。",
+   "chapterId": "ch25",
+   "tags": [
+    "增长"
+   ]
+  },
+  {
+   "id": "f-ch25-02",
+   "front": "决定生产率的四项因素",
+   "back": "物质资本、人力资本、自然资源、技术知识。",
+   "chapterId": "ch25",
+   "tags": [
+    "增长"
+   ]
+  },
+  {
+   "id": "f-ch25-03",
+   "front": "技术知识与人力资本的区别",
+   "back": "技术知识是「知识存在」；人力资本是「人掌握了知识」。技术可引进，人力资本必须自己培养。",
+   "chapterId": "ch25",
+   "tags": [
+    "增长",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch25-04",
+   "front": "70 法则",
+   "back": "翻倍年数约等于 70 ÷ 年增长率（%）。",
+   "chapterId": "ch25",
+   "tags": [
+    "增长",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch25-05",
+   "front": "追赶效应的条件",
+   "back": "穷国资本少、边际收益高，增长潜力大；但需要产权、开放、教育等制度条件配合。",
+   "chapterId": "ch25",
+   "tags": [
+    "增长"
+   ]
+  },
+  {
+   "id": "f-ch26-01",
+   "front": "宏观投资与金融投资的区别",
+   "back": "宏观投资是购买新资本（设备、厂房、住宅）；买股票债券只是资产换手，不计入投资。",
+   "chapterId": "ch26",
+   "tags": [
+    "金融体系",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch26-02",
+   "front": "债券利率由什么决定",
+   "back": "期限、信用风险、税收待遇：期限越长、风险越高，利率越高。",
+   "chapterId": "ch26",
+   "tags": [
+    "债券"
+   ]
+  },
+  {
+   "id": "f-ch26-03",
+   "front": "可贷资金市场的供给与需求",
+   "back": "储蓄是供给（利率升则增），投资是需求（利率升则减），交点定均衡利率。",
+   "chapterId": "ch26",
+   "tags": [
+    "可贷资金"
+   ]
+  },
+  {
+   "id": "f-ch26-04",
+   "front": "挤出效应",
+   "back": "政府借款增加资金需求、抬高利率，从而减少私人投资。",
+   "chapterId": "ch26",
+   "tags": [
+    "财政政策",
+    "政策"
+   ]
+  },
+  {
+   "id": "f-ch26-05",
+   "front": "金融中介的两类",
+   "back": "银行（吸存放贷）与共同基金（汇集资金专业投资）。",
+   "chapterId": "ch26",
+   "tags": [
+    "金融体系"
+   ]
+  },
+  {
+   "id": "f-ch27-01",
+   "front": "现值公式",
+   "back": "PV = FV ÷ (1+r)^n；利率越高、期限越长，折得越少。",
+   "chapterId": "ch27",
+   "tags": [
+    "现值",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch27-02",
+   "front": "净现值为什么是投资判据",
+   "back": "NPV = 现值 − 初始投入；正的才值得做，不同时间的现金流必须先折算。",
+   "chapterId": "ch27",
+   "tags": [
+    "现值"
+   ]
+  },
+  {
+   "id": "f-ch27-03",
+   "front": "风险厌恶的含义",
+   "back": "偏好确定的收益而非期望相同但波动大的收益；损失痛感大于同等收益的快乐。",
+   "chapterId": "ch27",
+   "tags": [
+    "风险"
+   ]
+  },
+  {
+   "id": "f-ch27-04",
+   "front": "保险为什么值得买",
+   "back": "把不确定的大损失换成确定的小支出；保费高于期望赔付是保险公司的成本与利润。",
+   "chapterId": "ch27",
+   "tags": [
+    "保险"
+   ]
+  },
+  {
+   "id": "f-ch27-05",
+   "front": "企业特有风险与市场风险",
+   "back": "前者可由多元化消除，后者影响全部资产、无法分散。",
+   "chapterId": "ch27",
+   "tags": [
+    "风险"
+   ]
+  },
+  {
+   "id": "f-ch27-06",
+   "front": "基本面分析与有效市场假说",
+   "back": "前者估未来现金流现值，后者认为价格已反映公开信息；泡沫是后者的反例。",
+   "chapterId": "ch27",
+   "tags": [
+    "资产评估"
+   ]
+  },
+  {
+   "id": "f-ch28-01",
+   "front": "失业率与劳动参与率",
+   "back": "失业率 = 失业 ÷ 劳动力；参与率 = 劳动力 ÷ 成年人口。放弃求职者退出劳动力会压低失业率。",
+   "chapterId": "ch28",
+   "tags": [
+    "失业",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch28-02",
+   "front": "三类失业及对策",
+   "back": "摩擦性（信息与匹配，靠招聘服务）、结构性（技能错配，靠培训迁移）、周期性（需求不足，靠宏观政策）。",
+   "chapterId": "ch28",
+   "tags": [
+    "失业"
+   ]
+  },
+  {
+   "id": "f-ch28-03",
+   "front": "自然失业率",
+   "back": "摩擦性与结构性失业对应的失业水平，是经济正常运转时的失业率。",
+   "chapterId": "ch28",
+   "tags": [
+    "失业"
+   ]
+  },
+  {
+   "id": "f-ch28-04",
+   "front": "效率工资的四个理由",
+   "back": "改善体力、降低流动率、吸引更优秀员工、减少偷懒。",
+   "chapterId": "ch28",
+   "tags": [
+    "工资"
+   ]
+  },
+  {
+   "id": "f-ch28-05",
+   "front": "失业保险的两面",
+   "back": "保障失业者生活，但降低求职紧迫性、延长失业持续时间。",
+   "chapterId": "ch28",
+   "tags": [
+    "政策"
+   ]
+  },
+  {
+   "id": "f-ch29-01",
+   "front": "货币的三项职能",
+   "back": "交换媒介、计价单位、价值储藏。",
+   "chapterId": "ch29",
+   "tags": [
+    "货币"
+   ]
+  },
+  {
+   "id": "f-ch29-02",
+   "front": "M1 与 M2 的差别",
+   "back": "M1 为现金加活期存款（流动性最高），M2 再加入定期存款与货币市场基金。",
+   "chapterId": "ch29",
+   "tags": [
+    "货币"
+   ]
+  },
+  {
+   "id": "f-ch29-03",
+   "front": "部分准备金制度与货币乘数",
+   "back": "银行只留一部分存款作准备金，货币乘数 = 1 ÷ 准备金率；贷款创造存款。",
+   "chapterId": "ch29",
+   "tags": [
+    "银行",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch29-04",
+   "front": "央行三大工具",
+   "back": "公开市场操作（最常用）、调整准备金率（作用猛烈）、调整利率。",
+   "chapterId": "ch29",
+   "tags": [
+    "央行",
+    "政策"
+   ]
+  },
+  {
+   "id": "f-ch29-05",
+   "front": "现实货币乘数为何小于 1/R",
+   "back": "现金漏出、银行自愿持有超额准备金、部分存款不进入可贷体系。",
+   "chapterId": "ch29",
+   "tags": [
+    "银行",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch30-01",
+   "front": "货币数量方程",
+   "back": "M × V = P × Y；V 与 Y 相对稳定时，物价由货币量决定。",
+   "chapterId": "ch30",
+   "tags": [
+    "通胀",
+    "货币"
+   ]
+  },
+  {
+   "id": "f-ch30-02",
+   "front": "为什么说通胀是货币现象",
+   "back": "持续、普遍的物价上涨需要货币扩张支撑；单品涨价只是相对价格变化。",
+   "chapterId": "ch30",
+   "tags": [
+    "通胀",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch30-03",
+   "front": "通胀税为什么隐蔽且累退",
+   "back": "不需立法即可征收，持有现金多的人（多为低收入者）损失比例更大。",
+   "chapterId": "ch30",
+   "tags": [
+    "通胀税"
+   ]
+  },
+  {
+   "id": "f-ch30-04",
+   "front": "费雪效应",
+   "back": "名义利率随预期通胀同步上升，实际利率基本不变；只有意外通胀才重新分配财富。",
+   "chapterId": "ch30",
+   "tags": [
+    "利率",
+    "通胀"
+   ]
+  },
+  {
+   "id": "f-ch30-05",
+   "front": "通胀的五项成本",
+   "back": "皮鞋成本、菜单成本、税制扭曲、相对价格混乱、财富再分配。",
+   "chapterId": "ch30",
+   "tags": [
+    "通胀"
+   ]
+  },
+  {
+   "id": "f-ch31-01",
+   "front": "NX 与 NCF 的关系",
+   "back": "NX = NCF；由 S = I + NX 得 NX = S − I。",
+   "chapterId": "ch31",
+   "tags": [
+    "开放经济",
+    "恒等式"
+   ]
+  },
+  {
+   "id": "f-ch31-02",
+   "front": "贸易顺差的经济含义",
+   "back": "储蓄大于投资，多余资金借给外国，形成资本净流出。",
+   "chapterId": "ch31",
+   "tags": [
+    "开放经济",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch31-03",
+   "front": "实际汇率公式",
+   "back": "实际汇率 = 名义汇率 × 国内物价 ÷ 国外物价，衡量本国商品相对价格。",
+   "chapterId": "ch31",
+   "tags": [
+    "汇率",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch31-04",
+   "front": "购买力平价的逻辑与局限",
+   "back": "靠套利拉平价格，但服务不可贸易、存在壁垒，因此长期部分成立、短期基本无效。",
+   "chapterId": "ch31",
+   "tags": [
+    "汇率"
+   ]
+  },
+  {
+   "id": "f-ch32-01",
+   "front": "开放经济两个市场",
+   "back": "可贷资金市场定利率，外汇市场定汇率，中间由资本净流出连接。",
+   "chapterId": "ch32",
+   "tags": [
+    "开放经济"
+   ]
+  },
+  {
+   "id": "f-ch32-02",
+   "front": "赤字传导链",
+   "back": "赤字 → 利率升 → 资本净流出减少 → 本币升值 → 净出口减少。",
+   "chapterId": "ch32",
+   "tags": [
+    "开放经济",
+    "政策"
+   ]
+  },
+  {
+   "id": "f-ch32-03",
+   "front": "贸易政策为什么不改变贸易余额",
+   "back": "进口减少使本币升值、出口同减；NX = S − I 未变，总量不变。",
+   "chapterId": "ch32",
+   "tags": [
+    "贸易政策",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch32-04",
+   "front": "资本外逃的两个后果",
+   "back": "本币贬值（外汇市场本币供给增加）与利率上升（国内资金减少）。",
+   "chapterId": "ch32",
+   "tags": [
+    "金融危机"
+   ]
+  },
+  {
+   "id": "f-ch32-05",
+   "front": "判断政策对 NX 影响的快捷键",
+   "back": "看它是否改变 S 或 I；不改变则 NX 不变，只改变汇率与构成。",
+   "chapterId": "ch32",
+   "tags": [
+    "开放经济"
+   ]
+  },
+  {
+   "id": "f-ch33-01",
+   "front": "经济波动的三个事实",
+   "back": "无规律不可预测、多数宏观变量同向波动、产量下降时失业上升。",
+   "chapterId": "ch33",
+   "tags": [
+    "波动"
+   ]
+  },
+  {
+   "id": "f-ch33-02",
+   "front": "AD 向下的三个渠道",
+   "back": "财富效应、利率效应、汇率效应。",
+   "chapterId": "ch33",
+   "tags": [
+    "总需求"
+   ]
+  },
+  {
+   "id": "f-ch33-03",
+   "front": "LRAS 为什么垂直",
+   "back": "长期产量由资本、劳动、技术决定，价格水平只影响名义值。",
+   "chapterId": "ch33",
+   "tags": [
+    "总供给"
+   ]
+  },
+  {
+   "id": "f-ch33-04",
+   "front": "SRAS 向上倾斜的三个解释",
+   "back": "粘性工资、粘性价格、对企业自身价格的错觉。",
+   "chapterId": "ch33",
+   "tags": [
+    "总供给"
+   ]
+  },
+  {
+   "id": "f-ch33-05",
+   "front": "需求冲击的短期与长期结果",
+   "back": "短期产量与物价同升，长期产量回到自然率、只有物价上升。",
+   "chapterId": "ch33",
+   "tags": [
+    "AD-AS",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch33-06",
+   "front": "滞胀",
+   "back": "供给冲击使 SRAS 左移，产量下降与物价上升同时发生，政策两难。",
+   "chapterId": "ch33",
+   "tags": [
+    "滞胀"
+   ]
+  },
+  {
+   "id": "f-ch34-01",
+   "front": "流动性偏好理论",
+   "back": "货币需求随利率上升而减少，货币供给由央行决定，交点定利率。",
+   "chapterId": "ch34",
+   "tags": [
+    "货币政策"
+   ]
+  },
+  {
+   "id": "f-ch34-02",
+   "front": "货币政策传导链",
+   "back": "货币供给增加 → 利率下降 → 投资增加 → 总需求右移。",
+   "chapterId": "ch34",
+   "tags": [
+    "货币政策"
+   ]
+  },
+  {
+   "id": "f-ch34-03",
+   "front": "支出乘数与税收乘数",
+   "back": "支出乘数 1/(1−MPC)；税收乘数 −MPC/(1−MPC)，绝对值更小。",
+   "chapterId": "ch34",
+   "tags": [
+    "财政政策",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch34-04",
+   "front": "挤出效应",
+   "back": "政府借款抬高利率、减少私人投资，削弱财政政策效果；衰退期较弱。",
+   "chapterId": "ch34",
+   "tags": [
+    "财政政策"
+   ]
+  },
+  {
+   "id": "f-ch34-05",
+   "front": "自动稳定器",
+   "back": "累进所得税与转移支付随经济自动调节，无时滞、不受政治干扰，但只能缓冲。",
+   "chapterId": "ch34",
+   "tags": [
+    "稳定政策"
+   ]
+  },
+  {
+   "id": "f-ch35-01",
+   "front": "菲利普斯曲线的本质",
+   "back": "AD-AS 模型的另一种画法：总需求扩张对应通胀升、失业降。",
+   "chapterId": "ch35",
+   "tags": [
+    "菲利普斯曲线"
+   ]
+  },
+  {
+   "id": "f-ch35-02",
+   "front": "短期与长期菲利普斯曲线",
+   "back": "短期向下倾斜（意料之外的通胀能降失业），长期垂直（在自然失业率处）。",
+   "chapterId": "ch35",
+   "tags": [
+    "菲利普斯曲线",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch35-03",
+   "front": "自然率假说",
+   "back": "无论通胀多高，失业最终回到自然率；1970 年代滞胀是其证据。",
+   "chapterId": "ch35",
+   "tags": [
+    "菲利普斯曲线"
+   ]
+  },
+  {
+   "id": "f-ch35-04",
+   "front": "牺牲率",
+   "back": "降低 1 个百分点通胀所损失的年度产出百分比，经验值约 2–5。",
+   "chapterId": "ch35",
+   "tags": [
+    "反通胀"
+   ]
+  },
+  {
+   "id": "f-ch35-05",
+   "front": "理性预期为什么能降低反通胀代价",
+   "back": "若央行可信地宣布并被执行，预期立即下调，工资价格同步调整，产量损失小。",
+   "chapterId": "ch35",
+   "tags": [
+    "反通胀"
+   ]
+  },
+  {
+   "id": "f-ch35-06",
+   "front": "滞胀在曲线上的表现",
+   "back": "供给冲击使短期曲线右移，通胀与失业同时上升。",
+   "chapterId": "ch35",
+   "tags": [
+    "滞胀"
+   ]
+  },
+  {
+   "id": "f-ch36-01",
+   "front": "六个争论的清单",
+   "back": "稳定经济？增支还是减税？规则还是相机抉择？零通胀目标？平衡预算？为储蓄改税？",
+   "chapterId": "ch36",
+   "tags": [
+    "政策争论"
+   ]
+  },
+  {
+   "id": "f-ch36-02",
+   "front": "时滞为什么是反方核心论据",
+   "back": "识别、立法、执行、见效都要时间，等政策落地时经济状况可能已反转。",
+   "chapterId": "ch36",
+   "tags": [
+    "稳定政策"
+   ]
+  },
+  {
+   "id": "f-ch36-03",
+   "front": "规则 vs 相机抉择的折中",
+   "back": "多数央行采用受约束的相机抉择：明确通胀目标，工具与节奏保留弹性。",
+   "chapterId": "ch36",
+   "tags": [
+    "货币政策"
+   ]
+  },
+  {
+   "id": "f-ch36-04",
+   "front": "零通胀目标的三重风险",
+   "back": "滑入通缩、反通胀代价高、名义工资难以下调。",
+   "chapterId": "ch36",
+   "tags": [
+    "通胀目标"
+   ]
+  },
+  {
+   "id": "f-ch36-05",
+   "front": "周期性赤字与结构性赤字",
+   "back": "前者由衰退造成应容忍，后者是长期入不敷出应削减。",
+   "chapterId": "ch36",
+   "tags": [
+    "财政"
+   ]
+  },
+  {
+   "id": "f-ch36-06",
+   "front": "储蓄激励的公平争议",
+   "back": "减税主要惠及本已高储蓄的富人，且短期压低消费需求。",
+   "chapterId": "ch36",
+   "tags": [
+    "税收"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "国内生产总值",
+   "en": "",
+   "def": "一国境内一定时期内生产的所有最终物品与服务的市场价值。",
+   "chapterIds": [
+    "ch23"
+   ]
+  },
+  {
+   "term": "最终产品",
+   "en": "",
+   "def": "直接供最终使用、不再作为其他产品投入的产品。",
+   "chapterIds": [
+    "ch23"
+   ]
+  },
+  {
+   "term": "名义 GDP",
+   "en": "",
+   "def": "按当期价格计算的 GDP。",
+   "chapterIds": [
+    "ch23"
+   ]
+  },
+  {
+   "term": "实际 GDP",
+   "en": "",
+   "def": "按基年价格计算的 GDP，剔除价格变动影响。",
+   "chapterIds": [
+    "ch23"
+   ]
+  },
+  {
+   "term": "GDP 平减指数",
+   "en": "",
+   "def": "名义 GDP 与实际 GDP 之比乘以 100，衡量整体价格水平。",
+   "chapterIds": [
+    "ch23"
+   ]
+  },
+  {
+   "term": "消费物价指数",
+   "en": "",
+   "def": "用固定一篮子消费品价格计算的物价指数，衡量生活费用变化。",
+   "chapterIds": [
+    "ch24"
+   ]
+  },
+  {
+   "term": "通货膨胀率",
+   "en": "",
+   "def": "物价指数在两个时期之间的百分比变化。",
+   "chapterIds": [
+    "ch24"
+   ]
+  },
+  {
+   "term": "指数化",
+   "en": "",
+   "def": "按物价指数自动调整金额，以维持实际购买力。",
+   "chapterIds": [
+    "ch24"
+   ]
+  },
+  {
+   "term": "名义利率",
+   "en": "",
+   "def": "未扣除通胀的挂牌利率。",
+   "chapterIds": [
+    "ch24"
+   ]
+  },
+  {
+   "term": "实际利率",
+   "en": "",
+   "def": "名义利率扣除通胀后的购买力增长，近似等于名义利率减通胀率。",
+   "chapterIds": [
+    "ch24"
+   ]
+  },
+  {
+   "term": "生产率",
+   "en": "",
+   "def": "每单位劳动投入所生产的产出量。",
+   "chapterIds": [
+    "ch25"
+   ]
+  },
+  {
+   "term": "物质资本",
+   "en": "",
+   "def": "用于生产的设备、厂房与基础设施。",
+   "chapterIds": [
+    "ch25"
+   ]
+  },
+  {
+   "term": "人力资本",
+   "en": "",
+   "def": "劳动者通过教育、培训与经验积累的知识与技能。",
+   "chapterIds": [
+    "ch25"
+   ]
+  },
+  {
+   "term": "技术知识",
+   "en": "",
+   "def": "关于如何生产的知识本身，存在于专利、文献与工艺中。",
+   "chapterIds": [
+    "ch25"
+   ]
+  },
+  {
+   "term": "追赶效应",
+   "en": "",
+   "def": "资本存量低的穷国增长更快，因为资本边际收益更高。",
+   "chapterIds": [
+    "ch25"
+   ]
+  },
+  {
+   "term": "债券",
+   "en": "",
+   "def": "借款人承诺按期付息还本的债务凭证。",
+   "chapterIds": [
+    "ch26"
+   ]
+  },
+  {
+   "term": "股票",
+   "en": "",
+   "def": "对企业所有权的份额，持有人分享剩余收益。",
+   "chapterIds": [
+    "ch26"
+   ]
+  },
+  {
+   "term": "金融中介",
+   "en": "",
+   "def": "连接储蓄者与借款人的机构，如银行、共同基金。",
+   "chapterIds": [
+    "ch26"
+   ]
+  },
+  {
+   "term": "可贷资金市场",
+   "en": "",
+   "def": "储蓄供给与投资需求相互作用决定利率的市场模型。",
+   "chapterIds": [
+    "ch26"
+   ]
+  },
+  {
+   "term": "挤出效应",
+   "en": "",
+   "def": "政府借款抬高利率、减少私人投资的现象。",
+   "chapterIds": [
+    "ch26"
+   ]
+  },
+  {
+   "term": "共同基金",
+   "en": "",
+   "def": "汇集众多投资者资金、由专业经理投资于组合的机构。",
+   "chapterIds": [
+    "ch26"
+   ]
+  },
+  {
+   "term": "现值",
+   "en": "",
+   "def": "未来一笔金额按某一利率折算成的今天价值。",
+   "chapterIds": [
+    "ch27"
+   ]
+  },
+  {
+   "term": "净现值",
+   "en": "",
+   "def": "未来现金流的现值减去初始投入。",
+   "chapterIds": [
+    "ch27"
+   ]
+  },
+  {
+   "term": "风险厌恶",
+   "en": "",
+   "def": "偏好确定收益、回避波动的倾向。",
+   "chapterIds": [
+    "ch27"
+   ]
+  },
+  {
+   "term": "多元化",
+   "en": "",
+   "def": "把资金投入不相关资产以降低企业特有风险。",
+   "chapterIds": [
+    "ch27"
+   ]
+  },
+  {
+   "term": "基本面分析",
+   "en": "",
+   "def": "通过估算资产未来现金流的现值来判断其价值。",
+   "chapterIds": [
+    "ch27"
+   ]
+  },
+  {
+   "term": "有效市场假说",
+   "en": "",
+   "def": "资产价格已充分反映所有公开信息的理论。",
+   "chapterIds": [
+    "ch27"
+   ]
+  },
+  {
+   "term": "泡沫",
+   "en": "",
+   "def": "资产价格远超其基本面价值的现象。",
+   "chapterIds": [
+    "ch27"
+   ]
+  },
+  {
+   "term": "劳动力",
+   "en": "",
+   "def": "就业者与失业者的总和。",
+   "chapterIds": [
+    "ch28"
+   ]
+  },
+  {
+   "term": "失业率",
+   "en": "",
+   "def": "失业人数占劳动力的比例。",
+   "chapterIds": [
+    "ch28"
+   ]
+  },
+  {
+   "term": "劳动参与率",
+   "en": "",
+   "def": "劳动力占成年人口的比例。",
+   "chapterIds": [
+    "ch28"
+   ]
+  },
+  {
+   "term": "摩擦性失业",
+   "en": "",
+   "def": "换工作或初入职场期间寻找匹配岗位造成的失业。",
+   "chapterIds": [
+    "ch28"
+   ]
+  },
+  {
+   "term": "结构性失业",
+   "en": "",
+   "def": "技能或地区与岗位需求不匹配造成的失业。",
+   "chapterIds": [
+    "ch28"
+   ]
+  },
+  {
+   "term": "周期性失业",
+   "en": "",
+   "def": "经济衰退中总需求不足造成的失业。",
+   "chapterIds": [
+    "ch28"
+   ]
+  },
+  {
+   "term": "自然失业率",
+   "en": "",
+   "def": "摩擦性与结构性失业对应的正常失业水平。",
+   "chapterIds": [
+    "ch28"
+   ]
+  },
+  {
+   "term": "失业保险",
+   "en": "",
+   "def": "向失业者提供部分收入补偿的制度。",
+   "chapterIds": [
+    "ch28"
+   ]
+  },
+  {
+   "term": "货币",
+   "en": "",
+   "def": "被广泛接受用作交换媒介、计价单位与价值储藏的东西。",
+   "chapterIds": [
+    "ch29"
+   ]
+  },
+  {
+   "term": "流动性",
+   "en": "",
+   "def": "资产转换为交换媒介的容易程度。",
+   "chapterIds": [
+    "ch29"
+   ]
+  },
+  {
+   "term": "商品货币",
+   "en": "",
+   "def": "自身具有内在价值的货币，如金银。",
+   "chapterIds": [
+    "ch29"
+   ]
+  },
+  {
+   "term": "法定货币",
+   "en": "",
+   "def": "没有内在价值、依靠政府法令与信任流通的货币。",
+   "chapterIds": [
+    "ch29"
+   ]
+  },
+  {
+   "term": "准备金",
+   "en": "",
+   "def": "银行保留的不贷出的存款部分。",
+   "chapterIds": [
+    "ch29"
+   ]
+  },
+  {
+   "term": "准备金率",
+   "en": "",
+   "def": "准备金占存款的比例。",
+   "chapterIds": [
+    "ch29"
+   ]
+  },
+  {
+   "term": "货币乘数",
+   "en": "",
+   "def": "准备金率倒数，表示单位准备金能支撑的存款总额。",
+   "chapterIds": [
+    "ch29"
+   ]
+  },
+  {
+   "term": "公开市场操作",
+   "en": "",
+   "def": "央行买卖政府债券以调节银行体系准备金与货币供给。",
+   "chapterIds": [
+    "ch29"
+   ]
+  },
+  {
+   "term": "货币数量论",
+   "en": "",
+   "def": "用 MV = PY 说明物价水平由货币量决定的理论。",
+   "chapterIds": [
+    "ch30"
+   ]
+  },
+  {
+   "term": "流通速度",
+   "en": "",
+   "def": "单位货币在一年内参与交易的次数。",
+   "chapterIds": [
+    "ch30"
+   ]
+  },
+  {
+   "term": "通胀税",
+   "en": "",
+   "def": "政府通过印钞融资，使持币者购买力下降所形成的隐性税负。",
+   "chapterIds": [
+    "ch30"
+   ]
+  },
+  {
+   "term": "费雪效应",
+   "en": "",
+   "def": "名义利率随预期通胀同向调整的现象。",
+   "chapterIds": [
+    "ch30"
+   ]
+  },
+  {
+   "term": "皮鞋成本",
+   "en": "",
+   "def": "为减少持有现金的损失而频繁取现所耗费的时间与资源。",
+   "chapterIds": [
+    "ch30"
+   ]
+  },
+  {
+   "term": "菜单成本",
+   "en": "",
+   "def": "因改价而发生的重印、更新与沟通成本。",
+   "chapterIds": [
+    "ch30"
+   ]
+  },
+  {
+   "term": "恶性通胀",
+   "en": "",
+   "def": "物价极高速上涨、货币失去基本职能的极端通胀。",
+   "chapterIds": [
+    "ch30"
+   ]
+  },
+  {
+   "term": "净出口",
+   "en": "",
+   "def": "出口减进口，也称贸易余额。",
+   "chapterIds": [
+    "ch31"
+   ]
+  },
+  {
+   "term": "资本净流出",
+   "en": "",
+   "def": "本国居民购买外国资产减去外国人购买本国资产。",
+   "chapterIds": [
+    "ch31"
+   ]
+  },
+  {
+   "term": "名义汇率",
+   "en": "",
+   "def": "两种货币之间的兑换比率。",
+   "chapterIds": [
+    "ch31"
+   ]
+  },
+  {
+   "term": "实际汇率",
+   "en": "",
+   "def": "两国商品的相对价格，等于名义汇率乘以两国物价之比。",
+   "chapterIds": [
+    "ch31"
+   ]
+  },
+  {
+   "term": "购买力平价",
+   "en": "",
+   "def": "同样商品在各国换算后应价格相同的理论。",
+   "chapterIds": [
+    "ch31"
+   ]
+  },
+  {
+   "term": "升值",
+   "en": "",
+   "def": "本币能兑换更多外币。",
+   "chapterIds": [
+    "ch31"
+   ]
+  },
+  {
+   "term": "外汇市场",
+   "en": "",
+   "def": "本币与外币相互兑换的市场，供求决定汇率。",
+   "chapterIds": [
+    "ch32"
+   ]
+  },
+  {
+   "term": "资本外逃",
+   "en": "",
+   "def": "投资者因对一国失去信心而大规模转移资金。",
+   "chapterIds": [
+    "ch32"
+   ]
+  },
+  {
+   "term": "贸易政策",
+   "en": "",
+   "def": "关税、配额、补贴等限制或鼓励进出口的政策。",
+   "chapterIds": [
+    "ch32"
+   ]
+  },
+  {
+   "term": "总需求",
+   "en": "",
+   "def": "物价水平与总产出需求量之间的关系。",
+   "chapterIds": [
+    "ch33"
+   ]
+  },
+  {
+   "term": "总供给",
+   "en": "",
+   "def": "物价水平与总产出供给量之间的关系。",
+   "chapterIds": [
+    "ch33"
+   ]
+  },
+  {
+   "term": "自然产出率",
+   "en": "",
+   "def": "经济在正常运转时能生产的产出水平，由要素与技术决定。",
+   "chapterIds": [
+    "ch33"
+   ]
+  },
+  {
+   "term": "滞胀",
+   "en": "",
+   "def": "产量下降与物价上涨同时出现的状态。",
+   "chapterIds": [
+    "ch33"
+   ]
+  },
+  {
+   "term": "粘性工资",
+   "en": "",
+   "def": "名义工资因合同或习惯不能随物价立即调整。",
+   "chapterIds": [
+    "ch33"
+   ]
+  },
+  {
+   "term": "流动性偏好",
+   "en": "",
+   "def": "人们偏好持有流动性高的资产，该理论用货币供求解释利率。",
+   "chapterIds": [
+    "ch34"
+   ]
+  },
+  {
+   "term": "支出乘数",
+   "en": "",
+   "def": "政府购买增加引起的总需求变化倍数，等于 1/(1−MPC)。",
+   "chapterIds": [
+    "ch34"
+   ]
+  },
+  {
+   "term": "税收乘数",
+   "en": "",
+   "def": "减税引起的总需求变化倍数，等于 −MPC/(1−MPC)。",
+   "chapterIds": [
+    "ch34"
+   ]
+  },
+  {
+   "term": "挤出效应",
+   "en": "",
+   "def": "政府借款抬高利率从而减少私人投资的现象。",
+   "chapterIds": [
+    "ch34"
+   ]
+  },
+  {
+   "term": "自动稳定器",
+   "en": "",
+   "def": "不需政策决策即随经济状况自动调节税收与支出的机制。",
+   "chapterIds": [
+    "ch34"
+   ]
+  },
+  {
+   "term": "边际消费倾向",
+   "en": "",
+   "def": "收入每增加一单位用于消费的比例。",
+   "chapterIds": [
+    "ch34"
+   ]
+  },
+  {
+   "term": "菲利普斯曲线",
+   "en": "",
+   "def": "通货膨胀率与失业率之间关系的曲线。",
+   "chapterIds": [
+    "ch35"
+   ]
+  },
+  {
+   "term": "自然率假说",
+   "en": "",
+   "def": "失业最终回到自然失业率、不受通胀水平影响的观点。",
+   "chapterIds": [
+    "ch35"
+   ]
+  },
+  {
+   "term": "牺牲率",
+   "en": "",
+   "def": "降低一个百分点通胀所损失的年度产出百分比。",
+   "chapterIds": [
+    "ch35"
+   ]
+  },
+  {
+   "term": "反通货膨胀",
+   "en": "",
+   "def": "刻意降低通货膨胀率的政策过程。",
+   "chapterIds": [
+    "ch35"
+   ]
+  },
+  {
+   "term": "滞胀",
+   "en": "",
+   "def": "通胀上升与失业上升并存的状态。",
+   "chapterIds": [
+    "ch35"
+   ]
+  },
+  {
+   "term": "相机抉择",
+   "en": "",
+   "def": "根据当时形势灵活决定政策，而非按固定规则行事。",
+   "chapterIds": [
+    "ch36"
+   ]
+  },
+  {
+   "term": "自动稳定器",
+   "en": "",
+   "def": "无需决策即随经济周期自动调节收支的机制。",
+   "chapterIds": [
+    "ch36"
+   ]
+  },
+  {
+   "term": "周期性赤字",
+   "en": "",
+   "def": "经济衰退导致税收减少、支出增加所形成的赤字。",
+   "chapterIds": [
+    "ch36"
+   ]
+  },
+  {
+   "term": "结构性赤字",
+   "en": "",
+   "def": "剔除周期因素后仍存在的长期收支缺口。",
+   "chapterIds": [
+    "ch36"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 14,
+  "concepts": 7
+ },
+ "signature": "bb95499e089e",
+ "contentHash": "eb0190ec4a8a"
+}

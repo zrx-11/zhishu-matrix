@@ -1,0 +1,1677 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "llm-from-scratch",
+ "title": "LLM 从零实现：训练、对齐与部署",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "14-llm-from-scratch/manifest.json",
+ "stats": {
+  "chapters": 14,
+  "concepts": 14,
+  "quizzes": 28,
+  "cards": 28,
+  "glossary": 56
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：一次 LLM 训练到底包含什么",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch01.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：Tokenizer：把文本变成可训练的数字",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch02.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：数据工程：清洗、去重、配比与 packing",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch03.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：Embedding 与位置编码：给 token 一个坐标",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch04.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：注意力：Q、K、V、mask 与多头",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch05.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：Transformer Block 与 GPT 组装",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch06.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：预训练：损失、学习率与稳定性",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch07.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：SFT：让基座模型学会对话",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch08.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：LoRA 与 QLoRA：用低秩适配改行为",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch09.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：偏好对齐：DPO、PPO 与 GRPO",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch10.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：推理：KV cache、解码与量化",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch11.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：RAG 与 Agent：把模型接到外部世界",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch12.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：评测与安全：loss 不等于能力",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch13.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch14",
+   "num": 14,
+   "title": "第 14 章：最小可复现路线：从 CPU 到单卡",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/chapters/ch14.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "BPE 与词表",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c01.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "RoPE 旋转位置编码",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c02.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "Causal Attention",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c03.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "Pre-LN 与 RMSNorm",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c04.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "参数账本",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c05.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "下一个 token 损失",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c06.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c07",
+   "title": "Packing 与样本隔离",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c07.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c08",
+   "title": "Loss mask",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c08.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c09",
+   "title": "LoRA 低秩适配",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c09.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c10",
+   "title": "DPO 偏好优化",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c10.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c11",
+   "title": "KV Cache",
+   "chapterIds": [
+    "ch11"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c11.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c12",
+   "title": "RAG 证据链",
+   "chapterIds": [
+    "ch12"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c12.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c13",
+   "title": "Benchmark 污染",
+   "chapterIds": [
+    "ch13"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c13.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c14",
+   "title": "最小可复现路线",
+   "chapterIds": [
+    "ch14"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "14-llm-from-scratch/concepts/c14.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "LLM 训练流水线中，哪个阶段主要教“按对话格式回答”？",
+   "options": [
+    "预训练",
+    "SFT",
+    "评测",
+    "服务"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "SFT 教格式与边界；知识主要来自预训练",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "小模型路线的首要目的是？",
+   "options": [
+    "追求效果",
+    "先验证形状/损失/显存账",
+    "替代 7B",
+    "不需要数据"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "先跑通机制，降低试错成本",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "BPE 合并顺序为什么要保存？",
+   "options": [
+    "影响词表",
+    "推理要用同一套 merges",
+    "决定 GPU",
+    "决定学习率"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "否则同一文本编码不同",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "词表变大通常带来？",
+   "options": [
+    "序列一定短",
+    "embedding/softmax 参数增加",
+    "不需要特殊 token",
+    "注意力消失"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "V 增大，输入输出矩阵变大",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "去重的主要目的不是？",
+   "options": [
+    "减少记忆",
+    "节省算力",
+    "提高评测分数",
+    "降低隐私风险"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "去重不保证分数",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "packing 后必须？",
+   "options": [
+    "样本互相可见",
+    "隔离样本防假连接",
+    "删 eos",
+    "增大词表"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "要用 block-diagonal mask 或重置位置",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "输入 embedding 形状通常是？",
+   "options": [
+    "[V,d]",
+    "[B,T]",
+    "[T,T]",
+    "[d,d]"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "词表 V 行、隐藏维 d 列",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "RoPE 的核心性质是？",
+   "options": [
+    "把位置加到向量",
+    "分数依赖相对位置",
+    "替代 tokenizer",
+    "替代 FFN"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "旋转 q/k 得到相对位移",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch05",
+   "stem": "注意力为什么要除以 sqrt(d_k)？",
+   "options": [
+    "让 softmax 更尖",
+    "控制方差稳定梯度",
+    "增加参数",
+    "替代 mask"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "点积方差随维度增长",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch05",
+   "stem": "causal mask 的作用是？",
+   "options": [
+    "看见未来",
+    "禁止看见未来",
+    "增加头数",
+    "替代位置编码"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "未来位置置 -inf",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch06",
+   "stem": "pre-LN 的特点是？",
+   "options": [
+    "归一化在子层前，残差主线干净",
+    "没有残差",
+    "先 FFN",
+    "不用归一化"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "pre-LN 让深层更稳",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch06",
+   "stem": "GPT 参数量粗略公式？",
+   "options": [
+    "V*d+12*L*d^2",
+    "V*L",
+    "12*V*d",
+    "L*d"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "embedding 加每层约 12d^2",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch07",
+   "stem": "下一个 token 损失是？",
+   "options": [
+    "均方误差",
+    "交叉熵/负对数似然",
+    "Hinge",
+    "对比损失"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "对真实下一个 token 做交叉熵",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch07",
+   "stem": "warmup 的主要作用是？",
+   "options": [
+    "学习率逐步升高",
+    "让 loss 变 NaN",
+    "删梯度",
+    "增词表"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "避免早期大梯度破坏参数",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch08",
+   "stem": "SFT 的 loss mask 通常忽略？",
+   "options": [
+    "助手回复",
+    "用户/系统/padding",
+    "所有 token",
+    "eos"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "只对助手回复算 loss",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch08",
+   "stem": "SFT 后“知识没有增加”是因为？",
+   "options": [
+    "SFT 主要改格式和行为",
+    "SFT 会删知识",
+    "SFT 不需要数据",
+    "SFT 只改 tokenizer"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "知识主要来自预训练",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch09",
+   "stem": "LoRA 可训练参数约？",
+   "options": [
+    "d^2",
+    "r(d_out+d_in)",
+    "V*d",
+    "L*d"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "只训练 A/B 低秩矩阵",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch09",
+   "stem": "QLoRA 主要省？",
+   "options": [
+    "base 权重显存",
+    "激活显存",
+    "词表",
+    "网络延迟"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "4-bit 量化 base；激活仍可能爆",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch10",
+   "stem": "DPO 相对 PPO 的优势？",
+   "options": [
+    "不需要 reward model 和在线 RL",
+    "一定更好",
+    "不需要数据",
+    "不需要参考模型"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "直接优化偏好对，但需要参考模型",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch10",
+   "stem": "只奖励长度会让模型？",
+   "options": [
+    "变啰嗦",
+    "变准确",
+    "变安全",
+    "变短"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "奖励设计错会诱导钻空子",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch11",
+   "stem": "KV 公式中 2 表示？",
+   "options": [
+    "两层",
+    "K 和 V 两份",
+    "两 batch",
+    "两头"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "缓存 K 和 V",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch11",
+   "stem": "decode 通常是？",
+   "options": [
+    "compute-bound",
+    "memory-bound",
+    "网络-bound",
+    "无成本"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "逐 token 读权重和 KV",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch12",
+   "stem": "RAG 中 rerank 的作用？",
+   "options": [
+    "对候选再排序",
+    "训练模型",
+    "生成 tokenizer",
+    "压缩权重"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "提高证据命中",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch12",
+   "stem": "Agent 工具调用最关键的安全措施？",
+   "options": [
+    "任意 shell",
+    "最小权限/超时/参数校验",
+    "关闭日志",
+    "只用一个工具"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "权限和审计不能省",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch13",
+   "stem": "pass@k 中 k 增大通常？",
+   "options": [
+    "更容易碰对，分数上升",
+    "模型变小",
+    "不需要采样",
+    "准确率下降"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "至少一次通过的概率上升",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch13",
+   "stem": "benchmark 污染指？",
+   "options": [
+    "评测题/答案进入训练",
+    "模型太大",
+    "GPU 太慢",
+    "tokenizer 太小"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "分数虚高",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch14",
+   "stem": "CPU 最小实验最适合验证？",
+   "options": [
+    "tokenizer/attention/loss 机制",
+    "7B 效果",
+    "大规模并行",
+    "生产 SLA"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "小模型只验证机制",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch14",
+   "stem": "可复现项目最不该缺？",
+   "options": [
+    "数据卡与评估记录",
+    "酷炫 UI",
+    "更多参数",
+    "营销文案"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "数据、checkpoint、评估是底线",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "LLM 五段流水线",
+   "back": "预训练→SFT→偏好对齐→评测→服务",
+   "chapterId": "ch01",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "SFT 主要教什么",
+   "back": "格式、角色和边界",
+   "chapterId": "ch01",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "BPE 合并顺序",
+   "back": "词表的一部分，推理复用",
+   "chapterId": "ch02",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "byte-level BPE",
+   "back": "字节起步，覆盖所有文本",
+   "chapterId": "ch02",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "去重",
+   "back": "减少记忆和浪费",
+   "chapterId": "ch03",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "packing",
+   "back": "拼长序列，必须隔离样本",
+   "chapterId": "ch03",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "embedding 参数量",
+   "back": "V×d",
+   "chapterId": "ch04",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "RoPE",
+   "back": "旋转 q/k，分数依赖相对位置",
+   "chapterId": "ch04",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "causal mask",
+   "back": "禁止看见未来 token",
+   "chapterId": "ch05",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "GQA",
+   "back": "多个 query 头共享较少 KV 头",
+   "chapterId": "ch05",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "pre-LN",
+   "back": "归一化在子层前",
+   "chapterId": "ch06",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "GPT 参数近似",
+   "back": "V*d+12*L*d^2",
+   "chapterId": "ch06",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "warmup",
+   "back": "学习率逐步升高",
+   "chapterId": "ch07",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "6ND",
+   "back": "训练 FLOPs 粗略估算",
+   "chapterId": "ch07",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "loss mask",
+   "back": "用户/系统/padding 设 -100",
+   "chapterId": "ch08",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "SFT 数据质量",
+   "back": "指令清晰、回答准确、格式统一",
+   "chapterId": "ch08",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "LoRA",
+   "back": "W+(alpha/r)BA，冻结原权重",
+   "chapterId": "ch09",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "QLoRA",
+   "back": "4-bit 量化 base，省权重显存",
+   "chapterId": "ch09",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "DPO",
+   "back": "偏好对直接优化，不需 reward model",
+   "chapterId": "ch10",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "GRPO",
+   "back": "组内相对优势，适合可验证奖励",
+   "chapterId": "ch10",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "prefill",
+   "back": "并行处理 prompt",
+   "chapterId": "ch11",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "decode",
+   "back": "逐 token 生成，显存带宽受限",
+   "chapterId": "ch11",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "RAG",
+   "back": "检索证据→重排→带引用生成",
+   "chapterId": "ch12",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "Agent 权限",
+   "back": "最小权限、超时、参数校验",
+   "chapterId": "ch12",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "PPL",
+   "back": "exp(loss)，不同 tokenizer 不可直接比",
+   "chapterId": "ch13",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "污染",
+   "back": "评测题进入训练集",
+   "chapterId": "ch13",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "CPU 实验",
+   "back": "验证 tokenizer/attention/loss",
+   "chapterId": "ch14",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "项目底线",
+   "back": "数据卡、checkpoint、评估记录",
+   "chapterId": "ch14",
+   "tags": [
+    "llm-from-scratch"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "预训练",
+   "en": "",
+   "def": "海量无标注文本学习下一个 token",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "SFT",
+   "en": "",
+   "def": "指令-回答对教格式",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "偏好对齐",
+   "en": "",
+   "def": "用 chosen/rejected 调偏好",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "checkpoint",
+   "en": "",
+   "def": "训练保存的参数快照",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "BPE",
+   "en": "",
+   "def": "合并高频相邻 pair 的子词 tokenizer",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "词表",
+   "en": "",
+   "def": "tokenizer 可识别的 token 集合",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "byte-level",
+   "en": "",
+   "def": "以字节为最小单位编码",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "特殊 token",
+   "en": "",
+   "def": "bos/eos/pad 等边界标记",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "去重",
+   "en": "",
+   "def": "删除重复文档",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "污染检查",
+   "en": "",
+   "def": "检测评测题是否进训练集",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "packing",
+   "en": "",
+   "def": "短样本拼固定长度",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "数据卡",
+   "en": "",
+   "def": "记录来源/许可/清洗/token 数",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "embedding",
+   "en": "",
+   "def": "token id 到连续向量的矩阵",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "weight tying",
+   "en": "",
+   "def": "输入输出共享 embedding",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "正弦位置编码",
+   "en": "",
+   "def": "sin/cos 表示绝对位置",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "RoPE",
+   "en": "",
+   "def": "旋转 q/k 表示相对位置",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "Q/K/V",
+   "en": "",
+   "def": "查询/键/值投影",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "causal mask",
+   "en": "",
+   "def": "禁止看未来",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "多头注意力",
+   "en": "",
+   "def": "多个注意力头并行",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "GQA",
+   "en": "",
+   "def": "共享较少 KV 头的变体",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "pre-LN",
+   "en": "",
+   "def": "归一化在子层前",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "RMSNorm",
+   "en": "",
+   "def": "只按均方根缩放",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "SwiGLU",
+   "en": "",
+   "def": "带门控的 FFN",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "logits",
+   "en": "",
+   "def": "输出层未归一化分数",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "交叉熵",
+   "en": "",
+   "def": "预测分布与真实 token 的差异",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "warmup",
+   "en": "",
+   "def": "初期升高学习率",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "梯度裁剪",
+   "en": "",
+   "def": "限制梯度范数",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "6ND",
+   "en": "",
+   "def": "训练 FLOPs 估算",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "聊天模板",
+   "en": "",
+   "def": "角色拼成模型输入的格式",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "loss mask",
+   "en": "",
+   "def": "不参与 loss 的位置设 -100",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "灾难性遗忘",
+   "en": "",
+   "def": "微调后通用能力下降",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "格式遵循率",
+   "en": "",
+   "def": "按指定结构回答的比例",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "LoRA",
+   "en": "",
+   "def": "冻结原权重学低秩补丁",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "rank",
+   "en": "",
+   "def": "低秩矩阵中间维 r",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "alpha",
+   "en": "",
+   "def": "LoRA 补丁强度系数",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "QLoRA",
+   "en": "",
+   "def": "4-bit base 后做 LoRA",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "reward model",
+   "en": "",
+   "def": "学习偏好打分的模型",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "DPO",
+   "en": "",
+   "def": "直接用偏好对优化",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "PPO",
+   "en": "",
+   "def": "带 KL 的在线策略梯度",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "GRPO",
+   "en": "",
+   "def": "组内相对优势优化",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "prefill",
+   "en": "",
+   "def": "并行算整段 prompt",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "decode",
+   "en": "",
+   "def": "逐 token 生成",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "KV cache",
+   "en": "",
+   "def": "缓存每层 K/V",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "PagedAttention",
+   "en": "",
+   "def": "分页管理 KV 显存",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "RAG",
+   "en": "",
+   "def": "检索证据再生成",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "rerank",
+   "en": "",
+   "def": "对候选重排",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "tool calling",
+   "en": "",
+   "def": "模型选工具，宿主执行",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "ReAct",
+   "en": "",
+   "def": "推理与行动交替",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "pass@k",
+   "en": "",
+   "def": "k 次采样至少一次通过",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "benchmark contamination",
+   "en": "",
+   "def": "评测内容进训练集",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "LLM-as-judge",
+   "en": "",
+   "def": "用模型打分",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "红队",
+   "en": "",
+   "def": "主动构造攻击找缺口",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "tiny LLM",
+   "en": "",
+   "def": "小规模教学语言模型",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "数据配比",
+   "en": "",
+   "def": "不同来源采样比例",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "SLA",
+   "en": "",
+   "def": "延迟/吞吐/可用性约定",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "可复现性",
+   "en": "",
+   "def": "别人能重跑出同结果",
+   "chapterIds": [
+    "ch14"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 14,
+  "concepts": 14
+ },
+ "signature": "3b6451223db8",
+ "contentHash": "b92e0f13a712"
+}

@@ -1,0 +1,1814 @@
+{
+ "repo": "neural-net-zero",
+ "bookSlug": "neural-net-zero",
+ "title": "神经网络：从一条直线推到反向传播",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "manifest.json",
+ "stats": {
+  "chapters": 13,
+  "concepts": 12,
+  "quizzes": 32,
+  "cards": 34,
+  "glossary": 55
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：函数是一台机器",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch01-函数是一台机器.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：一条直线能干什么",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch01', 'type': 'hard'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch02-一条直线能干什么.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：变化率与导数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch01', 'type': 'hard'}",
+    "{'id': 'ch02', 'type': 'soft'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch03-变化率与导数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：套娃函数怎么求导",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch03', 'type': 'hard'}",
+    "{'id': 'ch01', 'type': 'soft'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch04-套娃函数怎么求导.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：一堆数怎么算",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch02', 'type': 'hard'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch05-向量点积与矩阵.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：一个神经元",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch02', 'type': 'hard'}",
+    "{'id': 'ch05', 'type': 'hard'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch06-一个神经元.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：为什么必须拐弯",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch04', 'type': 'hard'}",
+    "{'id': 'ch05', 'type': 'hard'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch07-为什么必须拐弯.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：把神经元摞起来",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch06', 'type': 'hard'}",
+    "{'id': 'ch07', 'type': 'hard'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch08-把神经元摞起来.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：错得有多离谱",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch08', 'type': 'hard'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch09-错得有多离谱.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：下山",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch03', 'type': 'hard'}",
+    "{'id': 'ch09', 'type': 'hard'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch10-下山.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：误差怎么传回去",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch04', 'type': 'hard'}",
+    "{'id': 'ch07', 'type': 'hard'}",
+    "{'id': 'ch09', 'type': 'hard'}",
+    "{'id': 'ch10', 'type': 'hard'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch11-误差怎么传回去.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：训练完之后",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch11', 'type': 'soft'}",
+    "{'id': 'ch09', 'type': 'soft'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch12-训练完之后.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：综合检验：手搭一个异或网络",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "{'id': 'ch06', 'type': 'hard'}",
+    "{'id': 'ch08', 'type': 'hard'}",
+    "{'id': 'ch11', 'type': 'soft'}"
+   ],
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "chapters/ch13-综合检验手搭异或网络.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "函数",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c01-函数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "斜率",
+   "chapterIds": [
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "{'id': 'c01', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c02-斜率.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "导数",
+   "chapterIds": [
+    "ch03",
+    "ch10",
+    "ch11"
+   ],
+   "prerequisites": [
+    "{'id': 'c02', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c03-导数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "链式法则",
+   "chapterIds": [
+    "ch04",
+    "ch07",
+    "ch11"
+   ],
+   "prerequisites": [
+    "{'id': 'c03', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "concepts/c04-depth-链式法则为什么是乘.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c04-链式法则.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "点积",
+   "chapterIds": [
+    "ch05",
+    "ch06"
+   ],
+   "prerequisites": [
+    "{'id': 'c01', 'type': 'soft'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c05-点积.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "神经元（感知机）",
+   "chapterIds": [
+    "ch06",
+    "ch08",
+    "ch13"
+   ],
+   "prerequisites": [
+    "{'id': 'c05', 'type': 'hard'}",
+    "{'id': 'c02', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c06-神经元.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c07",
+   "title": "激活函数",
+   "chapterIds": [
+    "ch07",
+    "ch08",
+    "ch11"
+   ],
+   "prerequisites": [
+    "{'id': 'c04', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c07-激活函数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c08",
+   "title": "前向传播",
+   "chapterIds": [
+    "ch08",
+    "ch11"
+   ],
+   "prerequisites": [
+    "{'id': 'c06', 'type': 'hard'}",
+    "{'id': 'c07', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c08-前向传播.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c09",
+   "title": "损失函数",
+   "chapterIds": [
+    "ch09",
+    "ch10",
+    "ch11"
+   ],
+   "prerequisites": [
+    "{'id': 'c08', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c09-损失函数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c10",
+   "title": "梯度下降",
+   "chapterIds": [
+    "ch10",
+    "ch11"
+   ],
+   "prerequisites": [
+    "{'id': 'c03', 'type': 'hard'}",
+    "{'id': 'c09', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c10-梯度下降.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c11",
+   "title": "反向传播",
+   "chapterIds": [
+    "ch11"
+   ],
+   "prerequisites": [
+    "{'id': 'c04', 'type': 'hard'}",
+    "{'id': 'c07', 'type': 'hard'}",
+    "{'id': 'c09', 'type': 'soft'}"
+   ],
+   "brief": "",
+   "depth": "concepts/c11-depth-反向传播的每一步.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c11-反向传播.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c12",
+   "title": "过拟合",
+   "chapterIds": [
+    "ch12"
+   ],
+   "prerequisites": [
+    "{'id': 'c09', 'type': 'soft'}",
+    "{'id': 'c10', 'type': 'soft'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "neural-net-zero",
+    "path": "concepts/c12-过拟合.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "f(x)=2x+3，f(4) 等于多少？",
+   "options": [
+    "11",
+    "8",
+    "14",
+    "10"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "把 x=4 代入：2×4+3=11。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "计算 f(g(2)) 时，应该先算谁？",
+   "options": [
+    "先算外层 f",
+    "先算内层 g",
+    "两个同时算",
+    "顺序无所谓"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "复合函数从里往外算：先算 g(2)，把结果喂给 f。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "直线 y=-2x+5 的斜率是多少？",
+   "options": [
+    "-2",
+    "2",
+    "5",
+    "-5"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "对照 y=kx+b，k=-2，b=5。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "规则 z=2x1+x2-3，点 (1,1) 在哪里？",
+   "options": [
+    "z>0 一侧",
+    "z<0 一侧",
+    "正好在 z=0 上",
+    "无法计算"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "2×1+1-3=0，点落在分界线上。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "f(x)=x² 在 x=4 处的导数是多少？",
+   "options": [
+    "4",
+    "8",
+    "16",
+    "2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "(x²)'=2x，代入 x=4 得 8。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "f(x)=x² 在区间 [2, 2.1] 上的平均变化率是多少？",
+   "options": [
+    "4.1",
+    "4",
+    "4.2",
+    "8.1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "(2.1²-2²)/0.1=(4.41-4)/0.1=4.1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "y=(3x+1)² 的导数是什么？",
+   "options": [
+    "6(3x+1)",
+    "2(3x+1)",
+    "18x+1",
+    "3(3x+1)²"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "外层导数 2(3x+1)，内层导数 3，相乘得 6(3x+1)，展开为 18x+6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "链式法则为什么是相乘而不是相加？",
+   "options": [
+    "因为导数可以相加",
+    "因为变化率沿链条传导，中间变化量被约掉",
+    "因为外层函数更大",
+    "因为乘法计算更快"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "Δy/Δx=(Δy/Δu)(Δu/Δx)，中间的 Δu 在分子分母各出现一次被约掉。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch05",
+   "stem": "向量 (1,2) 与 (3,-1) 的点积是多少？",
+   "options": [
+    "1",
+    "5",
+    "-1",
+    "4"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "1×3+2×(-1)=3-2=1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch05",
+   "stem": "矩阵 [[2,1],[0,3]] 乘向量 [1,2]，结果的第一个分量是多少？",
+   "options": [],
+   "answer": "4",
+   "type": "blank",
+   "conceptId": "c05",
+   "explain": "第一行点积：2×1+1×2=4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch06",
+   "stem": "单个神经元可以完成下面哪个运算？",
+   "options": [
+    "异或",
+    "与运算",
+    "同或",
+    "任意分类"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "单条直线能分开与运算的两类点，异或不能。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch06",
+   "stem": "w=(1,1)、b=-0.5，阶跃判断 z>0 输出 1，实现的是哪个运算？",
+   "options": [
+    "与",
+    "或",
+    "非",
+    "异或"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "只有 (0,0) 时 z=-0.5 输出 0，其余都输出 1，这是或。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch07",
+   "stem": "两层不带激活函数的线性网络，等价于什么？",
+   "options": [
+    "两层非线性网络",
+    "一层线性变换",
+    "无穷层网络",
+    "无法计算"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "W2(W1x+b1)+b2=(W2W1)x+(...)，仍是线性变换。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch07",
+   "stem": "sigmoid 在 z=0 处的导数是多少？",
+   "options": [
+    "0",
+    "0.25",
+    "0.5",
+    "1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "σ(0)=0.5，σ'(0)=0.5×(1-0.5)=0.25。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch07",
+   "stem": "ReLU(-3) 等于多少？",
+   "options": [
+    "-3",
+    "0",
+    "3",
+    "1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "ReLU(z)=max(0,z)，负数输出 0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch08",
+   "stem": "2 个输入、2 个隐藏神经元、1 个输出的全连接网络，有多少个可训练参数？",
+   "options": [
+    "6",
+    "8",
+    "9",
+    "12"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "隐藏层 2×2=4 个权重加 2 个偏置，输出层 2 个权重加 1 个偏置，共 9 个。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch08",
+   "stem": "z1=0.5×1.0+(-0.3)×0.5+0.1，z1 等于多少？",
+   "options": [],
+   "answer": "0.45",
+   "type": "blank",
+   "conceptId": "c08",
+   "explain": "0.5-0.15+0.1=0.45。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch09",
+   "stem": "真实标签 y=0，预测 ŷ=0.5，平方损失是多少？",
+   "options": [
+    "0.25",
+    "0.5",
+    "0.05",
+    "1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "(0-0.5)²=0.25。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch09",
+   "stem": "为什么平方损失不用绝对值？下面哪个理由成立？",
+   "options": [
+    "绝对值计算更慢",
+    "绝对值在 0 处不可导",
+    "绝对值不能避免正负抵消",
+    "绝对值会放大错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "|x| 在 0 处左导 -1、右导 +1，不可导，梯度下降会卡住。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch10",
+   "stem": "L(w)=(w-2)²，从 w=4 出发，学习率 0.1，走一步后 w 是多少？",
+   "options": [
+    "3.6",
+    "3.8",
+    "3.2",
+    "2.0"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "梯度 2(4-2)=4，w=4-0.1×4=3.6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch10",
+   "stem": "学习率过大会发生什么？",
+   "options": [
+    "收敛更快",
+    "震荡或发散",
+    "梯度消失",
+    "参数变成 0"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "步子太大跨过谷底，可能来回震荡甚至越走越远。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch11",
+   "stem": "平方损失配 sigmoid 输出层，δo 的公式是哪个？",
+   "options": [
+    "2(ŷ-y)ŷ(1-ŷ)",
+    "(ŷ-y)",
+    "2(ŷ-y)",
+    "ŷ(1-ŷ)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "损失对 ŷ 求导得 2(ŷ-y)，再乘 sigmoid 导数 ŷ(1-ŷ)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch11",
+   "stem": "隐藏层 δ1 的公式里乘了 v1，v1 是什么？",
+   "options": [
+    "激活函数的值",
+    "输出层连到 h1 的权重",
+    "输入 x1",
+    "学习率"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "h1 通过 zo=v1h1+v2h2+bo 影响输出，所以要乘 v1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch11",
+   "stem": "某个参数的梯度为正，更新时应该怎么调？",
+   "options": [
+    "调大",
+    "调小",
+    "不变",
+    "随机"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "梯度为正表示增大参数会让损失增大，所以减小参数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch11",
+   "stem": "某个权重的梯度等于该层的 δ 乘以什么？",
+   "options": [
+    "这个权重的输入",
+    "学习率",
+    "损失值",
+    "激活函数"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "z 对 w 的偏导就是 w 的输入，所以梯度 = δ × 输入。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch12",
+   "stem": "下面哪个是过拟合的典型信号？",
+   "options": [
+    "训练损失下降，验证损失上升",
+    "训练损失上升，验证损失下降",
+    "两者都上升",
+    "两者都下降"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "模型开始记训练集细节，训练损失继续降，但换数据就变差。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch12",
+   "stem": "Dropout 的作用是什么？",
+   "options": [
+    "训练时随机丢弃部分神经元，减少相互依赖",
+    "永久删除神经元",
+    "增加网络层数",
+    "提高学习率"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "随机丢弃逼网络不要依赖少数特定神经元，属于正则化手段。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch13",
+   "stem": "本教程的异或网络里，两个隐藏神经元分别负责什么？",
+   "options": [
+    "都算与",
+    "一个算或，一个算与",
+    "都算或",
+    "都不参与"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "h1 算 OR，h2 算 AND，输出层做 OR 且非 AND。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q29",
+   "chapterId": "ch13",
+   "stem": "隐藏层在异或问题里起的关键作用是什么？",
+   "options": [
+    "再切一刀",
+    "把数据换到新坐标，使两类点可分",
+    "减少参数",
+    "增大损失"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "隐藏层把四个点映射到 (h1,h2)，原本交错的两类在新坐标下可被一条线分开。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q30",
+   "chapterId": "__all__",
+   "stem": "一次正确的反向传播加参数更新之后，损失通常会怎样？",
+   "options": [
+    "下降",
+    "上升",
+    "不变",
+    "立刻变成 0"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "更新沿梯度反方向，学习率合适时损失下降。本教程例子从 0.175555 降到 0.140693。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q31",
+   "chapterId": "__all__",
+   "stem": "下面哪个不能直接当作训练目标？",
+   "options": [
+    "平方损失",
+    "交叉熵",
+    "准确率",
+    "均方误差"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "准确率是分段常数，几乎处处导数为 0，不能直接做梯度下降。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q32",
+   "chapterId": "__all__",
+   "stem": "下面哪些手段可以缓解过拟合？（多选）",
+   "options": [
+    "L2 正则化",
+    "Dropout",
+    "早停",
+    "增大学习率"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "c12",
+   "explain": "正则化、Dropout、早停都在限制模型死记硬背。增大学习率不解决过拟合，还可能让训练不稳定。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "函数的核心含义是什么？",
+   "back": "输入定输出：每个输入对应唯一输出。",
+   "chapterId": "ch01",
+   "tags": [
+    "函数"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "f(g(x)) 先算哪层？",
+   "back": "先算内层 g(x)，把结果喂给外层 f。",
+   "chapterId": "ch01",
+   "tags": [
+    "复合"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "神经网络整体是什么？",
+   "back": "一个函数：输入一组数，输出一组数。",
+   "chapterId": "ch01",
+   "tags": [
+    "函数"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "y=kx+b 中 k 和 b 各管什么？",
+   "back": "k 管倾斜（每走一格升降多少），b 管上下平移。",
+   "chapterId": "ch02",
+   "tags": [
+    "直线"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "线性分类规则的判断依据是什么？",
+   "back": "z=w1x1+w2x2+b 的符号，正判 1，负判 0。",
+   "chapterId": "ch02",
+   "tags": [
+    "分类"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "导数的定义式是什么？",
+   "back": "f'(x)=lim(h→0)[f(x+h)-f(x)]/h。",
+   "chapterId": "ch03",
+   "tags": [
+    "导数"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "(x²)' 等于什么？怎么推？",
+   "back": "2x。展开 (x+h)² 减 x²，除以 h 得 2x+h，令 h→0。",
+   "chapterId": "ch03",
+   "tags": [
+    "导数"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "导数为正说明什么？",
+   "back": "输入增大时输出增大；要让输出变小，应减小输入。",
+   "chapterId": "ch03",
+   "tags": [
+    "导数"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "链式法则的公式是什么？",
+   "back": "dy/dx=(dy/du)(du/dx)，外层导数乘内层导数。",
+   "chapterId": "ch04",
+   "tags": [
+    "链式法则"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "链式法则为什么是乘？",
+   "back": "变化量链条上中间变量被约掉，传导率逐段相乘。",
+   "chapterId": "ch04",
+   "tags": [
+    "链式法则"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "点积怎么算？",
+   "back": "对应位置相乘，再把所有乘积加起来。",
+   "chapterId": "ch05",
+   "tags": [
+    "向量"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "矩阵乘向量的维度规则？",
+   "back": "W 是 m×n，x 是 n 维，结果是 m 维。",
+   "chapterId": "ch05",
+   "tags": [
+    "矩阵"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "一个神经元做哪两步？",
+   "back": "加权求和 z=w·x+b，再过激活函数。",
+   "chapterId": "ch06",
+   "tags": [
+    "神经元"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "为什么单个神经元做不了异或？",
+   "back": "异或两类点对角交错，一条直线无法完整分开。",
+   "chapterId": "ch06",
+   "tags": [
+    "异或"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "两层纯线性网络等价于什么？为什么？",
+   "back": "等价于一层线性。W2(W1x+b1)+b2 仍是 Wx+B 的形式。",
+   "chapterId": "ch07",
+   "tags": [
+    "激活函数"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "sigmoid 的导数是什么？",
+   "back": "σ'(z)=σ(z)(1-σ(z))，最大值 0.25。",
+   "chapterId": "ch07",
+   "tags": [
+    "sigmoid"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "ReLU 的定义和导数？",
+   "back": "ReLU(z)=max(0,z)；正区间导数 1，负区间 0。",
+   "chapterId": "ch07",
+   "tags": [
+    "ReLU"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "前向传播每层做哪三件事？",
+   "back": "矩阵乘、加偏置、过激活。",
+   "chapterId": "ch08",
+   "tags": [
+    "前向传播"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "2-2-1 网络有多少参数？",
+   "back": "9 个：6 个权重加 3 个偏置。",
+   "chapterId": "ch08",
+   "tags": [
+    "参数"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "隐藏层为什么叫隐藏？",
+   "back": "它的值没有标签监督，是网络自己算出的中间表示。",
+   "chapterId": "ch08",
+   "tags": [
+    "隐藏层"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "平方损失怎么算？",
+   "back": "L=(y-ŷ)²，多样本取平均。",
+   "chapterId": "ch09",
+   "tags": [
+    "损失"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "用平方而不是绝对值的三个理由？",
+   "back": "不抵消、放大严重错误、处处可导。",
+   "chapterId": "ch09",
+   "tags": [
+    "损失"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "损失和准确率的区别？",
+   "back": "损失看差距大小，准确率只看对错。",
+   "chapterId": "ch09",
+   "tags": [
+    "损失"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "梯度下降的更新公式？",
+   "back": "θ←θ-η∂L/∂θ，沿梯度反方向走一步。",
+   "chapterId": "ch10",
+   "tags": [
+    "梯度下降"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "学习率过大会怎样？过小呢？",
+   "back": "过大震荡或发散，过小收敛很慢。",
+   "chapterId": "ch10",
+   "tags": [
+    "学习率"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "梯度为 0 一定是谷底吗？",
+   "back": "不一定，也可能是山顶或鞍点。",
+   "chapterId": "ch10",
+   "tags": [
+    "梯度"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "δ 的定义是什么？",
+   "back": "δ=∂L/∂z，损失对该层激活前打分的偏导。",
+   "chapterId": "ch11",
+   "tags": [
+    "反向传播"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "隐藏层 δ 的递推公式？",
+   "back": "δ_l=(W_{l+1}ᵀδ_{l+1})⊙σ'(z_l)。",
+   "chapterId": "ch11",
+   "tags": [
+    "反向传播"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "权重梯度和 δ 的关系？",
+   "back": "∂L/∂W=δ×该层的输入，∂L/∂b=δ。",
+   "chapterId": "ch11",
+   "tags": [
+    "反向传播"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "过拟合的典型曲线形状？",
+   "back": "训练损失持续下降，验证损失先降后升。",
+   "chapterId": "ch12",
+   "tags": [
+    "过拟合"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "四种对抗过拟合的手段？",
+   "back": "正则化、Dropout、早停、数据增强。",
+   "chapterId": "ch12",
+   "tags": [
+    "过拟合"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "异或网络的三步逻辑？",
+   "back": "OR 且非 AND：h1 算 OR，h2 算 AND，输出层组合。",
+   "chapterId": "ch13",
+   "tags": [
+    "异或"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "隐藏层解决异或的本质？",
+   "back": "换坐标：把交错的两类点映射到可分的新位置。",
+   "chapterId": "ch13",
+   "tags": [
+    "异或"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "手工设计用阶跃，实际训练为什么不行？",
+   "back": "阶跃不可导，无法做反向传播，要用 sigmoid 等平滑近似。",
+   "chapterId": "ch13",
+   "tags": [
+    "激活函数"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "函数",
+   "en": "",
+   "def": "输入定输出的对应规则，每个输入对应唯一输出。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "自变量",
+   "en": "",
+   "def": "函数里可以自由取值的输入。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "因变量",
+   "en": "",
+   "def": "随自变量变化而变化的输出。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "复合函数",
+   "en": "",
+   "def": "把一个函数的输出当作另一个函数的输入，机器套机器。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "斜率",
+   "en": "",
+   "def": "横着走一格，竖着变多少，衡量倾斜程度。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "截距",
+   "en": "",
+   "def": "直线与纵轴交点的纵坐标，即 x=0 时的 y 值。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "权重",
+   "en": "",
+   "def": "给某个输入分配的乘数，表示这个输入在打分中的比重。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "偏置",
+   "en": "",
+   "def": "加权和之外额外加的一个数，控制判断门槛的高低。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "平均变化率",
+   "en": "",
+   "def": "一段区间内输出变化量除以输入变化量。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "极限",
+   "en": "",
+   "def": "让某个量无限靠近一个值时，表达式稳定到的那个数。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "导数",
+   "en": "",
+   "def": "函数在某一点的瞬时变化率，等于该点切线斜率。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "切线",
+   "en": "",
+   "def": "曲线上某点附近与曲线最贴近的直线。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "幂法则",
+   "en": "",
+   "def": "(x^n)' = n x^(n-1)，幂函数的求导规则。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "链式法则",
+   "en": "",
+   "def": "复合函数求导等于外层导数乘内层导数。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "向量",
+   "en": "",
+   "def": "按顺序排好的一组数，作为一个整体参与运算。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "维数",
+   "en": "",
+   "def": "向量里包含的数的个数。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "点积",
+   "en": "",
+   "def": "两个向量对应相乘再相加，结果是一个数。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "矩阵",
+   "en": "",
+   "def": "按行列排布的一堆数，可看作多个向量叠起来。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "矩阵乘法",
+   "en": "",
+   "def": "左边矩阵的每一行与右边向量或列做点积。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "神经元",
+   "en": "",
+   "def": "加权求和后过激活函数的计算单元。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "感知机",
+   "en": "",
+   "def": "使用阶跃函数的最早期神经元模型。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "阶跃函数",
+   "en": "",
+   "def": "输入大于 0 输出 1，否则输出 0 的开关式函数。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "分界线",
+   "en": "",
+   "def": "把平面分成两部分的直线，对应 z=0 的位置。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "法向量",
+   "en": "",
+   "def": "垂直于某条直线或平面的向量。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "异或",
+   "en": "",
+   "def": "两个输入不同时输出 1，相同时输出 0 的运算。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "激活函数",
+   "en": "",
+   "def": "加权求和之后加的非线性函数。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "sigmoid",
+   "en": "",
+   "def": "把任意实数压到 (0,1) 区间的 S 形函数。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "ReLU",
+   "en": "",
+   "def": "max(0,z)，负数输出 0，正数原样输出。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "梯度消失",
+   "en": "",
+   "def": "反向传播连乘小导数，导致浅层梯度趋近 0。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "前向传播",
+   "en": "",
+   "def": "输入逐层经过矩阵乘、偏置、激活，算到输出。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "隐藏层",
+   "en": "",
+   "def": "输入和输出之间的层，其值没有直接标签。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "参数",
+   "en": "",
+   "def": "网络里可以被训练调整的数，包括权重和偏置。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "损失函数",
+   "en": "",
+   "def": "衡量预测与真实差距的函数，越小越好。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "平方损失",
+   "en": "",
+   "def": "预测与真实之差的平方。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "均方误差",
+   "en": "",
+   "def": "所有样本平方损失的平均值。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "交叉熵",
+   "en": "",
+   "def": "分类任务常用的损失，对自信地答错惩罚极重。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "梯度",
+   "en": "",
+   "def": "损失对所有参数偏导组成的向量，指向上升最快方向。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "梯度下降",
+   "en": "",
+   "def": "沿梯度反方向按学习率更新参数。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "学习率",
+   "en": "",
+   "def": "每次更新沿梯度方向走多远，记作 eta。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "超参数",
+   "en": "",
+   "def": "人设定的、不被梯度更新的参数，如学习率、批大小。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "反向传播",
+   "en": "",
+   "def": "从损失出发，用链式法则一次算出全部参数梯度。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "误差项 delta",
+   "en": "",
+   "def": "损失对某一层激活前打分的偏导。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "epoch",
+   "en": "",
+   "def": "把整个训练集完整过一遍。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "batch",
+   "en": "",
+   "def": "一次参数更新所使用的样本数量。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "mini-batch",
+   "en": "",
+   "def": "取一小批样本估计梯度并更新，介于 SGD 与全量之间。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "过拟合",
+   "en": "",
+   "def": "训练集表现好、新数据表现差，模型记住了噪声。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "正则化",
+   "en": "",
+   "def": "在损失里加大权重惩罚，限制模型过度拟合。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "Dropout",
+   "en": "",
+   "def": "训练时随机丢弃部分神经元输出，减少相互依赖。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "早停",
+   "en": "",
+   "def": "验证损失开始上升时停止训练。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "数据增强",
+   "en": "",
+   "def": "对训练样本做翻转、裁剪、加噪等变换，扩充数据。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "CNN",
+   "en": "",
+   "def": "卷积神经网络，用滑动卷积核共享权重，适合图像。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "RNN",
+   "en": "",
+   "def": "循环神经网络，按时间步传递隐藏状态，适合序列。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "Transformer",
+   "en": "",
+   "def": "以注意力机制为核心的网络结构，适合长距离依赖。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "注意力机制",
+   "en": "",
+   "def": "让每个位置直接按相关性聚合其他位置的信息。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "雅可比矩阵",
+   "en": "",
+   "def": "一个向量函数对所有输入分量的偏导排成的矩阵。",
+   "chapterIds": [
+    "ch11"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 13,
+  "concepts": 12
+ },
+ "signature": "cb1609c23e54",
+ "contentHash": "3c059bf19f4b",
+ "duplicateGroup": "cb1609c23e54"
+}

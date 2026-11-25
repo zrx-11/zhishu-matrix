@@ -1,0 +1,896 @@
+{
+ "repo": "taocp-enlighten",
+ "bookSlug": "taocp-v1",
+ "title": "计算机程序设计艺术 卷1：基本算法",
+ "discipline": "cs",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-基本算法/manifest.json",
+ "stats": {
+  "chapters": 5,
+  "concepts": 6,
+  "quizzes": 16,
+  "cards": 23,
+  "glossary": 27
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：算法是什么，怎么衡量它",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/chapters/ch01-算法与算法分析.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：分析算法要用的数学工具箱",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/chapters/ch02-数学工具箱.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：MIX 与基本程序设计技术",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/chapters/ch03-MIX与程序设计技术.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：线性表",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/chapters/ch04-线性表.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：树、多链结构与动态存储",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/chapters/ch05-树与动态存储.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "算法五准则",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/concepts/algorithm-criteria.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "渐近记号与大 O",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/concepts/asymptotic-notation.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "生成函数",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/concepts/generating-functions.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "栈、队列与链接分配",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/concepts/linked-allocation.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "二叉树遍历",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/concepts/binary-tree-traversal.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "动态存储分配",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "taocp-enlighten",
+    "path": "01-基本算法/concepts/dynamic-storage.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "下列哪一条不属于算法的五条准则？",
+   "options": [
+    "有限性",
+    "确定性",
+    "可读性",
+    "可行性"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "可读性是工程要求，不在定义里。五条是有限性、确定性、输入、输出、可行性。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "执行欧几里得算法求 gcd(119, 544)，第一轮的余数是多少？（填数字）",
+   "options": [],
+   "answer": "119",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "用 m 除 n：119 = 0×544 + 119，余数 119。写成 544 mod 119 = 68 是把除数和被除数弄反了。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "把 4n³ + 2n² + 100 化成大 O 形式，结果是？",
+   "options": [
+    "O(n²)",
+    "O(n³)",
+    "O(n⁴)",
+    "O(n)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "最高次项 4n³，去系数得 n³。取 n₀=1、c=106 可验证 4n³+2n²+100 ≤ 106n³。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "C(6, 3) 等于多少？（填数字）",
+   "options": [],
+   "answer": "20",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "6!/(3!3!) = 720/(6×6) = 20。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02",
+   "stem": "floor(−2.4) 等于？",
+   "options": [
+    "−2",
+    "−3",
+    "2",
+    "3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "下取整往更小的方向取，−3 是不超过 −2.4 的最大整数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch02",
+   "stem": "H4 = 1 + 1/2 + 1/3 + 1/4 约等于多少？",
+   "options": [
+    "2.083",
+    "1.963",
+    "5.187",
+    "1.386"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "1 + 0.5 + 0.3333 + 0.25 = 2.0833…。1.963 是 ln4 + 欧拉常数的近似，说明 n 小时公式仍有误差。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch03",
+   "stem": "MIX 的一个字节取值范围是？",
+   "options": [
+    "0 到 63",
+    "0 到 255",
+    "−32 到 31",
+    "0 到 4095"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "字节是 6 位，2⁶ = 64 个值，从 0 到 63。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch03",
+   "stem": "MIX 子程序返回时，返回地址通常存在哪个寄存器？（填寄存器名）",
+   "options": [],
+   "answer": "j",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "跳转指令执行时硬件把下一条指令地址存进 J；嵌套调用要先把它存进内存保存链接字。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch03",
+   "stem": "协同程序与子程序最本质的区别是？",
+   "options": [
+    "协同程序更快",
+    "协同程序从上次停下的地方继续，地位平等",
+    "协同程序不能用 J 寄存器",
+    "协同程序必须有栈"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "子程序每次从入口重新开始，有调用者与被调用者之分；协同程序各自保留进度，交替推进。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch04",
+   "stem": "依次入栈 1、2、3、4，再连续出栈两次，得到的两个数是？",
+   "options": [
+    "1、2",
+    "4、3",
+    "3、4",
+    "2、1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "栈后进先出，先弹出最后压入的 4，再弹出 3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch04",
+   "stem": "在单链表中删除 P 之后的节点 Q，第一步应做什么？",
+   "options": [
+    "释放 Q",
+    "P.LINK = Q.LINK",
+    "Q.LINK = P.LINK",
+    "P.LINK = Q"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "先让 P 越过 Q 指向 Q 的后继，链才不断；之后才能释放 Q。若先释放 Q，就找不到 Q 的后继了。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch04",
+   "stem": "用长度为 m 的循环数组实现队列，判断队满的条件是？",
+   "options": [
+    "(rear+1) mod m = front",
+    "front = rear",
+    "rear = m − 1",
+    "front = 0"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "留一个空位区分队空与队满：队空是 front = rear，队满是 rear 再进一格就撞上 front。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch05",
+   "stem": "一棵有 10 个节点的树有多少条边？",
+   "options": [
+    "9",
+    "10",
+    "11",
+    "取决于形状"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "除根以外每个节点贡献一条连向父节点的边，所以边数 = n − 1 = 9。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch05",
+   "stem": "n = 4 的扩充二叉树，若内部路径长度 I = 6，外部路径长度 E 是多少？（填数字）",
+   "options": [],
+   "answer": "14",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "E = I + 2n = 6 + 8 = 14。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch05",
+   "stem": "引用计数为什么回收不了互相指向的两个节点？",
+   "options": [
+    "因为两个节点太大",
+    "因为计数都来自对方，永不归零",
+    "因为没有根节点",
+    "因为标记位丢失"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "外部已无引用，但 P 的计数来自 Q、Q 的计数来自 P，都不为 0，于是泄漏；标记-清扫按可达性判定，能处理这种环。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "__all__",
+   "stem": "综合题：要给一个稀疏矩阵同时支持「按行找非零项」与「按列找非零项」，最合适的结构是？",
+   "options": [
+    "开满二维数组",
+    "单链表",
+    "十字正交表或多链结构",
+    "栈"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "需要两个方向都能快速定位，就要每个非零元素同时挂在行链与列链上，即正交表或多链结构。开满数组浪费空间，单链表只能一个方向走，栈与需求无关。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "算法的五条准则是什么？",
+   "back": "有限性、确定性、输入、输出、可行性。",
+   "chapterId": "ch01",
+   "tags": [
+    "定义"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "证明算法会停，要指出什么？",
+   "back": "一个每轮严格减小、又有下界的量，例如欧几里得算法里的余数 r。",
+   "chapterId": "ch01",
+   "tags": [
+    "终止性"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "大 O 的严格定义是什么？",
+   "back": "存在正常数 c 与 n₀，使所有 n ≥ n₀ 都有 f(n) ≤ c·g(n)。",
+   "chapterId": "ch01",
+   "tags": [
+    "复杂度"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "3n² + 5n + 7 = O(n²) 的依据是哪两个常数？",
+   "back": "取 n₀ = 1、c = 15：5n ≤ 5n²、7 ≤ 7n²，整体不超过 15n²。",
+   "chapterId": "ch01",
+   "tags": [
+    "复杂度"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "数学归纳法的两步分别叫什么？",
+   "back": "奠基（验证起点）与归纳（由 n 成立推出 n+1 成立）。",
+   "chapterId": "ch02",
+   "tags": [
+    "证明"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "等比求和的闭式是什么？",
+   "back": "Σ(k=0 到 n) x^k = (1 − x^(n+1))/(1 − x)，x ≠ 1。",
+   "chapterId": "ch02",
+   "tags": [
+    "求和"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "C(n, k) 的帕斯卡递推怎么写？",
+   "back": "C(n, k) = C(n−1, k−1) + C(n−1, k)。",
+   "chapterId": "ch02",
+   "tags": [
+    "组合数"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "生成函数把递推变成了什么？",
+   "back": "一个关于 z 的代数方程，解出 G(z) 后展开，系数就是通项。",
+   "chapterId": "ch02",
+   "tags": [
+    "生成函数"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "MIX 的一个字由什么组成？",
+   "back": "1 个符号位加 5 个字节，每个字节 6 位，取值 0 到 63。",
+   "chapterId": "ch03",
+   "tags": [
+    "MIX"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "一条 MIX 指令包含哪四样信息？",
+   "back": "操作码、地址、变址、域。",
+   "chapterId": "ch03",
+   "tags": [
+    "MIX"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "MIX 子程序靠什么返回？嵌套调用要注意什么？",
+   "back": "靠 J 寄存器存返回地址；嵌套调用要先把 J 存进内存（保存链接字）。",
+   "chapterId": "ch03",
+   "tags": [
+    "子程序"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "解释程序的三段循环是什么？",
+   "back": "取指、译码、执行。",
+   "chapterId": "ch03",
+   "tags": [
+    "解释程序"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "在单链表 P 之后插入 Q 的两步是什么？顺序能反吗？",
+   "back": "先 Q.LINK = P.LINK，再 P.LINK = Q；不能反，否则 P 原来的后继地址会被覆盖。",
+   "chapterId": "ch04",
+   "tags": [
+    "链表"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "双链表删除节点 Q 要改哪两条链？",
+   "back": "Q.LLINK.RLINK = Q.RLINK；Q.RLINK.LLINK = Q.LLINK。",
+   "chapterId": "ch04",
+   "tags": [
+    "链表"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "队列用普通数组实现会出现什么问题？怎么解决？",
+   "back": "假溢出：队首后移留下永久空位。用循环数组，判满条件 (rear+1) mod m = front。",
+   "chapterId": "ch04",
+   "tags": [
+    "队列"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "循环链表用一个指针能访问什么？",
+   "back": "从尾指针可以同时到达尾部（它自己）与头部（它的 LINK），插入删除都不必从头遍历。",
+   "chapterId": "ch04",
+   "tags": [
+    "链表"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "n 个节点的树有多少条边？为什么？",
+   "back": "n − 1 条；除根以外每个节点恰贡献一条连向父节点的边。",
+   "chapterId": "ch05",
+   "tags": [
+    "树"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "三种遍历的差别在哪一点？",
+   "back": "访问根的时机：先序最先、中序中间、后序最后。",
+   "chapterId": "ch05",
+   "tags": [
+    "遍历"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "一般树怎么变成二叉树？",
+   "back": "用左孩子—右兄弟：LCHILD 指第一个孩子，RSIB 指下一个兄弟。",
+   "chapterId": "ch05",
+   "tags": [
+    "表示"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "扩充二叉树的 E 与 I 有什么关系？",
+   "back": "E = I + 2n，n 是内部节点数。",
+   "chapterId": "ch05",
+   "tags": [
+    "路径长度"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "引用计数与标记-清扫各怕什么？",
+   "back": "引用计数怕环（互相指向永不归零）；标记-清扫怕暂停（要扫一遍才能回收）。",
+   "chapterId": "ch05",
+   "tags": [
+    "垃圾回收"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "边界标记的作用是什么？",
+   "back": "在块头块尾各存大小，使释放时能 O(1) 找到物理相邻的前后块并合并。",
+   "chapterId": "ch05",
+   "tags": [
+    "存储管理"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "伙伴系统怎么找「伙伴」块？",
+   "back": "地址与块大小做异或：伙伴地址 = 地址 XOR 长度。只有同尺寸的伙伴才能合并。",
+   "chapterId": "ch05",
+   "tags": [
+    "存储管理"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "算法",
+   "en": "",
+   "def": "满足有限性、确定性、输入、输出、可行性的有限计算过程。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "确定性",
+   "en": "",
+   "def": "每一步的动作唯一确定，不依赖执行者的常识或临时判断。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "算法分析",
+   "en": "",
+   "def": "确定一个算法在各类输入上要执行多少次基本操作。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "大 O 记号",
+   "en": "",
+   "def": "描述增长速度的上界，表示 f 增长不快于某个参照函数。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "数学归纳法",
+   "en": "",
+   "def": "先验证起点，再由 n 成立推出 n+1 成立的证明方法。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "二项式系数",
+   "en": "",
+   "def": "从 n 个对象中选 k 个的方案数，记作 C(n, k)。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "调和数",
+   "en": "",
+   "def": "1 到 n 的倒数之和，增长极慢，约等于 ln n 加常数。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "斐波那契数",
+   "en": "",
+   "def": "每项等于前两项之和的数列，按约 1.618 的比例指数增长。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "生成函数",
+   "en": "",
+   "def": "把数列的每一项挂到 z 的各次幂上得到的多项式或级数。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "MIX",
+   "en": "",
+   "def": "高德纳设计的虚构计算机，用来把算法写成可执行的机器指令。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "子程序",
+   "en": "",
+   "def": "可被反复调用的一段程序，调用点与返回点靠链接信息对接。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "协同程序",
+   "en": "",
+   "def": "彼此平等、可以互相跳转而不形成调用栈的两段程序。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "解释程序",
+   "en": "",
+   "def": "逐条读取、译码并执行另一台机器指令的程序。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "栈",
+   "en": "",
+   "def": "只在一端插入和删除的线性表，后进先出。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "队列",
+   "en": "",
+   "def": "一端插入、另一端删除的线性表，先进先出。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "链接分配",
+   "en": "",
+   "def": "每个节点自带指向下一个节点的链，节点在内存中不必相邻。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "循环链表",
+   "en": "",
+   "def": "尾节点指回头节点的链表，用一个指针就能走到任意节点。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "双链表",
+   "en": "",
+   "def": "每个节点同时保存前驱与后继地址的链表，删除时无需再找前驱。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "正交表",
+   "en": "",
+   "def": "用行号、列号、值三元组表示稀疏二维表的存储方式。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "二叉树",
+   "en": "",
+   "def": "每个节点最多有两个有序子节点的树。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "遍历",
+   "en": "",
+   "def": "按某种固定次序访问树中每个节点恰好一次。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "扩充二叉树",
+   "en": "",
+   "def": "把二叉树的所有空链换成方形外部节点后得到的树。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "垃圾回收",
+   "en": "",
+   "def": "自动找出程序中再也访问不到的表节点并回收其空间。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "动态存储分配",
+   "en": "",
+   "def": "程序运行期间按需从内存池切出与归还大小不一的块。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "边界标记",
+   "en": "",
+   "def": "在每个存储块两端记录块大小，使相邻空闲块能迅速合并。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "伙伴系统",
+   "en": "",
+   "def": "按 2 的幂大小切分内存，回收时只合并同尺寸的伙伴块。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "多链结构",
+   "en": "",
+   "def": "一个节点同时挂在多条链上的结构，用来表示稀疏矩阵等关系。",
+   "chapterIds": [
+    "ch05"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 5,
+  "concepts": 6
+ },
+ "signature": "f8b602889567",
+ "contentHash": "d650b859c72f"
+}

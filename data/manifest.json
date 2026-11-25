@@ -1,16 +1,2141 @@
 {
-  "generatedAt": null,
+  "generatedAt": "2026-11-25T09:55:32+0800",
   "generator": "tools/extract.py",
   "schemaVersion": 2,
   "totals": {
-    "sites": 0,
-    "chapters": 0,
-    "concepts": 0,
-    "quizzes": 0,
-    "cards": 0,
-    "glossary": 0
+    "repos": 50,
+    "sites": 129,
+    "sitesUnique": 96,
+    "chapters": 1169,
+    "concepts": 765,
+    "quizzes": 3541,
+    "cards": 4100,
+    "glossary": 4100
   },
-  "disciplines": [],
-  "sites": [],
-  "failures": []
+  "contentLevels": {
+    "full": 128,
+    "degraded": 1,
+    "stats-only": 0
+  },
+  "disciplines": [
+    {
+      "key": "math",
+      "title": "数学",
+      "repoCount": 11,
+      "siteCount": 45
+    },
+    {
+      "key": "ai",
+      "title": "AI",
+      "repoCount": 6,
+      "siteCount": 49
+    },
+    {
+      "key": "chem",
+      "title": "化学与食品",
+      "repoCount": 2,
+      "siteCount": 10
+    },
+    {
+      "key": "cs",
+      "title": "计算机",
+      "repoCount": 4,
+      "siteCount": 12
+    },
+    {
+      "key": "general",
+      "title": "通识",
+      "repoCount": 2,
+      "siteCount": 13
+    }
+  ],
+  "sites": [
+    {
+      "repo": "MATH",
+      "bookSlug": "what-is-mathematics",
+      "title": "什么是数学",
+      "discipline": "math",
+      "file": "MATH--what-is-mathematics.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 8,
+        "concepts": 8,
+        "quizzes": 19,
+        "cards": 40,
+        "glossary": 33
+      }
+    },
+    {
+      "repo": "MATH",
+      "bookSlug": "bronstein-handbook",
+      "title": "数学手册",
+      "discipline": "math",
+      "file": "MATH--bronstein-handbook.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 8,
+        "concepts": 8,
+        "quizzes": 19,
+        "cards": 40,
+        "glossary": 31
+      }
+    },
+    {
+      "repo": "MATH",
+      "bookSlug": "princeton-guide",
+      "title": "普林斯顿数学指南",
+      "discipline": "math",
+      "file": "MATH--princeton-guide.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 8,
+        "concepts": 8,
+        "quizzes": 19,
+        "cards": 40,
+        "glossary": 30
+      }
+    },
+    {
+      "repo": "additive-combinatorics-enlighten",
+      "bookSlug": "additive-combinatorics",
+      "title": "加性组合学",
+      "discipline": "math",
+      "file": "additive-combinatorics-enlighten.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 13,
+        "concepts": 14,
+        "quizzes": 45,
+        "cards": 52,
+        "glossary": 52
+      }
+    },
+    {
+      "repo": "advanced-math-zhishu",
+      "bookSlug": "food-math",
+      "title": "高等数学 · 食品专业贯通学习系统",
+      "discipline": "math",
+      "file": "advanced-math-zhishu.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 10,
+        "concepts": 32,
+        "quizzes": 56,
+        "cards": 60,
+        "glossary": 75
+      }
+    },
+    {
+      "repo": "agentic-design-patterns-handbook",
+      "bookSlug": "agentic-design-patterns",
+      "title": "智能体设计模式：智能系统构建实战指南",
+      "discipline": "ai",
+      "file": "agentic-design-patterns-handbook.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 26,
+        "concepts": 11,
+        "quizzes": 58,
+        "cards": 52,
+        "glossary": 77
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "deepseek-foundations",
+      "title": "基础篇：从数字到 Transformer",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--deepseek-foundations.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 6,
+        "concepts": 16,
+        "quizzes": 15,
+        "cards": 20,
+        "glossary": 23
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "deepseek-papers",
+      "title": "案例论文拆解：DeepSeek R1 / V4 / V4.1",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--deepseek-papers.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 5,
+        "concepts": 15,
+        "quizzes": 12,
+        "cards": 16,
+        "glossary": 26
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "deepseek-architecture",
+      "title": "案例架构：DeepSeek 三代设计逻辑",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--deepseek-architecture.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 5,
+        "concepts": 5,
+        "quizzes": 12,
+        "cards": 16,
+        "glossary": 20
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "machine-learning",
+      "title": "机器学习基础：从任务到评估",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--machine-learning.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 16,
+        "concepts": 2,
+        "quizzes": 47,
+        "cards": 68,
+        "glossary": 72
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "neural-networks",
+      "title": "神经网络：从一条直线推到反向传播",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--neural-networks.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 13,
+        "concepts": 12,
+        "quizzes": 32,
+        "cards": 34,
+        "glossary": 55
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "deep-learning-scratch",
+      "title": "深度学习入门：从零手写神经网络",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--deep-learning-scratch.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 8,
+        "concepts": 2,
+        "quizzes": 21,
+        "cards": 38,
+        "glossary": 38
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "deepseek-family",
+      "title": "案例全谱：DeepSeek 一代到 V4.1",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--deepseek-family.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 14,
+        "concepts": 13,
+        "quizzes": 42,
+        "cards": 44,
+        "glossary": 68
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "llm-from-scratch",
+      "title": "LLM 从零实现：训练、对齐与部署",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--llm-from-scratch.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 14,
+        "concepts": 14,
+        "quizzes": 28,
+        "cards": 28,
+        "glossary": 56
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "global-open-models",
+      "title": "全球开放模型全谱：从 Llama 到 Qwen",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--global-open-models.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 16,
+        "concepts": 12,
+        "quizzes": 53,
+        "cards": 48,
+        "glossary": 70
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "ai-mechanisms-formulas",
+      "title": "AI 机制与公式总库",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--ai-mechanisms-formulas.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 11,
+        "concepts": 8,
+        "quizzes": 23,
+        "cards": 22,
+        "glossary": 25
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "hello-ai",
+      "title": "AI 导论：Hello, AI",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--hello-ai.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 20,
+        "concepts": 50,
+        "quizzes": 60,
+        "cards": 70,
+        "glossary": 110
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "aima4",
+      "title": "AI 现代方法：完整地图",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--aima4.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 28,
+        "concepts": 2,
+        "quizzes": 56,
+        "cards": 92,
+        "glossary": 87
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "d2l",
+      "title": "动手学深度学习：原理与代码",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--d2l.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 11,
+        "concepts": 2,
+        "quizzes": 29,
+        "cards": 42,
+        "glossary": 39
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "rl-sutton",
+      "title": "强化学习：Sutton & Barto",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--rl-sutton.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 17,
+        "concepts": 2,
+        "quizzes": 46,
+        "cards": 64,
+        "glossary": 62
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "rational-irrational",
+      "title": "有理数与无理数",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--rational-irrational.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 5,
+        "concepts": 3,
+        "quizzes": 13,
+        "cards": 17,
+        "glossary": 12
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "zhengshi",
+      "title": "整式",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--zhengshi.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 11,
+        "cards": 14,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "equations-1-2",
+      "title": "一次方程与二次方程",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--equations-1-2.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 13,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "fractions-radicals",
+      "title": "分式与根式",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--fractions-radicals.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 13,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "inequalities",
+      "title": "不等式",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--inequalities.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 14,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "linear-quadratic-functions",
+      "title": "一次函数与二次函数",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--linear-quadratic-functions.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "exponents-logarithms",
+      "title": "指数与对数",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--exponents-logarithms.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "permutations-combinations",
+      "title": "排列与组合",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--permutations-combinations.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "sequences-limits",
+      "title": "数列与极限",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--sequences-limits.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "complex-numbers",
+      "title": "复数",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--complex-numbers.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "plane-figures",
+      "title": "直线形",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--plane-figures.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "circle",
+      "title": "圆",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--circle.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 13,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "lines-planes",
+      "title": "直线与平面",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--lines-planes.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 11,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "area-volume",
+      "title": "面积与体积",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--area-volume.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "locus",
+      "title": "轨迹",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--locus.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 11,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "solving-triangles",
+      "title": "解三角形",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--solving-triangles.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 10,
+        "glossary": 7
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "trigonometry",
+      "title": "三角函数",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--trigonometry.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 14,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "line-equations",
+      "title": "直线方程",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--line-equations.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 11,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "conic-sections",
+      "title": "圆锥曲线",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--conic-sections.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "polar-parametric",
+      "title": "极坐标与参数方程",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--polar-parametric.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 11,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "linear-systems-matrices",
+      "title": "线性方程组与矩阵",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--linear-systems-matrices.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 14,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "calculus-intro",
+      "title": "微积分初步",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--calculus-intro.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 13,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "boolean-algebra",
+      "title": "逻辑代数初步",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--boolean-algebra.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 13,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "statistics-intro",
+      "title": "数理统计初步",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--statistics-intro.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 13,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "ai-architecture-handbook",
+      "bookSlug": "agentic-design-patterns",
+      "title": "智能体设计模式：智能系统构建实战指南",
+      "discipline": "ai",
+      "file": "ai-architecture-handbook--agentic-design-patterns.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 26,
+        "concepts": 11,
+        "quizzes": 58,
+        "cards": 52,
+        "glossary": 77
+      }
+    },
+    {
+      "repo": "ai-enlighten",
+      "bookSlug": "ai-models-algorithms",
+      "title": "人工智能导论：模型与算法",
+      "discipline": "ai",
+      "file": "ai-enlighten--ai-models-algorithms.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 9,
+        "concepts": 12,
+        "quizzes": 36,
+        "cards": 45,
+        "glossary": 95
+      }
+    },
+    {
+      "repo": "ai-enlighten",
+      "bookSlug": "ai-brief-history",
+      "title": "人工智能简史",
+      "discipline": "ai",
+      "file": "ai-enlighten--ai-brief-history.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 11,
+        "concepts": 10,
+        "quizzes": 44,
+        "cards": 55,
+        "glossary": 104
+      }
+    },
+    {
+      "repo": "ai-ml-dl-rl-enlighten",
+      "bookSlug": "aima4",
+      "title": "人工智能：现代方法（第 4 版）",
+      "discipline": "ai",
+      "file": "ai-ml-dl-rl-enlighten--aima4.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 28,
+        "concepts": 2,
+        "quizzes": 56,
+        "cards": 92,
+        "glossary": 87
+      }
+    },
+    {
+      "repo": "ai-ml-dl-rl-enlighten",
+      "bookSlug": "zhou-ml",
+      "title": "机器学习（周志华）",
+      "discipline": "ai",
+      "file": "ai-ml-dl-rl-enlighten--zhou-ml.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 16,
+        "concepts": 2,
+        "quizzes": 47,
+        "cards": 68,
+        "glossary": 72
+      }
+    },
+    {
+      "repo": "ai-ml-dl-rl-enlighten",
+      "bookSlug": "dl-scratch",
+      "title": "深度学习入门：基于 Python 的理论与实现",
+      "discipline": "ai",
+      "file": "ai-ml-dl-rl-enlighten--dl-scratch.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 8,
+        "concepts": 2,
+        "quizzes": 21,
+        "cards": 38,
+        "glossary": 38
+      }
+    },
+    {
+      "repo": "ai-ml-dl-rl-enlighten",
+      "bookSlug": "d2l",
+      "title": "动手学深度学习",
+      "discipline": "ai",
+      "file": "ai-ml-dl-rl-enlighten--d2l.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 11,
+        "concepts": 2,
+        "quizzes": 29,
+        "cards": 42,
+        "glossary": 39
+      }
+    },
+    {
+      "repo": "ai-ml-dl-rl-enlighten",
+      "bookSlug": "rl-sutton",
+      "title": "强化学习（Sutton & Barto 第 2 版）",
+      "discipline": "ai",
+      "file": "ai-ml-dl-rl-enlighten--rl-sutton.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 17,
+        "concepts": 2,
+        "quizzes": 46,
+        "cards": 64,
+        "glossary": 62
+      }
+    },
+    {
+      "repo": "algorithm-enlighten",
+      "bookSlug": "hello-algo",
+      "title": "Hello 算法 点化学习系统",
+      "discipline": "cs",
+      "file": "algorithm-enlighten--hello-algo.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 17,
+        "concepts": 7,
+        "quizzes": 33,
+        "cards": 46,
+        "glossary": 35
+      }
+    },
+    {
+      "repo": "algorithm-enlighten",
+      "bookSlug": "grokking-algorithms",
+      "title": "算法图解 · 点化学习系统",
+      "discipline": "cs",
+      "file": "algorithm-enlighten--grokking-algorithms.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 11,
+        "concepts": 7,
+        "quizzes": 37,
+        "cards": 46,
+        "glossary": 47
+      }
+    },
+    {
+      "repo": "algorithm-enlighten",
+      "bookSlug": "algorithms-4e",
+      "title": "算法（第 4 版）点化学习伴侣",
+      "discipline": "cs",
+      "file": "algorithm-enlighten--algorithms-4e.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 25,
+        "concepts": 10,
+        "quizzes": 22,
+        "cards": 43,
+        "glossary": 30
+      }
+    },
+    {
+      "repo": "algorithm-enlighten",
+      "bookSlug": "clrs-companion",
+      "title": "《算法导论（原书第 3 版）》学习伴侣",
+      "discipline": "cs",
+      "file": "algorithm-enlighten--clrs-companion.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 39,
+        "concepts": 12,
+        "quizzes": 43,
+        "cards": 117,
+        "glossary": 67
+      }
+    },
+    {
+      "repo": "analysis-handbook",
+      "bookSlug": "analysis-i",
+      "title": "分析 I",
+      "discipline": "math",
+      "file": "analysis-handbook--analysis-i.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 5,
+        "concepts": 5,
+        "quizzes": 17,
+        "cards": 25,
+        "glossary": 29
+      }
+    },
+    {
+      "repo": "analysis-handbook",
+      "bookSlug": "analysis-ii",
+      "title": "分析 II",
+      "discipline": "math",
+      "file": "analysis-handbook--analysis-ii.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 5,
+        "quizzes": 11,
+        "cards": 15,
+        "glossary": 25
+      }
+    },
+    {
+      "repo": "analysis-handbook",
+      "bookSlug": "analysis-iii",
+      "title": "分析 III",
+      "discipline": "math",
+      "file": "analysis-handbook--analysis-iii.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 5,
+        "quizzes": 14,
+        "cards": 20,
+        "glossary": 34
+      }
+    },
+    {
+      "repo": "chem-zhishu",
+      "bookSlug": "zero-basis-chem",
+      "title": "零基础入门：化学的第一套语言",
+      "discipline": "chem",
+      "file": "chem-zhishu--zero-basis-chem.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 10,
+        "concepts": 3,
+        "quizzes": 20,
+        "cards": 20,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "chem-zhishu",
+      "bookSlug": "general-chem",
+      "title": "普通化学原理：大学化学的主干",
+      "discipline": "chem",
+      "file": "chem-zhishu--general-chem.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 12,
+        "concepts": 5,
+        "quizzes": 24,
+        "cards": 24,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "chem-zhishu",
+      "bookSlug": "inorganic-analytical-chem",
+      "title": "无机及分析化学：考纲主线",
+      "discipline": "chem",
+      "file": "chem-zhishu--inorganic-analytical-chem.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 13,
+        "concepts": 6,
+        "quizzes": 130,
+        "cards": 52,
+        "glossary": 87
+      }
+    },
+    {
+      "repo": "chem-zhishu",
+      "bookSlug": "inorganic-analytical-chem-bank",
+      "title": "无机及分析化学考点变式题库：78 题",
+      "discipline": "chem",
+      "file": "chem-zhishu--inorganic-analytical-chem-bank.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 13,
+        "concepts": 0,
+        "quizzes": 78,
+        "cards": 13,
+        "glossary": 5
+      }
+    },
+    {
+      "repo": "chem-zhishu",
+      "bookSlug": "organic-chem",
+      "title": "基础有机化学：从碳骨架到手性",
+      "discipline": "chem",
+      "file": "chem-zhishu--organic-chem.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 1,
+        "quizzes": 8,
+        "cards": 8,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "chem-zhishu",
+      "bookSlug": "equation-diagnosis",
+      "title": "陌生方程式：诊断与训练",
+      "discipline": "chem",
+      "file": "chem-zhishu--equation-diagnosis.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 1,
+        "concepts": 1,
+        "quizzes": 21,
+        "cards": 2,
+        "glossary": 5
+      }
+    },
+    {
+      "repo": "combinatorial-optimization-game-theory",
+      "bookSlug": "combinatorial-optimization-and-game-theory",
+      "title": "组合优化与博弈论",
+      "discipline": "math",
+      "file": "combinatorial-optimization-game-theory.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 9,
+        "concepts": 10,
+        "quizzes": 18,
+        "cards": 27,
+        "glossary": 56
+      }
+    },
+    {
+      "repo": "complex-analysis-visual",
+      "bookSlug": "visual-complex-analysis",
+      "title": "复分析：可视化方法",
+      "discipline": "math",
+      "file": "complex-analysis-visual.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 12,
+        "concepts": 49,
+        "quizzes": 101,
+        "cards": 98,
+        "glossary": 64
+      }
+    },
+    {
+      "repo": "cpu-enlighten",
+      "bookSlug": "cpu-tongshi",
+      "title": "CPU 通识课",
+      "discipline": "cs",
+      "file": "cpu-enlighten.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 38,
+        "concepts": 8,
+        "quizzes": 148,
+        "cards": 223,
+        "glossary": 193
+      }
+    },
+    {
+      "repo": "discrete-geometry-enlighten",
+      "bookSlug": "discrete-geometry-processing",
+      "title": "《离散几何处理与应用》点化学习",
+      "discipline": "math",
+      "file": "discrete-geometry-enlighten.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 10,
+        "concepts": 16,
+        "quizzes": 42,
+        "cards": 45,
+        "glossary": 101
+      }
+    },
+    {
+      "repo": "economics-principles-handbook",
+      "bookSlug": "microeconomics",
+      "title": "经济学原理·微观经济学分册",
+      "discipline": "general",
+      "file": "economics-principles-handbook--microeconomics.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 22,
+        "concepts": 6,
+        "quizzes": 81,
+        "cards": 117,
+        "glossary": 141
+      }
+    },
+    {
+      "repo": "economics-principles-handbook",
+      "bookSlug": "macroeconomics",
+      "title": "经济学原理·宏观经济学分册",
+      "discipline": "general",
+      "file": "economics-principles-handbook--macroeconomics.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 14,
+        "concepts": 7,
+        "quizzes": 56,
+        "cards": 73,
+        "glossary": 80
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "complex",
+      "title": "复杂",
+      "discipline": "general",
+      "file": "first-push-enlighten--complex.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 19,
+        "concepts": 5,
+        "quizzes": 41,
+        "cards": 76,
+        "glossary": 31
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "engines-of-complexity",
+      "title": "复杂的引擎",
+      "discipline": "general",
+      "file": "first-push-enlighten--engines-of-complexity.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 14,
+        "concepts": 4,
+        "quizzes": 31,
+        "cards": 55,
+        "glossary": 16
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "emperors-new-mind",
+      "title": "皇帝新脑",
+      "discipline": "general",
+      "file": "first-push-enlighten--emperors-new-mind.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 10,
+        "concepts": 3,
+        "quizzes": 23,
+        "cards": 40,
+        "glossary": 18
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "engines-of-logic",
+      "title": "逻辑的引擎",
+      "discipline": "general",
+      "file": "first-push-enlighten--engines-of-logic.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 9,
+        "concepts": 3,
+        "quizzes": 21,
+        "cards": 35,
+        "glossary": 16
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "meaning-of-math",
+      "title": "数学的意义",
+      "discipline": "general",
+      "file": "first-push-enlighten--meaning-of-math.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 10,
+        "concepts": 4,
+        "quizzes": 23,
+        "cards": 40,
+        "glossary": 15
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "next-fifty-years",
+      "title": "未来50年",
+      "discipline": "general",
+      "file": "first-push-enlighten--next-fifty-years.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 25,
+        "concepts": 3,
+        "quizzes": 28,
+        "cards": 75,
+        "glossary": 12
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "truth-and-beauty",
+      "title": "真理与美",
+      "discipline": "general",
+      "file": "first-push-enlighten--truth-and-beauty.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 7,
+        "concepts": 3,
+        "quizzes": 17,
+        "cards": 27,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "whats-next",
+      "title": "下一步是什么",
+      "discipline": "general",
+      "file": "first-push-enlighten--whats-next.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 18,
+        "concepts": 3,
+        "quizzes": 21,
+        "cards": 54,
+        "glossary": 14
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "world-beyond-physics",
+      "title": "物理之外的世界",
+      "discipline": "general",
+      "file": "first-push-enlighten--world-beyond-physics.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 11,
+        "concepts": 3,
+        "quizzes": 14,
+        "cards": 36,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "galileos-finger",
+      "title": "伽利略的手指",
+      "discipline": "general",
+      "file": "first-push-enlighten--galileos-finger.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 10,
+        "concepts": 3,
+        "quizzes": 23,
+        "cards": 40,
+        "glossary": 13
+      }
+    },
+    {
+      "repo": "first-push-enlighten",
+      "bookSlug": "four-dimensional-travel",
+      "title": "四维旅行",
+      "discipline": "general",
+      "file": "first-push-enlighten--four-dimensional-travel.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 12,
+        "concepts": 3,
+        "quizzes": 15,
+        "cards": 48,
+        "glossary": 13
+      }
+    },
+    {
+      "repo": "food-zhishu",
+      "bookSlug": "food-direction",
+      "title": "食品类大方向：从化学基础到营养与检测",
+      "discipline": "chem",
+      "file": "food-zhishu--food-direction.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 12,
+        "concepts": 0,
+        "quizzes": 60,
+        "cards": 24,
+        "glossary": 75
+      }
+    },
+    {
+      "repo": "food-zhishu",
+      "bookSlug": "food-direction-bank",
+      "title": "食品类大方向题库：144 题考点变式",
+      "discipline": "chem",
+      "file": "food-zhishu--food-direction-bank.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 12,
+        "concepts": 0,
+        "quizzes": 144,
+        "cards": 0,
+        "glossary": 0
+      }
+    },
+    {
+      "repo": "food-zhishu",
+      "bookSlug": "inorganic-analytical-chem",
+      "title": "无机及分析化学：食品检验衔接版",
+      "discipline": "chem",
+      "file": "food-zhishu--inorganic-analytical-chem.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 13,
+        "concepts": 6,
+        "quizzes": 130,
+        "cards": 52,
+        "glossary": 87
+      }
+    },
+    {
+      "repo": "food-zhishu",
+      "bookSlug": "inorganic-analytical-chem-bank",
+      "title": "无机及分析化学题库：食品检验衔接版",
+      "discipline": "chem",
+      "file": "food-zhishu--inorganic-analytical-chem-bank.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 13,
+        "concepts": 0,
+        "quizzes": 78,
+        "cards": 13,
+        "glossary": 5
+      }
+    },
+    {
+      "repo": "hello-ai-zhishu",
+      "bookSlug": "hello-ai",
+      "title": "Hello, AI · 人工智能导论",
+      "discipline": "ai",
+      "file": "hello-ai-zhishu.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 20,
+        "concepts": 50,
+        "quizzes": 60,
+        "cards": 70,
+        "glossary": 110
+      }
+    },
+    {
+      "repo": "math-analysis",
+      "bookSlug": "math-analysis-upper",
+      "title": "数学分析（上册）",
+      "discipline": "math",
+      "file": "math-analysis--math-analysis-upper.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 11,
+        "concepts": 6,
+        "quizzes": 22,
+        "cards": 22,
+        "glossary": 31
+      }
+    },
+    {
+      "repo": "math-analysis",
+      "bookSlug": "math-analysis-lower",
+      "title": "数学分析（下册）",
+      "discipline": "math",
+      "file": "math-analysis--math-analysis-lower.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 12,
+        "concepts": 6,
+        "quizzes": 24,
+        "cards": 24,
+        "glossary": 34
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "rational-irrational",
+      "title": "有理数与无理数",
+      "discipline": "math",
+      "file": "math-basics-enlighten--rational-irrational.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 5,
+        "concepts": 3,
+        "quizzes": 13,
+        "cards": 17,
+        "glossary": 12
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "zhengshi",
+      "title": "整式",
+      "discipline": "math",
+      "file": "math-basics-enlighten--zhengshi.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 11,
+        "cards": 14,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "equations-1-2",
+      "title": "一次方程与二次方程",
+      "discipline": "math",
+      "file": "math-basics-enlighten--equations-1-2.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 13,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "fractions-radicals",
+      "title": "分式与根式",
+      "discipline": "math",
+      "file": "math-basics-enlighten--fractions-radicals.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 13,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "inequalities",
+      "title": "不等式",
+      "discipline": "math",
+      "file": "math-basics-enlighten--inequalities.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 14,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "linear-quadratic-functions",
+      "title": "一次函数与二次函数",
+      "discipline": "math",
+      "file": "math-basics-enlighten--linear-quadratic-functions.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "exponents-logarithms",
+      "title": "指数与对数",
+      "discipline": "math",
+      "file": "math-basics-enlighten--exponents-logarithms.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "permutations-combinations",
+      "title": "排列与组合",
+      "discipline": "math",
+      "file": "math-basics-enlighten--permutations-combinations.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "sequences-limits",
+      "title": "数列与极限",
+      "discipline": "math",
+      "file": "math-basics-enlighten--sequences-limits.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "complex-numbers",
+      "title": "复数",
+      "discipline": "math",
+      "file": "math-basics-enlighten--complex-numbers.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "plane-figures",
+      "title": "直线形",
+      "discipline": "math",
+      "file": "math-basics-enlighten--plane-figures.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "circle",
+      "title": "圆",
+      "discipline": "math",
+      "file": "math-basics-enlighten--circle.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 13,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "lines-planes",
+      "title": "直线与平面",
+      "discipline": "math",
+      "file": "math-basics-enlighten--lines-planes.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 11,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "area-volume",
+      "title": "面积与体积",
+      "discipline": "math",
+      "file": "math-basics-enlighten--area-volume.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "locus",
+      "title": "轨迹",
+      "discipline": "math",
+      "file": "math-basics-enlighten--locus.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 11,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "solving-triangles",
+      "title": "解三角形",
+      "discipline": "math",
+      "file": "math-basics-enlighten--solving-triangles.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 10,
+        "glossary": 7
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "trigonometry",
+      "title": "三角函数",
+      "discipline": "math",
+      "file": "math-basics-enlighten--trigonometry.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 14,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "line-equations",
+      "title": "直线方程",
+      "discipline": "math",
+      "file": "math-basics-enlighten--line-equations.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 11,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "conic-sections",
+      "title": "圆锥曲线",
+      "discipline": "math",
+      "file": "math-basics-enlighten--conic-sections.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 12,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "polar-parametric",
+      "title": "极坐标与参数方程",
+      "discipline": "math",
+      "file": "math-basics-enlighten--polar-parametric.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 11,
+        "glossary": 8
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "linear-systems-matrices",
+      "title": "线性方程组与矩阵",
+      "discipline": "math",
+      "file": "math-basics-enlighten--linear-systems-matrices.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 14,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "calculus-intro",
+      "title": "微积分初步",
+      "discipline": "math",
+      "file": "math-basics-enlighten--calculus-intro.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 2,
+        "quizzes": 10,
+        "cards": 13,
+        "glossary": 9
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "boolean-algebra",
+      "title": "逻辑代数初步",
+      "discipline": "math",
+      "file": "math-basics-enlighten--boolean-algebra.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 13,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "math-basics-enlighten",
+      "bookSlug": "statistics-intro",
+      "title": "数理统计初步",
+      "discipline": "math",
+      "file": "math-basics-enlighten--statistics-intro.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 2,
+        "quizzes": 8,
+        "cards": 13,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "math-physical-methods",
+      "bookSlug": "math-physical-methods",
+      "title": "数学物理方法",
+      "discipline": "math",
+      "file": "math-physical-methods.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 14,
+        "concepts": 61,
+        "quizzes": 100,
+        "cards": 120,
+        "glossary": 63
+      }
+    },
+    {
+      "repo": "neural-net-zero",
+      "bookSlug": "neural-net-zero",
+      "title": "神经网络：从一条直线推到反向传播",
+      "discipline": "ai",
+      "file": "neural-net-zero.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 13,
+        "concepts": 12,
+        "quizzes": 32,
+        "cards": 34,
+        "glossary": 55
+      }
+    },
+    {
+      "repo": "ode-enlighten",
+      "bookSlug": "wanggaoxiong-ode",
+      "title": "常微分方程（王高雄·第四版）",
+      "discipline": "math",
+      "file": "ode-enlighten--wanggaoxiong-ode.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 8,
+        "concepts": 6,
+        "quizzes": 28,
+        "cards": 30,
+        "glossary": 39
+      }
+    },
+    {
+      "repo": "ode-enlighten",
+      "bookSlug": "zhusiming-guide",
+      "title": "常微分方程学习辅导与习题解答（朱思铭）",
+      "discipline": "math",
+      "file": "ode-enlighten--zhusiming-guide.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 8,
+        "concepts": 3,
+        "quizzes": 19,
+        "cards": 15,
+        "glossary": 31
+      }
+    },
+    {
+      "repo": "ode-enlighten",
+      "bookSlug": "xitijiexi-ode",
+      "title": "常微分方程（第四版）习题详解",
+      "discipline": "math",
+      "file": "ode-enlighten--xitijiexi-ode.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 8,
+        "concepts": 3,
+        "quizzes": 18,
+        "cards": 16,
+        "glossary": 32
+      }
+    },
+    {
+      "repo": "ode-enlighten",
+      "bookSlug": "liubin-ode",
+      "title": "常微分方程（柳彬·北大社）",
+      "discipline": "math",
+      "file": "ode-enlighten--liubin-ode.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 9,
+        "concepts": 4,
+        "quizzes": 20,
+        "cards": 27,
+        "glossary": 33
+      }
+    },
+    {
+      "repo": "ode-enlighten",
+      "bookSlug": "dingtongren-ode",
+      "title": "常微分方程教程（丁同仁·李承治）",
+      "discipline": "math",
+      "file": "ode-enlighten--dingtongren-ode.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 11,
+        "concepts": 4,
+        "quizzes": 24,
+        "cards": 22,
+        "glossary": 40
+      }
+    },
+    {
+      "repo": "ode-enlighten",
+      "bookSlug": "pontryagin-ode",
+      "title": "常微分方程（庞特里亚金）",
+      "discipline": "math",
+      "file": "ode-enlighten--pontryagin-ode.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 6,
+        "concepts": 3,
+        "quizzes": 17,
+        "cards": 15,
+        "glossary": 29
+      }
+    },
+    {
+      "repo": "ode-enlighten",
+      "bookSlug": "arnold-ode",
+      "title": "常微分方程（阿诺尔德）",
+      "discipline": "math",
+      "file": "ode-enlighten--arnold-ode.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 7,
+        "concepts": 3,
+        "quizzes": 19,
+        "cards": 15,
+        "glossary": 40
+      }
+    },
+    {
+      "repo": "sudoku-zhishu",
+      "bookSlug": "sudoku-zhishu",
+      "title": "数独：从规则到链",
+      "discipline": "cs",
+      "file": "sudoku-zhishu.json",
+      "contentLevel": "degraded",
+      "stats": {
+        "chapters": 16,
+        "concepts": 0,
+        "quizzes": 54,
+        "cards": 34,
+        "glossary": 43
+      }
+    },
+    {
+      "repo": "taocp-enlighten",
+      "bookSlug": "taocp-v1",
+      "title": "计算机程序设计艺术 卷1：基本算法",
+      "discipline": "cs",
+      "file": "taocp-enlighten--taocp-v1.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 5,
+        "concepts": 6,
+        "quizzes": 16,
+        "cards": 23,
+        "glossary": 27
+      }
+    },
+    {
+      "repo": "taocp-enlighten",
+      "bookSlug": "taocp-v2",
+      "title": "计算机程序设计艺术 卷2：半数值算法",
+      "discipline": "cs",
+      "file": "taocp-enlighten--taocp-v2.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 3,
+        "quizzes": 13,
+        "cards": 16,
+        "glossary": 17
+      }
+    },
+    {
+      "repo": "taocp-enlighten",
+      "bookSlug": "taocp-v3",
+      "title": "计算机程序设计艺术 卷3：排序与查找",
+      "discipline": "cs",
+      "file": "taocp-enlighten--taocp-v3.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 6,
+        "concepts": 3,
+        "quizzes": 19,
+        "cards": 18,
+        "glossary": 19
+      }
+    },
+    {
+      "repo": "taocp-enlighten",
+      "bookSlug": "taocp-v4a",
+      "title": "计算机程序设计艺术 卷4A：组合算法（一）",
+      "discipline": "cs",
+      "file": "taocp-enlighten--taocp-v4a.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 4,
+        "concepts": 3,
+        "quizzes": 13,
+        "cards": 12,
+        "glossary": 16
+      }
+    },
+    {
+      "repo": "taocp-enlighten",
+      "bookSlug": "taocp-v4b",
+      "title": "计算机程序设计艺术 卷4B：生成所有元组和排列",
+      "discipline": "cs",
+      "file": "taocp-enlighten--taocp-v4b.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 2,
+        "concepts": 3,
+        "quizzes": 7,
+        "cards": 7,
+        "glossary": 10
+      }
+    },
+    {
+      "repo": "taocp-enlighten",
+      "bookSlug": "mmix",
+      "title": "计算机程序设计艺术 MMIX 增补",
+      "discipline": "cs",
+      "file": "taocp-enlighten--mmix.json",
+      "contentLevel": "full",
+      "stats": {
+        "chapters": 3,
+        "concepts": 3,
+        "quizzes": 10,
+        "cards": 7,
+        "glossary": 11
+      }
+    }
+  ],
+  "failures": [
+    {
+      "repo": "ACM-XCPC-Notes",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "AI-Study-Notes",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "AI-courses",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "C-",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "C-true",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "CourseVault-OfflineCourseMap",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "MATLAB",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "ODE",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "SVM",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "ai-history-site",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "alpoge-remark-book",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "bws-bilingual-reader",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "exam-solver",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "gaokao-math",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "kaoyan-math-66000",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "llm-model-catalog",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "math-competition-derivation",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 交付说明.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "mathmap",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "meeting-129600years",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "odes-from-scratch",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "pages-index",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "probability-statistics",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "shanghai-chem-lab",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "show",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    },
+    {
+      "repo": "transformer",
+      "bookSlug": null,
+      "reason": "无 manifest.json（说明文件 README.md）",
+      "contentLevel": "stats-only"
+    }
+  ]
 }

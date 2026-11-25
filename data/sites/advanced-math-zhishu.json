@@ -1,0 +1,2960 @@
+{
+ "repo": "advanced-math-zhishu",
+ "bookSlug": "food-math",
+ "title": "高等数学 · 食品专业贯通学习系统",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-高等数学-食品专业版/manifest.json",
+ "stats": {
+  "chapters": 10,
+  "concepts": 32,
+  "quizzes": 56,
+  "cards": 60,
+  "glossary": 75
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：函数、极限与连续",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch01-函数极限连续.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 高等数学基础模块"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：导数与微分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch02-导数与微分.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 一元微分学"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：微分中值定理与导数的应用",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch03-中值定理与导数应用.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 一元微分学"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：不定积分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch04-不定积分.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 积分学"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：定积分及其应用",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch05-定积分及其应用.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 积分学"
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：微分方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05",
+    "ch02"
+   ],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch06-微分方程.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 微分方程"
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：多元函数微分学",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch07-多元函数微分学.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 多元微积分"
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：二重积分",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch07",
+    "ch05"
+   ],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch08-二重积分.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 多元微积分"
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：无穷级数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02",
+    "ch01"
+   ],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch09-无穷级数.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 级数"
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：数学实验与误差分析",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05",
+    "ch06"
+   ],
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/chapters/ch10-数学实验与误差分析.md"
+   },
+   "bookSource": {
+    "file": "自编讲义 · 数学实验"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "函数与复合函数",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c01-函数与复合函数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "数列极限与 ε-N 定义",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "{'id': 'c01', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "concepts/c02-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c02-数列极限.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "函数极限与左右极限",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "{'id': 'c02', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c03-函数极限.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "无穷小与等价无穷小",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "{'id': 'c03', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c04-等价无穷小.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "连续与间断点",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "{'id': 'c03', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c05-连续与间断点.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "导数定义与瞬时变化率",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "{'id': 'c05', 'type': 'hard'}",
+    "{'id': 'c03', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c06-导数定义.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c07",
+   "title": "链式法则",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "{'id': 'c06', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c07-链式法则.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c08",
+   "title": "隐函数与参数方程求导",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "{'id': 'c07', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c08-隐函数与参数方程求导.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c09",
+   "title": "微分与线性近似",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "{'id': 'c06', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c09-微分与线性近似.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c10",
+   "title": "微分中值定理",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [
+    "{'id': 'c06', 'type': 'hard'}",
+    "{'id': 'c05', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "concepts/c10-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c10-中值定理.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c11",
+   "title": "洛必达法则",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [
+    "{'id': 'c10', 'type': 'hard'}",
+    "{'id': 'c04', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c11-洛必达法则.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c12",
+   "title": "极值与最优化",
+   "chapterIds": [
+    "ch03",
+    "ch07"
+   ],
+   "prerequisites": [
+    "{'id': 'c10', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c12-极值与最优化.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c13",
+   "title": "凹凸性与拐点",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [
+    "{'id': 'c06', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c13-凹凸与拐点.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c14",
+   "title": "原函数与不定积分",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [
+    "{'id': 'c06', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c14-原函数与不定积分.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c15",
+   "title": "换元积分法",
+   "chapterIds": [
+    "ch04",
+    "ch05"
+   ],
+   "prerequisites": [
+    "{'id': 'c14', 'type': 'hard'}",
+    "{'id': 'c07', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c15-换元积分法.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c16",
+   "title": "分部积分法",
+   "chapterIds": [
+    "ch04",
+    "ch05"
+   ],
+   "prerequisites": [
+    "{'id': 'c14', 'type': 'hard'}",
+    "{'id': 'c15', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c16-分部积分法.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c17",
+   "title": "定积分的定义与可积性",
+   "chapterIds": [
+    "ch05",
+    "ch08"
+   ],
+   "prerequisites": [
+    "{'id': 'c05', 'type': 'hard'}",
+    "{'id': 'c04', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c17-定积分定义.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c18",
+   "title": "微积分基本定理",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "{'id': 'c17', 'type': 'hard'}",
+    "{'id': 'c14', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "concepts/c18-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c18-微积分基本定理.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c19",
+   "title": "微元法",
+   "chapterIds": [
+    "ch05",
+    "ch08"
+   ],
+   "prerequisites": [
+    "{'id': 'c18', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c19-微元法.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c20",
+   "title": "反常积分",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "{'id': 'c18', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c20-反常积分.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c21",
+   "title": "可分离变量方程",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [
+    "{'id': 'c14', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c21-可分离变量方程.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c22",
+   "title": "一阶线性微分方程",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [
+    "{'id': 'c21', 'type': 'hard'}",
+    "{'id': 'c15', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "concepts/c22-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c22-一阶线性微分方程.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c23",
+   "title": "二阶常系数线性微分方程",
+   "chapterIds": [
+    "ch06"
+   ],
+   "prerequisites": [
+    "{'id': 'c22', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "concepts/c23-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c23-二阶常系数方程.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c24",
+   "title": "偏导数与全微分",
+   "chapterIds": [
+    "ch07",
+    "ch08"
+   ],
+   "prerequisites": [
+    "{'id': 'c06', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c24-偏导数与全微分.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c25",
+   "title": "多元复合与隐函数求导",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [
+    "{'id': 'c24', 'type': 'hard'}",
+    "{'id': 'c07', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c25-多元复合与隐函数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c26",
+   "title": "梯度与方向导数",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [
+    "{'id': 'c24', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c26-梯度与方向导数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c27",
+   "title": "条件极值与拉格朗日乘数法",
+   "chapterIds": [
+    "ch07"
+   ],
+   "prerequisites": [
+    "{'id': 'c25', 'type': 'hard'}",
+    "{'id': 'c26', 'type': 'hard'}",
+    "{'id': 'c12', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c27-条件极值.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c28",
+   "title": "二重积分的计算",
+   "chapterIds": [
+    "ch08"
+   ],
+   "prerequisites": [
+    "{'id': 'c17', 'type': 'hard'}",
+    "{'id': 'c24', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c28-二重积分计算.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c29",
+   "title": "级数收敛判别",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [
+    "{'id': 'c02', 'type': 'hard'}",
+    "{'id': 'c20', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c29-级数收敛判别.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c30",
+   "title": "泰勒级数与近似",
+   "chapterIds": [
+    "ch09",
+    "ch10"
+   ],
+   "prerequisites": [
+    "{'id': 'c29', 'type': 'hard'}",
+    "{'id': 'c06', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "concepts/c30-depth.md",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c30-泰勒级数.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c31",
+   "title": "数值积分与数值微分",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [
+    "{'id': 'c18', 'type': 'hard'}",
+    "{'id': 'c30', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c31-数值积分与微分.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c32",
+   "title": "最小二乘拟合",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [
+    "{'id': 'c12', 'type': 'hard'}",
+    "{'id': 'c24', 'type': 'hard'}"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "advanced-math-zhishu",
+    "path": "01-高等数学-食品专业版/concepts/c32-最小二乘拟合.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "lim(x→0) sin3x / x 等于多少？",
+   "options": [
+    "0",
+    "1",
+    "3",
+    "不存在"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "x→0 时 sin3x ~ 3x，所以比值为 3。等价无穷小替换只对乘除因子有效，这里正好是乘除结构。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "f(x)=(x²-1)/(x-1) 在 x=1 处属于哪类间断点？",
+   "options": [
+    "连续点",
+    "可去间断点",
+    "跳跃间断点",
+    "无穷间断点"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c05",
+   "explain": "化简后 f(x)=x+1（x≠1），极限为 2，但函数在 1 处无定义，补上定义即可连续，属可去间断。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "lim(x→∞) (1+2/x)^x 等于多少？",
+   "options": [
+    "e",
+    "e²",
+    "2e",
+    "1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "令 t=2/x，则 (1+t)^(2/t)=[(1+t)^(1/t)]²→e²。第二个重要极限的变形。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch01",
+   "stem": "当 x→0 时，下列哪个是无穷小？",
+   "options": [
+    "sin x / x",
+    "1-cos x",
+    "e^x",
+    "ln(1+x)/x"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c04",
+   "explain": "1-cos x→0，且与 x²/2 等价；sin x/x→1，e^x→1，ln(1+x)/x→1，极限都不是 0。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch01",
+   "stem": "某菌液初始 500 CFU/mL，每 30 min 翻一倍。2 h 后的菌数是 ____ CFU/mL。",
+   "options": [],
+   "answer": "8000",
+   "type": "blank",
+   "conceptId": "c01",
+   "explain": "N(t)=500·2^(t/30)，t=120 时指数为 4，500×16=8000。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch02",
+   "stem": "y=x³ln x 的导数是？",
+   "options": [
+    "3x²ln x",
+    "x²",
+    "3x²ln x + x²",
+    "3x² + 1/x"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c07",
+   "explain": "乘积法则：(x³)'ln x + x³(ln x)' = 3x²ln x + x³·(1/x) = 3x²ln x + x²。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch02",
+   "stem": "f(x)=|x| 在 x=0 处是什么情况？",
+   "options": [
+    "可导且导数为 0",
+    "连续但不可导",
+    "不连续",
+    "可导且导数为 1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c06",
+   "explain": "函数连续；左导数 -1、右导数 1，左右不等，所以不可导。可导必连续，连续不一定可导。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch02",
+   "stem": "用微分近似，√1.02 约等于？",
+   "options": [
+    "1.02",
+    "1.01",
+    "1.005",
+    "1.2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "f(x)=√x，f'(1)=1/2，Δx=0.02，f≈1+0.5×0.02=1.01。实际 1.00995。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch02",
+   "stem": "圆 x²+y²=25 在点 (3,4) 处的切线斜率是？",
+   "options": [
+    "3/4",
+    "-3/4",
+    "-4/3",
+    "4/3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c08",
+   "explain": "两边求导 2x+2yy'=0，y'=-x/y=-3/4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch02",
+   "stem": "半径 r=10 cm，测量误差 ±0.2 cm，圆面积 S=πr² 的相对误差约为？",
+   "options": [
+    "2%",
+    "4%",
+    "0.4%",
+    "20%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "ΔS≈S'(r)Δr=2πrΔr，相对误差 ΔS/S=2Δr/r=2×2%=4%。平方关系把相对误差放大一倍。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch03",
+   "stem": "f(x)=x³-3x 的极大值是？",
+   "options": [
+    "-2",
+    "2",
+    "0",
+    "1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "f'=3(x-1)(x+1)，x=-1 处由增变减，极大值 f(-1)=-1+3=2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch03",
+   "stem": "lim(x→0)(e^x-1-x)/x² 等于？",
+   "options": [
+    "0",
+    "1",
+    "1/2",
+    "不存在"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c11",
+   "explain": "0/0 型，两次洛必达：(e^x-1)/2x → e^x/2 → 1/2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch03",
+   "stem": "f(x)=x³ 的拐点是？",
+   "options": [
+    "(0,0)",
+    "(1,1)",
+    "(-1,-1)",
+    "没有拐点"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c13",
+   "explain": "f''=6x，x<0 时小于 0，x>0 时大于 0，两侧变号，(0,0) 是拐点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch03",
+   "stem": "周长 20 cm 的矩形，最大面积是多少？",
+   "options": [
+    "20 cm²",
+    "24 cm²",
+    "25 cm²",
+    "30 cm²"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c12",
+   "explain": "设边长 x、y，2x+2y=20，S=xy≤((x+y)/2)²=25，x=y=5 时取到。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch03",
+   "stem": "拉格朗日中值定理的结论是？",
+   "options": [
+    "f(b)-f(a)=f'(ξ)(b-a)",
+    "f'(ξ)=0",
+    "f(b)=f(a)",
+    "f'在[a,b]连续"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c10",
+   "explain": "区间平均变化率等于区间内某点的瞬时变化率；f'(ξ)=0 是罗尔定理的结论。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch04",
+   "stem": "∫x e^(x²) dx 等于？",
+   "options": [
+    "e^(x²)+C",
+    "(1/2)e^(x²)+C",
+    "2e^(x²)+C",
+    "(1/2)e^(2x)+C"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c15",
+   "explain": "凑微分：d(x²)=2x dx，原式=1/2∫e^u du=1/2 e^(x²)+C。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch04",
+   "stem": "∫x ln x dx 等于？",
+   "options": [
+    "(x²/2)ln x+C",
+    "x ln x - x + C",
+    "(x²/2)ln x - x²/4 + C",
+    "(x²/4)ln x + C"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c16",
+   "explain": "分部积分，u=ln x，dv=x dx：uv-∫v du=(x²/2)ln x-∫x/2 dx=(x²/2)ln x-x²/4+C。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch04",
+   "stem": "∫dx/x 等于？",
+   "options": [
+    "ln x + C",
+    "ln|x| + C",
+    "1/x² + C",
+    "x ln x + C"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c14",
+   "explain": "x<0 时 ln x 无定义，必须加绝对值。求导验证：(ln|x|)'=1/x。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch04",
+   "stem": "∫(3x-1)^4 dx 等于？",
+   "options": [
+    "(3x-1)^5+C",
+    "(3x-1)^5/5+C",
+    "(3x-1)^5/15+C",
+    "4(3x-1)^3+C"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c15",
+   "explain": "d(3x-1)=3dx，先补 1/3，再套幂函数积分：1/3·(3x-1)^5/5=(3x-1)^5/15+C。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch04",
+   "stem": "下列函数中，原函数不能用初等函数表示的是？",
+   "options": [
+    "x²",
+    "sin x",
+    "e^(-x²)",
+    "1/(1+x²)"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c14",
+   "explain": "e^(-x²) 的原函数不是初等函数，实际计算要用数值积分；其余三个都能直接积。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch05",
+   "stem": "∫₀¹ x² dx 等于？",
+   "options": [
+    "1/3",
+    "1/2",
+    "1",
+    "1/4"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c18",
+   "explain": "原函数 x³/3，代 1 与 0 相减得 1/3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch05",
+   "stem": "下列反常积分收敛的是？",
+   "options": [
+    "∫₁→∞ dx/x",
+    "∫₁→∞ dx/x²",
+    "∫₀¹ dx/x",
+    "∫₁→∞ x dx"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c20",
+   "explain": "p 积分判据：p=2>1 收敛；p=1 发散；∫₀¹ dx/x 也发散；∫x dx 发散。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch05",
+   "stem": "y=x 与 y=x² 在 [0,1] 之间围成的面积是？",
+   "options": [
+    "1/3",
+    "1/6",
+    "1/2",
+    "1"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c19",
+   "explain": "∫₀¹(x-x²)dx=1/2-1/3=1/6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch05",
+   "stem": "y=√x 在 [0,1] 上绕 x 轴旋转所得体积是？",
+   "options": [
+    "π/4",
+    "π/2",
+    "π",
+    "2π"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c19",
+   "explain": "V=π∫₀¹(√x)²dx=π∫₀¹x dx=π/2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch05",
+   "stem": "定积分的几何意义是？",
+   "options": [
+    "曲线长度",
+    "有向面积",
+    "切线斜率",
+    "平均变化率"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c17",
+   "explain": "x 轴上方面积记正、下方记负，所以是有向面积；∫_{-1}^{1}x dx=0 就是左右抵消的例子。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch06",
+   "stem": "y'=2xy 的通解是？",
+   "options": [
+    "y=2x+C",
+    "y=Ce^(2x)",
+    "y=Ce^(x²)",
+    "y=x²+C"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c21",
+   "explain": "分离变量：dy/y=2x dx，积分得 ln|y|=x²+C，y=Ce^(x²)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch06",
+   "stem": "y''-5y'+6y=0 的通解是？",
+   "options": [
+    "C₁e^(-2x)+C₂e^(-3x)",
+    "C₁e^(2x)+C₂e^(3x)",
+    "(C₁+C₂x)e^(2x)",
+    "C₁cos2x+C₂sin3x"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c23",
+   "explain": "特征方程 r²-5r+6=0，r=2,3，两个不等实根。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch06",
+   "stem": "90 ℃ 牛奶在 20 ℃ 房间冷却，10 min 后 60 ℃，冷却系数 k 约为？",
+   "options": [
+    "0.016/min",
+    "0.056/min",
+    "0.56/min",
+    "0.0056/min"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c21",
+   "explain": "70e^(-10k)=40，e^(-10k)=4/7，k=ln(7/4)/10≈0.056/min。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q29",
+   "chapterId": "ch06",
+   "stem": "y'+2y=4，y(0)=0 的特解是？",
+   "options": [
+    "y=2e^(-2x)",
+    "y=2(1-e^(-2x))",
+    "y=4(1-e^(-x))",
+    "y=2+e^(-2x)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c22",
+   "explain": "积分因子 e^(2x)，(ye^(2x))'=4e^(2x)，y=2+Ce^(-2x)，初值得 C=-2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q30",
+   "chapterId": "ch06",
+   "stem": "二阶常系数方程特征方程为重根 r 时，通解是？",
+   "options": [
+    "C₁e^(rx)",
+    "(C₁+C₂x)e^(rx)",
+    "C₁cos rx+C₂sin rx",
+    "C₁e^(rx)+C₂e^(-rx)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c23",
+   "explain": "重根时两个线性无关解是 e^(rx) 与 xe^(rx)，通解为 (C₁+C₂x)e^(rx)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q31",
+   "chapterId": "ch07",
+   "stem": "z=x²y+sin(xy) 的 ∂z/∂x 是？",
+   "options": [
+    "x²+ycos(xy)",
+    "2xy+xcos(xy)",
+    "2xy+ycos(xy)",
+    "2xy+cos(xy)"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c24",
+   "explain": "对 x 求偏导时 y 当常数：x²y→2xy，sin(xy)→ycos(xy)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q32",
+   "chapterId": "ch07",
+   "stem": "z=x²+y²-2x-4y 的极小值点是？",
+   "options": [
+    "(0,0)",
+    "(1,2)",
+    "(2,4)",
+    "(-1,-2)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c24",
+   "explain": "z_x=2x-2=0，z_y=2y-4=0，驻点 (1,2)；A=2>0，Δ=4>0，极小。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q33",
+   "chapterId": "ch07",
+   "stem": "f=x²+y² 在点 (1,2) 处梯度的模是？",
+   "options": [
+    "2",
+    "4",
+    "√20",
+    "5"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c26",
+   "explain": "∇f=(2x,2y)=(2,4)，模 √(4+16)=√20≈4.47。最大方向导数等于梯度模。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q34",
+   "chapterId": "ch07",
+   "stem": "拉格朗日乘数法构造的方程组是？",
+   "options": [
+    "f_x=0, f_y=0",
+    "f_x+λg_x=0, f_y+λg_y=0, g=0",
+    "g_x=0, g_y=0",
+    "f_x=g_x, f_y=g_y"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c27",
+   "explain": "对 L=f+λg 分别求 x、y、λ 的偏导并令其为 0，第三个方程就是约束本身。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q35",
+   "chapterId": "ch07",
+   "stem": "周长固定的矩形中，面积最大的是？",
+   "options": [
+    "长宽比 2:1",
+    "正方形",
+    "长宽比 3:2",
+    "越扁越好"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c27",
+   "explain": "2x+2y=L，S=xy≤((x+y)/2)²，等号在 x=y 时成立，即正方形。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q36",
+   "chapterId": "ch08",
+   "stem": "∬_D (x+y)dσ，D:0≤x≤1，0≤y≤2，等于？",
+   "options": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c28",
+   "explain": "∫₀¹dx∫₀²(x+y)dy=∫₀¹(2x+2)dx=[x²+2x]₀¹=3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q37",
+   "chapterId": "ch08",
+   "stem": "极坐标下的面积元是？",
+   "options": [
+    "dr dθ",
+    "r dr dθ",
+    "r² dr dθ",
+    "dr dθ / r"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c28",
+   "explain": "坐标变换的雅可比行列式为 r，所以 dσ=r dr dθ，漏掉 r 是最常见的错误。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q38",
+   "chapterId": "ch08",
+   "stem": "∬_D 1 dσ，D 为 x²+y²≤4，等于？",
+   "options": [
+    "2π",
+    "4π",
+    "8π",
+    "π"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c28",
+   "explain": "被积函数为 1 时积分就是区域面积，半径 2 的圆面积为 π×2²=4π。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q39",
+   "chapterId": "ch08",
+   "stem": "∫₀¹dx∫_x¹ e^(-y²)dy 换序后等于？",
+   "options": [
+    "1-e^(-1)",
+    "(1-e^(-1))/2",
+    "e^(-1)",
+    "1/2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c28",
+   "explain": "区域为 0≤x≤y≤1，换序后 ∫₀¹dy∫₀^y e^(-y²)dx=∫₀¹y e^(-y²)dy=(1-e^(-1))/2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q40",
+   "chapterId": "ch08",
+   "stem": "f≥0 时，二重积分的几何意义是？",
+   "options": [
+    "平面区域面积",
+    "曲顶柱体体积",
+    "曲线弧长",
+    "旋转体体积"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c28",
+   "explain": "以 D 为底、z=f(x,y) 为顶的曲顶柱体体积；f=1 时才退化成区域面积。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q41",
+   "chapterId": "ch09",
+   "stem": "Σ 1/n² 的敛散性是？",
+   "options": [
+    "收敛",
+    "发散",
+    "条件收敛",
+    "无法判断"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c29",
+   "explain": "p 级数，p=2>1，收敛（和为 π²/6≈1.6449）。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q42",
+   "chapterId": "ch09",
+   "stem": "Σ(-1)^(n-1)/n 属于？",
+   "options": [
+    "绝对收敛",
+    "发散",
+    "条件收敛",
+    "和为 1"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c29",
+   "explain": "本身由莱布尼茨判别收敛（和为 ln2），但绝对值级数 Σ1/n 发散，所以是条件收敛。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q43",
+   "chapterId": "ch09",
+   "stem": "Σ x^n/n! 的收敛半径是？",
+   "options": [
+    "0",
+    "1",
+    "e",
+    "+∞"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "c29",
+   "explain": "比值 |a_n/a_{n+1}|=n+1→∞，收敛半径无穷，对一切 x 收敛。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q44",
+   "chapterId": "ch09",
+   "stem": "用泰勒展开（取到 x³ 项）计算 e^0.1，结果是？",
+   "options": [
+    "1.1",
+    "1.105",
+    "1.105167",
+    "1.2"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c30",
+   "explain": "1+0.1+0.01/2+0.001/6=1.105167，真实值 1.1051702，误差约 3.5×10⁻⁶。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q45",
+   "chapterId": "ch09",
+   "stem": "通项趋于 0 但级数发散的例子是？",
+   "options": [
+    "Σ1/n²",
+    "Σ1/2^n",
+    "Σ1/n",
+    "Σ1/n!"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c29",
+   "explain": "调和级数通项 1/n→0，但部分和 ~ln n 发散，说明通项趋于 0 只是必要条件。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q46",
+   "chapterId": "ch10",
+   "stem": "中心差商近似导数的误差阶是？",
+   "options": [
+    "O(h)",
+    "O(h²)",
+    "O(h³)",
+    "O(1)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c31",
+   "explain": "中心差商 (f(x+h)-f(x-h))/2h 的截断误差为 O(h²)，比向前差商高一阶。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q47",
+   "chapterId": "ch10",
+   "stem": "0.03050 的有效数字位数是？",
+   "options": [
+    "3 位",
+    "4 位",
+    "5 位",
+    "6 位"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c31",
+   "explain": "从第一个非零数字 3 起算，3、0、5、0 共四位，末尾的 0 也有效。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q48",
+   "chapterId": "ch10",
+   "stem": "拟合的 R²=0.99 说明什么？",
+   "options": [
+    "模型一定正确",
+    "拟合程度高，但不保证模型有物理意义",
+    "数据没有误差",
+    "可以随意外推"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c32",
+   "explain": "R² 只衡量点离曲线多近，过拟合也能得到高 R²；模型正确性和外推可靠性要另行判断。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q49",
+   "chapterId": "ch10",
+   "stem": "对 y=Ce^(kx) 做最小二乘拟合，通常先做什么？",
+   "options": [
+    "直接对 y 线性拟合",
+    "两边取对数化成线性",
+    "对 x 取平方",
+    "先求导"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c32",
+   "explain": "ln y=ln C+kx，化成线性后可用最小二乘；直接对 y 拟合权重不对，误差分布被扭曲。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q50",
+   "chapterId": "ch10",
+   "stem": "用感量 0.0001 g 的天平称得 2.0034 g，结果应记为？",
+   "options": [
+    "2.0 g",
+    "2.00 g",
+    "2.003 g",
+    "2.0034 g"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "c31",
+   "explain": "天平读到小数点后四位，结果应保留四位小数 2.0034 g；多写或少写都不符合测量精度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q51",
+   "chapterId": "__all__",
+   "stem": "牛顿—莱布尼茨公式把定积分转化为什么运算？",
+   "options": [
+    "求极限",
+    "求原函数后代端点相减",
+    "数值求和",
+    "求导数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c18",
+   "explain": "∫_a^b f dx=F(b)-F(a)，把分割求和取极限换成求原函数、代端点，是微积分基本定理的直接结果。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q52",
+   "chapterId": "__all__",
+   "stem": "一阶线性方程 y'+P(x)y=Q(x) 的关键技巧是？",
+   "options": [
+    "分离变量",
+    "乘积分因子 e^(∫Pdx)",
+    "令 u=y/x",
+    "猜 y=e^(rx)"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c22",
+   "explain": "乘积分因子后左边变成 (yμ)'，两边积分即可；分离变量对含 P(x)y 的和式无效。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q53",
+   "chapterId": "__all__",
+   "stem": "圆域上的二重积分优先用哪种坐标？",
+   "options": [
+    "直角坐标",
+    "极坐标",
+    "球坐标",
+    "柱坐标"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c28",
+   "explain": "圆域、圆环、扇形用极坐标，边界变成 r 的常数或 θ 的常数，积分限简单；注意面积元多一个 r。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q54",
+   "chapterId": "__all__",
+   "stem": "正项级数用比值判别得 L=1 时，应该？",
+   "options": [
+    "判定收敛",
+    "判定发散",
+    "换比较或积分判别",
+    "直接求和"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c29",
+   "explain": "L=1 时比值判别失效，必须换方法；调和级数与 p=2 级数都会给出 L=1，但敛散相反。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q55",
+   "chapterId": "__all__",
+   "stem": "pH 读数 4.20±0.05，氢离子浓度的相对误差约为？",
+   "options": [
+    "5%",
+    "11.5%",
+    "0.05%",
+    "50%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c09",
+   "explain": "c=10^(-pH)，dc/c=-ln10·dpH，相对误差约 ln10×0.05=0.115，即 11.5%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q56",
+   "chapterId": "__all__",
+   "stem": "下列关于可导与连续的说法，正确的有？",
+   "options": [
+    "可导必连续",
+    "连续不一定可导",
+    "连续必可导",
+    "可导不一定连续"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "type": "multi",
+   "conceptId": "c06",
+   "explain": "可导是更强的条件：可导推出连续；|x| 在 0 处连续但不可导，所以连续不一定可导。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "极限存在与函数在该点是否有定义有关系吗？",
+   "back": "没有关系。极限只看趋近过程，函数在该点可以无定义。",
+   "chapterId": "ch01",
+   "tags": [
+    "极限"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "极限存在的充要条件（左右极限）",
+   "back": "左极限与右极限都存在且相等。",
+   "chapterId": "ch01",
+   "tags": [
+    "极限"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "x→0 时 1-cos x 的等价无穷小",
+   "back": "x²/2。",
+   "chapterId": "ch01",
+   "tags": [
+    "无穷小"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "两个重要极限",
+   "back": "lim sinx/x=1（x→0）；lim(1+1/x)^x=e（x→∞）。",
+   "chapterId": "ch01",
+   "tags": [
+    "极限"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "连续的三个条件",
+   "back": "有定义、极限存在、极限值等于函数值。",
+   "chapterId": "ch01",
+   "tags": [
+    "连续"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "间断点四类",
+   "back": "可去、跳跃、无穷、振荡。",
+   "chapterId": "ch01",
+   "tags": [
+    "连续"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "导数的定义式",
+   "back": "f'(x0)=lim(Δx→0)[f(x0+Δx)-f(x0)]/Δx。",
+   "chapterId": "ch02",
+   "tags": [
+    "导数"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "可导与连续的关系",
+   "back": "可导必连续，连续不一定可导（如 |x| 在 0 处）。",
+   "chapterId": "ch02",
+   "tags": [
+    "导数"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "链式法则",
+   "back": "(f(g(x)))'=f'(g(x))g'(x)。",
+   "chapterId": "ch02",
+   "tags": [
+    "求导"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "隐函数求导的基本做法",
+   "back": "两边对 x 求导，遇到 y 乘一个 y'，再解出 y'。",
+   "chapterId": "ch02",
+   "tags": [
+    "求导"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "微分的定义",
+   "back": "dy=f'(x)dx，是函数改变量的线性主部。",
+   "chapterId": "ch02",
+   "tags": [
+    "微分"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "相对误差传递公式",
+   "back": "Δy/y≈|f'(x)/f(x)|Δx，平方关系会把相对误差放大一倍。",
+   "chapterId": "ch02",
+   "tags": [
+    "误差"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "罗尔定理的三个条件",
+   "back": "闭区间连续、开区间可导、两端函数值相等。",
+   "chapterId": "ch03",
+   "tags": [
+    "中值定理"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "拉格朗日中值定理的公式",
+   "back": "f(b)-f(a)=f'(ξ)(b-a)，ξ∈(a,b)。",
+   "chapterId": "ch03",
+   "tags": [
+    "中值定理"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "洛必达法则的适用类型",
+   "back": "0/0 或 ∞/∞ 型，且导数之比的极限存在。",
+   "chapterId": "ch03",
+   "tags": [
+    "极限"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "极值的第一充分条件",
+   "back": "f' 在 x0 两侧变号：左正右负极大，左负右正极小。",
+   "chapterId": "ch03",
+   "tags": [
+    "极值"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "拐点的判定",
+   "back": "f''=0 或不存在，且两侧 f'' 变号。",
+   "chapterId": "ch03",
+   "tags": [
+    "凹凸"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "闭区间求最值的步骤",
+   "back": "算所有驻点、不可导点和端点的函数值，比较大小。",
+   "chapterId": "ch03",
+   "tags": [
+    "极值"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "不定积分为什么必须加 C",
+   "back": "原函数不唯一，任意两个原函数相差一个常数。",
+   "chapterId": "ch04",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "∫dx/x 的结果",
+   "back": "ln|x|+C，不是 ln x+C。",
+   "chapterId": "ch04",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "第一类换元法的核心",
+   "back": "凑微分：把 f(φ(x))φ'(x)dx 写成 f(u)du。",
+   "chapterId": "ch04",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "第二类换元常用三角代换",
+   "back": "√(a²-x²)令x=a sin t；√(a²+x²)令x=a tan t；√(x²-a²)令x=a sec t。",
+   "chapterId": "ch04",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "分部积分公式与选 u 顺序",
+   "back": "∫u dv=uv-∫v du；u 按对数、反三角、代数、三角、指数排序优先。",
+   "chapterId": "ch04",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "∫x e^x dx 的结果",
+   "back": "(x-1)e^x+C。",
+   "chapterId": "ch04",
+   "tags": [
+    "积分"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "定积分的四步构造",
+   "back": "分割、近似、求和、取极限。",
+   "chapterId": "ch05",
+   "tags": [
+    "定积分"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "微积分基本定理",
+   "back": "Φ(x)=∫_a^x f(t)dt 的导数为 f(x)。",
+   "chapterId": "ch05",
+   "tags": [
+    "定积分"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "牛顿—莱布尼茨公式",
+   "back": "∫_a^b f dx=F(b)-F(a)，F 是 f 的任一原函数。",
+   "chapterId": "ch05",
+   "tags": [
+    "定积分"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "p 积分收敛条件",
+   "back": "∫_1^∞ x^(-p) 在 p>1 收敛；∫_0^1 x^(-p) 在 p<1 收敛。",
+   "chapterId": "ch05",
+   "tags": [
+    "反常积分"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "旋转体体积公式",
+   "back": "V=π∫_a^b f²(x)dx（绕 x 轴）。",
+   "chapterId": "ch05",
+   "tags": [
+    "应用"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "函数在区间上的平均值",
+   "back": "f̄=1/(b-a)∫_a^b f dx。",
+   "chapterId": "ch05",
+   "tags": [
+    "应用"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "可分离变量方程的做法",
+   "back": "把含 y 的移到 dy 一侧、含 x 的移到 dx 一侧，两边积分。",
+   "chapterId": "ch06",
+   "tags": [
+    "微分方程"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "牛顿冷却定律的解",
+   "back": "T=Tm+Ce^(-kt)，C=T0-Tm。",
+   "chapterId": "ch06",
+   "tags": [
+    "微分方程"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "一阶线性方程的通解公式",
+   "back": "y=e^(-∫P)[∫Qe^(∫P)dx+C]。",
+   "chapterId": "ch06",
+   "tags": [
+    "微分方程"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "二阶常系数齐次方程三种情形",
+   "back": "两个不等实根、重根、共轭复根，对应三种通解形式。",
+   "chapterId": "ch06",
+   "tags": [
+    "微分方程"
+   ]
+  },
+  {
+   "id": "f35",
+   "front": "逻辑斯蒂增长的解",
+   "back": "N=K/[1+(K/N0-1)e^(-rt)]。",
+   "chapterId": "ch06",
+   "tags": [
+    "微分方程"
+   ]
+  },
+  {
+   "id": "f36",
+   "front": "非齐次方程的通解结构",
+   "back": "齐次方程通解 + 非齐次方程的一个特解。",
+   "chapterId": "ch06",
+   "tags": [
+    "微分方程"
+   ]
+  },
+  {
+   "id": "f37",
+   "front": "偏导数的求法",
+   "back": "对一个变量求导，其余变量当常数。",
+   "chapterId": "ch07",
+   "tags": [
+    "多元"
+   ]
+  },
+  {
+   "id": "f38",
+   "front": "全微分公式",
+   "back": "dz=f_x dx+f_y dy。",
+   "chapterId": "ch07",
+   "tags": [
+    "多元"
+   ]
+  },
+  {
+   "id": "f39",
+   "front": "多元复合函数链式法则",
+   "back": "每条路径偏导相乘，不同路径相加。",
+   "chapterId": "ch07",
+   "tags": [
+    "多元"
+   ]
+  },
+  {
+   "id": "f40",
+   "front": "隐函数 z(x,y) 的偏导公式",
+   "back": "z_x=-F_x/F_z，z_y=-F_y/F_z。",
+   "chapterId": "ch07",
+   "tags": [
+    "多元"
+   ]
+  },
+  {
+   "id": "f41",
+   "front": "梯度的两个结论",
+   "back": "方向导数在梯度方向最大，最大值等于 |∇f|。",
+   "chapterId": "ch07",
+   "tags": [
+    "多元"
+   ]
+  },
+  {
+   "id": "f42",
+   "front": "拉格朗日乘数法的构造",
+   "back": "L=f+λg，令 L 对 x、y、λ 的偏导为 0。",
+   "chapterId": "ch07",
+   "tags": [
+    "多元"
+   ]
+  },
+  {
+   "id": "f43",
+   "front": "二重积分的几何意义",
+   "back": "f≥0 时是以 D 为底、z=f 为顶的曲顶柱体体积。",
+   "chapterId": "ch08",
+   "tags": [
+    "二重积分"
+   ]
+  },
+  {
+   "id": "f44",
+   "front": "极坐标的面积元",
+   "back": "dσ=r dr dθ，别漏掉 r。",
+   "chapterId": "ch08",
+   "tags": [
+    "二重积分"
+   ]
+  },
+  {
+   "id": "f45",
+   "front": "交换积分次序的第一步",
+   "back": "画出积分区域，按另一个方向重新确定上下限。",
+   "chapterId": "ch08",
+   "tags": [
+    "二重积分"
+   ]
+  },
+  {
+   "id": "f46",
+   "front": "面密度求总质量的公式",
+   "back": "m=∬_D ρ(x,y)dσ。",
+   "chapterId": "ch08",
+   "tags": [
+    "二重积分"
+   ]
+  },
+  {
+   "id": "f47",
+   "front": "二重积分的对称性简化",
+   "back": "区域对称且被积函数为奇函数时积分为 0；偶函数取一半区域的两倍。",
+   "chapterId": "ch08",
+   "tags": [
+    "二重积分"
+   ]
+  },
+  {
+   "id": "f48",
+   "front": "单位圆盘上 ∬e^(-(x²+y²))dσ 的结果",
+   "back": "π(1-e^(-1))≈1.986。",
+   "chapterId": "ch08",
+   "tags": [
+    "二重积分"
+   ]
+  },
+  {
+   "id": "f49",
+   "front": "级数收敛的必要条件",
+   "back": "通项趋于 0；但反过来不成立（调和级数）。",
+   "chapterId": "ch09",
+   "tags": [
+    "级数"
+   ]
+  },
+  {
+   "id": "f50",
+   "front": "几何级数的和",
+   "back": "Σaq^(n-1)=a/(1-q)，|q|<1。",
+   "chapterId": "ch09",
+   "tags": [
+    "级数"
+   ]
+  },
+  {
+   "id": "f51",
+   "front": "比值判别法",
+   "back": "lim u_{n+1}/u_n=L：L<1 收敛，L>1 发散，L=1 失效。",
+   "chapterId": "ch09",
+   "tags": [
+    "级数"
+   ]
+  },
+  {
+   "id": "f52",
+   "front": "莱布尼茨判别条件",
+   "back": "交错级数，u_n 单调递减且趋于 0。",
+   "chapterId": "ch09",
+   "tags": [
+    "级数"
+   ]
+  },
+  {
+   "id": "f53",
+   "front": "幂级数收敛半径公式",
+   "back": "R=lim|a_n/a_{n+1}|，端点单独检查。",
+   "chapterId": "ch09",
+   "tags": [
+    "级数"
+   ]
+  },
+  {
+   "id": "f54",
+   "front": "e^x 的麦克劳林展开",
+   "back": "1+x+x²/2!+x³/3!+…，收敛区间全体实数。",
+   "chapterId": "ch09",
+   "tags": [
+    "级数"
+   ]
+  },
+  {
+   "id": "f55",
+   "front": "中心差商公式",
+   "back": "f'(x)≈[f(x+h)-f(x-h)]/2h，误差 O(h²)。",
+   "chapterId": "ch10",
+   "tags": [
+    "数值"
+   ]
+  },
+  {
+   "id": "f56",
+   "front": "数值积分优先用什么",
+   "back": "MATLAB 的 integral、Python 的 scipy.integrate.quad，自适应步长。",
+   "chapterId": "ch10",
+   "tags": [
+    "数值"
+   ]
+  },
+  {
+   "id": "f57",
+   "front": "微分方程数值解的工具",
+   "back": "MATLAB ode45；Python scipy.integrate.solve_ivp（RK45）。",
+   "chapterId": "ch10",
+   "tags": [
+    "数值"
+   ]
+  },
+  {
+   "id": "f58",
+   "front": "最小二乘拟合的指数模型做法",
+   "back": "两边取对数化成线性，再按线性最小二乘拟合。",
+   "chapterId": "ch10",
+   "tags": [
+    "拟合"
+   ]
+  },
+  {
+   "id": "f59",
+   "front": "有效数字从哪一位起算",
+   "back": "从第一个非零数字起算，末尾的 0 也算有效。",
+   "chapterId": "ch10",
+   "tags": [
+    "误差"
+   ]
+  },
+  {
+   "id": "f60",
+   "front": "R² 的含义与局限",
+   "back": "衡量拟合程度，越接近 1 越贴合；不保证模型有物理意义或外推可靠。",
+   "chapterId": "ch10",
+   "tags": [
+    "拟合"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "函数",
+   "en": "",
+   "def": "输入一个数、按规则输出唯一一个数的对应关系",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "定义域",
+   "en": "",
+   "def": "自变量允许取值的全体",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "复合函数",
+   "en": "",
+   "def": "把一个函数的输出作为另一个函数的输入",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "数列",
+   "en": "",
+   "def": "按顺序排列的一列数",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "极限",
+   "en": "",
+   "def": "自变量趋近某值时函数值趋近的确定数",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "ε-N 定义",
+   "en": "",
+   "def": "用任意小正数 ε 和门槛 N 精确描述数列收敛",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "左极限",
+   "en": "",
+   "def": "自变量从小于该点的一侧趋近时的极限",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "右极限",
+   "en": "",
+   "def": "自变量从大于该点的一侧趋近时的极限",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "无穷小",
+   "en": "",
+   "def": "极限为 0 的变量",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "无穷大",
+   "en": "",
+   "def": "绝对值可以任意大的变量，记作 ∞",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "等价无穷小",
+   "en": "",
+   "def": "两个无穷小之比的极限为 1",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "连续",
+   "en": "",
+   "def": "极限值等于函数值",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "可去间断点",
+   "en": "",
+   "def": "极限存在但函数值不等或没定义",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "跳跃间断点",
+   "en": "",
+   "def": "左右极限都存在但不相等",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "介值定理",
+   "en": "",
+   "def": "闭区间连续函数能取到两端函数值之间的任何数",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "零点定理",
+   "en": "",
+   "def": "闭区间连续且两端异号时区间内必有零点",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "导数",
+   "en": "",
+   "def": "平均变化率在自变量增量趋于 0 时的极限",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "可导",
+   "en": "",
+   "def": "导数存在；可导必连续",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "切线",
+   "en": "",
+   "def": "过曲线上一点、斜率为该点导数的直线",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "高阶导数",
+   "en": "",
+   "def": "导数的导数，二阶导数记 y''",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "链式法则",
+   "en": "",
+   "def": "复合函数求导：外层导数乘内层导数",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "隐函数",
+   "en": "",
+   "def": "没有解出 y、藏在方程 F(x,y)=0 里的函数",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "微分",
+   "en": "",
+   "def": "函数改变量的线性主部 dy=f'(x)dx",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "误差传递",
+   "en": "",
+   "def": "测量误差通过函数关系放大或缩小的规律",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "罗尔定理",
+   "en": "",
+   "def": "两端等高时区间内存在导数为 0 的点",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "拉格朗日中值定理",
+   "en": "",
+   "def": "平均变化率等于区间内某点的瞬时变化率",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "柯西中值定理",
+   "en": "",
+   "def": "两个函数变化率之比等于某点导数之比",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "洛必达法则",
+   "en": "",
+   "def": "0/0 或 ∞/∞ 型极限用导数之比计算",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "驻点",
+   "en": "",
+   "def": "导数为 0 的点",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "极值",
+   "en": "",
+   "def": "函数在某点邻域内的最大或最小值",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "拐点",
+   "en": "",
+   "def": "凹凸性改变的点",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "渐近线",
+   "en": "",
+   "def": "曲线无限接近的直线",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "原函数",
+   "en": "",
+   "def": "导数等于给定函数的函数",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "不定积分",
+   "en": "",
+   "def": "全体原函数，记作 ∫f dx=F+C",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "积分常数",
+   "en": "",
+   "def": "不定积分中的任意常数 C",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "凑微分",
+   "en": "",
+   "def": "把被积式写成 f(φ(x))φ'(x)dx 的形式",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "分部积分",
+   "en": "",
+   "def": "∫u dv=uv-∫v du",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "部分分式",
+   "en": "",
+   "def": "把有理函数拆成简单分式之和",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "定积分",
+   "en": "",
+   "def": "分割、近似、求和、取极限得到的有向面积",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "可积",
+   "en": "",
+   "def": "定积分的极限存在",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "积分上限函数",
+   "en": "",
+   "def": "Φ(x)=∫_a^x f(t)dt",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "牛顿—莱布尼茨公式",
+   "en": "",
+   "def": "∫_a^b f dx=F(b)-F(a)",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "反常积分",
+   "en": "",
+   "def": "无穷区间或无界函数上的积分",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "微元法",
+   "en": "",
+   "def": "把总量切成微元再积分的方法",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "微分方程",
+   "en": "",
+   "def": "含未知函数及其导数的方程",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "通解",
+   "en": "",
+   "def": "含与阶数相同个数的任意常数的解",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "特解",
+   "en": "",
+   "def": "用初始条件定出常数后的解",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "可分离变量",
+   "en": "",
+   "def": "能写成 f(x)g(y) 形式的方程",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "积分因子",
+   "en": "",
+   "def": "使一阶线性方程左边成为乘积导数的因子",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "特征方程",
+   "en": "",
+   "def": "二阶常系数方程对应的 r²+pr+q=0",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "逻辑斯蒂增长",
+   "en": "",
+   "def": "有承载上限的增长模型",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "偏导数",
+   "en": "",
+   "def": "固定其余变量、对一个变量求导",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "全微分",
+   "en": "",
+   "def": "各偏导乘以对应增量再相加",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "梯度",
+   "en": "",
+   "def": "偏导数组成的向量，指向增长最快方向",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "方向导数",
+   "en": "",
+   "def": "沿某方向的变化率，等于梯度与该方向单位向量的点积",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "拉格朗日乘数法",
+   "en": "",
+   "def": "带约束极值的求解方法",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "二重积分",
+   "en": "",
+   "def": "平面区域上的分割求和取极限",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "极坐标",
+   "en": "",
+   "def": "用 r 与 θ 表示平面点的坐标系",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "曲顶柱体",
+   "en": "",
+   "def": "以平面区域为底、曲面为顶的立体",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "级数",
+   "en": "",
+   "def": "无穷多个数相加",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "部分和",
+   "en": "",
+   "def": "前 n 项的和",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "收敛",
+   "en": "",
+   "def": "部分和数列有极限",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "发散",
+   "en": "",
+   "def": "部分和数列没有极限",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "绝对收敛",
+   "en": "",
+   "def": "绝对值级数也收敛",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "条件收敛",
+   "en": "",
+   "def": "本身收敛但绝对值级数发散",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "幂级数",
+   "en": "",
+   "def": "形如 Σa_n(x-x0)^n 的级数",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "收敛半径",
+   "en": "",
+   "def": "幂级数绝对收敛的区间半径",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "泰勒级数",
+   "en": "",
+   "def": "用各阶导数系数写成的幂级数",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "余项",
+   "en": "",
+   "def": "泰勒多项式与原函数的差",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "数值微分",
+   "en": "",
+   "def": "用差商近似导数",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "数值积分",
+   "en": "",
+   "def": "用求积公式近似定积分",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "梯形公式",
+   "en": "",
+   "def": "用梯形面积近似积分，误差 O(h²)",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "最小二乘",
+   "en": "",
+   "def": "使残差平方和最小的拟合方法",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "有效数字",
+   "en": "",
+   "def": "从第一个非零数字起算的可靠数字",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "修约",
+   "en": "",
+   "def": "按规则舍入数值",
+   "chapterIds": [
+    "ch10"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 10,
+  "concepts": 32
+ },
+ "signature": "7b5f8f160086",
+ "contentHash": "d20907862e5a"
+}

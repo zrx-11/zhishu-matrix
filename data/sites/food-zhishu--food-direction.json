@@ -1,0 +1,2118 @@
+{
+ "repo": "food-zhishu",
+ "bookSlug": "food-direction",
+ "title": "食品类大方向：从化学基础到营养与检测",
+ "discipline": "chem",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-食品类大方向精讲/manifest.json",
+ "stats": {
+  "chapters": 12,
+  "concepts": 0,
+  "quizzes": 60,
+  "cards": 24,
+  "glossary": 75
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：食品专业的地图：化学、营养、检测怎么连起来",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch01-专业地图.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：化学语言与计量：从元素到溶液浓度",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch02-化学计量.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：无机化学四大平衡：酸碱、沉淀、氧化还原、配位",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch03-四大平衡.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：分析化学与仪器：误差、滴定、分光、色谱",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02",
+    "ch03"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch04-分析化学.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：食品化学：水、蛋白质、脂类、糖、酶与色香味",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch05-食品化学.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：能量与宏量营养素：蛋白质、脂类、碳水化合物",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch06-能量与宏量营养素.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：维生素、矿物质与水",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch06"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch07-维生素矿物质水.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：膳食指南、营养标签与特殊人群",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch06",
+    "ch07"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch08-膳食指南与标签.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：食品检验总论与理化检验：从采样到水分、蛋白、脂肪",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02",
+    "ch04"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch09-理化检验.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：食品添加剂、污染物与农兽药残留",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch09"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch10-添加剂与污染物.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：食品微生物检验与快速检测",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch09"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch11-微生物与快检.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：检验数据、法规标准、实验室管理与专升本",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04",
+    "ch09",
+    "ch10",
+    "ch11"
+   ],
+   "origin": {
+    "repo": "food-zhishu",
+    "path": "01-食品类大方向精讲/chapters/ch12-数据法规与专升本.md"
+   },
+   "bookSource": {
+    "file": "整合自化学知枢、26 本食品检验知识库与公开标准"
+   }
+  }
+ ],
+ "concepts": [],
+ "quizzes": [
+  {
+   "id": "q001",
+   "chapterId": "ch01",
+   "stem": "食品检验要回答的三个核心问题是（ ）",
+   "options": [
+    "颜色、气味、口感",
+    "有什么、有多少、合不合规",
+    "原料、工艺、包装",
+    "价格、品牌、产地"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "定性、定量、合规判定是检验结果的三层。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q002",
+   "chapterId": "ch01",
+   "stem": "下列哪一项属于微生物检验项目（ ）",
+   "options": [
+    "水分",
+    "菌落总数",
+    "酸价",
+    "铅含量"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "菌落总数是指示菌指标；水分、酸价属理化，铅属重金属。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q003",
+   "chapterId": "ch01",
+   "stem": "快检阳性的正确处置是（ ）",
+   "options": [
+    "直接出不合格报告",
+    "直接销毁样品",
+    "用标准方法复检确证",
+    "忽略结果"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "快检用于初筛，标准法用于确证。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q004",
+   "chapterId": "ch01",
+   "stem": "食品营养中，脂肪的能量系数是（ ）",
+   "options": [
+    "4 kcal/g",
+    "7 kcal/g",
+    "9 kcal/g",
+    "10 kcal/g"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "蛋白质和碳水约 4 kcal/g，脂肪约 9 kcal/g，酒精约 7 kcal/g。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q005",
+   "chapterId": "ch01",
+   "stem": "下列哪组标准与项目对应正确（ ）",
+   "options": [
+    "GB 2760—农药残留",
+    "GB 2762—食品添加剂",
+    "GB 2763—农药残留",
+    "GB 29921—污染物"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "GB 2760 添加剂、GB 2762 污染物、GB 2763 农残、GB 29921 致病菌限量。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q006",
+   "chapterId": "ch02",
+   "stem": "18 g H₂O 的物质的量是（ ）",
+   "options": [
+    "0.5 mol",
+    "1.0 mol",
+    "2.0 mol",
+    "18 mol"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "n=18/18=1.0 mol。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q007",
+   "chapterId": "ch02",
+   "stem": "标准状况下 5.6 L CO₂ 的物质的量是（ ）",
+   "options": [
+    "0.25 mol",
+    "0.50 mol",
+    "1.0 mol",
+    "2.0 mol"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "n=5.6/22.4=0.25 mol。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q008",
+   "chapterId": "ch02",
+   "stem": "0.20 mol NaCl 配成 400 mL 溶液，浓度是（ ）",
+   "options": [
+    "0.20 mol/L",
+    "0.40 mol/L",
+    "0.50 mol/L",
+    "0.80 mol/L"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "c=0.20/0.400=0.50 mol/L。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q009",
+   "chapterId": "ch02",
+   "stem": "用 0.1000 mol/L HCl 滴定 20.00 mL NaOH，消耗 HCl 20.00 mL，NaOH 浓度是（ ）",
+   "options": [
+    "0.0500 mol/L",
+    "0.1000 mol/L",
+    "0.2000 mol/L",
+    "0.4000 mol/L"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "1:1 反应，c=0.1000×20.00/20.00=0.1000 mol/L。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q010",
+   "chapterId": "ch02",
+   "stem": "下列计算结果保留 4 位有效数字的是（ ）",
+   "options": [
+    "0.1000×24.50",
+    "2.15+1.2",
+    "18/2",
+    "5.85/58.5"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "0.1000 和 24.50 都是 4 位有效数字，乘积保留 4 位。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q011",
+   "chapterId": "ch03",
+   "stem": "0.10 mol/L 醋酸（Ka=1.8×10⁻⁵）的 pH 约为（ ）",
+   "options": [
+    "1.00",
+    "2.87",
+    "4.74",
+    "7.00"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "[H⁺]=√(Ka c)=1.34×10⁻³，pH=2.87。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q012",
+   "chapterId": "ch03",
+   "stem": "缓冲溶液 pH 由什么决定（ ）",
+   "options": [
+    "只看弱酸浓度",
+    "只看共轭碱浓度",
+    "pKa 与共轭酸碱浓度比",
+    "溶液体积"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Henderson-Hasselbalch 方程 pH=pKa+lg([A⁻]/[HA])。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q013",
+   "chapterId": "ch03",
+   "stem": "AgCl 在纯水中的溶解度 s 与 Ksp 的关系是（ ）",
+   "options": [
+    "s=Ksp",
+    "s=Ksp²",
+    "s=√Ksp",
+    "s=Ksp/2"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "AgCl 1:1 型，Ksp=s²，s=√Ksp。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q014",
+   "chapterId": "ch03",
+   "stem": "下列哪种情况一定生成沉淀（ ）",
+   "options": [
+    "Q<Ksp",
+    "Q=Ksp",
+    "Q>Ksp",
+    "Q=0"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "离子积大于溶度积，过饱和，生成沉淀。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q015",
+   "chapterId": "ch03",
+   "stem": "EDTA 滴定钙镁时，常控制 pH 在（ ）",
+   "options": [
+    "2 左右",
+    "5 左右",
+    "7 左右",
+    "10 左右"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "pH=10 时 EDTA 配位能力足够，且 Ca²⁺、Mg²⁺ 不易水解，铬黑 T 变色清楚。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q016",
+   "chapterId": "ch04",
+   "stem": "下列属于系统误差的是（ ）",
+   "options": [
+    "读数随机波动",
+    "天平砝码未校准",
+    "记录笔误",
+    "环境温度瞬时变化"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "砝码未校准方向固定、可重复，是系统误差。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q017",
+   "chapterId": "ch04",
+   "stem": "某测定值 10.0，真值 9.8，相对误差是（ ）",
+   "options": [
+    "0.2%",
+    "2.0%",
+    "20%",
+    "0.02%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "0.2/9.8×100%≈2.0%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q018",
+   "chapterId": "ch04",
+   "stem": "Beer-Lambert 定律中，吸光度与浓度的关系是（ ）",
+   "options": [
+    "反比",
+    "平方正比",
+    "正比",
+    "对数关系"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "在一定范围内 A=εbc，A 与 c 成正比。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q019",
+   "chapterId": "ch04",
+   "stem": "下列最适合测痕量农药残留确证的是（ ）",
+   "options": [
+    "滴定法",
+    "分光光度法",
+    "LC-MS/MS",
+    "密度法"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "LC-MS/MS 灵敏度高、能提供结构信息，适合痕量确证。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q020",
+   "chapterId": "ch04",
+   "stem": "加标回收率主要反映（ ）",
+   "options": [
+    "精密度",
+    "准确度",
+    "检出限",
+    "线性范围"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "加标回收率衡量测定值与真值的接近程度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q021",
+   "chapterId": "ch05",
+   "stem": "水分活度主要反映（ ）",
+   "options": [
+    "水分总含量",
+    "水的自由程度",
+    "水的硬度",
+    "水的 pH"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "Aw 是蒸气压比，反映水被微生物利用的程度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q022",
+   "chapterId": "ch05",
+   "stem": "牛奶加酸凝固，主要利用（ ）",
+   "options": [
+    "蛋白质变性",
+    "脂肪氧化",
+    "淀粉糊化",
+    "美拉德反应"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "酸使酪蛋白接近等电点，溶解度下降，凝固。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q023",
+   "chapterId": "ch05",
+   "stem": "油脂酸价反映（ ）",
+   "options": [
+    "氧化程度",
+    "水解产生的游离脂肪酸",
+    "不饱和度",
+    "反式脂肪酸含量"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "酸价是中和游离脂肪酸所需 KOH 的量。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q024",
+   "chapterId": "ch05",
+   "stem": "面包变硬主要与什么有关（ ）",
+   "options": [
+    "淀粉老化",
+    "蛋白质变性",
+    "脂肪氧化",
+    "色素降解"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "淀粉回生导致质构变硬。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q025",
+   "chapterId": "ch05",
+   "stem": "苹果褐变的主要酶是（ ）",
+   "options": [
+    "脂肪酶",
+    "蛋白酶",
+    "多酚氧化酶",
+    "淀粉酶"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "PPO 催化酚类氧化成醌，再聚合变褐。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q026",
+   "chapterId": "ch06",
+   "stem": "脂肪的能量系数是（ ）",
+   "options": [
+    "4 kcal/g",
+    "7 kcal/g",
+    "9 kcal/g",
+    "17 kcal/g"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "脂肪约 9 kcal/g。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q027",
+   "chapterId": "ch06",
+   "stem": "谷类第一限制氨基酸通常是（ ）",
+   "options": [
+    "赖氨酸",
+    "蛋氨酸",
+    "色氨酸",
+    "亮氨酸"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "谷类赖氨酸含量低，限制蛋白质利用率。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q028",
+   "chapterId": "ch06",
+   "stem": "下列属于必需脂肪酸的是（ ）",
+   "options": [
+    "油酸",
+    "亚油酸",
+    "棕榈酸",
+    "硬脂酸"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "亚油酸和α-亚麻酸是必需脂肪酸。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q029",
+   "chapterId": "ch06",
+   "stem": "中国居民膳食指南建议脂肪供能比为（ ）",
+   "options": [
+    "10%—15%",
+    "20%—30%",
+    "40%—50%",
+    "60%—70%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "脂肪供能比建议 20%—30%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q030",
+   "chapterId": "ch06",
+   "stem": "膳食纤维的主要作用不包括（ ）",
+   "options": [
+    "促进排便",
+    "降低胆固醇",
+    "提供大量能量",
+    "改善血糖"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "膳食纤维能量低，主要作用是肠道和代谢调节。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q031",
+   "chapterId": "ch07",
+   "stem": "下列属于脂溶性维生素的是（ ）",
+   "options": [
+    "维生素 C",
+    "维生素 B₁",
+    "维生素 D",
+    "叶酸"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "维生素 A、D、E、K 是脂溶性。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q032",
+   "chapterId": "ch07",
+   "stem": "缺乏维生素 C 会导致（ ）",
+   "options": [
+    "夜盲症",
+    "坏血病",
+    "佝偻病",
+    "癞皮病"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "维生素 C 缺乏导致坏血病。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q033",
+   "chapterId": "ch07",
+   "stem": "促进非血红素铁吸收的因素是（ ）",
+   "options": [
+    "植酸",
+    "草酸",
+    "维生素 C",
+    "茶多酚"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "维生素 C 可将 Fe³⁺ 还原为 Fe²⁺，促进吸收。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q034",
+   "chapterId": "ch07",
+   "stem": "碘缺乏可导致（ ）",
+   "options": [
+    "贫血",
+    "甲状腺肿",
+    "佝偻病",
+    "坏血病"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "碘是甲状腺激素合成原料，缺乏导致甲状腺肿。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q035",
+   "chapterId": "ch07",
+   "stem": "中国居民膳食指南建议每日食盐摄入量不超过（ ）",
+   "options": [
+    "2 g",
+    "5 g",
+    "10 g",
+    "15 g"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "建议成人每天食盐不超过 5 g。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q036",
+   "chapterId": "ch08",
+   "stem": "中国居民膳食指南建议成人每天食盐不超过（ ）",
+   "options": [
+    "3 g",
+    "5 g",
+    "8 g",
+    "10 g"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "指南建议 <5 g/d。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q037",
+   "chapterId": "ch08",
+   "stem": "营养标签“1+4”中的“4”不包括（ ）",
+   "options": [
+    "蛋白质",
+    "脂肪",
+    "碳水化合物",
+    "钙"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "“1+4”是能量+蛋白质、脂肪、碳水、钠。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q038",
+   "chapterId": "ch08",
+   "stem": "某食品每 100 g 含钠 600 mg，NRV% 是（ ）",
+   "options": [
+    "15%",
+    "20%",
+    "30%",
+    "60%"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "600/2000×100%=30%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q039",
+   "chapterId": "ch08",
+   "stem": "孕早期重点补充（ ）",
+   "options": [
+    "叶酸",
+    "维生素 E",
+    "钠",
+    "反式脂肪"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "叶酸预防神经管缺陷。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q040",
+   "chapterId": "ch08",
+   "stem": "老年人预防肌少症的关键是（ ）",
+   "options": [
+    "只吃蔬菜",
+    "优质蛋白 + 抗阻运动",
+    "大量补钙",
+    "减少饮水"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "优质蛋白和抗阻运动是预防肌少症的核心。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q041",
+   "chapterId": "ch09",
+   "stem": "下列样品最适合减压干燥法测水分的是（ ）",
+   "options": [
+    "面包",
+    "高糖糖果",
+    "大米",
+    "茶叶"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "高糖样品常压高温会焦化，用减压干燥。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q042",
+   "chapterId": "ch09",
+   "stem": "凯氏定氮法测的是（ ）",
+   "options": [
+    "蛋白质",
+    "总氮",
+    "氨基酸",
+    "肽"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "凯氏定氮测总氮，乘以换算系数得粗蛋白。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q043",
+   "chapterId": "ch09",
+   "stem": "索氏提取法测的是（ ）",
+   "options": [
+    "结合态脂肪",
+    "游离脂肪",
+    "总糖",
+    "灰分"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "索氏提取测游离脂肪；酸水解法测结合态脂肪。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q044",
+   "chapterId": "ch09",
+   "stem": "食醋总酸通常以（ ）计",
+   "options": [
+    "醋酸",
+    "柠檬酸",
+    "乳酸",
+    "盐酸"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "食醋总酸以醋酸计。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q045",
+   "chapterId": "ch09",
+   "stem": "维生素 C 测定时，提取液常加（ ）稳定",
+   "options": [
+    "盐酸",
+    "草酸或偏磷酸",
+    "氢氧化钠",
+    "乙醚"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "酸性稳定剂抑制维生素 C 氧化。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q046",
+   "chapterId": "ch10",
+   "stem": "食品添加剂使用标准是（ ）",
+   "options": [
+    "GB 2760",
+    "GB 2762",
+    "GB 2763",
+    "GB 29921"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "GB 2760 是食品添加剂使用标准。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q047",
+   "chapterId": "ch10",
+   "stem": "下列属于非法添加物的是（ ）",
+   "options": [
+    "山梨酸钾",
+    "三聚氰胺",
+    "维生素 C",
+    "果胶"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "三聚氰胺不允许用于食品。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q048",
+   "chapterId": "ch10",
+   "stem": "有机磷农药快检常用（ ）",
+   "options": [
+    "酶抑制法",
+    "凯氏定氮法",
+    "索氏提取法",
+    "干燥法"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "有机磷和氨基甲酸酯抑制胆碱酯酶，酶抑制法用于初筛。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q049",
+   "chapterId": "ch10",
+   "stem": "黄曲霉毒素主要危害是（ ）",
+   "options": [
+    "肾毒性",
+    "强致癌，尤其肝癌",
+    "神经毒性",
+    "甲状腺肿"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "黄曲霉毒素 B₁ 是强致癌物，与肝癌相关。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q050",
+   "chapterId": "ch10",
+   "stem": "农药最大残留限量标准是（ ）",
+   "options": [
+    "GB 2760",
+    "GB 2762",
+    "GB 2763",
+    "GB 28050"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "GB 2763 是农药最大残留限量。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q051",
+   "chapterId": "ch11",
+   "stem": "菌落总数主要反映（ ）",
+   "options": [
+    "致病菌数量",
+    "食品卫生状况",
+    "霉菌数量",
+    "病毒数量"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "菌落总数是卫生指示菌。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q052",
+   "chapterId": "ch11",
+   "stem": "大肠菌群主要反映（ ）",
+   "options": [
+    "粪便污染",
+    "农药残留",
+    "重金属污染",
+    "油脂氧化"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "大肠菌群来自人和温血动物粪便。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q053",
+   "chapterId": "ch11",
+   "stem": "下列适合低浓度微生物计数的是（ ）",
+   "options": [
+    "涂布平板法",
+    "倾注平板法",
+    "MPN 法",
+    "直接显微镜计数"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "MPN 适合低浓度，如大肠菌群。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q054",
+   "chapterId": "ch11",
+   "stem": "商业无菌检验的保温试验通常为（ ）",
+   "options": [
+    "4 ℃ 1 天",
+    "36 ℃ 10 天",
+    "−20 ℃ 7 天",
+    "100 ℃ 2 小时"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "36 ℃ 保温 10 天，观察胀罐和微生物。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q055",
+   "chapterId": "ch11",
+   "stem": "PCR 检测微生物的局限是（ ）",
+   "options": [
+    "不能扩增 DNA",
+    "死菌 DNA 也可能阳性",
+    "只能测病毒",
+    "不能用于食品"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "PCR 测 DNA，不能区分活菌和死菌。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q056",
+   "chapterId": "ch12",
+   "stem": "下列属于限量标准的是（ ）",
+   "options": [
+    "GB 4789",
+    "GB 5009",
+    "GB 2762",
+    "GB 7718"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "GB 2762 是污染物限量。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q057",
+   "chapterId": "ch12",
+   "stem": "加标回收率主要反映（ ）",
+   "options": [
+    "精密度",
+    "准确度",
+    "检出限",
+    "线性"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "加标回收率衡量准确度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q058",
+   "chapterId": "ch12",
+   "stem": "某结果低于 LOQ，正确报告方式是（ ）",
+   "options": [
+    "写 0",
+    "写“未检出”",
+    "写“低于定量限”，注明 LOQ",
+    "直接判合格"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "低于定量限要注明 LOQ，不能写 0 或未检出。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q059",
+   "chapterId": "ch12",
+   "stem": "CMA 是指（ ）",
+   "options": [
+    "实验室认可",
+    "检验检测机构资质认定",
+    "食品安全认证",
+    "国际标准"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "CMA 是资质认定，CNAS 是认可。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q060",
+   "chapterId": "ch12",
+   "stem": "专升本最后阶段最重要的做法是（ ）",
+   "options": [
+    "只看新资料",
+    "只背答案",
+    "精讲 + 母题 + 变式 + 错题回链",
+    "放弃计算题"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "理解、练习、迁移、纠错四件事缺一不可。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "食品检验要回答的三个核心问题是什么？",
+   "back": "有什么、有多少、合不合规。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "快检阳性和阴性分别怎么处理？",
+   "back": "阳性用标准方法复检确证；阴性不能排除未覆盖项目。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "化学计算的中心节点是什么？",
+   "back": "物质的量 n：质量、粒子数、气体体积、浓度都先转到 n。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "稀释定律的公式是什么？",
+   "back": "c₁V₁=c₂V₂。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "缓冲溶液的 pH 用什么方程算？",
+   "back": "pH=pKa+lg([A⁻]/[HA])。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "判断沉淀生成的条件是什么？",
+   "back": "离子积 Q 与 Ksp 比较，Q>Ksp 生成沉淀。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "系统误差和随机误差的区别？",
+   "back": "系统误差方向固定、可校正；随机误差方向随机、靠重复减小。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "Beer-Lambert 定律是什么？",
+   "back": "A=εbc，在一定范围内吸光度与浓度成正比。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "水分含量和水分活度有什么区别？",
+   "back": "水分含量是水的总量，Aw 是水的自由程度。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "酸价和过氧化值分别反映什么？",
+   "back": "酸价反映水解游离脂肪酸；过氧化值反映氧化初期过氧化物。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "蛋白质、脂肪、碳水、酒精的能量系数？",
+   "back": "4、9、4、7 kcal/g。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是限制氨基酸？",
+   "back": "含量低于人体需要、限制蛋白质利用率的氨基酸。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "脂溶性维生素和水溶性维生素各有哪些？",
+   "back": "脂溶性 A、D、E、K；水溶性 B 族、C。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "促进非血红素铁吸收的因素？",
+   "back": "维生素 C、肉类因子；植酸、草酸、茶多酚抑制。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "营养标签“1+4”指什么？",
+   "back": "能量+蛋白质、脂肪、碳水化合物、钠。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "膳食指南八条准则的第一条？",
+   "back": "食物多样，合理搭配。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "凯氏定氮法测的是什么？",
+   "back": "总氮，乘以换算系数得到粗蛋白。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "索氏提取法和酸水解法分别测什么脂肪？",
+   "back": "索氏测游离脂肪；酸水解测结合态脂肪。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "GB 2760、GB 2762、GB 2763 分别是什么？",
+   "back": "添加剂使用、污染物限量、农药最大残留限量。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "非法添加物和食品添加剂的区别？",
+   "back": "添加剂按标准允许使用；非法添加物不允许用于食品。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "菌落总数和大肠菌群各反映什么？",
+   "back": "菌落总数反映卫生状况；大肠菌群反映粪便污染。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "商业无菌是什么意思？",
+   "back": "罐头正常储藏条件下不腐败、不含致病菌。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "CMA 和 CNAS 有什么区别？",
+   "back": "CMA 是检验检测机构资质认定；CNAS 是实验室认可。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "检验报告至少要有哪些内容？",
+   "back": "样品信息、方法依据、结果、限量、判定、人员签字。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "物质的量",
+   "en": "",
+   "def": "用摩尔计量的粒子数量，1 mol 含 6.022×10²³ 个粒子",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "摩尔质量",
+   "en": "",
+   "def": "1 mol 物质的质量，单位 g/mol",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "物质的量浓度",
+   "en": "",
+   "def": "每升溶液中所含溶质的物质的量，单位 mol/L",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "质量分数",
+   "en": "",
+   "def": "溶质质量占溶液质量的百分比",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "稀释定律",
+   "en": "",
+   "def": "稀释前后溶质的物质的量不变，c₁V₁=c₂V₂",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "有效数字",
+   "en": "",
+   "def": "测量中能反映仪器精度的数字",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "酸碱平衡",
+   "en": "",
+   "def": "弱酸弱碱在水中电离达到的动态平衡",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "缓冲溶液",
+   "en": "",
+   "def": "能抵抗少量酸碱或稀释引起 pH 变化的溶液",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "溶度积",
+   "en": "",
+   "def": "难溶电解质饱和溶液中离子浓度的乘积，Ksp",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "同离子效应",
+   "en": "",
+   "def": "加入相同离子使难溶物溶解度降低的现象",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "电极电势",
+   "en": "",
+   "def": "衡量电对得失电子倾向的物理量",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "配位平衡",
+   "en": "",
+   "def": "中心离子与配体形成配合物的平衡",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "稳定常数",
+   "en": "",
+   "def": "配合物形成反应的平衡常数，Kf",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "系统误差",
+   "en": "",
+   "def": "方向固定、可重复的误差",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "随机误差",
+   "en": "",
+   "def": "方向不固定、大小随机的误差",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "准确度",
+   "en": "",
+   "def": "测定值与真值的接近程度",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "精密度",
+   "en": "",
+   "def": "多次测定值之间的接近程度",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "相对标准偏差",
+   "en": "",
+   "def": "标准差与平均值的比值，RSD",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "滴定分析",
+   "en": "",
+   "def": "用标准溶液滴定待测物，按化学计量关系定量",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "返滴定",
+   "en": "",
+   "def": "先加过量标准溶液，再用另一种标准溶液滴定剩余",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "吸光度",
+   "en": "",
+   "def": "物质对光吸收程度的量度，A",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "标准曲线",
+   "en": "",
+   "def": "用已知浓度标准溶液建立的浓度-响应关系",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "色谱法",
+   "en": "",
+   "def": "利用组分在流动相和固定相间分配差异分离的方法",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "检出限",
+   "en": "",
+   "def": "方法能检出的最低量，LOD",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "定量限",
+   "en": "",
+   "def": "方法能准确定量的最低量，LOQ",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "加标回收率",
+   "en": "",
+   "def": "加入已知量标准后测得的回收比例",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "水分活度",
+   "en": "",
+   "def": "食品中水的自由程度，Aw",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "蛋白质变性",
+   "en": "",
+   "def": "蛋白质空间结构被破坏，一级结构不变",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "等电点",
+   "en": "",
+   "def": "蛋白质净电荷为零、溶解度最低时的 pH",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "美拉德反应",
+   "en": "",
+   "def": "还原糖与氨基化合物加热生成褐色物质和风味",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "酸价",
+   "en": "",
+   "def": "中和 1 g 油脂中游离脂肪酸所需 KOH 的毫克数",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "过氧化值",
+   "en": "",
+   "def": "油脂氧化初期过氧化物含量的指标",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "反式脂肪酸",
+   "en": "",
+   "def": "含反式双键的不饱和脂肪酸",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "淀粉糊化",
+   "en": "",
+   "def": "淀粉加热吸水膨胀、黏度上升的过程",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "淀粉老化",
+   "en": "",
+   "def": "冷却后淀粉分子重排结晶、质构变硬的过程",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "焦糖化",
+   "en": "",
+   "def": "糖高温脱水聚合生成褐色物质和焦糖风味",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "多酚氧化酶",
+   "en": "",
+   "def": "催化酚类氧化导致果蔬褐变的酶",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "能量系数",
+   "en": "",
+   "def": "每克营养素氧化释放的能量，Atwater 系数",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "必需氨基酸",
+   "en": "",
+   "def": "人体不能合成或合成不足、必须从食物获得的氨基酸",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "限制氨基酸",
+   "en": "",
+   "def": "含量低于需要、限制蛋白质利用率的氨基酸",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "蛋白质互补",
+   "en": "",
+   "def": "混合食物蛋白质必需氨基酸互相补充",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "PDCAAS",
+   "en": "",
+   "def": "蛋白质消化率校正氨基酸评分",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "DIAAS",
+   "en": "",
+   "def": "可消化必需氨基酸评分",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "血糖生成指数",
+   "en": "",
+   "def": "食物引起血糖升高的程度，GI",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "膳食纤维",
+   "en": "",
+   "def": "不能被人体消化酶分解的碳水化合物",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "脂溶性维生素",
+   "en": "",
+   "def": "随脂肪吸收、可储存的维生素 A、D、E、K",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "水溶性维生素",
+   "en": "",
+   "def": "随水吸收、多余随尿排出的 B 族和 C",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "RNI",
+   "en": "",
+   "def": "推荐摄入量，满足绝大多数人需要",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "AI",
+   "en": "",
+   "def": "适宜摄入量，数据不足时的近似推荐量",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "UL",
+   "en": "",
+   "def": "可耐受最高摄入量，长期超过可能增加风险",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "血红素铁",
+   "en": "",
+   "def": "动物性食品中的铁，吸收率高",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "非血红素铁",
+   "en": "",
+   "def": "植物性食品中的铁，吸收率低",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "NRV",
+   "en": "",
+   "def": "营养素参考值，用于营养标签 NRV%",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "平衡膳食宝塔",
+   "en": "",
+   "def": "中国居民膳食指南的食物推荐量图形",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "代表性采样",
+   "en": "",
+   "def": "所采样品能代表整批食品的采样",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "四分法",
+   "en": "",
+   "def": "样品混匀铺平划十字取对角缩分的方法",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "恒重",
+   "en": "",
+   "def": "反复干燥或灼烧至两次称量差不超过规定",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "凯氏定氮法",
+   "en": "",
+   "def": "消化、蒸馏、滴定测总氮的方法",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "粗蛋白",
+   "en": "",
+   "def": "总氮乘以换算系数得到的蛋白质含量",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "索氏提取法",
+   "en": "",
+   "def": "有机溶剂回流提取游离脂肪的方法",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "总酸",
+   "en": "",
+   "def": "滴定测得的食品中酸的总量",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "食品添加剂",
+   "en": "",
+   "def": "为改善品质、色香味、防腐等加入食品的物质",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "最大使用量",
+   "en": "",
+   "def": "标准允许的添加剂最高使用量",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "最大残留限量",
+   "en": "",
+   "def": "农药在食品中允许残留的最高量，MRL",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "真菌毒素",
+   "en": "",
+   "def": "霉菌产生的有毒代谢物",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "非法添加物",
+   "en": "",
+   "def": "不允许用于食品的非食用物质",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "菌落总数",
+   "en": "",
+   "def": "食品中需氧或兼性厌氧菌落总数",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "大肠菌群",
+   "en": "",
+   "def": "反映粪便污染的革兰氏阴性无芽孢杆菌群",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "MPN",
+   "en": "",
+   "def": "最可能数，低浓度微生物的统计估计法",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "商业无菌",
+   "en": "",
+   "def": "罐头正常储藏条件下不腐败、不含致病菌",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "食品微生物快速检测",
+   "en": "",
+   "def": "用免疫、分子、传感器等方法现场初筛",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "测量不确定度",
+   "en": "",
+   "def": "对测量结果分散性的度量",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "CMA",
+   "en": "",
+   "def": "检验检测机构资质认定",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "CNAS",
+   "en": "",
+   "def": "实验室认可",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "HACCP",
+   "en": "",
+   "def": "危害分析关键控制点体系",
+   "chapterIds": [
+    "ch12"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 12,
+  "concepts": 0
+ },
+ "signature": "2f6acd7529ee",
+ "contentHash": "f7b32d0b0aa5"
+}

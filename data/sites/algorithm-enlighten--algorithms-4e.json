@@ -1,0 +1,1631 @@
+{
+ "repo": "algorithm-enlighten",
+ "bookSlug": "algorithms-4e",
+ "title": "算法（第 4 版）点化学习伴侣",
+ "discipline": "cs",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "03-算法第四版/manifest.json",
+ "stats": {
+  "chapters": 25,
+  "concepts": 10,
+  "quizzes": 22,
+  "cards": 43,
+  "glossary": 30
+ },
+ "chapters": [
+  {
+   "id": "ch01a",
+   "num": 1,
+   "title": "第1章(1.1) 基础编程模型与二分查找",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch01a-基础编程模型与二分查找.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch01b",
+   "num": 2,
+   "title": "第1章(1.2) 数据抽象",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch01b-数据抽象.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch01c",
+   "num": 3,
+   "title": "第1章(1.3) 背包队列栈与链表",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch01c-背包队列栈与链表.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch01d",
+   "num": 4,
+   "title": "第1章(1.4) 算法分析",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch01d-算法分析.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch01e",
+   "num": 5,
+   "title": "第1章(1.5) 并查集",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch01e-并查集.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02a",
+   "num": 6,
+   "title": "第2章(2.1) 初级排序",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch02a-初级排序.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02b",
+   "num": 7,
+   "title": "第2章(2.2) 归并排序",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch02b-归并排序.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02c",
+   "num": 8,
+   "title": "第2章(2.3) 快速排序",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch02c-快速排序.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02d",
+   "num": 9,
+   "title": "第2章(2.4) 优先队列与堆排序",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch02d-优先队列与堆排序.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02e",
+   "num": 10,
+   "title": "第2章(2.5) 排序应用与选型",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch02e-排序应用与选型.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03a",
+   "num": 11,
+   "title": "第3章(3.1) 符号表与顺序查找",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch03a-符号表与顺序查找.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03b",
+   "num": 12,
+   "title": "第3章(3.2) 二叉查找树",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch03b-二叉查找树.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03c",
+   "num": 13,
+   "title": "第3章(3.3) 平衡查找树与红黑树",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch03c-平衡查找树与红黑树.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03d",
+   "num": 14,
+   "title": "第3章(3.4) 散列表",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch03d-散列表.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03e",
+   "num": 15,
+   "title": "第3章(3.5) 符号表应用",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch03e-符号表应用.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04a",
+   "num": 16,
+   "title": "第4章(4.1) 无向图遍历",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch04a-无向图遍历.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04b",
+   "num": 17,
+   "title": "第4章(4.2) 有向图",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch04b-有向图.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04c",
+   "num": 18,
+   "title": "第4章(4.3) 最小生成树",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch04c-最小生成树.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04d",
+   "num": 19,
+   "title": "第4章(4.4) 最短路径",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch04d-最短路径.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05a",
+   "num": 20,
+   "title": "第5章(5.1) 字符串排序",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch05a-字符串排序.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05b",
+   "num": 21,
+   "title": "第5章(5.2) 单词查找树",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch05b-单词查找树.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05c",
+   "num": 22,
+   "title": "第5章(5.3) 子字符串查找",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch05c-子字符串查找.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05d",
+   "num": 23,
+   "title": "第5章(5.4) 正则表达式与NFA",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch05d-正则表达式与NFA.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05e",
+   "num": 24,
+   "title": "第5章(5.5) 数据压缩",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch05e-数据压缩.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第6章 背景",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/chapters/ch06-背景.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "复杂度记号",
+   "chapterIds": [
+    "ch01d"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-复杂度O记号.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "并查集",
+   "chapterIds": [
+    "ch01e",
+    "ch04c"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-并查集.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "栈队列与递归",
+   "chapterIds": [
+    "ch01c"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-栈队列与递归.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "排序稳定性",
+   "chapterIds": [
+    "ch02b",
+    "ch02e"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-排序稳定性.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "二叉查找树与平衡树",
+   "chapterIds": [
+    "ch03b",
+    "ch03c"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-二叉查找树与平衡树.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "散列",
+   "chapterIds": [
+    "ch03d"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-散列.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c07",
+   "title": "图遍历 DFS/BFS",
+   "chapterIds": [
+    "ch04a",
+    "ch04b"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-图遍历.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c08",
+   "title": "最小生成树",
+   "chapterIds": [
+    "ch04c"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-最小生成树.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c09",
+   "title": "最短路径",
+   "chapterIds": [
+    "ch04d"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-最短路径.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c10",
+   "title": "字符串匹配",
+   "chapterIds": [
+    "ch05c"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "algorithm-enlighten",
+    "path": "03-算法第四版/concepts/c-字符串匹配.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01a",
+   "stem": "二分查找要求输入数组满足什么前提？",
+   "options": [
+    "元素全不同",
+    "已排好序",
+    "元素个数为2的幂",
+    "元素为整数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "二分查找靠中间值排除一半，前提是左边全小右边全大即数组有序。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01c",
+   "stem": "栈的进出规则是？",
+   "options": [
+    "先进先出",
+    "后进先出",
+    "随机存取",
+    "只进不出"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "栈 LIFO，像弹夹最后压入的最先打出。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01d",
+   "stem": "倍率实验中 t(2N)/t(N) 趋近 4，算法是几阶？",
+   "options": [
+    "线性",
+    "二阶",
+    "三阶",
+    "对数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "时间∝N^b，翻倍后比值 2^b=4 → b=2，即 O(N²)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch01e",
+   "stem": "加权 quick-union 中“加权”指记录______，把小树挂到大树根下。",
+   "options": [],
+   "answer": "树的大小",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "sz[] 记录每树节点数，小树并入大树，防退化成链。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02a",
+   "stem": "插入排序的交换次数等于数组中什么？",
+   "options": [
+    "元素总数",
+    "倒置数量",
+    "逆序对的一半",
+    "最大值"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "每消除一个倒置恰好一次交换，故交换次数=倒置数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch02b",
+   "stem": "归并排序最坏比较次数约为？",
+   "options": [
+    "N",
+    "N log N",
+    "N²",
+    "2^N"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "命题 H，归并最坏 ~N lg N，已触比较排序下界。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch02c",
+   "stem": "快速排序平均比较次数约为？",
+   "options": [
+    "N",
+    "1.39 N lg N",
+    "N²",
+    "2N"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "~2N ln N ≈ 1.39 N lg N，只比最好情况多 39%。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch02e",
+   "stem": "下列哪些排序是稳定的？",
+   "options": [
+    "选择排序",
+    "插入排序",
+    "归并排序",
+    "堆排序"
+   ],
+   "answer": [
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "插入、归并稳定；选择、堆排序不稳定。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch03b",
+   "stem": "随机 N 键构造的 BST，平均查找命中约为？",
+   "options": [
+    "log N",
+    "1.39 lg N",
+    "N",
+    "N²"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "命题 C，~2 ln N ≈ 1.39 lg N。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch03c",
+   "stem": "红黑树 N 节点的高度上界是？",
+   "options": [
+    "lg N",
+    "2 lg N",
+    "N",
+    "N²"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "命题 G，红黑树高 ≤ 2 lg N。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch03d",
+   "stem": "散列表线性探测要求装载因子 α 控制在？",
+   "options": [
+    "≤ 1/2",
+    "≤ 1",
+    "≤ 2",
+    "任意"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "α=N/M ≤ 1/2，否则探测链过长。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch03d",
+   "stem": "散列表为什么不支持 rank/select？",
+   "options": [
+    "速度慢",
+    "散列打乱键顺序，无有序结构",
+    "内存不够",
+    "键不可比较"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "散列把键映射到槽，破坏了键的有序性。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch04a",
+   "stem": "为什么 BFS 能求最短路径？",
+   "options": [
+    "它用栈",
+    "按距离从小到大访问，首次到达即最短",
+    "它遍历所有边",
+    "它递归"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "BFS 波纹式扩散，先到的层距离短。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch04c",
+   "stem": "切分定理说横切边中哪条必入 MST？",
+   "options": [
+    "最长的",
+    "权重最小的",
+    "任意一条",
+    "中间的"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "最小横切边必属 MST，是 Prim/Kruskal 的基石。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch04d",
+   "stem": "Dijkstra 算法要求什么前提？",
+   "options": [
+    "图是 DAG",
+    "边权非负",
+    "图无环",
+    "顶点数为偶"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "边权非负，否则锁定后还可能出现更短路。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch04c",
+   "stem": "Kruskal 用______判断两端是否已连通。",
+   "options": [],
+   "answer": "并查集",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "并查集近常数判断连通，配合边排序。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch05a",
+   "stem": "LSD 字符串排序要求字符串满足？",
+   "options": [
+    "变长",
+    "等长",
+    "全相同",
+    "为整数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "LSD 从最右位逐位分桶，前提是等长。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch05c",
+   "stem": "KMP 相对暴力查找的关键改进是？",
+   "options": [
+    "更快的散列",
+    "失配不回退文本指针",
+    "用队列",
+    "递归"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "KMP 用 DFA 决定模式指针位置，不回退 i。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch05e",
+   "stem": "霍夫曼编码中频率高的字符编码？",
+   "options": [
+    "更长",
+    "更短",
+    "相同",
+    "随机"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "高频字符离根近，路径短，编码短。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch02e",
+   "stem": "下列哪种组合能正确描述“先排序再二分查找”？",
+   "options": [
+    "归并排序 O(N log N) + 二分 O(log N)",
+    "快排 O(N²) + 二分 O(N)",
+    "堆排序 O(N) + 二分 O(log N)",
+    "插入 O(N) + 二分 O(1)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "归并 N log N 保证，二分 log N；其余成本配错。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch03c",
+   "stem": "下列哪些结构“查找最坏不是 O(log N)”？",
+   "options": [
+    "普通 BST",
+    "红黑树",
+    "散列表(碰撞)",
+    "有序数组"
+   ],
+   "answer": [
+    0,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "BST 有序插入退化 O(N)；散列碰撞链 O(N)。红黑树、有序数组有对数保证。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch02d",
+   "stem": "要在内存极紧的实时系统中排 10^7 个元素且要 O(N log N) 最坏保证，选？",
+   "options": [
+    "快速排序",
+    "堆排序",
+    "归并排序",
+    "选择排序"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "堆排序原地 O(1) 额外空间 + O(N log N) 最坏保证。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "二分查找的前提和复杂度？",
+   "back": "前提是数组已排序；每次砍一半，最多 ⌊log₂N⌋+1 次比较，O(log N)。",
+   "chapterId": "ch01a",
+   "tags": [
+    "查找",
+    "二分"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "递归的两条铁律？",
+   "back": "①必须有基准条件；②子问题与父问题不能有交集。",
+   "chapterId": "ch01a",
+   "tags": [
+    "递归"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "ADT（抽象数据类型）是什么？",
+   "back": "数据+一组允许的操作；只露 API 藏内部表示（封装）。",
+   "chapterId": "ch01b",
+   "tags": [
+    "ADT",
+    "封装"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "栈和队列的进出规则？",
+   "back": "栈 LIFO（后进先出）；队列 FIFO（先进先出）。",
+   "chapterId": "ch01c",
+   "tags": [
+    "栈",
+    "队列"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "动态数组为什么满了翻倍、空了缩半？",
+   "back": "平摊成本常数；缩容阈值 1/4 而非 1/2，防抖动。",
+   "chapterId": "ch01c",
+   "tags": [
+    "均摊",
+    "动态数组"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "增长数量级七兄弟是哪些？",
+   "back": "1 / log N / N / N log N / N² / N³ / 2^N。",
+   "chapterId": "ch01d",
+   "tags": [
+    "复杂度"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "倍率实验 t(2N)/t(N)→8 说明几阶？",
+   "back": "三阶 O(N³)，因为 2^b=8 → b=3。",
+   "chapterId": "ch01d",
+   "tags": [
+    "复杂度",
+    "倍率"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "加权 quick-union 的树高保证？",
+   "back": "任意节点深度 ≤ lg N（命题 H）。",
+   "chapterId": "ch01e",
+   "tags": [
+    "并查集"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "路径压缩在哪一步做？",
+   "back": "find 爬到根后把路径上节点直接指向根。",
+   "chapterId": "ch01e",
+   "tags": [
+    "并查集"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "插入排序的交换次数等于什么？",
+   "back": "数组中倒置（逆序对）的数量。",
+   "chapterId": "ch02a",
+   "tags": [
+    "排序",
+    "插入"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "选择排序要多少次交换？",
+   "back": "N-1 次，比较 ~N²/2。",
+   "chapterId": "ch02a",
+   "tags": [
+    "排序",
+    "选择"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "希尔排序为什么用递减 h？",
+   "back": "大间隔远距离就位，小间隔收尾时已基本有序。",
+   "chapterId": "ch02a",
+   "tags": [
+    "排序",
+    "希尔"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "归并排序最坏比较次数？",
+   "back": "~N lg N（命题 H），空间 O(N)。",
+   "chapterId": "ch02b",
+   "tags": [
+    "排序",
+    "归并"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "基于比较的排序下界是？",
+   "back": "~N lg N 次比较（决策树叶子 ≥ N!）。",
+   "chapterId": "ch02b",
+   "tags": [
+    "排序",
+    "下界"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "快排平均比较次数？",
+   "back": "~2N ln N ≈ 1.39 N lg N。",
+   "chapterId": "ch02c",
+   "tags": [
+    "排序",
+    "快排"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "快排最坏情况及对策？",
+   "back": "输入已有序时 O(N²)；对策先随机打乱。",
+   "chapterId": "ch02c",
+   "tags": [
+    "排序",
+    "快排"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "堆的数组下标关系？",
+   "back": "节点 i 父亲 i/2，孩子 2i、2i+1。",
+   "chapterId": "ch02d",
+   "tags": [
+    "堆",
+    "优先队列"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "堆排序总复杂度？",
+   "back": "O(N log N)，原地 O(1) 额外空间。",
+   "chapterId": "ch02d",
+   "tags": [
+    "排序",
+    "堆排序"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "Java 对原始类型和引用类型各用什么排序？",
+   "back": "原始类型三向快排；引用类型归并（要稳定）。",
+   "chapterId": "ch02e",
+   "tags": [
+    "排序",
+    "选型"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "符号表的核心两个操作？",
+   "back": "put(key, value) 存入、get(key) 取值。",
+   "chapterId": "ch03a",
+   "tags": [
+    "符号表"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "有序数组实现符号表，get/put 各多快？",
+   "back": "get O(log N)；put O(N)（搬移）。",
+   "chapterId": "ch03a",
+   "tags": [
+    "符号表",
+    "二分"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "BST 的核心性质？",
+   "back": "左子树键<根键<右子树键（中序升序）。",
+   "chapterId": "ch03b",
+   "tags": [
+    "BST"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "随机 BST 平均查找？",
+   "back": "~2 ln N ≈ 1.39 lg N（命题 C）。",
+   "chapterId": "ch03b",
+   "tags": [
+    "BST"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "红黑树高度上界？",
+   "back": "≤ 2 lg N（命题 G）。",
+   "chapterId": "ch03c",
+   "tags": [
+    "红黑树"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "红黑树的红链接代表什么？",
+   "back": "两节点共同构成一个 3-节点（2-3 树的编码）。",
+   "chapterId": "ch03c",
+   "tags": [
+    "红黑树"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "散列函数理想性质？",
+   "back": "计算快 + 分布均匀。",
+   "chapterId": "ch03d",
+   "tags": [
+    "散列"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "线性探测装载因子要求？",
+   "back": "α = N/M ≤ 1/2。",
+   "chapterId": "ch03d",
+   "tags": [
+    "散列"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "散列表为什么不支持 rank？",
+   "back": "散列打乱键顺序，无有序结构。",
+   "chapterId": "ch03d",
+   "tags": [
+    "散列"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "DFS 和 BFS 各用什么结构？",
+   "back": "DFS 栈（递归）；BFS 队列。",
+   "chapterId": "ch04a",
+   "tags": [
+    "图遍历"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "为什么 BFS 能求最短路径？",
+   "back": "按距离从小到大访问，首次到达即最短。",
+   "chapterId": "ch04a",
+   "tags": [
+    "图遍历",
+    "最短路"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "邻接表空间复杂度？",
+   "back": "O(V+E)。",
+   "chapterId": "ch04a",
+   "tags": [
+    "图"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "拓扑排序适用于什么图？",
+   "back": "DAG（有向无环图）。",
+   "chapterId": "ch04b",
+   "tags": [
+    "有向图",
+    "拓扑"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "强连通的定义？",
+   "back": "两顶点互相可达（双向）。",
+   "chapterId": "ch04b",
+   "tags": [
+    "有向图"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "切分定理内容？",
+   "back": "横切边中权重最小的那条必入 MST。",
+   "chapterId": "ch04c",
+   "tags": [
+    "MST"
+   ]
+  },
+  {
+   "id": "f35",
+   "front": "Kruskal 用什么判连通？",
+   "back": "并查集。",
+   "chapterId": "ch04c",
+   "tags": [
+    "MST",
+    "Kruskal"
+   ]
+  },
+  {
+   "id": "f36",
+   "front": "Dijkstra 的前提和复杂度？",
+   "back": "边权非负；E log V（优先队列）。",
+   "chapterId": "ch04d",
+   "tags": [
+    "最短路径"
+   ]
+  },
+  {
+   "id": "f37",
+   "front": "“松弛”一条边做什么？",
+   "back": "若经 v 到 w 更短，更新 distTo[w] 和 edgeTo[w]。",
+   "chapterId": "ch04d",
+   "tags": [
+    "最短路径"
+   ]
+  },
+  {
+   "id": "f38",
+   "front": "键索引计数法复杂度？",
+   "back": "O(N+R)，R 字母表大小，稳定。",
+   "chapterId": "ch05a",
+   "tags": [
+    "字符串排序"
+   ]
+  },
+  {
+   "id": "f39",
+   "front": "LSD 排序要求什么？",
+   "back": "字符串等长，从最右位逐位分桶。",
+   "chapterId": "ch05a",
+   "tags": [
+    "字符串排序"
+   ]
+  },
+  {
+   "id": "f40",
+   "front": "Trie 查找成本取决于？",
+   "back": "键长，与键总数 N 无关。",
+   "chapterId": "ch05b",
+   "tags": [
+    "Trie"
+   ]
+  },
+  {
+   "id": "f41",
+   "front": "KMP 的关键改进？",
+   "back": "失配不回退文本指针，用 DFA 决定模式指针位置，O(N+M)。",
+   "chapterId": "ch05c",
+   "tags": [
+    "KMP",
+    "子串"
+   ]
+  },
+  {
+   "id": "f42",
+   "front": "正则表达式三运算？",
+   "back": "连接、或(|)、闭包(*)。",
+   "chapterId": "ch05d",
+   "tags": [
+    "正则"
+   ]
+  },
+  {
+   "id": "f43",
+   "front": "霍夫曼编码高频字符编码？",
+   "back": "更短（离根近）；要求前缀编码。",
+   "chapterId": "ch05e",
+   "tags": [
+    "压缩",
+    "霍夫曼"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "二分查找",
+   "en": "",
+   "def": "在有序数组里每次和中间元素比、排除一半的查找法",
+   "chapterIds": [
+    "ch01a"
+   ]
+  },
+  {
+   "term": "递归",
+   "en": "",
+   "def": "方法调用自身解决更小规模同类问题",
+   "chapterIds": [
+    "ch01a"
+   ]
+  },
+  {
+   "term": "抽象数据类型 ADT",
+   "en": "",
+   "def": "数据+一组操作，只露 API 藏内部",
+   "chapterIds": [
+    "ch01b"
+   ]
+  },
+  {
+   "term": "栈",
+   "en": "",
+   "def": "后进先出 LIFO 的存取结构",
+   "chapterIds": [
+    "ch01c"
+   ]
+  },
+  {
+   "term": "队列",
+   "en": "",
+   "def": "先进先出 FIFO 的存取结构",
+   "chapterIds": [
+    "ch01c"
+   ]
+  },
+  {
+   "term": "链表",
+   "en": "",
+   "def": "节点串成的序列，每节点含数据+下一节点指针",
+   "chapterIds": [
+    "ch01c"
+   ]
+  },
+  {
+   "term": "均摊成本",
+   "en": "",
+   "def": "把偶尔昂贵操作平摊到每次操作上",
+   "chapterIds": [
+    "ch01c"
+   ]
+  },
+  {
+   "term": "增长数量级",
+   "en": "",
+   "def": "忽略常数和低阶项后函数的类别",
+   "chapterIds": [
+    "ch01d"
+   ]
+  },
+  {
+   "term": "大 O",
+   "en": "",
+   "def": "运行时间的上界（常数倍内）",
+   "chapterIds": [
+    "ch01d"
+   ]
+  },
+  {
+   "term": "倍率实验",
+   "en": "",
+   "def": "输入翻倍看时间比值定阶数",
+   "chapterIds": [
+    "ch01d"
+   ]
+  },
+  {
+   "term": "并查集",
+   "en": "",
+   "def": "维护连通分组、支持 union/find 的结构",
+   "chapterIds": [
+    "ch01e"
+   ]
+  },
+  {
+   "term": "路径压缩",
+   "en": "",
+   "def": "find 时把路过节点直接指向根",
+   "chapterIds": [
+    "ch01e"
+   ]
+  },
+  {
+   "term": "倒置",
+   "en": "",
+   "def": "数组中一对顺序反了的元素",
+   "chapterIds": [
+    "ch02a"
+   ]
+  },
+  {
+   "term": "归并",
+   "en": "",
+   "def": "两个有序半场合并成一个有序数组",
+   "chapterIds": [
+    "ch02b"
+   ]
+  },
+  {
+   "term": "切分",
+   "en": "",
+   "def": "选基准小左大右、基准归位",
+   "chapterIds": [
+    "ch02c"
+   ]
+  },
+  {
+   "term": "优先队列",
+   "en": "",
+   "def": "按最值出队的队列",
+   "chapterIds": [
+    "ch02d"
+   ]
+  },
+  {
+   "term": "堆",
+   "en": "",
+   "def": "父≥子的完全二叉树",
+   "chapterIds": [
+    "ch02d"
+   ]
+  },
+  {
+   "term": "符号表",
+   "en": "",
+   "def": "键值对字典，核心 put/get",
+   "chapterIds": [
+    "ch03a"
+   ]
+  },
+  {
+   "term": "二叉查找树",
+   "en": "",
+   "def": "左子树键<根<右子树键的二叉树",
+   "chapterIds": [
+    "ch03b"
+   ]
+  },
+  {
+   "term": "红黑树",
+   "en": "",
+   "def": "2-3 树的二叉编码，红链接绑 3-节点",
+   "chapterIds": [
+    "ch03c"
+   ]
+  },
+  {
+   "term": "散列函数",
+   "en": "",
+   "def": "把 key 压成数组下标的函数",
+   "chapterIds": [
+    "ch03d"
+   ]
+  },
+  {
+   "term": "装载因子",
+   "en": "",
+   "def": "α=N/M，键数/槽数",
+   "chapterIds": [
+    "ch03d"
+   ]
+  },
+  {
+   "term": "DAG",
+   "en": "",
+   "def": "有向无环图",
+   "chapterIds": [
+    "ch04b"
+   ]
+  },
+  {
+   "term": "拓扑排序",
+   "en": "",
+   "def": "把 DAG 排成合法依赖序",
+   "chapterIds": [
+    "ch04b"
+   ]
+  },
+  {
+   "term": "最小生成树",
+   "en": "",
+   "def": "总权重最小的生成树",
+   "chapterIds": [
+    "ch04c"
+   ]
+  },
+  {
+   "term": "切分定理",
+   "en": "",
+   "def": "最小横切边必入 MST",
+   "chapterIds": [
+    "ch04c"
+   ]
+  },
+  {
+   "term": "Dijkstra",
+   "en": "",
+   "def": "非负权下求最短路的算法",
+   "chapterIds": [
+    "ch04d"
+   ]
+  },
+  {
+   "term": "Trie",
+   "en": "",
+   "def": "边=字符、路径=键的查找树",
+   "chapterIds": [
+    "ch05b"
+   ]
+  },
+  {
+   "term": "KMP",
+   "en": "",
+   "def": "失配不回退的子串查找",
+   "chapterIds": [
+    "ch05c"
+   ]
+  },
+  {
+   "term": "霍夫曼编码",
+   "en": "",
+   "def": "高频字符短码的贪心前缀编码",
+   "chapterIds": [
+    "ch05e"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 25,
+  "concepts": 10
+ },
+ "signature": "1937d2a6ac2a",
+ "contentHash": "fecea0767acb"
+}

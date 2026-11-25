@@ -1,0 +1,479 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "exponents-logarithms",
+ "title": "指数与对数",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/07-指数与对数/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 12,
+  "glossary": 9
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：指数的推广与指数函数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/07-指数与对数/chapters/ch01-exponent.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-07-指数与对数 沈超.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：对数与对数运算",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/07-指数与对数/chapters/ch02-logarithm.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-07-指数与对数 沈超.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：对数函数、幂函数与指对方程",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/07-指数与对数/chapters/ch03-log-function-equations.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-07-指数与对数 沈超.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "互为逆运算",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/07-指数与对数/concepts/c01-inverse-operation.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-07-指数与对数 沈超.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "底数与单调性",
+   "chapterIds": [
+    "ch01",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/07-指数与对数/concepts/c02-base-monotonicity.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-07-指数与对数 沈超.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "计算 27^(2/3) 的值：",
+   "options": [
+    "9",
+    "18",
+    "3",
+    "6"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "27^(2/3)=(³√27)²=3²=9。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "函数 y=(1/2)ˣ 的单调性是：",
+   "options": [
+    "在 R 上递增",
+    "在 R 上递减",
+    "先增后减",
+    "不单调"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "底数 0<1/2<1，指数函数单调递减。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "log₄16 的值是：",
+   "options": [
+    "2",
+    "4",
+    "8",
+    "1/2"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "4²=16，故 log₄16=2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "化简 log₂6−log₂3：",
+   "options": [
+    "log₂3",
+    "1",
+    "2",
+    "log₂9"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "log₂6−log₂3=log₂(6/3)=log₂2=1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "函数 y=log₂x 与 y=2ˣ 的图象关于哪条直线对称：",
+   "options": [
+    "y 轴",
+    "x 轴",
+    "y=x",
+    "y=−x"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "互为反函数的图象关于直线 y=x 对称。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "方程 log₂(x−3)=2 的解是：",
+   "options": [
+    "x=7",
+    "x=1",
+    "x=4",
+    "x=5"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "x−3=2²=4，得 x=7；真数 4>0，成立。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "计算 lg2+lg5 的值：",
+   "options": [
+    "1",
+    "lg7",
+    "10",
+    "0"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "lg2+lg5=lg10=1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "若 3ˣ=7，则 x 等于：",
+   "options": [
+    "log₇3",
+    "log₃7",
+    "7/3",
+    "3/7"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "由定义 3ˣ=7 即 x=log₃7。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：指数的推广与指数函数」的一句话核心是什么？",
+   "back": "指数每推广一步，都要求原来的运算法则继续成立；指数函数的值域恒为正。",
+   "chapterId": "ch01",
+   "tags": [
+    "exponents-logarithms",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：对数与对数运算」的一句话核心是什么？",
+   "back": "对数就是“问指数”：log_a N 是“a 的几次方等于 N”。",
+   "chapterId": "ch02",
+   "tags": [
+    "exponents-logarithms",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：对数函数、幂函数与指对方程」的一句话核心是什么？",
+   "back": "对数函数与指数函数关于 y=x 对称；解指对方程靠“化同底”或“取对数”。",
+   "chapterId": "ch03",
+   "tags": [
+    "exponents-logarithms",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「指数函数」？",
+   "back": "y=aˣ（a>0，a≠1），值域 (0,+∞)。",
+   "chapterId": "ch01",
+   "tags": [
+    "exponents-logarithms",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「零指数」？",
+   "back": "a⁰=1（a≠0）。",
+   "chapterId": "ch01",
+   "tags": [
+    "exponents-logarithms",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「分数指数」？",
+   "back": "a^(m/n)=ⁿ√(aᵐ)，把根式写成指数。",
+   "chapterId": "ch01",
+   "tags": [
+    "exponents-logarithms",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「对数」？",
+   "back": "log_a N=b 表示 aᵇ=N。",
+   "chapterId": "ch02",
+   "tags": [
+    "exponents-logarithms",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「真数」？",
+   "back": "对数记号中的 N，必须大于 0。",
+   "chapterId": "ch02",
+   "tags": [
+    "exponents-logarithms",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「换底公式」？",
+   "back": "log_a N=log_b N/log_b a。",
+   "chapterId": "ch02",
+   "tags": [
+    "exponents-logarithms",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「对数函数」？",
+   "back": "y=log_a x，与指数函数互为反函数。",
+   "chapterId": "ch03",
+   "tags": [
+    "exponents-logarithms",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「幂函数」？",
+   "back": "y=x^α，底是变量、指数是常数。",
+   "chapterId": "ch03",
+   "tags": [
+    "exponents-logarithms",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「增根」？",
+   "back": "解对数方程时使真数非正的解。",
+   "chapterId": "ch03",
+   "tags": [
+    "exponents-logarithms",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "指数函数",
+   "en": "",
+   "def": "y=aˣ（a>0，a≠1），值域 (0,+∞)。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "零指数",
+   "en": "",
+   "def": "a⁰=1（a≠0）。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "分数指数",
+   "en": "",
+   "def": "a^(m/n)=ⁿ√(aᵐ)，把根式写成指数。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "对数",
+   "en": "",
+   "def": "log_a N=b 表示 aᵇ=N。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "真数",
+   "en": "",
+   "def": "对数记号中的 N，必须大于 0。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "换底公式",
+   "en": "",
+   "def": "log_a N=log_b N/log_b a。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "对数函数",
+   "en": "",
+   "def": "y=log_a x，与指数函数互为反函数。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "幂函数",
+   "en": "",
+   "def": "y=x^α，底是变量、指数是常数。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "增根",
+   "en": "",
+   "def": "解对数方程时使真数非正的解。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "cb204b023845",
+ "contentHash": "bd0f637ad446",
+ "duplicateGroup": "cb204b023845"
+}

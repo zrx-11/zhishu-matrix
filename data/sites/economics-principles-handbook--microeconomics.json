@@ -1,0 +1,4123 @@
+{
+ "repo": "economics-principles-handbook",
+ "bookSlug": "microeconomics",
+ "title": "经济学原理·微观经济学分册",
+ "discipline": "general",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-微观经济学分册/manifest.json",
+ "stats": {
+  "chapters": 22,
+  "concepts": 6,
+  "quizzes": 81,
+  "cards": 117,
+  "glossary": 141
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：经济学十大原理",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch01-十大原理.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：像经济学家一样思考",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch02-像经济学家一样思考.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：相互依存性与贸易的好处",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch03-相互依存性与贸易.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：供给与需求的市场力量",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch04-供给与需求的市场力量.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：弹性及其应用",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch05-弹性及其应用.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：供给、需求与政府政策",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch06-供给需求与政府政策.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：消费者、生产者与市场效率",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch07-消费者生产者与市场效率.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：应用：赋税的代价",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch08-赋税的代价.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：应用：国际贸易",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch09-应用国际贸易.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：外部性",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch10-外部性.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：公共物品和公共资源",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch11-公共物品和公共资源.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：税制的设计",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch12-税制的设计.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：生产成本",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch13-生产成本.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch14",
+   "num": 14,
+   "title": "第 14 章：竞争市场上的企业",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch14-竞争市场上的企业.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch15",
+   "num": 15,
+   "title": "第 15 章：垄断",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch15-垄断.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch16",
+   "num": 16,
+   "title": "第 16 章：垄断竞争",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch16-垄断竞争.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch17",
+   "num": 17,
+   "title": "第 17 章：寡头",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch17-寡头.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch18",
+   "num": 18,
+   "title": "第 18 章：生产要素市场",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch18-生产要素市场.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch19",
+   "num": 19,
+   "title": "第 19 章：收入与歧视",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch19-收入与歧视.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch20",
+   "num": 20,
+   "title": "第 20 章：收入不平等与贫困",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch20-收入不平等与贫困.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch21",
+   "num": 21,
+   "title": "第 21 章：消费者选择理论",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch21-消费者选择理论.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch22",
+   "num": 22,
+   "title": "第 22 章：微观经济学前沿",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/chapters/ch22-微观经济学前沿.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "机会成本与边际分析",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch13",
+    "ch14"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/concepts/opportunity-cost.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "供给与需求",
+   "chapterIds": [
+    "ch04",
+    "ch05",
+    "ch06",
+    "ch09"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/concepts/supply-demand.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "弹性",
+   "chapterIds": [
+    "ch05",
+    "ch06",
+    "ch08",
+    "ch12"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/concepts/elasticity.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "剩余与效率",
+   "chapterIds": [
+    "ch07",
+    "ch08",
+    "ch09",
+    "ch10",
+    "ch15"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/concepts/surplus-efficiency.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "外部性与公共物品",
+   "chapterIds": [
+    "ch10",
+    "ch11",
+    "ch12"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/concepts/externality-public-goods.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "市场结构谱系",
+   "chapterIds": [
+    "ch14",
+    "ch15",
+    "ch16",
+    "ch17"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "economics-principles-handbook",
+    "path": "01-微观经济学分册/concepts/market-structure.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "某人辞去年薪 12 万元的工作去读两年全日制硕士，每年学费与书本费合计 5 万元。他读硕士的机会成本约为多少？",
+   "options": [
+    "10 万元",
+    "12 万元",
+    "22 万元",
+    "34 万元"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "机会成本 = 账面支出 5×2 = 10 万元 + 放弃的工资 12×2 = 24 万元，合计 34 万元。只加学费得到 10 万元是账面成本，漏掉了放弃的收入。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "一家影院平时票价 40 元，工作日上午几乎空场。经营者决定加开一场早场，票价 15 元。这个决定是否理性，取决于什么？",
+   "options": [
+    "15 元是否高于每张票的平均总成本",
+    "15 元是否高于加开一场的边际成本",
+    "15 元是否高于 40 元的一半",
+    "早场观众是否会在下午再买一张票"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "上午场地和设备已经闲置，加开一场的边际成本只有少量人工与电费。只要票价高于边际成本，这笔生意就增加利润；平均成本包含已发生的固定支出，不适用于这个判断。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "下列哪些属于曼昆所说「政府有时可以改善市场结果」的场合？",
+   "options": [
+    "产权界定不清，偷盗与违约频发",
+    "某行业由一家企业垄断并自行定价",
+    "工厂排污让下游居民承担成本",
+    "消费者偏好进口商品而非国产商品"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "前三项分别是产权缺失、市场势力、外部性，都是市场自身无法纠正的失灵。消费者偏好进口货只是偏好，价格机制能正常处理，不需要政府介入。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch01",
+   "stem": "「一国生活水平的长期水平取决于它生产物品与服务的能力」，这个能力在书里叫什么？（两字词）",
+   "options": [],
+   "answer": "生产率",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "生产率指平均每个工人每小时产出的物品与服务量。长期看，人均收入的差距几乎完全由生产率差距解释。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch02",
+   "stem": "经济学家在模型中假设「其他条件不变」，这个做法最恰当的理由是？",
+   "options": [
+    "为了让数学推导更简单",
+    "为了把要研究的变量从其他干扰因素中隔离出来",
+    "因为现实中其他条件确实永远不变",
+    "为了让结论更容易被大众接受"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "假设的作用是隔离变量，和实验里控制其他条件同理。判断假设是否合理，看它是否抓住了要解释的问题的要害，而不是看它是否与现实完全一致。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch02",
+   "stem": "一国的生产组合落在生产可能性边界内部，最合理的解释是？",
+   "options": [
+    "该国的技术已经落后于边界",
+    "资源未被充分利用或使用效率低",
+    "该国在两种产品上都已达到最优产量",
+    "该国的机会成本为零"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "边界内的点意味着还有资源闲置或使用效率不足，此时可以同时增加两种产品的产量；边界本身代表既定资源和技术下的最大产出组合。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "「最低工资应不应该提高到每小时 15 元」属于实证分析还是规范分析？",
+   "options": [],
+   "answer": "规范分析",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "「应不应该」包含价值判断，无法只靠事实检验。若问「提高到 15 元会使青年失业率上升多少」，那才是实证分析。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch03",
+   "stem": "甲 1 小时能产 10 件衣服或 5 台电视，乙 1 小时能产 8 件衣服或 2 台电视。谁在电视上有比较优势？",
+   "options": [
+    "甲，因为他单位时间产量更高",
+    "乙，因为他放弃的衣服更少",
+    "甲，因为 1 台电视只放弃 2 件衣服",
+    "两人都没有"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "机会成本：甲 1 台电视 = 2 件衣服，乙 1 台电视 = 4 件衣服。甲的机会成本更低，所以甲在电视上有比较优势。顺带可见甲在衣服上也有绝对优势，但乙在衣服上的机会成本是 0.25 台电视，仍低于甲的 0.5 台，所以乙在衣服上有比较优势。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch03",
+   "stem": "某顶级外科医生做手术的收费是每小时 3000 元，他打扫自己家的效率也比保洁员高一倍。按比较优势，他应该？",
+   "options": [
+    "自己打扫，因为他效率更高",
+    "请保洁员，因为他打扫的机会成本远高于保洁费",
+    "自己打扫，因为请人还要花时间沟通",
+    "两人都不打扫，等家人来收拾"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "效率高只是绝对优势。他打扫一小时放弃的是 3000 元收入，机会成本远高于保洁费，所以应由机会成本更低的人做。绝对优势在这里完全不影响结论。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch03",
+   "stem": "牧场主 1 盎司牛肉的机会成本是 2 磅土豆，农民是 6 磅土豆。两人交换牛肉时，1 盎司牛肉的土豆价格必须落在什么区间内才可能成交？",
+   "options": [],
+   "answer": "2 到 6 磅之间",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "低于 2 磅牧场主宁可自己种土豆，高于 6 磅农民宁可自己养牛。区间之内双方都能从交换中获益，具体落在哪一点取决于谈判。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch04",
+   "stem": "奶茶市场的需求为 Qd = 60 − 2P，供给为 Qs = 2P − 20。均衡价格与均衡数量是？",
+   "options": [
+    "P=15，Q=30",
+    "P=20，Q=20",
+    "P=25，Q=10",
+    "P=10，Q=40"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "令 60 − 2P = 2P − 20，得 4P = 80，P = 20；代回任一式得 Q = 20。P=25 时 Qd=10、Qs=30 是过剩，P=15 时是短缺。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch04",
+   "stem": "咖啡豆价格上涨，在其他条件不变的情况下，奶茶市场会出现什么变化？",
+   "options": [
+    "奶茶需求曲线右移，价格与数量都上升",
+    "奶茶供给曲线左移，价格上升、数量下降",
+    "奶茶需求曲线左移，价格与数量都下降",
+    "奶茶供给曲线右移，价格下降、数量上升"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "咖啡是奶茶的替代品。替代品价格上升，消费者转向奶茶，奶茶需求曲线右移，均衡价格与数量同时上升。注意这不是奶茶成本变化，所以供给不动。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch04",
+   "stem": "某年夏天既流行喝奶茶（需求右移），同时牛奶大幅涨价（供给左移）。可以确定的是？",
+   "options": [
+    "价格上涨，数量方向不确定",
+    "价格与数量都上涨",
+    "价格方向不确定，数量上涨",
+    "价格与数量都下降"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "需求右移推高价格与数量，供给左移推高价格、压低数量。价格方向一致所以确定上涨；数量一增一减，最终取决于两个冲击的幅度，无法确定。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch04",
+   "stem": "「某商品价格从 20 元降到 15 元，其需求量从 20 杯增到 30 杯」，这属于需求量变化还是需求变化？",
+   "options": [],
+   "answer": "需求量变化",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "由价格本身引起的变动是沿曲线滑动，叫需求量变化。若收入、偏好、替代品价格等变化，才是整条曲线平移的需求变化。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch05",
+   "stem": "价格从 10 元升到 12 元，需求量从 100 件降到 80 件。用中点法计算的需求价格弹性约为？",
+   "options": [
+    "0.55",
+    "1.00",
+    "1.22",
+    "1.80"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "数量变动率 = −20 ÷ 90 = −22.2%；价格变动率 = 2 ÷ 11 = 18.2%；弹性 = 22.2 ÷ 18.2 ≈ 1.22，属富有弹性。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch05",
+   "stem": "某商品需求缺乏弹性。若卖者提高价格，总收益会？",
+   "options": [
+    "增加",
+    "减少",
+    "不变",
+    "先增后减"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "缺乏弹性意味着数量下降的百分比小于价格上升的百分比，P×Q 上升。典型例子是食盐、燃油这类必需品。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch05",
+   "stem": "农业技术进步使粮食供给大幅增加，但农民总收入下降。最直接的原因是？",
+   "options": [
+    "粮食需求缺乏弹性，价格下跌幅度大于数量增加幅度",
+    "农民没有能力采用新技术",
+    "粮食需求富有弹性，价格下跌带来数量大增",
+    "政府对粮食征收了更高的税"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "需求缺乏弹性时，供给右移导致价格大跌而数量只小幅上升，P×Q 下降。消费者得到便宜粮食，农民收入受损，这是分配问题。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch05",
+   "stem": "线性需求曲线上的弹性在中点处等于多少？",
+   "options": [],
+   "answer": "1",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "中点处需求量为最大量的一半、价格为最高价的一半，数量与价格的百分比变动幅度相同，弹性为 1。上半段大于 1，下半段小于 1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch06",
+   "stem": "奶茶市场 Qd = 60 − 2P，Qs = 2P − 20。政府规定最高价 15 元，会出现什么？",
+   "options": [
+    "过剩 20 杯",
+    "短缺 20 杯",
+    "短缺 30 杯",
+    "没有影响，市场仍均衡"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "P=15 时 Qd=30、Qs=10，短缺 20 杯。因为 15 元低于均衡价 20 元，上限有约束力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch06",
+   "stem": "对每杯奶茶向卖者征 6 元税，均衡数量从 20 杯降到 14 杯。政府税收收入是多少？",
+   "options": [
+    "120 元",
+    "84 元",
+    "18 元",
+    "6 元"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "税收收入 = 税额 × 税后交易量 = 6 × 14 = 84 元。注意不是用税前数量算的，交易量已经下降。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch06",
+   "stem": "某商品需求完全无弹性、供给弹性正常。对它征税，税负主要由谁承担？",
+   "options": [
+    "买者全部承担",
+    "卖者全部承担",
+    "双方各半",
+    "由政府承担"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "需求完全无弹性意味着买者不论价格多高都买同样的量，卖者可以把税全部转嫁给买者，价格涨满税额而数量不变。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch06",
+   "stem": "法律上规定由雇主缴纳的工薪税，最终由谁承担，取决于什么？（一个词）",
+   "options": [],
+   "answer": "弹性",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "税收归宿由供需双方的相对弹性决定，法律只决定钱走谁的账。劳动供给弹性小、需求弹性相对大时，雇员的实际工资会下降，等于雇员承担了大部分。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch07",
+   "stem": "奶茶市场均衡价 20 元、数量 20 杯，最高支付意愿为 30 元。消费者剩余是多少？",
+   "options": [
+    "200 元",
+    "100 元",
+    "50 元",
+    "20 元"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "消费者剩余是需求曲线以下、价格线以上的三角形面积：底 20 杯、高 30−20=10 元，½×20×10=100 元。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch07",
+   "stem": "为什么均衡数量使总剩余最大？",
+   "options": [
+    "因为均衡时买卖双方人数相等",
+    "因为均衡时最后一单位对买者的价值恰好等于对卖者的成本",
+    "因为均衡价格最低",
+    "因为均衡时所有人都满意"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "数量小于均衡时，有支付意愿高于成本的交易没发生；数量大于均衡时，成本高于支付意愿的交易发生了。只有均衡点上，每一笔成交都创造价值、且没有遗漏，总剩余最大。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch07",
+   "stem": "下列哪些属于市场失灵，会使均衡偏离总剩余最大？",
+   "options": [
+    "某行业由一家企业垄断并压低产量抬高价格",
+    "工厂排污让下游居民承担成本",
+    "消费者偏好发生变化导致需求曲线平移",
+    "政府对某商品征收消费税"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "市场势力与外部性是本章定义的两类市场失灵。偏好变化只是需求移动，市场仍会走到新的均衡并最大化剩余；征税会减少剩余，但那属于政策干预的结果，不是市场自身的失灵。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch08",
+   "stem": "某市场均衡数量 20 件，征 6 元税后数量降到 14 件。无谓损失约为？",
+   "options": [
+    "84 元",
+    "36 元",
+    "18 元",
+    "6 元"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "无谓损失三角形面积 = ½ × 税额 6 × 减少数量 6 = 18 元。84 元是税收收入，别把两者混淆。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch08",
+   "stem": "若税额从 6 元提高到 12 元（弹性保持不变），无谓损失大致会变成原来的？",
+   "options": [
+    "1 倍，即不变",
+    "2 倍",
+    "4 倍",
+    "8 倍"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "无谓损失与税额的平方成正比。税额翻倍，三角形底与高同时约翻倍，面积约变四倍。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch08",
+   "stem": "某种商品的供给完全无弹性。对它征税的无谓损失是？",
+   "options": [
+    "最大",
+    "为零，因为交易量不变",
+    "等于税收收入",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "供给曲线垂直时，征税不会减少交易量，三角形底或高为零，无谓损失为零；但税负全部由卖者承担。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch08",
+   "stem": "描述「税额上升时税收收入先增后减」的那条倒 U 形曲线叫什么？",
+   "options": [],
+   "answer": "拉弗曲线",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "拉弗曲线刻画税额与税收收入的关系。税额过高时交易量暴跌，收入反而下降，因此存在使收入最大的税率点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch09",
+   "stem": "某商品国内均衡价 20 元，世界价格 15 元。该国最可能？",
+   "options": [
+    "出口该商品，国内价格升到 20 元以上",
+    "进口该商品，国内价格降到 15 元",
+    "既不进口也不出口",
+    "出口该商品，但国内价格不变"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "世界价格低于国内均衡价，进口更便宜，国内价格被压到世界价格 15 元，国内产量下降、消费量上升。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch09",
+   "stem": "一国从封闭转向进口自由贸易，下列哪些判断正确？",
+   "options": [
+    "消费者剩余增加",
+    "国内生产者剩余减少",
+    "总福利增加",
+    "国内产量增加"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "进口使国内价格下降：消费者受益、生产者受损、总福利增加。国内产量因价格下降而减少，不是增加。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch09",
+   "stem": "进口国对每件商品征 3 元关税，进口量从 20 件降到 8 件。关税造成的无谓损失约为？",
+   "options": [
+    "24 元",
+    "18 元",
+    "12 元",
+    "3 元"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "两块三角形的总面积 = ½ × 3 × 6 + ½ × 3 × 6 = 18 元，对应国内多生产 6 件与消费少买 6 件的效率损失。24 元是关税收入。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch09",
+   "stem": "「新产业需要保护，成熟后再放开」这一贸易保护论据通常被称作什么论？（四字）",
+   "options": [],
+   "answer": "幼稚产业论",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "幼稚产业论主张新兴产业在起步阶段需要保护。反驳点是保护难以撤销、企业缺乏改进动力，且难以判断哪些产业值得保护。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch10",
+   "stem": "某工厂每生产一件产品产生 4 元污染成本由居民承担。市场均衡产量 20 件，社会最优 16 件。无谓损失约为？",
+   "options": [
+    "16 元",
+    "8 元",
+    "4 元",
+    "0 元"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "过量生产的 4 件，每件平均的外部成本约 4 元的一部分，三角形面积 = ½×4×4 = 8 元。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch10",
+   "stem": "下列哪一项是正外部性的典型例子？",
+   "options": [
+    "工厂排放污水",
+    "深夜装修扰民",
+    "接种疫苗降低周围人感染风险",
+    "高峰期地铁拥挤"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "接种者承担成本，周围人得到好处且未付费，属于正外部性。其余三项都是负外部性或拥挤成本。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch10",
+   "stem": "矫正税与可交易许可证最核心的差别是？",
+   "options": [
+    "矫正税能减少污染，许可证不能",
+    "矫正税定价格但总量不定，许可证定总量但价格不定",
+    "许可证只适用于国有企业",
+    "矫正税只对消费者征收"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "税按每单位征，企业自主决定减排多少，总量不确定；许可证先定总量，价格由市场竞价形成。两者都能以最低成本实现减排。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch10",
+   "stem": "科斯定理成立需要哪些条件？",
+   "options": [
+    "产权界定清楚",
+    "交易成本足够低",
+    "当事人数量很少且能谈判",
+    "政府先征收矫正税"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "产权清楚、交易成本低、当事人能有效谈判是三个前提。政府征税是科斯定理失效时的替代手段，不是它的前提。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch11",
+   "stem": "「拥堵的城市道路」属于哪一类物品？",
+   "options": [
+    "私人物品",
+    "俱乐部物品",
+    "公共资源",
+    "公共物品"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "任何人都能上路（无排他性），但一个人上路会挤占他人的道路空间（有竞争性），符合公共资源。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch11",
+   "stem": "公共物品市场供给不足的根本原因是？",
+   "options": [
+    "生产成本太高",
+    "无排他性导致搭便车，没人愿意付费",
+    "政府不允许私人提供",
+    "消费者需求量太小"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "公共物品不付钱也能用，每个人都指望别人付费，于是自愿支付不足，市场供给低于社会需要的水平。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch11",
+   "stem": "「每位牧民多养一头牛的收益归自己，草场退化的成本由所有人分担」导致草场被吃光，这种现象叫什么悲剧？",
+   "options": [],
+   "answer": "公地悲剧",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "公地悲剧指公共资源因无排他性而被过度使用：个体理性地多取用，集体承担退化成本，最终资源枯竭。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch11",
+   "stem": "解决公地悲剧的可行办法包括？",
+   "options": [
+    "把资源产权私有化",
+    "规定使用上限并管制",
+    "发放可交易的配额",
+    "完全免费开放并依靠使用者自觉"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "产权私有化让成本内化，管制限制总量，可交易配额让配额流向效率最高者。完全免费开放正是悲剧的成因。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch12",
+   "stem": "某人年收入 10 万元，缴税 2 万元；再多挣 1 元要缴 0.4 元税。他的平均税率与边际税率分别是？",
+   "options": [
+    "20% 与 20%",
+    "20% 与 40%",
+    "40% 与 20%",
+    "40% 与 40%"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "平均税率 = 2 万 ÷ 10 万 = 20%；边际税率由新增收入决定，为 40%。决定是否多工作的是边际税率。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch12",
+   "stem": "关于销售税的累进或累退性质，下列说法正确的是？",
+   "options": [
+    "销售税是比例税，因为税率统一",
+    "销售税通常是累退的，因为低收入者消费占收入比重更高",
+    "销售税通常是累进的",
+    "无法判断，取决于商品种类"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "名义税率统一不代表负担比例统一。低收入者把更大比例的收入用于消费，缴税占收入比重更高，因此是累退的。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch12",
+   "stem": "「谁从公共服务中受益更多，谁就该多缴税」属于哪种原则？",
+   "options": [
+    "支付能力原则",
+    "受益原则",
+    "纵向公平原则",
+    "比例税原则"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "受益原则按受益大小分摊成本，如汽油税修路。支付能力原则按收入高低分摊，两者在国防、基础教育这类支出上会给出不同答案。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch12",
+   "stem": "税收造成的效率损失来自哪些方面？",
+   "options": [
+    "改变相对价格导致交易减少的无谓损失",
+    "报税与合规的管理负担",
+    "高边际税率对工作与投资激励的抑制",
+    "政府把税收用于转移支付"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "前三项都是效率损失。转移支付改变的是分配，不直接构成效率损失（其行政成本才算）。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch13",
+   "stem": "某店主年收入 60 万元，显性成本 45 万元，他投入的 20 万元资金本可获 5% 收益，自己本可年薪 10 万元。他的经济利润是多少？",
+   "options": [
+    "15 万元",
+    "4 万元",
+    "5 万元",
+    "0 万元"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "经济利润 = 60 − 45 − 1 − 10 = 4 万元。会计利润 15 万元，差额来自隐性成本 11 万元。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch13",
+   "stem": "固定成本 30 元，产量为 5 时总成本 75 元。平均总成本是多少？",
+   "options": [
+    "6 元",
+    "15 元",
+    "9 元",
+    "45 元"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "ATC = TC ÷ Q = 75 ÷ 5 = 15 元。此时可变成本为 45 元，平均可变成本 9 元，平均固定成本 6 元。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch13",
+   "stem": "为什么边际成本曲线一定穿过平均总成本曲线的最低点？",
+   "options": [
+    "因为两者都由固定成本决定",
+    "因为新增一单位的成本低于平均会拉低平均，高于平均会拉高平均",
+    "因为边际成本总是递减的",
+    "因为平均成本总是等于边际成本"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "这是纯粹的算术关系：平均值的变化方向由新增值与当前平均值的比较决定，两者相等处就是最低点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch13",
+   "stem": "产量增加时每多雇一名工人带来的产出增量越来越少，这个规律叫什么？（八个字以内）",
+   "options": [],
+   "answer": "边际产量递减",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "固定投入不变、可变投入增加时，新增投入带来的产出增量最终会下降，这直接导致边际成本上升。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch14",
+   "stem": "完全竞争企业的利润最大化条件是？",
+   "options": [
+    "P = ATC",
+    "P = MC",
+    "P = AVC",
+    "MR = ATC"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "竞争企业 MR = P，所以 MR = MC 就是 P = MC。ATC 最低点只在长期均衡时与价格重合。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch14",
+   "stem": "某企业价格 13 元，产量 5 件，总成本 75 元，平均可变成本 9 元，固定成本 30 元。它应该？",
+   "options": [
+    "立即停业，因为亏损",
+    "继续生产，因为停业会亏得更多",
+    "提高价格",
+    "扩大产量到 ATC 最低点"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "继续生产亏 10 元；停业则固定成本照付，亏 30 元。价格高于平均可变成本时应继续经营，尽管账面上在亏。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch14",
+   "stem": "长期中竞争行业的均衡状态是？",
+   "options": [
+    "价格高于最低 ATC，企业获得超额利润",
+    "价格等于最低 ATC，经济利润为零",
+    "价格等于 AVC 最低点",
+    "企业数量固定不变"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "正利润吸引进入、亏损促使退出，直到价格等于最低平均总成本，经济利润为零，进出停止。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch14",
+   "stem": "已经花掉、无法收回的成本叫什么成本？",
+   "options": [],
+   "answer": "沉没成本",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "沉没成本不影响「继续还是停止」的判断，因为两种选择下它都已发生。因已投入而继续投入是沉没成本谬误。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch15",
+   "stem": "自然垄断形成的根本原因是？",
+   "options": [
+    "政府发放了独家牌照",
+    "规模经济一直持续到覆盖整个市场，一家供货成本最低",
+    "企业掌握了全部原材料",
+    "产品拥有专利"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "自来水、电网这类行业固定成本极高、边际成本低，产量越大平均成本越低，一家供货比分多家更省资源，这就是自然垄断。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch15",
+   "stem": "需求为 P = 30 − 0.5Q，则边际收益 MR 等于？",
+   "options": [
+    "30 − Q",
+    "30 − 0.5Q",
+    "15 − Q",
+    "30 − 2Q"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "线性需求下 MR 的斜率是需求曲线的两倍：TR = 30Q − 0.5Q²，求导得 MR = 30 − Q。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch15",
+   "stem": "需求 P = 30 − 0.5Q，MC = 10 + Q。垄断者的产量与价格分别是？",
+   "options": [
+    "Q=10，P=25",
+    "Q=13.3，P=16.7",
+    "Q=10，P=20",
+    "Q=6.7，P=26.7"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "MR = MC：30 − Q = 10 + Q，得 Q = 10；沿需求曲线得 P = 30 − 5 = 25。竞争结果才是 13.3 与 16.7。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch15",
+   "stem": "价格歧视可行的条件包括？",
+   "options": [
+    "能按支付意愿或人群特征区分买者",
+    "商品或服务无法转售套利",
+    "企业拥有市场势力",
+    "政府强制统一定价"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "要能区分买者、防止套利、并且有定价能力。政府统一定价恰恰会消除价格歧视的空间。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch16",
+   "stem": "垄断竞争企业长期均衡的核心特征是？",
+   "options": [
+    "需求曲线与 ATC 曲线在最低点相切",
+    "需求曲线与 ATC 曲线相切，且切点在最低点左侧",
+    "价格等于边际成本",
+    "企业长期获得正的经济利润"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "进入使需求曲线左移到与 ATC 相切，利润为零。因需求曲线向下倾斜，切点必然在 ATC 最低点左侧，产量低于效率规模，形成超额能力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch16",
+   "stem": "垄断竞争与完全竞争最重要的差别是？",
+   "options": [
+    "企业数量更多",
+    "产品存在差别，企业因此有少量定价权",
+    "没有进入壁垒",
+    "长期利润更高"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "产品差别让每个企业拥有自己的小市场，需求曲线向下倾斜，价格可以略高于边际成本；这也带来多样性和超额能力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch16",
+   "stem": "支持广告的论点包括？",
+   "options": [
+    "降低消费者的搜寻成本",
+    "传递产品质量信号",
+    "一定降低产品价格",
+    "可能抬高进入壁垒"
+   ],
+   "answer": [
+    0,
+    1
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "广告提供信息、传递质量信号是支持的理由；抬高进入壁垒是批评的理由，且广告不必然降低价格。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch17",
+   "stem": "在囚徒困境式的寡头博弈中，双方都维持高价的合作结果为什么难以实现？",
+   "options": [
+    "因为合作违法",
+    "因为任何一方单方面降价都能立即获益，背叛动机始终存在",
+    "因为消费者会抵制高价",
+    "因为政府强制低价"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "给定对手维持高价，自己降价可把利润从 100 提到 140；对手也这么想，于是双方降价，落入纳什均衡。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch17",
+   "stem": "纳什均衡的含义是？",
+   "options": [
+    "所有人的总收益最大",
+    "没有任何一方能在对手不变时单方面改变策略而获益",
+    "价格等于成本",
+    "企业数量最多"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "纳什均衡是稳定状态的定义，不保证总收益最大。囚徒困境里均衡结果明显差于合作结果。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch17",
+   "stem": "卡特尔难以长期维持的原因包括？",
+   "options": [
+    "成员有偷偷超产的动机",
+    "成员多则监督成本高",
+    "非成员的外部竞争",
+    "市场需求上升"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "背叛动机、监督困难、外部竞争都是瓦解因素。需求上升期卡特尔反而更容易维持，因为大家都有得赚。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch18",
+   "stem": "某企业最后雇的一名工人每小时多产出 30 件产品，产品单价 5 元。在完全竞争劳动市场上，这名工人的工资上限约为？",
+   "options": [
+    "30 元",
+    "150 元",
+    "5 元",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "边际产量值 = 30 × 5 = 150 元。企业愿意支付的工资不超过这一数额，否则雇这个人就亏损。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch18",
+   "stem": "劳动需求被称为「派生需求」，原因是？",
+   "options": [
+    "它来自对最终产品的需求",
+    "它由法律规定的工资标准派生",
+    "它由工会与雇主谈判派生",
+    "它随人口自然增长派生"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "企业雇人是为了生产顾客要买的东西，最终产品没有需求，劳动需求也随之消失。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch18",
+   "stem": "产品价格上升，同时其他条件不变，劳动市场会发生什么？",
+   "options": [
+    "劳动需求曲线左移，工资下降",
+    "劳动需求曲线右移，工资上升",
+    "劳动供给曲线左移，工资上升",
+    "劳动供给曲线右移，工资下降"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "产品涨价使每个工人的边际产量值上升，企业愿付更高工资，劳动需求右移，均衡工资上升。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch19",
+   "stem": "高空作业的工资高于办公室文员，最可能的原因是？",
+   "options": [
+    "高空作业者能力更强",
+    "补偿性工资差别，工作条件更危险",
+    "工会力量更强",
+    "政府规定的工资更高"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "危险、辛苦、地点偏远的工作需要额外报酬才能吸引人，这部分差额叫补偿性工资差别。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch19",
+   "stem": "「超级明星现象」出现的前提是？",
+   "options": [
+    "产品可以低成本复制，且消费者在意质量差异",
+    "从业者数量极少",
+    "政府限制进入",
+    "企业规模很大"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "唱歌、体育、影视的产出可以复制给所有人，最好的那几个人能满足全部需求，于是收入高度集中。理发师做不到这一点，因为服务无法复制。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch19",
+   "stem": "哪些因素会造成同等工作之间的工资差距？",
+   "options": [
+    "工作危险程度不同",
+    "工作地点生活成本不同",
+    "工作时间的灵活性不同",
+    "货币单位不同"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "补偿性差别涵盖危险、地点、时间、声誉等非货币特征；货币单位不影响实际工资比较。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch20",
+   "stem": "基尼系数为 0 表示？",
+   "options": [
+    "一人占有全部收入",
+    "收入完全平均",
+    "一半人贫困",
+    "无法计算"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "基尼系数取值 0 到 1，0 表示洛伦兹曲线与 45 度线重合，即完全平均；1 表示一人独占全部收入。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch20",
+   "stem": "功利主义支持再分配的核心理由是？",
+   "options": [
+    "富人赚钱不道德",
+    "收入的边际效用递减，转移给穷人能提高总效用",
+    "每个人都应获得相同收入",
+    "政府需要更多税收"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "边沁式功利主义认为同样一笔钱给穷人带来的效用增量更大，因此再分配能增加总福利。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch20",
+   "stem": "负所得税相比传统福利的最大优点是？",
+   "options": [
+    "财政成本为零",
+    "把补贴与工作收入平滑衔接，减少「工作就失去补助」的断崖",
+    "不需要任何行政成本",
+    "可以完全消除贫困"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "负所得税按收入逐步退出补贴，避免福利制度中收入略增就失去全部补助的激励陷阱，代价是较高的隐含边际税率。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch20",
+   "stem": "用年度收入衡量贫困可能失真，原因包括？",
+   "options": [
+    "忽略实物转移",
+    "忽略生命周期差异",
+    "暂时性失业被当成长期贫困",
+    "没有考虑税率"
+   ],
+   "answer": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "四项都会造成口径偏差：实物转移未计入收入、年轻人与退休者的生命周期特征、暂时波动、税前税后差异都会影响统计结果。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch21",
+   "stem": "奶茶 2 元一杯、电影 4 元一张、预算 40 元。预算线的斜率绝对值为？",
+   "options": [
+    "2",
+    "0.5",
+    "4",
+    "20"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "预算线为 2x + 4y = 40，改写为 y = 10 − 0.5x，斜率绝对值 0.5，含义是少喝 2 杯奶茶可多看 1 张电影。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch21",
+   "stem": "消费者最优选择的条件是？",
+   "options": [
+    "边际替代率等于价格比",
+    "两种商品消费量相等",
+    "预算线中点的组合",
+    "无差异曲线与纵轴相交"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "在切点处，消费者愿意交换的比例（MRS）恰好等于市场交换比例（Px/Py），此时无法通过调整组合提高满足度。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch21",
+   "stem": "吉芬物品的特点是？",
+   "options": [
+    "价格上升时需求量也上升",
+    "价格上升时需求量急剧下降",
+    "与替代品完全无关",
+    "只存在于完全竞争市场"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "吉芬物品是极端劣等品，价格上涨时收入效应为负且强于替代效应，导致需求量反而增加，需求曲线向上倾斜。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch21",
+   "stem": "无差异曲线的性质包括？",
+   "options": [
+    "向右下方倾斜",
+    "离原点越远满足度越高",
+    "两条曲线不相交",
+    "凸向原点"
+   ],
+   "answer": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "四项都是标准性质。凸向原点对应边际替代率递减：拥有的商品越多，越愿意用它去换另一种。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q01",
+   "chapterId": "ch22",
+   "stem": "买全额医疗保险的人更不注意保养身体，这属于？",
+   "options": [
+    "逆向选择",
+    "道德风险",
+    "信号失灵",
+    "锚定效应"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "道德风险发生在签约之后：投保后不再承担全部后果，行为随之改变。逆向选择发生在签约前，是好坏客户混在一起的问题。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch22",
+   "stem": "二手车市场上好车卖家退出，主要原因是什么？",
+   "options": [
+    "买家只肯按平均质量出价，好车卖不到应有价格",
+    "二手车需求下降",
+    "政府限制交易",
+    "维修成本上升"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "买家无法分辨质量只肯出中间价，高质量车卖不上价而退出，市场平均质量下降，形成逆向选择的恶性循环。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch22",
+   "stem": "阿罗不可能定理说明？",
+   "options": [
+    "民主制度注定失败",
+    "不存在同时满足所有合理公理的投票加总规则",
+    "多数投票总是最优",
+    "只要选民理性就能得到完美结果"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "它指出任何投票规则都必须在某条合理性质上让步，而不是否定民主本身。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch22",
+   "stem": "下列属于行为经济学发现的现象是？",
+   "options": [
+    "损失厌恶",
+    "锚定效应",
+    "框架效应",
+    "边际效用递减"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "前三项是行为经济学的典型偏差；边际效用递减是传统效用理论的内容，不属于认知偏差。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f-ch01-01",
+   "front": "十大原理的三组划分分别是什么？",
+   "back": "个人如何决策（原理一至四）；人们如何相互影响（原理五至七）；整体经济如何运行（原理八至十）。",
+   "chapterId": "ch01",
+   "tags": [
+    "总纲",
+    "十大原理"
+   ]
+  },
+  {
+   "id": "f-ch01-02",
+   "front": "机会成本的定义与一个反例",
+   "back": "为得到某物所放弃的东西的价值。反例：已经花掉、收不回来的钱不属于机会成本，做决策时不该再算。",
+   "chapterId": "ch01",
+   "tags": [
+    "机会成本",
+    "决策"
+   ]
+  },
+  {
+   "id": "f-ch01-03",
+   "front": "为什么飞机起飞前的空座可以低价卖出？",
+   "back": "多载一人的边际成本只有一份餐食和少量燃油，只要票价高于这个边际成本就增加利润，与平均票价无关。",
+   "chapterId": "ch01",
+   "tags": [
+    "边际",
+    "决策"
+   ]
+  },
+  {
+   "id": "f-ch01-04",
+   "front": "市场有效运转需要的两个前提",
+   "back": "产权清楚，竞争充分。缺产权没人愿投资，缺竞争价格被卖方操纵。",
+   "chapterId": "ch01",
+   "tags": [
+    "市场",
+    "政府"
+   ]
+  },
+  {
+   "id": "f-ch01-05",
+   "front": "生产率的定义与它解释什么",
+   "back": "平均每个工人每小时的产出量；解释各国生活水平的长期差距。",
+   "chapterId": "ch01",
+   "tags": [
+    "生产率",
+    "增长"
+   ]
+  },
+  {
+   "id": "f-ch01-06",
+   "front": "通胀的长期根源是什么？",
+   "back": "货币量增长过快。货币多了而物品没有同比例增加，单位物品要用更多货币交换。",
+   "chapterId": "ch01",
+   "tags": [
+    "通胀",
+    "货币"
+   ]
+  },
+  {
+   "id": "f-ch01-07",
+   "front": "原理十中的取舍为什么强调「短期」？",
+   "back": "短期扩张需求可降失业但推高通胀；长期这条取舍不成立，失业回到自然率，只剩通胀水平不同。",
+   "chapterId": "ch01",
+   "tags": [
+    "通胀",
+    "失业",
+    "短期"
+   ]
+  },
+  {
+   "id": "f-ch02-01",
+   "front": "经济学科学循环的四步",
+   "back": "观察 → 提出理论 → 作出预测 → 再观察检验；预测失败则修改理论。",
+   "chapterId": "ch02",
+   "tags": [
+    "方法论"
+   ]
+  },
+  {
+   "id": "f-ch02-02",
+   "front": "判断一个假设是否合理的标准",
+   "back": "看它是否抓住了所研究问题的要害，而不是看它是否完全符合现实。",
+   "chapterId": "ch02",
+   "tags": [
+    "方法论",
+    "假设"
+   ]
+  },
+  {
+   "id": "f-ch02-03",
+   "front": "生产可能性边界上三种位置的含义",
+   "back": "边界上：有效率；边界内：资源闲置或低效；边界外移：资源增加或技术进步带来的增长。",
+   "chapterId": "ch02",
+   "tags": [
+    "模型",
+    "PPF"
+   ]
+  },
+  {
+   "id": "f-ch02-04",
+   "front": "实证分析与规范分析的区别",
+   "back": "实证问「是什么、会怎样」，可被事实检验；规范问「应该怎样」，含价值判断。",
+   "chapterId": "ch02",
+   "tags": [
+    "方法论"
+   ]
+  },
+  {
+   "id": "f-ch02-05",
+   "front": "经济学家意见分歧的三个来源",
+   "back": "科学判断不同、价值观不同、外行的感觉与统计现实不符。",
+   "chapterId": "ch02",
+   "tags": [
+    "方法论",
+    "分歧"
+   ]
+  },
+  {
+   "id": "f-ch02-06",
+   "front": "沿曲线移动与曲线移动的区别",
+   "back": "沿曲线移动由横轴变量本身引起（价格变→需求量变）；曲线整条平移由其他因素引起（收入、偏好、替代品价格）。",
+   "chapterId": "ch02",
+   "tags": [
+    "图形工具"
+   ]
+  },
+  {
+   "id": "f-ch03-01",
+   "front": "绝对优势与比较优势各看什么？",
+   "back": "绝对优势看同等投入下的产出多少；比较优势看生产某物的机会成本高低。分工按比较优势。",
+   "chapterId": "ch03",
+   "tags": [
+    "比较优势"
+   ]
+  },
+  {
+   "id": "f-ch03-02",
+   "front": "为什么样样都强的人仍应把某些活交出去？",
+   "back": "他的时间机会成本更高。把机会成本最高的事交出去，自己专注机会成本最低的事，总产出更大。",
+   "chapterId": "ch03",
+   "tags": [
+    "比较优势",
+    "分工"
+   ]
+  },
+  {
+   "id": "f-ch03-03",
+   "front": "贸易谈判区间的两个端点由什么决定？",
+   "back": "由双方生产该物的机会成本决定。价格必须高于卖方自制的机会成本、低于买方自制的机会成本。",
+   "chapterId": "ch03",
+   "tags": [
+    "贸易",
+    "定价区间"
+   ]
+  },
+  {
+   "id": "f-ch03-04",
+   "front": "贸易为什么不是零和？",
+   "back": "分工让双方都在自己机会成本低的产品上生产，总产出增加；交换后双方用更少的代价换到更多的东西。",
+   "chapterId": "ch03",
+   "tags": [
+    "贸易",
+    "分工"
+   ]
+  },
+  {
+   "id": "f-ch03-05",
+   "front": "贸易里谁受损？",
+   "back": "进口竞争行业的从业者受损，这是分配问题。总福利增加不代表没人受损，补偿与调整政策要单独处理。",
+   "chapterId": "ch03",
+   "tags": [
+    "贸易",
+    "分配"
+   ]
+  },
+  {
+   "id": "f-ch04-01",
+   "front": "需求量变化与需求变化的区别",
+   "back": "前者由价格引起，沿曲线滑动；后者由收入、偏好、替代品价格、预期、买者数量引起，整条曲线平移。",
+   "chapterId": "ch04",
+   "tags": [
+    "需求",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch04-02",
+   "front": "让供给曲线整条移动的四个因素",
+   "back": "投入品价格、技术、预期、卖者数量。",
+   "chapterId": "ch04",
+   "tags": [
+    "供给"
+   ]
+  },
+  {
+   "id": "f-ch04-03",
+   "front": "过剩与短缺分别把价格推向哪边？",
+   "back": "过剩说明 Qs>Qd，卖者降价；短缺说明 Qd>Qs，买者抬价。两者都推向均衡。",
+   "chapterId": "ch04",
+   "tags": [
+    "均衡"
+   ]
+  },
+  {
+   "id": "f-ch04-04",
+   "front": "三步分析法",
+   "back": "一、判断冲击影响需求还是供给；二、判断左移还是右移；三、画前后两条线，读出价格与数量的变化方向。",
+   "chapterId": "ch04",
+   "tags": [
+    "方法"
+   ]
+  },
+  {
+   "id": "f-ch04-05",
+   "front": "两条曲线同向变动时，为什么总有一个变量无法确定？",
+   "back": "因为两个冲击对该变量的作用方向相反，净效果取决于幅度大小，仅凭方向信息推不出来。",
+   "chapterId": "ch04",
+   "tags": [
+    "均衡",
+    "方法"
+   ]
+  },
+  {
+   "id": "f-ch04-06",
+   "front": "为什么需求曲线向右下方倾斜？",
+   "back": "价格越高，替代品相对更便宜、购买力越受限，愿意且能够购买的数量越少。",
+   "chapterId": "ch04",
+   "tags": [
+    "需求"
+   ]
+  },
+  {
+   "id": "f-ch05-01",
+   "front": "需求价格弹性的定义式",
+   "back": "需求量变动百分比 ÷ 价格变动百分比。用中点法时两端均值作分母。",
+   "chapterId": "ch05",
+   "tags": [
+    "弹性"
+   ]
+  },
+  {
+   "id": "f-ch05-02",
+   "front": "为什么用中点法？",
+   "back": "直接按起点算，同一区间的涨价与降价会得到不同弹性；用两端均值作分母可消除方向差异。",
+   "chapterId": "ch05",
+   "tags": [
+    "弹性",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch05-03",
+   "front": "决定需求弹性的四个因素",
+   "back": "替代品可得性、必需品还是奢侈品、市场定义宽窄、时间长短。",
+   "chapterId": "ch05",
+   "tags": [
+    "弹性",
+    "决定因素"
+   ]
+  },
+  {
+   "id": "f-ch05-04",
+   "front": "弹性与总收益的三条规则",
+   "back": "E>1 降价增收；E<1 涨价增收；E=1 价格变动不改变总收益。",
+   "chapterId": "ch05",
+   "tags": [
+    "总收益",
+    "弹性"
+   ]
+  },
+  {
+   "id": "f-ch05-05",
+   "front": "OPEC 减产为什么长期失效？",
+   "back": "时间越长需求弹性越大，消费者改用车、替代能源，减产带来的高价被数量下降抵消。",
+   "chapterId": "ch05",
+   "tags": [
+    "弹性",
+    "时间"
+   ]
+  },
+  {
+   "id": "f-ch05-06",
+   "front": "禁毒为什么可能增加相关犯罪？",
+   "back": "成瘾需求极度缺乏弹性，供给减少导致价格大涨而数量小降，吸毒者总支出上升，为筹钱更易犯罪。",
+   "chapterId": "ch05",
+   "tags": [
+    "弹性",
+    "应用"
+   ]
+  },
+  {
+   "id": "f-ch06-01",
+   "front": "价格上限与价格下限何时才有约束力？",
+   "back": "上限低于均衡价才有效（造成短缺）；下限高于均衡价才有效（造成过剩）。",
+   "chapterId": "ch06",
+   "tags": [
+    "价格管制"
+   ]
+  },
+  {
+   "id": "f-ch06-02",
+   "front": "向卖者征税与向买者征税的区别",
+   "back": "只有账面上的区别。两者都产生同样的楔子：买者价格上升、卖者价格下降、交易量减少、税收归宿相同。",
+   "chapterId": "ch06",
+   "tags": [
+    "税收",
+    "归宿"
+   ]
+  },
+  {
+   "id": "f-ch06-03",
+   "front": "税收归宿的基本规律",
+   "back": "落在弹性较小的一方身上。谁更难退出市场，谁承担更多税负。",
+   "chapterId": "ch06",
+   "tags": [
+    "税收",
+    "弹性"
+   ]
+  },
+  {
+   "id": "f-ch06-04",
+   "front": "奢侈品税的教训",
+   "back": "富人弹性大可少买，工人弹性小无法转行，税负最终落在造船工人身上，税收收入远低于预期。",
+   "chapterId": "ch06",
+   "tags": [
+    "税收",
+    "案例"
+   ]
+  },
+  {
+   "id": "f-ch06-05",
+   "front": "价格管制为什么会带来配给机制成本？",
+   "back": "价格不能分配时只能排队、抽签、凭关系，这些都消耗真实资源或滋生寻租。",
+   "chapterId": "ch06",
+   "tags": [
+    "价格管制"
+   ]
+  },
+  {
+   "id": "f-ch07-01",
+   "front": "消费者剩余的计算与图形含义",
+   "back": "支付意愿减实际支付；图上为需求曲线以下、价格线以上的面积。",
+   "chapterId": "ch07",
+   "tags": [
+    "剩余"
+   ]
+  },
+  {
+   "id": "f-ch07-02",
+   "front": "生产者剩余的计算与图形含义",
+   "back": "实际得到减成本；图上为价格线以下、供给曲线以上的面积。",
+   "chapterId": "ch07",
+   "tags": [
+    "剩余"
+   ]
+  },
+  {
+   "id": "f-ch07-03",
+   "front": "为什么均衡数量最大化总剩余？",
+   "back": "均衡点上最后一单位的价值等于成本；少于均衡会漏掉有价值的交易，多于均衡会产生成本高于价值的交易。",
+   "chapterId": "ch07",
+   "tags": [
+    "效率"
+   ]
+  },
+  {
+   "id": "f-ch07-04",
+   "front": "市场失灵的两个来源",
+   "back": "市场势力与外部性。前者让产量低于最优，后者让产量偏离最优。",
+   "chapterId": "ch07",
+   "tags": [
+    "市场失灵"
+   ]
+  },
+  {
+   "id": "f-ch07-05",
+   "front": "总剩余衡量的是什么？",
+   "back": "买卖双方福利之和，是价值度量而非货币收入；不区分剩余在谁手里。",
+   "chapterId": "ch07",
+   "tags": [
+    "效率",
+    "福利"
+   ]
+  },
+  {
+   "id": "f-ch08-01",
+   "front": "无谓损失的几何算法",
+   "back": "三角形：底为税额、高为减少的交易量，面积 = ½×税额×减少量。",
+   "chapterId": "ch08",
+   "tags": [
+    "无谓损失",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch08-02",
+   "front": "为什么无谓损失不是转移？",
+   "back": "税收收入那部分是转移，无谓损失对应根本没发生的交易，其价值凭空消失，没人得到。",
+   "chapterId": "ch08",
+   "tags": [
+    "无谓损失"
+   ]
+  },
+  {
+   "id": "f-ch08-03",
+   "front": "影响无谓损失的两个因素",
+   "back": "弹性越大损失越大；税额越大损失越大，且与税额平方成正比。",
+   "chapterId": "ch08",
+   "tags": [
+    "无谓损失",
+    "弹性"
+   ]
+  },
+  {
+   "id": "f-ch08-04",
+   "front": "拉弗曲线说明什么",
+   "back": "税收收入随税额先增后减，存在收入最大点；但判断当前位于峰的哪一侧需要具体弹性数据。",
+   "chapterId": "ch08",
+   "tags": [
+    "税收收入"
+   ]
+  },
+  {
+   "id": "f-ch08-05",
+   "front": "宽税基低税率为什么优于窄税基高税率？",
+   "back": "同样的收入下，低税率对每个市场的交易挤出较少，无谓损失总量更小。",
+   "chapterId": "ch08",
+   "tags": [
+    "税制设计",
+    "效率"
+   ]
+  },
+  {
+   "id": "f-ch09-01",
+   "front": "判断出口还是进口的唯一标准",
+   "back": "比较世界价格与国内均衡价格：世界价格高则出口，低则进口。",
+   "chapterId": "ch09",
+   "tags": [
+    "贸易"
+   ]
+  },
+  {
+   "id": "f-ch09-02",
+   "front": "出口国的赢家与输家",
+   "back": "生产者受益、消费者受损，总福利增加。",
+   "chapterId": "ch09",
+   "tags": [
+    "贸易",
+    "分配"
+   ]
+  },
+  {
+   "id": "f-ch09-03",
+   "front": "进口国的赢家与输家",
+   "back": "消费者受益、生产者受损，总福利增加。",
+   "chapterId": "ch09",
+   "tags": [
+    "贸易",
+    "分配"
+   ]
+  },
+  {
+   "id": "f-ch09-04",
+   "front": "关税的两类无谓损失",
+   "back": "生产效率损失（国内高成本多生产）与消费效率损失（消费者少买）。",
+   "chapterId": "ch09",
+   "tags": [
+    "关税",
+    "无谓损失"
+   ]
+  },
+  {
+   "id": "f-ch09-05",
+   "front": "贸易保护在政治上为何常见？",
+   "back": "输家集中且组织成本低，赢家分散且人均收益小，政治机制更容易回应集中的声音。",
+   "chapterId": "ch09",
+   "tags": [
+    "贸易",
+    "政治"
+   ]
+  },
+  {
+   "id": "f-ch09-06",
+   "front": "自由贸易的配套政策建议",
+   "back": "调整援助：失业救济、再培训、搬迁补贴，让受损者得到补偿，否则政策不可持续。",
+   "chapterId": "ch09",
+   "tags": [
+    "贸易",
+    "政策"
+   ]
+  },
+  {
+   "id": "f-ch10-01",
+   "front": "外部性的定义与判断方法",
+   "back": "行为对旁观者福利的影响未通过价格反映。判断法：问这笔成本或收益有没有落在决策者身上。",
+   "chapterId": "ch10",
+   "tags": [
+    "外部性"
+   ]
+  },
+  {
+   "id": "f-ch10-02",
+   "front": "负外部性下市场为什么会过量生产",
+   "back": "私人成本低于社会成本，决策者不承担全部成本，于是生产到私人成本等于价格为止，超过社会最优。",
+   "chapterId": "ch10",
+   "tags": [
+    "外部性",
+    "无效率"
+   ]
+  },
+  {
+   "id": "f-ch10-03",
+   "front": "矫正税的两个优点",
+   "back": "把外部成本内化到价格达到最优产量；同时以最低成本减排，因为减排便宜的先减。",
+   "chapterId": "ch10",
+   "tags": [
+    "政策工具",
+    "矫正税"
+   ]
+  },
+  {
+   "id": "f-ch10-04",
+   "front": "税与许可证在「量」和「价」上的差别",
+   "back": "税定价格、量不定；许可证定量、价格不定。环境临界点硬时选许可证。",
+   "chapterId": "ch10",
+   "tags": [
+    "政策工具"
+   ]
+  },
+  {
+   "id": "f-ch10-05",
+   "front": "科斯定理及其失效原因",
+   "back": "产权清楚且交易成本低时，谈判能达到有效率结果；失效于交易成本高、产权难界定、人多搭便车。",
+   "chapterId": "ch10",
+   "tags": [
+    "科斯定理"
+   ]
+  },
+  {
+   "id": "f-ch11-01",
+   "front": "判断物品类型的两个维度",
+   "back": "排他性（能否阻止他人使用）与竞争性（一人使用是否减少他人可用）。",
+   "chapterId": "ch11",
+   "tags": [
+    "物品分类"
+   ]
+  },
+  {
+   "id": "f-ch11-02",
+   "front": "四类物品各举一例",
+   "back": "私人物品：奶茶；俱乐部物品：有线电视；公共资源：公海鱼群；公共物品：国防。",
+   "chapterId": "ch11",
+   "tags": [
+    "物品分类"
+   ]
+  },
+  {
+   "id": "f-ch11-03",
+   "front": "搭便车为什么是激励问题而非道德问题？",
+   "back": "不付费也能享用，理性选择就是等别人付费；换成任何人都会这样选。",
+   "chapterId": "ch11",
+   "tags": [
+    "公共物品"
+   ]
+  },
+  {
+   "id": "f-ch11-04",
+   "front": "公地悲剧的机制",
+   "back": "收益归个体、成本由集体分担，个体理性地过度使用，导致资源枯竭。",
+   "chapterId": "ch11",
+   "tags": [
+    "公共资源"
+   ]
+  },
+  {
+   "id": "f-ch11-05",
+   "front": "公共物品成本—收益分析的难点",
+   "back": "收益没有市场价格可参照，生命、风景、安全等价值难以量化，估算常偏低。",
+   "chapterId": "ch11",
+   "tags": [
+    "公共物品",
+    "政策"
+   ]
+  },
+  {
+   "id": "f-ch12-01",
+   "front": "平均税率与边际税率的区别",
+   "back": "平均税率 = 总税额 ÷ 总收入；边际税率 = 新增一单位收入所缴的税。影响行为的是边际税率。",
+   "chapterId": "ch12",
+   "tags": [
+    "税制",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch12-02",
+   "front": "受益原则与支付能力原则",
+   "back": "前者按受益大小分摊，后者按支付能力分摊；国防、教育等无具体受益人的支出更适合后者。",
+   "chapterId": "ch12",
+   "tags": [
+    "税收公平"
+   ]
+  },
+  {
+   "id": "f-ch12-03",
+   "front": "纵向公平与横向公平",
+   "back": "纵向：收入高者多缴；横向：收入相同者缴一样多。",
+   "chapterId": "ch12",
+   "tags": [
+    "税收公平"
+   ]
+  },
+  {
+   "id": "f-ch12-04",
+   "front": "如何判断一种税是累进还是累退",
+   "back": "看税额占收入的比重随收入如何变化，不看名义税率。比重上升为累进，下降为累退。",
+   "chapterId": "ch12",
+   "tags": [
+    "税制",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch12-05",
+   "front": "企业所得税最终由谁承担",
+   "back": "取决于弹性，可通过涨价转给消费者、压工资转给员工、降回报转给股东。",
+   "chapterId": "ch12",
+   "tags": [
+    "税收归宿"
+   ]
+  },
+  {
+   "id": "f-ch13-01",
+   "front": "会计利润与经济利润的差别",
+   "back": "会计利润只扣显性成本；经济利润还要扣隐性成本（自有资金的机会成本、老板的时间）。",
+   "chapterId": "ch13",
+   "tags": [
+    "成本",
+    "利润"
+   ]
+  },
+  {
+   "id": "f-ch13-02",
+   "front": "边际产量递减为什么导致 MC 上升",
+   "back": "固定投入不变时，每多一单位产出需要越来越多的可变投入，单位成本因此上升。",
+   "chapterId": "ch13",
+   "tags": [
+    "成本"
+   ]
+  },
+  {
+   "id": "f-ch13-03",
+   "front": "ATC、AVC、AFC、MC 的关系",
+   "back": "ATC = AVC + AFC；AFC 持续下降；MC 穿过 ATC 与 AVC 的最低点。",
+   "chapterId": "ch13",
+   "tags": [
+    "成本",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch13-04",
+   "front": "为什么 ATC 最低点上 MC = ATC",
+   "back": "新增成本低于平均则平均下降，高于平均则上升，相等处即转折点。",
+   "chapterId": "ch13",
+   "tags": [
+    "成本",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch13-05",
+   "front": "规模经济与规模不经济",
+   "back": "规模扩大使长期平均成本下降为规模经济；管理层级过多、协调成本上升导致上升为规模不经济。",
+   "chapterId": "ch13",
+   "tags": [
+    "长期成本"
+   ]
+  },
+  {
+   "id": "f-ch14-01",
+   "front": "为什么竞争企业 P = MR",
+   "back": "价格由市场决定，企业多卖一单位就多得到这个价格，无法通过增加销量改变价格。",
+   "chapterId": "ch14",
+   "tags": [
+    "竞争"
+   ]
+  },
+  {
+   "id": "f-ch14-02",
+   "front": "停业决策的判据",
+   "back": "P 低于 AVC 最低点时停业；只要 P 高于 AVC，继续生产亏损更小。",
+   "chapterId": "ch14",
+   "tags": [
+    "停业",
+    "决策"
+   ]
+  },
+  {
+   "id": "f-ch14-03",
+   "front": "退出决策的判据",
+   "back": "长期中 P 低于 ATC 则退出，高于 ATC 则新企业进入。",
+   "chapterId": "ch14",
+   "tags": [
+    "长期均衡"
+   ]
+  },
+  {
+   "id": "f-ch14-04",
+   "front": "长期均衡为什么利润为零",
+   "back": "利润为正引进入、为负促退出，直到 P = 最低 ATC，超额利润消失。零利润等于正常回报。",
+   "chapterId": "ch14",
+   "tags": [
+    "长期均衡"
+   ]
+  },
+  {
+   "id": "f-ch14-05",
+   "front": "沉没成本谬误",
+   "back": "因为已经投入很多而继续投入，忽视了已发生成本与当前决策无关。",
+   "chapterId": "ch14",
+   "tags": [
+    "沉没成本",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch14-06",
+   "front": "长期供给曲线什么时候向上倾斜",
+   "back": "新企业进入推高投入品价格时（如优质地段有限），长期供给曲线向上倾斜。",
+   "chapterId": "ch14",
+   "tags": [
+    "长期供给"
+   ]
+  },
+  {
+   "id": "f-ch15-01",
+   "front": "垄断的三种来源",
+   "back": "资源垄断、政府创造（专利与特许）、自然垄断（规模经济）。",
+   "chapterId": "ch15",
+   "tags": [
+    "垄断"
+   ]
+  },
+  {
+   "id": "f-ch15-02",
+   "front": "为什么垄断者的 MR 低于价格",
+   "back": "多卖一单位必须对全部单位降价，损失的收入要从新增收益里扣掉。",
+   "chapterId": "ch15",
+   "tags": [
+    "垄断",
+    "边际收益"
+   ]
+  },
+  {
+   "id": "f-ch15-03",
+   "front": "垄断者的定价两步",
+   "back": "先按 MR = MC 定产量，再沿需求曲线读出该产量对应的价格。",
+   "chapterId": "ch15",
+   "tags": [
+    "垄断",
+    "定价"
+   ]
+  },
+  {
+   "id": "f-ch15-04",
+   "front": "垄断利润是社会成本吗？",
+   "back": "利润本身是转移；真正的净损失是被压低的产量造成的无谓损失，加上维持垄断的寻租成本。",
+   "chapterId": "ch15",
+   "tags": [
+    "垄断",
+    "福利"
+   ]
+  },
+  {
+   "id": "f-ch15-05",
+   "front": "一级价格歧视的福利效果",
+   "back": "产量扩大到每个愿付高于成本的人都买到，无谓损失消失，但全部剩余归卖者。",
+   "chapterId": "ch15",
+   "tags": [
+    "价格歧视"
+   ]
+  },
+  {
+   "id": "f-ch15-06",
+   "front": "管制自然垄断的难点",
+   "back": "定价需要知道真实成本，而企业有虚报成本抬高准许价格的动机。",
+   "chapterId": "ch15",
+   "tags": [
+    "管制"
+   ]
+  },
+  {
+   "id": "f-ch16-01",
+   "front": "垄断竞争的三个特征",
+   "back": "许多卖者、产品有差别、自由进入退出。",
+   "chapterId": "ch16",
+   "tags": [
+    "市场结构"
+   ]
+  },
+  {
+   "id": "f-ch16-02",
+   "front": "垄断竞争长期均衡为什么在 ATC 最低点左侧",
+   "back": "需求曲线向下倾斜，与 U 形 ATC 的切点只能在最低点左侧，产量低于效率规模。",
+   "chapterId": "ch16",
+   "tags": [
+    "长期均衡",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch16-03",
+   "front": "超额能力指什么",
+   "back": "垄断竞争企业中每家规模都略小于成本最低的规模，产能未被充分利用。",
+   "chapterId": "ch16",
+   "tags": [
+    "垄断竞争"
+   ]
+  },
+  {
+   "id": "f-ch16-04",
+   "front": "垄断竞争与完全竞争的三项差别",
+   "back": "价格略高于最低 ATC、产量低于效率规模、价格高于边际成本；换来产品多样性。",
+   "chapterId": "ch16",
+   "tags": [
+    "市场结构"
+   ]
+  },
+  {
+   "id": "f-ch16-05",
+   "front": "广告作为质量信号为什么可信",
+   "back": "产品质量差则顾客不回头，巨额广告费收不回来，企业不会为劣质产品投大钱。",
+   "chapterId": "ch16",
+   "tags": [
+    "广告"
+   ]
+  },
+  {
+   "id": "f-ch17-01",
+   "front": "寡头的核心特征",
+   "back": "少数几家企业相互依赖，每家决策都要考虑对手反应。",
+   "chapterId": "ch17",
+   "tags": [
+    "寡头"
+   ]
+  },
+  {
+   "id": "f-ch17-02",
+   "front": "双头市场的结果落在哪里",
+   "back": "介于垄断与完全竞争之间：比垄断产量高、比竞争产量低。",
+   "chapterId": "ch17",
+   "tags": [
+    "寡头"
+   ]
+  },
+  {
+   "id": "f-ch17-03",
+   "front": "囚徒困境的结构",
+   "back": "给定对手任一选择，自己背叛都更划算；于是双方背叛，总收益低于合作。",
+   "chapterId": "ch17",
+   "tags": [
+    "博弈",
+    "合作"
+   ]
+  },
+  {
+   "id": "f-ch17-04",
+   "front": "纳什均衡与最优结果的区别",
+   "back": "纳什均衡是谁都不能单方面改善的稳定点，不保证总收益最大。",
+   "chapterId": "ch17",
+   "tags": [
+    "博弈"
+   ]
+  },
+  {
+   "id": "f-ch17-05",
+   "front": "反托拉斯法的四个关注点",
+   "back": "明示合谋、默契合谋、合并审查、掠夺性定价与捆绑销售。",
+   "chapterId": "ch17",
+   "tags": [
+    "反托拉斯",
+    "政策"
+   ]
+  },
+  {
+   "id": "f-ch17-06",
+   "front": "掠夺性定价为什么难判定",
+   "back": "低价本身是竞争的常态，很难区分「正常降价」与「挤垮对手后再提价」的意图。",
+   "chapterId": "ch17",
+   "tags": [
+    "反托拉斯",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch18-01",
+   "front": "派生需求",
+   "back": "对生产要素的需求来自对最终产品的需求；产品卖不动，要素需求也消失。",
+   "chapterId": "ch18",
+   "tags": [
+    "要素市场"
+   ]
+  },
+  {
+   "id": "f-ch18-02",
+   "front": "边际产量值的算法与用途",
+   "back": "VMPL = 边际产量 × 产品价格；企业雇到 VMPL = 工资为止。",
+   "chapterId": "ch18",
+   "tags": [
+    "要素市场",
+    "计算"
+   ]
+  },
+  {
+   "id": "f-ch18-03",
+   "front": "劳动需求曲线右移的三个原因",
+   "back": "产品价格上升、其他要素价格下降、技术进步。",
+   "chapterId": "ch18",
+   "tags": [
+    "劳动需求"
+   ]
+  },
+  {
+   "id": "f-ch18-04",
+   "front": "土地与资本的定价逻辑",
+   "back": "与劳动相同：要素价格取决于它创造的边际价值，土地供给近固定、资本供给可变。",
+   "chapterId": "ch18",
+   "tags": [
+    "要素市场"
+   ]
+  },
+  {
+   "id": "f-ch19-01",
+   "front": "补偿性工资差别的含义",
+   "back": "工作条件越差（危险、辛苦、偏远、不体面），需要越高工资才能吸引劳动者。",
+   "chapterId": "ch19",
+   "tags": [
+    "工资差别"
+   ]
+  },
+  {
+   "id": "f-ch19-02",
+   "front": "超级明星现象的两个条件",
+   "back": "产品可低成本复制、消费者在意质量差异，于是顶尖者占据整个市场。",
+   "chapterId": "ch19",
+   "tags": [
+    "工资差别"
+   ]
+  },
+  {
+   "id": "f-ch19-03",
+   "front": "高于均衡工资的三种来源",
+   "back": "最低工资法、工会力量、效率工资（高工资提高积极性、降低流动率）。",
+   "chapterId": "ch19",
+   "tags": [
+    "工资",
+    "政策"
+   ]
+  },
+  {
+   "id": "f-ch19-04",
+   "front": "歧视的经济学分析为什么要看市场力量",
+   "back": "若雇主能靠歧视获利，市场会淘汰歧视者；但顾客歧视、政府法规、信息不对称会让歧视持续。",
+   "chapterId": "ch19",
+   "tags": [
+    "歧视"
+   ]
+  },
+  {
+   "id": "f-ch20-01",
+   "front": "基尼系数的定义",
+   "back": "45 度线与洛伦兹曲线之间面积占 45 度线以下三角形面积的比例，0 为完全平均，1 为完全不均。",
+   "chapterId": "ch20",
+   "tags": [
+    "不平等",
+    "测量"
+   ]
+  },
+  {
+   "id": "f-ch20-02",
+   "front": "年度收入衡量贫困的四个问题",
+   "back": "忽略实物转移、忽略生命周期、混入暂时波动、税前税后差别。",
+   "chapterId": "ch20",
+   "tags": [
+    "贫困",
+    "测量"
+   ]
+  },
+  {
+   "id": "f-ch20-03",
+   "front": "功利主义 vs 自由主义 vs 自由至上主义",
+   "back": "分别看总效用、最差处境者、获取过程是否正当。",
+   "chapterId": "ch20",
+   "tags": [
+    "政治哲学"
+   ]
+  },
+  {
+   "id": "f-ch20-04",
+   "front": "罗尔斯的「无知之幕」",
+   "back": "在不知道自己会处于何种地位时选择制度，理性人会选择保护最不利者的规则。",
+   "chapterId": "ch20",
+   "tags": [
+    "政治哲学"
+   ]
+  },
+  {
+   "id": "f-ch20-05",
+   "front": "反贫困政策的核心矛盾",
+   "back": "保底水平与工作激励的取舍：补得越多、退出越慢，隐含边际税率越高。",
+   "chapterId": "ch20",
+   "tags": [
+    "政策"
+   ]
+  },
+  {
+   "id": "f-ch21-01",
+   "front": "预算线斜率的经济含义",
+   "back": "斜率为 −Px/Py，代表市场上两种商品的交换比例；纵截距为收入除以纵轴商品价格。",
+   "chapterId": "ch21",
+   "tags": [
+    "消费者选择"
+   ]
+  },
+  {
+   "id": "f-ch21-02",
+   "front": "为什么无差异曲线凸向原点",
+   "back": "边际替代率递减：拥有的某商品越多，为多换一单位另一商品愿意放弃的数量越少。",
+   "chapterId": "ch21",
+   "tags": [
+    "偏好"
+   ]
+  },
+  {
+   "id": "f-ch21-03",
+   "front": "完全替代与完全互补的图形",
+   "back": "完全替代为直线，完全互补为 L 形。前者可任意比例互换，后者必须按固定比例搭配。",
+   "chapterId": "ch21",
+   "tags": [
+    "偏好"
+   ]
+  },
+  {
+   "id": "f-ch21-04",
+   "front": "替代效应与收入效应的方向",
+   "back": "替代效应总与价格变动反向；收入效应正常品为正向、劣等品为负向。",
+   "chapterId": "ch21",
+   "tags": [
+    "需求",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch21-05",
+   "front": "吉芬物品为什么罕见",
+   "back": "需同时是极端劣等品且占支出比重很大，现实中难找到确凿案例。",
+   "chapterId": "ch21",
+   "tags": [
+    "吉芬物品"
+   ]
+  },
+  {
+   "id": "f-ch22-01",
+   "front": "逆向选择与道德风险的区别",
+   "back": "逆向选择在签约前（信息劣势方无法分辨好坏），道德风险在签约后（一方行为因风险转移而改变）。",
+   "chapterId": "ch22",
+   "tags": [
+    "信息不对称",
+    "易错"
+   ]
+  },
+  {
+   "id": "f-ch22-02",
+   "front": "信号与筛选",
+   "back": "信号由信息优势方发出（学历、品牌、保修），筛选由信息劣势方设计（体检、免赔额）。",
+   "chapterId": "ch22",
+   "tags": [
+    "信息不对称"
+   ]
+  },
+  {
+   "id": "f-ch22-03",
+   "front": "中位投票人定理",
+   "back": "一维议题、单峰偏好时，多数投票结果落在中位选民的偏好位置。",
+   "chapterId": "ch22",
+   "tags": [
+    "政治经济学"
+   ]
+  },
+  {
+   "id": "f-ch22-04",
+   "front": "阿罗不可能定理的一句话",
+   "back": "不存在同时满足全部合理公理的投票加总规则，任何规则都要在某条性质上让步。",
+   "chapterId": "ch22",
+   "tags": [
+    "政治经济学"
+   ]
+  },
+  {
+   "id": "f-ch22-05",
+   "front": "损失厌恶",
+   "back": "同样金额的损失带来的痛苦大于收益带来的快乐，导致人们不愿卖出亏损资产、偏好保价条款。",
+   "chapterId": "ch22",
+   "tags": [
+    "行为经济学"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "权衡取舍",
+   "en": "",
+   "def": "多要一样东西就必须少要另一样，两个都想要的目标之间的此消彼长。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "机会成本",
+   "en": "",
+   "def": "为了得到某样东西而放弃的东西的价值，包括账面支出和放弃的收益。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "理性人",
+   "en": "",
+   "def": "在可选范围内系统比较成本与收益、追求净收益最大的人；书里是分析起点，不是对真实人的道德评价。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "边际变动",
+   "en": "",
+   "def": "在现有基础上再多一单位或少一单位所带来的变化。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "激励",
+   "en": "",
+   "def": "能改变人行为的东西，如价格、奖励、惩罚、规则。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "市场",
+   "en": "",
+   "def": "买卖双方自发交换的场所与规则，靠价格传递稀缺信息。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "产权",
+   "en": "",
+   "def": "对某项资源归谁所有、如何使用、收益归谁的界定。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "外部性",
+   "en": "",
+   "def": "一个人的行为给旁观者带来成本或好处，而价格没有把这笔账算进去。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "生产率",
+   "en": "",
+   "def": "平均每个工人每小时生产的物品与服务量。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "通货膨胀",
+   "en": "",
+   "def": "经济中物价总水平的普遍上涨，不是某几样商品涨价。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "生产可能性边界",
+   "en": "",
+   "def": "在既定资源与技术下，经济能生产的两种产品的最大组合所连成的曲线。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "循环流量图",
+   "en": "",
+   "def": "把家庭与企业、物品市场与要素市场连成循环，用来展示收入与支出如何流动的模型。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "微观经济学",
+   "en": "",
+   "def": "研究单个决策者（家庭、企业）与单个市场如何配置资源。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "宏观经济学",
+   "en": "",
+   "def": "研究整体经济现象，如通胀、失业、经济增长。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "实证分析",
+   "en": "",
+   "def": "描述世界是什么样、某政策会导致什么结果，可用事实检验对错。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "规范分析",
+   "en": "",
+   "def": "判断世界应该是什么样，包含价值判断，不能仅靠事实裁决。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "效率",
+   "en": "",
+   "def": "在既定资源下把总收益做到最大、或把浪费降到最小的状态。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "增长",
+   "en": "",
+   "def": "生产能力本身扩大，表现为生产可能性边界向外移动。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "绝对优势",
+   "en": "",
+   "def": "用相同的资源投入，能生产出更多某种产品的能力。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "比较优势",
+   "en": "",
+   "def": "生产某种产品的机会成本低于他人的能力；决定分工的依据。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "机会成本",
+   "en": "",
+   "def": "为生产一单位某产品而放弃的另一产品的数量。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "世界价格",
+   "en": "",
+   "def": "世界市场上一种产品的通行价格，是国内是否出口或进口的判断基准。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "专业化",
+   "en": "",
+   "def": "把资源集中用于自己机会成本最低的产品生产。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "市场",
+   "en": "",
+   "def": "买者与卖者交换某种物品或服务的场所与规则。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "竞争市场",
+   "en": "",
+   "def": "买卖者众多、产品基本相同、进出自由，任何单个参与者都无法影响价格的市场。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "需求量",
+   "en": "",
+   "def": "在某一具体价格下，买者愿意并且能够购买的数量。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "需求法则",
+   "en": "",
+   "def": "其他条件不变时，价格上升则需求量下降。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "供给量",
+   "en": "",
+   "def": "在某一具体价格下，卖者愿意并且能够出售的数量。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "供给法则",
+   "en": "",
+   "def": "其他条件不变时，价格上升则供给量增加。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "均衡",
+   "en": "",
+   "def": "供给量等于需求量、市场没有过剩也没有短缺的状态。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "过剩",
+   "en": "",
+   "def": "供给量大于需求量的状态，价格有下降压力。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "短缺",
+   "en": "",
+   "def": "需求量大于供给量的状态，价格有上升压力。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "替代品",
+   "en": "",
+   "def": "一种商品价格上升会使另一种商品需求增加的商品对，如咖啡与奶茶。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "互补品",
+   "en": "",
+   "def": "一种商品价格上升会使另一种商品需求减少的商品对，如奶茶与珍珠。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "弹性",
+   "en": "",
+   "def": "一个变量对另一个变量变化的敏感程度，用百分比之比衡量。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "需求价格弹性",
+   "en": "",
+   "def": "需求量变动百分比与价格变动百分比之比。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "中点法",
+   "en": "",
+   "def": "用区间两端平均值作分母计算百分比变动，避免起点不同导致结果不同。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "富有弹性",
+   "en": "",
+   "def": "弹性绝对值大于 1，需求量对价格反应强烈。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "缺乏弹性",
+   "en": "",
+   "def": "弹性绝对值小于 1，需求量对价格反应微弱。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "总收益",
+   "en": "",
+   "def": "价格乘以销售数量，等于买者的总支出。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "收入弹性",
+   "en": "",
+   "def": "需求量变动百分比与收入变动百分比之比，用于判断正常品与劣等品。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "交叉价格弹性",
+   "en": "",
+   "def": "一种商品需求量变动百分比与另一种商品价格变动百分比之比，正值多为替代品，负值多为互补品。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "供给价格弹性",
+   "en": "",
+   "def": "供给量变动百分比与价格变动百分比之比，主要受时间长短影响。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "价格上限",
+   "en": "",
+   "def": "法律规定的最高售价，只有低于均衡价时才有约束力。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "价格下限",
+   "en": "",
+   "def": "法律规定的最低售价，只有高于均衡价时才有约束力。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "配给机制",
+   "en": "",
+   "def": "价格不能出清时用于分配稀缺商品的办法，如排队、抽签、凭票、凭关系。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "税收归宿",
+   "en": "",
+   "def": "税收负担最终由谁承担，由供需弹性决定，与法律规定的纳税人无关。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "税收楔子",
+   "en": "",
+   "def": "买者支付的价格与卖者得到的价格之间的差额。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "支付意愿",
+   "en": "",
+   "def": "买者为一件物品最多愿意支付的金额。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "消费者剩余",
+   "en": "",
+   "def": "支付意愿减去实际支付，衡量买者从交易中获得的好处。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "成本",
+   "en": "",
+   "def": "卖者为生产一单位产品愿意接受的最低价格，等于其机会成本。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "生产者剩余",
+   "en": "",
+   "def": "卖者实际得到的价格减去其成本。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "总剩余",
+   "en": "",
+   "def": "消费者剩余与生产者剩余之和，衡量市场创造的总价值。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "效率",
+   "en": "",
+   "def": "在既定资源下使总剩余最大，不浪费任何一方有得有失的交易机会。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "市场失灵",
+   "en": "",
+   "def": "市场自身无法实现总剩余最大，常见于市场势力与外部性。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "无谓损失",
+   "en": "",
+   "def": "税收使交易量减少而凭空消失的那部分总剩余，买卖双方与政府都没得到。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "拉弗曲线",
+   "en": "",
+   "def": "税额与税收收入之间的关系曲线，呈倒 U 形。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "税基",
+   "en": "",
+   "def": "被征税的对象范围，如某类商品的全部销售额。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "世界价格",
+   "en": "",
+   "def": "世界市场上该商品的通行价格，决定一国出口还是进口。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "关税",
+   "en": "",
+   "def": "对进口商品征收的税，使国内价格高于世界价格。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "进口配额",
+   "en": "",
+   "def": "对进口数量的直接限制，效果与关税类似但政府得不到关税收入。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "幼稚产业论",
+   "en": "",
+   "def": "主张对新兴产业发展初期给予保护，成熟后再参与国际竞争。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "调整援助",
+   "en": "",
+   "def": "对因贸易受损的工人和企业提供的救济、培训与搬迁支持。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "外部性",
+   "en": "",
+   "def": "一个人的行为对旁观者福利造成的影响，且未通过市场价格反映。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "负外部性",
+   "en": "",
+   "def": "行为给旁观者带来成本，社会成本高于私人成本，市场会过量生产。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "正外部性",
+   "en": "",
+   "def": "行为给旁观者带来收益，社会价值高于私人价值，市场会生产不足。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "矫正税",
+   "en": "",
+   "def": "按每单位外部成本征收的税，使私人成本等于社会成本，也称庇古税。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "可交易许可证",
+   "en": "",
+   "def": "政府设定排放总量并发放可买卖的许可，由市场决定谁减排。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "科斯定理",
+   "en": "",
+   "def": "产权清楚且交易成本足够低时，当事人谈判可达到有效率结果，与产权初始归属无关。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "排他性",
+   "en": "",
+   "def": "能否阻止不付费的人使用某物品。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "竞争性",
+   "en": "",
+   "def": "一个人使用某物品是否会减少他人可用的数量。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "公共物品",
+   "en": "",
+   "def": "既无排他性也无竞争性的物品，如国防、路灯。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "公共资源",
+   "en": "",
+   "def": "无排他性但有竞争性的物品，如公海鱼群、拥堵道路。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "俱乐部物品",
+   "en": "",
+   "def": "有排他性但无竞争性的物品，如收费公路、有线电视。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "搭便车",
+   "en": "",
+   "def": "不承担成本却享用公共物品收益的行为。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "公地悲剧",
+   "en": "",
+   "def": "公共资源因无排他性被过度使用而枯竭的现象。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "平均税率",
+   "en": "",
+   "def": "总税额除以总收入，衡量整体负担。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "边际税率",
+   "en": "",
+   "def": "新增一单位收入所适用的税率，决定额外工作的激励。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "受益原则",
+   "en": "",
+   "def": "按从公共支出中受益的多少来分摊税负。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "支付能力原则",
+   "en": "",
+   "def": "按纳税能力分摊税负，能力强者多缴。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "纵向公平",
+   "en": "",
+   "def": "收入不同的人缴税不同，高收入者多缴。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "横向公平",
+   "en": "",
+   "def": "处境相同的人应缴相同的税。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "累进税",
+   "en": "",
+   "def": "税额占收入比重随收入上升而上升的税制。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "累退税",
+   "en": "",
+   "def": "税额占收入比重随收入上升而下降的税制。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "总成本",
+   "en": "",
+   "def": "生产一定数量产品所投入的全部资源的成本，包括显性与隐性成本。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "显性成本",
+   "en": "",
+   "def": "实际付出现金的成本，如原料、工资、租金。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "隐性成本",
+   "en": "",
+   "def": "未付出现金但确实放弃的收益，如自有资金的机会成本、业主的时间。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "经济利润",
+   "en": "",
+   "def": "总收益减去全部成本（显性加隐性）。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "会计利润",
+   "en": "",
+   "def": "总收益减去显性成本。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "边际产量",
+   "en": "",
+   "def": "多投入一单位可变要素所增加的产出。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "边际成本",
+   "en": "",
+   "def": "多生产一单位产品所增加的总成本。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "平均总成本",
+   "en": "",
+   "def": "总成本除以产量。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "规模经济",
+   "en": "",
+   "def": "产量扩大使长期平均总成本下降的现象。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "价格接受者",
+   "en": "",
+   "def": "无法影响市场价格、只能按市场价出售的企业。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "边际收益",
+   "en": "",
+   "def": "多售出一单位产品所增加的总收益。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "利润最大化条件",
+   "en": "",
+   "def": "边际收益等于边际成本；竞争企业即价格等于边际成本。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "停业点",
+   "en": "",
+   "def": "价格低于平均可变成本最低点时，企业暂时停止生产。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "沉没成本",
+   "en": "",
+   "def": "已经发生且无法收回的成本，不影响当前决策。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "正常利润",
+   "en": "",
+   "def": "经济利润为零时的回报水平，等于资源在其他用途上能获得的收益。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "垄断",
+   "en": "",
+   "def": "一家企业独占市场，且存在其他企业难以进入的壁垒。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "自然垄断",
+   "en": "",
+   "def": "因规模经济使一家企业供货成本最低而形成的垄断，如电网、自来水。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "价格歧视",
+   "en": "",
+   "def": "对成本相同的商品向不同买者收取不同价格。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "寻租",
+   "en": "",
+   "def": "企业花费资源游说、诉讼以维持垄断地位，这部分支出不创造产出。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "反托拉斯法",
+   "en": "",
+   "def": "旨在限制垄断行为、维护竞争的法规。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "垄断竞争",
+   "en": "",
+   "def": "许多企业销售有差别的产品、可自由进出的市场结构。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "超额能力",
+   "en": "",
+   "def": "垄断竞争企业长期产量低于平均总成本最低点对应的规模。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "品牌",
+   "en": "",
+   "def": "通过名称与形象传递质量与身份的标识，可降低消费者的信息成本。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "寡头",
+   "en": "",
+   "def": "少数几家企业主导、彼此高度依赖的市场结构。",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "卡特尔",
+   "en": "",
+   "def": "企业之间就产量与价格达成的同盟，如 OPEC。",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "囚徒困境",
+   "en": "",
+   "def": "每个参与者单方面背叛都更有利、结果集体受损的博弈结构。",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "纳什均衡",
+   "en": "",
+   "def": "在给定他人策略下，没有任何一方能通过单独改变策略获益的状态。",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "掠夺性定价",
+   "en": "",
+   "def": "以低于成本的价格挤走对手，再提价获取垄断利润的行为。",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "派生需求",
+   "en": "",
+   "def": "对生产要素的需求由对最终产品的需求派生而来。",
+   "chapterIds": [
+    "ch18"
+   ]
+  },
+  {
+   "term": "边际产量值",
+   "en": "",
+   "def": "增加一单位要素投入所带来的产出增量乘以产品价格。",
+   "chapterIds": [
+    "ch18"
+   ]
+  },
+  {
+   "term": "人力资本",
+   "en": "",
+   "def": "劳动者通过教育、培训、经验积累形成的生产能力。",
+   "chapterIds": [
+    "ch18"
+   ]
+  },
+  {
+   "term": "补偿性工资差别",
+   "en": "",
+   "def": "因工作条件差异而对劳动者给予的工资补偿。",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "超级明星现象",
+   "en": "",
+   "def": "少数顶尖从业者占据大部分市场收入，因为其产出可低成本复制。",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "效率工资",
+   "en": "",
+   "def": "高于市场均衡水平的工资，用于提高积极性、降低流失、吸引更优秀的员工。",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "歧视",
+   "en": "",
+   "def": "对具有相同生产能力的人因身份特征给予不同待遇。",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "人力资本",
+   "en": "",
+   "def": "教育、培训与经验形成的生产能力，是工资差距的重要解释变量。",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "洛伦兹曲线",
+   "en": "",
+   "def": "按收入从低到高排列家庭后绘制的累计收入占比曲线。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "基尼系数",
+   "en": "",
+   "def": "衡量收入不平等程度的指标，0 为完全平均，1 为完全不均。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "贫困率",
+   "en": "",
+   "def": "收入低于贫困线的家庭占总家庭的比例。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "功利主义",
+   "en": "",
+   "def": "以最大多数人的最大幸福为目标的分配哲学。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "自由主义",
+   "en": "",
+   "def": "罗尔斯式立场，主张制度应最大化最不利者的福利。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "自由至上主义",
+   "en": "",
+   "def": "主张只要获取过程正当，结果不平等无需政府纠正。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "负所得税",
+   "en": "",
+   "def": "收入低于一定水平时由政府补贴、随收入上升逐步退出的制度。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "预算约束",
+   "en": "",
+   "def": "消费者支出不超过收入的限制，写成 Px·x + Py·y = 收入。",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "无差异曲线",
+   "en": "",
+   "def": "给消费者带来同等满足程度的所有商品组合连成的线。",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "边际替代率",
+   "en": "",
+   "def": "为多得到一单位横轴商品而愿意放弃的纵轴商品数量，等于无差异曲线斜率的绝对值。",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "吉芬物品",
+   "en": "",
+   "def": "价格上升时需求反而增加的极端劣等品。",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "替代效应",
+   "en": "",
+   "def": "价格变化使消费者转向相对便宜的商品所引起的需求变化。",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "收入效应",
+   "en": "",
+   "def": "价格变化改变实际购买力所引起的需求变化。",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "不对称信息",
+   "en": "",
+   "def": "交易一方掌握的信息多于另一方。",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "逆向选择",
+   "en": "",
+   "def": "签约前因无法分辨质量导致优质方退出、市场平均质量下降。",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "道德风险",
+   "en": "",
+   "def": "签约后因风险转移而放松注意或改变行为。",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "信号",
+   "en": "",
+   "def": "信息优势方主动提供的可验证证据，造假成本高因而可信。",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "筛选",
+   "en": "",
+   "def": "信息劣势方设计机制使对方暴露真实信息。",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "中位投票人定理",
+   "en": "",
+   "def": "一维议题下多数投票结果趋向中位选民的偏好。",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "阿罗不可能定理",
+   "en": "",
+   "def": "不存在同时满足所有合理公理的投票加总规则。",
+   "chapterIds": [
+    "ch22"
+   ]
+  },
+  {
+   "term": "损失厌恶",
+   "en": "",
+   "def": "同等金额的损失带来的负效用大于收益带来的正效用。",
+   "chapterIds": [
+    "ch22"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 22,
+  "concepts": 6
+ },
+ "signature": "2b0c4e8cdc52",
+ "contentHash": "6e302893bd10"
+}

@@ -1,0 +1,2803 @@
+{
+ "repo": "agentic-design-patterns-handbook",
+ "bookSlug": "agentic-design-patterns",
+ "title": "智能体设计模式：智能系统构建实战指南",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-智能体设计模式/manifest.json",
+ "stats": {
+  "chapters": 26,
+  "concepts": 11,
+  "quizzes": 58,
+  "cards": 52,
+  "glossary": 77
+ },
+ "chapters": [
+  {
+   "id": "ch00",
+   "num": 0,
+   "title": "第 0 章：导论——什么是智能体，为什么要用设计模式",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch00-introduction.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：提示链（Prompt Chaining）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch01-prompt-chaining.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：路由（Routing）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch02-routing.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：并行化（Parallelization）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch03-parallelization.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：反思（Reflection）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch04-reflection.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：工具使用（Tool Use）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch05-tool-use.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：规划（Planning）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch06-planning.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：多智能体协作（Multi-Agent Collaboration）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch07-multi-agent.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：记忆管理（Memory Management）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch08-memory.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：学习与适应（Learning & Adaptation）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch09-learning.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：模型上下文协议（MCP）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch10-mcp.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：目标设定与监控（Goal Setting & Monitoring）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch11-goal-setting.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch12",
+   "num": 12,
+   "title": "第 12 章：异常处理与恢复（Exception Handling）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch12-exception-handling.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch13",
+   "num": 13,
+   "title": "第 13 章：人类参与环节（HITL）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch13-human-in-the-loop.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch14",
+   "num": 14,
+   "title": "第 14 章：检索增强生成（RAG）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch14-rag.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch15",
+   "num": 15,
+   "title": "第 15 章：智能体间通信（A2A）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch15-a2a.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch16",
+   "num": 16,
+   "title": "第 16 章：资源感知优化",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch16-resource-aware.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch17",
+   "num": 17,
+   "title": "第 17 章：推理技术",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch17-reasoning.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch18",
+   "num": 18,
+   "title": "第 18 章：护栏与安全模式",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch18-guardrails.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch19",
+   "num": 19,
+   "title": "第 19 章：评估与监控",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch19-evaluation.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch20",
+   "num": 20,
+   "title": "第 20 章：优先级排序",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch20-prioritization.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch21",
+   "num": 21,
+   "title": "第 21 章：探索与发现",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch21-exploration.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch22",
+   "num": 22,
+   "title": "第 22 章：结论——把模式组合成系统",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch22-conclusion.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch23",
+   "num": 23,
+   "title": "第 23 章：术语表与常见问题",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch23-glossary-faq.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch24",
+   "num": 24,
+   "title": "第 24 章：附录 A——高级提示工程技术",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch24-appendix-a-prompt-engineering.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "ch25",
+   "num": 25,
+   "title": "第 25 章：附录 B–G——落地、框架与环境",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/chapters/ch25-appendix-bg.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "输出契约",
+   "chapterIds": [
+    "ch01",
+    "ch05",
+    "ch11"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/output-contract.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c02",
+   "title": "错误局部化",
+   "chapterIds": [
+    "ch01",
+    "ch19"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/error-localization.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c03",
+   "title": "反思回路",
+   "chapterIds": [
+    "ch04",
+    "ch07",
+    "ch17"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/reflection-loop.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c04",
+   "title": "外部判据",
+   "chapterIds": [
+    "ch04",
+    "ch11",
+    "ch19",
+    "ch21"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/external-criterion.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c05",
+   "title": "上下文窗口与记忆",
+   "chapterIds": [
+    "ch08",
+    "ch14"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/context-vs-memory.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c06",
+   "title": "嵌入与余弦相似度",
+   "chapterIds": [
+    "ch14",
+    "ch08",
+    "ch19"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/embedding-cosine.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c07",
+   "title": "幂等",
+   "chapterIds": [
+    "ch12",
+    "ch05",
+    "ch13"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/idempotency.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c08",
+   "title": "人类参与边界",
+   "chapterIds": [
+    "ch13",
+    "ch12",
+    "ch18"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/hitl-boundary.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c09",
+   "title": "轨迹评估",
+   "chapterIds": [
+    "ch19",
+    "ch07"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/trajectory-eval.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c10",
+   "title": "优先级排序即调度",
+   "chapterIds": [
+    "ch20",
+    "ch16"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/scheduling.md"
+   },
+   "bookSource": null
+  },
+  {
+   "id": "c11",
+   "title": "护栏分层",
+   "chapterIds": [
+    "ch18",
+    "ch13"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "agentic-design-patterns-handbook",
+    "path": "01-智能体设计模式/concepts/guardrail-layers.md"
+   },
+   "bookSource": null
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch00",
+   "stem": "能调用搜索 API 获取最新信息，但不会做多步规划，按书里的分级属于？",
+   "options": [
+    "Level 0 核心推理引擎",
+    "Level 1 连接型问题解决者",
+    "Level 2 战略型问题解决者",
+    "Level 3 多智能体系统"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "有工具连接但没有战略规划与上下文工程，属于 Level 1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch00",
+   "stem": "智能体区别于传统程序的特征包括？",
+   "options": [
+    "自主性",
+    "主动性",
+    "工具使用",
+    "完全确定性"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "D 相反，智能体是概率性的。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch01",
+   "stem": "提示链最有价值的地方是？",
+   "options": [
+    "让模型多回答几次",
+    "把整体推断拆成可独立验证的局部转换",
+    "增加 token 消耗",
+    "替代反思"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "链条的价值是错误局部化，判据是每一步输出能否被独立验证。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch01",
+   "stem": "判断一步该不该拆出去的判据是：这一步的输出能否被______。",
+   "options": [],
+   "answer": "独立验证",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "不可验证的粒度拆出去没有收益。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02",
+   "stem": "路由必须保留的默认路径叫？",
+   "options": [
+    "主分支",
+    "兜底分支",
+    "快速路径",
+    "缓存路径"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "没有兜底分支时，未匹配输入会直接失败。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch02",
+   "stem": "下列哪些是书里提到的路由实现方式？",
+   "options": [
+    "LLM 路由",
+    "嵌入相似度路由",
+    "规则路由",
+    "判别模型路由"
+   ],
+   "answer": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "四种都提到，按成本-延迟-灵活度取舍。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch03",
+   "stem": "两个子任务 A、B,判断能否平行的核心判据是？",
+   "options": [
+    "A 和 B 是否同类型",
+    "B 需不需要 A 的输出",
+    "A 是否比 B 慢",
+    "两者是否用同一模型"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "判据一句话：B 需不需要 A 的输出。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch03",
+   "stem": "投票并行最能压住哪类错误？",
+   "options": [
+    "模型对概念的系统性误解",
+    "随机性错误",
+    "检索源错误",
+    "权限越界"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "同一模型同上下文的系统性错误高度相关，投票只会强化它。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch04",
+   "stem": "反思回路必须写死的两个出口条件是？",
+   "options": [
+    "判据通过 与 轮次上限",
+    "温度 与 top_p",
+    "模型 与 提示",
+    "日志 与 告警"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "缺出口会陷入过度修正或空转；实践值 2~3 轮。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch04",
+   "stem": "没有外部判据的反思最可能出现什么？",
+   "options": [
+    "幻觉消失",
+    "过度修正与批评空转",
+    "成本下降",
+    "延迟降低"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "无判据时模型只能凭感觉改，越改越偏。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch05",
+   "stem": "工具循环中真正执行工具（碰网络）的是？",
+   "options": [
+    "模型本身",
+    "框架",
+    "提示词",
+    "终端用户"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "框架是唯一执行者，模型只生成调用意图，这是安全设计的起点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch05",
+   "stem": "工具描述里应该包含？",
+   "options": [
+    "参数类型与取值范围",
+    "什么情况下不要用这个工具",
+    "示例调用",
+    "只有功能简介"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "负向说明能显著压低误触发；只有功能简介不够。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch06",
+   "stem": "计划形态该选清单式、DAG 还是迭代式，取决于？",
+   "options": [
+    "任务规模",
+    "不确定性放在哪一层",
+    "模型能力",
+    "团队习惯"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "路径确定用清单，依赖复杂用 DAG,需要边走边看用迭代。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch06",
+   "stem": "重规划的三个触发条件是连续失败达阈值、判据不符、______。",
+   "options": [],
+   "answer": "约束显式变化",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "三者任一触发，且重规划必须重新检查全部依赖。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch07",
+   "stem": "多智能体拆分最不该基于下面哪个理由？",
+   "options": [
+    "上下文拥挤",
+    "角色能力冲突",
+    "错误无人对照",
+    "想让系统看起来更高级"
+   ],
+   "answer": 3,
+   "type": "single",
+   "conceptId": "",
+   "explain": "只有前三类真实问题值得拆。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch07",
+   "stem": "批评-审查者的评审标准包括？",
+   "options": [
+    "政策与安全",
+    "合规与正确性",
+    "质量与目标对齐",
+    "模型价格"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "六类标准涵盖政策、安全、合规、正确性、质量、目标对齐。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch08",
+   "stem": "state 里前缀 user: 表示？",
+   "options": [
+    "仅本轮有效",
+    "跨会话对该用户有效",
+    "全局共享",
+    "只读"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "user: 跨会话、app: 全局、temp: 仅本轮。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch08",
+   "stem": "直接修改 session.state 的主要问题是？",
+   "options": [
+    "性能下降",
+    "绕过事件处理导致不记录、不持久化、并发冲突",
+    "模型无法读取",
+    "增加 token"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "应走 output_key 或 state_delta。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch09",
+   "stem": "让智能体学会公司报销规则，最合适的方式是？",
+   "options": [
+    "强化学习",
+    "知识写进知识库并用 RAG 检索",
+    "从头预训练",
+    "自我修改代码"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "这是知识缺失而非策略问题，记忆+检索成本最低。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch09",
+   "stem": "SICA 这类自改代码智能体必须具备的配套是？",
+   "options": [
+    "更快的 GPU",
+    "异步监督者与容器隔离",
+    "更大的上下文窗口",
+    "更多训练数据"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "没有监督者会陷入无效迭代，没有隔离会伤到主机。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch10",
+   "stem": "3 个应用与 5 个系统，用 MCP 后需要多少实现？",
+   "options": [
+    "15",
+    "8",
+    "5",
+    "3"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "无标准 3×5=15；有标准 3+5=8。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch10",
+   "stem": "MCP 效果高度依赖什么？",
+   "options": [
+    "模型参数规模",
+    "底层 API 的设计（是否支持过滤排序与文本返回）",
+    "网络带宽",
+    "客户端数量"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "只把传统 API 原样包一层，智能体表现会很差。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch11",
+   "stem": "判断一个目标是否成立的核心条件是？",
+   "options": [
+    "写得够长",
+    "可被判断是否达成（指标、阈值、时限、判定者）",
+    "有激励语气",
+    "由模型自己判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "不可判定的目标不是目标。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q24",
+   "chapterId": "ch11",
+   "stem": "监控需要观测哪些对象？",
+   "options": [
+    "行为",
+    "环境",
+    "工具输出",
+    "判据"
+   ],
+   "answer": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "四类观测缺一不可。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q25",
+   "chapterId": "ch12",
+   "stem": "重试策略的硬要求是？",
+   "options": [
+    "重试次数越多越好",
+    "操作幂等",
+    "降低温度",
+    "换模型"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "非幂等操作重试等于重复副作用。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q26",
+   "chapterId": "ch12",
+   "stem": "下列哪个是典型的“看起来成功的失败”？",
+   "options": [
+    "接口返回 500",
+    "返回 {\"stock\": null} 而流程继续",
+    "超时无响应",
+    "鉴权失败"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "结构合法但值为空，下游不校验就会当成功处理。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q27",
+   "chapterId": "ch13",
+   "stem": "是否插入人类审批最实用的判据是？",
+   "options": [
+    "任务难度",
+    "错了能不能撤回",
+    "成本高低",
+    "模型是否自信"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "不可撤回的操作必须插人。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q28",
+   "chapterId": "ch13",
+   "stem": "Human-on-the-loop 适合什么场景？",
+   "options": [
+    "单次价值极高的贷款审批",
+    "高频、单次价值低、规则可写清",
+    "规则无法表达的创意判断",
+    "司法判决"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "人定规则、AI 实时执行，异常时才介入。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q29",
+   "chapterId": "ch14",
+   "stem": "余弦相似度为 1 意味着？",
+   "options": [
+    "两向量长度相同",
+    "两向量方向完全一致",
+    "两向量正交",
+    "两向量相等"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "余弦只看夹角，与长度无关。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q30",
+   "chapterId": "ch14",
+   "stem": "RAG 的误差来源包括？",
+   "options": [
+    "分块粒度不当",
+    "嵌入模型与语料不匹配",
+    "只按 top_k 不设相似度阈值",
+    "混合检索"
+   ],
+   "answer": [
+    0,
+    1,
+    2
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "混合检索是减误差的手段，不是误差源。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q31",
+   "chapterId": "ch15",
+   "stem": "A2A 与 MCP 的分工是？",
+   "options": [
+    "A2A 接资源，MCP 接智能体",
+    "A2A 接智能体，MCP 接资源",
+    "两者可互换",
+    "都只做工具调用"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "MCP 向下接资源，A2A 横向接同行。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q32",
+   "chapterId": "ch15",
+   "stem": "A2A 通信围绕什么展开？",
+   "options": [
+    "一次性 RPC",
+    "有状态的任务（含 task id 与 contextId）",
+    "文件传输",
+    "共享内存"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "任务有状态机，这是与普通 RPC 的根本差别。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q33",
+   "chapterId": "ch16",
+   "stem": "输入 800、输出 200,单价 0.03/0.09（元每千 token），单次成本约？",
+   "options": [
+    "0.024 元",
+    "0.042 元",
+    "0.060 元",
+    "0.006 元"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "(800×0.03+200×0.09)/1000=0.042。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q34",
+   "chapterId": "ch16",
+   "stem": "批判智能体在资源优化中的角色是？",
+   "options": [
+    "直接改计费配置",
+    "用质量信号间接校正路由策略",
+    "替代路由器",
+    "计算账单"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "它不直接管预算，靠质量回流修正分流。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q35",
+   "chapterId": "ch17",
+   "stem": "任务需要实时汇率再算换算，最合适的组合是？",
+   "options": [
+    "纯 CoT",
+    "ReAct 查数据 + PALMs 算数",
+    "ToT 深搜",
+    "纯自洽投票"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "外部信息用 ReAct,精确计算交给代码执行。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q36",
+   "chapterId": "ch17",
+   "stem": "p=0.4、独立采样 3 次，至少一次正确的概率是？",
+   "options": [
+    "0.6",
+    "0.784",
+    "0.4",
+    "0.936"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "1-(0.6)^3=0.784。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q37",
+   "chapterId": "ch18",
+   "stem": "唯一能挡住模型“做错事”的护栏层是？",
+   "options": [
+    "输入过滤",
+    "工具调用层（参数与权限校验）",
+    "输出过滤",
+    "提示约束"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "输入挡进、输出挡出，只有工具层挡“动手”。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q38",
+   "chapterId": "ch18",
+   "stem": "关键判据为什么不该交给另一个 LLM 自由裁量？",
+   "options": [
+    "成本太高",
+    "护栏模型本身也会被提示注入",
+    "速度太慢",
+    "不支持中文"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "关键判据应优先用规则、白名单、分类器。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q39",
+   "chapterId": "ch19",
+   "stem": "传统测试不足以为什么不能胜任智能体评估？",
+   "options": [
+    "测试太慢",
+    "智能体是概率性的，路径会变，且过程可能违规",
+    "测试用例太少",
+    "不支持并发"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "所以要评轨迹而不只评结果。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q40",
+   "chapterId": "ch19",
+   "stem": "LLM-as-a-Judge 的主要偏见包括？",
+   "options": [
+    "位置偏见",
+    "自我偏好",
+    "完全客观",
+    "忽略中间步骤"
+   ],
+   "answer": [
+    0,
+    1,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "C 相反；评审模型并不天然客观。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q41",
+   "chapterId": "ch20",
+   "stem": "优先级排序本质上是？",
+   "options": [
+    "评价问题",
+    "调度问题",
+    "容量问题",
+    "心理问题"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "问的是资源有限时下一个做什么。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q42",
+   "chapterId": "ch20",
+   "stem": "优先级通胀的解法是？",
+   "options": [
+    "全部标 P0",
+    "设配额，如 P0 最多占 20% 槽位",
+    "按时间排序",
+    "交给模型判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "没有配额的 P0 等于没有优先级。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q43",
+   "chapterId": "ch21",
+   "stem": "探索与优化的关键区别是？",
+   "options": [
+    "探索更贵",
+    "探索的评分函数尚未明确、解空间未知",
+    "探索必须多智能体",
+    "优化只能用传统算法"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "能写出评分函数是优化的前提。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q44",
+   "chapterId": "ch21",
+   "stem": "AI 联合科学体用 Elo 排名，是因为假设质量难以______。",
+   "options": [],
+   "answer": "绝对打分",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "只能两两比较时用相对评级。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q45",
+   "chapterId": "ch22",
+   "stem": "判断该不该继续加模式，最可靠的依据是？",
+   "options": [
+    "竞品用了",
+    "有失败案例支撑，且评估指标证明加之前更差",
+    "模式足够新",
+    "团队熟悉"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "没有失败案例支撑是过度设计。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q46",
+   "chapterId": "ch22",
+   "stem": "研究助手案例中，去掉记忆管理会怎样？",
+   "options": [
+    "成本下降",
+    "多步多智能体无法保持一致，上下文要反复重建",
+    "质量提升",
+    "延迟降低"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "记忆是协作的粘合剂。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q47",
+   "chapterId": "ch23",
+   "stem": "按书里的定义，“订票”属于？",
+   "options": [
+    "工具",
+    "技能",
+    "模型架构",
+    "训练目标"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "技能是结合多个工具调用与推理形成的集成能力。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q48",
+   "chapterId": "ch23",
+   "stem": "Grounding 的作用是？",
+   "options": [
+    "加速推理",
+    "把输出关联到可验证的信息源以减少幻觉",
+    "压缩上下文",
+    "提升并发"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "RAG 是最常用的 grounding 手段。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q49",
+   "chapterId": "ch24",
+   "stem": "分类任务中示例全是同一类别连续排列，最可能导致？",
+   "options": [
+    "token 超限",
+    "模型过拟合示例顺序",
+    "拒绝回答",
+    "输出格式错误"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "建议混合不同类别示例的顺序。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q50",
+   "chapterId": "ch24",
+   "stem": "要求模型输出 JSON 之后还必须做什么？",
+   "options": [
+    "直接使用",
+    "结构性校验（如 Pydantic）",
+    "再让模型复述",
+    "加密"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "模型会漏字段、给错类型，不校验会在下游炸掉。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q51",
+   "chapterId": "ch25",
+   "stem": "ACI 的正确顺序是？",
+   "options": [
+    "截屏→元素识别→上下文理解→操作与反馈",
+    "识别→截屏→操作→理解",
+    "操作→截屏→识别→理解",
+    "理解→截屏→操作→识别"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "先看见，再分辨，再理解，最后动手并观察反馈。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q52",
+   "chapterId": "ch25",
+   "stem": "什么情况下应放弃 GUI 自动化？",
+   "options": [
+    "界面稳定、低频、可回滚",
+    "界面频繁改版或操作不可撤回",
+    "任务简单",
+    "有截图权限"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "按“稳不稳、频不频、撤不撤”判断。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q53",
+   "chapterId": "__all__",
+   "stem": "一个客服智能体要做到“答错可追、出错可退、超支可查”,至少需要哪些模式组合？",
+   "options": [
+    "RAG 提供可引用的知识来源",
+    "反思 + 外部判据保证质量",
+    "异常处理 + 幂等保证可退",
+    "资源感知优化 + 评估保证可查"
+   ],
+   "answer": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "四个方向分别对应可追、可退、可查，可组合使用。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q54",
+   "chapterId": "__all__",
+   "stem": "下列哪种做法最可能让系统变差？",
+   "options": [
+    "给链条每步加输出契约",
+    "对非幂等操作加自动重试三次",
+    "为路由加兜底分支",
+    "给反思设轮次上限"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "非幂等重试等于重复副作用。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q55",
+   "chapterId": "__all__",
+   "stem": "一个团队想在只有 3 个固定内部工具时引入 MCP,合理的判断是？",
+   "options": [
+    "应当引入，越标准越好",
+    "暂不引入，函数调用更简单可控",
+    "必须引入否则无法扩展",
+    "引入后删除所有函数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "工具固定少量时函数调用足够，MCP 是过度工程。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q56",
+   "chapterId": "__all__",
+   "stem": "判断“该不该插人”的统一判据是：错了能不能______。",
+   "options": [],
+   "answer": "撤回",
+   "type": "blank",
+   "conceptId": "",
+   "explain": "不可撤回的操作必须审批。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q57",
+   "chapterId": "__all__",
+   "stem": "日均 50,000 次调用，单次 0.042 元，70% 路由到 1/5 单价模型，日成本约？",
+   "options": [
+    "2100 元",
+    "924 元",
+    "1470 元",
+    "630 元"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "50000×(0.3×0.042+0.7×0.0084)=924。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q58",
+   "chapterId": "__all__",
+   "stem": "评估一套智能体系统时，哪些是必须看的？",
+   "options": [
+    "最终答案正确率",
+    "轨迹是否合理",
+    "延迟与 token 成本",
+    "协作与分工是否正确"
+   ],
+   "answer": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "type": "multi",
+   "conceptId": "",
+   "explain": "四类都要看，缺一都会漏问题。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "智能体的五个特征是什么？",
+   "back": "自主性、主动性、响应性、工具使用、记忆与通信。",
+   "chapterId": "ch00",
+   "tags": [
+    "ch00",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "智能体 = 什么 + 什么？",
+   "back": "认知引擎（大语言模型）+ 架构（状态、工具、通信、控制流）。",
+   "chapterId": "ch00",
+   "tags": [
+    "ch00",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "提示链的价值不在“多问几次”，而在于？",
+   "back": "把一次不可验证的整体推断拆成若干可验证的局部转换，实现错误局部化。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "判断一步该不该拆出去的判据？",
+   "back": "这一步的输出能否被独立验证。",
+   "chapterId": "ch01",
+   "tags": [
+    "ch01",
+    "核心"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "路由与提示链的根本区别？",
+   "back": "路由是运行时决定路径，提示链是路径写死。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02",
+    "核心"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "路由器必须保留什么？为什么？",
+   "back": "兜底分支；否则未匹配的输入会直接失败。",
+   "chapterId": "ch02",
+   "tags": [
+    "ch02",
+    "核心"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "判断两个子任务能否并行的判据？",
+   "back": "B 需不需要 A 的输出。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03",
+    "核心"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "投票并行压不住哪类错误？",
+   "back": "系统性错误——同一模型同上下文的错误高度相关，投票只会强化。",
+   "chapterId": "ch03",
+   "tags": [
+    "ch03",
+    "核心"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "反思的结构本质是？",
+   "back": "带一条回边的控制结构：产出→按判据检查→改→直到通过或达上限。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04",
+    "核心"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "有判据的反思也必须有哪两个出口条件？",
+   "back": "判据通过；轮次上限（实践 2~3 轮）。",
+   "chapterId": "ch04",
+   "tags": [
+    "ch04",
+    "核心"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "工具循环里真正执行工具的是谁？",
+   "back": "框架。模型只生成调用意图，不直接碰网络。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05",
+    "核心"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "工具描述里最容易被漏写、却最能压低误触发的内容？",
+   "back": "“什么情况下不要用这个工具”的负向说明。",
+   "chapterId": "ch05",
+   "tags": [
+    "ch05",
+    "核心"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "三种计划形态怎么选？",
+   "back": "看不确定性在哪一层：路径确定→清单；依赖复杂→DAG；边走边看→迭代。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06",
+    "核心"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "重规划的三个触发条件？",
+   "back": "连续失败达阈值（约 3 次）、判据不符、约束显式变化。",
+   "chapterId": "ch06",
+   "tags": [
+    "ch06",
+    "核心"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "拆多智能体的三个正当理由？",
+   "back": "上下文拥挤、角色能力冲突、错误无人对照。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07",
+    "核心"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "批评-审查者的六类标准？",
+   "back": "政策、安全、合规、正确性、质量、目标对齐。",
+   "chapterId": "ch07",
+   "tags": [
+    "ch07",
+    "核心"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "短期记忆的三个限制？",
+   "back": "容量有限、会话结束即失、每轮重复计费。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08",
+    "核心"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "直接改 session.state 会带来什么问题？",
+   "back": "绕过事件处理：不记录、不持久化、并发冲突、元数据不更新。",
+   "chapterId": "ch08",
+   "tags": [
+    "ch08",
+    "核心"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "“它不懂我们公司的规矩”该用哪条学习路径？",
+   "back": "记忆 + RAG（知识缺失），不是微调。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09",
+    "核心"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "PPO 的裁剪切的是什么？",
+   "back": "新旧策略的概率比，把它限制在 1±ε，防止单次更新步长过大。",
+   "chapterId": "ch09",
+   "tags": [
+    "ch09",
+    "核心"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "MCP 解决的核心经济问题？",
+   "back": "把 M×N 次定制集成压成 M+N 次。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10",
+    "核心"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "MCP 救不了什么？",
+   "back": "底层 API 不支持过滤、排序、文本返回的情况。",
+   "chapterId": "ch10",
+   "tags": [
+    "ch10",
+    "核心"
+   ]
+  },
+  {
+   "id": "f23",
+   "front": "一个目标要成立，必须包含哪四样？",
+   "back": "指标、阈值、时限、判定者。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11",
+    "核心"
+   ]
+  },
+  {
+   "id": "f24",
+   "front": "监控的四个观测对象？",
+   "back": "行为、环境、工具输出、判据。",
+   "chapterId": "ch11",
+   "tags": [
+    "ch11",
+    "核心"
+   ]
+  },
+  {
+   "id": "f25",
+   "front": "重试的硬前提？",
+   "back": "操作幂等；否则重试等于重复副作用。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12",
+    "核心"
+   ]
+  },
+  {
+   "id": "f26",
+   "front": "“看起来成功的失败”典型例子？",
+   "back": "返回结构合法但值为空（如 {\"stock\": null}），下游不校验就当成功。",
+   "chapterId": "ch12",
+   "tags": [
+    "ch12",
+    "核心"
+   ]
+  },
+  {
+   "id": "f27",
+   "front": "是否插人的统一判据？",
+   "back": "错了能不能撤回。",
+   "chapterId": "ch13",
+   "tags": [
+    "ch13",
+    "核心"
+   ]
+  },
+  {
+   "id": "f28",
+   "front": "Human-on-the-loop 适合什么？",
+   "back": "高频、单次价值低、规则可写清的场景。",
+   "chapterId": "ch13",
+   "tags": [
+    "ch13",
+    "核心"
+   ]
+  },
+  {
+   "id": "f29",
+   "front": "余弦相似度为什么“只看方向”？",
+   "back": "公式是 (a·b)/(‖a‖‖b‖),分母消掉了长度。",
+   "chapterId": "ch14",
+   "tags": [
+    "ch14",
+    "核心"
+   ]
+  },
+  {
+   "id": "f30",
+   "front": "只设 top_k 不设阈值会怎样？",
+   "back": "会把无关内容硬塞进上下文，比不检索更糟。",
+   "chapterId": "ch14",
+   "tags": [
+    "ch14",
+    "核心"
+   ]
+  },
+  {
+   "id": "f31",
+   "front": "A2A 与 MCP 的分工？",
+   "back": "A2A 接智能体（横向），MCP 接资源（向下）。",
+   "chapterId": "ch15",
+   "tags": [
+    "ch15",
+    "核心"
+   ]
+  },
+  {
+   "id": "f32",
+   "front": "Agent Card 里 examples 字段为什么重要？",
+   "back": "它告诉调用方“什么场景该找我”,直接降低误调用。",
+   "chapterId": "ch15",
+   "tags": [
+    "ch15",
+    "核心"
+   ]
+  },
+  {
+   "id": "f33",
+   "front": "单次调用成本公式？",
+   "back": "C = (T_in·p_in + T_out·p_out)/1000。",
+   "chapterId": "ch16",
+   "tags": [
+    "ch16",
+    "核心"
+   ]
+  },
+  {
+   "id": "f34",
+   "front": "资源优化的两个闭环？",
+   "back": "批判回流（慢，改策略）、回退（快，保可用）。",
+   "chapterId": "ch16",
+   "tags": [
+    "ch16",
+    "核心"
+   ]
+  },
+  {
+   "id": "f35",
+   "front": "四种推理路径各解决什么？",
+   "back": "CoT 给草稿纸；ToT 多路径搜索；ReAct 边查边算；PALMs 精确执行。",
+   "chapterId": "ch17",
+   "tags": [
+    "ch17",
+    "核心"
+   ]
+  },
+  {
+   "id": "f36",
+   "front": "自洽投票成立的三个前提？",
+   "back": "采样相对独立；有可用的筛选机制；错误不是系统性的。",
+   "chapterId": "ch17",
+   "tags": [
+    "ch17",
+    "核心"
+   ]
+  },
+  {
+   "id": "f37",
+   "front": "唯一能挡住“做错事”的护栏层？",
+   "back": "工具调用层——参数与权限校验。",
+   "chapterId": "ch18",
+   "tags": [
+    "ch18",
+    "核心"
+   ]
+  },
+  {
+   "id": "f38",
+   "front": "结构性护栏校验的是什么？",
+   "back": "输出的结构（字段、类型），不是内容合规。",
+   "chapterId": "ch18",
+   "tags": [
+    "ch18",
+    "核心"
+   ]
+  },
+  {
+   "id": "f39",
+   "front": "为什么必须评轨迹？",
+   "back": "结果对但过程违规、结果错但过程合理，只看结果都看不见。",
+   "chapterId": "ch19",
+   "tags": [
+    "ch19",
+    "核心"
+   ]
+  },
+  {
+   "id": "f40",
+   "front": "LLM-as-a-Judge 的两个偏见？",
+   "back": "位置偏见、自我偏好。",
+   "chapterId": "ch19",
+   "tags": [
+    "ch19",
+    "核心"
+   ]
+  },
+  {
+   "id": "f41",
+   "front": "优先级排序是评价问题还是调度问题？",
+   "back": "调度问题——资源有限时下一个做什么。",
+   "chapterId": "ch20",
+   "tags": [
+    "ch20",
+    "核心"
+   ]
+  },
+  {
+   "id": "f42",
+   "front": "优先级通胀的解法？",
+   "back": "配额，例如 P0 最多占 20% 并发槽位。",
+   "chapterId": "ch20",
+   "tags": [
+    "ch20",
+    "核心"
+   ]
+  },
+  {
+   "id": "f43",
+   "front": "探索与优化的分界？",
+   "back": "能否写出评分函数；写不出就是在探索。",
+   "chapterId": "ch21",
+   "tags": [
+    "ch21",
+    "核心"
+   ]
+  },
+  {
+   "id": "f44",
+   "front": "AI 联合科学体为什么用 Elo？",
+   "back": "假设质量无法绝对打分，只能两两比较。",
+   "chapterId": "ch21",
+   "tags": [
+    "ch21",
+    "核心"
+   ]
+  },
+  {
+   "id": "f45",
+   "front": "“该停止加模式”的三个信号？",
+   "back": "没有对应失败案例、评估指标没变好、故障面变大且不可观测。",
+   "chapterId": "ch22",
+   "tags": [
+    "ch22",
+    "核心"
+   ]
+  },
+  {
+   "id": "f46",
+   "front": "21 个模式归为哪四组？",
+   "back": "执行与任务分解、与外部环境交互、状态学习与自我提升、协作与沟通。",
+   "chapterId": "ch22",
+   "tags": [
+    "ch22",
+    "核心"
+   ]
+  },
+  {
+   "id": "f47",
+   "front": "工具与技能的区别？",
+   "back": "工具是外部接口（能调的），技能是集成能力（会做的）。",
+   "chapterId": "ch23",
+   "tags": [
+    "ch23",
+    "核心"
+   ]
+  },
+  {
+   "id": "f48",
+   "front": "提示链为什么不足以替代反思？",
+   "back": "把输出喂给下一步往往只是重述，反思需要结构化批评与外部判据。",
+   "chapterId": "ch23",
+   "tags": [
+    "ch23",
+    "核心"
+   ]
+  },
+  {
+   "id": "f49",
+   "front": "正面指令为什么优于约束？",
+   "back": "约束会让模型聚焦规避风险，输出变保守；目标明确的指令更有效。",
+   "chapterId": "ch24",
+   "tags": [
+    "ch24",
+    "核心"
+   ]
+  },
+  {
+   "id": "f50",
+   "front": "要求 JSON 之后还必须做什么？",
+   "back": "结构性校验（Pydantic），并对失败重试。",
+   "chapterId": "ch24",
+   "tags": [
+    "ch24",
+    "核心"
+   ]
+  },
+  {
+   "id": "f51",
+   "front": "ACI 四步？",
+   "back": "视觉感知、元素识别、上下文理解、动态操作与反馈。",
+   "chapterId": "ch25",
+   "tags": [
+    "ch25",
+    "核心"
+   ]
+  },
+  {
+   "id": "f52",
+   "front": "GUI 自动化 vs API 的判据？",
+   "back": "有稳定 API 走 API；界面频繁改版、高频、不可撤回时不要用 GUI。",
+   "chapterId": "ch25",
+   "tags": [
+    "ch25",
+    "核心"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "智能体",
+   "en": "",
+   "def": "能感知环境、依据目标决策并自主行动的软件系统。",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "认知引擎",
+   "en": "",
+   "def": "智能体里负责理解与生成的大模型，只提供认知能力，不提供结构。",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "自主等级",
+   "en": "",
+   "def": "按能力复杂度划分的 Level 0~3：纯模型、加工具、加规划、加协作。",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "上下文窗口",
+   "en": "",
+   "def": "模型一次能处理的最大 token 数，含输入与输出。",
+   "chapterIds": [
+    "ch00"
+   ]
+  },
+  {
+   "term": "上下文工程",
+   "en": "",
+   "def": "为当前任务动态组装背景信息（检索、工具输出、隐式数据），区别于静态系统提示。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "提示链",
+   "en": "",
+   "def": "把整体任务拆成若干可验证的局部转换，逐步传递。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "输出契约",
+   "en": "",
+   "def": "规定上一步交给下一步的结构、取值约束与失败语义。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "路由",
+   "en": "",
+   "def": "运行时根据输入决定走哪条路径，而不是把路径写死。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "兜底分支",
+   "en": "",
+   "def": "路由必须保留的默认路径，防止没有匹配分支时直接失败。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "判别式路由",
+   "en": "",
+   "def": "用训练好的分类器决定路径，知识固化在权重里。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "截面并行",
+   "en": "",
+   "def": "把互不依赖的子任务同时执行，用时间换吞吐。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "投票并行",
+   "en": "",
+   "def": "同一任务多次采样后聚合，用冗余换可靠性。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "反思",
+   "en": "",
+   "def": "带一条回边的控制结构：产出→按判据检查→改→直到通过或达上限。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "外部判据",
+   "en": "",
+   "def": "来自产出者之外的判断依据，如测试、原文、清单、规则。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "过度修正",
+   "en": "",
+   "def": "反思中没有可靠判据时越改越偏的一种退化。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "工具使用循环",
+   "en": "",
+   "def": "定义→决策→生成参数→框架执行→观察结果→再决策的闭环。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "工具 schema",
+   "en": "",
+   "def": "工具的名称、参数、类型与使用条件的结构化声明。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "ReAct",
+   "en": "",
+   "def": "思考→行动→观察→再思考的循环，边走边查。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "规划",
+   "en": "",
+   "def": "把高层目标拆成可执行步骤，并处理依赖与重规划。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "DAG 计划",
+   "en": "",
+   "def": "用有向无环图表示步骤与依赖，允许并行与部分重排。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "重规划",
+   "en": "",
+   "def": "执行中因失败、判据不符或约束变化而修改后续步骤。",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "多智能体协作",
+   "en": "",
+   "def": "多个专职智能体分工协作完成单智能体难以完成的任务。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "监督者拓扑",
+   "en": "",
+   "def": "由一个协调者分配任务并汇总结果的结构，协调者是单点。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "批评-审查者",
+   "en": "",
+   "def": "一方产出、另一方按六类标准评审并回传修订意见的结构。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "共享状态（黑板）",
+   "en": "",
+   "def": "多个智能体读写同一块状态来协作，需处理并发与责任边界。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "智能体即工具",
+   "en": "",
+   "def": "把子智能体包装成工具，用已有的工具调用机制实现层级结构。",
+   "chapterIds": [
+    "ch07"
+   ]
+  },
+  {
+   "term": "短期记忆",
+   "en": "",
+   "def": "会话内的上下文，受容量、易失、重复计费三重限制。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "长期记忆",
+   "en": "",
+   "def": "跨会话保存的外部存储，分语义、情景、程序性三类。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "语义记忆",
+   "en": "",
+   "def": "记住事实（如用户偏好、公司政策）。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "情景记忆",
+   "en": "",
+   "def": "记住经历（如上次那次失败的处理过程）。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "程序性记忆",
+   "en": "",
+   "def": "记住规则与做法，可被反思结果更新。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "state 键前缀",
+   "en": "",
+   "def": "用 user:/app:/temp: 等前缀决定状态的生效范围。",
+   "chapterIds": [
+    "ch08"
+   ]
+  },
+  {
+   "term": "在线学习",
+   "en": "",
+   "def": "用持续到来的新数据不断更新行为。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "PPO",
+   "en": "",
+   "def": "强化学习算法，用裁剪限制每次策略更新的幅度。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "DPO",
+   "en": "",
+   "def": "直接用偏好数据优化策略，跳过奖励模型。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "SICA",
+   "en": "",
+   "def": "能修改自身代码的智能体，靠版本归档与基准测试迭代。",
+   "chapterIds": [
+    "ch09"
+   ]
+  },
+  {
+   "term": "MCP",
+   "en": "",
+   "def": "模型上下文协议，用客户端-服务器架构标准化模型与外部能力的对接。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "资源（Resource）",
+   "en": "",
+   "def": "MCP 暴露的静态数据，如文档、数据库记录。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "工具（Tool）",
+   "en": "",
+   "def": "MCP 暴露的可执行功能，有副作用。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "JSON-RPC over STDIO",
+   "en": "",
+   "def": "MCP 的本地传输方式，走进程间通信。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Streamable HTTP",
+   "en": "",
+   "def": "MCP 的远程传输方式，配合 SSE 支持长连接。",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "目标可判定",
+   "en": "",
+   "def": "目标能被机器或人明确判断是否达成，含指标、阈值、时限、判定者。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "监控四观测",
+   "en": "",
+   "def": "对行为、环境、工具输出、判据的持续观察。",
+   "chapterIds": [
+    "ch11"
+   ]
+  },
+  {
+   "term": "幂等",
+   "en": "",
+   "def": "同一操作执行一次与多次结果相同，是重试安全的前提。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "降级链",
+   "en": "",
+   "def": "逐级降低服务质量的备用路径，如精确地址→城市级→致歉。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "升级策略",
+   "en": "",
+   "def": "超出能力时按既定协议转给人或更高级系统。",
+   "chapterIds": [
+    "ch12"
+   ]
+  },
+  {
+   "term": "人类参与（HITL）",
+   "en": "",
+   "def": "在机器决策边界上插入人类审批、干预或纠正。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "Human-on-the-loop",
+   "en": "",
+   "def": "人定规则、AI 实时执行，异常时人才介入。",
+   "chapterIds": [
+    "ch13"
+   ]
+  },
+  {
+   "term": "RAG",
+   "en": "",
+   "def": "检索增强生成：先检索相关材料，再把它放进上下文让模型作答。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "分块（chunking）",
+   "en": "",
+   "def": "把长文档切成检索单元，块大小影响召回粒度。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "嵌入",
+   "en": "",
+   "def": "把文本映射为高维向量，语义相近则方向相近。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "余弦相似度",
+   "en": "",
+   "def": "两个向量夹角的余弦，只与方向有关、与长度无关。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "混合检索",
+   "en": "",
+   "def": "向量检索与关键词检索（如 BM25）结合，互补短板。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "GraphRAG",
+   "en": "",
+   "def": "在知识图谱上检索，效果高度依赖图的质量。",
+   "chapterIds": [
+    "ch14"
+   ]
+  },
+  {
+   "term": "A2A",
+   "en": "",
+   "def": "智能体间通信的开放标准，基于 HTTP 与 JSON-RPC。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "Agent Card",
+   "en": "",
+   "def": "智能体的数字身份声明：端点、能力、技能、认证要求。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "artifact",
+   "en": "",
+   "def": "A2A 任务中被产出的结果对象，可流式传输。",
+   "chapterIds": [
+    "ch15"
+   ]
+  },
+  {
+   "term": "推理扩展定律",
+   "en": "",
+   "def": "在推理阶段增加计算（多采样、多路径）可提升准确率，小模型也能受益。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "成本公式",
+   "en": "",
+   "def": "单次调用成本 = (输入 token×输入单价 + 输出 token×输出单价)/1000。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "优雅降级",
+   "en": "",
+   "def": "资源不足时主动降低服务质量以维持可用。",
+   "chapterIds": [
+    "ch16"
+   ]
+  },
+  {
+   "term": "CoT",
+   "en": "",
+   "def": "链式思维：要求模型显式写出中间推理步骤。",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "ToT",
+   "en": "",
+   "def": "树式思维：并行探索多条推理路径并评估选择。",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "PALMs",
+   "en": "",
+   "def": "让模型写代码并执行，把精确计算交给确定性环境。",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "自洽性投票",
+   "en": "",
+   "def": "多次采样后按多数结果聚合，用 1-(1-p)^n 提升成功率。",
+   "chapterIds": [
+    "ch17"
+   ]
+  },
+  {
+   "term": "护栏",
+   "en": "",
+   "def": "在输入、工具、输出等位置设置的强制关卡。",
+   "chapterIds": [
+    "ch18"
+   ]
+  },
+  {
+   "term": "提示注入",
+   "en": "",
+   "def": "把指令藏进数据里让模型执行，是护栏要防的主要攻击。",
+   "chapterIds": [
+    "ch18"
+   ]
+  },
+  {
+   "term": "结构性护栏",
+   "en": "",
+   "def": "校验输出结构（字段、类型）而非内容合规的护栏。",
+   "chapterIds": [
+    "ch18"
+   ]
+  },
+  {
+   "term": "轨迹评估",
+   "en": "",
+   "def": "把实际步骤序列与理想路径对比来评估过程质量。",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "LLM-as-a-Judge",
+   "en": "",
+   "def": "用另一个模型按预设标准给输出打分。",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "漂移",
+   "en": "",
+   "def": "输入分布或环境变化导致性能随时间下降。",
+   "chapterIds": [
+    "ch19"
+   ]
+  },
+  {
+   "term": "优先级老化",
+   "en": "",
+   "def": "任务每等待一个周期就提升优先级，防止饥饿。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "优先级通胀",
+   "en": "",
+   "def": "所有任务都自称紧急导致优先级失去区分度。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "依赖反转",
+   "en": "",
+   "def": "高优先级任务被低优先级前置阻塞，需要传递提升。",
+   "chapterIds": [
+    "ch20"
+   ]
+  },
+  {
+   "term": "探索与发现",
+   "en": "",
+   "def": "在解空间未知、评分函数缺失的环境中生成并筛选新假设。",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "Elo 排名",
+   "en": "",
+   "def": "只能两两比较时使用的相对评级机制。",
+   "chapterIds": [
+    "ch21"
+   ]
+  },
+  {
+   "term": "ACI",
+   "en": "",
+   "def": "智能体-计算机接口：通过视觉感知与鼠标键盘操作 GUI。",
+   "chapterIds": [
+    "ch25"
+   ]
+  },
+  {
+   "term": "vibe coding",
+   "en": "",
+   "def": "用高层目标与自然语言反馈驱动 AI 写代码的协作方式。",
+   "chapterIds": [
+    "ch25"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 26,
+  "concepts": 11
+ },
+ "signature": "fae8f87b20fa",
+ "contentHash": "c5c19aa4a4e3",
+ "duplicateGroup": "fae8f87b20fa"
+}

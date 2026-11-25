@@ -1,0 +1,1236 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "ai-mechanisms-formulas",
+ "title": "AI 机制与公式总库",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "24-ai-mechanisms-formulas/manifest.json",
+ "stats": {
+  "chapters": 11,
+  "concepts": 8,
+  "quizzes": 23,
+  "cards": 22,
+  "glossary": 25
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：怎么用这份总库",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch01-how-to-use.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：模型架构机制（1–21）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch02-architecture.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：预训练机制（22–47）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch03-pretraining.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：后训练与解码（48–70）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch04-posttraining.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：推理系统（71–86）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch05-inference.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "ch06",
+   "num": 6,
+   "title": "第 6 章：生成、应用与安全（87–114）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch05"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch06-applications.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "ch07",
+   "num": 7,
+   "title": "第 7 章：架构公式（1–20）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch07-formulas-arch.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw"
+   }
+  },
+  {
+   "id": "ch08",
+   "num": 8,
+   "title": "第 8 章：训练公式（21–43）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch07"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch08-formulas-train.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw"
+   }
+  },
+  {
+   "id": "ch09",
+   "num": 9,
+   "title": "第 9 章：规模、成本与对齐公式（44–75）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch08"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch09-formulas-scale.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw"
+   }
+  },
+  {
+   "id": "ch10",
+   "num": 10,
+   "title": "第 10 章：生成、效率与推理公式（76–104）",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch09"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch10-formulas-gen.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw"
+   }
+  },
+  {
+   "id": "ch11",
+   "num": 11,
+   "title": "第 11 章：一张纸速查与综合检验",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch10"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/chapters/ch11-cheatsheet.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "机制地图",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/concepts/c01-map.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "缩放定律与预算",
+   "chapterIds": [
+    "ch09"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/concepts/c02-scaling.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw"
+   }
+  },
+  {
+   "id": "c03",
+   "title": "MoE：总参数与激活参数",
+   "chapterIds": [
+    "ch02",
+    "ch10"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/concepts/c03-moe.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "c04",
+   "title": "KV cache",
+   "chapterIds": [
+    "ch05",
+    "ch10"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/concepts/c04-kv.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw"
+   }
+  },
+  {
+   "id": "c05",
+   "title": "后训练与对齐",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [
+    "c01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/concepts/c05-alignment.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "c06",
+   "title": "量化",
+   "chapterIds": [
+    "ch10"
+   ],
+   "prerequisites": [
+    "c04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/concepts/c06-quantization.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/5J2KoDfP7FFfS6ojHmxuAw"
+   }
+  },
+  {
+   "id": "c07",
+   "title": "推理两阶段",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "c04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/concepts/c07-inference.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  },
+  {
+   "id": "c08",
+   "title": "奖励黑客",
+   "chapterIds": [
+    "ch04"
+   ],
+   "prerequisites": [
+    "c05"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "24-ai-mechanisms-formulas/concepts/c08-reward-hacking.md"
+   },
+   "bookSource": {
+    "file": "https://mp.weixin.qq.com/s/iUji_fpD-k_JrhWMcOBMhA"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "这份总库最适合怎么用？",
+   "options": [
+    "从 1 到 114 按编号背完",
+    "把它当回查索引，按问题定位机制",
+    "只看公式，不看机制",
+    "用它替代所有分册"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "编号是索引，不是学习顺序；先定位问题再回主手册深读。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "114 个机制被分成几组？",
+   "options": [
+    "6 组",
+    "7 组",
+    "9 组",
+    "12 组"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "模型架构、变体、预训练、后训练、解码、推理、生成、应用、安全，共九组。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "BPE 分词的核心操作是？",
+   "options": [
+    "把每个字符单独作为一个 token",
+    "反复合并最高频相邻字符对",
+    "用固定词表查表",
+    "按语法树切分"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "BPE 从字符表开始，统计并合并最高频相邻对，高频词整词一个 token。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "GQA 主要压缩哪一份账？",
+   "options": [
+    "注意力 FLOPs",
+    "KV cache 显存",
+    "FFN 参数",
+    "词表大小"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "GQA 让多个查询头共享 K/V，省 KV cache 显存与带宽，不省注意力 FLOPs。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch02",
+   "stem": "MLA 的代价是什么？",
+   "options": [
+    "完全不能长上下文",
+    "多一次投影矩阵乘",
+    "必须放弃 MoE",
+    "只能训练不能推理"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "MLA 把 K/V 压成低秩潜向量，省 KV 显存；用时投影回来，多一次矩阵乘。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "数据并行（DP）的主要限制是？",
+   "options": [
+    "每卡仍要一份完整权重",
+    "只能单卡运行",
+    "不能同步梯度",
+    "只支持 CNN"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "DP 分摊数据，不分摊权重；每卡仍持有完整模型。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch03",
+   "stem": "长上下文训练最先爆的常是？",
+   "options": [
+    "词表",
+    "激活显存",
+    "磁盘",
+    "CPU"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "序列并行与梯度检查点都在处理激活；长序列激活常是最大一块。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch03",
+   "stem": "loss spike 的合理急救顺序是？",
+   "options": [
+    "直接换模型",
+    "梯度裁剪、降学习率、回滚检查点，再查数据",
+    "只加大 batch",
+    "忽略继续训"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "先稳住训练，再定位数据或数值问题。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch04",
+   "stem": "RLVR 的前提是？",
+   "options": [
+    "有大量人工偏好标注",
+    "任务能自动判对错",
+    "必须训练奖励模型",
+    "只能做对话"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "RLVR 把答案交给验证器；没有可验证环境就无法给奖励。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch04",
+   "stem": "DPO 相比 RLHF 少了什么？",
+   "options": [
+    "偏好数据",
+    "奖励模型与在线采样",
+    "参考策略",
+    "SFT"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "DPO 直接用偏好对算分类损失，省掉奖励模型和在线采样。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "ch04",
+   "stem": "推测解码在什么情况下可能倒亏？",
+   "options": [
+    "接受率很低",
+    "显存很大",
+    "上下文很短",
+    "batch=1"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "接受率低时草稿大量被拒，开销超过收益。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "ch05",
+   "stem": "PagedAttention 主要解决？",
+   "options": [
+    "KV cache 显存碎片",
+    "词表外 token",
+    "梯度爆炸",
+    "数据重复"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "借虚拟内存分页，把 KV 切成固定块按需分配。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "ch05",
+   "stem": "prefill 与 decode 的特性分别是？",
+   "options": [
+    "都算力密集",
+    "都带宽密集",
+    "prefill 算力密集，decode 带宽密集",
+    "prefill 带宽密集，decode 算力密集"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "prefill 一次处理整段 prompt，是大矩阵乘；decode 逐 token，受带宽约束。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q14",
+   "chapterId": "ch05",
+   "stem": "KV 驱逐时必须保留哪些 token？",
+   "options": [
+    "所有停用词",
+    "开头几个 Attention Sink",
+    "最后一个 token",
+    "随机 token"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "开头几个 token 是注意力落脚点，丢掉会让整段注意力失准。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q15",
+   "chapterId": "ch06",
+   "stem": "RAG 链路中最影响召回质量的一步是？",
+   "options": [
+    "生成温度",
+    "切块与嵌入",
+    "标点",
+    "模型参数量"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "切块决定颗粒度，嵌入决定语义召回；生成不是召回瓶颈。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q16",
+   "chapterId": "ch06",
+   "stem": "提示注入攻击的核心结构缺陷是？",
+   "options": [
+    "模型参数太小",
+    "模型分不清数据与指令",
+    "词表太大",
+    "上下文太短"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "上下文里所有 token 一律平等，第三方数据里的指令会被当指令执行。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q17",
+   "chapterId": "ch06",
+   "stem": "越狱与提示注入的区别是？",
+   "options": [
+    "完全一样",
+    "越狱由用户发起，注入藏在数据里",
+    "越狱只攻击图像",
+    "注入只攻击训练集"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "越狱是用户自己想让模型说禁区内容；注入是第三方把指令藏进模型会读的数据。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q18",
+   "chapterId": "ch07",
+   "stem": "图像 1024×1024、patch 14，token 数约多少？",
+   "options": [
+    "约 5,400",
+    "约 1,000",
+    "约 73",
+    "约 14,000"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "(1024/14)² ≈ 73² ≈ 5,400。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q19",
+   "chapterId": "ch07",
+   "stem": "GQA 的 KV 缩减比是？",
+   "options": [
+    "n_h/n_kv",
+    "n_kv/n_h",
+    "d_head/d",
+    "h/d"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "KV 头数除以查询头数；n_h=32、n_kv=8 时缩到 1/4。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q20",
+   "chapterId": "ch08",
+   "stem": "7B 模型按 16 字节/参数估训练显存约多少？",
+   "options": [
+    "14 GB",
+    "56 GB",
+    "112 GB",
+    "224 GB"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "7e9×16 B≈112 GB，还没算激活。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q21",
+   "chapterId": "ch08",
+   "stem": "梯度累积的等效 batch 是？",
+   "options": [
+    "micro-batch×accum×DP",
+    "micro-batch+accum",
+    "micro-batch/accum",
+    "只等于 micro-batch"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "梯度累积把多次 micro-batch 的梯度加起来再更新。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q22",
+   "chapterId": "ch09",
+   "stem": "Chinchilla 的粗略配比是？",
+   "options": [
+    "D≈2N",
+    "D≈20N",
+    "D≈200N",
+    "D≈N/20"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "给定算力下约每个参数配 20 个 token；推理量大时应反向权衡。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q23",
+   "chapterId": "ch10",
+   "stem": "70B、int4 权重显存约多少？",
+   "options": [
+    "约 35 GB",
+    "约 70 GB",
+    "约 140 GB",
+    "约 17 GB"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "70e9×4/8≈35 GB；还要加 KV、激活与框架开销。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "114 个机制",
+   "back": "按九组索引，不按编号顺序学",
+   "chapterId": "ch01",
+   "tags": [
+    "总",
+    "库"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "BPE",
+   "back": "高频相邻字符对反复合并；词表决定计费与上下文",
+   "chapterId": "ch02",
+   "tags": [
+    "架",
+    "构"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "GQA",
+   "back": "多个 Q 头共享 K/V，省 KV 显存不省 FLOPs",
+   "chapterId": "ch02",
+   "tags": [
+    "架",
+    "构"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "MLA",
+   "back": "低秩潜向量压 KV，省带宽多一次投影",
+   "chapterId": "ch02",
+   "tags": [
+    "架",
+    "构"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "MoE",
+   "back": "总参数换容量，激活参数换成本",
+   "chapterId": "ch02",
+   "tags": [
+    "架",
+    "构"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "Attention Sink",
+   "back": "开头 token 是注意力落脚点，KV 驱逐要保留",
+   "chapterId": "ch02",
+   "tags": [
+    "架",
+    "构"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "16 字节/参数",
+   "back": "bf16 权重 2 + 梯度 2 + fp32 主权重 4 + Adam 8",
+   "chapterId": "ch03",
+   "tags": [
+    "训",
+    "练"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "6ND",
+   "back": "训练 FLOPs 经验式；长序列漏掉注意力二次项",
+   "chapterId": "ch03",
+   "tags": [
+    "训",
+    "练"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "路由崩塌",
+   "back": "早期路由器偏爱少数专家，其余收不到梯度",
+   "chapterId": "ch03",
+   "tags": [
+    "训",
+    "练"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "RLVR",
+   "back": "用验证器判对错，不需要奖励模型",
+   "chapterId": "ch04",
+   "tags": [
+    "对",
+    "齐"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "DPO",
+   "back": "固定偏好对直接优化，省在线采样",
+   "chapterId": "ch04",
+   "tags": [
+    "对",
+    "齐"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "奖励黑客",
+   "back": "优化器挤代理指标的缝，不是模型学坏",
+   "chapterId": "ch04",
+   "tags": [
+    "对",
+    "齐"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "PagedAttention",
+   "back": "KV 分页，减少碎片，提高吞吐",
+   "chapterId": "ch05",
+   "tags": [
+    "推",
+    "理"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "PD 分离",
+   "back": "prefill 算力密集，decode 带宽密集",
+   "chapterId": "ch05",
+   "tags": [
+    "推",
+    "理"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "TTFT/TPOT",
+   "back": "首 token 延迟与每 token 时间，优化方向相反",
+   "chapterId": "ch05",
+   "tags": [
+    "推",
+    "理"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "RAG",
+   "back": "切块→嵌入→召回→重排→拼 prompt",
+   "chapterId": "ch06",
+   "tags": [
+    "应",
+    "用"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "提示注入",
+   "back": "数据里藏指令，攻击数据/指令不分",
+   "chapterId": "ch06",
+   "tags": [
+    "安",
+    "全"
+   ]
+  },
+  {
+   "id": "f18",
+   "front": "图像 token",
+   "back": "(H/P)×(W/P)，分辨率翻倍是 4 倍 token",
+   "chapterId": "ch07",
+   "tags": [
+    "公",
+    "式"
+   ]
+  },
+  {
+   "id": "f19",
+   "front": "KV cache 公式",
+   "back": "2×L×n_kv×d_head×bytes×seq×batch",
+   "chapterId": "ch08",
+   "tags": [
+    "公",
+    "式"
+   ]
+  },
+  {
+   "id": "f20",
+   "front": "Chinchilla",
+   "back": "D≈20N，给定算力最优，不是所有场景最优",
+   "chapterId": "ch09",
+   "tags": [
+    "公",
+    "式"
+   ]
+  },
+  {
+   "id": "f21",
+   "front": "GRPO",
+   "back": "组内奖励标准化当优势，省价值网络",
+   "chapterId": "ch09",
+   "tags": [
+    "公",
+    "式"
+   ]
+  },
+  {
+   "id": "f22",
+   "front": "Little 定律",
+   "back": "并发=吞吐×平均时延",
+   "chapterId": "ch10",
+   "tags": [
+    "公",
+    "式"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "BPE",
+   "en": "",
+   "def": "反复合并最高频相邻字符对的分词方法",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "GQA",
+   "en": "",
+   "def": "多个查询头共享一组 K/V 的注意力变体",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "MLA",
+   "en": "",
+   "def": "把 K/V 压成低秩潜向量、用时投影回来的注意力",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "MoE",
+   "en": "",
+   "def": "每 token 只激活部分专家的稀疏前馈结构",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "Attention Sink",
+   "en": "",
+   "def": "模型习惯把注意力分给序列开头 token 的现象",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "RoPE",
+   "en": "",
+   "def": "用旋转角表示相对位置的位置编码",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "6ND",
+   "en": "",
+   "def": "训练 FLOPs 约等于 6×参数量×训练 token 数",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "ZeRO",
+   "en": "",
+   "def": "把参数、梯度、优化器状态分片以省显存的训练技术",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "MFU",
+   "en": "",
+   "def": "模型 FLOPs 利用率，实际算力占峰值的比例",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "SFT",
+   "en": "",
+   "def": "用指令—回答对做监督微调",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "RLHF",
+   "en": "",
+   "def": "用人类偏好训练奖励模型，再用 PPO 优化策略",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "RLVR",
+   "en": "",
+   "def": "用可验证结果给奖励的强化学习",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "DPO",
+   "en": "",
+   "def": "直接用偏好对优化策略、省掉奖励模型的方法",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "奖励黑客",
+   "en": "",
+   "def": "优化器利用奖励模型漏洞刷分的行为",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "推测解码",
+   "en": "",
+   "def": "小模型草拟、大模型验收的无损加速方法",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "PagedAttention",
+   "en": "",
+   "def": "用分页管理 KV cache 的推理技术",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "PD 分离",
+   "en": "",
+   "def": "把 prefill 与 decode 放到不同硬件的部署方式",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "TTFT",
+   "en": "",
+   "def": "首 token 延迟",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "TPOT",
+   "en": "",
+   "def": "decode 阶段每 token 时间",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "RAG",
+   "en": "",
+   "def": "检索增强生成：先召回文档再拼进上下文",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "提示注入",
+   "en": "",
+   "def": "把指令藏进模型会读的数据里，诱导它执行",
+   "chapterIds": [
+    "ch06"
+   ]
+  },
+  {
+   "term": "CFG",
+   "en": "",
+   "def": "无分类器引导，用有条件与无条件预测的差放大提示",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "LoRA",
+   "en": "",
+   "def": "冻结原权重、只训低秩旁路矩阵的微调方法",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "Little 定律",
+   "en": "",
+   "def": "并发数等于吞吐乘平均时延",
+   "chapterIds": [
+    "ch10"
+   ]
+  },
+  {
+   "term": "量化",
+   "en": "",
+   "def": "把权重或 KV 压到更低位数以减少显存与带宽",
+   "chapterIds": [
+    "ch10"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 11,
+  "concepts": 8
+ },
+ "signature": "bfa948426821",
+ "contentHash": "595400ab2f0c"
+}

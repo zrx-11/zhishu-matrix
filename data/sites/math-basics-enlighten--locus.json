@@ -1,0 +1,455 @@
+{
+ "repo": "math-basics-enlighten",
+ "bookSlug": "locus",
+ "title": "轨迹",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "15-轨迹/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 11,
+  "glossary": 8
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：命题与充分必要条件",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "15-轨迹/chapters/ch01-logic-conditions.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-15-轨迹 杨学渊.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：求轨迹的五步法",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "15-轨迹/chapters/ch02-five-steps.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-15-轨迹 杨学渊.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：常见轨迹与空间轨迹",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "15-轨迹/chapters/ch03-common-locus.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-15-轨迹 杨学渊.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "充分必要",
+   "chapterIds": [
+    "ch01"
+   ],
+   "prerequisites": [
+    "ch01"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "15-轨迹/concepts/c01-necessary-sufficient.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-15-轨迹 杨学渊.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "完备性与纯粹性",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "ch02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "15-轨迹/concepts/c02-completeness-purity.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-15-轨迹 杨学渊.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "“x=1”是“x²=1”的：",
+   "options": [
+    "充分不必要条件",
+    "必要不充分条件",
+    "充要条件",
+    "既不充分也不必要"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "x=1 必有 x²=1；但 x²=1 还可能是 x=−1，推不出 x=1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "若 A⊆B，则 A 是 B 的：",
+   "options": [
+    "充分条件",
+    "必要条件",
+    "充要条件",
+    "无关条件"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "A 中每个元素都在 B 中，故 A 成立可推出 B 成立，A 是 B 的充分条件。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "求轨迹时“检验”这一步主要检查：",
+   "options": [
+    "计算是否正确",
+    "是否有增点或漏点",
+    "图形是否美观",
+    "坐标是否为整数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "检验是查完备性与纯粹性，即有没有多算或漏算的点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "到两定点距离相等的点的轨迹是：",
+   "options": [
+    "圆",
+    "椭圆",
+    "两定点的中垂线",
+    "抛物线"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "到两点等距的点集就是这两点连线的垂直平分线。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "到定点距离等于定值的点的轨迹是：",
+   "options": [
+    "直线",
+    "圆",
+    "椭圆",
+    "抛物线"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "这正是圆的定义。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "到两定点距离之差为常数（小于两点距离）的轨迹是：",
+   "options": [
+    "椭圆",
+    "双曲线的一支或两支",
+    "圆",
+    "直线"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "差为常数对应双曲线；取绝对值时为两支，不取绝对值时为靠近某定点的一支。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "“a>1”是“a>0”的：",
+   "options": [
+    "充分不必要条件",
+    "必要不充分条件",
+    "充要条件",
+    "既不充分也不必要"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "a>1 必有 a>0；a>0 推不出 a>1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "求轨迹时忽略检验，最可能导致：",
+   "options": [
+    "计算变慢",
+    "多算或漏算点",
+    "图形画错",
+    "方程次数变高"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "检验就是查完备性与纯粹性，省掉会出现增点或漏点。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：命题与充分必要条件」的一句话核心是什么？",
+   "back": "若 p 成立必有 q 成立，则 p 是 q 的充分条件，q 是 p 的必要条件。",
+   "chapterId": "ch01",
+   "tags": [
+    "locus",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：求轨迹的五步法」的一句话核心是什么？",
+   "back": "求轨迹＝把几何条件翻译成方程，再用原条件回头验一遍。",
+   "chapterId": "ch02",
+   "tags": [
+    "locus",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：常见轨迹与空间轨迹」的一句话核心是什么？",
+   "back": "记住五种定义型轨迹，看到条件就能报出图形。",
+   "chapterId": "ch03",
+   "tags": [
+    "locus",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「命题」？",
+   "back": "可以判断真假的陈述句。",
+   "chapterId": "ch01",
+   "tags": [
+    "locus",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「充分条件」？",
+   "back": "有它就能推出结论的条件。",
+   "chapterId": "ch01",
+   "tags": [
+    "locus",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「必要条件」？",
+   "back": "没有它结论就不成立的条件。",
+   "chapterId": "ch01",
+   "tags": [
+    "locus",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「充要条件」？",
+   "back": "互相都能推出的条件。",
+   "chapterId": "ch01",
+   "tags": [
+    "locus",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「轨迹」？",
+   "back": "满足某条件的点的集合。",
+   "chapterId": "ch02",
+   "tags": [
+    "locus",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「完备性」？",
+   "back": "符合条件的点都在图形上。",
+   "chapterId": "ch02",
+   "tags": [
+    "locus",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「纯粹性」？",
+   "back": "图形上的点都符合条件。",
+   "chapterId": "ch02",
+   "tags": [
+    "locus",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「阿波罗尼斯圆」？",
+   "back": "到两定点距离之比为定值的点的轨迹。",
+   "chapterId": "ch02",
+   "tags": [
+    "locus",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "命题",
+   "en": "",
+   "def": "可以判断真假的陈述句。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "充分条件",
+   "en": "",
+   "def": "有它就能推出结论的条件。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "必要条件",
+   "en": "",
+   "def": "没有它结论就不成立的条件。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "充要条件",
+   "en": "",
+   "def": "互相都能推出的条件。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "轨迹",
+   "en": "",
+   "def": "满足某条件的点的集合。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "完备性",
+   "en": "",
+   "def": "符合条件的点都在图形上。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "纯粹性",
+   "en": "",
+   "def": "图形上的点都符合条件。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "阿波罗尼斯圆",
+   "en": "",
+   "def": "到两定点距离之比为定值的点的轨迹。",
+   "chapterIds": [
+    "ch02"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "70089785ea24",
+ "contentHash": "76e633f0cbe7",
+ "duplicateGroup": "70089785ea24"
+}

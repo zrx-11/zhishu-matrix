@@ -1,0 +1,479 @@
+{
+ "repo": "math-basics-enlighten",
+ "bookSlug": "conic-sections",
+ "title": "圆锥曲线",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "19-圆锥曲线/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 12,
+  "glossary": 9
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：椭圆",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "19-圆锥曲线/chapters/ch01-ellipse.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-19-圆锥曲线 许仲苌 左铨如.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：双曲线与抛物线",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "19-圆锥曲线/chapters/ch02-hyperbola-parabola.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-19-圆锥曲线 许仲苌 左铨如.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：统一定义、光学性质与坐标变换",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "19-圆锥曲线/chapters/ch03-unified-optics.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-19-圆锥曲线 许仲苌 左铨如.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "离心率",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "19-圆锥曲线/concepts/c01-eccentricity.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-19-圆锥曲线 许仲苌 左铨如.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "a、b、c 的关系",
+   "chapterIds": [
+    "ch01",
+    "ch02"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "19-圆锥曲线/concepts/c02-abc-relation.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-19-圆锥曲线 许仲苌 左铨如.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "椭圆 x²/16+y²/7=1 的焦距是：",
+   "options": [
+    "6",
+    "3",
+    "9",
+    "18"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "c²=16−7=9，c=3，焦距 2c=6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "椭圆的离心率 e 的取值范围是：",
+   "options": [
+    "(0,1)",
+    "(1,+∞)",
+    "[0,1]",
+    "(0,+∞)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "e=c/a，且 0<c<a，故 0<e<1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "双曲线 x²/16−y²/9=1 的渐近线是：",
+   "options": [
+    "y=±(3/4)x",
+    "y=±(4/3)x",
+    "y=±(9/16)x",
+    "y=±x"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "a=4，b=3，渐近线 y=±(b/a)x=±(3/4)x。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "抛物线 y²=12x 的焦点坐标是：",
+   "options": [
+    "(3,0)",
+    "(6,0)",
+    "(0,3)",
+    "(12,0)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "2p=12，p=6，焦点 (p/2,0)=(3,0)。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "离心率 e=1 对应的圆锥曲线是：",
+   "options": [
+    "椭圆",
+    "双曲线",
+    "抛物线",
+    "圆"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "e=1 即到焦点与到准线距离相等，是抛物线。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "平行于抛物线对称轴的光线经反射后：",
+   "options": [
+    "原路返回",
+    "过焦点",
+    "平行射出",
+    "发散"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "抛物线的光学性质：平行于轴的光线反射后过焦点。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "椭圆 x²/36+y²/20=1 的离心率是：",
+   "options": [
+    "2/3",
+    "√2/3",
+    "4/9",
+    "1/3"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "a=6，b²=20，c²=36−20=16，c=4，e=c/a=2/3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "抛物线 x²=−8y 的焦点坐标是：",
+   "options": [
+    "(0,−2)",
+    "(0,2)",
+    "(−2,0)",
+    "(2,0)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "x²=−2py 开口向下，2p=8，p=4，焦点 (0,−p/2)=(0,−2)。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：椭圆」的一句话核心是什么？",
+   "back": "椭圆是“到两定点距离之和为常数”的点集；a 是半长轴，c 是半焦距，b²=a²−c²。",
+   "chapterId": "ch01",
+   "tags": [
+    "conic-sections",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：双曲线与抛物线」的一句话核心是什么？",
+   "back": "双曲线是“距离之差为常数”，抛物线是“到定点与定直线等距”；前者有渐近线，后者只有一条对称轴。",
+   "chapterId": "ch02",
+   "tags": [
+    "conic-sections",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：统一定义、光学性质与坐标变换」的一句话核心是什么？",
+   "back": "三条曲线可以合成一句话：到焦点距离与到准线距离之比等于 e。",
+   "chapterId": "ch03",
+   "tags": [
+    "conic-sections",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「椭圆」？",
+   "back": "到两定点距离之和为常数的点的轨迹。",
+   "chapterId": "ch01",
+   "tags": [
+    "conic-sections",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「焦点」？",
+   "back": "定义中的定点。",
+   "chapterId": "ch01",
+   "tags": [
+    "conic-sections",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「半长轴」？",
+   "back": "椭圆中的 a，长轴长为 2a。",
+   "chapterId": "ch01",
+   "tags": [
+    "conic-sections",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「离心率」？",
+   "back": "e=c/a，描述曲线的形状参数。",
+   "chapterId": "ch01",
+   "tags": [
+    "conic-sections",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「双曲线」？",
+   "back": "到两定点距离之差为常数的点的轨迹。",
+   "chapterId": "ch02",
+   "tags": [
+    "conic-sections",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「渐近线」？",
+   "back": "双曲线无限接近但不相交的直线。",
+   "chapterId": "ch02",
+   "tags": [
+    "conic-sections",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「抛物线」？",
+   "back": "到定点与定直线等距的点的轨迹。",
+   "chapterId": "ch02",
+   "tags": [
+    "conic-sections",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「准线」？",
+   "back": "统一定义中的定直线。",
+   "chapterId": "ch03",
+   "tags": [
+    "conic-sections",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「通径」？",
+   "back": "过焦点垂直于对称轴的弦。",
+   "chapterId": "ch01",
+   "tags": [
+    "conic-sections",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "椭圆",
+   "en": "",
+   "def": "到两定点距离之和为常数的点的轨迹。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "焦点",
+   "en": "",
+   "def": "定义中的定点。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "半长轴",
+   "en": "",
+   "def": "椭圆中的 a，长轴长为 2a。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "离心率",
+   "en": "",
+   "def": "e=c/a，描述曲线的形状参数。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "双曲线",
+   "en": "",
+   "def": "到两定点距离之差为常数的点的轨迹。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "渐近线",
+   "en": "",
+   "def": "双曲线无限接近但不相交的直线。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "抛物线",
+   "en": "",
+   "def": "到定点与定直线等距的点的轨迹。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "准线",
+   "en": "",
+   "def": "统一定义中的定直线。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "通径",
+   "en": "",
+   "def": "过焦点垂直于对称轴的弦。",
+   "chapterIds": [
+    "ch01"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "0e89fec1ca11",
+ "contentHash": "e6b933e1813e",
+ "duplicateGroup": "0e89fec1ca11"
+}

@@ -1,0 +1,700 @@
+{
+ "repo": "math-basics-enlighten",
+ "bookSlug": "rational-irrational",
+ "title": "有理数与无理数",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "01-有理数与无理数/manifest.json",
+ "stats": {
+  "chapters": 5,
+  "concepts": 3,
+  "quizzes": 13,
+  "cards": 17,
+  "glossary": 12
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：有理数的概念与数轴",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "01-有理数与无理数/chapters/ch01-rational-number-axis.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-01-有理数与无理数.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：有理数的四则运算",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "01-有理数与无理数/chapters/ch02-arithmetic.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-01-有理数与无理数.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：乘方与开方",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "01-有理数与无理数/chapters/ch03-power-root.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-01-有理数与无理数.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：无理数与实数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch03"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "01-有理数与无理数/chapters/ch04-irrational-real.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-01-有理数与无理数.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch05",
+   "num": 5,
+   "title": "第 5 章：逼近、代数数与超越数",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch04"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "01-有理数与无理数/chapters/ch05-approximation-transcendental.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-01-有理数与无理数.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "有理数与无理数的分界",
+   "chapterIds": [
+    "ch01",
+    "ch04"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "01-有理数与无理数/concepts/c01-rational-vs-irrational.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-01-有理数与无理数.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "实数与数轴的一一对应",
+   "chapterIds": [
+    "ch01",
+    "ch04"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "01-有理数与无理数/concepts/c02-real-line-bijection.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-01-有理数与无理数.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c03",
+   "title": "用有理数逼近无理数",
+   "chapterIds": [
+    "ch05"
+   ],
+   "prerequisites": [
+    "ch05"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "01-有理数与无理数/concepts/c03-approximation.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-01-有理数与无理数.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "下列各数中，是负有理数的是：",
+   "options": [
+    "−3/4",
+    "0",
+    "|−2|",
+    "−(−5)"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "−3/4 是负分数，属有理数。0 不是负数；|−2|=2 是正数；−(−5)=5 是正数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "比较 −7/8 与 −6/7 的大小，正确的是：",
+   "options": [
+    "−7/8 > −6/7",
+    "−7/8 < −6/7",
+    "−7/8 = −6/7",
+    "无法比较"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "通分得 −49/56 与 −48/56。两负数比较，绝对值大的反而小，49>48，所以 −7/8 < −6/7。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "计算 (−2)(−3)+(−4) 的结果是：",
+   "options": [
+    "−10",
+    "2",
+    "10",
+    "−2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "(−2)(−3)=6（同号得正），再加 −4 得 2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "下列运算中，能说明有理数集对除法不封闭的是：",
+   "options": [
+    "3÷4=3/4",
+    "(−6)÷2=−3",
+    "5÷0 没有意义",
+    "0÷7=0"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "封闭要求“任意两个元素运算后仍在集合内”。5÷0 因为除数没有倒数而不成立，说明除法必须把 0 排除在外。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "下列各式中值等于 −16 的是：",
+   "options": [
+    "(−2)^4",
+    "−2^4",
+    "(−4)^2",
+    "2^4"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "−2^4 表示 2 的四次幂取相反数，等于 −16；(−2)^4=16，(−4)^2=16，2^4=16。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "下列方根中，结果不是有理数的是：",
+   "options": [
+    "√49",
+    "∛(−27)",
+    "√2",
+    "√0.25"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "√49=7；∛(−27)=−3；√0.25=0.5；而 2 不是任何有理数的平方，√2 不是有理数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "“√2 不是有理数”的反证中，关键矛盾是：",
+   "options": [
+    "m、n 都很大",
+    "m、n 同為偶数，与互质矛盾",
+    "√2 是无限小数",
+    "2 不是平方数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "由 m²=2n² 推出 m 偶，再由 m=2k 推出 n 偶，于是 m、n 有公因数 2，与“最简分数”矛盾。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "下列数中是无理数的是：",
+   "options": [
+    "0.121212…（循环）",
+    "√16",
+    "π",
+    "22/7"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "循环小数是有理数；√16=4；22/7 是分数；π 不是任何整系数多项式方程的根，是无理数（超越数）。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "ch05",
+   "stem": "用 √2 的截断序列 x_n 近似，要保证误差小于 10^-5，至少取到第几位？",
+   "options": [
+    "3",
+    "4",
+    "5",
+    "6"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "误差上界是 10^-n，要求 10^-n<10^-5，需 n≥5，故取 x_5=1.41421。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "ch05",
+   "stem": "下列数中，属于超越数的是：",
+   "options": [
+    "√2",
+    "黄金比 (1+√5)/2",
+    "π",
+    "22/7"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c03",
+   "explain": "√2 是 x²−2=0 的根；黄金比是 x²−x−1=0 的根；22/7 是有理数；π 不是任何整系数多项式方程的根，是超越数。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q11",
+   "chapterId": "__all__",
+   "stem": "关于有理数与无理数，下列说法正确的是：",
+   "options": [
+    "无限小数都是无理数",
+    "√9 是无理数",
+    "有理数在数轴上稠密但不连续",
+    "两个无理数的和一定是无理数"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "无限循环小数是有理数；√9=3；√2+(−√2)=0 是有理数，故 D 错；有理数稠密但数轴上有缝，C 正确。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q12",
+   "chapterId": "__all__",
+   "stem": "用截断序列逼近 π，取 x_2=3.14，误差满足：",
+   "options": [
+    "误差小于 0.001",
+    "误差小于 0.01",
+    "误差大于 0.01",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "截断到两位小数，砍掉的尾部小于 0.01，故 0≤π−3.14<0.01。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q13",
+   "chapterId": "__all__",
+   "stem": "“代数数可数、实数不可数”这个论证直接说明：",
+   "options": [
+    "所有实数都是代数数",
+    "超越数存在且数量极多",
+    "代数数都是有理数",
+    "π 是有理数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "可数集合无法覆盖不可数集合，所以必有非代数数的实数，即超越数；而且余下的数量远多于代数数。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：有理数的概念与数轴」的一句话核心是什么？",
+   "back": "有理数就是能写成两个整数之比的数；数轴把这套数按大小排成一条线，右边的永远比左边大。",
+   "chapterId": "ch01",
+   "tags": [
+    "rational-irrational",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：有理数的四则运算」的一句话核心是什么？",
+   "back": "减法是加相反数，除法是乘倒数；所有符号规则都由分配律推出来，不是额外规定。",
+   "chapterId": "ch02",
+   "tags": [
+    "rational-irrational",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：乘方与开方」的一句话核心是什么？",
+   "back": "乘方是相同因数连乘的简写；开方是它的逆运算——开得尽时结果是有理数，开不尽时结果就跳出有理数集。",
+   "chapterId": "ch03",
+   "tags": [
+    "rational-irrational",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "「第 4 章：无理数与实数」的一句话核心是什么？",
+   "back": "开不尽的方根不能写成两个整数之比，这类数叫无理数；有理数与无理数合起来是实数，实数把数轴填满了。",
+   "chapterId": "ch04",
+   "tags": [
+    "rational-irrational",
+    "核心"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "「第 5 章：逼近、代数数与超越数」的一句话核心是什么？",
+   "back": "无理数用有理数列逼近，误差随位数缩小到任意小——这就是极限的雏形；能当整系数多项式方程的根的叫代数数，当不了的叫超越数。",
+   "chapterId": "ch05",
+   "tags": [
+    "rational-irrational",
+    "核心"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「有理数」？",
+   "back": "能写成两个整数之比 m/n（n≠0）的数，包含整数与分数。",
+   "chapterId": "ch01",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「无理数」？",
+   "back": "不是有理数的实数，即不能写成两个整数之比的数。",
+   "chapterId": "ch04",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「相反数」？",
+   "back": "对 a 而言是 −a；两者在数轴上关于原点对称。",
+   "chapterId": "ch01",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「绝对值」？",
+   "back": "数轴上表示 a 的点到原点的距离，恒为非负数。",
+   "chapterId": "ch01",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「数轴」？",
+   "back": "规定了原点、正方向和单位长度的直线。",
+   "chapterId": "ch01",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「乘方」？",
+   "back": "n 个相同因数 a 相乘的简写，记作 a^n。",
+   "chapterId": "ch03",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「开方」？",
+   "back": "求满足 x^n=a 的 x 的运算，是乘方的逆运算。",
+   "chapterId": "ch03",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "什么是「算术根」？",
+   "back": "非负的那个 n 次方根，记作 ⁿ√a。",
+   "chapterId": "ch03",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f14",
+   "front": "什么是「稠密性」？",
+   "back": "任意两个有理数之间还存在有理数，这个性质叫有理数的稠密性。",
+   "chapterId": "ch04",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f15",
+   "front": "什么是「代数数」？",
+   "back": "某个整系数多项式方程的根。",
+   "chapterId": "ch05",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f16",
+   "front": "什么是「超越数」？",
+   "back": "不是代数数的实数，如 π、e。",
+   "chapterId": "ch05",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  },
+  {
+   "id": "f17",
+   "front": "什么是「截断序列」？",
+   "back": "把无理数的小数在第 n 位后截断得到的有理数列。",
+   "chapterId": "ch05",
+   "tags": [
+    "rational-irrational",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "有理数",
+   "en": "",
+   "def": "能写成两个整数之比 m/n（n≠0）的数，包含整数与分数。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "无理数",
+   "en": "",
+   "def": "不是有理数的实数，即不能写成两个整数之比的数。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "相反数",
+   "en": "",
+   "def": "对 a 而言是 −a；两者在数轴上关于原点对称。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "绝对值",
+   "en": "",
+   "def": "数轴上表示 a 的点到原点的距离，恒为非负数。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "数轴",
+   "en": "",
+   "def": "规定了原点、正方向和单位长度的直线。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "乘方",
+   "en": "",
+   "def": "n 个相同因数 a 相乘的简写，记作 a^n。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "开方",
+   "en": "",
+   "def": "求满足 x^n=a 的 x 的运算，是乘方的逆运算。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "算术根",
+   "en": "",
+   "def": "非负的那个 n 次方根，记作 ⁿ√a。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "稠密性",
+   "en": "",
+   "def": "任意两个有理数之间还存在有理数，这个性质叫有理数的稠密性。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "代数数",
+   "en": "",
+   "def": "某个整系数多项式方程的根。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "超越数",
+   "en": "",
+   "def": "不是代数数的实数，如 π、e。",
+   "chapterIds": [
+    "ch05"
+   ]
+  },
+  {
+   "term": "截断序列",
+   "en": "",
+   "def": "把无理数的小数在第 n 位后截断得到的有理数列。",
+   "chapterIds": [
+    "ch05"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 5,
+  "concepts": 3
+ },
+ "signature": "6d2a9da96e5a",
+ "contentHash": "c90710b2d01f",
+ "duplicateGroup": "6d2a9da96e5a"
+}

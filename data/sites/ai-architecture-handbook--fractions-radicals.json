@@ -1,0 +1,540 @@
+{
+ "repo": "ai-architecture-handbook",
+ "bookSlug": "fractions-radicals",
+ "title": "分式与根式",
+ "discipline": "ai",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "32-math-basics/04-分式与根式/manifest.json",
+ "stats": {
+  "chapters": 4,
+  "concepts": 2,
+  "quizzes": 10,
+  "cards": 13,
+  "glossary": 9
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：有理分式的概念与运算",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/04-分式与根式/chapters/ch01-rational-expression.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-04-分式与根式 周锦辉 黄久征 孔馨逸.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：分式方程与同解原理",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/04-分式与根式/chapters/ch02-fractional-equation.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-04-分式与根式 周锦辉 黄久征 孔馨逸.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：部分分式",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/04-分式与根式/chapters/ch03-partial-fraction.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-04-分式与根式 周锦辉 黄久征 孔馨逸.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch04",
+   "num": 4,
+   "title": "第 4 章：根式与算术根",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/04-分式与根式/chapters/ch04-radical.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-04-分式与根式 周锦辉 黄久征 孔馨逸.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "定义域与增根",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch04"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02",
+    "ch04"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/04-分式与根式/concepts/c01-domain-extraneous.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-04-分式与根式 周锦辉 黄久征 孔馨逸.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "部分分式分解",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "ai-architecture-handbook",
+    "path": "32-math-basics/04-分式与根式/concepts/c02-partial-fraction-concept.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-04-分式与根式 周锦辉 黄久征 孔馨逸.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "分式 1/(x²−9) 有意义的条件是：",
+   "options": [
+    "x≠3",
+    "x≠−3",
+    "x≠±3",
+    "x≠0"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "分母 x²−9=(x−3)(x+3)，要求 x≠3 且 x≠−3。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "化简 (x²−1)/(x²+x) 的结果是：",
+   "options": [
+    "(x−1)/x",
+    "x−1",
+    "1/x",
+    "(x+1)/x"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "分子 (x−1)(x+1)，分母 x(x+1)，约去 (x+1) 得 (x−1)/x（x≠0，x≠−1）。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "解分式方程产生增根的根本原因是：",
+   "options": [
+    "计算失误",
+    "去分母时乘了含未知数的式子",
+    "方程次数变高",
+    "没有通分"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "乘以含未知数的式子会把原定义域外的点带入等式，使不满足原方程的值成为候选解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "方程 1/(x−2)=0 的解的情况是：",
+   "options": [
+    "x=2",
+    "无解",
+    "x=0",
+    "任意实数"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "分式的值为零要求分子为零且分母不为零；这里分子恒为 1，故无解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "分式 (x²+1)/(x−1) 属于：",
+   "options": [
+    "真分式",
+    "假分式",
+    "整式",
+    "无法判断"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "分子次数 2 不低于分母次数 1，是假分式，需先做除法。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "分解 1/[(x−1)(x−2)] 时，应设为：",
+   "options": [
+    "A/(x−1)+B/(x−2)",
+    "A/(x−1)+B/(x−2)+C",
+    "(Ax+B)/(x−1)(x−2)",
+    "A/[(x−1)(x−2)]"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c02",
+   "explain": "分母是两个不同的一次因式，各对应一个常数分子的一次分式。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "ch04",
+   "stem": "化简 √(x²−4x+4) 的结果是：",
+   "options": [
+    "x−2",
+    "|x−2|",
+    "2−x",
+    "x+2"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "被开方数是 (x−2)²，开方得绝对值 |x−2|，符号随 x 变化。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "ch04",
+   "stem": "把 1/(√5−2) 分母有理化的结果是：",
+   "options": [
+    "√5+2",
+    "(√5+2)/9",
+    "√5−2",
+    "(√5−2)/9"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "分子分母同乘 (√5+2)：分母 (√5)²−2²=5−4=1，所以结果为 √5+2。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q09",
+   "chapterId": "__all__",
+   "stem": "方程 (x²−1)/(x−1)=2 的解是：",
+   "options": [
+    "x=1",
+    "x=−1",
+    "无解",
+    "x=±1"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "约分后 x+1=2 得 x=1，但 x=1 使原分母为零，是增根；原方程无解。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q10",
+   "chapterId": "__all__",
+   "stem": "化简 √12+√27−√3 的结果是：",
+   "options": [
+    "4√3",
+    "6√3",
+    "2√3",
+    "√3"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "√12=2√3，√27=3√3，合并得 2√3+3√3−√3=4√3。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：有理分式的概念与运算」的一句话核心是什么？",
+   "back": "分式就是两个整式的商；所有运算都受一条约束——分母不能为零。",
+   "chapterId": "ch01",
+   "tags": [
+    "fractions-radicals",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：分式方程与同解原理」的一句话核心是什么？",
+   "back": "去分母是两边乘含未知数的式子，可能把分母为零的点混进来，所以必须验根。",
+   "chapterId": "ch02",
+   "tags": [
+    "fractions-radicals",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：部分分式」的一句话核心是什么？",
+   "back": "把一个复杂真分式拆成几个简单分式之和，拆法由分母的因式类型决定。",
+   "chapterId": "ch03",
+   "tags": [
+    "fractions-radicals",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "「第 4 章：根式与算术根」的一句话核心是什么？",
+   "back": "根号表示非负的算术根；化简是把被开方数里的完全平方因子提出来，有理化是消掉分母里的根号。",
+   "chapterId": "ch04",
+   "tags": [
+    "fractions-radicals",
+    "核心"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「有理分式」？",
+   "back": "两个整式的商 A/B，B 含字母且不为零。",
+   "chapterId": "ch01",
+   "tags": [
+    "fractions-radicals",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「约分」？",
+   "back": "约去分子分母的公因式。",
+   "chapterId": "ch01",
+   "tags": [
+    "fractions-radicals",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「最简公分母」？",
+   "back": "各分母所有因式最高次幂的乘积。",
+   "chapterId": "ch01",
+   "tags": [
+    "fractions-radicals",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「增根」？",
+   "back": "变形后产生但不满足原方程的解。",
+   "chapterId": "ch02",
+   "tags": [
+    "fractions-radicals",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「真分式」？",
+   "back": "分子次数低于分母次数的分式。",
+   "chapterId": "ch03",
+   "tags": [
+    "fractions-radicals",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「部分分式」？",
+   "back": "把真分式拆成的若干简单分式。",
+   "chapterId": "ch03",
+   "tags": [
+    "fractions-radicals",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「算术根」？",
+   "back": "非负的 n 次方根。",
+   "chapterId": "ch04",
+   "tags": [
+    "fractions-radicals",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「分母有理化」？",
+   "back": "通过乘共轭式消去分母中的根号。",
+   "chapterId": "ch04",
+   "tags": [
+    "fractions-radicals",
+    "术语"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "什么是「共轭式」？",
+   "back": "√a+√b 与 √a−√b 互为共轭，乘积为 a−b。",
+   "chapterId": "ch04",
+   "tags": [
+    "fractions-radicals",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "有理分式",
+   "en": "",
+   "def": "两个整式的商 A/B，B 含字母且不为零。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "约分",
+   "en": "",
+   "def": "约去分子分母的公因式。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "最简公分母",
+   "en": "",
+   "def": "各分母所有因式最高次幂的乘积。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "增根",
+   "en": "",
+   "def": "变形后产生但不满足原方程的解。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "真分式",
+   "en": "",
+   "def": "分子次数低于分母次数的分式。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "部分分式",
+   "en": "",
+   "def": "把真分式拆成的若干简单分式。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "算术根",
+   "en": "",
+   "def": "非负的 n 次方根。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "分母有理化",
+   "en": "",
+   "def": "通过乘共轭式消去分母中的根号。",
+   "chapterIds": [
+    "ch04"
+   ]
+  },
+  {
+   "term": "共轭式",
+   "en": "",
+   "def": "√a+√b 与 √a−√b 互为共轭，乘积为 a−b。",
+   "chapterIds": [
+    "ch04"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 4,
+  "concepts": 2
+ },
+ "signature": "c37b55e8a04f",
+ "contentHash": "2071bb2309cb",
+ "duplicateGroup": "c37b55e8a04f"
+}

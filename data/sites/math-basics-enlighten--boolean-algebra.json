@@ -1,0 +1,495 @@
+{
+ "repo": "math-basics-enlighten",
+ "bookSlug": "boolean-algebra",
+ "title": "逻辑代数初步",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "23-逻辑代数初步/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 13,
+  "glossary": 10
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：命题与真值表",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "23-逻辑代数初步/chapters/ch01-truth-table.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-23-逻辑代数初步 莫绍揆.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：逻辑恒等式与化简",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "23-逻辑代数初步/chapters/ch02-identities-simplify.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-23-逻辑代数初步 莫绍揆.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：开关电路与逻辑门",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "23-逻辑代数初步/chapters/ch03-circuits-gates.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-23-逻辑代数初步 莫绍揆.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "二值性",
+   "chapterIds": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch02",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "23-逻辑代数初步/concepts/c01-binary.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-23-逻辑代数初步 莫绍揆.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "化简与等价",
+   "chapterIds": [
+    "ch02"
+   ],
+   "prerequisites": [
+    "ch02"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "23-逻辑代数初步/concepts/c02-simplify-equivalence.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-23-逻辑代数初步 莫绍揆.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "逻辑运算 1+1 的结果是：",
+   "options": [
+    "0",
+    "1",
+    "2",
+    "无定义"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "或运算只要有一个为真结果就为真，故 1+1=1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "A→B 等价于：",
+   "options": [
+    "A+B",
+    "A′+B",
+    "AB",
+    "A′B′"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "蕴含式只有 A 真 B 假时为假，等价于 A′+B。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "(AB)′ 等于：",
+   "options": [
+    "A′B′",
+    "A′+B′",
+    "A+B",
+    "AB"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "德摩根律：乘积取反等于各自取反后相加。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "化简 AB+AB′ 的结果是：",
+   "options": [
+    "A",
+    "B",
+    "AB",
+    "A+B"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "AB+AB′=A(B+B′)=A。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "两个开关串联对应哪种逻辑运算：",
+   "options": [
+    "与",
+    "或",
+    "非",
+    "异或"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "串联要求都闭合，对应与运算。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "被称为“万能门”的是：",
+   "options": [
+    "与门",
+    "或门",
+    "与非门",
+    "异或门"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "只用与非门就能实现所有基本逻辑功能。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "逻辑表达式 A+A′ 的值是：",
+   "options": [
+    "0",
+    "1",
+    "A",
+    "A′"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "互补律：一个变量与其反变量相加恒为 1。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "化简 A+AB 的结果是：",
+   "options": [
+    "A",
+    "B",
+    "AB",
+    "A+B"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "吸收律 A+AB=A。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：命题与真值表」的一句话核心是什么？",
+   "back": "逻辑代数只有两个值；一切复合命题都能用真值表穷举验证。",
+   "chapterId": "ch01",
+   "tags": [
+    "boolean-algebra",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：逻辑恒等式与化简」的一句话核心是什么？",
+   "back": "化简的目标是用最少的“与”“或”项实现同一个逻辑功能；德摩根律是取反的关键。",
+   "chapterId": "ch02",
+   "tags": [
+    "boolean-algebra",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：开关电路与逻辑门」的一句话核心是什么？",
+   "back": "串联对应与，并联对应或，常闭触点对应非；逻辑表达式就是电路图。",
+   "chapterId": "ch03",
+   "tags": [
+    "boolean-algebra",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「逻辑变量」？",
+   "back": "只取 0 或 1 的变量。",
+   "chapterId": "ch01",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「与」？",
+   "back": "两者都真才为真的运算。",
+   "chapterId": "ch01",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「或」？",
+   "back": "有一个真就为真的运算。",
+   "chapterId": "ch01",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「非」？",
+   "back": "真假互换的运算。",
+   "chapterId": "ch01",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「蕴含」？",
+   "back": "A→B，只有 A 真 B 假时为假。",
+   "chapterId": "ch01",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「真值表」？",
+   "back": "穷举所有取值组合列出结果的表。",
+   "chapterId": "ch01",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「德摩根律」？",
+   "back": "取反时与或互换、各项取反。",
+   "chapterId": "ch02",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「卡诺图」？",
+   "back": "按格雷码排列、用圈相邻格化简的图。",
+   "chapterId": "ch02",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「逻辑门」？",
+   "back": "执行基本逻辑运算的电子元件。",
+   "chapterId": "ch03",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "什么是「万能门」？",
+   "back": "能实现全部基本逻辑功能的门，如与非门。",
+   "chapterId": "ch03",
+   "tags": [
+    "boolean-algebra",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "逻辑变量",
+   "en": "",
+   "def": "只取 0 或 1 的变量。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "与",
+   "en": "",
+   "def": "两者都真才为真的运算。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "或",
+   "en": "",
+   "def": "有一个真就为真的运算。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "非",
+   "en": "",
+   "def": "真假互换的运算。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "蕴含",
+   "en": "",
+   "def": "A→B，只有 A 真 B 假时为假。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "真值表",
+   "en": "",
+   "def": "穷举所有取值组合列出结果的表。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "德摩根律",
+   "en": "",
+   "def": "取反时与或互换、各项取反。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "卡诺图",
+   "en": "",
+   "def": "按格雷码排列、用圈相邻格化简的图。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "逻辑门",
+   "en": "",
+   "def": "执行基本逻辑运算的电子元件。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "万能门",
+   "en": "",
+   "def": "能实现全部基本逻辑功能的门，如与非门。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "d9d9d1aa3db0",
+ "contentHash": "1039c3b04d8c",
+ "duplicateGroup": "d9d9d1aa3db0"
+}

@@ -1,0 +1,493 @@
+{
+ "repo": "math-basics-enlighten",
+ "bookSlug": "circle",
+ "title": "圆",
+ "discipline": "math",
+ "homepage": "",
+ "contentLevel": "full",
+ "manifestPath": "12-圆/manifest.json",
+ "stats": {
+  "chapters": 3,
+  "concepts": 2,
+  "quizzes": 8,
+  "cards": 13,
+  "glossary": 10
+ },
+ "chapters": [
+  {
+   "id": "ch01",
+   "num": 1,
+   "title": "第 1 章：圆的基本性质",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "12-圆/chapters/ch01-basic-properties.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-12-圆 赵遂之.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch02",
+   "num": 2,
+   "title": "第 2 章：直线与圆的位置关系",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch01"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "12-圆/chapters/ch02-line-circle.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-12-圆 赵遂之.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "ch03",
+   "num": 3,
+   "title": "第 3 章：比例线段与圆内接四边形",
+   "core": "",
+   "minutes": null,
+   "bodyType": "md",
+   "conceptIds": [],
+   "quizIds": [],
+   "prerequisites": [
+    "ch02"
+   ],
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "12-圆/chapters/ch03-proportion.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-12-圆 赵遂之.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "concepts": [
+  {
+   "id": "c01",
+   "title": "同弧所对的角",
+   "chapterIds": [
+    "ch01",
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch01",
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "12-圆/concepts/c01-same-arc.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-12-圆 赵遂之.pdf",
+    "kind": "原书 PDF"
+   }
+  },
+  {
+   "id": "c02",
+   "title": "圆幂",
+   "chapterIds": [
+    "ch03"
+   ],
+   "prerequisites": [
+    "ch03"
+   ],
+   "brief": "",
+   "depth": "",
+   "claims": [],
+   "bodyType": "md",
+   "origin": {
+    "repo": "math-basics-enlighten",
+    "path": "12-圆/concepts/c02-power-of-point.md"
+   },
+   "bookSource": {
+    "file": "数学基础知识丛书-12-圆 赵遂之.pdf",
+    "kind": "原书 PDF"
+   }
+  }
+ ],
+ "quizzes": [
+  {
+   "id": "q01",
+   "chapterId": "ch01",
+   "stem": "同弧所对的圆心角为 80°，则圆周角为：",
+   "options": [
+    "80°",
+    "40°",
+    "160°",
+    "20°"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "同弧圆周角是圆心角的一半。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q02",
+   "chapterId": "ch01",
+   "stem": "圆半径为 10，弦心距为 6，则弦长为：",
+   "options": [
+    "8",
+    "12",
+    "16",
+    "20"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "半弦 =√(100−36)=8，弦长 16。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q03",
+   "chapterId": "ch02",
+   "stem": "圆半径为 3，圆心到直线距离为 5，则直线与圆的位置关系是：",
+   "options": [
+    "相交",
+    "相切",
+    "相离",
+    "无法判断"
+   ],
+   "answer": 2,
+   "type": "single",
+   "conceptId": "",
+   "explain": "d=5>r=3，相离。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q04",
+   "chapterId": "ch02",
+   "stem": "圆的切线具有的性质是：",
+   "options": [
+    "平行于半径",
+    "垂直于过切点的半径",
+    "过圆心",
+    "与直径重合"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "切线垂直于过切点的半径，这是切线的核心性质。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q05",
+   "chapterId": "ch03",
+   "stem": "圆内两弦相交，一弦被分成 3 和 8 两段，另一弦被分成 4 和 x，则 x 为：",
+   "options": [
+    "6",
+    "5",
+    "7",
+    "9"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "3×8=4×x，得 x=6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q06",
+   "chapterId": "ch03",
+   "stem": "圆内接四边形 ABCD 中，∠A=70°，则 ∠C 为：",
+   "options": [
+    "70°",
+    "110°",
+    "90°",
+    "20°"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "c01",
+   "explain": "对角互补：∠C=180°−70°=110°。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q07",
+   "chapterId": "__all__",
+   "stem": "圆内两弦相交，交点分一弦为 2 和 9，分另一弦为 3 和 x，则 x 为：",
+   "options": [
+    "6",
+    "4.5",
+    "7",
+    "5"
+   ],
+   "answer": 0,
+   "type": "single",
+   "conceptId": "",
+   "explain": "2×9=3×x，得 x=6。",
+   "misconception": "",
+   "bookSource": null
+  },
+  {
+   "id": "q08",
+   "chapterId": "__all__",
+   "stem": "下列关于圆的切线的说法正确的是：",
+   "options": [
+    "切线一定过圆心",
+    "切线垂直于过切点的半径",
+    "切线与圆有两个公共点",
+    "切线长都相等"
+   ],
+   "answer": 1,
+   "type": "single",
+   "conceptId": "",
+   "explain": "切线垂直于过切点的半径；切线只有一个公共点，切线长只在同一外点的两条切线间相等。",
+   "misconception": "",
+   "bookSource": null
+  }
+ ],
+ "cards": [
+  {
+   "id": "f01",
+   "front": "「第 1 章：圆的基本性质」的一句话核心是什么？",
+   "back": "同弧所对的圆周角相等，且等于圆心角的一半；直径所对的圆周角是直角。",
+   "chapterId": "ch01",
+   "tags": [
+    "circle",
+    "核心"
+   ]
+  },
+  {
+   "id": "f02",
+   "front": "「第 2 章：直线与圆的位置关系」的一句话核心是什么？",
+   "back": "位置关系只看一个数：圆心到直线的距离 d 与半径 r 比大小。",
+   "chapterId": "ch02",
+   "tags": [
+    "circle",
+    "核心"
+   ]
+  },
+  {
+   "id": "f03",
+   "front": "「第 3 章：比例线段与圆内接四边形」的一句话核心是什么？",
+   "back": "圆里的比例关系全部来自相似三角形：把圆上的点连起来，就能找到成比例的边。",
+   "chapterId": "ch03",
+   "tags": [
+    "circle",
+    "核心"
+   ]
+  },
+  {
+   "id": "f04",
+   "front": "什么是「弦」？",
+   "back": "圆上两点间的线段。",
+   "chapterId": "ch01",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  },
+  {
+   "id": "f05",
+   "front": "什么是「弧」？",
+   "back": "圆上两点之间的部分。",
+   "chapterId": "ch01",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  },
+  {
+   "id": "f06",
+   "front": "什么是「圆心角」？",
+   "back": "顶点在圆心的角。",
+   "chapterId": "ch01",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  },
+  {
+   "id": "f07",
+   "front": "什么是「圆周角」？",
+   "back": "顶点在圆上、两边与圆相交的角。",
+   "chapterId": "ch01",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  },
+  {
+   "id": "f08",
+   "front": "什么是「垂径定理」？",
+   "back": "垂直于弦的直径平分弦及所对的弧。",
+   "chapterId": "ch01",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  },
+  {
+   "id": "f09",
+   "front": "什么是「切线」？",
+   "back": "与圆只有一个公共点的直线。",
+   "chapterId": "ch02",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  },
+  {
+   "id": "f10",
+   "front": "什么是「切线长」？",
+   "back": "圆外一点到切点的线段长度。",
+   "chapterId": "ch02",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  },
+  {
+   "id": "f11",
+   "front": "什么是「相交弦定理」？",
+   "back": "圆内两弦相交，交点分成的两段乘积相等。",
+   "chapterId": "ch03",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  },
+  {
+   "id": "f12",
+   "front": "什么是「切割线定理」？",
+   "back": "PT²=PA·PB。",
+   "chapterId": "ch03",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  },
+  {
+   "id": "f13",
+   "front": "什么是「弦切角」？",
+   "back": "切线与弦的夹角，等于所夹弧对的圆周角。",
+   "chapterId": "ch03",
+   "tags": [
+    "circle",
+    "术语"
+   ]
+  }
+ ],
+ "glossary": [
+  {
+   "term": "弦",
+   "en": "",
+   "def": "圆上两点间的线段。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "弧",
+   "en": "",
+   "def": "圆上两点之间的部分。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "圆心角",
+   "en": "",
+   "def": "顶点在圆心的角。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "圆周角",
+   "en": "",
+   "def": "顶点在圆上、两边与圆相交的角。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "垂径定理",
+   "en": "",
+   "def": "垂直于弦的直径平分弦及所对的弧。",
+   "chapterIds": [
+    "ch01"
+   ]
+  },
+  {
+   "term": "切线",
+   "en": "",
+   "def": "与圆只有一个公共点的直线。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "切线长",
+   "en": "",
+   "def": "圆外一点到切点的线段长度。",
+   "chapterIds": [
+    "ch02"
+   ]
+  },
+  {
+   "term": "相交弦定理",
+   "en": "",
+   "def": "圆内两弦相交，交点分成的两段乘积相等。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "切割线定理",
+   "en": "",
+   "def": "PT²=PA·PB。",
+   "chapterIds": [
+    "ch03"
+   ]
+  },
+  {
+   "term": "弦切角",
+   "en": "",
+   "def": "切线与弦的夹角，等于所夹弧对的圆周角。",
+   "chapterIds": [
+    "ch03"
+   ]
+  }
+ ],
+ "sourceKeys": {
+  "chapters": "chapters",
+  "concepts": "concepts",
+  "quizzes": "quizzes",
+  "cards": "flashcards",
+  "glossary": "glossary"
+ },
+ "bodyCount": {
+  "chapters": 3,
+  "concepts": 2
+ },
+ "signature": "68c4cdc1769b",
+ "contentHash": "c8c7af9516a1",
+ "duplicateGroup": "68c4cdc1769b"
+}
