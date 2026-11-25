@@ -29,3 +29,11 @@
 | 2026-11-25 | `data/` 15.3MB 是否走 LFS 或拆分 | 直接进版本库，不拆不用 LFS | 最大单文件 1.54MB，265 文件，仓库体量可接受；LFS 要远端配置，属越权动作 | 后续如需再迁 LFS |
 | 2026-11-25 | 3D 技术栈取 npm 还是手填 vendor | `npm i three` 由 Vite 打进 bundle，运行期零远程请求 | 铁律判据是「运行时不发请求」，打包满足即可；npmmirror 可达 | 改回 `vendor/three.module.js` 手工引用 |
 | 2026-11-25 | 390px 与「单指拖动」怎么共存 | 触屏/窄视口按铁律降级 2D SVG，单指拖动 = 平移 SVG 视图（不依赖双指） | 同时满足铁律 4 与批 2 判据第 6 条 | 改 `isMobile()` 分支 |
+| 2026-11-25 | 批 2 视口判据怎么在不可 resize 的受控浏览器里实测 | 在同源页面注入 1440×900 与 390×844 两个 iframe，媒体查询按 iframe 自身视口生效，读其 `documentElement.scrollWidth` | 工具集无 setViewport；iframe 是真视口而不是伪造宽度，且 `?flat=0/1` 可强制模式 | 删掉 iframe，人工改窗口尺寸复测 |
+| 2026-11-25 | 帧率测在哪一侧 | 采样应用自身渲染循环的 `fps()`（每 200ms 一次，10.4s），并用合成 pointermove 保持循环醒着 | 铁律的静止 3 秒停渲染会让裸 rAF 计数失真；用户在交互时才是真体验 | 改回裸 rAF 计数（会测到 0） |
+| 2026-11-25 | 点书时保存哪台相机 | 存「当前视图」的相机：在房间存 roomCameras，在大厅才存 hallCamera | 早先无条件写 hallCamera，导致返回大厅位姿被房间位姿污染（表现为「相机没变」） | 还原 `pickBook` 一行 |
+| 2026-11-25 | tools 分区无 `dist/tools.json` | 前端容错：`loadShard` 失败返回空分片，enterRoom 走「0 本」提示分支 | 6 个工具站全无 manifest，抽取器不产出该分片；重跑抽取会覆盖已跟踪的 `data/`，属必须停的五类，故只改前端 | 恢复 loadShard 抛错 |
+| 2026-11-25 | 2D 视图 `setPointerCapture` 抛错 | try/catch 包住 capture/release | 合成事件 pointerId 无效会抛 NotFoundError，早先让 onUp 直接退出、点击不生效 | 去掉 try/catch（会退回点不动） |
+| 2026-11-25 | `THREE.Clock` 弃用告警 | 换 `performance.now()` 手算 dt | 控制台要求零报错，警告也一并清掉；Timer 类在不同版本导出名不稳 | 换回 THREE.Clock |
+| 2026-11-25 | 详情面板创建元素报 InvalidCharacterError | 修掉 `createElement(' span')` / `('span n')` 两处带空格类名 | 类名不能塞进 tag 参数，异常发生在 `panel.hidden=false` 之前，面板永远打不开 | 无（bug 修复） |
+| 2026-11-25 | Three.js 取 npm 还是手填 vendor | npm 装 three 0.187.0，由 Vite 打进 bundle（构建产物 581KB） | 实测生产包资源请求 4 条、全部同源，foreign=0，满足铁律 2 的「运行时不发请求」 | 改回手工 `vendor/three.module.js` |
