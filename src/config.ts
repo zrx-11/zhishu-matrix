@@ -29,6 +29,39 @@ export const HALL_LABEL = '中央大厅';
 export const BG = '#12141a';
 export const FLOOR = '#0e1015';
 
+/**
+ * 六区立柱形态（批 7 阶段 C）：一区一种，几何类型 ≥3。
+ * 语义按学科取形——数学连续、AI 注意力六边形、化学锥形瓶、计算机比特块、通识叠层、工具刻度环。
+ */
+export type ColumnKind = 'cylinder' | 'hexPrism' | 'coneTower' | 'boxPillar' | 'stackedDrum' | 'ringColumn';
+export type PodiumKind = 'disc' | 'step' | 'ring';
+
+export const COLUMN_KINDS: Record<Discipline, ColumnKind> = {
+  math: 'cylinder',
+  ai: 'hexPrism',
+  chem: 'coneTower',
+  cs: 'boxPillar',
+  general: 'stackedDrum',
+  tools: 'ringColumn',
+};
+
+export const PODIUM_KINDS: Record<Discipline, PodiumKind> = {
+  math: 'disc',
+  ai: 'step',
+  chem: 'ring',
+  cs: 'step',
+  general: 'disc',
+  tools: 'ring',
+};
+
+/** 展台竖向堆叠：底座 + 台面，立柱从二者之上起算（概念光点顶也按这个走） */
+export const PODIUM_H = 1.1;
+export const PLAT_H = 1.4;
+export const COLUMN_BASE = PODIUM_H + PLAT_H;
+/** 立柱高度包络：按该书章节数归一化后夹取，39 章的极端书也戳不到天花板 */
+export const COLUMN_H_MIN = 3.4;
+export const COLUMN_H_MAX = 11.2;
+
 /** 是否该走 2D 降级：触屏或窄视口（铁律 4） */
 export function prefersFlatView(): boolean {
   const coarse = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;

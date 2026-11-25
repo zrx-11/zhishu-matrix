@@ -435,6 +435,17 @@ function exposeDiagnostics(): void {
       isView3D(view) ? view.screenPoint(kind, id) : null,
     nodeStats: () => (isView3D(view) ? view.nodeStats() : null),
     triangles: () => (isView3D(view) ? view.triangles() : null),
+    /** 渲染层取证：census / 亮度采样 / 单条 pass 开关，只有 3D 视图有 */
+    census: () => (isView3D(view) ? view.census() : null),
+    sampleLuminance: (x?: number, y?: number, w?: number, h?: number) =>
+      isView3D(view) ? view.sampleLuminance(x ?? 0, y ?? 0, w ?? 1, h ?? 1) : null,
+    setPassEnabled: (name: string, on: boolean) => (isView3D(view) ? view.setPassEnabled(name, on) : false),
+    setBloom: (next: { threshold?: number; strength?: number; radius?: number }) =>
+      isView3D(view) ? view.setBloom(next) : false,
+    tune: (o: Record<string, number>) => (isView3D(view) ? view.tune(o) : null),
+    setShadowsEnabled: (on: boolean) => {
+      if (isView3D(view)) view.setShadowsEnabled(on);
+    },
     direction: () => (isView3D(view) ? view.direction() : null),
     corridorLabels: () => (isView3D(view) ? view.corridorLabels() : []),
     viewCorridor: (key: Discipline) => (isView3D(view) ? view.viewCorridor(key) : false),

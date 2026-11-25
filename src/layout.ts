@@ -1,3 +1,4 @@
+import { COLUMN_H_MAX, COLUMN_H_MIN } from './config';
 import type { BookRecord, SiteEntry } from './types';
 
 export interface BookPlacement {
@@ -45,7 +46,7 @@ export function layoutRoom(books: SiteEntry[]): RoomLayout {
   return { books: placements, columns: [], span: cols * pitch };
 }
 
-/** 展台上的章节立柱：按章节序号排成小网格，高度随 num 递增（docs/design.md 第三节） */
+/** 展台上的章节立柱：按章节序号排成小网格，整本书的高度由章数决定（docs/design.md 第三节） */
 export function layoutColumns(
   layout: RoomLayout,
   records: Map<string, BookRecord>,
@@ -59,6 +60,7 @@ export function layoutColumns(
     const byChapter = conceptsByChapter(rec);
     const per = Math.max(1, Math.ceil(Math.sqrt(n)));
     const step = 4.2;
+    const base = columnBaseHeight(n);
     chapters.forEach((ch, i) => {
       const cx = placement.x + (i % per - (per - 1) / 2) * step;
       const cz = placement.z + (Math.floor(i / per) - (Math.ceil(n / per) - 1) / 2) * step;
@@ -69,12 +71,26 @@ export function layoutColumns(
         chapter: { id: ch.id, title: ch.title, num },
         x: cx,
         z: cz,
-        height: 2.2 + Math.min(num, 24) * 0.34,
+        height: columnHeight(base, num),
         concepts,
       });
     });
   }
   return { ...layout, columns };
+}
+
+/** 归一化基准 24 章：实测 129 本有正文的书约在 90 分位，开方压掉长尾 */
+const REF_CHAPTERS = 24;
+
+function columnBaseHeight(n: number): number {
+  const t = Math.min(1, n / REF_CHAPTERS);
+  return COLUMN_H_MIN + (COLUMN_H_MAX - COLUMN_H_MIN) * Math.sqrt(t);
+}
+
+/** 同书之内按章序号做 0.86—1.0 的起伏，读作天际线而不是平板 */
+function columnHeight(base: number, num: number): number {
+  const wave = 0.86 + 0.14 * ((((Math.max(1, num) - 1) % 4) / 3));
+  return Math.min(COLUMN_H_MAX, Math.max(COLUMN_H_MIN, base * wave));
 }
 
 /** 全书 concepts 按 `chapterIds` 反绑到章；一章多概念就全挂，不做数量截断 */
