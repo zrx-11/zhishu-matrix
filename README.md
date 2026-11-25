@@ -6,26 +6,27 @@
 
 ## 当前状态
 
-批 1 数据、批 2 空间、批 3 阅读层、批 3.5 图示真渲染、批 4 检索层、批 6 打包收敛、批 7 渲染层已落地；生成层待批 5，发布动作待人工执行。
+批 1 数据、批 2 空间、批 3 阅读层、批 3.5 图示真渲染、批 4 检索层、批 6 打包收敛、批 7 渲染层、批 8 空间化已落地；生成层待批 5，发布动作待人工执行。
 
 | 阶段 | 状态 |
 |---|---|
 | 目录与规则骨架 | 完成 |
 | 抽取器 `tools/extract.py` | 完成（50 仓 → 129 本书入 `data/`，`tools/verify_data.py` 五类 23 项校验全绿） |
 | 3D 空间 | 完成（六区大厅 + 房间展台 + 小地图 + WASD + 走廊学科名，触屏/窄视口降级 2D SVG） |
+| 空间结构 | 完成（批 8：圆盘阵列改阅览室——四墙天花地板 + 三面书架墙，一章一书脊、书名烤进图集，拾取走 faceIndex 区间映射，HTML 浮标归零。零外部资产，`docs/design.md` 第十三节） |
 | 渲染层 | 完成（批 7：PBR 材质 + 半球/投影方向/逐区学科点光 + PMREM 程序化环境光 + Bloom；六区立柱 6 种几何、概念光点精灵化。零外部资产，`docs/design.md` 第十二节） |
 | 阅读层 | 完成（正文按需加载、`contentLevel` 三档分流、KaTeX 双定界符、外链降级、侧栏 + 全屏双模式） |
 | 图示（Mermaid） | 完成（882 个围栏 / 855 章动态分包渲染，可见才加载，失败回退源码；5 类图型本地出 SVG 零远程） |
 | 检索层 | 完成（六片 `search-<area>.json` + MiniSearch 分片懒加载，`/` 与 `Ctrl+K`，按 `file` 精确落点，返回复原位姿） |
 | 生成层 | 待批 5 |
-| 打包收敛 | 完成（`dist/` 22.83 → 9.85 MiB：数据预压 `.json.gz` + mermaid 白名单裁剪，详见 `docs/deploy.md`）；批 7 渲染层 +0.037 MiB → **9.88 MiB** |
+| 打包收敛 | 完成（`dist/` 22.83 → 9.85 MiB：数据预压 `.json.gz` + mermaid 白名单裁剪，详见 `docs/deploy.md`）；批 7 渲染层 +0.037 MiB → 9.88 MiB，批 8 空间化 +0.023 MiB → **9.903 MiB**（上限 10.6） |
 | 发布 | 未执行（需账号，属人工步骤；`docs/deploy.md` 第三节写了命令路径） |
 
 规模实测（2026-11-25，`data/manifest.json`，265 个文件 / 15.3MB）：
 **独书 96 · 条目 129 · 章 1,169 · 概念 765 · 题 3,541 · 卡 4,100 · 术语 4,100**。
 检索分片实测（`data/dist/search-*.json` 六片）：books 129 · chapters 1,169 · concepts 765 · terms 4,100 全量入索引，
 单片最大 ai 281.2KB（阈值 300KB），tools 区库里 0 本出 0.3KB 空片。
-产物实测（`dist/`，2026-11-25）：**9.88 MiB / 347 文件**（批 6 基线 22.83 MiB / 391 的 43.2%；批 7 渲染层净增 38.5 KB，零新增资产文件），最大单文件 1.45 MiB，
+产物实测（`dist/`，2026-11-25）：**9.903 MiB / 347 文件**（批 6 基线 22.83 MiB / 391 的 43.2%；批 7 渲染层净增 38.5 KB、批 8 空间化净增 23 KB，两批都零新增资产文件），最大单文件 1.45 MiB，
 数据族以 `.json.gz` 预压落盘 —— 分族数字与部署路径见 `docs/deploy.md`。
 
 ## 在 Qoder 里怎么开始
@@ -33,9 +34,9 @@
 1. 用 Qoder CN 打开本文件夹作为工作区
 2. `npm install` → `npm run dev`（127.0.0.1:5173），或 `npm run build` + `npm run preview`（4173）
 3. 改了 `data/` 先跑数据门槛 `python tools/verify_data.py`；改了检索分片先 `python tools/build_search_index.py`；
-   改了 `src/` 跑全量门槛 `python tools/selfcheck.py`（88 项：数据校验 + tsc + build + 离线静态扫描 +
+   改了 `src/` 跑全量门槛 `python tools/selfcheck.py`（110 项：数据校验 + tsc + build + 离线静态扫描 +
    分包取证 + 产物体积收敛 + 无头 Edge 探针，含 390px 溢出、零外部请求、按需加载、mermaid 懒加载与白名单外图型回退、
-   帧率、三态检索、检索返程位姿、光照/环境/后期链与三角面双口径）。**收尾与交付必须完整重跑**，`--skip-build` 复用旧 `dist/` 会把已修的改动验成失败
+   帧率、三态检索、检索返程位姿、光照/环境/后期链与三角面双口径、六区房间建筑账与书脊图集/拾取映射）。**收尾与交付必须完整重跑**，`--skip-build` 复用旧 `dist/` 会把已修的改动验成失败
 4. 新建 Quest，选 Spec 驱动，第一句写：
 
 ```
@@ -48,7 +49,7 @@
 ├─ AGENTS.md          主约束与索引
 ├─ docs/
 │  ├─ schema.md       数据契约
-│  ├─ design.md       3D 空间与交互（第十节图示渲染、第十一节检索层）
+│  ├─ design.md       3D 空间与交互（第十节图示渲染、第十一节检索层、第十二节材质光照、第十三节空间结构）
 │  ├─ deploy.md       发布包形态、实测体积、部署命令与排错
 │  ├─ pitfalls.md     抓取与渲染踩坑
 │  └─ sites.md        站点清单
@@ -60,7 +61,8 @@
 │  ├─ bodies/         章节与概念正文，点开才取
 │  └─ dist/           学科结构分片 5 片 + 检索分片 search-<area>.json 六片
 ├─ dist/              构建产物：明文 data/ 换成预压 .json.gz，只拷运行期真要取的族
-└─ src/               前端：main / scene3d / svg2d / layout / render / diagram / panel / search / state / data / config
+└─ src/               前端：main / scene3d / architecture / spacekit / atlas / layout / svg2d /
+                      render / diagram / panel / search / state / data / config
 ```
 
 ## 边界
