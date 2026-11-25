@@ -157,3 +157,46 @@ curl -sI https://<站点域名>/dist/search-cs.json.gz | grep -iE '^(HTTP|conten
 另有两条行为判据由探针实测，收敛数据族后仍全绿：`full` 档书目能开且正文按 `.json.gz` 按需取（全程 16 次 bodies 请求 / 去重 11 本）、
 3D 分区立柱与光点照常建立（math 区 265 柱 / 398 点）。白名单外图型的回退也在探针里点名验：
 注入一条 `classDiagram` 围栏，取到的原因文本是 `zhishu: 图类型 "classDiagram" 未打包（只保留 …）`，容器给源码不出 SVG。
+
+---
+
+## 六、上线实测（2026-11-25 首次发布）
+
+**站点** `https://zhishu-matrix-9hy96msjm5u.qoder.zone`，快照 9.85 MiB / 347 文件，`published: true`。
+
+访问策略先落到 `private`，外部请求全部 401；改 `public`（`update_access_policy` + `confirmPublic`）后才可外访。这是发布链路里唯一需要额外一步的地方。
+
+三条此前无法在本地确认、这次有了实测答案：
+
+1. **`.json.gz` 不带 `Content-Encoding`。** 托管层返回 `200 + application/octet-stream`，不做透明解压。也就是说 4.2 描述的两种情形落在「不加头」这一支，客户端的 gzip 魔数判定 + `DecompressionStream` 是唯一生效路径——这条现在是那个分支，不是兜底。
+2. **托管层会往 `index.html` 尾部注入水印脚本。** 本地 2,888 B 的入口上线后 59,730 B，注入内容是一段内联的水印徽章（shadow DOM，右下角，可关，点击才跳 `qoder.cn`），**不产生远程加载**，也不包裹原有 script。`check_offline.py` 扫的是本地 `dist/`，这笔注入不在它的覆盖范围内，只能靠本节记录。
+3. **端到端五步全通。** 单次会话 19 个请求、非 2xx 为零、外部域名为零、控制台与页面报错为零：
+
+| 步骤 | 线上实测 |
+|---|---|
+| 大厅 | `mode=three`，129 站 / 1,169 章 / 765 概念，六条走廊名 |
+| 数学区（取 `dist/math.json.gz`） | 45 书 / 265 立柱 / 398 光点，三角面 3,874 |
+| 开正文（取 `sites/` + `bodies/` 的 `.gz`） | `food-math` ch01：116 处 KaTeX、3,533 字，`raw` 回退 0 |
+| mermaid 围栏（首次可见才取分包） | `flowchart` 出 SVG 20,102 B，`state=done`，无回退原因 |
+| cs 区检索（取 `dist/search-cs.json.gz`） | 「算法」21 命中，章节 / 概念 / 书三类齐全 |
+| 390 触屏 | `mode=flat`，`scrollWidth` 390 |
+
+验证脚本 `_work/probe-online.mjs`（`node _work/probe-online.mjs`，可用 `PROBE_BASE` 换站点），原始结果 `_work/probe-online.json`，截图 `_work/shots-online/` 六张。
+
+发布后仍无云端 CDN、无外部字体、无第三方脚本（水印除外）。
+
+## 七、再次发布的固定流程
+
+改完内容后重发，`dist/` 必须是新的：
+
+```bash
+npm run build
+qodercn sites prepare_site --input '{"actionId":"<新 UUID>","projectRoot":".","webDirectory":"dist"}'
+# descriptorStatus 为 pending 时，用同一 actionId + 完全相同的入参再跑一次
+qodercn sites get_publish_status --input '{"actionId":"<同一个>"}'   # 需 canPublish: true
+qodercn sites publish_site      --input '{"actionId":"<同一个>"}'
+qodercn sites get_publish_status --input '{"actionId":"<同一个>"}'   # 需 published: true
+```
+
+同目录已有绑定，重发**不要**再传 `createNewSite`；内容变了必须换新 `actionId`（旧的快照不可变）。
+

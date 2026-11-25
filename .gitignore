@@ -7,6 +7,8 @@ __pycache__/
 *.py[cod]
 data/raw/
 _work/
+# Qoder Sites 生成的本目录绑定描述文件，工具自己写，不入库
+*.qoder.site
 
 .DS_Store
 Thumbs.db
