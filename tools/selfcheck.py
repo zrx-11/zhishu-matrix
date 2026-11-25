@@ -47,6 +47,8 @@ DROPPED_DIAGRAM_RE = re.compile(
 )
 # 批 6 完成判据：dist/ 总体积 ≤ 本轮开始前 22.83MiB 的 60%
 DIST_MAX_MIB = 22.83 * 0.6
+# 批 7 完成判据：渲染层升级后 dist 总量硬上限（改前实测 9.846MiB，留 2.15MiB 给光照资产）
+RENDER_DIST_MAX_MIB = 12.0
 
 
 def run(cmd: list[str], cwd: Path = ROOT) -> tuple[int, str]:
@@ -447,6 +449,12 @@ def main() -> int:
         + (f" · 残留明文数据 {dsz.get('plainJsonData')} / {dsz.get('leftovers')}"
            if dsz.get("plainJsonData") or dsz.get("leftovers") else ""),
     )
+    record(
+        f"批 7 渲染层上限：dist/ 总体积 ≤ {RENDER_DIST_MAX_MIB}MiB",
+        dsz.get("totalMiB") is not None and dsz["totalMiB"] <= RENDER_DIST_MAX_MIB,
+        f"实测 {dsz.get('totalMiB')}MiB / {dsz.get('totalFiles')} 文件 · 分族 "
+        + json.dumps(dsz.get("families"), ensure_ascii=False),
+    )
     ship = ship_integrity()
     record(
         "产物 .json.gz 解压后与 data/ 源逐字节等价（预压不改内容）",
@@ -477,7 +485,7 @@ def main() -> int:
         httpd, port, _ = serve(DIST)
         base = f"http://127.0.0.1:{port}"
         env = dict(os.environ, PROBE_BASE=base, ZHISHU_SAMPLES=json.dumps(samples, ensure_ascii=False),
-                   PROBE_SHOTS="_work/shots-batch6", PYTHONIOENCODING="utf-8")
+                   PROBE_SHOTS="_work/shots-batch7", PYTHONIOENCODING="utf-8")
         node_exe = shutil.which("node") or "node"
         p = subprocess.run([node_exe, str(TOOLS / "selfcheck_probe.mjs")], cwd=str(ROOT),
                            capture_output=True, text=True, encoding="utf-8", env=env)
@@ -525,7 +533,7 @@ def main() -> int:
     merged["failed"] = (merged.get("failed") or []) + [{"name": n, "info": info} for n, ok, info in bad]
     rep_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
     print(f"\n{'=' * 68}\n自检 {len(results)} 项，通过 {len(results) - len(bad)}，失败 {len(bad)}，用时 {time.time() - t0:.1f}s")
-    print("报告：_work/selfcheck-report.json（含 gate 门槛项 + 探针逐项 + offline + bundle + distSize）· 截图：_work/shots-batch6/")
+    print("报告：_work/selfcheck-report.json（含 gate 门槛项 + 探针逐项 + offline + bundle + distSize）· 截图：_work/shots-batch7/")
     if bad and args.keep_server:
         print("--keep-server 已指定但自检未过，仍退出非 0")
     return 1 if bad else 0

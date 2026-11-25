@@ -1,136 +1,133 @@
-# 结果：批 6 打包收敛（数据预压 + mermaid 白名单）+ 发布文档
+# 结果：批 7 3D 空间渲染升级（颜色填充 → 有光照的空间）
 
 ## 状态
 
-done — 自检 **74 项全绿**（`python tools/selfcheck.py`，91.8s，报告 `_work/selfcheck-report.json`，截图 `_work/shots-batch6/`）。
-`dist/` 从本轮基线 **22.83 MiB / 391 文件** 收敛到 **9.85 MiB / 347 文件（43.1%）**，门槛 ≤60% 达标且留有余量。
-数据门槛 `verify_data.py` 五类 23 项全绿；`check_offline.py` 违规 0 处；`tsc --noEmit` 零错；`npm run build` 成功。
-任务书 10 条完成判据逐条过，无「接近完成」；**未新增、未删除、未放宽任何断言**（断言净增 3 条，见下）。
-阶段 D 按要求**没有实际上传**，发布命令与配额核对落在 `docs/deploy.md`。
+done — 自检 **88 项全绿**（`python tools/selfcheck.py`，98.8s，报告 `_work/selfcheck-report.json`，截图 `_work/shots-batch7/`）。
+断言从 **74 → 88 条（净增 14）**，**未删除、未放宽任何一条**（旧 74 条原样在跑；新增的一条体积上限是「加记录」而不是改旧值）。
 
-## 体积分族对比（阶段 A 基线 → 收敛后）
+- `dist/` **9.846 → 9.883 MiB / 347 文件（+0.037 MiB，+0.4%）**，上限 12 MiB，占 82.4%。
+- 帧率：大厅 10s **64.9**、数学区 5s **63**（headless d3d11，无 vsync 上限，真机按 1.4× 余量看）。
+- 三角面最大视图（通识）**33,830 / 150,000 = 22.6%**，双口径已分列。
+- 新增外部二进制资产 **0 个**（`dist/assets` 内 `.hdr/.glb/.gltf/.ktx2/.png/.jpg` 计数为 0），环境光照走 `PMREMGenerator` 程序化生成。
+- `python tools/check_offline.py` 违规 **0**；`npx tsc --noEmit` 退出 0；`npm run build` 成功。
+- 390 视口仍是 2D 降级：`mode=flat`、`scrollWidth=390`、`#three-root canvas` 不存在、运行期零外部请求。
+- `data/` 一字未动、`docs/schema.md` 未改、交互（WASD / 小地图 / 检索 / 阅读层 / 走廊名）行为不变（返回位姿差 0.000）。
+- **未 push、未重发线上站点**（发布由主控决定）。
 
-基线取本轮开工前的 `dist/`（`_work/measure-requests.json`，2026-11-25T07:28Z 实测 `distTotalBytes=23,935,228 / 391 文件`），
-收敛后取当前 `dist/`（`selfcheck.py::dist_size_evidence()`），字节数直接来自文件系统。
+## 改前 → 改后对比（阶段 A 基线 → 阶段 D 落点）
 
-| 族 | 收敛前 | 收敛后 | 差 | 手段 |
-|---|---|---|---|---|
-| `assets/` | 7,344,711 B · 7.00 MiB · 119 片 | 5,458,913 B · 5.21 MiB · 76 片 | **−1,885,798 B / −1.80 MiB / −43 片** | 阶段 C：mermaid 白名单裁剪 |
-| `bodies/` | 7,783,777 B · 7.42 MiB · 129 | 2,908,840 B · 2.77 MiB · 129 | **−4,874,937 B / −4.65 MiB** | 阶段 B：构建期预压（文件数不变） |
-| `sites/` | 3,896,325 B · 3.72 MiB · 129 | 904,073 B · 0.86 MiB · 129 | **−2,992,252 B / −2.85 MiB** | 阶段 B：预压，运行期仍按需取 |
-| `dist/` 结构分片（5） | 4,248,945 B · 4.05 MiB | 806,913 B · 0.77 MiB | **−3,442,032 B / −3.28 MiB** | 阶段 B：预压 |
-| `dist/` 检索分片（6） | 585,266 B · 0.56 MiB | 187,985 B · 0.18 MiB | **−397,281 B / −0.38 MiB** | 阶段 B：预压（最大 ai 片 93.7 KB） |
-| `manifest.json` | 55,078 B · 1 | 55,078 B · 1 | 0 | 刻意保持明文（引导链不依赖解压） |
-| `_report.json` | 18,238 B · 1 | **0** | −18,238 B | 实测运行期 0 请求，不再拷 |
-| `raw/` | 0 B · 0 | 0 | — | 空目录，本就无内容 |
-| `index.html` | 2,888 B · 1 | 2,888 B · 1 | 0 | — |
-| **合计** | **23,935,228 B · 22.83 MiB · 391** | **10,324,690 B · 9.85 MiB · 347** | **−13,610,538 B（−56.9%）** | **占基线 43.1%** |
+数字全部来自 `_work/shots-batch7/{before,after}-metrics.json`（同机位、同采样函数 `sampleLuminance`），
+基线另存 `_work/b7-dist-before.json`、`_work/b7-baseline-selfcheck.txt`。
 
-两条必须写清的事实（阶段 A 实测推翻了前置清单的假设，详见 pitfalls 34 与 decisions 批 6 首三行）：
+| 视图 | 三角面 改前 | 三角面 改后（主/阴影/整帧） | draw call 改前→后 | 整屏亮度 改前→后 | 地面带亮度 改前→后 |
+|---|---|---|---|---|---|
+| 大厅 | 1,398 | 1,398 / 144 / **1,412** | 40 → 53 | 0.08656 → 0.15323 | 0.11060 → 0.23377 |
+| 数学 | 3,874 | 18,454 / 18,300 / **18,468** | 48 → 63 | 0.13117 → 0.10969 | 0.19120 → 0.16999 |
+| AI | 6,150 | 21,154 / 20,992 / **21,168** | 52 → 67 | 0.16865 → 0.13069 | 0.28055 → 0.22458 |
+| 化学 | 1,648 | 16,636 / 16,500 / **16,650** | 15 → 30 | 0.12728 → 0.12110 | 0.17326 → 0.18103 |
+| 计算机 | 3,096 | 4,830 / 4,536 / **4,844** | 17 → 32 | 0.16565 → 0.14713 | 0.25094 → 0.23318 |
+| 通识 | 3,450 | 33,816 / 33,468 / **33,830** | 18 → 33 | 0.15191 → 0.13399 | 0.21468 → 0.20350 |
+| 工具 | 162 | 162 / 0 / **176** | 3 → 17 | 0.09968 → 0.08374 | 0.11459 → 0.13462 |
 
-1. **「16.7MB 数据拷贝是死重」不成立。** 无头 Edge 走完全路径逐族量请求：`sites/` 55 次 / 去重 54 本、
-   结构分片 5 片全取、检索分片 6 片全取、`bodies/` 点开即取——**只有 `_report.json` 与 `raw/` 真是零请求，合计 18 KB**。
-   纯靠「少拷」最多省 0.02 MiB，60% 门槛在只删不压的路线上数学上够不着。
-2. 所以收敛的两根杠杆是 **换传输形态（预压，−11.17 MiB）** 与 **裁 `assets/`（mermaid 白名单，−1.80 MiB）**，
-   功能一个没减。预压不改内容：产物 `.json.gz` 解压后与 `data/` 源**逐字节比对 270 个文件全等**，这条已进门槛。
+亮度不是「整体变亮」：大厅地面带翻倍（受光面抬起来），房间整屏反而略降——ACES 把天空带从 0.0824 压到 0.0333，
+背景与受光面被分开处理，是 tone mapping 的必然结果。
+
+**draw call 上涨的构成**（实测归因，不是猜）：`setPassEnabled('Bloom', false)` 一关就掉回 40 / 50——
+**+13 全是 UnrealBloomPass 的 mip 下/上采样与合成（13 次全屏四边形提交）**，与场景件数无关；
+场景自身只涨 **+2**（48 → 50：新增底座 `InstancedMesh` 一件、房间地面薄盘从透明 Basic 换成受光 Standard 后多一次提交）。
+大厅场景件数 **0 增**（40 → 40）。所有可重复件仍是 `InstancedMesh` 合批，没有逐节点 Mesh。
+
+**体积增量构成**（判据 8）：
+
+| 族 | 改前 | 改后 | 增量 |
+|---|---|---|---|
+| `assets/` | 5,458,913 B · 76 片 | 5,497,444 B · 76 片 | **+38,531 B**（scene3d 分包 579.63 → 599.7 kB；新增 `src/spacekit.ts` 灯光/几何/后期套件） |
+| `bodies/` `sites/` `dist/` `manifest.json` `index.html` | 2,908,840 / 904,073 / 994,898 / 55,078 / 2,888 B | 不变 | 0 |
+| **合计** | **10,324,690 B · 9.846 MiB · 347** | **10,363,221 B · 9.883 MiB · 347** | **+38,531 B（+0.37%）** |
+
+文件数 347 → 347：**没有新增任何外部资产文件**。
 
 ## 做了什么
 
-**阶段 B · 数据落盘收敛**
-- `vite.config.ts` 去掉 `publicDir: 'data'` 的整份拷贝：改为 `publicDir: command === 'serve' ? 'data' : false` +
-  新增插件 `zhishu:ship-data`（`apply: 'build'`，`closeBundle` 阶段按 `SHIP` 白名单挑族、`gzipSync(level 9)` 预压、
-  落 `<name>.json.gz`）。实测打印「数据落盘：270 个文件 15.80MiB → 4.64MiB（跳过 _report.json / raw/）」
-- `src/data.ts` 读侧配合：`dataUrl()` 按 `import.meta.env.PROD` 决定是否加 `.gz`（dev 走明文 `publicDir`，两边调用点不动）；
-  `getJson()` 对 `.gz` 用 `DecompressionStream('gzip')` 还原；`manifest.json` 走 `gzipped=false` 保持明文
-- 边界两处（只在系统边界做校验，内部数据不加防御）：
-  `gunzip()` 先验 gzip 魔数 `1f 8b`，非魔数按明文处理——托管层若对 `.gz` 加 `Content-Encoding: gzip`，浏览器已透明解压；
-  `getJson()` 见 `content-type: text/html` 抛「拿到的是 HTML（产物缺这个文件，SPA 回落把 404 伪装成 200）」，
-  不再让 `JSON.parse` 报 `Unexpected token '<'` 把两种病因混成一条
-- `data/` 源目录**一字未动**（铁律 6）：结构没拆没并、字段没改、明文仍在原位，`.gz` 只存在于 `dist/`
-- `sites/` 的取用改走 `data.ts::loadSiteRecord()`（原 `main.ts::bookRecord()` 内联 fetch），路径与前缀逻辑收进一处
+**阶段 B · 材质与光照**
+- 新增 `src/spacekit.ts`（约 330 行）：程序化渲染套件——`columnGeometry/podiumGeometry`（6 种立柱 + 3 种底座，
+  Lathe/Cylinder/Box 代码生成）、`groundTexture/discTexture/glowTexture`（canvas 程序化贴图）、
+  `buildLightRig`（半球 + 投影方向 + 逐区点光）、`buildEnvironment`（canvas 全景渐变 → `PMREMGenerator`，源贴图用完即弃）、
+  `buildPostChain`（RenderPass → UnrealBloomPass → OutputPass）。
+- 11 处 `MeshBasicMaterial` 逐条处置（表在 `_work/decisions.md`）：地面/信标/展台/底座/立柱/房间地面 → Standard；
+  区环、走廊名地面带、空房间环、概念光点保留 Basic（发光与标记件，亮度必须与相机朝向无关）；`GridHelper` 删除，网格画进地面贴图。
+- 灯光：Hemisphere 0.42 + Directional 1.5（`castShadow`、mapSize 2048、bias −0.0009、normalBias 0.35）
+  + 6 盏学科色 PointLight（900 / distance 240 / decay 2）+ 房间内 top 700 / rim 392。
+  强度不是拍的：标定网格跑过 3 档（1.05/0.42/26 洗白到 0.42、1.05/0.42/15、1.5/0.42/15），取第三档。
+- **主光俯角是本批最值钱的一次修正**：初版架到 60°，关/开阴影的亮度差只有 1.6e-4（等于没投影）；
+  降到 38° 后房间中段差涨到 7.2e-3，截图里影子拖到展台上。
 
-**阶段 C · mermaid 白名单裁剪**
-- 新增插件 `zhishu:mermaid-whitelist`（`enforce: 'pre'`）：读 `node_modules/mermaid/dist/mermaid.core.mjs` 的图型注册表，
-  把 `KEEP_DIAGRAM_IDS`（`flowchart-v2` / `flowchart-elk` / `sequence` / `mindmap` / `xychart`）之外的图型，
-  其动态 `import("./chunks/mermaid.core/xxx.mjs")` 整段换成 `Promise.reject(new Error("zhishu: 图类型 … 未打包"))`——
-  Rollup 不再产出那些分包；另剔 `swimlanes` 布局包（全库 0 处使用，120 KB）
-- **保留既有回退支**：类型侦测仍在，未打包图型走到 loader 即抛错，由 `src/diagram.ts` 的 `fail()` 接住 →
-  `data-diagram="error"` + 源码 `<pre>` + 一行原因，容器不空
-- 分包闭包 57 片 / 5.1 MiB → **14 片 / 3.19 MiB**；`elk`（1.45 MiB，flowchart 在 mermaid 12 的默认布局）与 `cose-bilkent`
-  （mindmap）、`dagre`（兜底）实测被取，全部保留；**没有**用「把 flowchart 改成 dagre」这种改变出图形态的做法换体积
-- 踩坑一条（pitfalls 33）：`IMPORT_RE` 交替支 `(?:\./chunks/mermaid\.core|\./)` 少写结尾 `/`，捕获组带上前导斜杠，
-  查不到 drop 表 → 插件**静默空转**、构建照成功、分包一个没少；靠「无条件打印 + 拿真实源码单跑正则」定位。
-  门槛侧补了产物断言（`droppedLeftovers`），不再依赖插件自述
+**阶段 C · 几何差异化**
+- 六区各一种立柱形态（`cylinder/hexPrism/coneTower/boxPillar/stackedDrum/ringColumn`），底座三种（`disc/step/ring`）。
+  取证签名 `geometry.type:shape:vertexCount`——单看 type 分不开数学与 AI（同为 CylinderGeometry），顶点数 76 vs 40 才分得开。
+- 高度按章数：`base = 3.4 + 7.8·√min(1, 章数/24)`，同书内乘 0.86–1.0 错落系数，夹在 `[3.4, 11.2]`（`src/layout.ts`）。
+- 立柱实例 `COLUMN_GIRTH = 2.2`：几何单位半径 0.6–1.0 对展台半径 10 就是根针，2.2 才读得出柱子（近景 `dbg-math-close.png`）。
+- 概念光点精灵化：一张 64² canvas 径向渐变共用贴图 + `PlaneGeometry` 面片实例（Additive、`depthWrite:false`），
+  半径 `1.5 + 1.15·√min(1, 题量/100)`，绕柱 4.3 环三层错落，颜色 = 学科色向 `#f4f7ff` 插值 0.3；
+  总量 math 398 / ai 462（≤600，不是粒子海）。朝向在 CPU 侧按相机四元数重写实例矩阵——
+  `InstancedMesh.raycast` 读实例矩阵，着色器 billboard 会让光点点不中。
 
-**门槛跟着改（否则 `.gz` 一来脚本集体瞎掉，pitfalls 35）**
-- `tools/check_offline.py`：`.json.gz` 透明解压后再扫，覆盖率不因压缩下降（实测「文件 288 个 / 同源数据 270 个 / 预压 .gz 解压扫描 269 个」），
-  报告新增 `gzFiles`
-- `tools/selfcheck.py`：`bundle_evidence()` 分片体积 `.json.gz`/`.json` 两种后缀都认并记 `shardSuffix`；
-  新增 `droppedLeftovers`（白名单外分包名出现在 `assets/` 即不过）；
-  **新增两条断言**——`dist_size_evidence()`（总体积 ≤ 基线 60% + 分族数字 + 产物内不得残留明文数据拷贝 / `_report.json` / `raw/`）
-  与 `ship_integrity()`（270 个文件与 `data/` 源逐字节等价 + 无孤儿文件）；截图目录切 `_work/shots-batch6/`
-- `tools/selfcheck_probe.mjs`：路由 glob 从 `**/dist/search-*.json` 改 `**/dist/search-*`（旧写法匹配不到 `.json.gz`，
-  loading 态断言会静默失效）；**新增一条断言**「白名单外图型不打包且回退源码 + 一行原因」
+**阶段 D · 后期与氛围**
+- EffectComposer 延迟到真进 3D 才建（2D 降级不碰 three）；`composer.setPixelRatio(renderer.getPixelRatio())` 显式设，
+  否则 DPR>1 的机器上后期链按 1 渲染会糊；resize 时 composer + bloom 一起改尺寸。
+- Bloom 首值 `(0.9, 0.4, 0.5)` → 扫过 `(0.62,0.45,0.5)` / `(0.7,0.35,0.45)` / `(0.55,0.6,0.6)` → 终值 **`(0.55, 0.55, 0.55)`**。
+  0.9 档把地面暗角糊平、区名重新发白；0.35 档几乎看不出光晕。
+- 两项帧时回收：`shadowMap.autoUpdate=false`（静态场景只烘一次，位姿变化时 `needsUpdate`）省 ~11%；
+  bloom 内部分辨率 0.65×（`composer.setSize` 之后再 `pass.setSize`）省 ~11%。大厅从 ~53fps 回到 64.9。
+- 雾保留并微调一档（480/1180 → 520/1250）；地面网格程序化（1024² canvas，40 格细线 + 每 4 格粗线 + 径向暗角）。
 
-**阶段 D · 发布包与文档**
-- `docs/deploy.md`（新）：目录形态与逐文件体积、分族收敛对比表、对 Sites 配额的核对
-  （单目录最多 129 文件 / 限 10,000；最大单文件 1.45 MiB / 限 50 MiB；总量 9.85 MiB / 限 450 MiB；无 Worker）、
-  部署命令序列（`prepare_site --webDirectory "dist"` → `get_publish_status` → `publish_site`，`webDirectory: "."` 会被拒、
-  远端不跑构建所以必须先本地 `npm run build`）、五类排错（4.1 分片取不到 / 4.2 `.gz` 被透明解压 / 4.3 字体与 `--base` 前缀 /
-  4.4 mermaid 不出图 / 4.5 手机仍是 3D）与第五节发布前门槛对照表
-- `docs/pitfalls.md`：已验证 33–38 六条（插件静默空转、收敛前提实测推翻、`.gz` 让门槛脚本瞎掉、
-  透明解压与 SPA 回落、5 类≠5 个分包、`publicDir` 一刀切废掉 dev）+ 排查顺序 23–27 五条
-- `docs/schema.md`：新增第八节「产物落盘形态」——四条契约（一一对应不改字段、只剔零请求族、后缀即形态信号、读侧两种形态都吃）
-- `docs/design.md` / `docs/sites.md` 未动（本批不涉设计与站点清单）；`README.md` 状态表、体积实测、门槛项数、目录树同步；
-  `agents.md` 批次表拆成「6 打包收敛 完成 / 6.1 发布 待执行」并加 `deploy.md` 索引
+**阶段 E · 门槛与文档**
+- 探针新增 **14 条**断言：灯 ≥3 且方向光 `castShadow` / 有效类型含 PCF 且 `requested=PCFSoftShadowMap` / mapSize ≥1024；
+  逐区点光 ≥6 且带 distance+decay；PMREM 环境指纹（renderTargetTexture + halfFloat + pmrem 标记）；
+  后期链含 RenderPass/UnrealBloomPass/OutputPass 且 bloom 参数非空；雾在 + DPR ≤2；
+  bloom A/B 亮度差；阴影双口径（`shadowPass>0` 且 `perFrame ≤150,000`）；房间受光材质 ≥4；
+  立柱形态 ≥3 且数学/AI 签名不同（跨区再验一次）；光点 billboard + `canvas:` 贴图 + 数量 ≤600；
+  阴影 A/B 落在数学区地面带；`dist ≤12 MiB` 新记录行。
+- `docs/design.md` 新增第十二节「渲染层（批 7 落地）」，并在第八节把「单方向主光 + 环境光，不用实时阴影」标为已废止；
+  `docs/pitfalls.md` 新增已验证 **39–45（7 条）**与排查顺序 **28–30（3 条）**。
+- `tools/tune_batch7.mjs`（标定取证脚本，保留）；`tools/shots_batch7.mjs` 同机位双套截图；
+  截图目录从 `shots-batch6` 换成新建的 `shots-batch7`，旧目录一字未动。
 
-## 自检（任务书 10 条逐条）
+## 自检（任务书 13 条逐条）
 
-- [x] `dist/` 总体积 ≤ 本轮开始前的 60%，且给出分族对比表 — **9.85 MiB / 43.1%**（门槛值 13.70 MiB），
-  上表逐族「前 / 后 / 差 / 手段」四列齐全；门槛项 PASS 且把分族 JSON 打进报告 `distSize`
-- [x] 一本 `full` 的书仍能打开，正文按需加载没被误删 — `full 正文渲染且 KaTeX 生效` PASS（`food-math`，
-  KaTeX 116 处、3,533 字）；`正文按需加载：全程 bodies 请求数 ≤ 打开过的本数` PASS，实测 **bodies 16 次 / 去重 11 本**，
-  且全部是 `.json.gz`；129 个 bodies 文件一个没少（文件数前后均 129）
-- [x] 某个区的 3D 立柱与光点照常建立 — `数学区章节立柱与概念光点已建` PASS：**books 45 / 立柱 265 / 光点 398**，
-  分区帧率 165.2、三角面 3,874；结构分片 `dist/math.json.gz` 实取到（40.3 KB 片）
-- [x] 检索照常：六区各命中一条且落点正确 — math 23 / ai 20 / chem 15 / cs 22 / general 19 条命中全落本区，
-  三类分组、`file` 精确落点（重名 31 个里取对那本）、返程位姿漂移 0；
-  **tools 区库里 0 本无关键词可取**，走空片容错断言（分片取到、`counts.books=0`、专属文案）——不为过判据改 `data/`
-- [x] 五种图型本地出 SVG，未打包图型回退源码 — 五类逐条 `state:done / svg:true / 远程引用 0`；
-  同章 2 围栏 chunk 数 10 → 10 只载一次；坏语法仍回退（源码 21 字 + 原因 106 字）；
-  新断言实测未打包类型原因 `zhishu: 图类型 "classDiagram" 未打包（只保留 flowchart / graph / sequenceDiagram / mindmap / xychart-beta）`
-- [x] `python tools/selfcheck.py` 全绿，且没靠删断言达标 — **74 项全绿**（上批 71 → 本批 74：新增体积门槛、
-  预压等价性、白名单外图型回退三条）；无一条删除或放宽，`SEARCH_MAX_KB=300`、帧率 ≥45、60% 阈值原样
-- [x] `python tools/check_offline.py` 0 违规 — 「违规 0 处 · 白名单 xmlns 6 / 保留域名 2 / 字面量 47 / 数据 174 · 文件 288」；
-  字面量与数据计数比上批（106 / 200）低，原因是**产物里真的少了 43 个分包和 `_report.json`**，不是扫描范围缩小：
-  269 个 `.gz` 解压后照扫，`data` 类命中 174 处全部来自解压后的 JSON 内容
-- [x] `python tools/verify_data.py` 全绿 — 五类 23 项，退出码 0（校验对象是 `data/` 明文源，本批未触碰）
-- [x] `tsc --noEmit` 零错 + `npm run build` 成功 — 均 PASS；构建含 `zhishu:ship-data` 与 `zhishu:mermaid-whitelist` 两插件
-- [x] `docs/deploy.md` 存在且数字与真实 `dist/` 一致 — 表内每个字节数、每片体积、配额核对均取自本次实测
-  （`distSize` / `bundle` / `offline` 三块报告），无估算值
+| # | 判据 | 结论 | 证据 |
+|---|---|---|---|
+| 1 | 全部 `MeshBasicMaterial` 逐条处置并列成表 | ✅ | `_work/decisions.md`「批 7 材质处置表」11 行；改后大厅 Basic 12 全是标签/标记件，房间 Standard 4 |
+| 2 | 灯光 ≥3 类，方向光投影实际生效 | ✅ | census `lights {Hemisphere 1, Directional 1, Point 6}`、`directionalCastShadow=true`；阴影 A/B 数学区地面带 0.16999 → 0.17836（Δ7.2e-3），截图 `after-room-math.png` 可见长影 |
+| 3 | envMap 来自 PMREM、零外部文件 | ✅ | census `env present/renderTarget/halfFloat/pmrem 全 true`；`dist/assets` 内二进制资产 0 个 |
+| 4 | Bloom 生效（pass 链 + 亮度差证据） | ✅ | `post [RenderPass, UnrealBloomPass, OutputPass]`、bloom 参数非空；大厅整屏 0.15168 → 关 bloom 0.13145（Δ0.020，p95 Δ0.051） |
+| 5 | 六区立柱 ≥3 种几何形态，高度随章数 | ✅ | 签名 5 种不同（Cylinder×2 靠顶点数分、Lathe×2、Box×1）；`layout.ts` 章数 → 高度公式，数学区 265 根高低错落可见 |
+| 6 | 概念光点精灵化 | ✅ | `dotBillboard=true`、贴图 `canvas:radial-gradient-64`、面片实例；math 398 / ai 462 |
+| 7 | 大厅 ≥45fps、math ≥45fps、三角面 ≤150k（双口径说明） | ✅ | 64.9 / 63；最大 33,830（22.6%），`mainPass/shadowPass/perFrame` 三档分列并在 design 12.3 解释口径 |
+| 8 | `dist ≤12 MiB`，增量构成表 | ✅ | 9.883 MiB（82.4%），+0.037 MiB 全在 `assets/` JS 分包；表见上 |
+| 9 | `python tools/selfcheck.py` 全绿、断言数 >74 | ✅ | **88 项全绿 / 失败 0 / 98.8s**（74 → 88，未删未放宽） |
+| 10 | `python tools/check_offline.py` 0 违规 | ✅ | 违规 0（xmlns 6 / 保留域名 2 / 字面量 47 / 数据 174 全在白名单） |
+| 11 | `tsc --noEmit` 零错、`npm run build` 成功 | ✅ | 退出码 0；build 17.5s 成功 |
+| 12 | `docs/design.md` 与 `docs/pitfalls.md` 已更新 | ✅ | design 新增第十二节 + 第八节废止标注；pitfalls 已验证 39–45、排查 28–30 |
+| 13 | before / after 截图各 ≥8 张、同机位 | ✅ | 各 9 张 PNG（hall / 六区 / reader / mobile390）+ 两份 metrics JSON，机位由视图与布局决定、不受材质灯光影响 |
 
 ## 待决策
 
-1. **发布动作本身**（唯一没做的事，属必须停的第 3、4 类）— 需账号且为远端写操作。
-   路径与命令已写进 `docs/deploy.md` 第三节，产物已就绪（347 文件 / 9.85 MiB，`webDirectory: "dist"`）。
-   另需人工确认一件事：**Sites 托管层对 `.gz` 是否加 `Content-Encoding`**，文档没有记载（我查遍
-   `sites-building/hosting/management` 三份 SKILL 与 references，零命中）。两种情况客户端都能读，
-   但上线后应按 deploy.md 4.1/4.2 的 `curl -sI` 实测一次，把结论回写进文档。
-2. **`katex` 在产物里有两份**（新发现，本批未动）— 本项目直依赖 `katex@0.16.47` 烤进 entry，
-   `mermaid@12.3.0` 自带 `katex@0.18.11` 是 `assets/katex-*.js`（256 KiB，只在 mermaid 闭包里）。
-   合并要加 `overrides` 统一版本并回归 mermaid 的公式标签，属功能变更不属打包收敛。
-   选项：A 保持两份（现状，代价 256 KiB 且只在有图时取）；B 统一版本后回归测试。
-3. **检索摘要字段仍大面积为空**（前置 2，按要求本批不处理，如实记录）— `chapters[].core` 78/1,169、
-   `concepts[].brief` 100/765 非空。补齐要重跑抽取器（第 1 类停），用正文反推摘要违铁律 7。
-   建议单排一次抽取增强轮，不在批 5 里顺手做。
+1. **真机帧率未测**：headless ANGLE d3d11 无 vsync 上限，报出来的 64.9/63 只能做同机相对比较。
+   真机（尤其集显笔记本）在通识区 33,830 面 + bloom 上的表现需要人眼看一次。
+   若掉到 45 以下，最省的回退顺序是：`BLOOM_SCALE` 0.65 → 0.5 → 关 bloom，再考虑 `shadowMap.mapSize` 2048 → 1024。
+2. **视觉判读只到「统计 + 截图」级**：亮度 A/B、几何签名、灯单都是机器证据；
+   「好不好看」没有肉眼确认过（`dbg-*.png` 是我自己拍的对照，不是验收）。建议主控看一次 `after-hall.png` 与 `after-room-ai.png`。
+3. **`PCFSoftShadowMap` 在 r186 已被移除**：本批按任务书仍赋值 Soft（census 记 `requested`），实际跑 PCF。
+   若将来升 three 版本把 deprecated 常量删净，这一行会抛 `ReferenceError`——届时改成 PCFShadowMap 即可，断言已拆成两条不会连带红。
+4. **房间地面薄盘仍是半透明受光件**：`transparent` 材质在阴影下偶有自阴影噪点（本批未复现，但 normalBias 0.35 是按消除它来调的）。
 
 ## 下一步建议
 
-进批 5 生成层：库里查不到再现场生成。入口位仍在 `src/search.ts` 的 `none` 态与 `src/panel.ts` 的 `stats-only` 支。
-三条硬约束别忘了——生成内容标「AI 现场生成 · 未经校验」、带 `source: 'ai-generated'` 落库、
-**不写进 `data/dist/search-*.json`、不进依赖图、不与库内内容混排**；门槛建议加一条
-「生成内容不出现在检索结果与图示队列」。
-
-批 5 之后收尾一次跑全部门槛；发布（6.1）之前务必 `npm run build` 出**新鲜** `dist/`——
-`prepare_site` 只上传快照、远端不跑构建，旧产物会原样上线。交付与收尾一律完整重跑，
-别用 `--skip-build`（复用旧 `dist/` 会把已修的改动验成失败，pitfalls 31）。
+1. **批 5 生成层**（唯一未开工批次）：Agent App + 落库，标「AI 现场生成 · 未经校验」，不进依赖图与诊断链。
+   建议门槛新增「生成内容不出现在检索结果与图示队列」。
+2. **6.1 Sites 发布**：产物就绪，但**本批按要求没有 push、没有重发**。发布需要新鲜 `dist/`（远端不跑构建），
+   路径与命令在 `docs/deploy.md` 第三节；线上站点是否用批 7 产物重发，由主控决定。
+3. 收尾一律完整重跑 `python tools/selfcheck.py`，勿用 `--skip-build`（复用旧 `dist/` 会把已修的改动验成失败，pitfalls 31）。
+4. 若要做「光照随时间/主题变化」这类后续增强，先量帧时预算：本批大厅 draw call 53、三角面 1,412，
+   余量主要在被通识区吃掉的面上（33,830 / 150,000），加灯比加面便宜。

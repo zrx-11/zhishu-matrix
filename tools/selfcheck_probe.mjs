@@ -262,6 +262,74 @@ try {
   log.push(`大厅三角面 renderer.info.render.triangles = ${tri}`);
   check('三角面在 15 万预算内', tri > 0 && tri <= 150000, tri);
 
+  // ---------------------------------------------------------------- 渲染层（批 7 · 阶段 B/D 判据）
+  const cenHall = await d.evaluate(() => window.__zhishu.census());
+  log.push(
+    `大厅 census：材质 ${JSON.stringify(cenHall.materials)} · 灯 ${JSON.stringify(cenHall.lights)} · ` +
+      `阴影 ${cenHall.shadow.type}/${cenHall.shadow.requested} mapSize=${cenHall.shadow.mapSize} autoUpdate=${cenHall.shadow.autoUpdate} · ` +
+      `env present=${cenHall.environment.present} rt=${cenHall.environment.renderTargetTexture} half=${cenHall.environment.halfFloat} pmrem=${cenHall.environment.pmremMarked} · ` +
+      `post ${JSON.stringify(cenHall.post.passes)} bloom=${JSON.stringify(cenHall.post.bloom)} · ` +
+      `tone=${cenHall.toneMapping} dpr=${cenHall.pixelRatio} fog=${JSON.stringify(cenHall.fog)} · ` +
+      `三角面 主${cenHall.triangles.mainPass}/阴影${cenHall.triangles.shadowPass}/整帧${cenHall.triangles.perFrame} · draw ${cenHall.calls.perFrame}`,
+  );
+  const litCount = Object.values(cenHall.lights).reduce((a, b) => a + b, 0);
+  check(
+    '光照齐：≥3 盏灯且主光投影开启、阴影为 PCF 且 mapSize ≥1024',
+    litCount >= 3 &&
+      cenHall.directionalCastShadow === true &&
+      cenHall.shadow.enabled === true &&
+      cenHall.shadow.mapSize >= 1024 &&
+      /PCF/.test(cenHall.shadow.type) &&
+      cenHall.shadow.requested === 'PCFSoftShadowMap',
+    { lights: cenHall.lights, shadow: cenHall.shadow, directionalCastShadow: cenHall.directionalCastShadow },
+  );
+  const zoneDots = (cenHall.lightSpec || []).filter((l) => l.type === 'PointLight' && l.distance > 0 && l.decay > 0);
+  check(
+    '六区各一盏学科色点光且带距离衰减（decay>0、distance>0）',
+    zoneDots.length >= 6,
+    zoneDots.map((l) => `${l.color.toString(16)}/${l.intensity}/${l.distance}/${l.decay}`),
+  );
+  check(
+    '环境反射来自程序化 PMREM（render-target 贴图 + HalfFloat + 装配标记）',
+    cenHall.environment.present &&
+      cenHall.environment.renderTargetTexture &&
+      cenHall.environment.halfFloat &&
+      cenHall.environment.pmremMarked,
+    cenHall.environment,
+  );
+  check(
+    '后期链三条 pass 齐（RenderPass → UnrealBloomPass → OutputPass）且 bloom 参数已定',
+    cenHall.post.present &&
+      ['RenderPass', 'UnrealBloomPass', 'OutputPass'].every((p) => cenHall.post.passes.includes(p)) &&
+      cenHall.post.bloom !== null,
+    cenHall.post,
+  );
+  check(
+    '雾保留且 DPR ≤2（批 7 只微调不动交互）',
+    cenHall.fog !== null && cenHall.fog.near > 0 && cenHall.fog.far > cenHall.fog.near && cenHall.pixelRatio <= 2,
+    { fog: cenHall.fog, pixelRatio: cenHall.pixelRatio, toneMapping: cenHall.toneMapping },
+  );
+  // bloom 是否真的在改画面：headless 拿不到肉眼，就用同源像素亮度对照（阴影对照留给数学区，大厅只有 144 投影面）
+  const lumBase = await d.evaluate(() => window.__zhishu.sampleLuminance(0, 0, 1, 1));
+  await d.evaluate(() => window.__zhishu.setPassEnabled('Bloom', false));
+  const lumNoBloom = await d.evaluate(() => window.__zhishu.sampleLuminance(0, 0, 1, 1));
+  await d.evaluate(() => window.__zhishu.setPassEnabled('Bloom', true));
+  log.push(
+    `大厅亮度对照：基线 ${lumBase.mean}(p95 ${lumBase.p95}) / 关 bloom ${lumNoBloom.mean}(p95 ${lumNoBloom.p95})`,
+  );
+  check(
+    'bloom 确实改变画面（关掉后整屏亮度统计下降）',
+    lumBase.mean - lumNoBloom.mean > 1e-3 && lumBase.p95 - lumNoBloom.p95 > 1e-3,
+    { base: lumBase, noBloom: lumNoBloom },
+  );
+  check(
+    '三角面分主/阴影两口径上报且主口径不越预算',
+    cenHall.triangles.mainPass > 0 &&
+      cenHall.triangles.mainPass <= 150000 &&
+      cenHall.triangles.shadowPass <= 150000,
+    cenHall.triangles,
+  );
+
   await d.evaluate(() => window.__zhishu.holdMinimap(true));
   const fpsHall = await fps(d, 10000);
   await d.evaluate(() => window.__zhishu.holdMinimap(false));
@@ -277,6 +345,53 @@ try {
   const triRoom = await d.evaluate(() => window.__zhishu.triangles());
   log.push(`数学区 fps = ${fpsRoom} · 三角面 = ${triRoom} · 立柱 ${nodes?.columns} · 光点 ${nodes?.dots}`);
   check('数学区章节立柱与概念光点已建', nodes.books > 0 && nodes.columns > 0 && nodes.dots > 0, nodes);
+  const cenMath = await d.evaluate(() => window.__zhishu.census());
+  log.push(
+    `数学区 census：受光材质 ${cenMath.litMaterials} / 自发光 ${cenMath.unlitMaterials} · ` +
+      `立柱几何 ${JSON.stringify(cenMath.builtColumnGeometry)} · 光点 billboard=${cenMath.dotBillboard} ` +
+      `贴图=${cenMath.dotTexture} 数=${cenMath.dotCount} · 三角面 主${cenMath.triangles.mainPass}/阴影${cenMath.triangles.shadowPass} · draw ${cenMath.calls.perFrame}`,
+  );
+  check(
+    '房间受光材质 ≥4（地面/底座/展台/立柱都是 Standard）',
+    cenMath.litMaterials >= 4 && cenMath.materials.MeshStandardMaterial >= 4,
+    cenMath.materials,
+  );
+  check(
+    '六区立柱形态 ≥3 种且本区真建出对应几何',
+    cenMath.columnKindsDistinct >= 3 &&
+      cenMath.builtColumnGeometry.length === 1 &&
+      cenMath.builtColumnGeometry[0].startsWith('CylinderGeometry:cylinder:'),
+    { kinds: cenMath.columnKinds, distinct: cenMath.columnKindsDistinct, built: cenMath.builtColumnGeometry },
+  );
+  check(
+    '概念光点是共用 canvas 渐变贴图的面片实例（非粒子海、非几何堆）',
+    cenMath.dotBillboard === true &&
+      String(cenMath.dotTexture).startsWith('canvas:') &&
+      cenMath.dotCount > 0 &&
+      cenMath.dotCount <= 600,
+    { billboard: cenMath.dotBillboard, texture: cenMath.dotTexture, count: cenMath.dotCount },
+  );
+  // 阴影对照放在房间：大厅只有 144 个投影面、亮度差 1.6e-4 太贴边；数学区 265 根立柱把影子落在展台与地面上
+  await new Promise((r) => setTimeout(r, 700));
+  const lumShadowOn = await d.evaluate(() => window.__zhishu.sampleLuminance(0.05, 0.18, 0.9, 0.34));
+  await d.evaluate(() => window.__zhishu.setShadowsEnabled(false));
+  await new Promise((r) => setTimeout(r, 700));
+  const lumShadowOff = await d.evaluate(() => window.__zhishu.sampleLuminance(0.05, 0.18, 0.9, 0.34));
+  await d.evaluate(() => window.__zhishu.setShadowsEnabled(true));
+  await new Promise((r) => setTimeout(r, 700));
+  log.push(
+    `数学区地面亮度对照：开阴影 ${lumShadowOn.mean}(p95 ${lumShadowOn.p95}) / 关阴影 ${lumShadowOff.mean}(p95 ${lumShadowOff.p95})`,
+  );
+  check(
+    '阴影确实改变画面（关掉后地面带变亮）',
+    lumShadowOff.mean - lumShadowOn.mean > 2e-3 && lumShadowOff.p95 - lumShadowOn.p95 > 2e-3,
+    { shadowOn: lumShadowOn, shadowOff: lumShadowOff },
+  );
+  check(
+    '阴影口径非零且整帧不越 15 万面',
+    cenMath.triangles.shadowPass > 0 && cenMath.triangles.perFrame <= 150000,
+    cenMath.triangles,
+  );
   check('分区浏览阶段零正文请求', requests.bodies.length === 0, requests.bodies.slice(0, 5));
   const mmRoom = await mermaidChunks(d);
   check('3D 分区阶段同样不加载 mermaid', mmRoom.length === 0, mmRoom.slice(0, 4));
@@ -544,6 +659,18 @@ try {
     'mermaid 已进运行时后大厅与分区帧率仍 ≥45、三角面不越预算',
     fpsHallMm >= 45 && fpsRoomMm >= 45 && triMm > 0 && triMm <= 150000,
     { fpsHall: fpsHallMm, fpsRoom: fpsRoomMm, triangles: triMm, moduleLoaded: mmStill.requested },
+  );
+
+  const cenAi = await d.evaluate(() => window.__zhishu.census());
+  log.push(`AI 区立柱几何 ${JSON.stringify(cenAi.builtColumnGeometry)} · draw ${cenAi.calls.perFrame}`);
+  check(
+    '跨区立柱几何真的不同（几何类型 + 形态名 + 顶点数三重签名，数学≠AI）',
+    cenAi.builtColumnGeometry.length === 1 &&
+      cenAi.builtColumnGeometry[0] !== cenMath.builtColumnGeometry[0] &&
+      cenAi.builtColumnGeometry[0].startsWith('CylinderGeometry:hexPrism:') &&
+      cenMath.builtColumnGeometry[0].startsWith('CylinderGeometry:cylinder:') &&
+      cenAi.columnKinds.math !== cenAi.columnKinds.ai,
+    { math: cenMath.builtColumnGeometry, ai: cenAi.builtColumnGeometry, kinds: cenAi.columnKinds },
   );
 
   // ---------------------------------------------------------------- 检索层（批 4 · 判据 C1—C4）

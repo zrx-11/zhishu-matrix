@@ -125,3 +125,137 @@
 
 `neverRequested` 合计 12.76 MiB / 302 文件（按本轮样本路径），其中 122 本 bodies、75 份 sites 属「样本没点到但运行期会点到」，
 不是死重——这条是判据 B1「不能误删按需正文」的直接依据，别按样本命中率删文件。
+
+---
+
+## 批 7 阶段 A · 改前基线（实测，HEAD `096d428`，非估算）
+
+产物：`dist/` **9.846 MiB / 347 文件**，其中 `assets/` 5,458,913 B / 76 文件；门槛 **74 项全绿**（`_work/b7-baseline-selfcheck.txt`）。
+截图与逐项指标：`_work/shots-batch7/before-metrics.json` + `before-*.png` 9 张（hall / 六区 / reader / mobile390）。
+
+亮度三带取自同一机位：整屏 full、地面横带 ground（y 0.18–0.52）、上半天空带 sky（y 0.66–0.96）。
+
+| 视图 | 三角面 | draw call | 立柱 | 光点 | 运行时材质 | full | ground | sky |
+|---|---|---|---|---|---|---|---|---|
+| 大厅 | 1,398 | 40 | — | — | Basic 14 / Sprite 7 | 0.08656 | 0.11060 | 0.08034 |
+| 数学 | 3,874 | 48 | 265 | 398 | Basic 3 / Sprite 45 | 0.13117 | 0.19120 | 0.08243 |
+| AI | 6,150 | 52 | 450 | 462 | Basic 3 / Sprite 49 | 0.16865 | 0.28055 | 0.08494 |
+| 化学 | 1,648 | 15 | 103 | 26 | Basic 4 / Sprite 10 | 0.12728 | 0.17326 | 0.08332 |
+| 计算机 | 3,096 | 17 | 170 | 103 | Basic 4 / Sprite 12 | 0.16565 | 0.25094 | 0.08611 |
+| 通识 | 3,450 | 18 | 181 | 129 | Basic 4 / Sprite 13 | 0.15191 | 0.21468 | 0.08928 |
+| 工具 | 162 | 3 | 0 | 0 | Basic 2 / Sprite 1 | 0.09968 | 0.11459 | 0.08027 |
+
+改前几何全是源码里的 `BoxGeometry(1.6,1,1.6)` 立柱 + `OctahedronGeometry(0.9)` 光点（`census.builtColumnGeometry` 这条字段本批才加，
+所以改前 JSON 里是空数组，不是「没有几何」）。
+
+帧率：headless 无 vsync 上限，数学区 5s 采样 **165 fps**（不是真机 60，只能用作相对比较）。
+灯光：**零光源**——`census.lights` 为空对象、`env` 无字段、`post.present=false`、`shadowPass=0`。全部亮度都来自自发光色填充。
+
+## 批 7 材质处置表（判据 1，逐条）
+
+改前 11 个 `MeshBasicMaterial` 站点，全部来自 `git show HEAD:src/scene3d.ts`：
+
+| # | 改前站点 | 原材质 | 处置 | 理由 |
+|---|---|---|---|---|
+| 1 | L132 大厅地面圆盘 | Basic(FLOOR) | **→ Standard** + canvas 地面贴图，`receiveShadow` | 地面是阴影唯一落点，不受光就没有「空间」 |
+| 2 | L138 `GridHelper` 网格线 | LineBasic | **删除**，网格画进地面贴图 | 线框叠在 PBR 地面上会浮空；程序化贴图自带细/粗两档格线与暗角 |
+| 3 | L144 六区信标 | Basic(white)+instanceColor | **→ Standard**，`castShadow`+`receiveShadow` | 大厅主视觉件，需要明暗与投影 |
+| 4 | L155 区环（入口标记） | Basic(color,0.4) | **保留 Basic** | 它是「入口标记」，亮度必须与相机朝向、阴影无关；受光后转到背阴面就消失 |
+| 5 | L251 走廊名地面带 | Basic(map) | **保留 Basic** | CanvasTexture 文字标签，加法混合会糊掉笔画；受光会让字随视角忽明忽暗 |
+| 6 | L348 房间展台方板 | Basic(white) | **→ Standard** | 承光面，立柱阴影落在这里 |
+| 7 | L366 章节立柱 | Basic(white) | **→ Standard** | 本批主角 |
+| 8 | L394 概念光点（八面体） | Basic(white) | **→ 面片实例 + canvas 渐变 + Additive**，材质仍是 Basic | 发光件本就不该受光；几何从实体八面体换成 billboard 面片 |
+| 9 | L458 房间地面薄盘 | Basic(color,0.09) | **→ Standard** + canvas 学科色盘贴图，`receiveShadow` | 同上，房间地面要接住影子 |
+| 10 | L475 空房间环（工具区） | Basic(color,0.32) | **保留 Basic** | 与 #4 同族，是标记不是实体 |
+| 11 | L926 dispose 里的类型断言 | — | 随之改（走廊带仍是 Basic，断言成立） | 不是渲染站点 |
+
+净结果：大厅 `Standard 2 / Basic 12 / Sprite 7`（12 个 Basic 全是标签与标记件），
+房间受光材质 **4**（地面、展台、底座、立柱，`MeshStandardMaterial: 4`）。断言「受光材质 ≥4」即此。
+
+改后的亮度不是「整体变亮」这么粗：大厅 ground 0.1106 → **0.2338**（受光面抬起来），
+但天空带 0.0803 → **0.0661**；房间 full 反而从 0.1312 降到 0.1097，因为 ACES 把天空带从 0.0824 压到 0.0333——
+背景与地面被分别处理，这是 tone mapping 的必然结果，不是漏光。
+
+## 批 7 灯光标定（阶段 B）
+
+标定网格（`tools/tune_batch7.mjs`，主光 × 半球光 × 地面 albedo 倍率），大厅整屏 mean：
+
+| key | hemi | groundAlbedo | 大厅 mean | 判定 |
+|---|---|---|---|---|
+| 1.05 | 0.42 | 26 | 0.42 | 洗白，比改前亮 4 倍，弃 |
+| 1.05 | 0.42 | 15 | 0.155 | 可 |
+| 1.5 | 0.42 | 15 | 0.150 | 阴影更硬，取 |
+
+最终值：Hemisphere `0x9fb4de/0x141a24` **0.42**；Directional `0xfff1dc` **1.5**，`castShadow`，mapSize **2048**，
+bias −0.0009、normalBias 0.35；六区 PointLight `900 / distance 240 / decay 2` 挂在 y=46；
+房间内 top **700**（学科色，distance = span×2.4）+ rim **392**（冷白，y=18）。
+ACESFilmic，exposure 1.0，雾 `520–1250`（改前 480–1180，只微调一档）。
+
+**主光俯角是这节的关键**：初版把主光架到 `half*1.5` 高（约 60° 俯角），影子全压在柱子自己背后——
+实测关阴影与开阴影的大厅地面带亮度差只有 **1.6e-4**，等于没投影。降到 `half*0.8`（约 38°）后
+房间中段 Δmean **0.0072**、整屏 Δp95 **0.055**，截图里影子拖到展台上（`dbg-hall-key150.png`）。
+
+## 批 7 几何与光点（阶段 C）
+
+| 区 | 立柱形态 | 底座形态 | 顶点签名（`geometry.type:shape:vertexCount`） |
+|---|---|---|---|
+| 数学 | `cylinder`（12 段带盖圆柱） | `disc` | `CylinderGeometry:cylinder:76` |
+| AI | `hexPrism`（六棱柱带盖） | `step` | `CylinderGeometry:hexPrism:40` |
+| 化学 | `coneTower`（Lathe 车削锥塔） | `ring` | `LatheGeometry:coneTower:88` |
+| 计算机 | `boxPillar`（方柱） | `disc` | `BoxGeometry:boxPillar:24` |
+| 通识 | `stackedDrum`（叠鼓 Lathe） | `step` | `LatheGeometry:stackedDrum:108` |
+| 工具 | `ringColumn`（空房间，未建） | `ring` | — |
+
+- 单靠 `geometry.type` 分不开数学与 AI（都是 CylinderGeometry），所以签名带形态名与顶点数（76 vs 40）。
+- **高度映射**：`base = 3.4 + (11.2−3.4)·√min(1, 章数/24)`，再乘同书内的错落系数 `0.86–1.0`，
+  夹在 `[COLUMN_H_MIN 3.4, COLUMN_H_MAX 11.2]`。取 √ 是让 8 章的书也有可读高度，线性会把小书压成平地。
+- **立柱粗细**：几何单位半径 0.6–1.0，展台半径 ~10，实例缩放 `x/z = COLUMN_GIRTH = 2.2`。
+  1.0 时截图上是一根针（`dbg-math-key105.png`），2.2 才读得出「柱子」（`dbg-math-close.png`）。
+- **概念光点**：一张 64² canvas 径向渐变（alpha 台阶 0.92/0.5/0.14/0.03/0）共用贴图 + `PlaneGeometry(1,1)` 实例，
+  Additive、`depthWrite:false`；半径 4.3 环 + 三层错落；尺寸 `1.5 + 1.15·√min(1, 题量/100)`；
+  颜色 = 学科色向 `#f4f7ff` 插值 0.3。总量 math 398 / ai 462 / 全区 ≤600，不做粒子海。
+- **朝向在 CPU 侧**：每帧用相机四元数重写实例矩阵。不走顶点着色器 billboard，
+  因为 `InstancedMesh.raycast` 读的是实例矩阵——着色器里转了，点就拾取不到了（正文打不开）。
+
+## 批 7 后期与口径（阶段 D）
+
+- EffectComposer：`RenderPass → UnrealBloomPass → OutputPass`，延迟到真正进 3D 才建（2D 降级不碰 three）。
+- **Bloom 首值 → 终值**：`(strength 0.9, radius 0.4, threshold 0.5)` → **`(0.55, 0.55, 0.55)`**。
+  中间扫过 `(0.62,0.45,0.5)` / `(0.7,0.35,0.45)` / `(0.55,0.6,0.6)`；0.9 强度时地面暗角被辉光糊平、区名重新发白，
+  0.35 档又几乎看不出光晕，取中档。
+- **bloom 内部分辨率 = 0.65×**（`setSize(w·pr·0.65, h·pr·0.65)`，且在 `composer.setSize` 之后调用，composer 不会再改它）：
+  帧率代价从 ~11% 降下来，肉眼级差异只在高光边缘。
+- **阴影只烘一次**：`shadowMap.autoUpdate=false`，视图/位姿变化时置 `needsUpdate=true`（场景静态，只有相机在动），
+  省 ~11% 帧时。代价是 `renderer.info` 每帧不再含阴影 pass，所以三角面必须**分两口径报**：
+  `mainPass`（主渲染）/ `shadowPass`（投影体提交）/ `perFrame`（实际整帧）。
+  大厅 1,398 + 144 → 1,412；数学 18,454 + 18,300 → 18,468；最大的是通识 33,830，预算 150,000 的 22.6%。
+  `shadowPass` 与 `mainPass` 数量级相同是因为立柱既进主渲染也进阴影图，不是画了两遍主画面。
+  draw call 的涨幅实测归因：`setPassEnabled('Bloom', false)` 一关，大厅 53 → 40、数学 63 → 50——**+13 全是 bloom 的
+  mip 下/上采样与合成**，场景自身只 +2（新增底座实例件 + 房间地面薄盘换成受光 Standard），大厅场景件数 0 增。
+- DPR 上限 2（实测 headless 为 1），resize 时 composer + bloom 一起改尺寸。
+- 地面网格程序化：1024² canvas，40 格细线 + 每 4 格粗线 + 径向暗角（0.21 → 0.06 → 0.78 黑）。
+
+## 批 7 体积增量（判据 8）
+
+| 族 | 改前 | 改后 | 增量 |
+|---|---|---|---|
+| `assets/` | 5,458,913 B / 76 | 5,497,444 B / 76 | **+38,531 B**（scene3d 分包 579.63 → 599.7 kB，新增 spacekit 与灯光/几何/后期代码） |
+| `bodies/` `sites/` `dist/` `manifest.json` `index.html` | 不变 | 不变 | 0 |
+| **合计** | **9.846 MiB / 347** | **9.883 MiB / 347** | **+0.037 MiB（+0.4%）** |
+
+上限 12 MiB，落点 9.883 MiB（82.4%）。新增外部二进制资产 **0 个**（`dist/assets` 里 `.hdr/.glb/.gltf/.ktx2/.png/.jpg` 计数为 0），
+env 光照来自 `PMREMGenerator.fromEquirectangular` 吃一张 512×256 的程序化 canvas 渐变，用完即弃源贴图。
+
+## 批 7 决策行
+
+| 日期 | 问题 | 选择 | 理由 | 可回退方式 |
+|---|---|---|---|---|
+| 2026-11-25 | three r186 已删除 `PCFSoftShadowMap`，任务书要求用它 | 照旧赋值 + census 记 `shadow.requested`，断言按「有效类型含 PCF 且 requested 为 Soft」 | 赋值不报错（只是 warn 归一成 PCFShadowMap），删掉反而不满足任务书；warn 不进「控制台零报错」口径（探针只收 `type==='error'`） | 改回 `PCFShadowMap` 一行；断言同步 |
+| 2026-11-25 | 阴影 A/B 在大厅只有 1.6e-4 亮度差，门槛会贴边抖动 | 把阴影亮度对照挪到数学区，大厅只留 bloom 对照 | 大厅只有 6 个信标投影（144 面），房间有 265 根立柱；房间 Δ 0.0084 是阈值的 4 倍，稳 | 挪回大厅需同时把阈值降到 1e-4（不建议） |
+| 2026-11-25 | 主光架高后影子看不见 | 俯角从 ~60° 降到 ~38°（`half*0.8`），key 强度 1.05 → 1.5 | 亮度差从 1.6e-4 涨到 7.2e-3，截图可见长影；整屏亮度仍比洗白档低 63% | `focusShadow()` 一行位置公式 + `spacekit.ts` 一行强度 |
+| 2026-11-25 | 立柱在截图里是针 | 实例 x/z 缩放 2.2（几何不改） | 一处常量，形态签名与顶点数不变，拾取盒同步放大 | `COLUMN_GIRTH = 1` |
+| 2026-11-25 | 光点要不要用 GPU billboard（顶点着色器） | CPU 每帧重写实例矩阵 | `InstancedMesh.raycast` 读实例矩阵，GPU 方案会让 398 个光点点不中 | 换回着色器需同时改拾取射线 |
+| 2026-11-25 | bloom 全分辨率吃帧 | 内部分辨率 0.65× | 省 ~11% 帧时，大厅 53 → 66 fps；高光边缘差异肉眼在 1440×900 不可辨 | `BLOOM_SCALE = 1` |
+| 2026-11-25 | 阴影每帧重画太贵 | `autoUpdate=false` + 位姿变化时 `needsUpdate` | 场景静态，省 ~11% 帧时；代价是三角面必须分口径上报（已写进 census 与文档） | `shadowMap.autoUpdate = true` 一行 |
+| 2026-11-25 | 现有 74 项门槛与新增上限冲突（dist 13.70 vs 12） | 不动旧项，**新增**一条「批 7 渲染层上限 12 MiB」 | 任务书要求「一条不许删、不许放宽，只许新增」；改旧值就是放宽 | 删掉新增记录行 |
+| 2026-11-25 | 截图目录换名会丢历史 | 新建 `_work/shots-batch7/`，旧 `shots-batch6` 原样保留 | 只改 `PROBE_SHOTS` 常量，git 跟踪文件没动 | 改回常量名 |
