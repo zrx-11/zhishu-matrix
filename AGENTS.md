@@ -34,6 +34,7 @@
 | 做 3D、布局、交互 | `docs/design.md` |
 | 处理抓取失败、渲染异常 | `docs/pitfalls.md` |
 | 需要仓库清单与规模 | `docs/sites.md` |
+| 打包、发布、产物体积与 404 排错 | `docs/deploy.md` |
 
 ## Spec 规则
 
@@ -48,6 +49,7 @@ zhishu-matrix/
 ├─ docs/
 │  ├─ schema.md           数据契约
 │  ├─ design.md           3D 空间与交互设计
+│  ├─ deploy.md           发布包形态、实测体积与排错
 │  ├─ pitfalls.md         抓取与渲染踩坑
 │  └─ sites.md            40 站清单
 ├─ tools/
@@ -69,4 +71,5 @@ zhishu-matrix/
 | 3.5 | Mermaid 真渲染（动态分包、可见才渲染）+ `check_offline.py` 收进门槛 | 完成 |
 | 4 | 检索层（MiniSearch + 分片加载） | 完成 |
 | 5 | 生成层（Agent App + 数据库落库） | 待开工 |
-| 6 | 打磨 + 打包 + Sites 发布 | 待开工 |
+| 6 | 打包收敛（数据预压 + mermaid 白名单，22.83 → 9.85 MiB）+ `docs/deploy.md` | 完成 |
+| 6.1 | Sites 发布（需账号，人工步骤） | 待执行，路径见 `docs/deploy.md` 第三节 |

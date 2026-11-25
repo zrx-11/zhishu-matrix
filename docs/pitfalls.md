@@ -333,6 +333,74 @@ entry 静态闭包，再把 `scene3d` 之类全算成 mermaid，名单失去意�
 判据「六个学科各至少一个关键词命中」因此在库里不可满足——只能是 5 区命中 + tools 走空片路径，
 **不为过判据去改 `data/`**（铁律）。自检把这两条分开记录，避免看起来像「六区都命中」。〔K〕
 
+### 33. 构建插件的 `transform` 静默空转：正则捕获组带上了路径段
+
+mermaid 白名单要把非保留图型的 `import("./chunks/mermaid.core/xxx.mjs")` 换成必定失败的表达式。
+写成的捕获组是 `(?:\./chunks\/mermaid\.core|\./)([^"]+)\.mjs` —— 交替支少写了结尾的 `/`，
+落到短支时捕获到的是 `/c4Diagram-KJ2TOQU5`（带开头斜杠），拿去查以 `flowDiagram-MALGAFMO` 这种形态建键的 Map，
+**永远查不到**，于是不管有没有匹配上都不改代码，构建照旧成功，产物里分包一个没少。〔K〕
+
+处理：`if (hit) this.info(...)` 这种「命中才打印」的写法恰好把空转藏住了。要证伪得反过来——**在插件里无条件计数打印**，
+或者对着真实源码单独跑一遍正则（`_work/dbg_re.mjs` 三条命令就定位了）。判据侧的兜底更省事：
+`selfcheck.py` 直接扫 `assets/` 里有没有白名单外的分包名（`droppedLeftovers`），产物不说话，插件的日志才算数。
+
+### 34. 「拷贝收敛」的三条前提，实测有一条是假的
+
+前置清单写「`dist/` 24MB 里 16.7MB 是数据整份拷贝」，潜台词是这些拷贝可以删。逐族用浏览器实测运行期请求
+（`_work/measure_data_requests.mjs`，结论落 `_work/measure-requests.json`）：
+
+| 数据族 | 源体积 | 运行期请求 | 能不能删 |
+|---|---|---|---|
+| `bodies/` | 7.42 MiB | 129 本按需取 | 不能（判据 C1） |
+| `sites/` | 3.72 MiB | 55 次 / 去重 54 本 | 不能——任务书给的条件是「若运行期零请求才可删」，实测非零 |
+| `dist/`（结构 + 检索） | 4.61 MiB | 结构 5 片 + 检索 6 片全被取 | 不能 |
+| `manifest.json` | 0.05 MiB | 3 次 | 不能 |
+| `_report.json` + `raw/` | 0.02 MiB | **0** | 能，已不拷 |
+
+也就是说纯靠「少拷」最多省 0.02 MiB，60% 的门槛根本够不着。〔K〕
+处理：**功能全留，改传输形态**——构建期 gzip、客户端 `DecompressionStream` 还原，数据族 15.75 MiB → 4.58 MiB；
+剩下的是 mermaid 裁剪 1.8 MiB。两条加起来 22.83 → 9.85 MiB（43.1%）。
+教训：前置清单给的「死重」是估计值，收敛前先测请求再定删；不测就动手会先删出 bug 再发现删错了。
+
+### 35. `.json.gz` 一进产物，门槛脚本自己先瞎了
+
+三处脚本原本按明文 `.json` 认数据，换成 `.gz` 后都是**静默失效**（不报错、只是看不见）：
+
+- `check_offline.py`：`.gz` 既不在 `CODE_EXTS` 也不满足 `suffix == '.json'`，直接跳出扫描范围——269 个数据文件
+  会从「已扫」变成「不存在」，离线体检的覆盖率说降就降。改成先验 magic 再 `gzip.decompress` 后扫，报告里另打
+  「预压 .gz 透明解压后扫描 269 个」，让覆盖率可核对。〔K〕
+- `selfcheck.py::bundle_evidence()`：分片大小按 `search-<area>.json` 取，取不到就是 `None` → 「六片齐」判据直接红。
+  改成 `.json.gz` / `.json` 两种都认（dev 态仍是明文），并把实际后缀记进 `shardSuffix`。
+- `selfcheck_probe.mjs`：路由写的是 `'**/dist/search-*.json'`，`*.json` 要求以 `.json` 收尾，`.json.gz` 不匹配，
+  「索引加载中」那条 600ms 延迟注入的断言会验不到 loading 态。改成 `'**/dist/search-*'`。〔K〕
+
+### 36. 托管层可能替浏览器把 `.gz` 解压完
+
+若服务对 `.gz` 加了 `Content-Encoding: gzip`，`res.arrayBuffer()` 拿到的是**已解压的明文 JSON**，
+再喂给 `DecompressionStream` 必抛。反过来若服务开了 **SPA 回落**，取不到的分片会以 `200 + text/html` 返回，
+`res.ok` 判不出来，`JSON.parse` 只给一句「Unexpected token '<'」。
+
+处理都在 `src/data.ts`：`gunzip` 先看前两字节是不是 `1f 8b`，不是就按明文走；`getJson` 见到 `content-type: text/html`
+就抛「拿到的是 HTML（产物缺这个文件）」——把「缺文件」和「解压失败」两种病因分开，别再混成一条 parse error。〔K〕
+这类判定只在**系统边界**（外部托管行为）做，内部数据不做防御性校验。
+
+### 37. mermaid 保留哪 5 类不等于只留 5 个分包
+
+图型分包和布局分包是两套注册表。`flowchart` 在 mermaid 12 里默认走 **elk**（1.45 MiB，产物里最大单文件），
+`mindmap` 走 cose-bilkent，兜底 `LAST_RESORT_LAYOUT` 才是 dagre。所以「只留 5 类」落地成 14 片 / 3.2 MiB
+（闭包含共享的 `katex`、`sizeCapture`、`bpmnIcons`），不是 5 片。〔K〕
+
+库里没有一处围栏用 frontmatter 覆写布局，`swimlane` 布局包（120 KB，库里 0 处使用）因此可安全剔除——
+`getRegisteredLayoutAlgorithm` 自己会回落。反过来说：**没有实测就不能剔 elk**，把 flowchart 改成 dagre 是视觉行为变更，
+不属于打包收敛。
+
+### 38. `publicDir` 一刀切换成 `false`，dev 就看不到数据了
+
+`publicDir: false` 能把整份 `data/` 从产物里摘掉，但 dev 也一起没了——`npm run dev` 时所有数据请求 404，
+每改一处正文都要重新构建。改成按命令分支：`command === 'serve' ? 'data' : false`，dev 仍旧整目录暴露明文，
+build 走 `zhishu:ship-data` 精挑 + 预压。代价是 dev 与产物形态不同（明文 vs `.gz`），由 `import.meta.env.PROD`
+在 `dataUrl()` 一处对齐，两边都不用改调用点。〔K〕
+
 ## 二、待验证
 
 编号保留原样，已定案的两条只留指针，免得旧引用（含 `probe-report.md` 第七、八节）对不上。
@@ -419,3 +487,16 @@ clone 失败或档位不明时退回 raw 逐文件（`schema.md` 第三节），
 21. 390 下弹层溢出但 `doc === 390` → grid/flex 项的 min-content 自动最小尺寸，量盒子右缘（见已验证 24）
 22. 自检红了一堆却查不出代码问题 → 先看是不是 `--skip-build` 复用了旧 dist，或 dist 被上一轮进程占用
     （见已验证 31）
+
+批 6 打包收敛新增五条，同一顺序继续往后接：
+
+23. 进分区没有立柱 / 搜索恒 0 本 → 先分清是「文件不在产物里」还是「解压没成」：Network 里看
+    `dist/<area>.json.gz` 的 `content-type`（`text/html` = 缺文件被 SPA 回落伪装成 200；`1f 8b` 开头 = 正常预压），
+    见已验证 36 与 `deploy.md` 4.1
+24. 数据读不出来但 `res.ok` 为真 → 托管层透明解压，或压根就是明文；`gunzip` 按 magic 分支两种都能读（已验证 36）
+25. 老浏览器（无 `DecompressionStream`）白屏 → 不会白屏：`manifest.json` 保持明文，首屏能起，
+    数据读取抛的是具名错误。要真支持这批浏览器只能回退不预压（多 11 MiB）（已验证 34）
+26. 改了构建插件产物却没变、日志也没动 → 捕获组或键形态对不上导致 `transform` 空转；
+    临时改成立功也打印，或拿真实源码单跑正则（见已验证 33）
+27. mermaid 图型不出图却显示源码 + 「未打包」 → 这是设计：白名单外类型走 `fail()` 回退支，内容不丢（见已验证 37）；
+    白名单内的 5 类也这样，才是分包真的缺了

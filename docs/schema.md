@@ -471,3 +471,29 @@ data/dist/search-tools.json    # tools 区库里 0 本，照样生成空片（co
   `terms[].d` 4,100 条全非空〔X〕。所以现阶段检索实际主要靠**标题 + 术语释义**命中，摘要命中是少数。
   这不是分片丢了字段，是 `data/sites/` 里本就抽不到——补它要重跑抽取器，不在本批范围，禁止用正文反向编造摘要。
 
+## 八、产物落盘形态（批 6 新增）
+
+`data/` 是抽取器产出的**源**，`dist/` 是构建产出的**发布物**，两者的形态不必相同。
+本批只改后者：`vite.config.ts` 的 `zhishu:ship-data` 插件在 `closeBundle` 阶段按白名单拷贝并预压。
+
+```
+dist/manifest.json                 明文（引导链不依赖解压能力）
+dist/bodies/<file>.json.gz         129 份，进阅读页才取
+dist/sites/<file>.json.gz          129 份，点书 / 检索命中才取
+dist/<area>.json.gz                结构分片，进分区才取
+dist/search-<area>.json.gz         检索分片，该区发起搜索才取
+```
+
+四条契约：
+
+- **一一对应，不聚合、不改字段。** `.gz` 解压后必须与 `data/` 里同名 `.json` 逐字节等价。
+  要合并去重（比如把 `sites/` 并进学科分片）属于 schema 变更，得先过铁律第 2 类停止条件。
+- **不拷进产物的只有零请求族**：`_report.json` 与空目录 `raw/`（2026-11-25 实测运行期 0 次请求，见 `docs/deploy.md` 第二节）。
+  其余四族都被运行期取到，删任何一个都会直接把阅读层打断。
+- **URL 后缀即形态信号**，客户端在 `src/data.ts::dataUrl()` 一处按 `import.meta.env.PROD` 决定是否加 `.gz`；
+  dev 走 `publicDir: 'data'` 的明文，同一份调用点两边都通。
+- **读侧两种形态都要能吃**：`gunzip` 先看 gzip 魔数 `1f 8b`，托管层若已透明解压就按明文处理；
+  `getJson` 见 `content-type: text/html` 判为「产物缺文件」（SPA 回落把 404 伪装成 200），不当 JSON 解析。
+
+`data/` 一级目录结构没动，`tools/verify_data.py` 校验的仍是明文源文件；`.gz` 只存在于 `dist/`。
+
