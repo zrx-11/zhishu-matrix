@@ -6,28 +6,32 @@
 
 ## 当前状态
 
-批 1 数据、批 2 空间、批 3 阅读层已落地；检索与生成层未开工。
+批 1 数据、批 2 空间、批 3 阅读层、批 3.5 图示真渲染、批 4 检索层已落地；生成层与打包发布未开工。
 
 | 阶段 | 状态 |
 |---|---|
 | 目录与规则骨架 | 完成 |
-| 抽取器 `tools/extract.py` | 完成（50 仓 → 129 本书入 `data/`，`tools/verify_data.py` 四类校验全绿） |
+| 抽取器 `tools/extract.py` | 完成（50 仓 → 129 本书入 `data/`，`tools/verify_data.py` 五类 23 项校验全绿） |
 | 3D 空间 | 完成（六区大厅 + 房间展台 + 小地图 + WASD + 走廊学科名，触屏/窄视口降级 2D SVG） |
-| 阅读层 | 完成（正文按需加载、`contentLevel` 三档分流、KaTeX 双定界符、外链降级） |
-| 检索层 | 待批 4 |
+| 阅读层 | 完成（正文按需加载、`contentLevel` 三档分流、KaTeX 双定界符、外链降级、侧栏 + 全屏双模式） |
+| 图示（Mermaid） | 完成（882 个围栏 / 855 章动态分包渲染，可见才加载，失败回退源码；5 类图型本地出 SVG 零远程） |
+| 检索层 | 完成（六片 `search-<area>.json` + MiniSearch 分片懒加载，`/` 与 `Ctrl+K`，按 `file` 精确落点，返回复原位姿） |
 | 生成层 | 待批 5 |
 | 打包与发布 | 待批 6 |
 
 规模实测（2026-11-25，`data/manifest.json`，265 个文件 / 15.3MB）：
 **独书 96 · 条目 129 · 章 1,169 · 概念 765 · 题 3,541 · 卡 4,100 · 术语 4,100**。
+检索分片实测（`data/dist/search-*.json` 六片）：books 129 · chapters 1,169 · concepts 765 · terms 4,100 全量入索引，
+单片最大 ai 281.2KB（阈值 300KB），tools 区库里 0 本出 0.3KB 空片。
 
 ## 在 Qoder 里怎么开始
 
 1. 用 Qoder CN 打开本文件夹作为工作区
 2. `npm install` → `npm run dev`（127.0.0.1:5173），或 `npm run build` + `npm run preview`（4173）
-3. 改了 `data/` 先跑数据门槛 `python tools/verify_data.py`；改了 `src/` 跑批 3 全量门槛
-   `python tools/selfcheck.py`（39 项：数据校验 + tsc + build + 无头 Edge 探针 32 条，含 390px 溢出、
-   零外部请求、按需加载、帧率、三档分流、走廊学科名留证）
+3. 改了 `data/` 先跑数据门槛 `python tools/verify_data.py`；改了检索分片先 `python tools/build_search_index.py`；
+   改了 `src/` 跑全量门槛 `python tools/selfcheck.py`（71 项：数据校验 + tsc + build + 离线静态扫描 +
+   分包取证 + 无头 Edge 探针，含 390px 溢出、零外部请求、按需加载、mermaid 懒加载、帧率、三态检索、
+   检索返程位姿）。**收尾与交付必须完整重跑**，`--skip-build` 复用旧 `dist/` 会把已修的改动验成失败
 4. 新建 Quest，选 Spec 驱动，第一句写：
 
 ```
@@ -40,16 +44,17 @@
 ├─ AGENTS.md          主约束与索引
 ├─ docs/
 │  ├─ schema.md       数据契约
-│  ├─ design.md       3D 空间与交互
+│  ├─ design.md       3D 空间与交互（第十节图示渲染、第十一节检索层）
 │  ├─ pitfalls.md     抓取与渲染踩坑
 │  └─ sites.md        站点清单
-├─ tools/             extract.py 抽取 · verify_data.py 数据校验 · selfcheck.py 交付门槛
+├─ tools/             extract.py 抽取 · build_search_index.py 检索分片 · verify_data.py 数据校验
+│                     check_offline.py 离线静态扫描 · selfcheck.py 交付门槛
 ├─ data/              只读产物，业务代码不写
 │  ├─ manifest.json   合并索引
 │  ├─ sites/          单书结构，129 份
 │  ├─ bodies/         章节与概念正文，点开才取
-│  └─ dist/           学科分片（tools 无 manifest，缺该分片）
-└─ src/               前端：main / scene3d / svg2d / layout / render / panel / state / data / config
+│  └─ dist/           学科结构分片 5 片 + 检索分片 search-<area>.json 六片
+└─ src/               前端：main / scene3d / svg2d / layout / render / diagram / panel / search / state / data / config
 ```
 
 ## 边界

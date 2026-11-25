@@ -24,10 +24,11 @@
 | `extract.py` | 抓 50 仓 → 一份 manifest 一本书 → 判 `contentLevel` → 本地读 `.md`（degraded 走 Node 求值）→ 写 `sites/` + `bodies/` + `dist/` + `manifest.json` + `_report.json` | **已产出 `data/`**（批 1）：50 仓 → 129 条书目 / 96 独书。首跑实测见 `docs/probe-report.md` 十一节；`--all` / `--bodies` / `--out-dir` / `--dry-run` / `--limit` / `--link-policy` |
 | **`clone_repos.sh`** | 按三档策略把站点源码拉到 `_work/repos/`，供正文本地读盘；`--dry-run` 只打印档位不联网 | 已登记并按实测复核（2026-11-25：`kaoyan-math-66000`、`CourseVault-OfflineCourseMap`、`ACM-XCPC-Notes` 三站归 three-big，`TIER3_ROOT` 暂空；路径改为脚本相对，`bash -n` 通过、dry-run 档位归属正确） |
 | `probe.py` | 单站探路：打印该站 `index.html` 里内联数据的变量名与结构 | 已并入 `extract.py --probe`，不再单列 |
-| `verify_data.py` | 校验产出：totals 与文件数、schemaVersion、必填字段、slug 唯一 | **已生成**（批 3）。四类 18 项断言，`data/` 实测全绿、退出码 0；另用 6 个变异副本验过「改坏必红」。跑法 `python tools/verify_data.py [--verbose] [--json] [--data-dir DIR]` |
-| `check_offline.py` | 构建后扫描 `dist/` 里的远程引用 | 待生成（当前由 `selfcheck.py` 的运行期请求监听覆盖，见下） |
-| **`selfcheck.py`** | 批 3 交付门槛：`verify_data` → `tsc --noEmit` → `vite build` → 起本地静态服务 → 跑 `selfcheck_probe.mjs` → 逐条打印 39 项，任一失败退出码非 0 | **已生成**（批 3）。跑法 `python tools/selfcheck.py [--skip-build] [--keep-server] [--fps 45]`；报告落 `_work/selfcheck-report.json`，截图落 `_work/shots-batch3/`。依赖 Node + `playwright-core` + 本机 Edge（`C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe`）；样本由 `pick_samples()` 从 `data/bodies/` 现选，不写死书名 |
-| `selfcheck_probe.mjs` | 上一条的浏览器探针（无头 Edge，桌面 1440×900 + 移动 390×844 两个 context），32 条断言 | 已生成（批 3）。经 `window.__zhishu` 诊断接口驱动，不吃 DOM 结构细节；`PROBE_BASE` / `ZHISHU_SAMPLES` 由 Python 侧注入 |
+| `verify_data.py` | 校验产出：totals 与文件数、schemaVersion、必填字段、slug 唯一、检索分片 | **已生成**（批 3，批 4 扩到五类 23 项断言：新增 `check_search_shards()` 验 `data/dist/search-*.json` 六片齐、单片 ≤300KB、`counts` 与数组长度及 manifest 条数对账、字段齐全且 `file` 在 `data/sites/` 存在、术语 `c` 必须落在同书章节 id）。`data/` 实测全绿、退出码 0；另用 6 个变异副本验过「改坏必红」。跑法 `python tools/verify_data.py [--verbose] [--json] [--data-dir DIR]` |
+| **`check_offline.py`** | 构建后静态扫描 `dist/` 产物里的远程引用，按铁律三类白名单分流后判违规 | **已生成**（批 3.5 B 阶段，决策 3 落地）。资源加载位点上的远程 URL 才算违规；`xmlns` / 代码块与 JSON 字面量内 URL / `example.*`·`localhost`·`127.0.0.1` 保留域名记白名单。跑法 `python tools/check_offline.py [--json OUT] [--root DIR]`，实测「违规 0 处 · 白名单 xmlns 6 / 保留域名 2 / 字面量 106 / 数据 200 · 文件 332」 |
+| **`build_search_index.py`** | 生成批 4 检索分片 `data/dist/search-<area>.json`（六学科各一片） | **已生成**（批 4）。只读 `data/manifest.json` + `data/sites/*.json`，写 `data/dist/search-*.json`；字段 `slug/file/title/area` + `chapters[]/concepts[]/terms[]`，超 300KB 自动丢长描述只留标题（实测均无需降级，最大 ai 281.2KB）。tools 区库内 0 本，照样出空片（`counts` 全 0、0.3KB）走前端容错。跑法 `python tools/build_search_index.py [--out-dir DIR] [--max-kb N]` |
+| **`selfcheck.py`** | 交付门槛：`verify_data` → `tsc --noEmit` → `vite build` → `check_offline` → 分包与分片取证 → 起本地静态服务 → 跑 `selfcheck_probe.mjs` → 逐条打印 71 项，任一失败退出码非 0 | **已生成**（批 3，批 3.5/4 扩项）。跑法 `python tools/selfcheck.py [--skip-build] [--keep-server] [--fps 45]`；报告落 `_work/selfcheck-report.json`（含 gate / 探针逐项 / offline / bundle 四块），截图落 `_work/shots-batch35/`。依赖 Node + `playwright-core` + 本机 Edge（`C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe`）；样本由 `pick_samples()` / `pick_diagram_samples()` / `pick_search_samples()` 从 `data/bodies/` 现选，不写死书名。**必须完整重跑**：`--skip-build` 复用旧 `dist/`，本批改动（检索文案、返程落点、CSS 溢出修复）不会被验证到 |
+| `selfcheck_probe.mjs` | 上一条的浏览器探针（无头 Edge，桌面 1440×900 + 移动 390×844 两个 context），71 条断言 | 已生成（批 3，批 3.5/4 扩项）。经 `window.__zhishu` 诊断接口驱动，不吃 DOM 结构细节；`PROBE_BASE` / `ZHISHU_SAMPLES` 由 Python 侧注入。mermaid 分包取证不吃名字正则——chunk 名单由 `bundle_evidence()` 从构建产物算出后经 `samples.mermaidChunks` 注入 |
 
 ## 目录发现的两阶段策略（2026-11-24 定）
 
@@ -184,8 +185,15 @@ python tools/extract.py --all --repo hello-ai-zhishu --bodies     # 单仓重抽
 python tools/extract.py --all              # 正式产出到 data/（批 1 定稿后再跑）
 bash tools/clone_repos.sh --dry-run        # 只打印每站档位与命令，不联网、不写报告
 bash tools/clone_repos.sh                  # 按三档拉取到 _work/repos/
-python tools/verify_data.py                # 校验产出：含 contentLevel 与数组长度一致性（待生成）
+python tools/verify_data.py                # 校验产出：五类 23 项断言（含 contentLevel、数组长度、检索分片）
+python tools/build_search_index.py         # 生成批 4 检索分片 data/dist/search-<area>.json（只读 sites/manifest，不碰 bodies）
+python tools/check_offline.py --json _work/offline-report.json   # 构建后静态扫描 dist/ 远程引用
+python tools/selfcheck.py                  # 交付门槛全跑（含 build，别加 --skip-build）
 ```
+
+检索分片约定：`build_search_index.py` 是 `data/dist/search-*.json` 的唯一生产者，业务代码只读；
+要改字段就改这个脚本，再跑 `verify_data.py` 对账，不手改 JSON，也不重跑 `extract.py`（批 4 硬约束：
+`data/bodies`、`data/sites`、`data/dist/` 已有的 5 片结构分文件一律不动，也不新增 `data/` 一级子目录）。
 
 抽取器约定：主路径读 `_work/repos/`，读不到才走 raw（3 并发 + `_work/cache/` + `_work/state/fetch-state.json` 断点）；
 调 git 一律带 `-c http.sslVerify=true`（本机全局该值为 false）；`_archive`/`_backup`/`旧版`/`deprecated` 路径的 manifest 排除并记

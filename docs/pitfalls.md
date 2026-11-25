@@ -16,13 +16,17 @@
 
 部分站点 Mermaid 走 CDN（优先 npmmirror，多源超时回退）。断网或 CDN 抽风时图不出来。
 
-处理：全部 vendor 本地化，`vendor/mermaid.min.js`，不走任何远程源。
+处理：不走任何远程源。批 3.5 的实际落地形态是 **npm `mermaid@12.3.0` + Vite 动态 `import()` 分包**
+（`mermaid.core` 656KB，连同它展开的 57 片合计 5,106KB，只在阅读页第一个围栏可见时才取），
+不是手放的 `vendor/mermaid.min.js`——首屏 chunk 里一个 mermaid 实现字节都没有。
 
 ### 3. 离线内联不全（以及「零 CDN」这条禁令怎么落地）
 
 所谓"单文件、断网可开"，实际常有漏网的远程字体或图标请求。
 
-处理：构建后跑一次静态扫描，`grep` 出 `http://`、`https://`、`//cdn`，除白名单外必须为零。
+处理：构建后跑一次静态扫描——批 3.5 起收进 `tools/check_offline.py`（不再手 `grep`），
+把 `http://`、`https://`、`//` 协议相对按「资源加载位点 / xmlns 声明 / 代码块与 JSON 字面量 / 保留域名 /
+纯数据」分类，只有资源加载位点上的远程 URL 判违规；由 `tools/selfcheck.py` 调用并并入报告（决策 3 落地）。
 
 **但判定标准是「运行时会不会真的发请求」，不是「文本里有没有 URL」**——铁律原文写「零 CDN」是表述错了，
 已改为「渲染结果不得在运行时发起任何网络请求」（同步改在 `.qoder/rules/zhishu-rules.md`、
@@ -251,6 +255,84 @@ rAF 在无头模式不等合成器，所以这个数只能证明「没掉到阈�
 探针调它验「不渲染正文、只给原站入口、面板不留空」，跑完即弃，`data/` 与 `manifest.json` 不受影响。
 这是所有「schema 有、库里无」档位的通用验法：**造样本改的是传入参数，不是磁盘数据**。
 
+### 24. grid 项的自动最小尺寸是 min-content，一条中文长标题能把弹层撑破 390
+
+390 视口下搜索弹层 `#search-box` 实测宽 551.3px、右缘 469px，`document.scrollWidth` 却仍报 390 之类的假象
+（溢出发生在 fixed 弹层内部，文档宽不涨）。根因不在内容宽度而在布局：`#search-box` 是 grid 项，
+**grid/flex 项的自动最小尺寸默认取 min-content**，一条 40 字的中文标题不换行就是 551px，
+`width: min(660px, 100%)` 也压不住它。
+
+处理：容器与每一条子项都显式 `min-width: 0`，长文本再配 `overflow-wrap: anywhere`
+（`src/styles.css` 的 `#search-box` / `#search-line` / `#search-scope` / `#search-results` / `#search-status`）。
+判据要量两层：`doc === 390` 和**弹层盒子 `right ≤ 390`**，只查前者会漏。〔K〕
+
+### 25. 中文「单字 + 二字」分词天然高召回，无结果态验不出来
+
+MiniSearch 默认按空白切，中文不加空格永远匹配不上，所以 `search.ts::tokenize()` 按单字 + 二字组合切。
+副作用：`combineWith:'OR'` + `prefix:true` + `fuzzy:0.12` 之下，随手敲的中文乱码「的结果」也能命中 21 条——
+判据要求「无结果」态可见，用中文乱码验必然拿到 ready。〔K〕
+
+处理：**无结果态用拉丁乱码验**（自检取 `zxqvkjz`），中文关键词只用于「有命中」路径。
+这不是 bug，是召回策略；要收窄得改 `searchOptions`，属于产品决策不是修缺陷。
+
+### 26. `initSearch()` 末尾只 paint 一次，状态文案要在弹层打开后才刷新
+
+`runSearch()` 里 `if (state.open) paint()`：弹层没开时跑检索，`dataset.status` 与文案都不会写进 DOM。
+探针若在 `searchHide()` 后直接 `searchRun('数学','tools')` 读状态，读到的永远是上一次（或初始）的 `empty`。
+处理：验三态前先 `searchShow('')` 再跑查询；产品侧不动这条设计（不开弹层就不必改 DOM）。〔K〕
+
+### 27. 「mermaid 有没有加载」不能拿 chunk 文件名正则判
+
+第一版探针用 `/mermaid|diagram|c4|…/i` 过滤 `performance.getEntriesByType('resource')`，
+结果 `scene3d-C4wo3fve.js` 的**哈希段**里撞出 `c4` 被判成 mermaid 分包，四条懒加载断言全红。〔K〕
+
+处理：`bundle_evidence()` 从构建产物算出 mermaid 专属 chunk 名单，经 `samples.mermaidChunks` 注入探针，
+浏览器侧只做集合成员判定。哈希串里什么都有可能，取证要点名而不是猜形状。
+
+### 28. mermaid 子包会反向 `import` 主 entry 的共享助手，BFS 必须在闭包边界停住
+
+算 mermaid chunk 名单要从 `mermaid.core` 沿静态 + 动态边展开。但 Vite 把一小段共享代码提升进 entry，
+57 个 mermaid 子包里大量出现 `import{_ as Pt}from"./index-BOvDw5BJ.js"` —— 不限住就会顺着反向边卷进
+entry 静态闭包，再把 `scene3d` 之类全算成 mermaid，名单失去意义。〔K〕
+
+处理：BFS 遇到 entry 及其静态闭包成员即停（边界外不收），得到的 57 片就是「点开围栏才会多出来的东西」。
+
+### 29. 判首屏含不含 mermaid，别拿配置键当指纹
+
+第一版查 entry 里有没有 `startOnLoad|securityLevel` —— 命中了，判成失败。
+那两个字符串是我自己 `diagram.ts` 的 `CONFIG` 字面量，被打包进 entry 是必然的。〔K〕
+
+处理：用实现体才有的函数名作标记（`detectType`、`getDiagramFromText`、`mermaidAPI`、`registerLayout`、
+`addDirective`），要求 entry 命中 0 个、`mermaid.core` 至少命中 3 个。同理，MiniSearch 用 `autoVacuum`
+作「打进哪个 chunk」的指纹。
+
+### 30. 检索返程落点：每次跳转都要重记，用户自己走位就必须作废
+
+落点只在「面板原本关着」时记录，前一次跳转留下的陈快照会串到本次——第二次跳转时面板是开的，
+不覆盖旧值，返回时把相机拉回**上上次**所在的区（实测 `roomAfterReturn` 成了 `ai`）。反过来，
+用户自己走位（进房 / 回大厅）之后落点也已失效，返回却照旧还原。〔K〕
+
+处理：`openFromSearch()` 每次跳转都无条件 `searchSpot = currentSpot()`（链式跳转返回上一站，语义也才对），
+`enterRoom()` 与 `showHall()` 第一行把 `searchSpot` 置 null。
+
+### 31. `--skip-build` 复用旧 dist，会把已经修好的东西验成失败
+
+本批三处改动（空片文案、返程落点、390 溢出 CSS）都需要重新构建才生效。
+跑 `python tools/selfcheck.py --skip-build` 得到「71 项里 3 项失败」，逐项对下来全是旧产物所致。〔K〕
+
+处理：**收尾与交付一律完整重跑**，`--skip-build` 只用于改探针本身时的快速回环。
+另一坑在同一处：Windows 上 dist 被上一轮进程占着目录，`vite build` 会在 prepare-out-dir 阶段
+`EBUSY: rmdir dist\assets`——构建失败的输出要留在报告里，别当成探针不稳定。
+
+### 32. tools 区库里 0 本，检索分片仍要出齐
+
+任务书写「六学科各一片、tools 缺片沿用容错」。库里 tools 一本都没有〔X〕，
+但空区照样生成一片 0.3KB 的空片（`counts` 全 0），前端才有一条真的「空片容错」路径可验：
+`已载分片 0 本` + 「工具间 区库里 0 本（分片是空的），换到其他学科再搜」。
+
+判据「六个学科各至少一个关键词命中」因此在库里不可满足——只能是 5 区命中 + tools 走空片路径，
+**不为过判据去改 `data/`**（铁律）。自检把这两条分开记录，避免看起来像「六区都命中」。〔K〕
+
 ## 二、待验证
 
 编号保留原样，已定案的两条只留指针，免得旧引用（含 `probe-report.md` 第七、八节）对不上。
@@ -272,7 +354,7 @@ rAF 在无头模式不等合成器，所以这个数只能证明「没掉到阈�
 | `contentLevel` | `full` 128 / `degraded` 1 / `stats-only` **0** | 第三档在库里是空的，自检只能合成样本（见已验证 23） |
 | 空正文 | 1,169 章**零空 body** | 「full 却读不到正文」的排查项在库内无实例 |
 | 定界符 | `\(` **0** 处、`\[` **4** 处、`<details>` **0** 处 | 铁律要求 KaTeX 开 `\(\)` 是防御性的，库内数据实际只用 `$...$` |
-| Mermaid | **855** 章含 ```` ```mermaid ```` 围栏 | 占比 73%，必须 vendor 化且懒渲染，不能整本一次性渲染 |
+| Mermaid | **855** 章含 ```` ```mermaid ```` 围栏，共 **882** 个围栏、出自 **77** 本书 | 占比 73%，批 3.5 已 vendor 化 + 可见才渲染（不进首屏 chunk）。图型实测只有 5 种：`flowchart` 818 / `graph` 55 / `sequenceDiagram` 6 / `mindmap` 2 / `xychart-beta` 1——**库里没有 classDiagram、stateDiagram，抽样不硬造** |
 | 可选字段 | `depth` 82/765、`claims` **0**/765、概念 `prerequisites` 428/765、章 `prerequisites` 372/1,169 | `claims` 全库为空 → 误解/断言区块默认不出现 |
 
 仍未定案的是**适配器侧**：`_report.json` 记 `pendingSources` **25 项**（无 `manifest.json` 的站，
@@ -326,3 +408,14 @@ clone 失败或档位不明时退回 raw 逐文件（`schema.md` 第三节），
 14. 自检脚本 `FileNotFoundError` → Windows 下 `npx`/`npm` 是 `.cmd`（见已验证 19）
 15. 帧率明显低于预期 → 先读 `triangles()` 看真实负载，再确认是不是小地图循环与探针采样在抢 rAF（见已验证 21）
 16. 地面学科名看不见 → 按已验证 22 的四因表逐条排（雾 → 高度 → 各向异性 → 方向），先单独拍一张再判读
+
+批 3.5 / 批 4 新增的六条，同一顺序继续往后接：
+
+17. 图一直是「渲染中」或空容器 → 看 `data-diagram` 走到哪一步（`pending/watching/loading/done/error`），
+    空容器一定是没落进 `fail()` 支（见已验证 27 的取证口径）
+18. 首屏就拉了 mermaid 分包 → 先确认是分包真载入了还是 chunk 名被误判（见已验证 27、28、29）
+19. 搜了没结果但库里确有 → 中文关键词命中范围本就宽（见已验证 25），反向查「无结果」态要用拉丁乱码
+20. 搜索跳转后返回落回别的区 → `searchSpot` 没重记或没在走位时作废（见已验证 30）
+21. 390 下弹层溢出但 `doc === 390` → grid/flex 项的 min-content 自动最小尺寸，量盒子右缘（见已验证 24）
+22. 自检红了一堆却查不出代码问题 → 先看是不是 `--skip-build` 复用了旧 dist，或 dist 被上一轮进程占用
+    （见已验证 31）

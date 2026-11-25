@@ -419,3 +419,55 @@ data/dist/tools.json
 实测每本正文平均只有约 60 KiB（章正文 1,153 条 + 概念正文），比 hello-ai/math-physical 的单本 360–580 KB 小一个量级，
 因为多数书只回读 `chapters[].file` 指向的那几个 `.md`，不是子目录里全部 `.md`〔X〕。
 上限保持「结构分片 < 2MB、单本正文 < 1MB」，超线继续细分片，**不许靠砍正文把数字做小**。
+
+## 七、检索分片 `data/dist/search-{area}.json`（批 4 新增）
+
+与结构分片同一目录、不同前缀，由 **`tools/build_search_index.py`** 产出（不是 `extract.py`——本批硬约束是不重跑抽取器）。
+前端只读，业务代码不写；要改格式改脚本，不手改 JSON。
+
+```
+data/dist/search-math.json     # 该区全部书目的检索字段
+…
+data/dist/search-tools.json    # tools 区库里 0 本，照样生成空片（counts 全 0）
+```
+
+```jsonc
+{
+  "schemaVersion": 1,
+  "area": "math",
+  "generator": "tools/build_search_index.py",
+  "generatedAt": "2026-11-25T06:25:21+00:00",
+  "source": "data/manifest.json + data/sites/*.json",
+  "trim": "full",                       // full = 长描述还在；title-only = 触发过 ≤300KB 降级
+  "fields": ["slug", "file", "repo", "title", "area", "chapters", "concepts", "terms"],
+  "counts": { "books": 45, "chapters": 265, "concepts": 308, "terms": 1122 },
+  "books": [
+    {
+      "slug": "what-is-mathematics",     // 展示与书名匹配用，不用于定位
+      "file": "MATH--what-is-mathematics.json",  // 唯一定位键，检索命中一律带它取书
+      "title": "什么是数学",
+      "repo": "MATH",
+      "area": "math",
+      "chapters": [{ "id": "ch01", "title": "第 1 章：自然数与数学归纳法", "core": "" }],
+      "concepts": [{ "id": "c01", "name": "复利与年金模型", "brief": "" }],
+      "terms":    [{ "t": "归纳法", "d": "…", "c": "ch01" }]  // c = 落点章节 id，抽不到留空串
+    }
+  ]
+}
+```
+
+规则：
+
+- **`file` 是唯一的取书键**。`slug` 跨仓重名实测 31 个，前端拿到命中后按 `file` 去 `manifest.sites` 找书，
+  不许按 slug 猜（见 `pitfalls.md` 已验证 18）。
+- 单片 ≤300KB。超线先丢 `chapters[].core` / `concepts[].brief` / `terms[].d` 这些长描述，只留标题与 id，
+  **不丢条目、不动 `counts`**；实测最大 ai 281.2KB，未触发降级。
+- `counts` 必须与数组长度自洽，且 `books` 条数与 `manifest.sites` 里该区条数对账——
+  这两条由 `tools/verify_data.py::check_search_shards()` 断言，不靠人肉看。
+- `terms[].c` 只能是同一本书 `chapters[].id` 里的值或空串，指向不存在的章即判失败。
+  抽不到落点就留空（落书总览），禁止推测填充（铁律第 6、7 条同样适用于检索侧）。
+- 库里 0 本的区也要出片。空片让前端「分片取到但库里 0 本」这条容错路径可验，而不是退化成「分片缺失」。
+- **抽取侧现状要如实写进契约**：`chapters[].core` 只有 78/1,169 非空、`concepts[].brief` 只有 100/765 非空、
+  `terms[].d` 4,100 条全非空〔X〕。所以现阶段检索实际主要靠**标题 + 术语释义**命中，摘要命中是少数。
+  这不是分片丢了字段，是 `data/sites/` 里本就抽不到——补它要重跑抽取器，不在本批范围，禁止用正文反向编造摘要。
+
