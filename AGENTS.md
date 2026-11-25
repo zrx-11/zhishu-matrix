@@ -73,3 +73,4 @@ zhishu-matrix/
 | 5 | 生成层（Agent App + 数据库落库） | 待开工 |
 | 6 | 打包收敛（数据预压 + mermaid 白名单，22.83 → 9.85 MiB）+ `docs/deploy.md` | 完成 |
 | 6.1 | Sites 发布（需账号，人工步骤） | 待执行，路径见 `docs/deploy.md` 第三节 |
+| 7 | 渲染层升级（PBR + 灯光 + PMREM + Bloom + 几何差异化，零外部资产，88 项全绿） | 完成 |

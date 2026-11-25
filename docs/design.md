@@ -166,7 +166,8 @@
 - 底色：深墨 `#12141a`，房间地面更暗一档
 - 强调：数学靛蓝 `#4a6cf7`、AI 青 `#25c2a0`、化学朱砂 `#e05a47`、计算机琥珀 `#e0a83a`、通识灰蓝 `#8b95a8`
 - 字体：正文思源宋体（vendor），界面思源黑体
-- 光：单方向主光 + 环境光，不用实时阴影（性能）
+- 光：~~单方向主光 + 环境光，不用实时阴影（性能）~~ → **批 7 已废止**，改为「半球光 + 投影方向光 + 逐区学科点光 + PMREM 环境光 + Bloom」，
+  实时阴影开着但只烘一次，见第十二节
 - 深浅色：深色为默认，浅色主题保留但房间配色需重算对比度
 
 ## 九、不做的事
@@ -252,3 +253,56 @@
 所以「无结果」态要用拉丁乱码验（`pitfalls.md` 已验证 25）。boost 给 `label 5 / book 1.5 / text 1`：
 标题命中优先于正文，符合「我知道叫什么但想不起在哪」的主用法。
 
+## 十二、渲染层（批 7 落地）
+
+批 2–6 的画面是「颜色填充」：11 处 `MeshBasicMaterial`、零光源、无阴影、无后期。批 7 把它换成有光照的空间，
+硬约束是**零外部资产**——不落地任何 `.hdr/.glb/.gltf/.ktx2/图片贴图`，环境光也必须程序化生成。
+
+### 12.1 管线
+
+`WebGLRenderer`（ACESFilmic，exposure 1.0，DPR ≤2）→ `EffectComposer`：`RenderPass → UnrealBloomPass → OutputPass`。
+composer 延迟到真正进 3D 视图才建，2D 降级路径不 `import three`（判据：390 视口仍零 three 请求）。
+
+| 件 | 参数 | 为什么 |
+|---|---|---|
+| HemisphereLight | `0x9fb4de / 0x141a24`，0.42 | 天空-地面双向环境项，比纯 AmbientLight 有层次 |
+| DirectionalLight（主光） | `0xfff1dc`，1.5，`castShadow`，mapSize 2048，bias −0.0009，normalBias 0.35 | 唯一的投影灯；俯角 ~38°（`half*0.8`）才拖得出影子，60° 时影子压在柱后看不见 |
+| PointLight × 6（大厅逐区） | 学科色，intensity 900，distance 240，decay 2，y=46 | 区的归属靠色光而不是色块；带距离衰减，不会互相糊成一片 |
+| PointLight × 2（房间内） | top 学科色 700（distance = span×2.4）+ rim 冷白 392 @ y=18 | rim 挂高是为了不在地面留热点（y=7 时地面有一块过曝） |
+| `scene.environment` | `PMREMGenerator.fromEquirectangular` 吃 512×256 canvas 渐变，用完即弃源贴图 | envMapIntensity 0.3–0.5，给金属感与高光走向；零外部文件 |
+| UnrealBloomPass | strength 0.55 / radius 0.55 / threshold 0.55，内部分辨率 0.65× | 首值 0.9/0.4/0.5 会把地面暗角糊平，0.35 档又看不出光晕 |
+| 雾 | `Fog(BG, 520, 1250)` | 保留，只从 480/1180 微挪一档 |
+
+**阴影只烘一次**：场景静态、只有相机动，所以 `shadowMap.autoUpdate=false`，位姿变化时置 `needsUpdate=true`，省 ~11% 帧时。
+**Bloom 内部分辨率 0.65×**：`composer.setSize()` 之后再 `pass.setSize(w·pr·0.65, h·pr·0.65)`（composer 不会替它重算），再省 ~11%。
+两者合计把大厅从 ~53fps 抬回 66fps（headless 采样）。
+
+### 12.2 几何
+
+- 立柱 6 种形态，一区一种：数学 `cylinder`、AI `hexPrism`、化学 `coneTower`、计算机 `boxPillar`、通识 `stackedDrum`、工具 `ringColumn`（空房间未建）。
+  Lathe/Cylinder/Box 全部代码生成，无外部模型。取证签名 `geometry.type:shape:vertexCount`——单看 type 分不开数学与 AI（都是 CylinderGeometry）。
+- 立柱高度 = 章数映射：`base = 3.4 + 7.8·√min(1, 章数/24)`，同书内再乘 0.86–1.0 错落系数，夹在 `[3.4, 11.2]`。√ 让 8 章的书也读得出高度。
+- 立柱粗细靠实例缩放 `COLUMN_GIRTH = 2.2`（几何单位半径 0.6–1.0 对展台半径 10 就是根针）。
+- 底座 3 种形态（`disc/step/ring`）与立柱同族，一房一种。
+- 概念光点：一张 64² canvas 径向渐变共用贴图 + `PlaneGeometry` 面片实例，Additive、`depthWrite:false`；
+  半径随题量 `1.5 + 1.15·√min(1, 题量/100)`，颜色 = 学科色向 `#f4f7ff` 插值 0.3，绕柱 4.3 环三层错落。
+  总量 math 398 / ai 462，全区 ≤600——**不做粒子海**。
+  朝向每帧在 CPU 侧按相机四元数重写实例矩阵：`InstancedMesh.raycast` 读的就是实例矩阵，塞进顶点着色器会让光点点不中。
+- 地面：1024² canvas 程序化贴图（40 格细线 + 每 4 格粗线 + 径向暗角），替代原 `GridHelper` 线框。
+
+### 12.3 预算口径
+
+`shadowMap.autoUpdate=false` 后 `renderer.info` 每帧不含阴影 pass，所以三角面**分两口径**报（`census.triangles`）：
+
+| 视图 | mainPass | shadowPass | perFrame | draw call | 占 15 万 |
+|---|---|---|---|---|---|
+| 大厅 | 1,398 | 144 | 1,412 | 53 | 0.9% |
+| 数学 | 18,454 | 18,300 | 18,468 | 63 | 12.3% |
+| AI | 21,154 | 20,992 | 21,168 | 67 | 14.1% |
+| 通识 | 33,816 | 33,468 | 33,830 | 33 | 22.6% |
+| 计算机 | 4,830 | 4,536 | 4,844 | 32 | 3.2% |
+| 化学 | 16,636 | 16,500 | 16,650 | 30 | 11.1% |
+
+`shadowPass` 与 `mainPass` 同量级是因为投影体既进主渲染也进阴影图，不是主画面画了两遍；判据按 `perFrame ≤150,000`。
+帧率实测：大厅 10s **64.9**、数学区 5s **63**（headless d3d11，真机更低，余量按 1.4× 看）。
+体积：dist 9.846 → **9.883 MiB**（+0.037 MiB，全在 `assets/` 的 JS 分包 +38.5 kB），上限 12 MiB。

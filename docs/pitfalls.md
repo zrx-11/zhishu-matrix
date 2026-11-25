@@ -401,6 +401,65 @@ mermaid 白名单要把非保留图型的 `import("./chunks/mermaid.core/xxx.mjs
 build 走 `zhishu:ship-data` 精挑 + 预压。代价是 dev 与产物形态不同（明文 vs `.gz`），由 `import.meta.env.PROD`
 在 `dataUrl()` 一处对齐，两边都不用改调用点。〔K〕
 
+### 39. 设了 `PCFSoftShadowMap` 却 census 报 `PCFShadowMap`（批 7）
+
+three r186 起 `PCFSoftShadowMap` 被移除：`WebGLShadowMap` 首次渲染阴影时打一条
+`warn('PCFSoftShadowMap has been removed. Using PCFShadowMap instead.')` 并把 `type` 归一成 `PCFShadowMap`。
+所以「读回来的类型」永远不等于「你设的类型」，断言直接写 `type === 'PCFSoftShadowMap'` 必红。
+
+处理：赋值照旧写 Soft（表达意图，旧版本仍生效），census 另记 `shadow.requested`，
+断言拆成「有效类型含 PCF」+「requested === PCFSoftShadowMap」两条。
+这条 warn 不进「控制台零报错」口径——探针只收 `m.type() === 'error'`，别把它误当失败去改代码。
+
+### 40. 阴影明明开着，截图里却看不见（批 7）
+
+不是 shadowMap 的问题，是**主光俯角**。方向光架到 `half*1.5` 高（约 60°）时，柱子影子几乎全压在自己背后，
+关/开阴影的整屏亮度差只有 1.6e-4——肉眼和统计都等于没投影。降到 `half*0.8`（约 38°）后影子拖到展台上，
+房间中段亮度差涨到 7.2e-3（45 倍）。
+
+处理：取证要用亮度对照而不是「看着有影子」。A/B 采样区域选**受影面**而不是整屏，
+且阈值至少留 2 倍余量（1.6e-4 贴 1e-4 门槛的写法会随机红）。
+
+### 41. 阴影关了之后三角面「少了一半」（批 7）
+
+`shadowMap.autoUpdate=false`（静态场景只烘一次）之后，`renderer.info.render.triangles` 每帧不再包含阴影 pass 的提交量，
+数字会掉到只算主渲染。别以为掉帧数是 bug，也不能拿它当「总负载」报给 15 万预算判据。
+
+处理：census 分三档报——`mainPass`（主渲染静态量）、`shadowPass`（投影体提交量）、`perFrame`（实际整帧），
+判据按 `perFrame`，另加一条 `shadowPass > 0` 证明阴影 pass 真在跑。
+透明 + `DoubleSide` 的材质主渲染会提交两遍，静态量与 GPU 读数对不上时先查这个（大厅静态 810 vs 读数 1,398 即此因）。
+
+### 42. Bloom 一开帧率掉 10% 以上（批 7）
+
+`UnrealBloomPass` 默认按 `renderer` 的全分辨率建 mip 链，DPR=2 时是 4 倍像素量。
+
+处理：`composer.setSize()` **之后**再 `bloomPass.setSize(w*pr*0.65, h*pr*0.65)`——composer 在 render 时不会替 pass 重算尺寸，
+所以这个 0.65 会一直生效。省回 ~11% 帧时，肉眼在 1440×900 上看不出高光边缘差别。
+同理 `composer.setPixelRatio(renderer.getPixelRatio())` 必须显式调，否则 composer 用默认 1，DPR>1 的机器上后期链会糊。
+
+### 43. 房间点光在地面留一块过曝热点（批 4 之后批 7 复现）
+
+`decay=2` 的 PointLight 挂在 y=7 时，离地面太近，中心照度 ≈ intensity/d² 直接爆。抬到 y=18、强度 420（后调 392）热点消失。
+
+处理：房间补光一律挂到展台以上；判亮度别看整屏 mean，要按 `sampleLuminance` 采地面横带——
+整屏 mean 被天空带稀释，地面过曝在整屏上只体现为 +0.02。
+
+### 44. 光点做了 GPU billboard 之后点不中（批 7）
+
+把朝向塞进顶点着色器（`modelViewMatrix` 提旋转）确实省掉每帧重写实例矩阵，但 `InstancedMesh.raycast`
+读的是**实例矩阵**，着色器里的旋转对拾取不可见——射线命中的还是那根竖着的 1×1 面片，398 个光点全部点偏。
+
+处理：billboard 放 CPU 侧，每帧 `matrix.compose(pos, camera.quaternion, scale)` 重写实例矩阵；
+断言看 `dotBillboard === true` 与贴图指纹 `canvas:radial-gradient-64`，不看帧率。
+
+### 45. headless 里 PMREM 环境光「看不出有没有生效」（批 7）
+
+envMap 只抬高光与金属感，截图亮度差在噪声里；而 headless 的 ANGLE 驱动偶尔不给浮点 render target。
+
+处理：断言走**指纹**而不是像素——`scene.environment` 非空 + `isRenderTargetTexture` + `halfFloat` +
+`PMREMGenerator` 生成的 target 打标 `userData.pmrem`，源 canvas 用完即 `dispose()`。
+「零外部资产」由 `dist/assets` 里 `.hdr/.glb/.gltf/.ktx2/.png/.jpg` 计数为 0 兜住，不靠人记。
+
 ## 二、待验证
 
 编号保留原样，已定案的两条只留指针，免得旧引用（含 `probe-report.md` 第七、八节）对不上。
@@ -500,3 +559,12 @@ clone 失败或档位不明时退回 raw 逐文件（`schema.md` 第三节），
     临时改成立功也打印，或拿真实源码单跑正则（见已验证 33）
 27. mermaid 图型不出图却显示源码 + 「未打包」 → 这是设计：白名单外类型走 `fail()` 回退支，内容不丢（见已验证 37）；
     白名单内的 5 类也这样，才是分包真的缺了
+
+批 7 渲染层新增三条，同一顺序继续往后接：
+
+28. 阴影断言必红但画面没错 → 先看 census 的 `shadow.requested` 与 `shadowPass`：requested 是 Soft 而有效类型是 PCF 属正常
+    （已验证 39），`shadowPass=0` 才是真没投影；再确认主光俯角（已验证 40）
+29. 帧率比批 6 低一档 → 依次关 bloom 内部分辨率（已验证 42）、恢复阴影烘一次（已验证 41）、看 DPR 是否被 composer 忽略，
+    三步各有独立 A/B 数字，别一起改
+30. 立柱像一根针 / 光点糊成一团 → 先量比例再改几何：立柱单位半径 0.6–1.0 对展台半径 10 必须靠实例缩放（`COLUMN_GIRTH`），
+    光点尺寸上限压到 `1.5+1.15·√t` 并把环半径推到 4.3，否则会与柱体重叠
