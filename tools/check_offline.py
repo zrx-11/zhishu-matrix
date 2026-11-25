@@ -14,10 +14,13 @@
 
 真违规只有一种：**资源加载位点上的远程 URL**——`src=` / `href=` / `url()` / `@import` /
 `fetch(` / `new Worker(` / `importScripts(` 这类会驱动网络请求的位置。命中即退出码非 0。
+
+产物里的数据分片以 `<name>.json.gz` 落盘（批 6 阶段 B 预压），扫描时先解压再比对，覆盖率与明文一致。
 """
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 import re
 import sys
@@ -56,6 +59,19 @@ HIT_RE = re.compile(
 # 只统计、不细列的同源数据（抽取产物，业务代码只读，URL 属内容而非加载位点）
 DATA_PARTS = {"bodies", "sites", "dist", "raw"}
 CODE_EXTS = {".js", ".mjs", ".css", ".html", ".htm", ".svg", ".xml"}
+# 批 6 阶段 B：数据落盘预压成 `<name>.json.gz`，扫描前解压再逐字节扫，覆盖率不因压缩下降
+GZ_SUFFIX = ".json.gz"
+
+
+def read_text(path: Path) -> str:
+    if path.name.endswith(".gz"):
+        return gzip.decompress(path.read_bytes()).decode("utf-8", errors="replace")
+    return path.read_text(encoding="utf-8", errors="replace")
+
+
+def is_data_file(path: Path, parts: set) -> bool:
+    name = path.name.lower()
+    return name.endswith(".json") or name.endswith(GZ_SUFFIX) or bool(parts & DATA_PARTS)
 
 
 def host_of(raw: str) -> str:
@@ -85,7 +101,7 @@ def classify(text: str, match: re.Match, is_data: bool) -> tuple[str, str, int]:
 
 def scan_file(path: Path, is_data: bool, all_detail: bool):
     try:
-        text = path.read_text(encoding="utf-8", errors="replace")
+        text = read_text(path)
     except OSError as exc:  # 二进制或读不动，直接跳过内容扫描
         return {"file": str(path), "skipped": str(exc), "hits": [], "counts": {}}
     counts: dict[str, int] = {}
@@ -117,16 +133,18 @@ def main() -> int:
     violations: list[dict] = []
     files_scanned = 0
     data_files = 0
+    gz_files = 0
     for path in sorted(base.rglob("*")):
         if not path.is_file():
             continue
         rel = path.relative_to(base).as_posix()
         parts = set(rel.split("/")[:-1])
-        is_data = path.suffix.lower() == ".json" or bool(parts & DATA_PARTS)
+        is_data = is_data_file(path, parts)
         if not is_data and path.suffix.lower() not in CODE_EXTS:
             continue
         files_scanned += 1
         data_files += 1 if is_data else 0
+        gz_files += 1 if path.name.endswith(".gz") else 0
         res = scan_file(path, is_data, args.all)
         for kind, n in res["counts"].items():
             totals[kind] = totals.get(kind, 0) + n
@@ -135,7 +153,10 @@ def main() -> int:
                 violations.append({"file": rel, **hit})
 
     verdict = "pass" if not violations else "fail"
-    print(f"扫描 {base}：文件 {files_scanned} 个（其中同源数据 {data_files} 个）")
+    print(
+        f"扫描 {base}：文件 {files_scanned} 个（其中同源数据 {data_files} 个，"
+        f"预压 .gz 透明解压后扫描 {gz_files} 个）"
+    )
     order = ["load", "data-loadable", "xmlns", "reserved", "literal", "data"]
     for kind in order:
         if kind in totals:
@@ -164,6 +185,7 @@ def main() -> int:
             "root": str(base),
             "filesScanned": files_scanned,
             "dataFiles": data_files,
+            "gzFiles": gz_files,
             "counts": totals,
             "violations": violations,
             "verdict": verdict,

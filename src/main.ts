@@ -1,7 +1,7 @@
 import './styles.css';
 import type { BookRecord, Discipline, ManifestIndex, SearchHit, SiteEntry } from './types';
 import { ROOMS, ROOM_BY_KEY, prefersFlatView } from './config';
-import { booksOf, loadManifest, loadShard } from './data';
+import { booksOf, loadManifest, loadShard, loadSiteRecord } from './data';
 import { forgetDiagrams, hydrateDiagrams, mermaidRequested, renderDiagram } from './diagram';
 import { key, recordIndex } from './layout';
 import { renderMarkdown } from './render';
@@ -185,15 +185,9 @@ async function recordsOf(discipline: Discipline): Promise<Map<string, BookRecord
 async function bookRecord(book: SiteEntry): Promise<BookRecord | null> {
   const k = key(book.repo, book.bookSlug);
   if (bookCache.has(k)) return bookCache.get(k) ?? null;
-  try {
-    const res = await fetch(`/sites/${encodeURIComponent(book.file)}`, { cache: 'force-cache' });
-    if (!res.ok) return null;
-    const rec = (await res.json()) as BookRecord;
-    bookCache.set(k, rec);
-    return rec;
-  } catch {
-    return null;
-  }
+  const rec = await loadSiteRecord(book.file);
+  if (rec) bookCache.set(k, rec);
+  return rec;
 }
 
 type BookSel = { slug?: string, file?: string };

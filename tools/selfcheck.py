@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 import html
 import os
@@ -39,6 +40,13 @@ SEARCH_PREFIX = "search-"
 SEARCH_MAX_KB = 300
 DISCIPLINES = ("math", "ai", "chem", "cs", "general", "tools")
 MERMAID_IMPL_MARKERS = ("detectType", "getDiagramFromText", "mermaidAPI", "registerLayout", "addDirective")
+# 批 6 阶段 C 白名单：库里 0 处使用的图型，其分包名一旦出现在 assets/ 即裁剪没生效
+DROPPED_DIAGRAM_RE = re.compile(
+    r"classDiagram|stateDiagram|erDiagram|gantt|pie|cynefin|usecase|architecture|gitGraph"
+    r"|journey|requirements|sankey|quadrant|timeline-diagram|radar|treemap|packet|block-|kanban|ishikawa|venn"
+)
+# 批 6 完成判据：dist/ 总体积 ≤ 本轮开始前 22.83MiB 的 60%
+DIST_MAX_MIB = 22.83 * 0.6
 
 
 def run(cmd: list[str], cwd: Path = ROOT) -> tuple[int, str]:
@@ -249,9 +257,20 @@ def bundle_evidence() -> dict:
     shard_dir = DIST / "dist"
     shards = {}
     for area in DISCIPLINES:
-        p = shard_dir / f"{SEARCH_PREFIX}{area}.json"
-        shards[area] = round(p.stat().st_size / 1024, 1) if p.is_file() else None
+        # 批 6 阶段 B 起产物落 .json.gz（构建期预压），明文只在 dev 态存在，两种都认
+        for name in (f"{SEARCH_PREFIX}{area}.json.gz", f"{SEARCH_PREFIX}{area}.json"):
+            p = shard_dir / name
+            if p.is_file():
+                shards[area] = round(p.stat().st_size / 1024, 1)
+                break
+        else:
+            shards[area] = None
     out["searchShards"] = shards
+    out["shardSuffix"] = "json.gz" if (shard_dir / f"{SEARCH_PREFIX}{DISCIPLINES[0]}.json.gz").is_file() else "json"
+    # 批 6 阶段 C：白名单外的图型分包不得出现在产物里（出现即裁剪没生效）
+    out["droppedLeftovers"] = sorted(
+        p.name for p in assets.glob("*.js") if DROPPED_DIAGRAM_RE.search(p.name)
+    )
     out["ok"] = (
         not in_closure
         and bool(core)
@@ -261,7 +280,74 @@ def bundle_evidence() -> dict:
         and bool(out["mermaidSet"])
         and out["minisearchIn"] == [entry]
         and all(v is not None and v <= SEARCH_MAX_KB for v in shards.values())
+        and not out["droppedLeftovers"]
     )
+    return out
+
+
+def dist_size_evidence() -> dict:
+    """批 6 阶段 B/C 判据：dist/ 总体积 ≤ 本轮开始前的 60%，并给出分族数字。
+    基线 22.83MiB / 391 文件（_work/measure-requests.json 的 distTotalBytes，本轮 build 前实测）。"""
+    out: dict = {"baselineMiB": round(22.83, 2), "families": {}}
+    if not DIST.is_dir():
+        out["reason"] = "dist/ 不存在"
+        return out
+    tot = 0
+    files = 0
+    for p in DIST.rglob("*"):
+        if not p.is_file():
+            continue
+        top = p.relative_to(DIST).as_posix().split("/")[0]
+        fam = top if top in ("assets", "bodies", "sites", "dist") else ("other/" + top)
+        out["families"][fam] = out["families"].get(fam, [0, 0])
+        out["families"][fam][0] += 1
+        out["families"][fam][1] += p.stat().st_size
+        tot += p.stat().st_size
+        files += 1
+    for k, v in out["families"].items():
+        out["families"][k] = [v[0], round(v[1] / 1048576, 2)]
+    out["totalMiB"] = round(tot / 1048576, 2)
+    out["totalFiles"] = files
+    out["ratio"] = round(tot / 1048576 / 22.83, 3)
+    # 收敛过的数据族不得再出现明文 .json 拷贝（.json.gz 才是本批形态），也不得再带 _report.json / raw/
+    out["plainJsonData"] = sorted(
+        p.relative_to(DIST).as_posix()
+        for p in DIST.rglob("*.json")
+        if p.relative_to(DIST).as_posix().split("/")[0] in ("bodies", "sites", "dist")
+    )
+    out["leftovers"] = [n for n in ("_report.json", "raw") if (DIST / n).exists()]
+    out["ok"] = out["totalMiB"] <= DIST_MAX_MIB and not out["plainJsonData"] and not out["leftovers"]
+    return out
+
+
+def ship_integrity() -> dict:
+    """批 6 契约（docs/schema.md 第八节）：产物里的 .json.gz 解压后必须与 data/ 源逐字节等价，
+    预压只改传输形态，不许顺手改内容或字段。"""
+    out: dict = {"checked": 0, "mismatch": [], "missing": []}
+    for fam in ("bodies", "sites", "dist"):
+        for gz in (DIST / fam).glob("*.json.gz"):
+            src = DATA / fam / gz.name[: -len(".gz")]
+            out["checked"] += 1
+            if not src.is_file():
+                out["missing"].append(f"{fam}/{src.name}")
+                continue
+            if gzip.decompress(gz.read_bytes()) != src.read_bytes():
+                out["mismatch"].append(f"{fam}/{gz.name}")
+    # 未压缩族：明文对明文
+    for name in ("manifest.json",):
+        a, b = DIST / name, DATA / name
+        if a.is_file() and b.is_file():
+            out["checked"] += 1
+            if a.read_bytes() != b.read_bytes():
+                out["mismatch"].append(name)
+    # 产物不得凭空造源里没有的文件（tools 结构分片批 1 就没产过）
+    out["orphan"] = sorted(
+        p.relative_to(DIST).as_posix()
+        for fam in ("bodies", "sites", "dist")
+        for p in (DIST / fam).glob("*.json*")
+        if not (DATA / fam / (p.name[: -len(".gz")] if p.name.endswith(".gz") else p.name)).is_file()
+    )
+    out["ok"] = not out["mismatch"] and not out["missing"] and not out["orphan"]
     return out
 
 
@@ -348,9 +434,25 @@ def main() -> int:
     )
     shards = bun.get("searchShards") or {}
     record(
-        f"检索分片六片齐且单片 ≤{SEARCH_MAX_KB}KB（随 publicDir 落进 dist/dist/）",
+        f"检索分片六片齐且单片 ≤{SEARCH_MAX_KB}KB（{bun.get('shardSuffix')}，由 zhishu:ship-data 落进 dist/dist/）",
         all(v is not None and v <= SEARCH_MAX_KB for v in shards.values()) and len(shards) == 6,
         " / ".join(f"{k} {v}KB" for k, v in shards.items()),
+    )
+    dsz = dist_size_evidence()
+    record(
+        f"dist/ 总体积 ≤ 本轮开始前的 60%（基线 {dsz.get('baselineMiB')}MiB → ≤{DIST_MAX_MIB:.2f}MiB）",
+        dsz.get("ok") is True,
+        f"实测 {dsz.get('totalMiB')}MiB / {dsz.get('totalFiles')} 文件 · 占比 {dsz.get('ratio')} · 分族 "
+        + json.dumps(dsz.get("families"), ensure_ascii=False)
+        + (f" · 残留明文数据 {dsz.get('plainJsonData')} / {dsz.get('leftovers')}"
+           if dsz.get("plainJsonData") or dsz.get("leftovers") else ""),
+    )
+    ship = ship_integrity()
+    record(
+        "产物 .json.gz 解压后与 data/ 源逐字节等价（预压不改内容）",
+        ship.get("ok") is True,
+        f"核对 {ship.get('checked')} 个文件 · 不一致 {ship.get('mismatch')[:3] or '无'} · "
+        f"源缺 {ship.get('missing')[:3] or '无'} · 产物凭空多 {ship.get('orphan')[:3] or '无'}",
     )
 
     # 5) 浏览器自检
@@ -375,7 +477,7 @@ def main() -> int:
         httpd, port, _ = serve(DIST)
         base = f"http://127.0.0.1:{port}"
         env = dict(os.environ, PROBE_BASE=base, ZHISHU_SAMPLES=json.dumps(samples, ensure_ascii=False),
-                   PROBE_SHOTS="_work/shots-batch35", PYTHONIOENCODING="utf-8")
+                   PROBE_SHOTS="_work/shots-batch6", PYTHONIOENCODING="utf-8")
         node_exe = shutil.which("node") or "node"
         p = subprocess.run([node_exe, str(TOOLS / "selfcheck_probe.mjs")], cwd=str(ROOT),
                            capture_output=True, text=True, encoding="utf-8", env=env)
@@ -392,6 +494,8 @@ def main() -> int:
             if rep:
                 rep["offline"] = off
                 rep["bundle"] = bun
+                rep["distSize"] = dsz
+                rep["ship"] = ship
                 (ROOT / "_work" / "selfcheck-report.json").write_text(
                     json.dumps(rep, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n"
                 )
@@ -421,7 +525,7 @@ def main() -> int:
     merged["failed"] = (merged.get("failed") or []) + [{"name": n, "info": info} for n, ok, info in bad]
     rep_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
     print(f"\n{'=' * 68}\n自检 {len(results)} 项，通过 {len(results) - len(bad)}，失败 {len(bad)}，用时 {time.time() - t0:.1f}s")
-    print("报告：_work/selfcheck-report.json（含 gate 门槛项 + 探针逐项 + offline + bundle）· 截图：_work/shots-batch35/")
+    print("报告：_work/selfcheck-report.json（含 gate 门槛项 + 探针逐项 + offline + bundle + distSize）· 截图：_work/shots-batch6/")
     if bad and args.keep_server:
         print("--keep-server 已指定但自检未过，仍退出非 0")
     return 1 if bad else 0

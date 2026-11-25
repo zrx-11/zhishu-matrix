@@ -496,6 +496,38 @@ try {
   check('renderDiagram 对坏源码返回原因而不抛错', apiFallback.svg === 0 && apiFallback.error.length > 0, apiFallback);
   await d.screenshot({ path: `${SHOTS}/mermaid-fallback.png` });
 
+  // 批 6 阶段 C：白名单外的图型（库里 0 处使用）不再打包，走的是同一条回退支——容器给源码 + 一行原因，不出 SVG
+  const unbundled = await d.evaluate(async () => {
+    const src = 'classDiagram\n  Animal <|-- Duck\n  class Animal { +int age }';
+    const r = await window.__zhishu.diagramRender(src);
+    const injected = window.__zhishu.injectReader('上一段。\n\n```mermaid\n' + src + '\n```\n\n下一段。');
+    return { svg: r.svg ? r.svg.length : 0, error: r.error ?? '', kind: r.kind, injected };
+  });
+  await d.waitForTimeout(1500);
+  const unbundledDom = await d.evaluate(() => {
+    const el = document.querySelector('#panel-body .diagram');
+    if (!el) return null;
+    return {
+      state: el.dataset.diagram ?? null,
+      err: el.querySelector('.diagram-err')?.textContent ?? '',
+      preChars: (el.querySelector('.diagram-view pre.code')?.textContent ?? '').length,
+      viewChars: (el.querySelector('.diagram-view')?.innerText ?? '').replace(/\s+/g, '').length,
+      svg: Boolean(el.querySelector('.diagram-view svg')),
+    };
+  });
+  check(
+    '白名单外图型不打包且回退源码 + 一行原因（不空容器、不出 SVG）',
+    unbundled.svg === 0 &&
+      unbundled.error.length > 0 &&
+      !!unbundledDom &&
+      unbundledDom.state === 'error' &&
+      !unbundledDom.svg &&
+      unbundledDom.preChars > 5 &&
+      unbundledDom.viewChars > 10,
+    { api: unbundled, dom: unbundledDom },
+  );
+  await d.screenshot({ path: `${SHOTS}/mermaid-unbundled.png` });
+
   await d.evaluate(() => document.getElementById('panel-close').click());
   await d.waitForTimeout(500);
   const fpsHallMm = await fps(d, 5000);
@@ -770,7 +802,7 @@ try {
   check('降级路径未加载 Three.js', (await m.evaluate(() => window.__zhishu.mode)) === 'flat');
 
   // ---------------------------------------------------------------- 390 检索弹层（判据 C3 移动端可用 + 加载中态）
-  await mctx.route('**/dist/search-*.json', async (route) => {
+  await mctx.route('**/dist/search-*', async (route) => {
     await new Promise((r) => setTimeout(r, 600));
     await route.continue();
   });
