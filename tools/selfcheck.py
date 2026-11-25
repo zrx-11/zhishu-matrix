@@ -49,6 +49,10 @@ DROPPED_DIAGRAM_RE = re.compile(
 DIST_MAX_MIB = 22.83 * 0.6
 # 批 7 完成判据：渲染层升级后 dist 总量硬上限（改前实测 9.846MiB，留 2.15MiB 给光照资产）
 RENDER_DIST_MAX_MIB = 12.0
+# 批 8 完成判据：空间化重构（图集 + 建筑几何 + 拾取映射）后的硬上限，改前实测 9.883MiB
+SPACE_DIST_MAX_MIB = 10.6
+# 批 8 完成判据：门槛断言只增不减（批 7 收在 88 项）
+SPACE_ASSERT_MIN = 89
 
 
 def run(cmd: list[str], cwd: Path = ROOT) -> tuple[int, str]:
@@ -455,6 +459,11 @@ def main() -> int:
         f"实测 {dsz.get('totalMiB')}MiB / {dsz.get('totalFiles')} 文件 · 分族 "
         + json.dumps(dsz.get("families"), ensure_ascii=False),
     )
+    record(
+        f"批 8 空间化上限：dist/ 总体积 ≤ {SPACE_DIST_MAX_MIB}MiB",
+        dsz.get("totalMiB") is not None and dsz["totalMiB"] <= SPACE_DIST_MAX_MIB,
+        f"实测 {dsz.get('totalMiB')}MiB（改前 9.883）· 增项是图集绘制 + 建筑几何 + 拾取映射表，零外部资产",
+    )
     ship = ship_integrity()
     record(
         "产物 .json.gz 解压后与 data/ 源逐字节等价（预压不改内容）",
@@ -485,7 +494,7 @@ def main() -> int:
         httpd, port, _ = serve(DIST)
         base = f"http://127.0.0.1:{port}"
         env = dict(os.environ, PROBE_BASE=base, ZHISHU_SAMPLES=json.dumps(samples, ensure_ascii=False),
-                   PROBE_SHOTS="_work/shots-batch7", PYTHONIOENCODING="utf-8")
+                   PROBE_SHOTS="_work/shots-batch8", PYTHONIOENCODING="utf-8")
         node_exe = shutil.which("node") or "node"
         p = subprocess.run([node_exe, str(TOOLS / "selfcheck_probe.mjs")], cwd=str(ROOT),
                            capture_output=True, text=True, encoding="utf-8", env=env)
@@ -511,6 +520,11 @@ def main() -> int:
                     record(c["name"], c["pass"], json.dumps(c["info"], ensure_ascii=False)[:260] if c["info"] not in (None, "") else "")
                 for line in rep.get("log", []):
                     print("      ·", line)
+                record(
+                    f"批 8 门槛断言总数 >88（批 7 收在 88 项，本批只增不减）",
+                    len(rep["checks"]) >= SPACE_ASSERT_MIN,
+                    f"探针断言 {len(rep['checks'])} 项 · 失败 {len(rep.get('failed') or [])} 项",
+                )
                 fps_vals = [c["info"] for c in rep["checks"] if c["name"].startswith("大厅 10 秒帧率")]
                 record(f"10 秒采样帧率 ≥{args.fps:g}（1440×900）", all(isinstance(v, (int, float)) and v >= args.fps for v in fps_vals) and bool(fps_vals), str(fps_vals))
                 record("零外部请求（含字体 / CDN / 微信）", not rep["requests"]["external"], str(rep["requests"]["external"][:3]))
@@ -533,7 +547,7 @@ def main() -> int:
     merged["failed"] = (merged.get("failed") or []) + [{"name": n, "info": info} for n, ok, info in bad]
     rep_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
     print(f"\n{'=' * 68}\n自检 {len(results)} 项，通过 {len(results) - len(bad)}，失败 {len(bad)}，用时 {time.time() - t0:.1f}s")
-    print("报告：_work/selfcheck-report.json（含 gate 门槛项 + 探针逐项 + offline + bundle + distSize）· 截图：_work/shots-batch7/")
+    print("报告：_work/selfcheck-report.json（含 gate 门槛项 + 探针逐项 + offline + bundle + distSize）· 截图：_work/shots-batch8/")
     if bad and args.keep_server:
         print("--keep-server 已指定但自检未过，仍退出非 0")
     return 1 if bad else 0

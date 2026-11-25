@@ -336,32 +336,92 @@ try {
   log.push(`大厅 10s 采样 fps = ${fpsHall}`);
   check('大厅 10 秒帧率 ≥45', fpsHall >= 45, fpsHall);
 
-  // 进数学区：立柱 / 光点 / 零正文请求
+  // 进数学区：阅览室壳体 / 书架墙 / 书脊图集与映射 / 光点 / 零正文请求
   await d.locator('#roombar button[data-room="math"]').click();
   await d.waitForFunction(() => window.__zhishu.room() === 'math', null, { timeout: 10000 });
   await d.waitForTimeout(900);
   const nodes = await d.evaluate(() => window.__zhishu.nodeStats());
   const fpsRoom = await fps(d, 5000);
   const triRoom = await d.evaluate(() => window.__zhishu.triangles());
-  log.push(`数学区 fps = ${fpsRoom} · 三角面 = ${triRoom} · 立柱 ${nodes?.columns} · 光点 ${nodes?.dots}`);
-  check('数学区章节立柱与概念光点已建', nodes.books > 0 && nodes.columns > 0 && nodes.dots > 0, nodes);
   const cenMath = await d.evaluate(() => window.__zhishu.census());
+  const structMath = cenMath.room;
+  const shelfMath = cenMath.shelves;
+  const spineMath = cenMath.spines;
+  const labelMath = cenMath.labels;
   log.push(
-    `数学区 census：受光材质 ${cenMath.litMaterials} / 自发光 ${cenMath.unlitMaterials} · ` +
-      `立柱几何 ${JSON.stringify(cenMath.builtColumnGeometry)} · 光点 billboard=${cenMath.dotBillboard} ` +
-      `贴图=${cenMath.dotTexture} 数=${cenMath.dotCount} · 三角面 主${cenMath.triangles.mainPass}/阴影${cenMath.triangles.shadowPass} · draw ${cenMath.calls.perFrame}`,
+    `数学区 fps = ${fpsRoom} · 三角面 = ${triRoom} · 书 ${nodes?.books} · 书脊 ${spineMath.cells}/章 ${spineMath.chapters} · ` +
+      `书架 ${structMath.shelfRows} 排 ${structMath.tiers} 层 · 光点 ${nodes?.dots}`,
   );
   check(
-    '房间受光材质 ≥4（地面/底座/展台/立柱都是 Standard）',
+    '数学区是封闭阅览室（≥3 墙 + 顶 + 地 + 踢脚 + 挂线 + 藻井梁，且真的在场景里可见）',
+    structMath.walls >= 3 &&
+      structMath.ceiling === true &&
+      structMath.floor === true &&
+      structMath.baseboards >= 3 &&
+      structMath.rails >= 3 &&
+      structMath.ceilingBeams >= 1 &&
+      structMath.seen.wallMeshes >= 1 &&
+      structMath.seen.ceilingMesh === true &&
+      structMath.seen.floorMesh === true,
+    structMath,
+  );
+  check(
+    '书架墙 ≥3 排、每排 ≥2 层、门楣有学科牌匾',
+    shelfMath.rows >= 3 &&
+      shelfMath.tiers >= 2 &&
+      shelfMath.bookcases === shelfMath.rows &&
+      labelMath.plaqueTextures >= 1,
+    { shelves: shelfMath, plaqueTextures: labelMath.plaqueTextures },
+  );
+  check(
+    '一章一脊：书脊格数 == 本区章节数（== 标题行数）',
+    spineMath.cells > 0 && spineMath.cells === spineMath.chapters && nodes.spinesEqualChapters,
+    spineMath,
+  );
+  log.push(
+    `数学区 census：受光材质 ${cenMath.litMaterials} / 自发光 ${cenMath.unlitMaterials} · ` +
+      `书脊 mesh ${spineMath.meshes} 图集 ${spineMath.atlasPages} 页 三角 ${spineMath.triangles} 映射 ${spineMath.mapped}/${JSON.stringify(spineMath.mapLengths)} · ` +
+      `标签 ${JSON.stringify(labelMath)} · 帧缩放 ${cenMath.renderScale} · ` +
+      `光点 billboard=${cenMath.dotBillboard} 数=${cenMath.dotCount} · 三角面 主${cenMath.triangles.mainPass}/阴影${cenMath.triangles.shadowPass} · draw ${cenMath.calls.perFrame}`,
+  );
+  check(
+    '房间受光材质 ≥4（地面/墙/顶/书架/展台都是 Standard）',
     cenMath.litMaterials >= 4 && cenMath.materials.MeshStandardMaterial >= 4,
     cenMath.materials,
   );
   check(
-    '六区立柱形态 ≥3 种且本区真建出对应几何',
-    cenMath.columnKindsDistinct >= 3 &&
-      cenMath.builtColumnGeometry.length === 1 &&
-      cenMath.builtColumnGeometry[0].startsWith('CylinderGeometry:cylinder:'),
-    { kinds: cenMath.columnKinds, distinct: cenMath.columnKindsDistinct, built: cenMath.builtColumnGeometry },
+    '书脊 = 合并几何 + 图集：整区 ≤3 个网格体、非实例、映射表长度 == 三角数',
+    spineMath.meshes >= 1 &&
+      spineMath.meshes <= 3 &&
+      spineMath.atlasPages >= 1 &&
+      spineMath.atlasPages <= 3 &&
+      spineMath.indexed === false &&
+      spineMath.mapped === true &&
+      spineMath.mapLengths.length === spineMath.meshes &&
+      spineMath.triangles === spineMath.cells * 12 &&
+      spineMath.mapLengths.reduce((a, b) => a + b, 0) === spineMath.triangles &&
+      cenMath.calls.perFrame <= 110,
+    spineMath,
+  );
+  check(
+    '标签全部进几何：零 Sprite、零 DOM 浮动标签、悬停有延迟提示、书名烘进图集',
+    labelMath.sprites === 0 &&
+      labelMath.domFloating === 0 &&
+      labelMath.tooltip === true &&
+      labelMath.spineTitles === spineMath.books &&
+      labelMath.plaqueTextures >= 1 &&
+      labelMath.nameplateTextures >= 1,
+    labelMath,
+  );
+  check(
+    '批 8 空间预算：主口径三角面 ≤60,000 且每帧 draw ≤110',
+    cenMath.triangles.mainPass <= 60000 && cenMath.calls.perFrame <= 110,
+    { tris: cenMath.triangles.mainPass, calls: cenMath.calls.perFrame },
+  );
+  check(
+    '帧缓冲缩放按视图分开（室内 0.85、大厅 1.0）',
+    cenMath.renderScale === 0.85 && cenHall.renderScale === 1,
+    { room: cenMath.renderScale, hall: cenHall.renderScale },
   );
   check(
     '概念光点是共用 canvas 渐变贴图的面片实例（非粒子海、非几何堆）',
@@ -371,7 +431,7 @@ try {
       cenMath.dotCount <= 600,
     { billboard: cenMath.dotBillboard, texture: cenMath.dotTexture, count: cenMath.dotCount },
   );
-  // 阴影对照放在房间：大厅只有 144 个投影面、亮度差 1.6e-4 太贴边；数学区 265 根立柱把影子落在展台与地面上
+  // 阴影对照放在房间：大厅只有几百个投影面、亮度差太贴边；数学区三面书架墙把影子落在地板与书脊上
   await new Promise((r) => setTimeout(r, 700));
   const lumShadowOn = await d.evaluate(() => window.__zhishu.sampleLuminance(0.05, 0.18, 0.9, 0.34));
   await d.evaluate(() => window.__zhishu.setShadowsEnabled(false));
@@ -391,6 +451,25 @@ try {
     '阴影口径非零且整帧不越 15 万面',
     cenMath.triangles.shadowPass > 0 && cenMath.triangles.perFrame <= 150000,
     cenMath.triangles,
+  );
+
+  // 批 8 拾取映射：逐条把相机压到书脊正前方，用真实射线回归 faceIndex 反查表
+  const spinePicks = await d.evaluate(() => {
+    const cells = window.__zhishu.census().spines.cells;
+    const picks = [];
+    for (const i of [0, 1, Math.floor(cells * 0.3), Math.floor(cells * 0.6), cells - 2, cells - 1]) {
+      const p = window.__zhishu.focusSpine(i, 3.4);
+      if (p && p.screen) picks.push({ i, want: p.chapterId, got: p.hit?.chapterId ?? null, kind: p.hit?.kind ?? null });
+    }
+    return picks;
+  });
+  await d.evaluate(() => window.__zhishu.enterRoom('math'));
+  await d.waitForTimeout(600);
+  log.push(`书脊 faceIndex ↔ 真实射线：${spinePicks.length} 条样本，一致 ${spinePicks.filter((p) => p.got === p.want).length} 条`);
+  check(
+    'faceIndex 区间映射与实时射线一致（点击时零线性搜索，书脊不被光尘遮挡）',
+    spinePicks.length >= 5 && spinePicks.every((p) => p.got === p.want && p.kind === 'chapter'),
+    spinePicks,
   );
   check('分区浏览阶段零正文请求', requests.bodies.length === 0, requests.bodies.slice(0, 5));
   const mmRoom = await mermaidChunks(d);
@@ -585,6 +664,38 @@ try {
     );
   }
 
+  // 批 8 判据 3：只建当前区，切回大厅必须把图集 + 合并几何 + 牌匾纹理释放掉
+  await d.evaluate(() => window.__zhishu.showHall());
+  await d.waitForTimeout(700);
+  const cenBack = await d.evaluate(() => window.__zhishu.census());
+  const triBack = await d.evaluate(() => window.__zhishu.triangles());
+  log.push(
+    `回大厅：三角面 ${triBack}（数学区 ${triRoom}）· draw ${cenBack.calls.perFrame} · ` +
+      `书脊网格 ${cenBack.spines.meshes}/${cenBack.spines.cells} · 房间壳体 ${cenBack.room.walls} 墙 · 帧缩放 ${cenBack.renderScale}`,
+  );
+  check(
+    '切回大厅即释放本区构建物（书脊网格、壳体、书架归零）且帧缩放回 1.0',
+    cenBack.spines.meshes === 0 &&
+      cenBack.spines.cells === 0 &&
+      cenBack.room.walls === 0 &&
+      cenBack.shelves.rows === 0 &&
+      cenBack.renderScale === 1 &&
+      triBack < triRoom,
+    { tris: triBack, spines: cenBack.spines.meshes, walls: cenBack.room.walls, scale: cenBack.renderScale },
+  );
+  check(
+    '大厅是八角中庭：八边壳 + 六扇门洞 + 地面总览图 + 六块走廊地铭',
+    cenBack.hall.sides === 8 &&
+      cenBack.hall.doors === 6 &&
+      cenBack.hall.ground === true &&
+      cenBack.hall.facades >= 1 &&
+      cenBack.labels.nameplateTextures === 6 &&
+      cenBack.labels.sprites === 0,
+    { hall: cenBack.hall, labels: cenBack.labels },
+  );
+  await d.evaluate(() => window.__zhishu.enterRoom('math'));
+  await d.waitForTimeout(500);
+
   const brokenInjected = await d.evaluate(() =>
     window.__zhishu.injectReader('上一段。\n\n```mermaid\n!!! 这不是 mermaid 语法 @@\n```\n\n下一段。'),
   );
@@ -662,16 +773,101 @@ try {
   );
 
   const cenAi = await d.evaluate(() => window.__zhishu.census());
-  log.push(`AI 区立柱几何 ${JSON.stringify(cenAi.builtColumnGeometry)} · draw ${cenAi.calls.perFrame}`);
-  check(
-    '跨区立柱几何真的不同（几何类型 + 形态名 + 顶点数三重签名，数学≠AI）',
-    cenAi.builtColumnGeometry.length === 1 &&
-      cenAi.builtColumnGeometry[0] !== cenMath.builtColumnGeometry[0] &&
-      cenAi.builtColumnGeometry[0].startsWith('CylinderGeometry:hexPrism:') &&
-      cenMath.builtColumnGeometry[0].startsWith('CylinderGeometry:cylinder:') &&
-      cenAi.columnKinds.math !== cenAi.columnKinds.ai,
-    { math: cenMath.builtColumnGeometry, ai: cenAi.builtColumnGeometry, kinds: cenAi.columnKinds },
+  log.push(
+    `AI 区：书脊 ${cenAi.spines.cells}/章 ${cenAi.spines.chapters} · 网格 ${cenAi.spines.meshes} 图集 ${cenAi.spines.atlasPages} 页 ` +
+      `· 书架形 ${cenAi.builtShelfKind} ${cenAi.shelves.rows} 排 ${cenAi.shelves.tiers} 层 ${cenAi.shelves.dividers} 隔板 · draw ${cenAi.calls.perFrame}`,
   );
+  check(
+    '跨区书架与书脊真的不同（同一套建筑代码按本区数据分档，数学≠AI）',
+    cenAi.spines.cells === cenAi.spines.chapters &&
+      cenAi.spines.cells > spineMath.cells &&
+      cenAi.spines.meshes >= 1 &&
+      cenAi.spines.meshes <= 3 &&
+      cenAi.spines.mapped === true &&
+      cenAi.builtShelfKind !== cenMath.builtShelfKind &&
+      cenAi.shelves.tiers !== cenMath.shelves.tiers &&
+      cenAi.room.walls === cenMath.room.walls &&
+      cenAi.labels.sprites === 0 &&
+      cenAi.labels.domFloating === 0 &&
+      cenAi.calls.perFrame <= 110,
+    {
+      ai: { spines: cenAi.spines.cells, shelf: cenAi.builtShelfKind, tiers: cenAi.shelves.tiers, calls: cenAi.calls.perFrame },
+      math: { spines: spineMath.cells, shelf: cenMath.builtShelfKind, tiers: cenMath.shelves.tiers },
+    },
+  );
+
+  // ---- 批 8：逐区空间账（判据 3「书脊总数 == 章节总数」要对六区都成立，不能只验数学与 AI）
+  const zoneRows = [];
+  for (const area of ['chem', 'cs', 'general', 'tools']) {
+    await d.evaluate((a) => window.__zhishu.enterRoom(a), area);
+    await d.waitForTimeout(1100);
+    zoneRows.push({ area, cen: await d.evaluate(() => window.__zhishu.census()) });
+  }
+  for (const z of zoneRows) {
+    const c = z.cen;
+    if (z.area === 'tools') {
+      check(
+        'tools 区库里 0 本：空阅览室仍封闭且不造书（铁律「不为演示编数据」）',
+        c.room.walls >= 3 && c.room.ceiling === true && c.room.floor === true &&
+          c.shelves.rows >= 3 && c.spines.cells === 0 && c.spines.meshes === 0 &&
+          c.labels.sprites === 0 && c.labels.domFloating === 0,
+        { walls: c.room.walls, rows: c.shelves.rows, cells: c.spines.cells },
+      );
+      continue;
+    }
+    check(
+      `${z.area} 区书脊格数 == 章数，且图集分页刚好装下（不超 3 页、不浪费整页）`,
+      c.spines.cells === c.spines.chapters && c.spines.cells > 0 &&
+        c.spines.atlasPages >= 1 && c.spines.atlasPages <= 3 &&
+        c.spines.cells <= c.spines.atlasPages * 192 &&
+        c.spines.cells > (c.spines.atlasPages - 1) * 192 &&
+        c.spines.mapped === true && c.spines.triangles === c.spines.cells * 12,
+      { cells: c.spines.cells, chapters: c.spines.chapters, pages: c.spines.atlasPages, tri: c.spines.triangles },
+    );
+    check(
+      `${z.area} 区阅览室建筑与预算（≥3 面墙 + ≥3 排书架 + 零浮标 + 双口径不越界）`,
+      c.room.walls >= 3 && c.room.ceiling === true && c.shelves.rows >= 3 &&
+        c.shelves.bookcases === c.shelves.rows && c.labels.sprites === 0 &&
+        c.labels.domFloating === 0 && c.labels.plaqueTextures >= 1 &&
+        c.triangles.mainPass <= 60000 && c.calls.perFrame <= 110 && c.renderScale === 0.85,
+      {
+        walls: c.room.walls, rows: c.shelves.rows, kind: c.builtShelfKind,
+        tris: c.triangles.mainPass, calls: c.calls.perFrame, labels: c.labels,
+      },
+    );
+  }
+  log.push(`逐区：${zoneRows.map((z) => `${z.area} 脊 ${z.cen.spines.cells}/${z.cen.spines.chapters} 图 ${z.cen.spines.atlasPages} 主 ${z.cen.triangles.mainPass} draw ${z.cen.calls.perFrame}`).join(' · ')}`);
+  await d.evaluate(() => window.__zhishu.enterRoom('math'));
+  await d.waitForTimeout(1200);
+
+  // ---- 批 8：HTML 浮标换成 120ms 延时 tooltip，延时本身必须实测（阶段 D 的可读性约定）
+  const tipAt = await d.evaluate(() => {
+    const p = window.__zhishu.focusSpine(6, 3.4);
+    return p && p.screen ? { x: p.screen.x, y: p.screen.y, chapter: p.chapterId } : null;
+  });
+  await d.mouse.move(tipAt.x, tipAt.y);
+  const tipInstant = await d.evaluate(() => document.querySelector('[data-hover-tip]')?.hidden);
+  await d.waitForTimeout(360);
+  const tipShown = await d.evaluate(() => {
+    const t = document.querySelector('[data-hover-tip]');
+    return { hidden: t ? t.hidden : null, text: t ? (t.textContent || '').slice(0, 40) : '' };
+  });
+  await d.mouse.move(2, 2); // 挪到顶栏（离开画布）→ pointerleave 必触发
+  await d.waitForTimeout(260);
+  const tipGone = await d.evaluate(() => document.querySelector('[data-hover-tip]')?.hidden);
+  check(
+    '扫过书脊的瞬间不闪标签（120ms 内 tooltip 仍隐藏）',
+    tipInstant === true,
+    { tipInstant, shown: tipShown },
+  );
+  check(
+    '停够延时才浮出 DOM tooltip，内容是可读章节名',
+    tipShown.hidden === false && tipShown.text.length > 3,
+    { tipShown, chapter: tipAt.chapter },
+  );
+  check('指针移开 tooltip 立即收起（不留残余浮标）', tipGone === true, { tipGone });
+  await d.evaluate(() => window.__zhishu.enterRoom('ai'));
+  await d.waitForTimeout(900);
 
   // ---------------------------------------------------------------- 检索层（批 4 · 判据 C1—C4）
   const sc = samples.search || {};
@@ -911,8 +1107,31 @@ try {
   check('390 大厅 scrollWidth === 390', wMobileHall.doc === 390, wMobileHall);
   await m.locator('#roombar button[data-room="ai"]').click();
   await m.waitForFunction(() => window.__zhishu.room() === 'ai', null, { timeout: 10000 });
-  await m.locator('svg g[data-slug]').first().click();
+  // 平面投影把同一面墙的 6 层书架压到一条线上，靠前的书位中心会被后画的那本盖住，
+  // 于是 Playwright 的 locator.click 一直等不到「元素接收事件」而超时。
+  // 这里改成真人式指点头，并且只认「命中元素属于哪本书」——顺带核对开正文的就是点到的那本。
+  await m.waitForFunction(() => document.querySelectorAll('svg g[data-slug]').length > 0, null, { timeout: 15000 });
+  const tap = await m.evaluate(() => {
+    const gs = [...document.querySelectorAll('svg g[data-slug]')];
+    let self = 0;
+    let first = null;
+    for (const g of gs) {
+      const b = g.getBoundingClientRect();
+      const x = b.x + b.width / 2;
+      const y = b.y + b.height / 2;
+      const el = document.elementFromPoint(x, y);
+      if (el && el.closest('svg g[data-slug]') === g) {
+        self += 1;
+        first = first ?? { x, y, slug: g.dataset.slug };
+      }
+    }
+    return first ? { ...first, n: gs.length, self } : { n: gs.length, self };
+  });
+  check('2D 书位存在可命中的中心（压层后仍有书能被指头点到）', tap.self > 0 && tap.n > 0, tap);
+  if (tap.x !== undefined) await m.touchscreen.tap(tap.x, tap.y);
   await m.waitForFunction(() => window.__zhishu.readerState().open === true, null, { timeout: 15000 });
+  const rsTap = await m.evaluate(() => window.__zhishu.readerState());
+  check('2D 指头点色块开正文，且开的是点到的那一本', rsTap.open === true && rsTap.book === tap.slug, { tap, rs: rsTap });
   await m.waitForTimeout(300);
   if (samples.full) {
     await m.evaluate((s) => window.__zhishu.openChapterOf({ slug: s.slug, file: s.file }, s.chapter), samples.full);
