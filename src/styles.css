@@ -1,0 +1,274 @@
+:root {
+  --bg: #12141a;
+  --bg-room: #0e1015;
+  --ink: #e8ecf4;
+  --ink-dim: #8b95a8;
+  --line: #232833;
+  --accent: #4a6cf7;
+  --ai: #25c2a0;
+  --chem: #e05a47;
+  --cs: #e0a83a;
+  --general: #8b95a8;
+  --tools: #6b7688;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Source Han Sans SC", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+  /* 不用 overflow-x:hidden 掩盖溢出：判据要求 scrollWidth 真的等于视口宽 */
+  height: 100%;
+}
+
+#app {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+#topbar {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px max(10px, env(safe-area-inset-left)) 8px max(10px, env(safe-area-inset-left));
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-room);
+}
+
+#topbar > * {
+  min-width: 0;
+}
+
+#where {
+  flex: 1 1 auto;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+  background: #1a1f29;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+#search {
+  flex: 0 1 220px;
+  color: var(--ink-dim);
+}
+
+#stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+#three-root,
+#svg-root {
+  position: absolute;
+  inset: 0;
+}
+
+#three-root canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#svg-root svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+#loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--ink-dim);
+  font-size: 14px;
+}
+
+#loading[hidden] {
+  display: none;
+}
+
+#roombar {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 6px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--line);
+  background: var(--bg-room);
+  overflow-x: auto; /* 窄视口下这条 nav 自带横向滚动，不外溢到文档 */
+  scrollbar-width: thin;
+}
+
+#roombar button {
+  flex: 0 0 auto;
+  font-size: 12px;
+  padding: 6px 9px;
+  border-radius: 999px;
+}
+
+#roombar button[aria-current="true"] {
+  border-color: currentColor;
+}
+
+#panel {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: min(420px, 100%);
+  display: flex;
+  flex-direction: column;
+  background: rgba(14, 16, 21, 0.96);
+  border-left: 1px solid var(--line);
+}
+
+#panel[hidden] {
+  display: none;
+}
+
+#panel header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+#panel h2 {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+#panel-close {
+  flex: 0 0 auto;
+  width: 32px;
+}
+
+#panel-body {
+  flex: 1 1 auto;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 10px 12px 24px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+#panel-body h3 {
+  font-size: 13px;
+  margin: 14px 0 6px;
+  color: var(--ink-dim);
+  letter-spacing: 0.04em;
+}
+
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--ink-dim);
+}
+
+.badge.full {
+  color: var(--ai);
+}
+
+.badge.degraded {
+  color: var(--cs);
+}
+
+.badge.stats-only {
+  color: var(--ink-dim);
+}
+
+.statgrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(86px, 1fr));
+  gap: 6px;
+}
+
+.statgrid div {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+.statgrid b {
+  display: block;
+  font-size: 16px;
+}
+
+.chaplist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.chaplist li {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.chaplist span.n {
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+  flex: 0 0 auto;
+}
+
+#hud {
+  flex: 0 0 auto;
+  padding: 4px 10px max(4px, env(safe-area-inset-bottom));
+  font-size: 11px;
+  color: var(--ink-dim);
+  border-top: 1px solid var(--line);
+  background: var(--bg-room);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 767px) {
+  #panel {
+    width: 100%;
+    border-left: 0;
+  }
+
+  #search {
+    display: none;
+  }
+}

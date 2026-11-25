@@ -1,0 +1,616 @@
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import type { Discipline, ManifestIndex, SiteEntry } from './types';
+import { BG, FLOOR, HALL_LABEL, ROOMS, ROOM_BY_KEY } from './config';
+import { layoutColumns, layoutRoom, type RoomLayout } from './layout';
+import type { BookRecord } from './types';
+import type { CameraPose } from './state';
+
+export interface ThreeHooks {
+  onPickRoom(discipline: Discipline): void;
+  onPickBook(discipline: Discipline, book: SiteEntry): void;
+  onHud(text: string): void;
+  onCamera(pose: CameraPose): void;
+}
+
+// 10 秒帧率采样窗口要求持续渲染；静止 12 秒后才停循环，交互即恢复
+const IDLE_MS = 12000;
+
+export class Matrix3D {
+  readonly kind = '3d' as const;
+  private renderer: THREE.WebGLRenderer;
+  private scene = new THREE.Scene();
+  private camera: THREE.PerspectiveCamera;
+  private controls: OrbitControls;
+  private ray = new THREE.Raycaster();
+  private hall = new THREE.Group();
+  private room = new THREE.Group();
+  private beacons!: THREE.InstancedMesh;
+  private platforms: THREE.InstancedMesh | null = null;
+  private columns: THREE.InstancedMesh | null = null;
+  private dots: THREE.InstancedMesh | null = null;
+  private lines: THREE.LineSegments | null = null;
+  private emptyMark: THREE.Group | null = null;
+  private roomFloor: THREE.Mesh | null = null;
+  private hallLabels: THREE.Sprite[] = [];
+  private roomLabels: THREE.Sprite[] = [];
+  private layout: RoomLayout | null = null;
+  private bookOrder: SiteEntry[] = [];
+  private view: 'hall' | 'room' = 'hall';
+  private raf = 0;
+  private lastActive = performance.now();
+  private running = false;
+  private disposed = false;
+  private prevTs = performance.now();
+  private frameTimes: number[] = [];
+  private downAt = { x: 0, y: 0 };
+
+  constructor(
+    private root: HTMLElement,
+    private manifest: ManifestIndex,
+    private hooks: ThreeHooks,
+  ) {
+    this.renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      powerPreference: 'high-performance',
+      alpha: false,
+    });
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    this.renderer.setClearColor(new THREE.Color(BG), 1);
+    root.appendChild(this.renderer.domElement);
+
+    this.scene.background = new THREE.Color(BG);
+    this.scene.fog = new THREE.Fog(new THREE.Color(BG).getHex(), 420, 1200);
+
+    this.camera = new THREE.PerspectiveCamera(56, 1, 0.5, 2400);
+    this.camera.position.set(0, 260, 420);
+
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.enableDamping = true;
+    this.controls.dampingFactor = 0.08;
+    this.controls.enablePan = false;
+    this.controls.minDistance = 60;
+    this.controls.maxDistance = 900;
+    this.controls.maxPolarAngle = Math.PI * 0.47;
+    this.controls.rotateSpeed = 0.85;
+    // 触屏：单指旋转，不依赖双指手势（双指留给缩放，可选）
+    this.controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_ROTATE };
+
+    this.scene.add(this.hall, this.room);
+    this.buildHall();
+    this.resize();
+
+    const el = this.renderer.domElement;
+    el.addEventListener('pointerdown', this.onPointerDown);
+    el.addEventListener('pointermove', this.onPointerMove);
+    el.addEventListener('wheel', this.wake, { passive: true });
+    window.addEventListener('resize', this.onResize);
+    this.start();
+  }
+
+  // ---------------------------------------------------------------- 构场
+
+  private buildHall(): void {
+    const floor = new THREE.Mesh(
+      new THREE.CircleGeometry(520, 64),
+      new THREE.MeshBasicMaterial({ color: new THREE.Color(FLOOR) }),
+    );
+    floor.rotation.x = -Math.PI / 2;
+    floor.position.y = -0.4;
+    this.hall.add(floor);
+
+    const grid = new THREE.GridHelper(1040, 26, 0x1c2230, 0x171c26);
+    (grid.material as THREE.Material).transparent = true;
+    (grid.material as THREE.Material).opacity = 0.55;
+    this.hall.add(grid);
+
+    const beaconGeo = new THREE.CylinderGeometry(18, 24, 44, 6);
+    const beaconMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    this.beacons = new THREE.InstancedMesh(beaconGeo, beaconMat, ROOMS.length);
+    const m = new THREE.Matrix4();
+    const color = new THREE.Color();
+    ROOMS.forEach((r, i) => {
+      m.makeTranslation(r.at[0], 22, r.at[1]);
+      this.beacons.setMatrixAt(i, m);
+      this.beacons.setColorAt(i, color.set(r.color));
+      this.hall.add(this.label(this.hallLabels, r.short, r.at[0], 60, r.at[1], r.color, 1.5));
+      const disc = new THREE.Mesh(
+        new THREE.RingGeometry(27, 35, 48),
+        new THREE.MeshBasicMaterial({
+          color: new THREE.Color(r.color),
+          transparent: true,
+          opacity: 0.4,
+          side: THREE.DoubleSide,
+        }),
+      );
+      disc.rotation.x = -Math.PI / 2;
+      disc.position.set(r.at[0], 0.4, r.at[1]);
+      this.hall.add(disc);
+      // 走廊：大厅中心到房间中心的细线
+      const g = new THREE.BufferGeometry().setFromPoints([
+        new THREE.Vector3(0, 0.2, 0),
+        new THREE.Vector3(r.at[0], 0.2, r.at[1]),
+      ]);
+      this.hall.add(
+        new THREE.Line(g, new THREE.LineBasicMaterial({ color: r.color, transparent: true, opacity: 0.32 })),
+      );
+    });
+    this.beacons.instanceMatrix.needsUpdate = true;
+    if (this.beacons.instanceColor) this.beacons.instanceColor.needsUpdate = true;
+    this.hall.add(this.beacons);
+    this.hall.add(this.label(this.hallLabels, HALL_LABEL, 0, 30, 0, '#e8ecf4', 1.05));
+  }
+
+  private label(
+    bucket: THREE.Sprite[],
+    text: string,
+    x: number,
+    y: number,
+    z: number,
+    color: string,
+    scale = 1,
+  ): THREE.Sprite {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('canvas 2d 不可用');
+    const font = 44;
+    ctx.font = `${font}px "Source Han Sans SC", "Noto Sans SC", sans-serif`;
+    const w = Math.ceil(ctx.measureText(text).width) + 24;
+    canvas.width = w;
+    canvas.height = font + 24;
+    const c2 = canvas.getContext('2d');
+    if (!c2) throw new Error('canvas 2d 二次上下文丢失');
+    c2.font = `${font}px "Source Han Sans SC", "Noto Sans SC", sans-serif`;
+    c2.fillStyle = color;
+    c2.textBaseline = 'middle';
+    c2.fillText(text, 12, canvas.height / 2);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    const sprite = new THREE.Sprite(
+      new THREE.SpriteMaterial({ map: tex, transparent: true, depthWrite: false }),
+    );
+    const k = 0.14 * scale;
+    sprite.scale.set(canvas.width * k, canvas.height * k, 1);
+    sprite.position.set(x, y, z);
+    bucket.push(sprite);
+    return sprite;
+  }
+
+  private clearRoom(): void {
+    for (const obj of [this.platforms, this.columns, this.dots]) {
+      if (!obj) continue;
+      this.room.remove(obj);
+      obj.geometry.dispose();
+      const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+      mats.forEach((m) => m.dispose());
+      obj.dispose();
+    }
+    if (this.lines) {
+      this.room.remove(this.lines);
+      this.lines.geometry.dispose();
+      (this.lines.material as THREE.Material).dispose();
+    }
+    if (this.emptyMark) {
+      this.room.remove(this.emptyMark);
+      this.emptyMark.traverse((o) => {
+        if (o instanceof THREE.Mesh) {
+          o.geometry.dispose();
+          (o.material as THREE.Material).dispose();
+        }
+      });
+      this.emptyMark = null;
+    }
+    if (this.roomFloor) {
+      this.room.remove(this.roomFloor);
+      this.roomFloor.geometry.dispose();
+      (this.roomFloor.material as THREE.Material).dispose();
+      this.roomFloor = null;
+    }
+    this.platforms = this.columns = this.dots = null;
+    this.lines = null;
+    for (const s of this.roomLabels.splice(0)) {
+      this.room.remove(s);
+      s.material.map?.dispose();
+      s.material.dispose();
+    }
+  }
+
+  // ---------------------------------------------------------------- 视图切换
+
+  showHall(pose?: CameraPose | null): void {
+    this.view = 'hall';
+    this.room.visible = false;
+    this.hall.visible = true;
+    this.controls.minDistance = 90;
+    this.controls.maxDistance = 1000;
+    if (pose) this.applyPose(pose);
+    else {
+      this.camera.position.set(0, 265, 440);
+      this.controls.target.set(0, 0, 0);
+    }
+    this.resetInertia();
+    this.controls.update();
+    this.wake();
+    this.hooks.onHud(
+      `大厅 · ${this.manifest.totals.sites} 本书 / ${this.manifest.totals.repos} 个仓库 · 六区可点`,
+    );
+  }
+
+  enterRoom(
+    discipline: Discipline,
+    books: SiteEntry[],
+    records: Map<string, BookRecord>,
+    pose?: CameraPose | null,
+  ): void {
+    const spec = ROOM_BY_KEY[discipline];
+    this.clearRoom();
+    const base = layoutRoom(books);
+    this.layout = layoutColumns(base, records);
+    this.bookOrder = this.layout.books.map((b) => b.book);
+    this.addRoomFloor(spec, Math.max(80, (this.layout.span || 0) * 0.85 + 25));
+
+    if (!books.length) {
+      this.buildEmptyRoom(spec);
+      return;
+    }
+
+    const platGeo = new THREE.BoxGeometry(18, 1.4, 18);
+    const platMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    const plats = new THREE.InstancedMesh(platGeo, platMat, books.length);
+    const m = new THREE.Matrix4();
+    const col = new THREE.Color();
+    this.layout.books.forEach((b, i) => {
+      m.makeTranslation(b.x, 0.7, b.z);
+      plats.setMatrixAt(i, m);
+      plats.setColorAt(i, col.set(spec.color).multiplyScalar(b.book.contentLevel === 'full' ? 1 : 0.55));
+    });
+    plats.instanceMatrix.needsUpdate = true;
+    if (plats.instanceColor) plats.instanceColor.needsUpdate = true;
+    this.platforms = plats;
+    this.room.add(plats);
+
+    if (this.layout.columns.length) {
+      const colGeo = new THREE.BoxGeometry(1.6, 1, 1.6);
+      const columns = new THREE.InstancedMesh(
+        colGeo,
+        new THREE.MeshBasicMaterial({ color: 0xffffff }),
+        this.layout.columns.length,
+      );
+      this.layout.columns.forEach((c, i) => {
+        m.compose(
+          new THREE.Vector3(c.x, 1.4 + c.height / 2, c.z),
+          new THREE.Quaternion(),
+          new THREE.Vector3(1, c.height, 1),
+        );
+        columns.setMatrixAt(i, m);
+        columns.setColorAt(i, col.set(spec.color).lerp(new THREE.Color('#e8ecf4'), 0.35));
+      });
+      columns.instanceMatrix.needsUpdate = true;
+      if (columns.instanceColor) columns.instanceColor.needsUpdate = true;
+      this.columns = columns;
+      this.room.add(columns);
+    }
+
+    const dotCount = this.layout.columns.reduce((a, c) => a + c.conceptCount, 0);
+    if (dotCount) {
+      const dots = new THREE.InstancedMesh(
+        new THREE.OctahedronGeometry(0.9, 0),
+        new THREE.MeshBasicMaterial({ color: 0xffffff }),
+        dotCount,
+      );
+      let k = 0;
+      const pts: THREE.Vector3[] = [];
+      for (const c of this.layout.columns) {
+        const top = 1.4 + c.height + 1.6;
+        for (let j = 0; j < c.conceptCount; j++) {
+          const a = (j / Math.max(1, c.conceptCount)) * Math.PI * 2;
+          const p = new THREE.Vector3(c.x + Math.cos(a) * 2.6, top + (j % 2) * 1.1, c.z + Math.sin(a) * 2.6);
+          m.makeTranslation(p.x, p.y, p.z);
+          dots.setMatrixAt(k++, m);
+          dots.setColorAt(k - 1, col.set('#e8ecf4'));
+          pts.push(p);
+        }
+      }
+      dots.instanceMatrix.needsUpdate = true;
+      if (dots.instanceColor) dots.instanceColor.needsUpdate = true;
+      this.dots = dots;
+      this.room.add(dots);
+      // 前置链在骨架阶段先用最近邻细线示意，批 3 换成真 prerequisites
+      if (pts.length > 1) {
+        const seg = new Float32Array(pts.length * 6);
+        pts.forEach((p, i) => {
+          const q = pts[(i + 1) % pts.length];
+          seg.set([p.x, p.y, p.z, q.x, q.y, q.z], i * 6);
+        });
+        const g = new THREE.BufferGeometry();
+        g.setAttribute('position', new THREE.BufferAttribute(seg, 3));
+        this.lines = new THREE.LineSegments(
+          g,
+          new THREE.LineBasicMaterial({ color: spec.color, transparent: true, opacity: 0.22 }),
+        );
+        this.room.add(this.lines);
+      }
+    }
+
+    // 每个展台一块书名牌（数量上限保护帧率）
+    this.layout.books.slice(0, 64).forEach((b) => {
+      this.room.add(
+        this.label(
+          this.roomLabels,
+          shortTitle(b.book.title || b.book.bookSlug),
+          b.x,
+          8.5,
+          b.z + 11,
+          '#cfd6e4',
+          0.42,
+        ),
+      );
+    });
+
+    const reach = Math.max(80, (this.layout.span || 60) * 1.15);
+    this.enterRoomCamera(spec, reach, pose);
+    this.hooks.onHud(
+      `${spec.title} · ${books.length} 本 · ${this.layout.columns.length} 根章节立柱`,
+    );
+  }
+
+  private addRoomFloor(spec: (typeof ROOMS)[number], radius: number): void {
+    const disc = new THREE.Mesh(
+      new THREE.CircleGeometry(radius, 64),
+      new THREE.MeshBasicMaterial({
+        color: new THREE.Color(spec.color),
+        transparent: true,
+        opacity: 0.09,
+      }),
+    );
+    disc.rotation.x = -Math.PI / 2;
+    disc.position.y = 0.05;
+    this.roomFloor = disc;
+    this.room.add(disc);
+  }
+
+  private buildEmptyRoom(spec: (typeof ROOMS)[number]): void {
+    // 工具区 6 个仓库均无 manifest，批 1 无书目；给空房间而不是白屏或 404
+    const group = new THREE.Group();
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(24, 32, 48),
+      new THREE.MeshBasicMaterial({ color: spec.color, transparent: true, opacity: 0.32 }),
+    );
+    ring.rotation.x = -Math.PI / 2;
+    ring.position.y = 0.3;
+    group.add(ring);
+    group.add(
+      this.label(
+        this.roomLabels,
+        '批 1 无可解析书目 · 6 个仓库均无 manifest.json',
+        0,
+        16,
+        0,
+        '#8b95a8',
+        0.85,
+      ),
+    );
+    this.emptyMark = group;
+    this.room.add(group);
+    this.enterRoomCamera(spec, 110, null);
+    this.hooks.onHud(`${spec.title} · 0 本 · 待批 5 生成层补源，不伪造节点`);
+  }
+
+  private enterRoomCamera(
+    spec: (typeof ROOMS)[number],
+    reach: number,
+    pose?: CameraPose | null,
+  ): void {
+    this.room.position.set(spec.at[0], 0, spec.at[1]);
+    this.hall.visible = false;
+    this.room.visible = true;
+    this.view = 'room';
+    this.controls.minDistance = 30;
+    this.controls.maxDistance = 520;
+    if (pose) this.applyPose(pose);
+    else {
+      this.camera.position.set(spec.at[0], reach * 0.72, spec.at[1] + reach * 0.92);
+      this.controls.target.set(spec.at[0], 4, spec.at[1]);
+    }
+    this.resetInertia();
+    this.controls.update();
+    this.wake();
+  }
+
+  applyPose(pose: CameraPose): void {
+    this.camera.position.set(pose.px, pose.py, pose.pz);
+    this.controls.target.set(pose.tx, pose.ty, pose.tz);
+  }
+
+  /** 切换视图时清掉阻尼残余，否则恢复的相机会继续漂移几像素 */
+  private resetInertia(): void {
+    const c = this.controls as unknown as {
+      _sphericalDelta?: { set(a: number, b: number, c: number): void };
+      _panOffset?: { set(a: number, b: number, c: number): void };
+    };
+    c._sphericalDelta?.set(0, 0, 0);
+    c._panOffset?.set(0, 0, 0);
+  }
+
+  currentPose(): CameraPose {
+    const c = this.camera.position;
+    const t = this.controls.target;
+    return { px: c.x, py: c.y, pz: c.z, tx: t.x, ty: t.y, tz: t.z };
+  }
+
+  // ---------------------------------------------------------------- 交互
+
+  private onPointerDown = (ev: PointerEvent): void => {
+    this.downAt = { x: ev.clientX, y: ev.clientY };
+    this.wake();
+  };
+
+  private onPointerMove = (ev: PointerEvent): void => {
+    this.wake();
+    if (ev.buttons !== 0) return;
+    const hit = this.pick(ev);
+    this.renderer.domElement.style.cursor = hit ? 'pointer' : 'grab';
+    this.hooks.onHud(hit ? hit.hint : this.hudDefault());
+  };
+
+  private hudDefault(): string {
+    return this.view === 'hall' ? '拖拽转视角 · 滚轮远近 · 点展台进房间' : '拖拽转视角 · 点展台看书 · 左上「大厅」返回';
+  }
+
+  private pick(ev: PointerEvent): { kind: 'room' | 'book'; discipline: Discipline; book?: SiteEntry; hint: string } | null {
+    const target = this.view === 'hall' ? this.beacons : this.platforms;
+    if (!target) return null;
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    const ndc = new THREE.Vector2(
+      ((ev.clientX - rect.left) / rect.width) * 2 - 1,
+      -((ev.clientY - rect.top) / rect.height) * 2 + 1,
+    );
+    this.ray.setFromCamera(ndc, this.camera);
+    const hit = this.ray.intersectObject(target, false)[0];
+    if (!hit || hit.instanceId === undefined) return null;
+    if (this.view === 'hall') {
+      const spec = ROOMS[hit.instanceId];
+      if (!spec) return null;
+      return { kind: 'room', discipline: spec.key, hint: `进入 ${spec.title}` };
+    }
+    const book = this.bookOrder[hit.instanceId];
+    if (!book) return null;
+    const discipline = book.discipline;
+    return { kind: 'book', discipline, book, hint: `${book.title || book.bookSlug} · 点击查看` };
+  }
+
+  handleClick(ev: PointerEvent): void {
+    // OrbitControls 拖拽转视角后浏览器仍会派发 click，按位移阈值把拖动排除掉
+    const moved = Math.hypot(ev.clientX - this.downAt.x, ev.clientY - this.downAt.y);
+    if (moved > 6) return;
+    const hit = this.pick(ev);
+    if (!hit) return;
+    if (hit.kind === 'room') this.hooks.onPickRoom(hit.discipline);
+    else if (hit.book) this.hooks.onPickBook(hit.discipline, hit.book);
+  }
+
+  /** 自动化自检用：把房间 / 书目节点的世界坐标投到 CSS 像素坐标 */
+  screenPoint(kind: 'room' | 'book', id: string): { x: number; y: number } | null {
+    let world: THREE.Vector3 | null = null;
+    if (kind === 'room') {
+      if (this.view !== 'hall') return null;
+      const spec = ROOM_BY_KEY[id as Discipline];
+      if (!spec) return null;
+      world = new THREE.Vector3(spec.at[0], 22, spec.at[1]);
+    } else {
+      if (this.view !== 'room') return null;
+      const placement = this.layout?.books.find(
+        (b) => `${b.book.repo}::${b.book.bookSlug}` === id,
+      );
+      if (!placement) return null;
+      world = new THREE.Vector3(
+        this.room.position.x + placement.x,
+        0.7,
+        this.room.position.z + placement.z,
+      );
+    }
+    const ndc = world.clone().project(this.camera);
+    if (ndc.z < -1 || ndc.z > 1) return null;
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    return {
+      x: rect.left + ((ndc.x + 1) / 2) * rect.width,
+      y: rect.top + ((1 - ndc.y) / 2) * rect.height,
+    };
+  }
+
+  /** 自检用：当前房间实际建出的书节点与章节立柱数 */
+  nodeStats(): { books: number; columns: number } {
+    return {
+      books: this.bookOrder.length,
+      columns: this.layout?.columns.length ?? 0,
+    };
+  }
+
+  /** 自检与外部交互可主动唤醒渲染循环 */
+  nudge(): void {
+    this.wake();
+  }
+
+  // ---------------------------------------------------------------- 渲染循环与帧率
+
+  private wake = (): void => {
+    this.lastActive = performance.now();
+    this.start();
+  };
+
+  private start(): void {
+    if (this.running || this.disposed) return;
+    this.running = true;
+    this.prevTs = performance.now();
+    const loop = () => {
+      if (!this.running || this.disposed) return;
+      this.raf = requestAnimationFrame(loop);
+      const now = performance.now();
+      const dt = (now - this.prevTs) / 1000;
+      this.prevTs = now;
+      this.controls.update();
+      this.applyLod();
+      this.renderer.render(this.scene, this.camera);
+      this.frameTimes.push(dt);
+      if (this.frameTimes.length > 120) this.frameTimes.shift();
+      if (performance.now() - this.lastActive > IDLE_MS) {
+        this.stop();
+        this.hooks.onHud('已静止，暂停渲染循环（交互即恢复）');
+      }
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+
+  private stop(): void {
+    this.running = false;
+    if (this.raf) cancelAnimationFrame(this.raf);
+    this.raf = 0;
+  }
+
+  private applyLod(): void {
+    if (!this.dots || this.view !== 'room') return;
+    const dist = this.camera.position.distanceTo(this.controls.target);
+    this.dots.visible = dist <= 240;
+    if (this.lines) this.lines.visible = dist <= 200;
+  }
+
+  /** 最近若干帧的平均 fps */
+  fps(): number {
+    const win = this.frameTimes.slice(-90);
+    if (!win.length) return 0;
+    const avg = win.reduce((a, b) => a + b, 0) / win.length;
+    return avg > 0 ? 1 / avg : 0;
+  }
+
+  get isRunning(): boolean {
+    return this.running;
+  }
+
+  private onResize = (): void => this.resize();
+
+  resize(): void {
+    const w = this.root.clientWidth || window.innerWidth;
+    const h = this.root.clientHeight || window.innerHeight;
+    this.renderer.setSize(w, h, false);
+    this.camera.aspect = w / Math.max(1, h);
+    this.camera.updateProjectionMatrix();
+  }
+
+  dispose(): void {
+    this.disposed = true;
+    this.stop();
+    const el = this.renderer.domElement;
+    el.removeEventListener('pointerdown', this.onPointerDown);
+    el.removeEventListener('pointermove', this.onPointerMove);
+    el.removeEventListener('wheel', this.wake);
+    window.removeEventListener('resize', this.onResize);
+    this.clearRoom();
+    this.controls.dispose();
+    this.renderer.dispose();
+    el.remove();
+  }
+}
+
+function shortTitle(t: string): string {
+  return t.length > 9 ? `${t.slice(0, 8)}…` : t;
+}
