@@ -17,6 +17,8 @@
 | 〔N〕 | `_work/sz_eval.js`：用 Node `new Function` 求值 sudoku 内联 JS 字面量 |
 | 〔S〕 | 单文件抽样核查（`…/main/{子目录}/chapters/ch01.md`） |
 | 〔C〕 | **`_work/cache/` 缓存副本统计，未经主流程复核**——由 `_work/backfill_stats.py` 直接读缓存里的 `manifest.json` 响应体计数，`--probe` 主流程不产出这些数字，仅用于第八之二节 |
+| 〔K〕 | 2026-11-25 对 `_work/repos/` 下 50 个本地 clone 的只读扫描（`git ls-tree` / `config` / `count-objects` / 文件枚举），结果留存 `_work/clone_tier_audit.txt` 与 `_work/clone_tier_audit.json`；同样**不经 `extract.py` 主流程**，仅用于第十节 |
+| 〔X〕 | 2026-11-25 批 1 首跑 `python tools/extract.py --all --bodies --out-dir _work/data-dry` 的产出实测（**未写 `data/`**），产出与 `_report.json` 留在 `_work/data-dry/`，用于第十一节 |
 
 响应体缓存于 `_work/cache/<sha1(url)>.bin`，26 个条目〔P.cacheDir〕。
 
@@ -273,3 +275,123 @@ extract.py
    空壳状态与其余字段未动，`data/sites/` 仍为空；③ `tools/extract.py` 未改动，批 1 主体落地时须按
    `schema.md` 第二节输出 v2 字段（`origin`/`bookSource`/`contentLevel`/`bodyType`/int `answer`），
    否则 `verify_data.py` 与前端读取分支会错位。
+
+## 十、50 站本地 clone 复核（2026-11-25）
+
+**本节数字全部标 〔K〕**：来源是 `_work/repos/` 下 50 个本地 clone 的只读扫描
+（`git -c core.quotepath=false ls-tree -r --name-only HEAD` + `git config --get core.sparseCheckout` +
+`git count-objects -vH` + 工作树文件枚举），采集于 2026-11-25 09:15，**不经 `extract.py` 主流程、未发起网络请求、未写 `data/`**。
+明细表：`_work/clone_tier_audit.txt`（人读）与 `_work/clone_tier_audit.json`（机读）。
+
+### 一、总量与分布
+
+| 项 | 实测 |
+|---|---|
+| 已克隆仓库 | 50 / 50（后台旧脚本跑完，最后一轮 13 OK / 36 SKIP / 0 FAIL）〔K〕 |
+| 树内条目合计 | 15,422 |
+| `.md` 合计 | 3,703 |
+| `.json` 合计 | 1,457 |
+| **`manifest.json` 总份数** | **131** |
+| 有 `manifest.json` 的仓库 | **25 / 50**（另 25 站没有） |
+| manifest 层级分布 | 根目录 2 · 一级子目录 100 · 二级子目录 29 |
+| 多书合集仓库 | 14 个（39 / 24 / 11 / 8 / 7 / 6 / 5 / 4 / 4 / 3 / 3 / 2 / 2 / 2 份） |
+
+**这一条推翻了本次重构的地基假设**：原 `schema.md` 写「一 repo = 一站 = 一份 `data/sites/{repo}.json`、
+`repo` 为唯一键」，但 50 个仓库里装着 131 本书，且 `ch01`、`q01` 这类 id 在每本书里都从头开始〔K〕。
+已按「一书一条 `sites[]`」改定契约，见 `schema.md` 第一、二节与本节第四节。
+
+### 二、contentLevel 候选分布（按仓库粗判，未解 manifest 内容）
+
+| 初判 | 站数 | 判据 | 名单 |
+|---|---|---|---|
+| full 候选 | 24 | 有 manifest 且树内 `.md` ≥ 10 | MATH、additive-combinatorics-enlighten、advanced-math-zhishu、agentic-design-patterns-handbook、ai-architecture-handbook、ai-enlighten、ai-ml-dl-rl-enlighten、algorithm-enlighten、analysis-handbook、chem-zhishu、combinatorial-optimization-game-theory、complex-analysis-visual、cpu-enlighten、discrete-geometry-enlighten、economics-principles-handbook、first-push-enlighten、food-zhishu、hello-ai-zhishu、math-analysis、math-basics-enlighten、math-physical-methods、neural-net-zero、ode-enlighten、taocp-enlighten |
+| 待判 | 1 | 有 manifest 但 `.md` 极少 | sudoku-zhishu（树内 `.md` 仅 2）→ 已知 `degraded`〔M〕 |
+| degraded / 无 manifest 候选 | 5 | 无 manifest 但有成量 `.md`/`.json` | AI-Study-Notes（md 104、json 0）、exam-solver（md 350、json 0）、CourseVault-OfflineCourseMap（md 20、json 1,159）、kaoyan-math-66000（md 28、json 20）、bws-bilingual-reader |
+| stats-only 候选 | 20 | 无 manifest 且 `.md`/`.json` 都稀缺 | ACM-XCPC-Notes、AI-courses、C-、C-true、MATLAB、ODE、SVM、ai-history-site、alpoge-remark-book、gaokao-math、llm-model-catalog、math-competition-derivation、mathmap、meeting-129600years、odes-from-scratch、pages-index、probability-statistics、shanghai-chem-lab、show、transformer |
+
+这四处比例都远超「三站样本」能外推的范围：**一半的站没有 manifest**，原计划靠优先级 1/2 拿结构的站只占一半。
+`exam-solver` 与 `AI-Study-Notes` 有大量 Markdown 却没有知枢结构，属另一类数据源，批 1 不硬套解析器。
+
+### 三、三档拉取策略的复核结果（本轮唯一的一次网络动作在下表第二行）
+
+| 站 | 复核前 | 复核后 | 结论 |
+|---|---|---|---|
+| `ACM-XCPC-Notes` | 稀疏 `*.md`/`*.json` 任意深度，已检出 2 文件，pack 688.81 KiB | **未重拉** | 树内 `.md` 只有 1（README.md）、`.json` 只有 1（assets/data.json，在一级子目录）——any-depth 规则两个都拿到了，根目录规则反而会漏掉 `assets/data.json`。该站 481MB 主体是 cpp 1,482 / pdf 282 / ppt 279 / doc 180，**没有知枢正文**，归 stats-only 候选 |
+| `kaoyan-math-66000` | 稀疏 `/*.md`/`/*.json` 仅根目录，已检出 2 文件，pack 35.26 KiB | **已放宽到任意深度**：检出 2 → **48**（树内 md 28 + json 20，全到），pack 35.26 KiB → **205.54 KiB** | 原 three-root 档位**是错的**，已改 three-big。但它的考研题主数据在 `.csv` 19 个 / `.html` 201 个 / `.txt` 8 个里〔K〕，`*.md`+`*.json` 覆盖不到 → 三档的扩展名清单要不要加 `*.csv`，待批 1 定 |
+| `CourseVault-OfflineCourseMap` | 稀疏 `/*.md`/`/*.json`，已检出 **1** 文件，pack 201.97 KiB | **待重拉**（本轮未执行，需批准） | 树内 md 20 + json **1,159**，根目录规则挡掉了 1,178 个 → 档位错误，已归 three-big。这是课程目录型数据，不是知枢结构，拉不拉取决于批 4 检索要不要收录 |
+
+`git fsck` 对 `kaoyan-math-66000` 无输出（对象库完好），上一轮观测到的 179 行 `unable to read sha1 file`
+是被旧脚本第二次 pass 的 `> _clone_report.txt` 覆盖掉了——**旧版每跑一次就清空历史**，这点已写进 `tools/README.md`。
+
+### 四、契约影响（已落到文档，未落到代码）
+
+1. `schema.md` 第一节：`sites` 条目 = 一本书；文件名单书站仍叫 `data/sites/{repo}.json`、多书站叫
+   `{repo}--{slug}.json`；`slug` 取值顺序定死（manifest 顶层 `slug` → manifest 所在目录名 → `b01` 序号），
+   同仓库冲突**必须报错并记 `_report.json` 的 `slugCollisions`**，不得静默覆盖。
+2. `schema.md` 第二节：`totals` 拆 `repos`（50）与 `sites`（实际产出的书条目数，上限 131）；`contentLevels`
+   与 `disciplines[].siteCount` 按书计，另加 `repoCount` 按仓库计。
+3. `schema.md` 第一、六节：`ch*.json` 的 id 只在书内唯一 → 跨书键一律 `{repo}::{bookSlug}::{id}`；
+   正文不进 discipline 结构分片，另存 `data/bodies/{repo}--{bookSlug}.json` 按需加载。
+4. `design.md` 第二、三、六节：展台由「按站点」改为**按书**分列，章节/概念两层不变；节点量级按 131 展台重算。
+5. `sites.md` 顶部：口径从三个数变四个数——仓库 50、有可用数据 47（待实定）、无说明 4、**数据条目 131**，
+   并写明「`sites` 条目数 ≠ 仓库数，前者按书计」。
+
+### 五、本节未探到 / 环境注意
+
+- 131 份 manifest 的**内部结构是否都同构**未验：只解析了三站〔M〕，其余 128 份的键名、数组形态、`file` 字段有无均未读——
+  这是批 1 的第一道关，别名表八成要加行。
+- 本地 clone 的 `.md` 计数是**树内全量**，不等于 `chapters[].file` 指向的文件都存在，两者差多少要批 1 实测。
+- 稀疏克隆的 pack 只含已取 blob，**不能用来判仓库大小**（`kaoyan-math-66000` pack 3.74MiB 而仓库标注 38MB）。
+- 本机 `git config --global http.sslVerify` = **false**（仓库级同值），旧脚本靠 `-c http.sslVerify=true` 逐次覆盖；
+  本轮我执行 `sparse-checkout set` 时未加该参数，git 直接告警「TLS certificate verification has been disabled」。
+  **未改任何 git 配置**；批 1 若由 `extract.py` 调 git，需显式带 `-c http.sslVerify=true`。
+
+## 十一、批 1 首跑实测（2026-11-25 09:30，〔X〕）
+
+命令：`python tools/extract.py --all --bodies --out-dir _work/data-dry`。
+**`data/` 未被写入**（只建了空目录 `data/sites`、`data/bodies`、`data/dist`），全部产出与 `_report.json` 在 `_work/data-dry/`。
+主路径全部本地读盘：raw 兜底 **0 次**、未克隆站 **0 个**。
+
+| 项 | 实测 |
+|---|---|
+| 仓库 / 书条目 / 去重后独书 | 50 · **129** · **103** |
+| 章 / 概念 / 题 / 卡 / 术语 | 1,169 · 765 · 3,541 · 4,100 · 4,100 |
+| contentLevels | `full` 128 · `degraded` 1 · `stats-only` 0 |
+| failures | 25（全部是「无 manifest.json」的站，按站记，不占 `sites[]`） |
+| 排除的归档 manifest | 2（`chem-zhishu/_archive/03-…旧版`、`04-…旧版40题`） |
+| slug 冲突 | 0（排除 `_archive` 之后） |
+| 跨仓重复组 | 26 |
+| 结构分片体积 | ai 1,637 KiB · math 1,124 · general 574 · cs 502 · chem 477 —— 全部 < 2MB |
+| 正文体积 | 7.4 MiB / 129 本 |
+| 章正文命中 | `.md` **1,153 / 1,169** 章；sudoku 另经 Node 拿到 **16/16** 章 HTML |
+
+### 首跑推翻/补齐了六处文档假设（已同步改入 schema.md）
+
+1. **`quizzes[].type` 有三种**：`single` 3,298 · `blank` 157 · `multi` 86 —— 第八之二节按三站得出的「只有 single」是样本错觉。
+   因此 `answer` 不可能是单一 int：`single`→int 索引、`blank`→**答案文本 str**（如 `"3/11"`、`"费马"`、`"θ"`）、
+   `multi`→**索引数组 list[int]**（如 `[0,1]`）。归一后 `answer=null` **0 条**。
+2. **`options` 长度还有 2 与 0**：4 项 3,120 · 3 项 225 · 2 项 47 · 0 项 157（填空）。判题组件按数组长度渲染这条更硬了。
+3. **同一本书会被多个仓库收录**：26 组重复，`ai-architecture-handbook` 是聚合仓——
+   它把 `math-basics-enlighten` 的 24 本、`agentic-design-patterns-handbook` 与 `neural-net-zero` 各 1 本原样重收〔X〕。
+   新增 `totals.sitesUnique` 与 `duplicateGroup`/`mirroredFrom` 规则（schema 第二节）。
+4. **`_archive/` 里的旧版 manifest 会撞 slug 并造出假条目**：不排除就会多出一本「旧版 40 题」题库。
+   新增 `excludedManifests`（schema 第二节）。
+5. **概念正文之前没被回读**：`map_chapter` 登记了 `.md` 而 `map_concept` 漏了，实测 `concepts[].file` 覆盖率
+   hello-ai 50/50、math-physical 61/61〔M〕——已补，正文文件数因此从 128 → 129 本含正文（含 sudoku）。
+6. **`minutes` 的 null 是 18 条**：hello-ai 9 章区间串 + `ai-architecture-handbook` 里那份 hello-ai 副本 9 章〔X〕，
+   没有一条被写成 0。
+
+### 交付前要处理的两个尾巴
+
+- **正文里仍有远程引用**：129 个正文文件里 **5 本含 `http(s)://`**（`mp.weixin.qq.com` 13 处、`www.w3.org` 13 处多为 SVG 命名空间、
+  `weather.example.com` 2 处），与铁律 2「零 CDN」冲突 → 批 3 渲染层要么白名单放行非资源型链接，要么抽取时打标；
+  命名空间 URI 与真实外链要分开统计，别误伤。
+- **公式定界符保留情况**：129 本正文里 **22 本含美元定界符**、**6 本含 HTML 标签**〔X〕——
+  即多数书的 `.md` 正文不用行内公式，用公式的集中在数学类；`degraded` 路线（无定界符）只 sudoku 一本。
+  `glossary[].def` 里定界符是保住的（实测样本：形如 `$x+iy$` 的释义原文完好〔X〕）。
+
+### 未做（留批 1 后续）
+
+`data/` 正式写入、25 个无 manifest 站的优先级 3/4 抽取、`patterns.md`/`cheatsheet.md` 附录页、
+`prerequisites` 的跨书引用解析、`quizIds`/`conceptIds` 反向索引、`verify_data.py` 校验脚本、`--limit` 之外的并发化。
+

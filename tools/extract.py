@@ -423,8 +423,12 @@ def js_features(snippet: str) -> dict:
     }
 
 
-def scan_text(text: str, *, is_html: bool) -> list[dict]:
-    """从 HTML/JS 文本里提取所有「看起来是数据容器」的赋值。"""
+def scan_text(text: str, *, is_html: bool, keep_snippet: bool = False) -> list[dict]:
+    """从 HTML/JS 文本里提取所有「看起来是数据容器」的赋值。
+
+    keep_snippet=True 时额外保留字面量原文（给 Node 求值用）；默认不带，
+    否则 --probe --json 会被 846KB 的 BOOKS 字面量撑爆。
+    """
     blocks: list[tuple[str, int, str]] = []
     if is_html:
         for m in SCRIPT_RE.finditer(text):
@@ -496,6 +500,7 @@ def scan_text(text: str, *, is_html: bool) -> list[dict]:
                         "rawLen": len(snippet),
                         "sample": snippet[:200],
                         "jsFeatures": js_features(snippet),
+                        **({"snippet": snippet} if keep_snippet else {}),
                     }
                 )
                 continue
@@ -508,6 +513,7 @@ def scan_text(text: str, *, is_html: bool) -> list[dict]:
                         "parse": how,
                         "value": value,
                         "rawLen": len(snippet),
+                        **({"snippet": snippet} if keep_snippet else {}),
                     }
                 )
     for f in found:
@@ -990,6 +996,772 @@ def print_human(results: list[dict]) -> None:
 
 # ---------------------------------------------------------------- 入口
 
+# ================================================== 批 1 主体（全量抽取，一书一条）
+#
+# 契约：docs/schema.md v2（2026-11-25 定稿：一条 sites 记录 = 一本书，不是仓库）
+# 主路径：本地 clone `_work/repos/{repo}/`；raw 只作兜底（3 并发 + `_work/cache/` + 断点）。
+# 产出：data/sites/….json、data/bodies/….json、data/dist/{discipline}.json、
+#       data/manifest.json、data/_report.json
+# 本轮铁律：不写 data/ 的内容 —— 验证一律 `--out-dir _work/data-dry`。
+
+REPOS_SUBDIR = "_work/repos"
+STATE_SUBDIR = "_work/state"
+SCHEMA_VERSION = 2
+GENERATOR = "tools/extract.py"
+MAX_MANIFEST_DEPTH = 4          # 实测 manifest 落在根/一级/二级，留两层余量
+RAW_CONCURRENCY = 3             # 兜底抓 raw 的并发上限（schema.md 第三节）
+SITES_MD = "docs/sites.md"
+
+DISCIPLINE_SECTIONS = {          # docs/sites.md 分节标题 → 学科 key（不写死站名清单）
+    "AI": "ai",
+    "数学": "math",
+    "化学与食品": "chem",
+    "计算机": "cs",
+    "通识": "general",
+    "工具": "tools",
+}
+DISCIPLINE_TITLES = {
+    "math": "数学", "ai": "AI", "chem": "化学与食品",
+    "cs": "计算机", "general": "通识", "tools": "工具",
+}
+SLUG_BAD_RE = re.compile(r"[^0-9A-Za-z\u4e00-\u9fff._\-]+")
+NO_EXTENSIONS = {".git", "node_modules", "__pycache__", ".github", ".vscode"}
+
+# 字段别名（docs/schema.md 第四节；probe 实测三站 + 已知旧版写法）
+FIELD_ALIAS = {
+    "title": ["title", "name", "heading", "label"],
+    "core": ["core", "summary", "tldr", "abstract"],
+    "file": ["file", "path", "filename", "src"],
+    "prerequisites": ["prerequisites", "prereq", "requires", "dependsOn"],
+    "brief": ["short", "brief", "summary", "definition", "def"],
+    "depth": ["depthFragment", "depth", "derivation"],
+    "stem": ["question", "stem", "q", "title"],
+    "options": ["options", "choices", "items"],
+    "answer": ["answer", "correct", "answerIndex"],
+    "explain": ["explain", "explanation", "analysis", "reason"],
+    "front": ["front", "q", "question"],
+    "back": ["back", "a", "answer"],
+    "conceptIds": ["conceptIds", "concepts", "knowledge"],
+    "chapterId": ["chapterId", "lesson", "chapter", "cid"],
+    "chapterIds": ["chapterIds", "chapters", "chapterId"],
+    "tags": ["tags", "tag", "labels"],
+    "type": ["type", "kind"],
+    "conceptId": ["relatedConceptId", "conceptId", "concept"],
+    "id": ["id", "no", "key"],
+}
+
+
+def work_path(*parts: str) -> str:
+    return os.path.join(ROOT_DIR, *parts)
+
+
+def read_text_file(path: str) -> tuple[str | None, str]:
+    """本地读盘，返回 (文本, 编码或错误标记)。"""
+    try:
+        with open(path, "rb") as fh:
+            raw = fh.read()
+    except OSError as e:
+        return None, f"oserror:{e.__class__.__name__}"
+    text, enc = decode_bytes(raw)
+    return text, enc
+
+
+def load_site_catalog(path: str | None = None) -> dict[str, str]:
+    """从 docs/sites.md 的分表读「仓库 → 学科」，不在代码里写死站名清单。"""
+    path = path or work_path("docs", "sites.md")
+    text, _ = read_text_file(path)
+    catalog: dict[str, str] = {}
+    if not text:
+        return catalog
+    section = None
+    for line in text.splitlines():
+        head = re.match(r"^##\s+[一二三四五六七八九十]+、(.+?)\s*$", line.strip())
+        if head:
+            title = head.group(1).strip()
+            section = DISCIPLINE_SECTIONS.get(title)
+            continue
+        if section and line.strip().startswith("|"):
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            if not cells or cells[0] in ("", "仓库") or set(cells[0]) <= set("-: "):
+                continue
+            if len(cells) >= 2:                     # 说明/工具表只有两列，同样收
+                repo = cells[0].strip("`")
+                if re.fullmatch(r"[A-Za-z0-9._\-]+", repo):
+                    catalog.setdefault(repo, section)
+    return catalog
+
+
+def list_repos(catalog: dict[str, str]) -> list[str]:
+    """待处理仓库 = docs/sites.md 清单 ∪ _work/repos 目录，交集外的记入报告。"""
+    repos = set(catalog)
+    base = work_path(*REPOS_SUBDIR.split("/"))
+    if os.path.isdir(base):
+        for name in os.listdir(base):
+            if os.path.isdir(os.path.join(base, name)):
+                repos.add(name)
+    return sorted(repos)
+
+
+EXCLUDED_MANIFEST_PARTS = ("_archive", "_backup", "archive", "backup", "旧版")
+
+
+def find_manifests(repo_dir: str) -> tuple[list[str], list[str]]:
+    """返回 (可用 manifest, 被排除的 manifest)。归档副本不算一本书，否则会产出重复条目。"""
+    hits: list[str] = []
+    excluded: list[str] = []
+    base = repo_dir.rstrip("/\\")
+    for dirpath, dirnames, filenames in os.walk(base):
+        rel_dir = os.path.relpath(dirpath, base).replace(os.sep, "/")
+        depth = 0 if rel_dir == "." else rel_dir.count("/") + 1
+        if depth >= MAX_MANIFEST_DEPTH:
+            dirnames[:] = []
+        dirnames[:] = [d for d in dirnames if d not in NO_EXTENSIONS and not d.startswith(".")]
+        if "manifest.json" in filenames:
+            rel = posixpath.join(rel_dir if rel_dir != "." else "", "manifest.json")
+            low = rel.lower()
+            if any(tag in low for tag in EXCLUDED_MANIFEST_PARTS):
+                excluded.append(rel)
+            else:
+                hits.append(rel)
+    return sorted(hits), sorted(excluded)
+
+
+def sanitize_slug(value: str) -> str:
+    value = SLUG_BAD_RE.sub("-", str(value or "").strip()).strip("-._ ")
+    return value[:80]
+
+
+def pick_key(container: dict, logical: str) -> str | None:
+    for cand in FIELD_ALIAS.get(logical, [logical]):
+        if cand in container:
+            return cand
+    return None
+
+
+def get_field(container: dict, logical: str, default=None):
+    key = pick_key(container, logical)
+    if key is None:
+        return default
+    value = container.get(key)
+    return default if value is None else value
+
+
+def pick_array(manifest: dict, logical: str) -> tuple[list, str | None]:
+    """按别名取数组；对象形态尝试 values() 转换（schema.md 五、容错）。"""
+    for cand in ALIASES.get(logical, [logical]):
+        if cand in manifest:
+            value = manifest[cand]
+            if isinstance(value, list):
+                return value, cand
+            if isinstance(value, dict):
+                vals = [v for v in value.values() if isinstance(v, dict)]
+                return vals, f"{cand}(object→list)"
+            return [], f"{cand}(type={type(value).__name__})"
+    return [], None
+
+
+def to_minutes(container: dict, notes: list, where: str):
+    """hours/minutes 归一。解析不出单一数值 → None，并记 unmapped，绝不返回 0。"""
+    if isinstance(container.get("minutes"), (int, float)) and not isinstance(container.get("minutes"), bool):
+        return int(container["minutes"])
+    if "minutes" in container and isinstance(container["minutes"], str):
+        s = container["minutes"].strip()
+        if s.isdigit():
+            return int(s)
+        notes.append(f"{where}: minutes 非单一数值 {s!r} → null")
+        return None
+    if "hours" in container:
+        v = container["hours"]
+        if isinstance(v, (int, float)) and not isinstance(v, bool):
+            return int(round(float(v) * 60))
+        if isinstance(v, str) and v.strip().isdigit():
+            return int(round(float(v.strip()) * 60))
+        notes.append(f"{where}: hours={v!r} 是字符串/区间，取不到单一数值 → null")
+        return None
+    return None
+
+
+def book_source(container: dict) -> dict | None:
+    src = container.get("source")
+    if isinstance(src, dict):
+        return {k: v for k, v in src.items()}          # 原样保留，page 可能是 str/int/缺
+    if isinstance(src, str) and src.strip():
+        return {"file": src}
+    return None
+
+
+def map_chapter(repo: str, slug: str, mdir: str, raw: dict, idx: int, ctx: dict) -> dict:
+    notes = ctx["notes"]
+    cid = str(get_field(raw, "id", f"ch{idx + 1:02d}"))
+    file_rel = get_field(raw, "file", "") or ""
+    origin_path = posixpath.join(mdir, file_rel) if file_rel and mdir else (file_rel or "")
+    ch = {
+        "id": cid,
+        "num": chapter_num(cid, idx),
+        "title": str(get_field(raw, "title", "")),
+        "core": str(get_field(raw, "core", "")),
+        "minutes": to_minutes(raw, notes, f"{repo}:{slug}:{cid}.minutes"),
+        "bodyType": "md",
+        "body": "",
+        "conceptIds": [str(x) for x in (get_field(raw, "conceptIds", []) or [])],
+        "quizIds": [str(x) for x in (raw.get("quizIds") or raw.get("quiz_ids") or [])],
+        "prerequisites": [str(x) for x in (get_field(raw, "prerequisites", []) or [])],
+        "origin": {"repo": repo, "path": origin_path},
+        "bookSource": book_source(raw),
+    }
+    if file_rel:
+        ctx["want_files"].append((ch, origin_path))
+    else:
+        ch["bodyType"] = ""
+    return ch
+
+
+def chapter_num(cid: str, idx: int):
+    m = re.search(r"(\d+)\s*$", str(cid))
+    return int(m.group(1)) if m else idx + 1
+
+
+def map_concept(repo: str, slug: str, mdir: str, raw: dict, idx: int, ctx: dict) -> dict:
+    notes = ctx["notes"]
+    cid = str(get_field(raw, "id", f"c{idx + 1:03d}"))
+    file_rel = get_field(raw, "file", "") or ""
+    origin_path = posixpath.join(mdir, file_rel) if file_rel and mdir else (file_rel or "")
+    depth = str(get_field(raw, "depth", "") or "")
+    if depth and pick_key(raw, "depth") is None:
+        notes.append(f"{repo}:{slug}:{cid} 深度键名不在别名表：{list(raw)[:8]}")
+    out = {
+        "id": cid,
+        "title": str(get_field(raw, "title", "")),
+        "chapterIds": [str(x) for x in (get_field(raw, "chapterIds", []) or [])],
+        "prerequisites": [str(x) for x in (get_field(raw, "prerequisites", []) or [])],
+        "brief": str(get_field(raw, "brief", "")),
+        "depth": depth,
+        "claims": [c for c in (raw.get("claims") or [])] if isinstance(raw.get("claims"), list) else [],
+        "bodyType": "md",
+        "body": "",
+        "origin": {"repo": repo, "path": origin_path},
+        "bookSource": book_source(raw),
+    }
+    if file_rel:
+        ctx["want_files"].append((out, origin_path))
+    else:
+        out["bodyType"] = ""
+    return out
+
+
+def map_quiz(raw: dict, idx: int, ctx: dict, repo: str, slug: str) -> dict:
+    options = get_field(raw, "options", []) or []
+    options = [str(o) for o in options] if isinstance(options, list) else []
+    qtype = str(get_field(raw, "type", "single"))
+    ans = get_field(raw, "answer", None)
+    where = f"{repo}:{slug}:q{idx + 1}"
+
+    def index_or_none(value):
+        if isinstance(value, bool) or value is None:
+            return None
+        if isinstance(value, int):
+            return value
+        s = str(value).strip()
+        if s.isdigit():
+            return int(s)
+        if len(s) == 1 and s.upper() in "ABCDE" and options:
+            return ord(s.upper()) - 65
+        return None
+
+    answer: object = None
+    if qtype == "multi":
+        if isinstance(ans, list):
+            vals = [index_or_none(v) for v in ans]
+            answer = [v for v in vals if v is not None]
+            if len(answer) != len(ans):
+                ctx["notes"].append(f"{where} multi 答案含无法归一项 {ans!r} → 保留可解析部分")
+        else:
+            single = index_or_none(ans)
+            answer = [single] if single is not None else []
+            if single is None:
+                ctx["notes"].append(f"{where} multi 答案非索引数组：{ans!r} → []")
+    elif qtype == "blank":
+        # 填空题没有选项，answer 就是答案文本；数字串保留字符串形态，免得把 "03" 变成 3
+        answer = "" if ans is None else (ans if isinstance(ans, str) else str(ans))
+    else:
+        answer = index_or_none(ans)
+        if answer is None and ans is not None:
+            ctx["notes"].append(f"{where} type={qtype} answer 无法归一：{ans!r} → null")
+    if isinstance(answer, int) and options and not (0 <= answer < len(options)):
+        ctx["notes"].append(f"{where} answer={answer} 越界（options={len(options)}）→ 保留原值待人工")
+    if isinstance(answer, list) and options:
+        bad = [i for i in answer if not (0 <= i < len(options))]
+        if bad:
+            ctx["notes"].append(f"{where} multi 越界索引 {bad}（options={len(options)}）")
+    return {
+        "id": str(get_field(raw, "id", f"q{idx + 1:02d}")),
+        "chapterId": str(get_field(raw, "chapterId", "")),
+        "stem": str(get_field(raw, "stem", "")),
+        "options": options,
+        "answer": answer,
+        "type": qtype,
+        "conceptId": str(get_field(raw, "conceptId", "")),
+        "explain": str(get_field(raw, "explain", "")),
+        "misconception": str(raw.get("misconception") or ""),
+        "bookSource": book_source(raw),
+    }
+
+
+def map_card(raw: dict, idx: int) -> dict:
+    return {
+        "id": str(get_field(raw, "id", f"k{idx + 1:02d}")),
+        "front": str(get_field(raw, "front", "")),
+        "back": str(get_field(raw, "back", "")),
+        "chapterId": str(get_field(raw, "chapterId", "")),
+        "tags": [str(t) for t in (get_field(raw, "tags", []) or [])],
+    }
+
+
+def map_glossary(raw: dict) -> dict:
+    ch = get_field(raw, "chapterId", "")
+    ch_ids = [str(x) for x in ch] if isinstance(ch, list) else ([str(ch)] if ch else [])
+    return {
+        "term": str(raw.get("term") or get_field(raw, "title", "")),
+        "en": str(raw.get("en") or ""),
+        "def": str(raw.get("def") or raw.get("definition") or get_field(raw, "brief", "")),
+        "chapterIds": ch_ids,
+    }
+
+
+def parse_manifest(path: str) -> tuple[dict | None, str]:
+    text, enc = read_text_file(path)
+    if text is None:
+        return None, enc
+    try:
+        return json.loads(text), enc
+    except json.JSONDecodeError:
+        try:
+            return json.loads(text.replace("\\u002f", "/").replace("\\u002F", "/")), enc + "+u002F"
+        except Exception as e:
+            return None, f"jsonerror:{e.__class__.__name__}"
+
+
+def extract_book(repo: str, discipline: str, mrel: str, manifest: dict, ctx: dict) -> dict:
+    mdir = posixpath.dirname(mrel)
+    slug = sanitize_slug(manifest.get("slug") or "") or sanitize_slug(os.path.basename(mdir)) or None
+    raw_chapters, ch_key = pick_array(manifest, "chapters")
+    raw_concepts, co_key = pick_array(manifest, "concepts")
+    raw_quizzes, qu_key = pick_array(manifest, "quizzes")
+    raw_cards, ca_key = pick_array(manifest, "cards")
+    raw_gloss, gl_key = pick_array(manifest, "glossary")
+    book_meta = manifest.get("book") if isinstance(manifest.get("book"), dict) else {}
+    title = str(get_field(manifest, "title", "") or book_meta.get("title", ""))
+    book = {
+        "repo": repo,
+        "bookSlug": slug,
+        "title": title,
+        "discipline": discipline,
+        "homepage": ctx.get("homepage", ""),
+        "contentLevel": "stats-only",
+        "manifestPath": mrel,
+        "stats": {
+            "chapters": len(raw_chapters),
+            "concepts": len(raw_concepts),
+            "quizzes": len(raw_quizzes),
+            "cards": len(raw_cards),
+            "glossary": len(raw_gloss),
+        },
+        "chapters": [map_chapter(repo, slug or mdir, mdir, c, i, ctx) for i, c in enumerate(raw_chapters) if isinstance(c, dict)],
+        "concepts": [map_concept(repo, slug or mdir, mdir, c, i, ctx) for i, c in enumerate(raw_concepts) if isinstance(c, dict)],
+        "quizzes": [map_quiz(q, i, ctx, repo, slug or mdir) for i, q in enumerate(raw_quizzes) if isinstance(q, dict)],
+        "cards": [map_card(c, i) for i, c in enumerate(raw_cards) if isinstance(c, dict)],
+        "glossary": [map_glossary(g) for g in raw_gloss if isinstance(g, dict)],
+        "sourceKeys": {"chapters": ch_key, "concepts": co_key, "quizzes": qu_key, "cards": ca_key, "glossary": gl_key},
+    }
+    if not book["title"]:
+        book["title"] = book["bookSlug"] or mdir or repo
+    return book
+
+
+def grade_book(book: dict) -> str:
+    have_md = sum(1 for c in book["chapters"] if c.get("origin", {}).get("path", "").endswith(".md"))
+    if book["stats"]["chapters"] == 0 and book["stats"]["quizzes"] == 0:
+        return "stats-only"
+    return "full" if have_md else "degraded"
+
+
+def attach_bodies(book: dict, repo_dir: str, ctx: dict, fetcher) -> None:
+    """本地读 .md；缺失且允许兜底时走 raw。读不到的标 bodyType=missing，不伪造。"""
+    got = 0
+    for item, rel in ctx["want_files"]:
+        local = os.path.join(repo_dir, rel.replace("/", os.sep))
+        text, enc = read_text_file(local)
+        if text is None:
+            text = fetcher(book["repo"], rel)
+            enc = "raw" if text else "missing"
+        if text:
+            item["body"] = text
+            item["bodyType"] = "md"
+            got += 1
+            if enc not in ("utf-8", "utf-8-sig", "raw"):
+                ctx["notes"].append(f"{book['repo']}:{book['bookSlug']}:{item['id']} 正文编码 {enc}")
+        else:
+            item["bodyType"] = "missing"
+    ctx["bodies_ok"] = got
+
+
+def strip_bodies(book: dict) -> dict:
+    out = json.loads(json.dumps(book, ensure_ascii=False, default=str))
+    for key in ("chapters", "concepts"):
+        for item in out.get(key, []):
+            item.pop("body", None)
+    return out
+
+
+def site_filename(repo: str, slug: str | None, single: bool) -> str:
+    if single or not slug:
+        return f"{repo}.json"
+    return f"{repo}--{slug}.json"
+
+
+def ensure_git_ssl(args: list[str]) -> list[str]:
+    """本机全局 http.sslVerify=false，所有 git 调用显式覆盖回 true。"""
+    return ["git", "-c", "http.sslVerify=true"] + args
+
+
+# ---------------------------------------------------------------- raw 兜底
+
+class RawFetcher:
+    """未克隆/稀疏挡掉时的兜底：3 并发 + _work/cache/ + _work/state/ 断点。"""
+
+    def __init__(self, *, concurrency: int = RAW_CONCURRENCY, use_state: bool = True):
+        self.concurrency = max(1, concurrency)
+        self.state_path = work_path(*STATE_SUBDIR.split("/"), "fetch-state.json")
+        self.state: dict[str, dict] = {}
+        self.hits = 0
+        self.fetches = 0
+        self.failures: list[str] = []
+        self.use_state = use_state
+        if use_state and os.path.exists(self.state_path):
+            try:
+                with open(self.state_path, "r", encoding="utf-8") as fh:
+                    self.state = json.load(fh) or {}
+            except Exception:
+                self.state = {}
+
+    def __call__(self, repo: str, rel: str) -> str | None:
+        url = raw_url(repo, rel)
+        if self.use_state:
+            rec = self.state.get(url)
+            if rec and rec.get("ok") and rec.get("cache") and os.path.exists(rec["cache"]):
+                text, _ = read_text_file(rec["cache"])
+                if text is not None:
+                    self.hits += 1
+                    return text
+        res = http_get(url, use_cache=True)
+        bin_path, _ = _cache_paths(url)
+        body = res.get("body") or b""
+        if res.get("status") == 200 and body:
+            text, _enc = decode_bytes(body if isinstance(body, bytes) else body.encode("utf-8", "replace"))
+            self.state[url] = {
+                "ok": True,
+                "bytes": res.get("bytes") or len(body),
+                "cache": bin_path,
+                "at": time.strftime("%Y-%m-%dT%H:%M:%S%z"),
+            }
+            self.fetches += 1
+            return text
+        self.state.setdefault(url, {"ok": False, "status": res.get("status"), "error": res.get("error")})
+        self.failures.append(f"{repo}:{rel}:{res.get('status') or res.get('error')}")
+        return None
+
+    def save(self) -> None:
+        if not self.use_state:
+            return
+        os.makedirs(os.path.dirname(self.state_path), exist_ok=True)
+        with open(self.state_path, "w", encoding="utf-8") as fh:
+            json.dump(self.state, fh, ensure_ascii=False, indent=1, default=str)
+
+
+# ---------------------------------------------------------------- Node 求值（degraded 内联）
+
+NODE_EVAL = r"""
+const fs = require('fs');
+const jobs = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+const out = {};
+for (const j of jobs) {
+  const src = fs.readFileSync(j.file, 'utf8');
+  try { out[j.key] = new Function('"use strict"; return (' + src + ');')(); }
+  catch (e) { out[j.key] = { __error: String(e && e.message || e) }; }
+}
+process.stdout.write(JSON.stringify(out));
+"""
+
+
+def inline_bodies_via_node(repo: str, book: dict, ctx: dict) -> int:
+    """sudoku 一类：index.html 里的 ZS.* 字面量 → 能 json 解析的直接用，解不了的送 Node 求值。
+
+    实测要点：`ZS.lessons` 会出现**两次**（`ZS.lessons = (ZS.lessons||[]).concat([...])` 追加写法），
+    必须把所有同名块合并（16 章 = 8 + 8），只取第一个会得到 8 章〔N〕。
+    """
+    index = os.path.join(work_path(*REPOS_SUBDIR.split("/")), repo, "index.html")
+    text, _ = read_text_file(index)
+    if not text:
+        ctx["notes"].append(f"{repo} 无 index.html，内联正文未探到")
+        return 0
+    blocks = [b for b in scan_text(text, is_html=True, keep_snippet=True)
+              if (b.get("var") or "").startswith("ZS.")]
+    if not blocks:
+        ctx["notes"].append(f"{repo} index.html 里没有 ZS.* 容器")
+        return 0
+
+    merged: dict[str, list] = {}
+    pending: list[tuple[str, str]] = []        # (var, literal)
+    jsdir = work_path(*STATE_SUBDIR.split("/"), "jslices")
+    for b in blocks:
+        var = b["var"]
+        if isinstance(b.get("value"), list):
+            merged.setdefault(var, []).extend(b["value"])
+        elif b.get("snippet"):
+            pending.append((var, b["snippet"]))
+
+    if pending:
+        os.makedirs(jsdir, exist_ok=True)
+        jobs = []
+        for i, (var, lit) in enumerate(pending):
+            key = f"{repo}_{re.sub(r'[^0-9A-Za-z_]', '_', var)}_{i}"
+            fp = os.path.join(jsdir, key + ".txt")
+            with open(fp, "w", encoding="utf-8") as fh:
+                fh.write(lit)
+            jobs.append({"key": key, "file": fp.replace(os.sep, "/")})
+        spec = os.path.join(jsdir, f"{repo}_jobs.json")
+        with open(spec, "w", encoding="utf-8") as fh:
+            json.dump(jobs, fh, ensure_ascii=False)
+        runner = os.path.join(jsdir, "_eval.js")
+        with open(runner, "w", encoding="utf-8") as fh:
+            fh.write(NODE_EVAL)
+        try:
+            import subprocess
+
+            proc = subprocess.run(["node", runner, spec], capture_output=True, timeout=120)
+            payload = json.loads(proc.stdout.decode("utf-8", "replace") or "{}")
+            for (var, _lit), job in zip(pending, jobs):
+                got = payload.get(job["key"])
+                if isinstance(got, list):
+                    merged.setdefault(var, []).extend(got)
+                elif isinstance(got, dict) and got.get("__error"):
+                    ctx["notes"].append(f"{repo} {var} Node 求值失败：{got['__error'][:80]}")
+        except Exception as e:
+            ctx["notes"].append(f"{repo} 内联正文 Node 求值失败：{type(e).__name__}: {e}")
+        return 0 if not merged else _apply_inline(repo, book, merged, ctx)
+    return _apply_inline(repo, book, merged, ctx)
+
+
+def _apply_inline(repo: str, book: dict, merged: dict[str, list], ctx: dict) -> int:
+    lessons = merged.get("ZS.lessons") or []
+    by_id = {str(l.get("id")): l for l in lessons if isinstance(l, dict)}
+    filled = 0
+    for ch in book["chapters"]:
+        src = by_id.get(ch["id"])
+        if src and (src.get("body") or src.get("html")):
+            ch["body"] = str(src.get("body") or src.get("html"))
+            ch["bodyType"] = "html"
+            filled += 1
+    mis_inline = sum(1 for q in (merged.get("ZS.quizzes") or []) if isinstance(q, dict) and (q.get("mis") or q.get("misconception")))
+    ctx["notes"].append(
+        f"{repo} 内联正文：ZS.lessons 合并 {len(lessons)} 条，命中 {filled}/{len(book['chapters'])} 章"
+        f"（HTML 片段，公式不可还原）；内联 `mis` 非空 {mis_inline} 条")
+    return filled
+
+
+# ---------------------------------------------------------------- 全量编排
+
+def run_all(*, repos: list[str], catalog: dict[str, str], out_dir: str, bodies: bool,
+            dry_run: bool, use_cache: bool, limit: int | None = None) -> dict:
+    base = out_dir if os.path.isabs(out_dir) else work_path(out_dir)
+    fetcher = RawFetcher()
+    books: list[dict] = []
+    failures: list[dict] = []
+    collisions: list[dict] = []
+    unmapped: list[str] = []
+    excluded_all: list[dict] = []
+    sigs: dict[str, list[str]] = {}
+    cloned = set()
+    rbase = work_path(*REPOS_SUBDIR.split("/"))
+    if os.path.isdir(rbase):
+        cloned = {n for n in os.listdir(rbase) if os.path.isdir(os.path.join(rbase, n))}
+
+    for repo in repos:
+        if limit and len(books) >= limit:
+            break
+        discipline = catalog.get(repo, "general")
+        repo_dir = os.path.join(rbase, repo)
+        ctx = {"notes": [], "want_files": [], "homepage": ""}
+        if repo not in cloned:
+            failures.append({"repo": repo, "bookSlug": None, "reason": "未克隆；本地无副本，批 1 未走 raw 全量兜底"})
+            continue
+        manifests, excluded = find_manifests(repo_dir)
+        ctx["excludedManifests"] = excluded
+        if not manifests:
+            doc = ""
+            for name in ("交付说明.md", "README.md", "index.md"):
+                text, _ = read_text_file(os.path.join(repo_dir, name))
+                if text:
+                    doc = name
+                    break
+            failures.append({
+                "repo": repo, "bookSlug": None,
+                "reason": f"无 manifest.json（说明文件 {doc or '未探到'}）",
+                "contentLevel": "stats-only",
+            })
+            continue
+        parsed: list[tuple[str, dict]] = []
+        for mrel in manifests:
+            obj, enc = parse_manifest(os.path.join(repo_dir, mrel.replace("/", os.sep)))
+            if not isinstance(obj, dict):
+                failures.append({"repo": repo, "bookSlug": None, "manifest": mrel,
+                                 "reason": f"manifest 解析失败 {enc}"})
+                continue
+            parsed.append((mrel, obj))
+        single = len(parsed) == 1
+        used: dict[str, str] = {}
+        for idx, (mrel, obj) in enumerate(parsed):
+            ctx["want_files"] = []          # 逐本清空，否则同仓库前一本的正文路径会被重复回读
+            book = extract_book(repo, discipline, mrel, obj, ctx)
+            if not book["bookSlug"]:
+                book["bookSlug"] = sanitize_slug(repo) if single else f"b{idx + 1:02d}"
+                ctx["notes"].append(f"{repo}:{mrel} slug 缺失，回退序号 {book['bookSlug']}")
+            slug = book["bookSlug"]
+            if slug in used:
+                collisions.append({"repo": repo, "slug": slug, "paths": [used[slug], mrel], "action": "skipped-later"})
+                ctx["notes"].append(f"slug 冲突 {repo}::{slug} → 跳过后者，不覆盖")
+                continue
+            used[slug] = mrel
+            book["bookSlug"] = slug
+            book["file"] = site_filename(repo, slug, single)
+            book["contentLevel"] = grade_book(book)
+            read_ch = read_co = 0
+            if bodies and book["contentLevel"] == "full":
+                attach_bodies(book, repo_dir, ctx, fetcher)
+                read_ch = sum(1 for c in book["chapters"] if c.get("body") and c.get("bodyType") == "md")
+                read_co = sum(1 for c in book["concepts"] if c.get("body") and c.get("bodyType") == "md")
+                if not (read_ch or read_co):
+                    book["contentLevel"] = "degraded"
+                    ctx["notes"].append(
+                        f"{repo}:{book['bookSlug']} manifest 声明了 .md 但一本都没读到 → 降为 degraded")
+            elif bodies and book["contentLevel"] == "degraded":
+                inline_bodies_via_node(repo, book, ctx)   # 正文仍是 HTML，等级保持 degraded
+            book["bodyCount"] = {
+                "chapters": sum(1 for c in book["chapters"] if c.get("body")),
+                "concepts": sum(1 for c in book["concepts"] if c.get("body")),
+            }
+            book["signature"] = hashlib.sha1(
+                json.dumps([book["title"], [c["id"] for c in book["chapters"]], book["stats"]],
+                           ensure_ascii=False).encode("utf-8")
+            ).hexdigest()[:12]
+            sigs.setdefault(book["signature"], []).append(f"{repo}::{book['bookSlug']}")
+            books.append(book)
+        if ctx.get("excludedManifests"):
+            excluded_all.extend({"repo": repo, "path": p} for p in ctx["excludedManifests"])
+        unmapped.extend(ctx["notes"])
+
+    levels = {"full": 0, "degraded": 0, "stats-only": 0}
+    for b in books:
+        levels[b["contentLevel"]] = levels.get(b["contentLevel"], 0) + 1
+    duplicates = [{"signature": s, "books": bs} for s, bs in sigs.items() if len(bs) > 1]
+    dup_sigs = {s for s, bs in sigs.items() if len(bs) > 1}
+    for b in books:
+        if b["signature"] in dup_sigs:
+            b["duplicateGroup"] = b["signature"]
+    disciplines = []
+    for key in DISCIPLINE_TITLES:
+        rs = sorted({b["repo"] for b in books if b["discipline"] == key})
+        bs = [b for b in books if b["discipline"] == key]
+        if rs or bs:
+            disciplines.append({"key": key, "title": DISCIPLINE_TITLES[key],
+                                "repoCount": len(rs), "siteCount": len(bs)})
+    index = {
+        "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%S%z", time.localtime()),
+        "generator": GENERATOR,
+        "schemaVersion": SCHEMA_VERSION,
+        "totals": {
+            "repos": len(repos),
+            "sites": len(books),
+            "sitesUnique": len(books) - sum(len(d["books"]) - 1 for d in
+                                            ({"books": bs} for bs in sigs.values() if len(bs) > 1)),
+            "chapters": sum(b["stats"]["chapters"] for b in books),
+            "concepts": sum(b["stats"]["concepts"] for b in books),
+            "quizzes": sum(b["stats"]["quizzes"] for b in books),
+            "cards": sum(b["stats"]["cards"] for b in books),
+            "glossary": sum(b["stats"]["glossary"] for b in books),
+        },
+        "contentLevels": levels,
+        "disciplines": disciplines,
+        "sites": [{k: b[k] for k in ("repo", "bookSlug", "title", "discipline", "file", "contentLevel", "stats")}
+                  for b in books],
+        "failures": failures,
+    }
+    report = {
+        "generatedAt": index["generatedAt"],
+        "mode": "all" + ("+bodies" if bodies else "-structure-only"),
+        "outDir": out_dir,
+        "dryRun": dry_run,
+        "totals": index["totals"],
+        "contentLevels": levels,
+        "slugCollisions": collisions,
+        "excludedManifests": excluded_all,
+        "duplicates": duplicates,
+        "unmappedAndNotes": unmapped,
+        "rawFallback": {"fetches": fetcher.fetches, "cacheHits": fetcher.hits,
+                        "failures": fetcher.failures[:80], "concurrency": fetcher.concurrency},
+        "notInCatalog": sorted({b["repo"] for b in books} - set(catalog)),
+        "notCloned": [f["repo"] for f in failures if f.get("reason", "").startswith("未克隆")],
+    }
+    fetcher.save()
+    return {"index": index, "books": books, "report": report, "base": base}
+
+
+def write_outputs(bundle: dict, *, bodies: bool) -> dict:
+    base = bundle["base"]
+    sites_dir = os.path.join(base, "sites")
+    dist_dir = os.path.join(base, "dist")
+    bodies_dir = os.path.join(base, "bodies")
+    counts = {"sites": 0, "bodies": 0, "dist": 0}
+    if not os.path.isdir(sites_dir):
+        os.makedirs(sites_dir, exist_ok=True)
+    if bodies and not os.path.isdir(bodies_dir):
+        os.makedirs(bodies_dir, exist_ok=True)
+    os.makedirs(dist_dir, exist_ok=True)
+    for book in bundle["books"]:
+        payload = dict(book)
+        filename = payload.pop("file", None) or site_filename(book["repo"], book["bookSlug"], True)
+        if bodies:
+            body_doc = {"repo": book["repo"], "bookSlug": book["bookSlug"], "chapters": {}, "concepts": {}}
+            for key in ("chapters", "concepts"):
+                for item in book.get(key, []):
+                    if item.get("body"):
+                        body_doc[key][item["id"]] = {"bodyType": item.get("bodyType"), "body": item["body"]}
+            if body_doc["chapters"] or body_doc["concepts"]:
+                with open(os.path.join(bodies_dir, filename), "w", encoding="utf-8") as fh:
+                    json.dump(body_doc, fh, ensure_ascii=False, indent=1)
+                counts["bodies"] += 1
+            for key in ("chapters", "concepts"):
+                for item in payload.get(key, []):
+                    item.pop("body", None)
+        with open(os.path.join(sites_dir, filename), "w", encoding="utf-8") as fh:
+            json.dump(payload, fh, ensure_ascii=False, indent=1)
+        counts["sites"] += 1
+    shards: dict[str, dict] = {}
+    for book in bundle["books"]:
+        key = book["discipline"]
+        shard = shards.setdefault(key, {"discipline": key, "sites": []})
+        shard["sites"].append(strip_bodies(book))
+    for key, shard in shards.items():
+        with open(os.path.join(dist_dir, f"{key}.json"), "w", encoding="utf-8") as fh:
+            json.dump(shard, fh, ensure_ascii=False, indent=1)
+        counts["dist"] += 1
+    with open(os.path.join(base, "manifest.json"), "w", encoding="utf-8") as fh:
+        json.dump(bundle["index"], fh, ensure_ascii=False, indent=2)
+    with open(os.path.join(base, "_report.json"), "w", encoding="utf-8") as fh:
+        json.dump(bundle["report"], fh, ensure_ascii=False, indent=2)
+    return counts
+
+
 def main(argv=None) -> int:
     for stream in (sys.stdout, sys.stderr):
         if hasattr(stream, "reconfigure"):
@@ -999,16 +1771,58 @@ def main(argv=None) -> int:
         description="知枢矩阵抽取器。本轮只实现 --probe（3 站探路）。",
     )
     ap.add_argument("--probe", action="store_true", help="只探 3 个代表站，打印结构差异")
-    ap.add_argument("--all", action="store_true", help="全量抓取（批 1 主体，未实现）")
+    ap.add_argument("--all", action="store_true", help="全量抽取（批 1 主体）：一书一条，写 sites/dist/manifest/_report")
     ap.add_argument("--repo", action="append", default=[], help="限定仓库，可重复")
     ap.add_argument("--json", action="store_true", help="结构化结果打到 stdout")
     ap.add_argument("--no-cache", action="store_true", help="强制重抓，忽略 _work/cache/")
+    ap.add_argument("--bodies", action="store_true", help="抽正文：full 读本地 .md，degraded 走 Node 求值（默认只抽结构）")
+    ap.add_argument("--out-dir", default="data", help="产出目录，默认 data/；验证用 _work/data-dry")
+    ap.add_argument("--dry-run", action="store_true", help="只算不写，打印将要产出的条目")
+    ap.add_argument("--limit", type=int, default=None, help="最多产出多少本书（试跑用）")
     args = ap.parse_args(argv)
 
+    if args.probe and args.all:
+        sys.exit("--probe 与 --all 互斥")
+
     if args.all:
-        sys.exit("not implemented: --all 属批 1 主体，本轮只交付 --probe")
+        catalog = load_site_catalog()
+        repos = args.repo or list_repos(catalog)
+        if args.repo:
+            unknown = [r for r in args.repo if r not in catalog and r not in list_repos(catalog)]
+            if unknown:
+                sys.exit(f"--repo 含未知仓库: {unknown}")
+        if not catalog:
+            sys.exit(f"读不到仓库清单：{SITES_MD}（硬约束要求不写死站名清单）")
+        bundle = run_all(repos=repos, catalog=catalog, out_dir=args.out_dir, bodies=args.bodies,
+                         dry_run=args.dry_run, use_cache=not args.no_cache, limit=args.limit)
+        counts = None if args.dry_run else write_outputs(bundle, bodies=args.bodies)
+        index, report = bundle["index"], bundle["report"]
+        p(f"all @ {index['generatedAt']} · 模式={report['mode']} · 产出目录={bundle['base']}"
+          f"{'（dry-run 未写文件）' if args.dry_run else ''}")
+        p(f"代理已禁用（ProxyHandler({{}})）· 中文路径逐段 URL 编码 · git 调用一律 -c http.sslVerify=true")
+        p(f"仓库 {index['totals']['repos']} · 书条目 {index['totals']['sites']}（去重 {index['totals']['sitesUnique']}）· "
+          f"章 {index['totals']['chapters']} · 概念 {index['totals']['concepts']} · "
+          f"题 {index['totals']['quizzes']} · 卡 {index['totals']['cards']} · 术语 {index['totals']['glossary']}")
+        p(f"contentLevels={index['contentLevels']} · 失败 {len(index['failures'])} · "
+          f"slug 冲突 {len(report['slugCollisions'])} · 跨仓重复组 {len(report['duplicates'])} · "
+          f"排除归档 manifest {len(report['excludedManifests'])} · raw 兜底 {report['rawFallback']['fetches']} 次"
+          f"（命中缓存 {report['rawFallback']['cacheHits']}）")
+        if counts:
+            p(f"已写出 sites={counts['sites']} bodies={counts['bodies']} dist={counts['dist']}")
+        if args.json:
+            sys.stdout.buffer.write(json.dumps({"index": index, "report": report},
+                                               ensure_ascii=False, indent=2, default=str).encode("utf-8"))
+        else:
+            for f in index["failures"][:12]:
+                p(f"  FAIL {f['repo']:34s} {f['reason']}")
+            for note in report["unmappedAndNotes"][:12]:
+                p(f"  NOTE {note[:150]}")
+            if len(index["failures"]) > 12 or len(report["unmappedAndNotes"]) > 12:
+                p(f"  …其余见 {args.out_dir}/_report.json")
+        return 0
+
     if args.repo and not args.probe:
-        sys.exit("not implemented: 非 probe 的 --repo 属批 1 主体")
+        sys.exit("需要 --probe 或 --all 之一")
 
     repos = args.repo or PROBE_REPOS
     if args.probe:

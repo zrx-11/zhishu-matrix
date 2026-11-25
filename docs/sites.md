@@ -9,16 +9,27 @@ owner 全部为 `zrx-11`，分支 `main`。
 | 仓库总数 | **50** | `_work/site_repos.json` 全集。与本文六张分表逐行相加一致：AI 9 + 数学 17 + 化学与食品 3 + 计算机 7 + 通识 8 + 工具 6 = 50（2026-11-24 脚本核对，双向差集为空） | clone 与档位判定的分母 |
 | 有可用数据 | **47** | 扫描时抓到 `交付说明.md`/`README.md` 或 `manifest.json` 的站，即第七节规模汇总的分母 | 规模汇总、抽取覆盖统计 |
 | 无任何说明 | **4** | `SVM`、`MATLAB`、`AI-courses`、`meeting-129600years`（均在 50 行内） | **跳过不抽取，但逐站记入 `data/_report.json` 的 `failures`，不从 50 里抹掉** |
+| 数据条目（书） | **131** | 50 仓里 `manifest.json` 的总份数，即 `data/sites/*.json` 与 `manifest.sites[]` 的上限 | 见 `schema.md` 第一节：一条 sites 记录 = 一本书 |
 
-三条约束：
+**`sites` 条目数 ≠ 仓库数，前者按书计。** 2026-11-25 对 50 个本地 clone 全量扫描〔K〕：131 份 manifest 分布在 **25 个站**，
+另 **25 站没有 `manifest.json`**；14 个站是多书合集——`ai-architecture-handbook` 39、`math-basics-enlighten` 24、
+`first-push-enlighten` 11、`chem-zhishu` 8、`ode-enlighten` 7、`taocp-enlighten` 6、`ai-ml-dl-rl-enlighten` 5、
+`algorithm-enlighten` 4、`food-zhishu` 4、`MATH` 3、`analysis-handbook` 3、`ai-enlighten` 2、
+`economics-principles-handbook` 2、`math-analysis` 2。所以下面六张表的「一行 = 一个仓库」，而抽取产出的「一条 = 一本书」，
+两个数不要混用：仓库看 50，条目看 131（`totals.repos` 与 `totals.sites` 各管一头）。
 
-1. **`data/manifest.json` 的 `totals.sites` 填实际产出数**——成功写出 `data/sites/{repo}.json` 的站数，
-   不填 50，也不填 47。`totals.sites + failures 数` 若不足 50，差额就是「未处理」，批 1 须在 `_report.json` 里显式列出，不许默认归入任何一档。
+四条约束：
+
+1. **`data/manifest.json` 的 `totals.sites` 填实际产出的书条目数**——成功写出 `data/sites/….json` 的份数，上限 131，
+   **不填 50、不填 47**；仓库总数另由 `totals.repos` 记（50）。`totals.sites + failures + slugCollisions 跳过量`
+   不足 131 的差额即「未处理」，批 1 须在 `_report.json` 里显式列出，不许默认归入任何一档。
 2. **47 目前在本表内复现不出来**：50 − 4 = 46；而分表里带任一规模数字的只有 40 行，另有 10 行六列全为 `—`
    （`llm-model-catalog`、`math-competition-derivation`、`shanghai-chem-lab`、`ACM-XCPC-Notes`、`economics-principles-handbook`、
    `AI-Study-Notes`、`AI-courses`、`CourseVault-OfflineCourseMap`、`ai-history-site`、`meeting-129600years`）。
    第七节的 47 是早期扫描手记值，本轮保留原样、不改成 46 也不改成 40，等批 1 `_report.json` 出实数后统一。
-3. 三个数各管各的：拉取看 50，覆盖看 47（待实定），跳过看 4。**不得把 47 当作仓库总数写进文档、代码常量或进度分母。**
+3. **`sites` 条目数 ≠ 仓库数，前者按书计**：本表一行是一个仓库，`manifest.sites[]` 一条是一本书，
+   `disciplines[].repoCount` 按仓库、`siteCount` 按书，两组数并存，代码里不得共用一个变量名。
+4. 四个数各管各的：拉取看 50，覆盖看 47（待实定），跳过看 4，条目看 131。**不得把 47 当作仓库总数写进文档、代码常量或进度分母。**
 
 规模数字来自 2026-11-24 的一次扫描（抓每站 `交付说明.md` 或 `README.md` 的正则抽取）。标 ⚠️ 的是明显失真项，需要拉 `manifest.json` 复核。
 

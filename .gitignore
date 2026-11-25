@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.vite/
+*.log
+__pycache__/
+*.py[cod]
+data/raw/
+_work/
+
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -27,9 +27,14 @@ DRY=0
 [ "${1:-}" = "--dry-run" ] && DRY=1
 
 # 档位归属：一档为默认，下面只列非默认的站
+# 2026-11-24 用 _work/clone_tier_audit.txt（50 站 ls-tree 实测）复核后调整：
+#   kaoyan-math-66000   树内 868 条目含 md 28 + json 20，根目录规则只落地 2 个 → 改 three-big（实测放宽后 48 个全到，pack 35.26KiB→205.54KiB）
+#   CourseVault-OfflineCourseMap 树内 md 20 + json 1,159，根目录规则只落地 1 个 → 归 three-big，待重拉
+#   ACM-XCPC-Notes      481MB 走三档；树内 .md 仅 1（README.md）+ .json 仅 1（assets/data.json，在一级子目录），
+#                       所以只有 any-depth 规则才能两个都拿到，归 three-big；正文实为 135 个 .html 与 40 个 .txt，非知枢结构
 TIER2=""                                        # 50–100MB：blob:none + sparse（含根目录）
-TIER3_BIG="ACM-XCPC-Notes"                     # >100MB：稀疏取任意深度的 *.md *.json
-TIER3_ROOT="kaoyan-math-66000 CourseVault-OfflineCourseMap"  # 只需根目录：稀疏取 /*.md /*.json
+TIER3_BIG="ACM-XCPC-Notes kaoyan-math-66000 CourseVault-OfflineCourseMap"  # 稀疏取任意深度的 *.md *.json
+TIER3_ROOT=""                                   # 只需根目录：稀疏取 /*.md /*.json（当前无站归属）
 FORCE_FULL="hello-ai-zhishu"                   # 硬约束：正文在子目录，禁止稀疏
 
 tier_of() {

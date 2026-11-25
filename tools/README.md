@@ -19,8 +19,8 @@ Node 只作子进程求值用，抽取器不依赖任何 npm 包；求值脚本�
 
 | 文件 | 作用 | 状态 |
 |---|---|---|
-| `extract.py` | 抓 40 站 → 统一 schema → 判 `contentLevel` → 回读正文 → 写 `data/sites/*.json` + `data/manifest.json` + 6 个分片 | 只交付 `--probe`，全量与正文回读待批 1 主体 |
-| **`clone_repos.sh`** | 按三档策略把站点源码拉到 `_work/repos/`，供正文本地读盘；`--dry-run` 只打印档位不联网 | 已登记（2026-11-24 自 `_work/clone_repos.sh` 移入并改路径为脚本相对；实测 `bash -n` 通过、dry-run 档位归属正确、dry-run 不改写 `_work/_clone_report.txt`） |
+| `extract.py` | 抓 50 仓 → 一份 manifest 一本书 → 判 `contentLevel` → 本地读 `.md`（degraded 走 Node 求值）→ 写 `sites/` + `bodies/` + `dist/` + `manifest.json` + `_report.json` | **批 1 主体已实现**（`--all` / `--bodies` / `--out-dir` / `--dry-run` / `--limit`）。首跑实测见 `docs/probe-report.md` 十一节；**按本轮约定未写 `data/`**，产出留在 `_work/data-dry/` |
+| **`clone_repos.sh`** | 按三档策略把站点源码拉到 `_work/repos/`，供正文本地读盘；`--dry-run` 只打印档位不联网 | 已登记并按实测复核（2026-11-25：`kaoyan-math-66000`、`CourseVault-OfflineCourseMap`、`ACM-XCPC-Notes` 三站归 three-big，`TIER3_ROOT` 暂空；路径改为脚本相对，`bash -n` 通过、dry-run 档位归属正确） |
 | `probe.py` | 单站探路：打印该站 `index.html` 里内联数据的变量名与结构 | 已并入 `extract.py --probe`，不再单列 |
 | `verify_data.py` | 校验产出：字段完整性、计数一致性、分片大小 | 待生成 |
 | `check_offline.py` | 构建后扫描 `dist/` 里的远程引用 | 待生成 |
@@ -92,7 +92,25 @@ Node 只作子进程求值用，抽取器不依赖任何 npm 包；求值脚本�
 
 处置口径：整仓误拉的**大仓**（> 100MB）删除重拉三档；中仓误整仓的按二档 `sparse-checkout set /*` 收敛；
 对象库损坏的（第 3 步命中）一律删除重拉，不接受半份数据；正文在子目录的站必须是一档、或稀疏规则显式含该子目录。
-**本轮只记录复核口径与现状，不执行删除、不重拉、不改 `_work/`。**
+
+#### 复核已执行（2026-11-25 09:15，50 站全量，只读 + 一次稀疏放宽）
+
+明细见 `_work/clone_tier_audit.txt`（人读表）与 `_work/clone_tier_audit.json`（机读），汇总结论已写入
+`docs/probe-report.md` 第十节。要点：
+
+- 50 仓树内合计条目 15,422、`.md` 3,703、`.json` 1,457；**`manifest.json` 共 131 份，只有 25 个站有**（根目录 2 / 一级 100 / 二级 29）——
+  所以抽取单元改成「一份 manifest = 一本书」，见 `docs/schema.md` 第一节。
+- `kaoyan-math-66000`：已用 `sparse-checkout set '*.md' '*.json'` 放宽到任意深度，**已检出 2 → 48**（树内 md 28 + json 20 全到），
+  pack 35.26 KiB → 205.54 KiB，`git fsck` 无输出 → 原 three-root 档位确实错了，已改 three-big。
+- `ACM-XCPC-Notes`：**无需重拉**。树内 `.md` 只有 1（`README.md`）、`.json` 只有 1（`assets/data.json`，在一级子目录），
+  any-depth 规则两个都已落地；该站 481MB 的主体是 cpp 1,482 / pdf 282 / ppt 279 / doc 180，**没有知枢正文**，判 stats-only 候选。
+- `CourseVault-OfflineCourseMap`：**档位错误，待重拉**——树内 md 20 + json 1,159，根目录规则只落地 1 个。已归 three-big，
+  但重拉是网络动作，等批准后再执行。
+- 缺口提醒：`kaoyan-math-66000` 的考研题主数据在 `.csv`（19）/ `.html`（201）/ `.txt`（8）里〔K〕，
+  三档的 `*.md`/`*.json` 覆盖不到。要不要把 `*.csv` 加进三档模式，批 1 定，本轮不改规则。
+- 环境提醒：本机 `git config --global http.sslVerify` = **false**（仓库级同值）。旧脚本逐次 `-c http.sslVerify=true` 是对的，
+  手动跑 git 时会看到「TLS certificate verification has been disabled」告警；**`extract.py` 若调 git 必须显式带 `-c http.sslVerify=true`**，
+  本轮未改动任何 git 配置。
 
 ## 正文分级与回读（2026-11-24 定）
 
@@ -138,13 +156,18 @@ Node 只作子进程求值用，抽取器不依赖任何 npm 包；求值脚本�
 python tools/extract.py --probe            # 只探 3 个代表站，打印结构差异
 python tools/extract.py --probe --json     # 同一结果以 JSON 打到 stdout
 python tools/extract.py --probe --no-cache # 忽略缓存重抓
-python tools/extract.py --all              # 全量抓取（批 1 主体，未实现）
-python tools/extract.py --repo hello-ai-zhishu   # 单站重抓（批 1 主体，未实现）
-python tools/extract.py --all --bodies     # 回读 .md 正文（批 1 主体，未实现）
-python tools/extract.py --bodies --concurrency 3 --resume   # 限速 + 断点续传（未实现）
+python tools/extract.py --all --bodies --out-dir _work/data-dry   # 全量抽取（验证用，不碰 data/）
+python tools/extract.py --all --dry-run    # 只算不写，看条目与分级
+python tools/extract.py --all --limit 12   # 试跑前 12 本
+python tools/extract.py --all --repo hello-ai-zhishu --bodies     # 单仓重抽
+python tools/extract.py --all              # 正式产出到 data/（批 1 定稿后再跑）
 bash tools/clone_repos.sh --dry-run        # 只打印每站档位与命令，不联网、不写报告
-bash tools/clone_repos.sh                  # 按三档拉取到 _work/repos/（批 1 执行）
-python tools/verify_data.py                # 校验产出：含 contentLevel 与数组长度一致性
+bash tools/clone_repos.sh                  # 按三档拉取到 _work/repos/
+python tools/verify_data.py                # 校验产出：含 contentLevel 与数组长度一致性（待生成）
 ```
+
+抽取器约定：主路径读 `_work/repos/`，读不到才走 raw（3 并发 + `_work/cache/` + `_work/state/fetch-state.json` 断点）；
+调 git 一律带 `-c http.sslVerify=true`（本机全局该值为 false）；`_archive`/`_backup`/`旧版` 路径的 manifest 排除并记
+`_report.json`；同仓库 slug 冲突跳过后者并记 `slugCollisions`，不静默覆盖。
 
 探路结论见 `docs/probe-report.md`。
