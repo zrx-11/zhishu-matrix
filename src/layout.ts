@@ -1,99 +1,114 @@
-import { COLUMN_H_MAX, COLUMN_H_MIN } from './config';
+/**
+ * 批 8 阅览室布置：把「书」摆上书架墙，把「章」摊成书脊。
+ * 纯数学、不碰 three——输出的 room-local 坐标与基向量由 architecture.ts 转成合并几何。
+ */
+import {
+  BOOK_H_JITTER,
+  SHELF_DEPTH,
+  SLOT_GAP,
+  SPINE_W_MAX,
+  SPINE_W_MIN,
+} from './config';
 import type { BookRecord, SiteEntry } from './types';
 
-export interface BookPlacement {
-  book: SiteEntry;
-  /** 房间内平面坐标（以房间中心为原点） */
-  x: number;
-  z: number;
-  cols: number;
-}
+export type WallId = 'left' | 'right' | 'back';
 
-export interface ChapterPlacement {
-  book: SiteEntry;
-  chapter: { id: string; title: string; num: number | null };
-  x: number;
-  z: number;
-  height: number;
-  /**
-   * 挂在该章立柱上的概念光点。
-   * 来源是 `concepts[].chapterIds`，**不是 `chapters[].conceptIds`**——
-   * 129 本实测 1,169 章里只有 15 章带 conceptIds，而 765 个概念的 chapterIds 全部可解析〔X〕，
-   * 走前者会画出一片没有光点的空立柱。
-   */
+export interface ChapterRef {
+  id: string;
+  title: string;
+  num: number | null;
   concepts: Array<{ id: string; title: string }>;
 }
 
-export interface RoomLayout {
-  books: BookPlacement[];
-  columns: ChapterPlacement[];
-  span: number;
+export interface BookSlot {
+  book: SiteEntry;
+  chapters: ChapterRef[];
+  /** 皮革底色（图集格用），由学科色 + 本书序号抖色 */
+  color: string;
+  /** 单册书脊宽（章多的书更厚） */
+  spineW: number;
+  /** 书位起点（沿墙方向的参数，单位=世界） */
+  u0: number;
+  slotW: number;
+  level: number;
+  wall: WallId;
+  /** 中心点（room-local x,z）与书高 */
+  cx: number;
+  cz: number;
+  bookH: number;
+  spineStart: number;
 }
 
-/** 展台按书排布：方格阵列，同仓库的书相邻（按 repo 分组排序） */
-export function layoutRoom(books: SiteEntry[]): RoomLayout {
-  const sorted = [...books].sort(
-    (a, b) => a.repo.localeCompare(b.repo) || a.bookSlug.localeCompare(b.bookSlug),
-  );
-  const cols = Math.max(1, Math.ceil(Math.sqrt(sorted.length)));
-  const pitch = 26;
-  const placements: BookPlacement[] = sorted.map((book, i) => ({
-    book,
-    x: (i % cols - (cols - 1) / 2) * pitch,
-    z: (Math.floor(i / cols) - (Math.ceil(sorted.length / cols) - 1) / 2) * pitch,
-    cols,
-  }));
-  return { books: placements, columns: [], span: cols * pitch };
+export interface SpinePlacement {
+  slot: number;
+  chapter: ChapterRef;
+  chapterIndex: number;
+  x: number;
+  y: number;
+  z: number;
+  w: number;
+  h: number;
+  depth: number;
+  /** 沿墙方向与指向房间中心的法线（room-local，只用到 x/z） */
+  dir: [number, number];
+  normal: [number, number];
+  cell: number;
 }
 
-/** 展台上的章节立柱：按章节序号排成小网格，整本书的高度由章数决定（docs/design.md 第三节） */
-export function layoutColumns(
-  layout: RoomLayout,
-  records: Map<string, BookRecord>,
-): RoomLayout {
-  const columns: ChapterPlacement[] = [];
-  for (const placement of layout.books) {
-    const rec = records.get(key(placement.book.repo, placement.book.bookSlug));
-    const chapters = rec?.chapters ?? [];
-    const n = chapters.length;
-    if (!n) continue;
-    const byChapter = conceptsByChapter(rec);
-    const per = Math.max(1, Math.ceil(Math.sqrt(n)));
-    const step = 4.2;
-    const base = columnBaseHeight(n);
-    chapters.forEach((ch, i) => {
-      const cx = placement.x + (i % per - (per - 1) / 2) * step;
-      const cz = placement.z + (Math.floor(i / per) - (Math.ceil(n / per) - 1) / 2) * step;
-      const num = typeof ch.num === 'number' ? ch.num : i + 1;
-      const concepts = byChapter.get(ch.id) ?? [];
-      columns.push({
-        book: placement.book,
-        chapter: { id: ch.id, title: ch.title, num },
-        x: cx,
-        z: cz,
-        height: columnHeight(base, num),
-        concepts,
-      });
-    });
-  }
-  return { ...layout, columns };
+export interface ShelfRowSpec {
+  wall: WallId;
+  levels: number;
+  /** 书架沿墙长度 */
+  length: number;
+  /** 书架层板高度序列 */
+  boardY: number[];
+  pitch: number;
+  x: number;
+  z: number;
+  dir: [number, number];
+  normal: [number, number];
 }
 
-/** 归一化基准 24 章：实测 129 本有正文的书约在 90 分位，开方压掉长尾 */
-const REF_CHAPTERS = 24;
-
-function columnBaseHeight(n: number): number {
-  const t = Math.min(1, n / REF_CHAPTERS);
-  return COLUMN_H_MIN + (COLUMN_H_MAX - COLUMN_H_MIN) * Math.sqrt(t);
+export interface RoomPlan {
+  discipline: SiteEntry['discipline'];
+  /** 房间边长（正方形阅览室） */
+  side: number;
+  height: number;
+  rows: ShelfRowSpec[];
+  slots: BookSlot[];
+  spines: SpinePlacement[];
+  /** 光尘锚点：概念 → 书架前沿的一颗尘粒 */
+  dust: Array<{ x: number; y: number; z: number; size: number; book: SiteEntry; conceptId: string }>;
+  bookCount: number;
+  chapterCount: number;
+  /** 书脊格数 == 章数（门槛逐区核对） */
+  cells: number;
 }
 
-/** 同书之内按章序号做 0.86—1.0 的起伏，读作天际线而不是平板 */
-function columnHeight(base: number, num: number): number {
-  const wave = 0.86 + 0.14 * ((((Math.max(1, num) - 1) % 4) / 3));
-  return Math.min(COLUMN_H_MAX, Math.max(COLUMN_H_MIN, base * wave));
+const WALLS_ORDER: WallId[] = ['left', 'right', 'back'];
+
+const WALLS: Record<WallId, { dir: [number, number]; normal: [number, number]; offset: (side: number) => number }> = {
+  left: { dir: [0, 1], normal: [1, 0], offset: (s) => -s / 2 + SHELF_DEPTH / 2 },
+  right: { dir: [0, -1], normal: [-1, 0], offset: (s) => s / 2 - SHELF_DEPTH / 2 },
+  back: { dir: [1, 0], normal: [0, -1], offset: (s) => s / 2 - SHELF_DEPTH / 2 },
+};
+
+const SHELF_BOTTOM = 0.42;
+const SHELF_TOP = 11.6;
+const BACK_PANEL = 0.14;
+const BOARD = 0.22;
+
+/** 单册书脊宽：按该书章数归一化，章多→册厚→占位宽 */
+function spineWidth(n: number): number {
+  return Math.min(SPINE_W_MAX, Math.max(SPINE_W_MIN, 0.34 + 0.13 * Math.sqrt(n / 12)));
 }
 
-/** 全书 concepts 按 `chapterIds` 反绑到章；一章多概念就全挂，不做数量截断 */
+/** 抖一个 0..1 的确定性伪随机（同区同书每次一致，截图才可比） */
+function hash(seed: number, salt: number): number {
+  const s = Math.sin((seed + 1) * 12.9898 + salt * 78.233) * 43758.5453;
+  return s - Math.floor(s);
+}
+
 export function conceptsByChapter(rec?: BookRecord): Map<string, Array<{ id: string; title: string }>> {
   const map = new Map<string, Array<{ id: string; title: string }>>();
   for (const c of rec?.concepts ?? []) {
@@ -115,4 +130,169 @@ export function recordIndex(shard: { sites: BookRecord[] }): Map<string, BookRec
   const map = new Map<string, BookRecord>();
   for (const rec of shard.sites) map.set(key(rec.repo, rec.bookSlug), rec);
   return map;
+}
+
+interface SlotDraft {
+  book: SiteEntry;
+  chapters: ChapterRef[];
+  spineW: number;
+  slotW: number;
+  seed: number;
+}
+
+/**
+ * 房间布置主入口：章数决定书脊宽与书位宽，书位按总长摊到「三面墙 × 若干层」上，
+ * 每层内部再等距留缝——空架不会挤在一起，也不会有墙空着。
+ */
+export function planRoom(
+  discipline: SiteEntry['discipline'],
+  books: SiteEntry[],
+  records: Map<string, BookRecord>,
+  leather: (seed: number) => string,
+): RoomPlan {
+  const sorted = [...books].sort(
+    (a, b) => a.repo.localeCompare(b.repo) || a.bookSlug.localeCompare(b.bookSlug),
+  );
+  const drafts: SlotDraft[] = [];
+  sorted.forEach((book, i) => {
+    const rec = records.get(key(book.repo, book.bookSlug));
+    const byChapter = conceptsByChapter(rec);
+    const chapters: ChapterRef[] = (rec?.chapters ?? []).map((ch, ci) => ({
+      id: ch.id,
+      title: ch.title,
+      num: typeof ch.num === 'number' ? ch.num : ci + 1,
+      concepts: byChapter.get(ch.id) ?? [],
+    }));
+    if (!chapters.length) return;
+    const spineW = spineWidth(chapters.length);
+    drafts.push({
+      book,
+      chapters,
+      spineW,
+      slotW: chapters.length * spineW + SLOT_GAP,
+      seed: i,
+    });
+  });
+
+  const totalRun = drafts.reduce((sum, d) => sum + d.slotW, 0);
+  const wallCount = 3;
+  const levels = Math.max(3, Math.min(6, Math.round(Math.sqrt(Math.max(1, totalRun) / 6))));
+  // 书架两端各让出一个进深，否则三面墙的书排在转角处互相穿插（转角那本会种进邻墙的书架里）
+  const corner = SHELF_DEPTH + 0.2;
+  const side = Math.max(20, Math.min(40, Math.ceil(totalRun / (0.68 * wallCount * levels) + 2 * corner)));
+  const tierLen = side - 2 * corner;
+  const capacity = wallCount * levels;
+
+  // 贪心分层：装不下就换下一层；层数用尽则摊进最后一层（宁可密，也不丢书）
+  const tiers: Array<{ wall: WallId; level: number; slots: SlotDraft[]; used: number }> = [];
+  let tierIdx = 0;
+  for (const d of drafts) {
+    const need = d.slotW + SLOT_GAP;
+    const cur = tiers[tierIdx];
+    if (cur && cur.used + need > tierLen && tierIdx + 1 < capacity) tierIdx += 1;
+    if (!tiers[tierIdx]) {
+      tiers[tierIdx] = {
+        wall: WALLS_ORDER[tierIdx % wallCount],
+        level: Math.floor(tierIdx / wallCount),
+        slots: [],
+        used: 0,
+      };
+    }
+    tiers[tierIdx].slots.push(d);
+    tiers[tierIdx].used += need;
+  }
+
+  const pitch = (SHELF_TOP - SHELF_BOTTOM) / levels;
+  const rows: ShelfRowSpec[] = WALLS_ORDER.map((wall) => {
+    const off = WALLS[wall].offset(side);
+    return {
+      wall,
+      levels,
+      length: tierLen,
+      boardY: Array.from({ length: levels }, (_, l) => SHELF_BOTTOM + l * pitch),
+      pitch,
+      x: wall === 'back' ? 0 : off,
+      z: wall === 'back' ? off : 0,
+      dir: WALLS[wall].dir,
+      normal: WALLS[wall].normal,
+    };
+  });
+
+  const slots: BookSlot[] = [];
+  const spines: SpinePlacement[] = [];
+  const dust: RoomPlan['dust'] = [];
+
+  for (const tier of tiers) {
+    if (!tier || !tier.slots.length) continue;
+    const row = rows[WALLS_ORDER.indexOf(tier.wall)];
+    const used = tier.slots.reduce((sum, d) => sum + d.slotW, 0);
+    const spread = Math.min(1.6, Math.max(0.18, (tierLen - used) / (tier.slots.length + 1)));
+    let cursor = -tierLen / 2 + spread;
+    const boardTop = row.boardY[tier.level];
+    for (const d of tier.slots) {
+      const jitter = hash(d.seed, 3.7);
+      const bookH = (row.pitch - BOARD - 0.12) *
+        (BOOK_H_JITTER[0] + (BOOK_H_JITTER[1] - BOOK_H_JITTER[0]) * jitter);
+      const slot: BookSlot = {
+        book: d.book,
+        chapters: d.chapters,
+        color: leather(d.seed),
+        spineW: d.spineW,
+        u0: cursor,
+        slotW: d.slotW,
+        level: tier.level,
+        wall: tier.wall,
+        cx: row.x + row.dir[0] * (cursor + d.slotW / 2),
+        cz: row.z + row.dir[1] * (cursor + d.slotW / 2),
+        bookH,
+        spineStart: spines.length,
+      };
+      const slotIndex = slots.length;
+      slots.push(slot);
+      d.chapters.forEach((ch, ci) => {
+        const u = cursor + SLOT_GAP / 2 + (ci + 0.5) * d.spineW;
+        const depth = Math.min(1.7, SHELF_DEPTH * 0.62);
+        // 册子贴住背板往前立，前沿留一段进深——真实书架的凹入感
+        const nOff = -SHELF_DEPTH / 2 + BACK_PANEL + depth / 2;
+        spines.push({
+          slot: slotIndex,
+          chapter: ch,
+          chapterIndex: ci,
+          x: row.x + row.dir[0] * u + row.normal[0] * nOff,
+          z: row.z + row.dir[1] * u + row.normal[1] * nOff,
+          y: boardTop + bookH / 2,
+          w: d.spineW * 0.94,
+          h: bookH,
+          depth,
+          dir: row.dir,
+          normal: row.normal,
+          cell: spines.length,
+        });
+        ch.concepts.forEach((concept, k) => {
+          dust.push({
+            x: row.x + row.dir[0] * (u + (k % 3 - 1) * 0.34) + row.normal[0] * (SHELF_DEPTH / 2 + 0.55),
+            z: row.z + row.dir[1] * (u + (k % 3 - 1) * 0.34) + row.normal[1] * (SHELF_DEPTH / 2 + 0.55),
+            y: boardTop + 0.1 + 0.08 * (k % 2),
+            size: 0.2 + 0.14 * Math.min(1, (d.book.stats?.quizzes ?? 0) / 90) + 0.05 * (k % 3),
+            book: d.book,
+            conceptId: concept.id,
+          });
+        });
+      });
+      cursor += d.slotW + spread;
+    }
+  }
+
+  return {
+    discipline,
+    side,
+    height: 15,
+    rows,
+    slots,
+    spines,
+    dust,
+    bookCount: slots.length,
+    chapterCount: spines.length,
+    cells: spines.length,
+  };
 }

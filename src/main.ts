@@ -58,7 +58,7 @@ let miniRaf = 0;
 const shardCache = new Map<Discipline, Map<string, BookRecord>>();
 const bookCache = new Map<string, BookRecord>();
 
-/** 小地图：3D 视图右下角俯视，标六区与当前相机（阶段 D 第 1 项） */
+/** 小地图：3D 视图左下角俯视，画八角厅 + 六条走廊 + 六座阅览室 + 本区书架平面 */
 function drawMinimap(): void {
   const canvas = document.getElementById('minimap-canvas') as HTMLCanvasElement | null;
   const wrap = document.getElementById('minimap');
@@ -77,39 +77,77 @@ function drawMinimap(): void {
   ctx.clearRect(0, 0, w, h);
   ctx.fillStyle = '#0e1015';
   ctx.fillRect(0, 0, w, h);
-  // 大厅坐标 x∈[-260,260]、z∈[-190,190] 等比映射进画布
-  const spanX = 560;
-  const spanZ = 400;
-  const sc = Math.min(w / spanX, h / spanZ);
+  // 世界 x/z ∈ [-175,175] 等比映射进画布（六区外缘 ±173）
+  const span = 350;
+  const sc = Math.min(w, h) / span;
   const px = (x: number) => w / 2 + x * sc;
   const pz = (z: number) => h / 2 + z * sc;
-  ctx.strokeStyle = '#1c2230';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.arc(w / 2, h / 2, 40, 0, Math.PI * 2);
-  ctx.stroke();
-  for (const zone of state3d.zones) {
+  const hall = state3d.hall;
+  if (hall) {
+    ctx.strokeStyle = '#3d465c';
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
-    ctx.fillStyle = zone.color;
-    ctx.globalAlpha = 0.9;
-    ctx.arc(px(zone.x), pz(zone.z), 7, 0, Math.PI * 2);
+    for (let i = 0; i < hall.sides; i += 1) {
+      const a = (Math.PI * 2 * i) / hall.sides + Math.PI / hall.sides;
+      const x = px(Math.cos(a) * hall.radius);
+      const y = pz(Math.sin(a) * hall.radius);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(38,44,60,0.55)';
     ctx.fill();
+    ctx.stroke();
+  }
+  for (const cor of state3d.corridors ?? []) {
+    const dx = Math.cos(cor.angle);
+    const dz = Math.sin(cor.angle);
+    ctx.strokeStyle = '#2b3244';
+    ctx.lineWidth = Math.max(1.5, cor.width * sc);
+    ctx.beginPath();
+    ctx.moveTo(px(dx * cor.from), pz(dz * cor.from));
+    ctx.lineTo(px(dx * cor.to), pz(dz * cor.to));
+    ctx.stroke();
+  }
+  for (const zone of state3d.zones) {
+    ctx.fillStyle = zone.color;
+    ctx.globalAlpha = zone.here ? 1 : 0.55;
+    ctx.fillRect(px(zone.x) - 5, pz(zone.z) - 5, 10, 10);
     ctx.globalAlpha = 1;
+    if (zone.here) {
+      ctx.strokeStyle = '#ffd66b';
+      ctx.lineWidth = 1.4;
+      ctx.strokeRect(px(zone.x) - 7, pz(zone.z) - 7, 14, 14);
+    }
     ctx.fillStyle = '#e8ecf4';
     ctx.font = '9px "Source Han Sans SC", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(`${zone.short} ${zone.count}`, px(zone.x), pz(zone.z) + 17);
-    ctx.strokeStyle = zone.color;
-    ctx.globalAlpha = 0.35;
-    ctx.beginPath();
-    ctx.moveTo(w / 2, h / 2);
-    ctx.lineTo(px(zone.x), pz(zone.z));
-    ctx.stroke();
-    ctx.globalAlpha = 1;
+    ctx.fillText(`${zone.short} ${zone.count}`, px(zone.x), pz(zone.z) + 15);
   }
-  for (const b of state3d.books) {
-    ctx.fillStyle = b.level === 'full' ? '#cfd6e4' : '#6b7688';
-    ctx.fillRect(px(b.x) - 1.5, pz(b.z) - 1.5, 3, 3);
+  if (state3d.shell) {
+    // 进区后：本区按真实边长与朝向画房间方框，书位跟着墙走
+    const s = state3d.shell;
+    const half = (s.side / 2) * sc;
+    ctx.save();
+    ctx.translate(px(s.x), pz(s.z));
+    ctx.rotate(-s.angle);
+    ctx.fillStyle = 'rgba(26,30,41,0.75)';
+    ctx.fillRect(-half, -half, half * 2, half * 2);
+    ctx.strokeStyle = '#8b95a8';
+    ctx.lineWidth = 1.2;
+    ctx.strokeRect(-half, -half, half * 2, half * 2);
+    // 正门那一侧（局部 −Z → 屏幕 −Y）开口
+    ctx.strokeStyle = '#ffd66b';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(-half * 0.3, -half);
+    ctx.lineTo(half * 0.3, -half);
+    ctx.stroke();
+    ctx.restore();
+    for (const b of state3d.books) {
+      ctx.fillStyle = b.level === 'full' ? '#cfd6e4' : '#6b7688';
+      ctx.fillRect(px(b.x) - 1.5, pz(b.z) - 1.5, 3, 3);
+    }
   }
   // 当前位置 + 朝向
   const cx = px(state3d.camera.x);
@@ -126,7 +164,9 @@ function drawMinimap(): void {
   ctx.arc(cx, cz, 4, 0, Math.PI * 2);
   ctx.fill();
   if (cap) {
-    cap.textContent = state3d.view === 'hall' ? '俯视 · 中央大厅 · 六区' : `俯视 · ${ROOM_BY_KEY[state3d.room ?? 'general'].short} 房间`;
+    cap.textContent = state3d.view === 'hall'
+      ? '俯视 · 八角厅 · 六门通六区'
+      : `平面 · ${ROOM_BY_KEY[state3d.room ?? 'general'].short} 阅览室 · 三面书架`;
   }
   miniRaf = requestAnimationFrame(drawMinimap);
 }
@@ -220,7 +260,7 @@ async function enterRoom(discipline: Discipline): Promise<void> {
   if (isView3D(view)) {
     view.enterRoom(discipline, books, records, store.snapshot.roomCameras[discipline] ?? null);
   } else {
-    (view as MatrixFlat).enterRoom(discipline, books);
+    (view as MatrixFlat).enterRoom(discipline, books, records);
   }
   setWhere(`${ROOM_BY_KEY[discipline].title} · ${books.length} 本`);
   store.setView('room', discipline);
@@ -434,7 +474,15 @@ function exposeDiagnostics(): void {
     screenPoint: (kind: 'room' | 'book', id: string) =>
       isView3D(view) ? view.screenPoint(kind, id) : null,
     nodeStats: () => (isView3D(view) ? view.nodeStats() : null),
+    /** 批 8 空间取证：结构账、书脊特写落点、真实拾取回归 */
+    structure: () => (isView3D(view) ? view.structure() : null),
+    focusSpine: (i: number, dist?: number) =>
+      isView3D(view) ? view.focusSpine(i, dist ?? 3.4) : null,
+    spineProbe: (i: number) => (isView3D(view) ? view.spineProbe(i) : null),
+    probePick: (x: number, y: number) => (isView3D(view) ? view.probePick(x, y) : null),
+    spineCellPeek: (i: number) => (isView3D(view) ? view.spineCellPeek(i) : null),
     triangles: () => (isView3D(view) ? view.triangles() : null),
+    roleHide: (role: string, hide: boolean) => (isView3D(view) ? view.roleHide(role, hide) : 0),
     /** 渲染层取证：census / 亮度采样 / 单条 pass 开关，只有 3D 视图有 */
     census: () => (isView3D(view) ? view.census() : null),
     sampleLuminance: (x?: number, y?: number, w?: number, h?: number) =>
