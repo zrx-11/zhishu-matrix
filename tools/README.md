@@ -2,21 +2,25 @@
 
 抽取与校验脚本。全部用标准库 + 可选依赖，不要引入重型框架。
 
-## 依赖（2026-11-24 本机实测）
+## 运行依赖（2026-11-24 本机实测）
 
-| 依赖 | 用途 | 缺失时 |
-|---|---|---|
-| Python 3.12 标准库 | 全部脚本，无第三方包 | 必需 |
-| **Node 运行时** | 只有 `sudoku` 一类站需要：`ZS.*` 内联是 JS 字面量（无引号键、模板串、注释、尾逗号），`json.loads` 解不了，用 `new Function('return ' + 字面量)()` 求值 | 该站降为 `contentLevel: "stats-only"` 并记 `_report.json`，**不自动安装运行环境** |
+**Python 3 必需，Node 仅数独站需要，git 仅拉源码时需要。**
 
-本机 `node --version` = **v24.18.0**，`where node` = `D:\nodejs\node.exe`（2026-11-24 实测）。
-Node 只作子进程求值用，抽取器不依赖任何 npm 包；求值脚本随 `extract.py` 内联生成，勿把 `_work/sz_eval.js` 当正式实现。
+| 依赖 | 必需性 | 用途 | 缺失时 |
+|---|---|---|---|
+| Python 3（本机 3.12.10） | **必需** | 全部脚本，只用标准库，无第三方包 | 无法运行 |
+| **Node 运行时** | **只有数独一类站需要** | `ZS.*` 内联是 JS 字面量（无引号键、模板串、注释、尾逗号），`json.loads` 解不了，用 `new Function('return ' + 字面量)()` 求值 | 该站降为 `contentLevel: "stats-only"` 并记 `_report.json`，**不自动安装运行环境** |
+| git | 需要（仅 `clone_repos.sh`） | 按档位拉 `_work/repos/` 源码，供正文本地读盘 | 退回 raw 逐文件回读（`docs/schema.md` 第三节） |
+
+本机 `node --version` = **v24.18.0**（`D:\nodejs\node.exe`）、`git --version` = **2.56.1.windows.1**（2026-11-24 实测）。
+Node 只作子进程求值用，抽取器不依赖任何 npm 包；求值脚本应随 `extract.py` 内联生成，勿把 `_work/sz_eval.js` 当正式实现。
 
 ## 计划中的脚本
 
 | 文件 | 作用 | 状态 |
 |---|---|---|
 | `extract.py` | 抓 40 站 → 统一 schema → 判 `contentLevel` → 回读正文 → 写 `data/sites/*.json` + `data/manifest.json` + 6 个分片 | 只交付 `--probe`，全量与正文回读待批 1 主体 |
+| **`clone_repos.sh`** | 按三档策略把站点源码拉到 `_work/repos/`，供正文本地读盘；`--dry-run` 只打印档位不联网 | 已登记（2026-11-24 自 `_work/clone_repos.sh` 移入并改路径为脚本相对；实测 `bash -n` 通过、dry-run 档位归属正确、dry-run 不改写 `_work/_clone_report.txt`） |
 | `probe.py` | 单站探路：打印该站 `index.html` 里内联数据的变量名与结构 | 已并入 `extract.py --probe`，不再单列 |
 | `verify_data.py` | 校验产出：字段完整性、计数一致性、分片大小 | 待生成 |
 | `check_offline.py` | 构建后扫描 `dist/` 里的远程引用 | 待生成 |
@@ -28,6 +32,67 @@ Node 只作子进程求值用，抽取器不依赖任何 npm 包；求值脚本�
 - **全量阶段（`--all`）**：**不用 trees API**。未授权限额 60 次/小时，47 站必爆。
   改为 raw 逐路径试探 + `docs/sites.md` 内置候选路径表（`extract.py` 的 `CANDIDATE_PATHS`）。
   代价：候选表没覆盖到的目录命名会退化，必须按 `contentLevel` 记进 `data/_report.json`。
+
+## 仓库拉取三档策略（2026-11-24 定，`clone_repos.sh`）
+
+仓库清单读 `_work/site_repos.json`（50 站），产物落 `_work/repos/`（`.gitignore` 已忽略）。一律禁止的是**无限制全量 clone**，
+按大小与所需内容分三档：
+
+| 档 | 适用 | 命令要点 | 检出内容 |
+|---|---|---|---|
+| 一档 | **< 50MB**（默认档，含未标注大小的站） | `git clone --depth 1 --single-branch` | 整仓，正文 `.md` 直接读本地 |
+| 二档 | **50–100MB** | `git clone --depth 1 --single-branch --filter=blob:none --sparse` + `git sparse-checkout set /*` | 至少含**根目录**，需要子目录再 `sparse-checkout add` |
+| 三档 | **> 100MB，或只需要根目录的站** | `--filter=blob:none --no-checkout` + `sparse-checkout init --no-cone` | 只取 `*.md` 与 `*.json`：大仓按任意深度 `'*.md' '*.json'`；仅根目录的按 `'/*.md' '/*.json'` |
+
+点名归属：**`ACM-XCPC-Notes`（481MB）走三档大仓**（任意深度取 `.md`/`.json`）；**`kaoyan-math-66000` 走三档仅根目录**——
+它只有 38MB，但只用到根目录题库 JSON，按「只需根目录」归第三档，不按大小；`CourseVault-OfflineCourseMap` 同档。
+`ai-enlighten` 17MB 走一档。
+
+**硬约束（写进脚本 `FORCE_FULL`）**：`hello-ai-zhishu` 的正文在 `01-Hello-AI人工智能导论/` 子目录，
+**任何稀疏规则都不得把它排除**——该站强制一档整仓浅克隆（实测树内 133 文件，成本可忽略）。
+同类风险站：manifest 在子目录的都必须在检出规则里保住那个子目录，否则 `full` 站会被误判成 `stats-only`。
+
+脚本侧约定：已存在则 `SKIP` 不覆盖；单站失败记 `FAIL` 后继续，不中断；`--dry-run` 只打印档位与命令，
+不发起网络请求、不改写 `_work/_clone_report.txt`。
+
+> **与正文回读口径的关系（待你确认后统一）**：`docs/schema.md` 第三节目前写的是「`.md` 走 raw 回读 + 3 并发 + 缓存 + 断点续传」。
+> 已克隆到本地的站其实可直接读盘（零请求、零限速），raw 应退为「未克隆/克隆失败站」的兜底路径。
+> 本轮只登记拉取策略，未改 §三 的主备顺序。
+
+### 旧进程已拉部分的档位复核（2026-11-24 记）
+
+**`tools/clone_repos.sh` 是本轮重写的，与 22:53 起在后台跑的旧版不是同一套逻辑**，已落地的克隆必须逐站复核后才可用于批 1：
+
+| 差异点 | 旧版 | 新版 |
+|---|---|---|
+| 分支 | 只有两分支：白名单（`ACM-XCPC-Notes`、`CourseVault-OfflineCourseMap`）稀疏，其余一律 `--depth 1` 整仓 | 四档判定（一档 / 二档 / 三档大仓 / 三档仅根目录） |
+| 大小阈值 | **50MB、100MB 阈值完全没生效** | 按阈值分档 |
+| 子目录保护 | 无 `FORCE_FULL`，`sparse-checkout set '/*'` 会把子目录正文全排除 | `hello-ai-zhishu` 一类正文在子目录的站强制一档 |
+| 报告文件 | 每次运行 `> _clone_report.txt` **清空历史** | 同样追加式写入，但 `--dry-run` 不碰报告 |
+
+实测状态（2026-11-24 23:12–23:18 只读采集，未发起网络请求、未删改任何目录）：
+`_work/repos/` 已有 **35 个仓库目录**（本轮观测从 11 增至 35，进程仍在写）；`_work/_clone_report.txt`
+当前只剩 **1 条 OK、21 条 SKIP、0 条 FAIL/ROOT**，另有 **179 行 git `unable to read sha1 file` 错误**——
+说明旧版已跑过第二个 pass 并截断了首轮记录。报错集中在 `kaoyan-math-66000` 的 `work/manifest/*` 与
+`01-tixing-6000`、`02-gaoshu-15000` 等分册路径，**该站本地对象库不完整，产物不可用于抽取**。
+另两点异常：`kaoyan-math-66000` 是 35 站中唯一 `core.sparseCheckout=true` 的，但它不在旧版白名单里，来源待查；
+`ACM-XCPC-Notes`、`CourseVault-OfflineCourseMap` **尚未克隆**。
+
+复核方法（每站一遍，全部只读）：
+
+| 步 | 命令 | 判据 |
+|---|---|---|
+| 1 | `find _work/repos -maxdepth 1 -type d` | 已落地清单；目录数会随后台进程变，记录时间戳 |
+| 2 | `git -C _work/repos/<r> config --get core.sparseCheckout` | `true` = 稀疏；空或 `false` = 整仓 |
+| 3 | `git -C _work/repos/<r> fsck --no-progress` 或看 `_clone_report.txt` 有无该站 `error:` | 有 `unable to read sha1 file` = 对象库损坏，**必须删除重拉** |
+| 4 | **体积不以本地 pack 为准**：稀疏克隆的 pack 只含已取 blob（实测 `kaoyan-math-66000` pack 仅 3.74MiB，而仓库标注 38MB） | 用 `docs/sites.md` 标注的 MB 值判档；无标注的按未探到处理，先查再定 |
+| 5 | 结果写 `_work/clone_tier_audit.txt`（新文件，不覆盖 `_clone_report.txt`） | 每站一行：`repo 实际形态 应属档 处置` |
+
+阈值照上文三档：< 50MB 一档；50–100MB 二档；> 100MB 或只需根目录 三档。
+
+处置口径：整仓误拉的**大仓**（> 100MB）删除重拉三档；中仓误整仓的按二档 `sparse-checkout set /*` 收敛；
+对象库损坏的（第 3 步命中）一律删除重拉，不接受半份数据；正文在子目录的站必须是一档、或稀疏规则显式含该子目录。
+**本轮只记录复核口径与现状，不执行删除、不重拉、不改 `_work/`。**
 
 ## 正文分级与回读（2026-11-24 定）
 
@@ -77,6 +142,8 @@ python tools/extract.py --all              # 全量抓取（批 1 主体，未�
 python tools/extract.py --repo hello-ai-zhishu   # 单站重抓（批 1 主体，未实现）
 python tools/extract.py --all --bodies     # 回读 .md 正文（批 1 主体，未实现）
 python tools/extract.py --bodies --concurrency 3 --resume   # 限速 + 断点续传（未实现）
+bash tools/clone_repos.sh --dry-run        # 只打印每站档位与命令，不联网、不写报告
+bash tools/clone_repos.sh                  # 按三档拉取到 _work/repos/（批 1 执行）
 python tools/verify_data.py                # 校验产出：含 contentLevel 与数组长度一致性
 ```
 

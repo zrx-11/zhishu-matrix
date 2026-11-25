@@ -137,7 +137,8 @@ Node 不可用时该站降为 `stats-only` 并记 `_report.json`，不自动安�
 
 `ACM-XCPC-Notes` 481MB、`kaoyan-math-66000` 38MB、`ai-enlighten` 17MB。
 
-**「不要 clone」是有条件的，不是禁令**，原句保留在此仅作提醒：一律禁止的是**无限制的全量 clone**。
+**「不要 clone」是有条件的，不是禁令。** 原句「不要 clone，只抓 `manifest.json` 与说明文件」保留为默认取向
+（能不拉仓就不拉），但准确边界是：一律禁止的是**无限制的全量 clone**。
 按仓库大小与所需内容分三档处理，命令与档位归属见 `tools/README.md` 的「仓库拉取三档策略」——
 
 - < 50MB：`--depth 1` 浅克隆整仓，正文 `.md` 直接读本地

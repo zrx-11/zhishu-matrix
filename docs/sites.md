@@ -2,6 +2,24 @@
 
 owner 全部为 `zrx-11`，分支 `main`。
 
+## 口径：50 / 47 / 4 是三个不同的数，不能互换
+
+| 口径 | 数 | 定义 | 用途 |
+|---|---|---|---|
+| 仓库总数 | **50** | `_work/site_repos.json` 全集。与本文六张分表逐行相加一致：AI 9 + 数学 17 + 化学与食品 3 + 计算机 7 + 通识 8 + 工具 6 = 50（2026-11-24 脚本核对，双向差集为空） | clone 与档位判定的分母 |
+| 有可用数据 | **47** | 扫描时抓到 `交付说明.md`/`README.md` 或 `manifest.json` 的站，即第七节规模汇总的分母 | 规模汇总、抽取覆盖统计 |
+| 无任何说明 | **4** | `SVM`、`MATLAB`、`AI-courses`、`meeting-129600years`（均在 50 行内） | **跳过不抽取，但逐站记入 `data/_report.json` 的 `failures`，不从 50 里抹掉** |
+
+三条约束：
+
+1. **`data/manifest.json` 的 `totals.sites` 填实际产出数**——成功写出 `data/sites/{repo}.json` 的站数，
+   不填 50，也不填 47。`totals.sites + failures 数` 若不足 50，差额就是「未处理」，批 1 须在 `_report.json` 里显式列出，不许默认归入任何一档。
+2. **47 目前在本表内复现不出来**：50 − 4 = 46；而分表里带任一规模数字的只有 40 行，另有 10 行六列全为 `—`
+   （`llm-model-catalog`、`math-competition-derivation`、`shanghai-chem-lab`、`ACM-XCPC-Notes`、`economics-principles-handbook`、
+   `AI-Study-Notes`、`AI-courses`、`CourseVault-OfflineCourseMap`、`ai-history-site`、`meeting-129600years`）。
+   第七节的 47 是早期扫描手记值，本轮保留原样、不改成 46 也不改成 40，等批 1 `_report.json` 出实数后统一。
+3. 三个数各管各的：拉取看 50，覆盖看 47（待实定），跳过看 4。**不得把 47 当作仓库总数写进文档、代码常量或进度分母。**
+
 规模数字来自 2026-11-24 的一次扫描（抓每站 `交付说明.md` 或 `README.md` 的正则抽取）。标 ⚠️ 的是明显失真项，需要拉 `manifest.json` 复核。
 
 **标「已实测」的三行是 2026-11-24 probe 拉过 `manifest.json` 与文件树的站**，数字以实抽数组长度为准（来源标记见 `docs/probe-report.md` 〇节）；其余 44 站仍是说明文件正则汇总值，未经校验。
