@@ -9,3 +9,4 @@
 *.ttf binary
 *.pdf binary
 *.zip binary
+data/** text eol=lf
