@@ -6,11 +6,35 @@ import { layoutColumns, layoutRoom, type RoomLayout } from './layout';
 import type { BookRecord } from './types';
 import type { CameraPose } from './state';
 
+const KEY_SPEED = 62; // 世界单位/秒，1440×900 下走一条走廊约 4 秒
+const MOVE_KEYS = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyQ', 'KeyE']);
+
 export interface ThreeHooks {
   onPickRoom(discipline: Discipline): void;
   onPickBook(discipline: Discipline, book: SiteEntry): void;
+  onPickChapter(discipline: Discipline, book: SiteEntry, chapterId: string): void;
+  onPickConcept(discipline: Discipline, book: SiteEntry, conceptId: string): void;
   onHud(text: string): void;
   onCamera(pose: CameraPose): void;
+  /** 阅读层打开或输入框聚焦时让出键盘，WASD 不抢字 */
+  inputBusy(): boolean;
+}
+
+type Pick = {
+  kind: 'room' | 'book' | 'chapter' | 'concept';
+  discipline: Discipline;
+  book?: SiteEntry;
+  id?: string;
+  hint: string;
+};
+
+export interface MinimapState {
+  view: 'hall' | 'room';
+  room: Discipline | null;
+  camera: { x: number; z: number };
+  look: { x: number; z: number };
+  zones: Array<{ key: Discipline; short: string; color: string; x: number; z: number; count: number }>;
+  books: Array<{ x: number; z: number; level: string }>;
 }
 
 // 10 秒帧率采样窗口要求持续渲染；静止 12 秒后才停循环，交互即恢复
@@ -29,7 +53,12 @@ export class Matrix3D {
   private platforms: THREE.InstancedMesh | null = null;
   private columns: THREE.InstancedMesh | null = null;
   private dots: THREE.InstancedMesh | null = null;
+  private dotRefs: Array<{ book: SiteEntry; conceptId: string }> = [];
+  private colRefs: Array<{ book: SiteEntry; chapterId: string }> = [];
   private lines: THREE.LineSegments | null = null;
+  private corridorFloors: THREE.Mesh[] = [];
+  private corridorMeshes = new Map<Discipline, THREE.Mesh>();
+  private corridorNames: string[] = [];
   private emptyMark: THREE.Group | null = null;
   private roomFloor: THREE.Mesh | null = null;
   private hallLabels: THREE.Sprite[] = [];
@@ -37,6 +66,8 @@ export class Matrix3D {
   private layout: RoomLayout | null = null;
   private bookOrder: SiteEntry[] = [];
   private view: 'hall' | 'room' = 'hall';
+  private roomKey: Discipline | null = null;
+  private conceptShown: string | null = null;
   private raf = 0;
   private lastActive = performance.now();
   private running = false;
@@ -44,6 +75,8 @@ export class Matrix3D {
   private prevTs = performance.now();
   private frameTimes: number[] = [];
   private downAt = { x: 0, y: 0 };
+  private keys = new Set<string>();
+  private lastKeyHint = 0;
 
   constructor(
     private root: HTMLElement,
@@ -60,10 +93,10 @@ export class Matrix3D {
     root.appendChild(this.renderer.domElement);
 
     this.scene.background = new THREE.Color(BG);
-    this.scene.fog = new THREE.Fog(new THREE.Color(BG).getHex(), 420, 1200);
+    this.scene.fog = new THREE.Fog(new THREE.Color(BG).getHex(), 560, 1300);
 
     this.camera = new THREE.PerspectiveCamera(56, 1, 0.5, 2400);
-    this.camera.position.set(0, 260, 420);
+    this.camera.position.set(0, 330, 380);
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
@@ -84,6 +117,9 @@ export class Matrix3D {
     el.addEventListener('pointerdown', this.onPointerDown);
     el.addEventListener('pointermove', this.onPointerMove);
     el.addEventListener('wheel', this.wake, { passive: true });
+    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('keyup', this.onKeyUp);
+    window.addEventListener('blur', this.onBlur);
     window.addEventListener('resize', this.onResize);
     this.start();
   }
@@ -134,11 +170,12 @@ export class Matrix3D {
       this.hall.add(
         new THREE.Line(g, new THREE.LineBasicMaterial({ color: r.color, transparent: true, opacity: 0.32 })),
       );
+      this.corridorFloor(r);
     });
     this.beacons.instanceMatrix.needsUpdate = true;
     if (this.beacons.instanceColor) this.beacons.instanceColor.needsUpdate = true;
     this.hall.add(this.beacons);
-    this.hall.add(this.label(this.hallLabels, HALL_LABEL, 0, 30, 0, '#e8ecf4', 1.05));
+    this.hall.add(this.label(this.hallLabels, HALL_LABEL, 0, 52, 0, '#e8ecf4', 1.05));
   }
 
   private label(
@@ -176,6 +213,53 @@ export class Matrix3D {
     return sprite;
   }
 
+  /** 走廊地面学科名：贴地平面，文字基线沿走廊走向（阶段 D 第 3 项） */
+  private corridorFloor(r: (typeof ROOMS)[number]): void {
+    const dx = r.at[0];
+    const dz = r.at[1];
+    const len = Math.hypot(dx, dz);
+    if (len < 40) return;
+    // 阅读方向取「屏幕从左到右」的那一侧：大厅相机在 +Z 侧望向 -Z，屏幕右即 +X
+    const ux = dx / len;
+    const uz = dz / len;
+    const flip = ux < 0 ? -1 : 1;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const font = 96;
+    const label = `${r.title} · ${r.key}`;
+    ctx.font = `700 ${font}px "Source Han Sans SC", "Noto Sans SC", sans-serif`;
+    const w = Math.ceil(ctx.measureText(label).width) + 40;
+    canvas.width = w;
+    canvas.height = font + 56;
+    const c2 = canvas.getContext('2d');
+    if (!c2) return;
+    c2.font = `700 ${font}px "Source Han Sans SC", "Noto Sans SC", sans-serif`;
+    c2.textBaseline = 'middle';
+    c2.shadowColor = 'rgba(0, 0, 0, 0.85)';
+    c2.shadowBlur = 18;
+    c2.fillStyle = r.color;
+    c2.fillText(label, 20, canvas.height / 2);
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 4;
+    // 地面带宽度固定，文字长度按走廊长度截断比例放大
+    const bandW = Math.min(len * 0.62, 150);
+    const geo = new THREE.PlaneGeometry(bandW, (bandW * canvas.height) / canvas.width);
+    const mesh = new THREE.Mesh(
+      geo,
+      new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.92, side: THREE.DoubleSide }),
+    );
+    mesh.rotation.order = 'YXZ';
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.rotation.y = Math.atan2(-uz * flip, ux * flip);
+    mesh.position.set(dx * 0.72, 0.62, dz * 0.72);
+    this.hall.add(mesh);
+    this.corridorFloors.push(mesh);
+    this.corridorMeshes.set(r.key, mesh);
+    this.corridorNames.push(r.title);
+  }
+
   private clearRoom(): void {
     for (const obj of [this.platforms, this.columns, this.dots]) {
       if (!obj) continue;
@@ -207,6 +291,8 @@ export class Matrix3D {
       this.roomFloor = null;
     }
     this.platforms = this.columns = this.dots = null;
+    this.dotRefs = [];
+    this.colRefs = [];
     this.lines = null;
     for (const s of this.roomLabels.splice(0)) {
       this.room.remove(s);
@@ -219,13 +305,15 @@ export class Matrix3D {
 
   showHall(pose?: CameraPose | null): void {
     this.view = 'hall';
+    this.roomKey = null;
+    this.conceptShown = null;
     this.room.visible = false;
     this.hall.visible = true;
     this.controls.minDistance = 90;
     this.controls.maxDistance = 1000;
     if (pose) this.applyPose(pose);
     else {
-      this.camera.position.set(0, 265, 440);
+      this.camera.position.set(0, 330, 380);
       this.controls.target.set(0, 0, 0);
     }
     this.resetInertia();
@@ -244,6 +332,8 @@ export class Matrix3D {
   ): void {
     const spec = ROOM_BY_KEY[discipline];
     this.clearRoom();
+    this.roomKey = discipline;
+    this.conceptShown = null;
     const base = layoutRoom(books);
     this.layout = layoutColumns(base, records);
     this.bookOrder = this.layout.books.map((b) => b.book);
@@ -287,33 +377,41 @@ export class Matrix3D {
       });
       columns.instanceMatrix.needsUpdate = true;
       if (columns.instanceColor) columns.instanceColor.needsUpdate = true;
+      this.colRefs = this.layout.columns.map((c) => ({
+        book: c.book,
+        chapterId: c.chapter.id,
+      }));
       this.columns = columns;
       this.room.add(columns);
     }
 
-    const dotCount = this.layout.columns.reduce((a, c) => a + c.conceptCount, 0);
-    if (dotCount) {
+    const dotList = this.layout.columns.flatMap((c) =>
+      c.concepts.map((concept) => ({ column: c, concept })),
+    );
+    if (dotList.length) {
       const dots = new THREE.InstancedMesh(
         new THREE.OctahedronGeometry(0.9, 0),
         new THREE.MeshBasicMaterial({ color: 0xffffff }),
-        dotCount,
+        dotList.length,
       );
       let k = 0;
       const pts: THREE.Vector3[] = [];
-      for (const c of this.layout.columns) {
+      this.dotRefs = [];
+      for (const { column: c, concept } of dotList) {
         const top = 1.4 + c.height + 1.6;
-        for (let j = 0; j < c.conceptCount; j++) {
-          const a = (j / Math.max(1, c.conceptCount)) * Math.PI * 2;
-          const p = new THREE.Vector3(c.x + Math.cos(a) * 2.6, top + (j % 2) * 1.1, c.z + Math.sin(a) * 2.6);
-          m.makeTranslation(p.x, p.y, p.z);
-          dots.setMatrixAt(k++, m);
-          dots.setColorAt(k - 1, col.set('#e8ecf4'));
-          pts.push(p);
-        }
+        const a = ((k % 8) / 8) * Math.PI * 2;
+        const p = new THREE.Vector3(c.x + Math.cos(a) * 2.6, top + (k % 2) * 1.1, c.z + Math.sin(a) * 2.6);
+        m.makeTranslation(p.x, p.y, p.z);
+        dots.setMatrixAt(k, m);
+        dots.setColorAt(k, col.set('#e8ecf4'));
+        this.dotRefs.push({ book: c.book, conceptId: concept.id });
+        pts.push(p);
+        k += 1;
       }
       dots.instanceMatrix.needsUpdate = true;
       if (dots.instanceColor) dots.instanceColor.needsUpdate = true;
       this.dots = dots;
+      this.recolorDots();
       this.room.add(dots);
       // 前置链在骨架阶段先用最近邻细线示意，批 3 换成真 prerequisites
       if (pts.length > 1) {
@@ -454,29 +552,118 @@ export class Matrix3D {
   };
 
   private hudDefault(): string {
-    return this.view === 'hall' ? '拖拽转视角 · 滚轮远近 · 点展台进房间' : '拖拽转视角 · 点展台看书 · 左上「大厅」返回';
+    return this.view === 'hall'
+      ? '拖拽转视角 · 滚轮远近 · WASD 平移 · 点六棱柱进房间'
+      : '拖拽转视角 · 点方块看书 · 点细柱读章 · 点光点读概念 · WASD 平移';
   }
 
-  private pick(ev: PointerEvent): { kind: 'room' | 'book'; discipline: Discipline; book?: SiteEntry; hint: string } | null {
-    const target = this.view === 'hall' ? this.beacons : this.platforms;
-    if (!target) return null;
+  private onKeyDown = (ev: KeyboardEvent): void => {
+    const code = ev.code;
+    if (!MOVE_KEYS.has(code)) return;
+    if (this.hooks.inputBusy()) return;
+    this.keys.add(code);
+    const now = performance.now();
+    if (now - this.lastKeyHint > 1500) {
+      this.lastKeyHint = now;
+      this.hooks.onHud('WASD 平移中 · 只改位置不改朝向');
+    }
+    this.wake();
+  };
+
+  private onKeyUp = (ev: KeyboardEvent): void => {
+    this.keys.delete(ev.code);
+  };
+
+  private onBlur = (): void => {
+    this.keys.clear();
+  };
+
+  /** WASD 沿相机朝向的水平投影平移；QE 升降。相机与目标点同步移动 → 朝向不变 */
+  private panKeys(dt: number): void {
+    if (!this.keys.size) return;
+    let fx = 0;
+    let fz = 0;
+    let fy = 0;
+    if (this.keys.has('KeyW')) fz -= 1;
+    if (this.keys.has('KeyS')) fz += 1;
+    if (this.keys.has('KeyA')) fx -= 1;
+    if (this.keys.has('KeyD')) fx += 1;
+    if (this.keys.has('KeyQ')) fy -= 1;
+    if (this.keys.has('KeyE')) fy += 1;
+    if (!fx && !fz && !fy) return;
+    const step = KEY_SPEED * Math.min(dt, 0.05);
+    const move = new THREE.Vector3();
+    if (fx || fz) {
+      const fwd = new THREE.Vector3();
+      this.camera.getWorldDirection(fwd);
+      fwd.y = 0;
+      if (fwd.lengthSq() > 1e-6) {
+        fwd.normalize();
+        const right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize();
+        move.addScaledVector(right, fx).addScaledVector(fwd, -fz);
+        if (move.lengthSq() > 0) move.normalize().multiplyScalar(step);
+      }
+    }
+    move.y = fy * step;
+    this.camera.position.add(move);
+    this.controls.target.add(move);
+    this.lastActive = performance.now();
+  }
+
+  private pick(ev: PointerEvent): Pick | null {
     const rect = this.renderer.domElement.getBoundingClientRect();
     const ndc = new THREE.Vector2(
       ((ev.clientX - rect.left) / rect.width) * 2 - 1,
       -((ev.clientY - rect.top) / rect.height) * 2 + 1,
     );
     this.ray.setFromCamera(ndc, this.camera);
-    const hit = this.ray.intersectObject(target, false)[0];
-    if (!hit || hit.instanceId === undefined) return null;
     if (this.view === 'hall') {
+      const hit = this.ray.intersectObject(this.beacons, false)[0];
+      if (!hit || hit.instanceId === undefined) return null;
       const spec = ROOMS[hit.instanceId];
       if (!spec) return null;
       return { kind: 'room', discipline: spec.key, hint: `进入 ${spec.title}` };
     }
-    const book = this.bookOrder[hit.instanceId];
-    if (!book) return null;
-    const discipline = book.discipline;
-    return { kind: 'book', discipline, book, hint: `${book.title || book.bookSlug} · 点击查看` };
+    // 光点最小、立柱居中、展台最大：按命中距离取最近的 targetable，
+    // 否则远处的展台面会挡住近处应点的概念光点
+    const targets = [this.platforms, this.columns, this.dots].filter(
+      (o): o is THREE.InstancedMesh => !!o && o.visible,
+    );
+    const hits = this.ray.intersectObjects(targets, false);
+    for (const hit of hits) {
+      if (hit.instanceId === undefined) continue;
+      if (hit.object === this.dots) {
+        const ref = this.dotRefs[hit.instanceId];
+        if (!ref) continue;
+        return {
+          kind: 'concept',
+          discipline: ref.book.discipline,
+          book: ref.book,
+          id: ref.conceptId,
+          hint: `概念 ${ref.conceptId} · 点击读正文`,
+        };
+      }
+      if (hit.object === this.columns) {
+        const ref = this.colRefs[hit.instanceId];
+        if (!ref) continue;
+        return {
+          kind: 'chapter',
+          discipline: ref.book.discipline,
+          book: ref.book,
+          id: ref.chapterId,
+          hint: `${ref.book.title || ref.book.bookSlug} · 章 ${ref.chapterId} · 点击读正文`,
+        };
+      }
+      const book = this.bookOrder[hit.instanceId];
+      if (!book) continue;
+      return {
+        kind: 'book',
+        discipline: book.discipline,
+        book,
+        hint: `${book.title || book.bookSlug} · 点击查看`,
+      };
+    }
+    return null;
   }
 
   handleClick(ev: PointerEvent): void {
@@ -486,7 +673,13 @@ export class Matrix3D {
     const hit = this.pick(ev);
     if (!hit) return;
     if (hit.kind === 'room') this.hooks.onPickRoom(hit.discipline);
-    else if (hit.book) this.hooks.onPickBook(hit.discipline, hit.book);
+    else if (hit.kind === 'book' && hit.book) this.hooks.onPickBook(hit.discipline, hit.book);
+    else if (hit.kind === 'chapter' && hit.book && hit.id) {
+      this.hooks.onPickBook(hit.discipline, hit.book);
+      this.hooks.onPickChapter(hit.discipline, hit.book, hit.id);
+    } else if (hit.kind === 'concept' && hit.book && hit.id) {
+      this.hooks.onPickConcept(hit.discipline, hit.book, hit.id);
+    }
   }
 
   /** 自动化自检用：把房间 / 书目节点的世界坐标投到 CSS 像素坐标 */
@@ -518,17 +711,135 @@ export class Matrix3D {
     };
   }
 
-  /** 自检用：当前房间实际建出的书节点与章节立柱数 */
-  nodeStats(): { books: number; columns: number } {
+  /** 自检用：当前房间实际建出的书节点、章节立柱与概念光点数 */
+  nodeStats(): { books: number; columns: number; dots: number } {
     return {
       books: this.bookOrder.length,
       columns: this.layout?.columns.length ?? 0,
+      dots: this.dotRefs.length,
     };
+  }
+
+  /** WASD 判据要证明「只平移不转向」：相机朝向单位向量 */
+  direction(): { x: number; y: number; z: number } {
+    const v = new THREE.Vector3();
+    this.camera.getWorldDirection(v);
+    return { x: v.x, y: v.y, z: v.z };
   }
 
   /** 自检与外部交互可主动唤醒渲染循环 */
   nudge(): void {
     this.wake();
+  }
+
+  /** 阅读层当前所在的概念 id：对应光点染高亮色 */
+  highlightConcept(conceptId: string | null): void {
+    if (this.conceptShown === conceptId) return;
+    this.conceptShown = conceptId;
+    this.recolorDots();
+    this.wake();
+  }
+
+  private recolorDots(): void {
+    if (!this.dots) return;
+    const col = new THREE.Color();
+    this.dotRefs.forEach((ref, i) => {
+      this.dots?.setColorAt(i, col.set(ref.conceptId === this.conceptShown ? '#ffd66b' : '#e8ecf4'));
+    });
+    if (this.dots.instanceColor) this.dots.instanceColor.needsUpdate = true;
+  }
+
+  /** 渲染器实际提交的三角面数（docs/design.md 的 15 万面预算按此核对） */
+  triangles(): number {
+    return this.renderer.info.render.triangles;
+  }
+
+  /** 六条走廊地面学科名，注册即证明已建出实体 */
+  corridorLabels(): string[] {
+    return [...this.corridorNames];
+  }
+
+  /** 走廊名沿走廊走向铺地，大厅固定机位下必然有两条被透视压成竖排；自检逐条转到正对视角取证 */
+  viewCorridor(key: Discipline): boolean {
+    const spec = ROOM_BY_KEY[key];
+    const mesh = this.corridorMeshes.get(key);
+    if (!spec || !mesh) return false;
+    this.view = 'hall';
+    this.hall.visible = true;
+    this.room.visible = false;
+    const dir = new THREE.Vector3(spec.at[0], 0, spec.at[1]);
+    const len = dir.length() || 1;
+    dir.normalize();
+    const perp = new THREE.Vector3(-dir.z, 0, dir.x);
+    const mid = new THREE.Vector3(spec.at[0] * 0.72, 0.62, spec.at[1] * 0.72);
+    const dist = Math.max(96, len * 0.5);
+    this.camera.position.set(mid.x + perp.x * dist, dist * 0.62, mid.z + perp.z * dist);
+    this.controls.target.copy(mid);
+    this.resetInertia();
+    this.controls.update();
+    this.wake();
+    return true;
+  }
+
+  /** 地面文字投影到屏幕后的包围盒：宽高比 ≥3 才是「横排可读」，否则是被压成竖排 */
+  corridorScreenBox(key: Discipline): { w: number; h: number } | null {
+    const mesh = this.corridorMeshes.get(key);
+    if (!mesh) return null;
+    const geo = mesh.geometry as THREE.BufferGeometry;
+    const pos = geo.getAttribute('position');
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    const v = new THREE.Vector3();
+    for (let i = 0; i < pos.count; i += 1) {
+      v.set(pos.getX(i), pos.getY(i), pos.getZ(i)).applyMatrix4(mesh.matrixWorld).project(this.camera);
+      const sx = rect.left + ((v.x + 1) / 2) * rect.width;
+      const sy = rect.top + ((1 - v.y) / 2) * rect.height;
+      minX = Math.min(minX, sx);
+      maxX = Math.max(maxX, sx);
+      minY = Math.min(minY, sy);
+      maxY = Math.max(maxY, sy);
+    }
+    return { w: Math.round(maxX - minX), h: Math.round(maxY - minY) };
+  }
+
+  /** 小地图数据：大厅俯视用六区，房间俯视用展台 */
+  minimapState(): MinimapState {
+    if (this.view === 'hall') {
+      const grouped = new Map<Discipline, number>();
+      for (const s of this.manifest.sites) {
+        grouped.set(s.discipline, (grouped.get(s.discipline) ?? 0) + 1);
+      }
+      return {
+        view: 'hall',
+        room: null,
+        camera: { x: this.camera.position.x, z: this.camera.position.z },
+        look: { x: this.controls.target.x, z: this.controls.target.z },
+        zones: ROOMS.map((r) => ({
+          key: r.key,
+          short: r.short,
+          color: r.color,
+          x: r.at[0],
+          z: r.at[1],
+          count: grouped.get(r.key) ?? 0,
+        })),
+        books: [],
+      };
+    }
+    return {
+      view: 'room',
+      room: this.roomKey,
+      camera: { x: this.camera.position.x, z: this.camera.position.z },
+      look: { x: this.controls.target.x, z: this.controls.target.z },
+      zones: [],
+      books: (this.layout?.books ?? []).map((b) => ({
+        x: this.room.position.x + b.x,
+        z: this.room.position.z + b.z,
+        level: b.book.contentLevel,
+      })),
+    };
   }
 
   // ---------------------------------------------------------------- 渲染循环与帧率
@@ -548,6 +859,7 @@ export class Matrix3D {
       const now = performance.now();
       const dt = (now - this.prevTs) / 1000;
       this.prevTs = now;
+      this.panKeys(dt);
       this.controls.update();
       this.applyLod();
       this.renderer.render(this.scene, this.camera);
@@ -603,7 +915,19 @@ export class Matrix3D {
     el.removeEventListener('pointerdown', this.onPointerDown);
     el.removeEventListener('pointermove', this.onPointerMove);
     el.removeEventListener('wheel', this.wake);
+    window.removeEventListener('keydown', this.onKeyDown);
+    window.removeEventListener('keyup', this.onKeyUp);
+    window.removeEventListener('blur', this.onBlur);
     window.removeEventListener('resize', this.onResize);
+    this.corridorMeshes.clear();
+    for (const mesh of this.corridorFloors.splice(0)) {
+      this.hall.remove(mesh);
+      mesh.geometry.dispose();
+      const mat = mesh.material as THREE.MeshBasicMaterial;
+      mat.map?.dispose();
+      mat.dispose();
+    }
+    this.corridorNames = [];
     this.clearRoom();
     this.controls.dispose();
     this.renderer.dispose();

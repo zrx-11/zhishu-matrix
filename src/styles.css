@@ -262,6 +262,261 @@ button {
   text-overflow: ellipsis;
 }
 
+/* ---------------------------------------------------------------- 小地图（阶段 D 1） */
+
+#minimap {
+  position: absolute;
+  z-index: 2;
+  left: 10px;
+  bottom: 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(14, 16, 21, 0.9);
+  padding: 6px 6px 4px;
+  pointer-events: none; /* 只做指示，不抢 3D 场景的拖拽 */
+}
+
+#minimap[hidden] {
+  display: none;
+}
+
+#minimap-canvas {
+  display: block;
+  width: 132px;
+  height: 92px;
+}
+
+#minimap-cap {
+  display: block;
+  font-size: 10px;
+  color: var(--ink-dim);
+  text-align: center;
+  padding-top: 2px;
+}
+
+/* ---------------------------------------------------------------- 阅读层（阶段 C） */
+
+#panel-crumb {
+  flex: 0 0 auto;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--ink-dim);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#panel-crumb:empty {
+  display: none;
+}
+
+#panel-body > p {
+  margin: 8px 0;
+}
+
+#panel-body ul,
+#panel-body ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+#panel-body h1,
+#panel-body h2,
+#panel-body h4 {
+  font-size: 14px;
+  margin: 16px 0 8px;
+  line-height: 1.45;
+}
+
+#panel-body a {
+  color: var(--accent);
+}
+
+.degrade-bar {
+  border: 1px solid var(--cs);
+  border-left-width: 3px;
+  border-radius: 8px;
+  padding: 8px 10px;
+  margin: 8px 0 12px;
+  font-size: 12px;
+  color: var(--cs);
+  background: rgba(224, 168, 58, 0.08);
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.dim {
+  color: var(--ink-dim);
+  font-size: 12px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0;
+}
+
+.chip {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: #161b24;
+}
+
+.chip:hover {
+  border-color: var(--accent);
+}
+
+.chaplist button.chap {
+  flex: 1 1 auto;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  text-align: left;
+  font-size: 13px;
+}
+
+.chaplist .t {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.chaplist .tag {
+  flex: 0 0 auto;
+  font-size: 10px;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 1px 6px;
+}
+
+.linklike {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--accent);
+  text-decoration: underline;
+  font-size: inherit;
+}
+
+.reader-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-top: 18px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.reader-foot button {
+  font-size: 12px;
+  padding: 5px 9px;
+}
+
+.reader-foot button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* 窄视口下正文里的表格自带滚动容器，不外溢到文档（铁律 3） */
+#panel-body table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+#panel-body th,
+#panel-body td {
+  border: 1px solid var(--line);
+  padding: 4px 7px;
+}
+
+.codeblock,
+.diagram {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin: 10px 0;
+  background: #0b0d12;
+}
+
+.code-lang,
+.diagram-cap {
+  font-size: 10px;
+  color: var(--ink-dim);
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--line);
+  letter-spacing: 0.04em;
+}
+
+.diagram {
+  border-color: #2a3446;
+}
+
+#panel-body pre.code {
+  margin: 0;
+  padding: 8px 10px;
+  overflow-x: auto;
+  max-width: 100%;
+  font-size: 12px;
+  line-height: 1.6;
+  font-family: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+  white-space: pre;
+}
+
+#panel-body :not(pre) > code {
+  background: #1a1f29;
+  border-radius: 4px;
+  padding: 1px 4px;
+  font-size: 12px;
+}
+
+#panel-body blockquote {
+  margin: 8px 0;
+  padding: 4px 0 4px 10px;
+  border-left: 3px solid var(--line);
+  color: var(--ink-dim);
+}
+
+/* KaTeX 行间公式横向溢出交给滚动容器，公式本身不撑破 390px 文档宽 */
+#panel-body .katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+  max-width: 100%;
+}
+
+.math-raw {
+  font-family: Consolas, monospace;
+  color: var(--cs);
+  background: rgba(224, 168, 58, 0.1);
+  border-radius: 4px;
+  padding: 1px 4px;
+}
+
+.ext-link {
+  color: var(--ink-dim);
+  border-bottom: 1px dashed var(--line);
+}
+
+.badge.concept {
+  color: var(--accent);
+}
+
 @media (max-width: 767px) {
   #panel {
     width: 100%;
@@ -269,6 +524,11 @@ button {
   }
 
   #search {
+    display: none;
+  }
+
+  /* 2D 降级本身就是俯视，不再叠小地图 */
+  #minimap {
     display: none;
   }
 }

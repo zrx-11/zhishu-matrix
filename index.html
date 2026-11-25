@@ -27,11 +27,18 @@
 
       <nav id="roombar" aria-label="学科分区"></nav>
 
+      <div id="minimap" hidden aria-hidden="true">
+        <canvas id="minimap-canvas" width="216" height="150"></canvas>
+        <span id="minimap-cap">俯视 · 中央大厅</span>
+      </div>
+
       <aside id="panel" hidden aria-label="详情">
         <header>
-          <button id="panel-close" type="button" aria-label="关闭">×</button>
+          <button id="panel-back" type="button" aria-label="返回上一级" disabled>←</button>
+          <button id="panel-close" type="button" aria-label="关闭阅读层">×</button>
           <h2 id="panel-title"></h2>
         </header>
+        <div id="panel-crumb" aria-live="polite"></div>
         <div id="panel-body"></div>
       </aside>
 

@@ -14,7 +14,13 @@ export interface ChapterPlacement {
   x: number;
   z: number;
   height: number;
-  conceptCount: number;
+  /**
+   * 挂在该章立柱上的概念光点。
+   * 来源是 `concepts[].chapterIds`，**不是 `chapters[].conceptIds`**——
+   * 129 本实测 1,169 章里只有 15 章带 conceptIds，而 765 个概念的 chapterIds 全部可解析〔X〕，
+   * 走前者会画出一片没有光点的空立柱。
+   */
+  concepts: Array<{ id: string; title: string }>;
 }
 
 export interface RoomLayout {
@@ -50,23 +56,39 @@ export function layoutColumns(
     const chapters = rec?.chapters ?? [];
     const n = chapters.length;
     if (!n) continue;
+    const byChapter = conceptsByChapter(rec);
     const per = Math.max(1, Math.ceil(Math.sqrt(n)));
     const step = 4.2;
     chapters.forEach((ch, i) => {
       const cx = placement.x + (i % per - (per - 1) / 2) * step;
       const cz = placement.z + (Math.floor(i / per) - (Math.ceil(n / per) - 1) / 2) * step;
       const num = typeof ch.num === 'number' ? ch.num : i + 1;
+      const concepts = byChapter.get(ch.id) ?? [];
       columns.push({
         book: placement.book,
         chapter: { id: ch.id, title: ch.title, num },
         x: cx,
         z: cz,
         height: 2.2 + Math.min(num, 24) * 0.34,
-        conceptCount: Math.min(ch.conceptIds?.length ?? 0, 6),
+        concepts,
       });
     });
   }
   return { ...layout, columns };
+}
+
+/** 全书 concepts 按 `chapterIds` 反绑到章；一章多概念就全挂，不做数量截断 */
+export function conceptsByChapter(rec?: BookRecord): Map<string, Array<{ id: string; title: string }>> {
+  const map = new Map<string, Array<{ id: string; title: string }>>();
+  for (const c of rec?.concepts ?? []) {
+    const item = { id: c.id, title: c.title };
+    for (const cid of c.chapterIds ?? []) {
+      const list = map.get(cid) ?? [];
+      list.push(item);
+      map.set(cid, list);
+    }
+  }
+  return map;
 }
 
 export function key(repo: string, slug: string): string {

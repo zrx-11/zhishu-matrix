@@ -1,4 +1,4 @@
-import type { Discipline, ManifestIndex, Shard, SiteEntry } from './types';
+import type { BodyFile, Discipline, ManifestIndex, Shard, SiteEntry } from './types';
 
 const manifestCache = { value: null as ManifestIndex | null };
 const shardCache = new Map<Discipline, Shard>();
@@ -40,6 +40,14 @@ export async function loadShard(discipline: Discipline): Promise<Shard> {
 
 export function booksOf(manifest: ManifestIndex, discipline: Discipline): SiteEntry[] {
   return manifest.sites.filter((s) => s.discipline === discipline);
+}
+
+/**
+ * 正文按需加载（批 3 判据 C1）：只有进阅读页才取 `data/bodies/<file>.json`。
+ * 129 本共 7.4MB，大厅与分区浏览阶段一律不请求、也不预取。
+ */
+export async function loadBody(file: string): Promise<BodyFile> {
+  return getJson<BodyFile>(`/bodies/${encodeURIComponent(file)}`);
 }
 
 export function groupedByDiscipline(

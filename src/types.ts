@@ -50,6 +50,10 @@ export interface ConceptNode {
   chapterIds?: string[];
   prerequisites?: string[];
   brief?: string;
+  /** 深度推导文本，实测 82/765 非空 */
+  depth?: string;
+  claims?: string[];
+  bodyType?: string;
 }
 
 export interface BookRecord {
@@ -66,6 +70,19 @@ export interface BookRecord {
 export interface Shard {
   discipline: Discipline;
   sites: BookRecord[];
+}
+
+/** `data/bodies/<file>.json`：章节与概念正文，点开阅读页才取 */
+export interface BodyEntry {
+  bodyType: 'md' | 'html' | string;
+  body: string;
+}
+
+export interface BodyFile {
+  repo: string;
+  bookSlug: string;
+  chapters: Record<string, BodyEntry>;
+  concepts: Record<string, BodyEntry>;
 }
 
 export interface Pick {
