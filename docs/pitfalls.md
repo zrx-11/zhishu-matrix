@@ -158,7 +158,98 @@ Node 不可用时该站降为 `stats-only` 并记 `_report.json`，不自动安�
 KaTeX 节点 204 个、`alttext` 0、定界符 0〔H〕）。kaoyan 的公式密度又极高，硬啃 HTML 只会产出看着对、
 实际不可重排的正文。所以三档模式固定为 `*.md *.json *.csv *.txt`，写进 `tools/clone_repos.sh` 与 `tools/README.md`。
 
+### 16. `setAttribute('hidden','false')` 等于继续隐藏
 
+批 3 阅读层第一版面板「关不掉也打不开」，查下来是这行：
+
+```ts
+els.panel.setAttribute('hidden', String(visible));   // visible=false 时写成 hidden="false"
+```
+
+`hidden` 是**存在即生效**的布尔属性，值写 `"false"` 照样命中 `[hidden]` 选择器——元素仍然不显示，
+且 CSS 里只要有一条 `[hidden]{display:none}` 之外的 `display` 覆盖，还会反过来出现「关不掉」。
+
+处理：统一走 `el.hidden = !visible` 属性赋值（`src/panel.ts:341`）。
+JS 里读 `el.hidden`，不要在 CSS 里用属性选择器猜值。
+
+### 17. 章节→概念的反查只能走 `concepts[].chapterIds`
+
+`design.md` 第三节说「概念是立柱上的发光点」，但挂载关系有两个候选字段，取错就是一片空立柱〔X〕：
+
+| 字段 | 非空数 | 结论 |
+|---|---|---|
+| `chapters[].conceptIds` | **15 / 1,169** | 抽取器普遍留空，不能用 |
+| `concepts[].chapterIds` | **765 / 765** | 全部可解析，唯一可用路径 |
+
+处理：`layout.ts::conceptsByChapter()` 拿全书概念按 `chapterIds` **反绑**到章，一章多概念全挂、不截断。
+`chapters[].conceptIds` 仍留在类型里（可选字段），只作交叉校验，不作渲染源——
+这正是「铁律 7 抽不到留空」在下游的代价：**空数组是真数据，不能拿它当关系表用**。
+
+### 18. 同一个 `bookSlug` 分布在多个仓库，定位必须带 file
+
+129 条书目里 `bookSlug` 只有 **98 个不同值**——**31 个 slug 出现在 2 个及以上仓库**
+（同一本书的中英版、或不同作者复用同名 slug，如 `hello-ai`、`d2l`、`rl-sutton`、`zhengshi`）〔X〕。
+按 slug 找书会命中错的那本，自检的「打开指定章节」也会点错展台。
+注意这与 `totals.sitesUnique = 96` 不是同一口径：后者按抽取的结构签名去重〔X〕，前者按字符串。
+
+处理：唯一键是 `repo + bookSlug`，网络路径用 `sites[].file`。
+对外入口一律收 `{slug?, file?}`（`main.ts::findBook`），**给了 file 就按 file 精确取**；
+三段键 `{repo}::{bookSlug}::{id}` 用作节点 id 与索引键。
+
+### 19. Windows 下 `subprocess` 调 `npx` / `npm` 直接 FileNotFound
+
+`subprocess.run(["npx", "tsc", ...])` 在 Git Bash 里能跑，在 Python 的 `CreateProcess` 里不行——
+它们是 `npx.cmd`，不带扩展名不匹配。自检脚本因此每条命令先过一遍 `shutil.which`〔B3〕。
+
+处理：`exe = shutil.which(cmd[0]) or cmd[0]`（`tools/selfcheck.py:39`）。
+同时传 `env={**os.environ, "PYTHONIOENCODING": "utf-8"}`，否则子进程打印中文会 `UnicodeEncodeError`（cp936 控制台）。
+
+### 20. 「成品 HTML 正文」的长度阈值要按渲染后文本量算
+
+自检要选一份够长的 degraded 样本来验「HTML 直注入不被 markdown-it 二次处理」。
+直接拿 `len(body) > 600` 判会**永远选不上**：成品 HTML 里标签占大头，可见文本远小于原始串〔B3〕。
+
+处理：先 `re.sub(r"<[^>]+>", " ", body)` + `html.unescape` + 折叠空白，再比长度（`selfcheck.py:71`）。
+反向同坑：探针里拿渲染后的 `innerText` 去和原始 HTML 串比长度，也是基准不一致——比较前先归到同一侧。
+
+### 21. headless 帧率不受 vsync 封顶，165fps 不是 bug
+
+帧率判据写「≥45」，无头 Edge 里测到 **165**〔B3：`_work/selfcheck-report.json`〕。
+rAF 在无头模式不等合成器，所以这个数只能证明「没掉到阈值以下」，不能当真实 60Hz 屏的观感。
+
+处理：判据保留下限语义（防卡死），把采样窗口（10s）与视口（1440×900）写进报告；
+真实负载靠 `triangles()` 兜——大厅 **1,398**、数学房间 **3,874**（265 立柱 + 398 光点 + 45 展台）〔B3〕，
+量级远低于阈值，不必怀疑帧率数字本身。
+
+### 22. 地面学科名的可读性是四件事叠出来的
+
+走廊地面文字做成 canvas texture 贴地网格，从大厅看**六条里只有四条认得全**，另两条被斜视角压扁〔B3：
+`_work/shots-batch3/`〕。四个独立成因，缺一个都不清晰：
+
+| 成因 | 处理 | 位置 |
+|---|---|---|
+| 雾把远处混成背景色 | `Fog` 的 near/far 收到 560/1300，覆盖最远走廊 | `scene3d.ts:96` |
+| 与地面网格共面被挡 | 贴图抬高到 y=0.62，`transparent` + `opacity 0.92` + `DoubleSide` | `scene3d.ts:251` |
+| 斜视角采样糊 | `tex.anisotropy = 4`，字号 96px，`shadowBlur 18` 描边提对比 | `scene3d.ts:239` |
+| 文字方向读反 | 按大厅相机「屏幕左→右」取阅读侧，`rotation.order='YXZ'` 后再 atan2 | `scene3d.ts:225` |
+
+排查顺序别搞反：**先单独拍一张再判读**，不要在截图里靠猜。`viewCorridor(key)` 把相机推进该走廊、
+`corridorScreenBox(key)` 给出投影包围盒，两者配合即可逐条留证；
+能看见却读不出=字号/各向异性，完全看不见=雾或高度。
+
+判据只要求「走廊上有可读学科名」，**大厅视角 4/6 可辨 + 逐走廊 6/6 可辨**即达标，
+不为了最后两条把 fov 改窄（改了会撞判据里的无溢出与帧率项）。
+
+### 23. `stats-only` 档在库里是空的，只能造样本走一遍
+
+`contentLevels` 实测 `{full: 128, degraded: 1, stats-only: 0}`〔X〕——判据要求「三档分流都有行为」，
+但第三档**没有任何一本书可以点开**。若因此删掉这一支，等于把 schema 里存在的档位当死代码；
+若在 `data/` 里改一本书的档位来凑样本，直接违反铁律「不改动 data 让演示好看」。
+
+处理：把样本造在**调用侧**、不落库——`main.ts` 的诊断接口给 `openStatsOnlySample({slug?,file?})`，
+取真实记录后在内存里把 `contentLevel` 覆成 `'stats-only'` 再走同一条 `openBook()`。
+探针调它验「不渲染正文、只给原站入口、面板不留空」，跑完即弃，`data/` 与 `manifest.json` 不受影响。
+这是所有「schema 有、库里无」档位的通用验法：**造样本改的是传入参数，不是磁盘数据**。
 
 ## 二、待验证
 
@@ -169,15 +260,24 @@ KaTeX 节点 204 个、`alttext` 0、定界符 0〔H〕）。kaoyan 的公式密
 见「一、已验证」第 9 条。结论两半：数据抽得出（`BOOKS` 容器 846,220B 配平命中〔P〕）；
 但内联正文是成品 HTML，KaTeX 节点 204 个、`alttext` 0、定界符 0，**原始 TeX 不可还原**〔H〕——正文一律回读 `.md`。
 
-### 2. 40 站的版本差异范围（仍未定案，范围已缩小）
+### 2. 版本差异范围（铺开已定案大半，剩适配器缺口）
 
-已知跨度 v1.0–v1.9。三站实测：章节字段名统一是 `title`，未出现 `name` / `heading`；原猜的 `DATA` / `__DATA__` 也未出现〔P〕。待铺开验证的是：
+已知跨度 v1.0–v1.9。三站实测：章节字段名统一是 `title`，未出现 `name` / `heading`；原猜的 `DATA` / `__DATA__` 也未出现〔P〕。
+批 1 铺开 50 仓 129 书后，上表三项全部有了全库口径〔X〕：
 
-- 数据变量名：实测 `BOOKS`（多文件包与单文件大包均是）〔P〕、`ZS.*` 命名空间（sudoku）〔N〕
-- 正文载体：外链 `.md` 还是内联字面量 —— 直接决定 `contentLevel` 落在 `full` 还是 `degraded`
-- `depthFragment` 的有无与长度：三站非空 10/50、5/61、0〔M〕
+| 项 | 全库实测 | 结论 |
+|---|---|---|
+| 数据变量名 | `BOOKS`（多文件包与单文件大包）、`ZS.*`（sudoku） | 别名表不必加行，两分支已覆盖 |
+| 正文载体 | `bodyType` 只有两值：`md` **1,153** / `html` **16** | 16 全出自 sudoku，前端只需两条渲染支 |
+| `contentLevel` | `full` 128 / `degraded` 1 / `stats-only` **0** | 第三档在库里是空的，自检只能合成样本（见已验证 23） |
+| 空正文 | 1,169 章**零空 body** | 「full 却读不到正文」的排查项在库内无实例 |
+| 定界符 | `\(` **0** 处、`\[` **4** 处、`<details>` **0** 处 | 铁律要求 KaTeX 开 `\(\)` 是防御性的，库内数据实际只用 `$...$` |
+| Mermaid | **855** 章含 ```` ```mermaid ```` 围栏 | 占比 73%，必须 vendor 化且懒渲染，不能整本一次性渲染 |
+| 可选字段 | `depth` 82/765、`claims` **0**/765、概念 `prerequisites` 428/765、章 `prerequisites` 372/1,169 | `claims` 全库为空 → 误解/断言区块默认不出现 |
 
-批 1 逐站按这三项记 `_report.json`；只要有一站跳出上表，`schema.md` 第四节的别名表就要加行。
+仍未定案的是**适配器侧**：`_report.json` 记 `pendingSources` **25 项**（无 `manifest.json` 的站，
+如 `ACM-XCPC-Notes` 只有 1 md + 1 json，需专用适配器）、`unmappedAndNotes` 19 项（字段形态对不上，如
+`minutes: "1–2"` 取不到数值 → null）。这两类不进本批，但决定了 `stats-only` 档什么时候会真的被用到。
 
 ### 3. ~~数独站的特殊结构~~ → 已定案
 
@@ -216,4 +316,13 @@ clone 失败或档位不明时退回 raw 逐文件（`schema.md` 第三节），
 7. 3D 卡死 → 是否加载了分片外的数据
 8. 正文里出现 HTML 标签字面 → `bodyType: "html"` 的站被当 Markdown 渲染了（见已验证 10）
 9. 题目答案对不上 → 前端重排了 `options`，而 `answer` 是 0 基索引（见 `schema.md` 第一节）
-10. 站点标着 `full` 却读不到正文 → 查 `.md` 回读是否命中、路径有没有漏 manifest 的目录段（见已验证 12 与 `schema.md` 第三节）
+10. 站点标着 `full` 却读不到正文 → 查 `.md` 回读是否命中、路径有没有漏 manifest 的目录段（见已验证 9 与 `schema.md` 第三节）
+
+批 3 前端新增的六条，接在同一顺序后面：
+
+11. 面板点不开也关不掉 → `hidden` 写成了字符串属性（见已验证 16）
+12. 立柱上光点少得反常 → 挂载关系取了 `chapters[].conceptIds`（见已验证 17）
+13. 打开的书不是点的那本 → `bookSlug` 跨仓重名，改按 `file` 取（见已验证 18）
+14. 自检脚本 `FileNotFoundError` → Windows 下 `npx`/`npm` 是 `.cmd`（见已验证 19）
+15. 帧率明显低于预期 → 先读 `triangles()` 看真实负载，再确认是不是小地图循环与探针采样在抢 rAF（见已验证 21）
+16. 地面学科名看不见 → 按已验证 22 的四因表逐条排（雾 → 高度 → 各向异性 → 方向），先单独拍一张再判读

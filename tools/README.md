@@ -4,26 +4,30 @@
 
 ## 运行依赖（2026-11-24 本机实测）
 
-**Python 3 必需，Node 仅数独站需要，git 仅拉源码时需要。**
+**Python 3 必需；Node 两处需要——数独一类站的正文求值、`selfcheck.py` 的浏览器探针；git 仅拉源码时需要。**
 
 | 依赖 | 必需性 | 用途 | 缺失时 |
 |---|---|---|---|
 | Python 3（本机 3.12.10） | **必需** | 全部脚本，只用标准库，无第三方包 | 无法运行 |
-| **Node 运行时** | **只有数独一类站需要** | `ZS.*` 内联是 JS 字面量（无引号键、模板串、注释、尾逗号），`json.loads` 解不了，用 `new Function('return ' + 字面量)()` 求值 | 该站降为 `contentLevel: "stats-only"` 并记 `_report.json`，**不自动安装运行环境** |
+| **Node 运行时** | **数独一类站 + `selfcheck.py`** | ① `ZS.*` 内联是 JS 字面量（无引号键、模板串、注释、尾逗号），`json.loads` 解不了，用 `new Function('return ' + 字面量)()` 求值；② 自检探针要 `playwright-core`（devDependency）驱动本机 Edge | ① 该站降为 `contentLevel: "stats-only"` 并记 `_report.json`，**不自动安装运行环境**；② 门槛跑不起来，直接判未完成 |
 | git | 需要（仅 `clone_repos.sh`） | 按档位拉 `_work/repos/` 源码，供正文本地读盘 | 退回 raw 逐文件回读（`docs/schema.md` 第三节） |
 
-本机 `node --version` = **v24.18.0**（`D:\nodejs\node.exe`）、`git --version` = **2.56.1.windows.1**（2026-11-24 实测）。
-Node 只作子进程求值用，抽取器不依赖任何 npm 包；求值脚本应随 `extract.py` 内联生成，勿把 `_work/sz_eval.js` 当正式实现。
+本机 `node --version` 随 shell 而变：系统 PATH 是 **v24.18.0**（`D:\nodejs\node.exe`，2026-11-24 记录），
+沙箱 shell 解析到的是 **v22.23.2**（批 2/3 的 `npm run build` 与自检探针即在此版本下跑通）。
+`git --version` = **2.56.1.windows.1**。
+抽取器只把 Node 当子进程求值用、不依赖任何 npm 包；求值脚本应随 `extract.py` 内联生成，勿把 `_work/sz_eval.js` 当正式实现。
 
 ## 计划中的脚本
 
 | 文件 | 作用 | 状态 |
 |---|---|---|
-| `extract.py` | 抓 50 仓 → 一份 manifest 一本书 → 判 `contentLevel` → 本地读 `.md`（degraded 走 Node 求值）→ 写 `sites/` + `bodies/` + `dist/` + `manifest.json` + `_report.json` | **批 1 主体已实现**（`--all` / `--bodies` / `--out-dir` / `--dry-run` / `--limit`）。首跑实测见 `docs/probe-report.md` 十一节；**按本轮约定未写 `data/`**，产出留在 `_work/data-dry/` |
+| `extract.py` | 抓 50 仓 → 一份 manifest 一本书 → 判 `contentLevel` → 本地读 `.md`（degraded 走 Node 求值）→ 写 `sites/` + `bodies/` + `dist/` + `manifest.json` + `_report.json` | **已产出 `data/`**（批 1）：50 仓 → 129 条书目 / 96 独书。首跑实测见 `docs/probe-report.md` 十一节；`--all` / `--bodies` / `--out-dir` / `--dry-run` / `--limit` / `--link-policy` |
 | **`clone_repos.sh`** | 按三档策略把站点源码拉到 `_work/repos/`，供正文本地读盘；`--dry-run` 只打印档位不联网 | 已登记并按实测复核（2026-11-25：`kaoyan-math-66000`、`CourseVault-OfflineCourseMap`、`ACM-XCPC-Notes` 三站归 three-big，`TIER3_ROOT` 暂空；路径改为脚本相对，`bash -n` 通过、dry-run 档位归属正确） |
 | `probe.py` | 单站探路：打印该站 `index.html` 里内联数据的变量名与结构 | 已并入 `extract.py --probe`，不再单列 |
-| `verify_data.py` | 校验产出：字段完整性、计数一致性、分片大小 | 待生成 |
-| `check_offline.py` | 构建后扫描 `dist/` 里的远程引用 | 待生成 |
+| `verify_data.py` | 校验产出：totals 与文件数、schemaVersion、必填字段、slug 唯一 | **已生成**（批 3）。四类 18 项断言，`data/` 实测全绿、退出码 0；另用 6 个变异副本验过「改坏必红」。跑法 `python tools/verify_data.py [--verbose] [--json] [--data-dir DIR]` |
+| `check_offline.py` | 构建后扫描 `dist/` 里的远程引用 | 待生成（当前由 `selfcheck.py` 的运行期请求监听覆盖，见下） |
+| **`selfcheck.py`** | 批 3 交付门槛：`verify_data` → `tsc --noEmit` → `vite build` → 起本地静态服务 → 跑 `selfcheck_probe.mjs` → 逐条打印 39 项，任一失败退出码非 0 | **已生成**（批 3）。跑法 `python tools/selfcheck.py [--skip-build] [--keep-server] [--fps 45]`；报告落 `_work/selfcheck-report.json`，截图落 `_work/shots-batch3/`。依赖 Node + `playwright-core` + 本机 Edge（`C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe`）；样本由 `pick_samples()` 从 `data/bodies/` 现选，不写死书名 |
+| `selfcheck_probe.mjs` | 上一条的浏览器探针（无头 Edge，桌面 1440×900 + 移动 390×844 两个 context），32 条断言 | 已生成（批 3）。经 `window.__zhishu` 诊断接口驱动，不吃 DOM 结构细节；`PROBE_BASE` / `ZHISHU_SAMPLES` 由 Python 侧注入 |
 
 ## 目录发现的两阶段策略（2026-11-24 定）
 
