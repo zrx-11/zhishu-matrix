@@ -37,3 +37,22 @@
 | 2026-11-25 | `THREE.Clock` 弃用告警 | 换 `performance.now()` 手算 dt | 控制台要求零报错，警告也一并清掉；Timer 类在不同版本导出名不稳 | 换回 THREE.Clock |
 | 2026-11-25 | 详情面板创建元素报 InvalidCharacterError | 修掉 `createElement(' span')` / `('span n')` 两处带空格类名 | 类名不能塞进 tag 参数，异常发生在 `panel.hidden=false` 之前，面板永远打不开 | 无（bug 修复） |
 | 2026-11-25 | Three.js 取 npm 还是手填 vendor | npm 装 three 0.187.0，由 Vite 打进 bundle（构建产物 581KB） | 实测生产包资源请求 4 条、全部同源，foreign=0，满足铁律 2 的「运行时不发请求」 | 改回手工 `vendor/three.module.js` |
+| 2026-11-25 | 批 3 门槛脚本放哪 | 常驻 `tools/verify_data.py` + `tools/selfcheck.py`，不放 `_work/` 一次性探针 | 任务书要「可重跑」；`_work/` 被 gitignore，脚本进库才算交付 | 删两个文件即回退，不影响 `src/` |
+| 2026-11-25 | verify_data 是否只读 | 只读 `data/`，另给 `--data-dir` 指变异副本 | 铁律 6 业务代码不写 data；没有 `--data-dir` 就无法反证「改坏必红」 | 去掉该参数 |
+| 2026-11-25 | 校验脚本怎么证明自己在检查 | 造 6 个变异副本（改 totals、删 schemaVersion、抹 slug、截分片…）逐个跑，必红 | 全绿本身不等于有效，只有能测出坏数据才算门槛 | 删变异脚本，主脚本不受影响 |
+| 2026-11-25 | 文档旧结论（三站口径 〔M〕）删还是留 | 保留原句并并列补全库实测〔X〕，不覆盖 | 〔M〕 是批 0 probe 的一手证据，删掉后文引用它的段落会断链 | 还原 design/pitfalls 被改的段落 |
+| 2026-11-25 | 立柱光点的数据来源字段 | 弃 `chapters[].conceptIds`（15/1,169），改 `concepts[].chapterIds` 反绑（765/765） | 正查会让 98.7% 的立柱空着，视觉上等于功能没做 | `layout.ts::conceptsByChapter` 换回 conceptIds |
+| 2026-11-25 | 正文请求时机 | `data.ts::loadBody` 单飞（inflight Map）+ 结果缓存，进入阅读页才 fetch | 129 个 bodies 共 7.4MB，预取违反 C1；并发重复点同一本会打两遍网络 | 去掉 inflight 只留缓存（会重复请求） |
+| 2026-11-25 | KaTeX 报错时怎么处理 | `throwOnError:false` + `strict:false`，失败节点保留原始文本 | 判据明确「不吞内容」；默认抛错会让整段公式消失 | 改回 throwOnError:true |
+| 2026-11-25 | Mermaid 批 3 渲不渲染 | 不渲染，显示围栏源码 + 标注「本地 vendor 渲染属批 6，不引 CDN」 | 855 章含 mermaid，接 CDN 违铁律；引 vendor 包体与批 6 打包冲突，本轮只做不骗人 | 批 6 换真渲染，判据同步改 |
+| 2026-11-25 | 微信外链在库里 strip 还是渲染层 strip | 渲染层转纯文本 span + 「原文链接，已保留未加载」，`data/bodies/` 一字不动 | 用户已定决策 2：数据保真，只在展示层处理 | 改 `extract.py --link-policy strip` 重写正文（需重新入库） |
+| 2026-11-25 | `stats-only` 库里 0 本，判据 C2 第三档怎么验 | 诊断接口 `openStatsOnlySample()` 在内存里覆写 `contentLevel` 走同一条 `openBook()` | 删分支等于承认档位不存在；改 `data/` 凑样本违反铁律「不为演示改数据」 | 删该方法（判据即失证） |
+| 2026-11-25 | 阅读层用侧栏还是全屏 | 两者都做：侧栏 `panel` 常驻 + `viewMode='reader'` 全屏页，章节列表/正文/返回 | 桌面侧栏不遮空间视图，手机 390px 侧栏不可用，判据要求两侧都不溢出 | 只留侧栏（390 项会挂） |
+| 2026-11-25 | InstancedMesh 怎么知道点的是哪根立柱 | 每类实例建 `instanceId → ref` 映射，`uv` 不用；点选阈值按屏幕距离 | InstancedMesh 只有一个 mesh，靠 `intersect.instanceId` 反查是唯一稳定路径 | 改回逐 mesh（1,169 个 draw call，帧率崩） |
+| 2026-11-25 | WASD 与面板/输入框抢键 | `inputBusy = panelOpen() \|\| isTyping() \|\| miniBusy()` 时键盘直接返回 | 阅读层里有搜索/文本框，WASD 不判 busy 会打字打不进字 | 去掉守卫 |
+| 2026-11-25 | 小地图循环与帧率采样打架 | `holdMinimap(true)` 在采样窗口挂起小地图 rAF，探针测完释放 | 两个 rAF 并行会把 `fps()` 采样算脏；小地图本身不需要在 10 秒窗口里跑 | 删 hold，帧率数字仍达标但不可信 |
+| 2026-11-25 | 走廊地面名的可读性判据怎么定 | 六条逐一走到正对视角（`viewCorridor`）截一张，按投影包围盒宽高比 ≥3、宽 ≥120px 判可读 | 大厅视角 4/6 可辨，剩下的差异来自斜视角压缩，不是没渲染；要区分「没画」和「看不清」 | 改判据为只查 mesh 存在（会漏掉真不可读） |
+| 2026-11-25 | 浏览器自检用什么驱动 | `playwright-core` + 本机 Edge 可执行路径，不下载 chromium | 不装浏览器省数百 MB 与网络；core 包只 10MB，`executablePath` 指到 msedge.exe 即可 | 换成 puppeteer / 内置 chromium |
+| 2026-11-25 | 自检样本怎么给 | `pick_samples()` 每次全库扫一遍现选，报告里落 slug 与章节 id | 写死书名会在数据重跑后指向不存在的章节，误报成前端 bug | 换成写死常量 |
+| 2026-11-25 | Windows 下 Python 调 npx | `shutil.which(cmd[0]) or cmd[0]`，env 注 `PYTHONIOENCODING=utf-8` | `npx` 实为 `npx.cmd`，CreateProcess 不认；不注 encoding 时子进程打中文直接 UnicodeEncodeError | 去掉 which 兜底（本机跑得起来，CI 起不来） |
+| 2026-11-25 | 帧率判据在 headless 测到 165 说明什么 | 阈值保留 ≥45 的下限语义，另记 `triangles()` 负载（大厅 1,398 / 数学房 3,874）入报告 | 无头模式 rAF 不等合成器，数字不等于观感；真实证据是三角面远低于 15 万预算 | 把判据改成「≥60」会测出假失败 |

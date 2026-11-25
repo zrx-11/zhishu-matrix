@@ -1,34 +1,89 @@
-# 结果：批1 收尾 + 自动化回写协议 + 批2 3D 骨架
+# 结果：批3 阅读层 + 数据校验门槛 + 批2 交互三项 + 文档口径重算
 
 ## 状态
-done
+done — 自检 39 项全绿（`python tools/selfcheck.py`，50.7s，报告 `_work/selfcheck-report.json`）
 
 ## 做了什么
-- `AGENTS.md`、`.qoder/rules/zhishu-rules.md`、`.lingma/rules/zhishu-rules.md`、`docs/pitfalls.md`：铁律 2 由「零 CDN」改为「渲染结果不得在运行时发起任何网络请求」+ 三类白名单（xmlns 声明 / 代码块内 URL / example·localhost 等保留域名），两份 rules 逐字节一致；两份 rules 另追加「自主决策授权」一节（五类必须停）
-- `docs/pitfalls.md`：已验证 3 重写为链接分流并带 28 处实测；已验证 8 补 hello-ai「说明 14 章 / manifest 20 章（`ch01`–`ch14` + `t01`–`t06` 专题）」证据；新增已验证 14（kaoyan csv 是校对台账）、15（三档不拉 `*.html` 的代价）
-- `docs/schema.md`、`docs/sites.md`、`docs/probe-report.md`：degraded 定义补「可做题、无或极少正文」、`bookSource` 保留原始形态、`_report.json` 必记字段表、`sitesUnique` 96 / 重复组 33、signature 去 title 的差值说明、`sites` 条目数 ≠ 仓库数
-- `tools/extract.py`：写入显式 `newline="\n"`；`classify_links()` 白名单分流 + `--link-policy keep|strip` + `externalLinks`/`pendingSources`；signature 改「章节 id 序列 + 计数 + 正文哈希」
-- `tools/clone_repos.sh`：三档保留清单加 `*.csv *.txt`、新增 `SPARSE_DROP` 目录级排除、git 调用统一 `-c http.sslVerify=true`
-- `.gitignore`：`dist/` → `/dist/`（否则 `data/dist/` 永远进不了库）；`.gitattributes`：追加 `data/** text eol=lf`
-- commit：`2f067ec` 代码文档 / `1bee302` 换行符 / `d60b318` data 265 文件 / `e2b32e2` 回写协议与授权
-- `data/`：批 1 产物入库（sites 129 / bodies 129 / dist 5 / manifest / _report，15.3MB，最大单文件 ai.json 1.54MB）
-- `package.json`、`vite.config.ts`、`tsconfig.json`、`index.html`、`src/{main,scene3d,svg2d,layout,data,state,panel,config,types}.ts`、`src/styles.css`：批 2 骨架，六区 + 大厅、2D 降级、进出保态、静止停渲染
-- `_work/decisions.md`（24 → 33 条）、`_work/last-result.md`、`_work/status.md`
 
-## 自检
-- [x] `src/` 与 `package.json` 建立，`npm run dev`（127.0.0.1:5173）与 `npm run build` + `preview`（4173）均可启动，`tsc --noEmit` 零错
-- [x] 六区与大厅均可加载：`math 45 本 / ai 49 / chem 10 / cs 12 / general 13 / tools 0` 全部进入成功；tools 无分片按空分区容错，不白屏
-- [x] 控制台零报错：生产页 `list_console_messages` 为空；开发页仅 vite debug 两行。修掉的真实缺陷：`createElement(' span'/'span n')` 抛 InvalidCharacterError 导致面板打不开、`setPointerCapture` 抛错导致 2D 点击失效、`THREE.Clock` 弃用告警
-- [x] 10 秒采样平均帧率 ≥45：开发页 164.5（min 154.2）、生产页 165.1（min 164.7），采样源为渲染循环自身帧间隔，采样期持续注入交互（静止 3 秒会按铁律停循环）
-- [x] 1440×900 与 390×844 均无横向滚动条：两种视口下 `documentElement.scrollWidth === clientWidth`（1440/1440、390/390），未用 `overflow-x:hidden` 掩盖
-- [x] 站点节点可进入、可返回且状态不丢：射线拾取点展台进房间；选书开面板（实测「智能体设计模式…」26 章、badge full）；返回大厅相机位姿 drift=0，面板与 `selection` 均保留（sessionStorage 落盘）
-- [x] 390 宽单指拖动可用：`pointer: coarse`/窄视口自动走 2D SVG（不加载 three），单指拖动平移生效（pan 由 0,0 → 43.1,−27.7），全程不依赖双指；单指点击打开详情
-- [x] 零运行时外部请求：生产构建资源请求 4 条、全部同源，`foreign = []`（Three.js 由 npm 打进 581KB bundle，不走 CDN）
+**阶段 A · 数据门槛**
+- 新增 `tools/verify_data.py`（356 行）：四类 18 项断言——totals 与 `sites/`/`bodies/`/`dist/` 实际文件数、
+  `schemaVersion` 全为 2、必填字段（`slug`/`title`/`chapters`/`totals`）不缺不为 null、`repo+bookSlug` 唯一。
+  全绿退出码 0；另造 6 个变异副本（改 totals、删 schemaVersion、抹 slug、截分片等）逐个跑必红，证明脚本在真检查
+- 脚本只读 `data/`，`--data-dir` 指向变异副本，不落库任何写操作
+
+**阶段 B · 文档口径重算**
+- `README.md`：状态表改成实际（批 1/2/3 done、批 4/5/6 pending），补规模实测「独书 96 · 条目 129 · 章 1,169 ·
+  概念 765 · 题 3,541 · 卡 4,100 · 术语 4,100 · 265 文件 / 15.3MB」，「怎么开始」换成可执行三步（含 selfcheck）
+- `docs/design.md`：第三节规模假设按实测重写（12.2 章/独书，旧「650 章/415 概念」标失效）；
+  第三节补「光点只能反查 `concepts[].chapterIds`」；第四节前置链补全库口径（概念 428/765、章 372/1,169）；
+  第五节详情层三档分流表 + `depth` 82/765、`claims` 0/765；第六节性能落实测（大厅 1,398 面 / 数学房 3,874 面、
+  10s 采样 165fps、15 万面预算）
+- `docs/pitfalls.md`：已验证新增 16–23 共八条（`hidden` 布尔属性、概念挂载字段取错、`bookSlug` 跨仓重名 31 个、
+  Windows 下 `npx` 是 `.cmd`、成品 HTML 长度基准、headless 帧率不受 vsync 封顶、地面标签可读性四因、
+  `stats-only` 库里 0 本只能造调用侧样本）；待验证 2 由「三站」升级为「全库铺开已定案大半」并列出七项实测；
+  排查顺序补 11–16 六条前端项
+- `tools/README.md`：`extract.py` 状态去掉「未写 data/」的过期表述，登记 `verify_data.py` / `selfcheck.py` /
+  `selfcheck_probe.mjs`，Node 依赖行由「只有数独需要」改为「数独 + 自检探针」
+
+**阶段 C · 阅读层**
+- 新增 `src/render.ts`（218 行）：markdown-it + KaTeX（npm `katex@0.16.47` 打进 bundle，非 CDN）
+  双定界符 `$...$` / `\(...\)` / `$$...$$` / `\[...\]`，`throwOnError:false` 解析失败保留原文；
+  `bodyType:"html"` 直注入不过 markdown-it；微信外链渲染期转纯文本 span + 「原文链接，已保留未加载」
+- `src/data.ts`：`loadBody()` 点开才取，inflight 去重 + Map 缓存，129 个 bodies（7.4MB）零预取
+- `src/panel.ts`（391 行）：书籍总览 / 章节正文 / 概念详情三态 + 面包屑 + 返回栈；
+  `full` / `degraded`（降级条「正文为成品 HTML，公式不可还原」+ 题目数）/ `stats-only`（只给计数与来源）三档分流，
+  都不白屏；Mermaid 围栏本轮显式为「源码 + 未渲染说明」
+- `src/layout.ts`：`conceptsByChapter()` 按 `chapterIds` 反绑（765/765 可解析），弃 15/1,169 的 `conceptIds`
+- `src/main.ts`：3D 光点→概念正文、章节立柱→直接进该章、`openStatsOnlySample()` 内存覆写档位
+- `src/styles.css`：+260 行阅读层与小地图样式；390px 下含公式正文 `scrollWidth === 390`
+
+**阶段 D · 批 2 交互三项**
+- 小地图：`index.html` 加 `#minimap` canvas，`main.ts::drawMinimap()` 画六区色点 + 129 书目方块 + 当前相机位姿与朝向，
+  标题随大厅/房间切换；房间视图隐藏
+- WASD/方向键平移（QE 升降）不改朝向，`inputBusy()` 在面板打开、输入框聚焦、帧率采样期让位
+- 走廊地面学科名：六条 `PlaneGeometry` 贴地，文字基线沿走廊走向，`Fog(560,1300)` + `y=0.62` + `anisotropy 4` +
+  96px 阴影字；`viewCorridor()` / `corridorScreenBox()` 供逐条取证截图
+
+**自检常驻化**
+- 新增 `tools/selfcheck.py`（189 行）+ `tools/selfcheck_probe.mjs`（449 行）：verify_data → `tsc --noEmit` →
+  `vite build` → 起本地服务 → 无头 Edge（`playwright-core`，桌面 1440×900 + 移动 390×844）跑 32 条断言，
+  逐条打印，任一失败退出码非 0；样本由 `pick_samples()` 每次从 `data/bodies/` 现选
+- 证据：`_work/shots-batch3/` 14 张（六条走廊 + 大厅 + 房间 + 四种阅读层状态 + 390 阅读页）
+
+## 自检（任务书 11 条逐条）
+
+- [x] `verify_data.py` 四类全绿、退出码 0 — 实测输出「结论：全绿」；6 个变异副本必红
+- [x] README 状态表与 design 规模数字按实测更新，无「待批 1/2」残留 — 全库重算 96/129/1,169/765/3,541/4,100/4,100
+- [x] 任意一本任意一章可打开，正文来自 `data/bodies/`，实测 3 种以上形态 —
+  full `food-math`(md, 3,735 字) / concept `bronstein-handbook`(1,171 字) / degraded `sudoku-zhishu`(html, 784 字)
+  / stats-only 合成样本；全程 bodies 请求 7 次 / 总请求 29 次
+- [x] `$...$` 与 `\(...\)` 都渲染，KaTeX 来自 bundle 非 CDN — 实测 `katex:116`、`display:2`、`raw:0`；
+  字体请求 `/assets/KaTeX_Main-Regular-B22Nviop.woff2` 同源；合成样本走查 `\(...\)`、`\[...\]`、`<details>` 均渲染且内容不丢
+- [x] degraded 与 stats-only 不显示空正文、不白屏 — degraded 609 字总览 + 784 字正文 + 题目数；
+  stats-only 95 字「仅计数，无正文 / 8 章 8 概念 19 题 40 卡 + 来源」
+- [x] 微信外链纯文本、点击零请求 — `anchors:0`、`spans:2`、`newRequests:0`；库里 13 处 / 11 章
+- [x] 小地图、WASD、走廊学科名三项可用 — 小地图 ink 像素 2,309 + 六区已标；WASD 位移 44.3 且朝向点积 1.000；
+  六条走廊名正对视角宽高比 8.5–13.1、宽 421–926px 全部可读
+- [x] 10 秒采样帧率 ≥45 — 大厅 165、数学房 164.9；三角面 1,398 / 3,874 远低于 15 万预算
+- [x] 控制台零报错、页面异常零条 — `consoleErrors:[]`、`pageErrors:[]`、`requestfailed:[]`
+- [x] 运行时零外部请求 — 桌面与移动两 context `external:[]`（Three/KaTeX/markdown-it 全打进 bundle）
+- [x] `tsc --noEmit` 零错、`npm run build` 成功 — 均 PASS
+
+附加铁律项：390px `scrollWidth === 390`（大厅 390/390/390，阅读层含公式仍 390/390/390）、
+触屏自动降级 2D SVG 且未加载 Three.js、`data/` 未被业务代码写入。
 
 ## 待决策
-1. 批 2 骨架（`package.json`/`vite.config.ts`/`tsconfig.json`/`index.html`/`src/`/`dist/` 构建产物）目前未提交——任务书只列了阶段 1–2 的 commit。选项：A 单独提 `feat(scene): 批2 骨架`；B 等批 2 交互层做完一并提。
-2. `dist/tools.json` 缺失（6 个工具站全无 manifest）。选项：A 只靠前端容错（现状）；B 重跑 `extract.py` 让抽取器为每个学科写空分片——但会覆盖已 git 跟踪的 `data/**`，属必须停的五类，需明确授权。
-3. 真外链 13 条（全为 `mp.weixin.qq.com`）当前 `keep` 只记录、不改正文。选项：A 批 3 渲染层降级为纯文本（正文库保持原样）；B 抽取时 `--link-policy strip` 直接改正文。
+
+1. **Mermaid 何时真渲染** — 本轮显式画成「源码 + 未渲染说明」（855 章含围栏，占比 73%）。
+   选项：A 批 6 引 `mermaid` vendor 并做懒渲染（首屏包体会涨，需重测帧率）；B 抽取期预渲染成 SVG 入 `bodies/`
+   （要重跑抽取器，属必须停的第 1 类）。
+2. **阅读层与 3D 的收口** — 现在侧栏 + 全屏阅读双模式并存。选项：A 保留（桌面快读 / 手机全读）；
+   B 桌面只留全屏阅读页，减一条状态机。
+3. **`check_offline.py` 是否还单列** — 运行期请求监听已由 `selfcheck.py` 覆盖，静态扫描（构建产物里搜远程 URL）
+   仍是批 6 需要的另一半。选项：A 批 6 只补静态扫描；B 把两类都收进 `check_offline.py`，selfcheck 调它。
 
 ## 下一步建议
-先定第 1 项提交口径，随即进批 3 阅读层：正文按需加载 `data/bodies/`、`bodyType` 分流渲染、KaTeX 开 `$...$` 与 `\(...\)` 双定界符。
+
+进批 4 检索层：`MiniSearch` 走 npm 打进 bundle，索引按学科分片（`data/dist/*.json` 已有 5 片，tools 缺片容错沿用），
+搜索命中直接跳 `openChapter`/`openConcept`——这两个入口本轮已带 `file` 精确取书，检索层不需要再处理 slug 重名。
+门槛沿用 `python tools/selfcheck.py`，批 4 只需往 `selfcheck_probe.mjs` 追加检索断言。
