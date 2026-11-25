@@ -90,3 +90,60 @@ export interface Pick {
   discipline: Discipline;
   book?: SiteEntry;
 }
+
+/** `data/dist/search-<area>.json`：批 4 检索分片，tools/build_search_index.py 产出 */
+export interface SearchChapter {
+  id: string;
+  title: string;
+  core?: string;
+}
+
+export interface SearchConcept {
+  id: string;
+  name: string;
+  brief?: string;
+}
+
+export interface SearchTerm {
+  t: string;
+  d?: string;
+  /** 该术语所在章，抽不到为空串，命中后只落书总览 */
+  c?: string;
+}
+
+export interface SearchBook {
+  slug: string;
+  file: string;
+  repo: string;
+  title: string;
+  area: Discipline;
+  chapters: SearchChapter[];
+  concepts: SearchConcept[];
+  terms?: SearchTerm[];
+}
+
+export interface SearchShard {
+  schemaVersion: number;
+  area: Discipline;
+  generator: string;
+  generatedAt: string | null;
+  source?: string;
+  /** 体量超上限时的降级档：full / titles-only / no-terms */
+  trim?: string;
+  counts: { books: number; chapters: number; concepts: number; terms: number };
+  books: SearchBook[];
+}
+
+export type SearchKind = 'chapter' | 'concept' | 'book';
+
+export interface SearchHit {
+  kind: SearchKind;
+  label: string;
+  book: string;
+  file: string;
+  area: Discipline;
+  /** 章节 id 或概念 id；书级命中为 null */
+  target: string | null;
+  /** 命中路径说明，例如「术语」 */
+  via: string | null;
+}

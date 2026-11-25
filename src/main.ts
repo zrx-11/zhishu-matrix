@@ -1,9 +1,23 @@
 import './styles.css';
-import type { BookRecord, Discipline, ManifestIndex, SiteEntry } from './types';
+import type { BookRecord, Discipline, ManifestIndex, SearchHit, SiteEntry } from './types';
 import { ROOMS, ROOM_BY_KEY, prefersFlatView } from './config';
 import { booksOf, loadManifest, loadShard } from './data';
+import { forgetDiagrams, hydrateDiagrams, mermaidRequested, renderDiagram } from './diagram';
 import { key, recordIndex } from './layout';
 import { renderMarkdown } from './render';
+import {
+  closeSearch,
+  configureSearch,
+  initSearch,
+  loadedShards,
+  openSearch,
+  runSearch,
+  searchHits,
+  searchOpen,
+  searchPick,
+  searchState,
+  type Scope,
+} from './search';
 import {
   closePanel,
   configurePanel,
@@ -17,7 +31,7 @@ import {
   panelOpen,
   viewMode,
 } from './panel';
-import { store } from './state';
+import { store, type CameraPose } from './state';
 import type { Matrix3D } from './scene3d';
 import { MatrixFlat } from './svg2d';
 
@@ -200,6 +214,7 @@ function isView3D(v: View | null): v is Matrix3D {
 
 async function enterRoom(discipline: Discipline): Promise<void> {
   if (!manifest || !view) return;
+  searchSpot = null; // 用户自己走了，检索返程落点即失效
   if (isView3D(view)) {
     // 离开大厅时存下大厅相机，返回时原样恢复（判据：返回后相机与选中状态不丢）
     if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
@@ -220,6 +235,7 @@ async function enterRoom(discipline: Discipline): Promise<void> {
 
 function showHall(): void {
   if (!view) return;
+  searchSpot = null;
   if (currentRoom && isView3D(view)) store.setRoomCamera(currentRoom, view.currentPose());
   currentRoom = null;
   if (isView3D(view)) view.showHall(store.snapshot.hallCamera);
@@ -276,9 +292,64 @@ function pickChapter(book: SiteEntry, chapterId: string): void {
   });
 }
 
+/** 检索跳转前的落点：判据 C4 要求返回时回到原书节点与原相机位姿，不重置 */
+interface Spot {
+  room: Discipline | null;
+  pose: CameraPose | null;
+  pan: { x: number; y: number; zoom: number } | null;
+  book: SiteEntry | null;
+}
+
+let searchSpot: Spot | null = null;
+
+function currentSpot(): Spot {
+  return {
+    room: currentRoom,
+    pose: isView3D(view) ? view.currentPose() : null,
+    pan: view && !isView3D(view) ? (view as MatrixFlat).currentPan : null,
+    book: store.snapshot.selection.book,
+  };
+}
+
+/**
+ * 检索命中跳转：`file` 精确取书，绕开 31 个跨仓重名 slug（判据 C3）。
+ * 只开阅读层，不改 3D 视图与 currentRoom，返回时位姿天然不动。
+ */
+async function openFromSearch(hit: SearchHit): Promise<boolean> {
+  if (!manifest) return false;
+  const found = manifest.sites.find((s) => s.file === hit.file);
+  if (!found) return false;
+  searchSpot = currentSpot();
+  store.setSelection({ discipline: found.discipline, book: found });
+  const rec = await bookRecord(found);
+  openBook(found, rec);
+  if (hit.target && hit.kind === 'concept') await openConcept(hit.target);
+  else if (hit.target && hit.kind === 'chapter') await openChapter(hit.target);
+  return true;
+}
+
 /** 关掉阅读层后回到原书节点与原相机位姿，不重置（判据 C5） */
 function restorePose(): void {
   if (!view) return;
+  const spot = searchSpot;
+  searchSpot = null;
+  if (spot) {
+    currentRoom = spot.room;
+    if (isView3D(view)) {
+      if (spot.pose) view.applyPose(spot.pose);
+      view.nudge();
+    } else {
+      view.setPan(spot.pan ?? store.snapshot.flatPan);
+    }
+    if (spot.book) store.setSelection({ discipline: spot.book.discipline, book: spot.book });
+    else store.setSelection({ discipline: spot.room, book: null });
+    syncRoombar();
+    const book = openedBook();
+    setHud(
+      `已按检索前落点返回 · 相机位姿未重置（当前 ${book ? book.title || book.bookSlug : '无选中书目'}，原节点 ${spot.book ? spot.book.title || spot.book.bookSlug : '无'}）`,
+    );
+    return;
+  }
   if (isView3D(view)) {
     const pose = currentRoom ? store.snapshot.roomCameras[currentRoom] : store.snapshot.hallCamera;
     if (pose) view.applyPose(pose);
@@ -377,13 +448,33 @@ function exposeDiagnostics(): void {
       isView3D(view) ? view.corridorScreenBox(key) : null,
     minimap: () => (isView3D(view) ? view.minimapState() : null),
     renderSample: (src: string) => renderMarkdown(src),
+    diagramRender: (src: string) => renderDiagram(src),
+    diagramStates: () => {
+      const counts: Record<string, number> = {};
+      for (const el of Array.from(document.querySelectorAll<HTMLElement>('#panel-body .diagram'))) {
+        const st = el.dataset.diagram ?? 'none';
+        counts[st] = (counts[st] ?? 0) + 1;
+      }
+      return { counts, mermaidRequested: mermaidRequested() };
+    },
     loadedBodies: loadedBodyCount,
     readerState: () => ({
       mode: viewMode(),
       open: panelOpen(),
       book: openedBook()?.bookSlug ?? null,
+      file: openedBook()?.file ?? null,
       level: openedBook()?.contentLevel ?? null,
     }),
+    /** 自检专用：把一段 Markdown 直接铺进阅读层并走占位→可见→渲染那条真实路径 */
+    injectReader: (md: string) => {
+      const box = document.getElementById('panel-body');
+      if (!box) return 0;
+      forgetDiagrams(box);
+      box.innerHTML = renderMarkdown(md).html;
+      box.scrollTop = 0;
+      hydrateDiagrams(box);
+      return box.querySelectorAll('.diagram').length;
+    },
     openBookBy: (sel: BookSel) => findBook(sel),
     openChapter: async (chapterId: string) => {
       await openChapter(chapterId);
@@ -418,6 +509,26 @@ function exposeDiagnostics(): void {
     wake: () => {
       if (isView3D(view)) view.nudge();
     },
+    /* ---------------------------------------------------------------- 检索层（批 3.5 / 批 4） */
+    searchOpen: () => searchOpen(),
+    searchShow: (prefill = '') => openSearch(prefill),
+    searchHide: () => closeSearch(),
+    searchState: () => searchState(),
+    searchRun: (q: string, scope?: Scope | null) => runSearch(q, scope ?? undefined),
+    searchHits: () => searchHits().map((h) => ({ ...h })),
+    searchPick: (i: number) => searchPick(i),
+    searchLoaded: () => loadedShards(),
+    /** 返程落点是否已快照（判据 C4 的可观测证据） */
+    searchSpot: () => {
+      const spot = searchSpot;
+      if (!spot) return null;
+      return {
+        room: spot.room,
+        pose: spot.pose,
+        pan: spot.pan,
+        book: spot.book ? { file: spot.book.file, slug: spot.book.bookSlug, title: spot.book.title } : null,
+      };
+    },
   };
 }
 
@@ -432,8 +543,17 @@ function boot(): void {
       if (isView3D(view)) view.highlightConcept(cid);
     },
   });
+  configureSearch({
+    getManifest: () => manifest,
+    currentScope: () => currentRoom ?? 'hall',
+    onPick: (hit) => openFromSearch(hit),
+    onHud: setHud,
+  });
+  initSearch();
   window.addEventListener('keydown', (ev) => {
-    if (ev.key === 'Escape') closePanel();
+    // 检索弹层开着时 Esc 只收弹层，不把阅读层一起关掉；`/` 与 Ctrl+K 由 search 内部处理
+    if (ev.key === 'Escape' && !searchOpen()) closePanel();
+    if (searchOpen() || isTyping()) return;
     if (ev.key === 'h' || ev.key === 'H') showHall();
   });
   let resizeTimer = 0;

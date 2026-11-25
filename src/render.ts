@@ -18,6 +18,28 @@ function isRemoteUrl(value: string): boolean {
   return /^[a-z][a-z0-9+.-]*:/.test(v) && !v.startsWith('blob:');
 }
 
+/**
+ * mermaid 产出的 SVG 专用消毒：与 sanitizeHtml 同规则，但保留 `<style>`
+ * ——mermaid 的连线/文字样式写在 SVG 内嵌 style 里，剔掉就成了无色不可读图。
+ */
+export function sanitizeSvg(svg: string): string {
+  const doc = new DOMParser().parseFromString(`<body>${svg}</body>`, 'text/html');
+  for (const node of Array.from(doc.body.querySelectorAll('*'))) {
+    const tag = node.tagName.toLowerCase();
+    if (tag === 'script') {
+      node.remove();
+      continue;
+    }
+    for (const attr of Array.from(node.attributes)) {
+      const name = attr.name.toLowerCase();
+      if (name.startsWith('on')) node.removeAttribute(attr.name);
+      else if (name.startsWith('xmlns')) continue;
+      else if (URL_ATTRS.includes(name) && isRemoteUrl(attr.value)) node.removeAttribute(attr.name);
+    }
+  }
+  return doc.body.innerHTML;
+}
+
 /** 真外链 → 纯文本 + 标注，点击不发起请求（docs/schema.md 铁律、批 3 判据 C4） */
 export function sanitizeHtml(html: string): string {
   const doc = new DOMParser().parseFromString(html, 'text/html');
@@ -171,29 +193,48 @@ md.renderer.rules.math_block = (tokens, idx) =>
 
 // ---------------------------------------------------------------- 围栏代码
 
-const MERMAID_NOTE = '图示 · Mermaid 源码（本地 vendor 渲染属批 6，不引 CDN）';
+/**
+ * Mermaid 围栏只出占位容器（判据 A2）：源码留在折叠区里保底，
+ * 可见时由 `diagram.ts` 动态引入 mermaid 换成 SVG，换不成就一直显示这段源码。
+ */
+function diagramBlock(code: string): string {
+  return (
+    '<div class="diagram" data-diagram="pending">' +
+    '<div class="diagram-cap">图示 · Mermaid（本地渲染，滚动到此处自动出图）</div>' +
+    '<div class="diagram-view"></div>' +
+    `<details class="diagram-srcbox"><summary>图示源码</summary><pre class="code diagram-src"><code>${code}</code></pre></details>` +
+    '</div>'
+  );
+}
 
 md.renderer.rules.fence = (tokens, idx) => {
   const token = tokens[idx];
   const lang = (token.info || '').trim().split(/\s+/)[0];
   const code = escapeText(token.content);
-  if (lang === 'mermaid') {
-    return `<div class="diagram"><div class="diagram-cap">${MERMAID_NOTE}</div><pre class="code"><code>${code}</code></pre></div>`;
-  }
+  if (lang === 'mermaid') return diagramBlock(code);
   return `<div class="codeblock"><div class="code-lang">${escapeText(lang || 'text')}</div><pre class="code"><code>${code}</code></pre></div>`;
 };
 
 // ---------------------------------------------------------------- 对外接口
 
-export type Rendered = { html: string; mathCount: number; formulaFallbacks: number };
+export type Rendered = {
+  html: string;
+  mathCount: number;
+  formulaFallbacks: number;
+  diagramCount: number;
+};
 
 /** Markdown 正文（`bodyType: "md"`）→ 已消毒 HTML */
 export function renderMarkdown(src: string): Rendered {
   const raw = md.render(src);
   const html = sanitizeHtml(raw);
-  const mathCount = (raw.match(/class="katex"/g) || []).length;
-  const formulaFallbacks = (raw.match(/class="math-raw"/g) || []).length;
-  return { html, mathCount, formulaFallbacks };
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  return {
+    html,
+    mathCount: doc.querySelectorAll('.katex').length,
+    formulaFallbacks: doc.querySelectorAll('.math-raw').length,
+    diagramCount: doc.querySelectorAll('.diagram[data-diagram]').length,
+  };
 }
 
 /** 成品 HTML 片段（`bodyType: "html"`，degraded 站）：不过 markdown-it，直接消毒注入 */
@@ -204,6 +245,7 @@ export function renderHtmlFragment(src: string): Rendered {
     html,
     mathCount: doc.querySelectorAll('.katex').length,
     formulaFallbacks: 0,
+    diagramCount: doc.querySelectorAll('.diagram[data-diagram]').length,
   };
 }
 

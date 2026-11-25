@@ -1,4 +1,4 @@
-import type { BodyFile, Discipline, ManifestIndex, Shard, SiteEntry } from './types';
+import type { BodyFile, Discipline, ManifestIndex, SearchShard, Shard, SiteEntry } from './types';
 
 const manifestCache = { value: null as ManifestIndex | null };
 const shardCache = new Map<Discipline, Shard>();
@@ -40,6 +40,25 @@ export async function loadShard(discipline: Discipline): Promise<Shard> {
 
 export function booksOf(manifest: ManifestIndex, discipline: Discipline): SiteEntry[] {
   return manifest.sites.filter((s) => s.discipline === discipline);
+}
+
+/**
+ * 检索分片按需加载（批 4 判据 C2）：只有用户在该学科内发起搜索才取 `dist/search-<area>.json`。
+ * 首屏与分区浏览一律不取；文件缺失（tools 区曾无数据）退回空片而不是白屏。
+ */
+export async function loadSearchShard(discipline: Discipline): Promise<SearchShard> {
+  try {
+    return await getJson<SearchShard>(`/dist/search-${discipline}.json`);
+  } catch {
+    return {
+      schemaVersion: 1,
+      area: discipline,
+      generator: 'missing',
+      generatedAt: null,
+      counts: { books: 0, chapters: 0, concepts: 0, terms: 0 },
+      books: [],
+    };
+  }
 }
 
 /**

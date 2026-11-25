@@ -74,9 +74,23 @@ button {
   touch-action: manipulation;
 }
 
-#search {
+#search-open {
   flex: 0 1 220px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   color: var(--ink-dim);
+  text-align: left;
+}
+
+#search-open .kbd {
+  flex: 0 0 auto;
+  font-size: 10px;
+  color: var(--ink-dim);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1px 4px;
 }
 
 #stage {
@@ -467,6 +481,58 @@ button {
   border-color: #2a3446;
 }
 
+/* 批 3.5 判据 A2：占位容器 → 可见后本地 mermaid 出 SVG，失败回退源码 */
+.diagram-view {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px;
+  background: #0b0d12;
+}
+
+.diagram-view svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.diagram-hint,
+.diagram-err {
+  font-size: 12px;
+  color: var(--ink-dim);
+  padding: 2px 0;
+}
+
+.diagram-err {
+  color: var(--cs);
+  margin-top: 6px;
+}
+
+.diagram-srcbox {
+  border-top: 1px solid var(--line);
+}
+
+.diagram-srcbox > summary {
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--ink-dim);
+  padding: 5px 8px;
+  list-style: none;
+}
+
+.diagram-srcbox > summary::before {
+  content: '▸ ';
+}
+
+.diagram-srcbox[open] > summary::before {
+  content: '▾ ';
+}
+
+.diagram-srcbox pre.code {
+  border-top: 1px solid var(--line);
+}
+
 #panel-body pre.code {
   margin: 0;
   padding: 8px 10px;
@@ -517,14 +583,186 @@ button {
   color: var(--accent);
 }
 
+/* ---------------------------------------------------------------- 检索层（批 4） */
+
+/* display:grid 会盖掉 [hidden]，必须显式关回去，否则弹层常驻 */
+#search-overlay[hidden] {
+  display: none;
+}
+
+#search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: start center;
+  padding: max(10px, 7vh) 10px 10px;
+  background: rgba(6, 8, 12, 0.66);
+}
+
+#search-box {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: min(660px, 100%);
+  /* grid 项的自动最小尺寸是 min-content：不显式清零，一条 40 字的中文长标题就能把弹层撑到 551px 出 390 视口 */
+  min-width: 0;
+  max-width: 100%;
+  max-height: 82dvh;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--bg-room);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+}
+
+#search-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+#search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 15px;
+}
+
+#search-close {
+  flex: 0 0 auto;
+  line-height: 1;
+}
+
+#search-scope {
+  font-size: 11px;
+  color: var(--ink-dim);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+#search-scope .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.scope-chip {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: var(--ink-dim);
+}
+
+.scope-chip.on {
+  color: var(--ink);
+  border-color: var(--accent);
+  background: rgba(74, 108, 247, 0.16);
+}
+
+#search-results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  min-height: 0;
+  min-width: 0;
+}
+
+.hit-group {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--ink-dim);
+  padding: 8px 6px 2px;
+}
+
+.hit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.hit.active {
+  background: #1a1f29;
+  outline: 1px solid var(--line);
+}
+
+.hit .mark {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  border-radius: 5px;
+  background: #1a1f29;
+  color: var(--ink-dim);
+}
+
+/* 三处都用 nowrap + ellipsis：长书名长章节名一律不撑宽弹层（390 判据） */
+.hit .label,
+.hit .from {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hit .label {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.hit .from {
+  flex: 0 1 42%;
+  min-width: 0;
+  font-size: 11px;
+  color: var(--ink-dim);
+}
+
+.hit .area {
+  flex: 0 0 auto;
+  font-size: 10px;
+  color: var(--ink-dim);
+}
+
+#search-status {
+  font-size: 11px;
+  color: var(--ink-dim);
+  border-top: 1px solid var(--line);
+  padding-top: 6px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+#search-status[data-status='none'],
+#search-status[data-status='error'] {
+  color: var(--cs);
+}
+
+#search-status[data-status='loading'] {
+  color: var(--accent);
+}
+
 @media (max-width: 767px) {
   #panel {
     width: 100%;
     border-left: 0;
   }
 
-  #search {
+  /* 触屏没有 Ctrl+K，顶栏按钮必须留着，只是收掉快捷键提示 */
+  #search-open .kbd {
     display: none;
+  }
+
+  #search-open {
+    flex: 0 0 auto;
   }
 
   /* 2D 降级本身就是俯视，不再叠小地图 */

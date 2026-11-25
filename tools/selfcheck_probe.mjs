@@ -28,7 +28,7 @@ function clip(s, n = 160) {
   return typeof s === 'string' ? s.replace(/\s+/g, ' ').slice(0, n) : s;
 }
 
-const requests = { all: 0, bodies: [], external: [], blocked: [] };
+const requests = { all: 0, bodies: [], external: [], blocked: [], search: [] };
 const consoleErrors = [];
 const pageErrors = [];
 
@@ -38,6 +38,7 @@ async function newPage(browser, tag, opts) {
     const url = route.request().url();
     if (url.startsWith('data:') || url.startsWith(BASE) || url.startsWith('blob:')) {
       if (url.includes('/bodies/')) requests.bodies.push(`${tag}:${url.split('/').pop()}`);
+      if (url.includes('/dist/search-')) requests.search.push(`${tag}:${url.split('/').pop()}`);
       requests.all += 1;
       return route.continue();
     }
@@ -109,6 +110,72 @@ async function settle(page, min = 120, ms = 15000) {
   });
 }
 
+/** mermaid 分包在浏览器里的实际加载痕迹：chunk 名 + 模块级 promise 是否已发起 */
+const MM_CHUNKS = new Set(samples.mermaidChunks || []);
+async function mermaidChunks(page) {
+  return page.evaluate((names) => {
+    const set = new Set(names);
+    return performance
+      .getEntriesByType('resource')
+      .map((r) => r.name.split('/').pop())
+      .filter((n) => set.has(n));
+  }, [...MM_CHUNKS]);
+}
+
+/** 读某个图型对应的围栏容器（data-kind 在渲染启动时才写，未渲染时按源码首词判） */
+function readDiagram(kind) {
+  const els = Array.from(document.querySelectorAll('#panel-body .diagram'));
+  const el =
+    els.find((e) => e.dataset.kind === kind) ||
+    els.find((e) => ((e.querySelector('.diagram-src')?.textContent ?? '').trim().split(/[\s;{]/)[0] ?? '') === kind);
+  if (!el) return null;
+  const svg = el.querySelector('.diagram-view svg');
+  const box = el.getBoundingClientRect();
+  return {
+    state: el.dataset.diagram ?? null,
+    kind: el.dataset.kind ?? null,
+    hasSvg: Boolean(svg),
+    svgBytes: svg ? svg.outerHTML.length : 0,
+    svgText: svg ? (svg.textContent ?? '').replace(/\s+/g, '').length : 0,
+    inFlow: box.width > 40 && box.height > 20,
+    remote: svg ? /(href|xlink:href|src)\s*=\s*"(https?:|\/\/)[^"]*"/i.test(svg.outerHTML) ? 1 : 0 : -1,
+    cap: el.querySelector('.diagram-cap')?.textContent ?? '',
+    err: el.querySelector('.diagram-err')?.textContent ?? '',
+    src: (el.querySelector('.diagram-view pre.code')?.textContent ?? el.querySelector('.diagram-src')?.textContent ?? '').length,
+  };
+}
+
+async function diagramFor(page, kind) {
+  return page.evaluate(readDiagram, kind);
+}
+
+async function scrollDiagram(page, kind) {
+  await page.evaluate((k) => {
+    const els = Array.from(document.querySelectorAll('#panel-body .diagram'));
+    const el =
+      els.find((e) => e.dataset.kind === k) ||
+      els.find((e) => ((e.querySelector('.diagram-src')?.textContent ?? '').trim().split(/[\s;{]/)[0] ?? '') === k);
+    el?.scrollIntoView({ block: 'center' });
+  }, kind);
+}
+
+async function waitDiagram(page, kind, ms = 25000) {
+  await page
+    .waitForFunction(
+      (k) => {
+        const els = Array.from(document.querySelectorAll('#panel-body .diagram'));
+        const el =
+          els.find((e) => e.dataset.kind === k) ||
+          els.find((e) => ((e.querySelector('.diagram-src')?.textContent ?? '').trim().split(/[\s;{]/)[0] ?? '') === k);
+        return !el || ['done', 'error', 'empty'].includes(el.dataset.diagram);
+      },
+      kind,
+      { timeout: ms },
+    )
+    .catch(() => undefined);
+  await page.waitForTimeout(120);
+}
+
 function dot(a, b) {
   return a.x * b.x + a.y * b.y + a.z * b.z;
 }
@@ -128,6 +195,15 @@ try {
   const wHall = await scrollWidth(d);
   check('1440 视口无横向溢出', wHall.doc === 1440, wHall);
   check('大厅阶段零正文请求', requests.bodies.length === 0, requests.bodies.slice(0, 5));
+  const mmHall = await mermaidChunks(d);
+  const lazyHall = await d.evaluate(() => window.__zhishu.diagramStates());
+  check(
+    '非阅读页不加载 mermaid（大厅零 chunk、零请求）',
+    mmHall.length === 0 && lazyHall.mermaidRequested === false,
+    { chunks: mmHall.slice(0, 4), mermaidRequested: lazyHall.mermaidRequested },
+  );
+  const shardHall = requests.search.length;
+  check('首屏不预取检索分片', shardHall === 0, requests.search.slice(0, 6));
 
   const labels = await d.evaluate(() => window.__zhishu.corridorLabels());
   check('走廊地面学科名六条已建', labels.length === 6, labels);
@@ -202,6 +278,8 @@ try {
   log.push(`数学区 fps = ${fpsRoom} · 三角面 = ${triRoom} · 立柱 ${nodes?.columns} · 光点 ${nodes?.dots}`);
   check('数学区章节立柱与概念光点已建', nodes.books > 0 && nodes.columns > 0 && nodes.dots > 0, nodes);
   check('分区浏览阶段零正文请求', requests.bodies.length === 0, requests.bodies.slice(0, 5));
+  const mmRoom = await mermaidChunks(d);
+  check('3D 分区阶段同样不加载 mermaid', mmRoom.length === 0, mmRoom.slice(0, 4));
   await d.screenshot({ path: `${SHOTS}/room-math.png` });
 
   // 概念光点拾取 → 概念正文
@@ -299,21 +377,300 @@ try {
     });
   }
 
-  // Mermaid 围栏：源码保留 + 明示不引 CDN
+  // ------------------------------------------- Mermaid 真渲染（批 3.5 A2：占位 → 可见 → 本地分包出 SVG）
   if (samples.mermaid) {
+    // 重开一页，把「首屏零 mermaid」与「第一个围栏可见才加载」这两件事在同一个干净会话里对齐
+    await d.reload({ waitUntil: 'load' });
+    await ready(d);
+    const mmFresh = await mermaidChunks(d);
+    check('重载后仍是零 mermaid 分包（模块级缓存随页面重置）', mmFresh.length === 0, mmFresh.slice(0, 4));
     await d.evaluate((s) => window.__zhishu.openChapterOf({ slug: s.slug, file: s.file }, s.chapter), samples.mermaid);
     await settle(d);
-    const m = await d.evaluate(() => ({
-      diagrams: document.querySelectorAll('#panel-body .diagram').length,
-      cap: document.querySelector('#panel-body .diagram-cap')?.textContent ?? '',
-      code: (document.querySelector('#panel-body .diagram pre.code')?.textContent ?? '').length,
-    }));
+    const placeholder = await d.evaluate(() => {
+      const el = document.querySelector('#panel-body .diagram');
+      if (!el) return null;
+      const src = (el.querySelector('.diagram-src')?.textContent ?? '').trim();
+      return {
+        state: el.dataset.diagram ?? null,
+        kind: src.split(/[\s;{]/)[0] ?? '',
+        cap: el.querySelector('.diagram-cap')?.textContent ?? '',
+        srcLen: src.length,
+        srcBox: Boolean(el.querySelector('details.diagram-srcbox')),
+        svgBefore: Boolean(el.querySelector('.diagram-view svg')),
+      };
+    });
     check(
-      'Mermaid 围栏按「源码 + 明示未渲染」处理',
-      m.diagrams > 0 && m.cap.includes('Mermaid') && m.code > 20,
-      m,
+      '围栏先是占位容器（登记为 watching、源码保留在 details 里、此刻无 SVG）',
+      !!placeholder && placeholder.state === 'watching' && placeholder.svgBefore === false && placeholder.srcLen > 20 && placeholder.srcBox,
+      placeholder,
+    );
+    const kind0 = placeholder?.kind ?? '';
+    const chunkBefore = (await mermaidChunks(d)).length;
+    await scrollDiagram(d, kind0);
+    await waitDiagram(d, kind0);
+    const first = await diagramFor(d, kind0);
+    const chunkAfter = await mermaidChunks(d);
+    check(
+      '滚动到可见后本地 mermaid 出 SVG，且分包正是此刻才加载',
+      !!first && first.state === 'done' && first.hasSvg && first.svgBytes > 500 && chunkBefore === 0 && chunkAfter.length > 0,
+      { kind: kind0, svgBytes: first?.svgBytes, svgText: first?.svgText, chunks: chunkAfter.length, cap: clip(first?.cap, 80) },
+    );
+    await d.screenshot({ path: `${SHOTS}/mermaid-${kind0.replace(/[^a-z0-9]/gi, '')}.png` });
+  }
+
+  const kindRows = [];
+  for (const [kind, s] of Object.entries(samples.diagrams || {})) {
+    await d.evaluate((x) => window.__zhishu.openChapterOf({ file: x.file }, x.chapter), s);
+    await settle(d);
+    await scrollDiagram(d, kind);
+    await waitDiagram(d, kind);
+    const st = await diagramFor(d, kind);
+    kindRows.push({
+      kind,
+      file: s.file,
+      chapter: s.chapter,
+      state: st?.state ?? null,
+      svg: st?.hasSvg ?? false,
+      bytes: st?.svgBytes ?? 0,
+      labelChars: st?.svgText ?? 0,
+      remote: st?.remote ?? -1,
+      sized: st?.inFlow ?? false,
+    });
+    if (st?.hasSvg) await d.screenshot({ path: `${SHOTS}/mermaid-${kind.replace(/[^a-z0-9]/gi, '')}.png` });
+  }
+  check(
+    `库里出现的 ${Object.keys(samples.diagrams || {}).length} 类图型逐条本地渲染成 SVG（不硬造类型）`,
+    kindRows.length >= 5 && kindRows.every((r) => r.state === 'done' && r.svg && r.bytes > 300 && r.labelChars > 0 && r.sized),
+    kindRows,
+  );
+  check('渲染结果零远程引用（无外链图片 / 字体 / CDN）', kindRows.every((r) => r.remote === 0), kindRows.map((r) => `${r.kind}:${r.remote}`));
+
+  const multi = Object.values(samples.diagrams || {}).find((x) => (x.fences || 0) >= 2);
+  if (multi) {
+    const before = (await mermaidChunks(d)).length;
+    await d.evaluate((x) => window.__zhishu.openChapterOf({ file: x.file }, x.chapter), multi);
+    await settle(d);
+    const fences = await d.evaluate(() => document.querySelectorAll('#panel-body .diagram').length);
+    for (let i = 0; i < 12; i += 1) {
+      await d.evaluate(() => {
+        const b = document.getElementById('panel-body');
+        b.scrollTop = Math.min(b.scrollHeight, b.scrollTop + 420);
+      });
+      await d.waitForTimeout(220);
+    }
+    await d.waitForTimeout(1200);
+    const after = (await mermaidChunks(d)).length;
+    const states = await d.evaluate(() =>
+      Array.from(document.querySelectorAll('#panel-body .diagram')).map((e) => e.dataset.diagram),
+    );
+    check(
+      '同章节多围栏只加载一次 mermaid 模块（滚完全部围栏后 chunk 数不变）',
+      fences >= 2 && before === after && states.filter((x) => x === 'done').length >= 1,
+      { fences, chunkBefore: before, chunkAfter: after, states },
     );
   }
+
+  const brokenInjected = await d.evaluate(() =>
+    window.__zhishu.injectReader('上一段。\n\n```mermaid\n!!! 这不是 mermaid 语法 @@\n```\n\n下一段。'),
+  );
+  await d.waitForTimeout(1500);
+  const broken = await d.evaluate(() => {
+    const el = document.querySelector('#panel-body .diagram');
+    if (!el) return null;
+    return {
+      state: el.dataset.diagram ?? null,
+      err: el.querySelector('.diagram-err')?.textContent ?? '',
+      preChars: (el.querySelector('.diagram-view pre.code')?.textContent ?? '').length,
+      viewChars: (el.querySelector('.diagram-view')?.innerText ?? '').replace(/\s+/g, '').length,
+      svg: Boolean(el.querySelector('.diagram-view svg')),
+    };
+  });
+  check('坏语法回退为源码 + 一行原因，容器不空不白屏', !!broken && broken.state === 'error' && !broken.svg && broken.preChars > 5 && broken.err.length > 4 && broken.viewChars > 10, {
+    injected: brokenInjected,
+    ...broken,
+  });
+  const apiFallback = await d.evaluate(async () => {
+    const r = await window.__zhishu.diagramRender('!!! 这不是 mermaid 语法 @@');
+    return { svg: r.svg ? r.svg.length : 0, error: r.error ?? '', kind: r.kind };
+  });
+  check('renderDiagram 对坏源码返回原因而不抛错', apiFallback.svg === 0 && apiFallback.error.length > 0, apiFallback);
+  await d.screenshot({ path: `${SHOTS}/mermaid-fallback.png` });
+
+  await d.evaluate(() => document.getElementById('panel-close').click());
+  await d.waitForTimeout(500);
+  const fpsHallMm = await fps(d, 5000);
+  await d.evaluate(() => window.__zhishu.enterRoom('ai'));
+  await d.waitForFunction(() => window.__zhishu.room() === 'ai', null, { timeout: 12000 });
+  await d.waitForTimeout(700);
+  const fpsRoomMm = await fps(d, 5000);
+  const triMm = await d.evaluate(() => window.__zhishu.triangles());
+  const mmStill = await d.evaluate(() => ({
+    requested: window.__zhishu.diagramStates().mermaidRequested,
+    panels: document.querySelectorAll('#panel-body .diagram').length,
+  }));
+  check(
+    'mermaid 已进运行时后大厅与分区帧率仍 ≥45、三角面不越预算',
+    fpsHallMm >= 45 && fpsRoomMm >= 45 && triMm > 0 && triMm <= 150000,
+    { fpsHall: fpsHallMm, fpsRoom: fpsRoomMm, triangles: triMm, moduleLoaded: mmStill.requested },
+  );
+
+  // ---------------------------------------------------------------- 检索层（批 4 · 判据 C1—C4）
+  const sc = samples.search || {};
+  const areaRows = [];
+  for (const [area, s] of Object.entries(sc.areas || {})) {
+    const loaded = await d.evaluate(() => window.__zhishu.searchLoaded().slice());
+    const hits = await d.evaluate(async (q) => await window.__zhishu.searchRun(q.query, q.area), s);
+    const after = await d.evaluate(() => ({ loaded: window.__zhishu.searchLoaded().slice(), info: window.__zhishu.searchState().shards }));
+    areaRows.push({
+      area,
+      query: s.query,
+      want: s.file,
+      books: s.books,
+      hits: hits.length,
+      kinds: [...new Set(hits.map((h) => h.kind))],
+      allInArea: hits.every((h) => h.area === area),
+      first: hits[0] ?? null,
+      loadedBefore: loaded.length,
+      loadedAfter: after.loaded.length,
+      shard: after.info?.[area] ?? null,
+    });
+  }
+  check(
+    '六个学科各有关键词命中，且命中都落在本区',
+    areaRows.filter((r) => r.area !== 'tools').length === 5 &&
+      areaRows.filter((r) => r.area !== 'tools').every((r) => r.hits > 0 && r.allInArea),
+    areaRows.map((r) => ({ area: r.area, hits: r.hits, kinds: r.kinds, shard: r.shard })),
+  );
+  check(
+    '检索分片按区懒加载：查一区只拉一片，首屏不预取六片',
+    requests.search.length <= 6 && areaRows.every((r) => r.loadedAfter === r.loadedBefore + (r.books > 0 ? 1 : 0)),
+    { requests: requests.search.slice(), perArea: areaRows.map((r) => [r.area, r.loadedBefore, r.loadedAfter]) },
+  );
+  check(
+    '结果分「章节 / 概念 / 书」三类且带 file 精确落点',
+    new Set(areaRows.flatMap((r) => r.kinds)).size >= 3 && areaRows.every((r) => !r.first || !!r.first.file),
+    { kinds: [...new Set(areaRows.flatMap((r) => r.kinds))], first: areaRows[0]?.first },
+  );
+
+  const toolsRow = areaRows.find((r) => r.area === 'tools') ?? null;
+  const toolsUi = await d.evaluate(async () => {
+    window.__zhishu.searchShow('');
+    await window.__zhishu.searchRun('数学', 'tools');
+    return {
+      status: document.getElementById('search-status')?.dataset.status ?? null,
+      text: document.getElementById('search-status')?.textContent ?? '',
+      scope: document.getElementById('search-scope')?.textContent ?? '',
+      hits: window.__zhishu.searchHits().length,
+      open: window.__zhishu.searchOpen(),
+      shard: window.__zhishu.searchState().shards.tools ?? null,
+    };
+  });
+  const toolsBooks = toolsRow ? toolsRow.books : toolsUi.shard?.books ?? null;
+  check(
+    'tools 区空片容错：分片取到但库里 0 本，给明确提示不报错',
+    toolsBooks === 0 && toolsUi.shard?.missing === false && toolsUi.status === 'none' && toolsUi.hits === 0 &&
+      toolsUi.text.includes('0 本') && toolsUi.scope.includes('工具间') && toolsUi.open === true,
+    { row: toolsRow, ...toolsUi },
+  );
+
+  const groups = await d.evaluate(async () => {
+    await window.__zhishu.searchRun('算法', 'cs');
+    await new Promise((r) => setTimeout(r, 200));
+    return Array.from(document.querySelectorAll('#search-results .hit-group')).map((n) => n.textContent ?? '');
+  });
+  const statesUi = await d.evaluate(async () => {
+    const out = {};
+    const box = document.getElementById('search-input');
+    box.value = '';
+    await window.__zhishu.searchRun('', 'cs');
+    out.empty = {
+      status: document.getElementById('search-status')?.dataset.status ?? null,
+      text: document.getElementById('search-status')?.textContent ?? '',
+      resultsHidden: document.getElementById('search-results')?.hidden,
+    };
+    await window.__zhishu.searchRun('zxqvkjz', 'cs');
+    out.none = {
+      status: document.getElementById('search-status')?.dataset.status ?? null,
+      text: document.getElementById('search-status')?.textContent ?? '',
+      resultsHidden: document.getElementById('search-results')?.hidden,
+    };
+    return out;
+  });
+  check('空查询 / 无结果两态各有文案，不白屏', statesUi.empty.status === 'empty' && statesUi.empty.resultsHidden === true && statesUi.none.status === 'none' && statesUi.none.resultsHidden === true && statesUi.none.text.length > 6, statesUi);
+  await d.screenshot({ path: `${SHOTS}/search-desktop.png` });
+
+  // Ctrl+K 与 `/` 两个快捷键都能唤起，Esc 收起
+  const keys = {};
+  await d.evaluate(() => window.__zhishu.searchHide());
+  await d.waitForTimeout(150);
+  await d.keyboard.press('Control+k');
+  await d.waitForTimeout(250);
+  keys.ctrlK = await d.evaluate(() => ({ open: window.__zhishu.searchOpen(), focused: document.activeElement?.id === 'search-input' }));
+  await d.keyboard.press('Escape');
+  await d.waitForTimeout(200);
+  keys.afterEsc = await d.evaluate(() => window.__zhishu.searchOpen());
+  await d.keyboard.press('/');
+  await d.waitForTimeout(250);
+  keys.slash = await d.evaluate(() => ({ open: window.__zhishu.searchOpen(), focused: document.activeElement?.id === 'search-input' }));
+  check('Ctrl+K 与 `/` 都能唤起搜索并聚焦输入框，Esc 收起', keys.ctrlK.open && keys.ctrlK.focused && keys.afterEsc === false && keys.slash.open && keys.slash.focused, keys);
+  check('结果按类型分组给出表头', groups.length >= 2, groups);
+
+  // 点结果 → 带 file 精确取书（不吃 31 个跨仓重名 slug）
+  if (sc.dup) {
+    const dupHits = await d.evaluate(async (q) => {
+      await window.__zhishu.searchRun(q.query, 'ai');
+      return window.__zhishu.searchHits();
+    }, sc.dup);
+    const hit = dupHits.find((h) => h.file === sc.dup.file) ?? dupHits[0] ?? null;
+    const jumped = await d.evaluate(async () => {
+      await window.__zhishu.searchPick(0);
+      return window.__zhishu.readerState();
+    });
+    check(
+      `重名 bookSlug（${sc.dup.slug}，${(sc.dup.twins || []).length} 份镜像）按 file 精确取书`,
+      !!hit && jumped.open === true && jumped.file === sc.dup.file,
+      { query: sc.dup.query, twins: sc.dup.twins, hits: dupHits.length, want: sc.dup.file, got: jumped.file, slug: jumped.book },
+    );
+  }
+
+  // 判据 C4：搜索跳转后点返回，回到原书节点与原相机位姿
+  await d.evaluate(() => window.__zhishu.enterRoom('math'));
+  await d.waitForFunction(() => window.__zhishu.room() === 'math', null, { timeout: 12000 });
+  await d.waitForTimeout(700);
+  const beforeJump = await d.evaluate(() => ({ pose: window.__zhishu.pose(), room: window.__zhishu.room(), sel: window.__zhishu.readerState() }));
+  const jumpRow = areaRows.find((r) => r.area === 'general' && r.first) ?? areaRows.find((r) => r.first);
+  await d.evaluate(() => window.__zhishu.searchShow(''));
+  const jumpedHits = await d.evaluate(async (q) => await window.__zhishu.searchRun(q.query, q.area), { query: jumpRow.query, area: jumpRow.area });
+  await d.evaluate(async () => {
+    await window.__zhishu.searchPick(0);
+  });
+  const midJump = await d.evaluate(() => ({
+    reader: window.__zhishu.readerState(),
+    spot: window.__zhishu.searchSpot(),
+    room: window.__zhishu.room(),
+    pose: window.__zhishu.pose(),
+    chars: (document.getElementById('panel-body')?.innerText ?? '').length,
+  }));
+  await d.locator('#panel-close').click({ timeout: 8000 });
+  await d.waitForTimeout(700);
+  const afterJump = await d.evaluate(() => ({ pose: window.__zhishu.pose(), room: window.__zhishu.room(), spot: window.__zhishu.searchSpot() }));
+  const poseDrift = beforeJump.pose && afterJump.pose
+    ? Math.max(...['px', 'py', 'pz', 'tx', 'ty', 'tz'].map((k) => Math.abs(afterJump.pose[k] - beforeJump.pose[k])))
+    : Number.MAX_VALUE;
+  check(
+    '搜索跳转后点返回：所在区、相机位姿、选中书目全部复原（位姿漂移 <1e-6）',
+    midJump.spot !== null && afterJump.spot === null && afterJump.room === beforeJump.room && poseDrift < 1e-6 && midJump.chars > 120,
+    {
+      roomBefore: beforeJump.room,
+      roomAfterReturn: afterJump.room,
+      poseDrift: Number(poseDrift.toFixed(8)),
+      jumpedTo: midJump.reader?.file,
+      jumpedFrom: beforeJump.reader?.file,
+      bodyChars: midJump.chars,
+    },
+  );
+  await d.screenshot({ path: `${SHOTS}/search-return.png` });
+  check('检索跳转阶段仍零外部请求', requests.external.length === 0, requests.external.slice(0, 6));
 
   // degraded 书：不渲染空正文
   if (samples.degraded) {
@@ -411,6 +768,66 @@ try {
   }));
   check('降级视图无 WebGL 画布、SVG 成图', svgOnly.svg && !svgOnly.canvas, svgOnly);
   check('降级路径未加载 Three.js', (await m.evaluate(() => window.__zhishu.mode)) === 'flat');
+
+  // ---------------------------------------------------------------- 390 检索弹层（判据 C3 移动端可用 + 加载中态）
+  await mctx.route('**/dist/search-*.json', async (route) => {
+    await new Promise((r) => setTimeout(r, 600));
+    await route.continue();
+  });
+  const tapOpen = await m.evaluate(() => {
+    const btn = document.getElementById('search-open');
+    btn.click();
+    const r = btn.getBoundingClientRect();
+    return { open: window.__zhishu.searchOpen(), btn: { w: Math.round(r.width), h: Math.round(r.height) } };
+  });
+  await m.evaluate(() => {
+    const i = document.getElementById('search-input');
+    i.value = '算法';
+    i.dispatchEvent(new Event('input', { bubbles: true }));
+  });
+  await m.waitForTimeout(240);
+  const loadingUi = await m.evaluate(() => ({
+    status: document.getElementById('search-status')?.dataset.status ?? null,
+    text: document.getElementById('search-status')?.textContent ?? '',
+    scope: window.__zhishu.searchState().scope,
+  }));
+  await m
+    .waitForFunction(() => ['ready', 'none', 'error'].includes(document.getElementById('search-status')?.dataset.status), null, { timeout: 9000 })
+    .catch(() => undefined);
+  const readyUi = await m.evaluate(() => {
+    const box = document.getElementById('search-box').getBoundingClientRect();
+    const hits = Array.from(document.querySelectorAll('#search-results .hit'));
+    const first = hits[0]?.getBoundingClientRect();
+    return {
+      status: document.getElementById('search-status')?.dataset.status ?? null,
+      text: document.getElementById('search-status')?.textContent ?? '',
+      hits: hits.length,
+      loaded: window.__zhishu.searchLoaded().slice(),
+      box: { left: Math.round(box.left), right: Math.round(box.right), w: Math.round(box.width), h: Math.round(box.height) },
+      firstHit: first ? { w: Math.round(first.width), ellipsis: getComputedStyle(hits[0].querySelector('.label')).textOverflow } : null,
+      doc: document.documentElement.scrollWidth,
+    };
+  });
+  await m.screenshot({ path: `${SHOTS}/mobile390-search.png` });
+  check('触屏无快捷键时顶栏按钮仍可见可点', tapOpen.open && tapOpen.btn.w > 40 && tapOpen.btn.h > 20, tapOpen);
+  check('索引加载中给明确 loading 提示（不白屏、不空弹层）', loadingUi.status === 'loading' && loadingUi.text.length > 4, loadingUi);
+  check(
+    '390 视口搜索弹层可用且无横向溢出（scrollWidth 390、弹层不越界、结果可点）',
+    readyUi.doc === 390 && readyUi.box.left >= 0 && readyUi.box.right <= 390 && readyUi.hits > 0 && readyUi.firstHit?.ellipsis === 'ellipsis',
+    readyUi,
+  );
+  await m.locator('#search-results .hit').first().click({ timeout: 8000 });
+  await m.waitForFunction(() => window.__zhishu.readerState().open === true, null, { timeout: 12000 });
+  await m.waitForTimeout(400);
+  const mPick = await m.evaluate(() => ({
+    reader: window.__zhishu.readerState(),
+    closed: !window.__zhishu.searchOpen(),
+    doc: document.documentElement.scrollWidth,
+    chars: (document.getElementById('panel-body')?.innerText ?? '').length,
+  }));
+  check('390 触屏点结果即开正文，弹层收起且仍无横向溢出', mPick.closed && mPick.reader.open && mPick.doc === 390 && mPick.chars > 60, mPick);
+  await m.screenshot({ path: `${SHOTS}/mobile390-search-hit.png` });
+
   check('运行期零外部请求（移动端）', requests.external.length === 0, requests.external.slice(0, 6));
   await mctx.close();
 
@@ -432,6 +849,7 @@ const report = {
     total: requests.all,
     bodies: requests.bodies.length,
     bodyFiles: [...new Set(requests.bodies)].length,
+    searchShards: [...new Set(requests.search)],
     external: requests.external,
     blocked: requests.blocked,
   },

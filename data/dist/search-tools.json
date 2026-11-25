@@ -1,0 +1,1 @@
+{"schemaVersion":1,"area":"tools","generator":"tools/build_search_index.py","generatedAt":"2026-11-25T06:25:21+00:00","source":"data/manifest.json + data/sites/*.json","trim":"full","fields":["slug","file","repo","title","area","chapters","concepts","terms"],"counts":{"books":0,"chapters":0,"concepts":0,"terms":0},"books":[]}

@@ -5,11 +5,12 @@
 把 `data/manifest.json`、`data/_report.json` 与磁盘上的实际文件数固化成可重跑的判据。
 业务代码只读 `data/`（铁律 6），所以「读到的东西自不自洽」只能靠本脚本把关。
 
-四类校验：
+五类校验：
   1. totals 与实际文件数一致（sites / bodies / dist 分片 + 计数与数组长度对账）
-  2. 所有 manifest.json 的 schemaVersion 均为 2
-  3. 必填字段齐全（slug / title / chapters / totals，缺失或 null 即失败）
-  4. slug 在全部条目内唯一（主键 `repo::bookSlug` 与取数用的 `file`）
+  2. 检索分片 search-<area>.json 六片齐、单片 ≤300KB、counts 与 manifest 对账、跳转目标不悬空
+  3. 所有 manifest.json 的 schemaVersion 均为 2
+  4. 必填字段齐全（slug / title / chapters / totals，缺失或 null 即失败）
+  5. slug 在全部条目内唯一（主键 `repo::bookSlug` 与取数用的 `file`）
 
 用法：
     python tools/verify_data.py                     # 校验 ./data，逐项打印结果
@@ -32,6 +33,10 @@ DISCIPLINES = ("math", "ai", "chem", "cs", "general", "tools")
 STAT_KEYS = ("chapters", "concepts", "quizzes", "cards", "glossary")
 LEVELS = ("full", "degraded", "stats-only")
 REQUIRED_SCHEMA_VERSION = 2
+SEARCH_PREFIX = "search-"
+SEARCH_MAX_KB = 300
+SEARCH_BOOK_FIELDS = ("slug", "file", "title", "area")
+SEARCH_BOOK_ARRAYS = ("chapters", "concepts", "terms")
 
 
 def _stdout_utf8() -> None:
@@ -113,14 +118,16 @@ def check_totals(gate: Gate, data_dir: str, manifest: dict, report: dict | None)
         "每本书一个同名正文文件，前端按 `file` 取正文",
     )
 
-    shard_files = json_files(os.path.join(data_dir, "dist"))
+    dist_dir = os.path.join(data_dir, "dist")
+    search_names = [n for n in json_files(dist_dir) if n.startswith(SEARCH_PREFIX)]
+    shard_files = [n for n in json_files(dist_dir) if n not in search_names]
     shard_keys = [n[: -len(".json")] for n in shard_files]
     unknown = [n for n in shard_keys if n not in DISCIPLINES]
     missing = [d for d in DISCIPLINES if d not in shard_keys]
     gate.assert_(
         item,
         not unknown and not (set(missing) - {"tools"}),
-        f"data/dist/ 分片 {len(shard_files)} 份（六区 {list(DISCIPLINES)}），"
+        f"data/dist/ 结构分片 {len(shard_files)} 份（六区 {list(DISCIPLINES)}，检索分片另计 {len(search_names)} 份），"
         f"缺失 {missing or '无'}、清单外 {unknown or '无'}；tools 允许缺失",
         "批 1 实测 tools 六个仓全无 manifest，故 dist/tools.json 不存在",
     )
@@ -195,7 +202,95 @@ def _report_hint(dups: list[dict]) -> str:
     return f"{len(dups)} 组，组内条数分布 {dict(sizes)}"
 
 
-# ------------------------------------------------------------------ 2. schemaVersion
+# ------------------------------------------------------------------ 2. 检索分片
+
+def check_search_shards(gate: Gate, data_dir: str, manifest: dict) -> None:
+    """批 3.5 / 判据 C1：`data/dist/search-<area>.json` 六片齐、单片 ≤300KB、 counts 自洽。
+
+    业务代码只读 `data/`，所以「前端能不能按 file 取到正文、点 result 会不会跳空」
+    只能靠这里对账——检索索引与抽取产物一旦错位，运行期表现为「命中列表有、点开白屏」。
+    """
+    item = gate.item(f"检索分片 search-<area>.json 齐全自洽（六片、单片 ≤{SEARCH_MAX_KB}KB）")
+    dist_dir = os.path.join(data_dir, "dist")
+    site_dir = os.path.join(data_dir, "sites")
+    site_files = set(json_files(site_dir))
+    by_disc = Counter(s.get("discipline") for s in (manifest.get("sites") or []))
+
+    names = [n for n in json_files(dist_dir) if n.startswith(SEARCH_PREFIX)]
+    keys = [n[len(SEARCH_PREFIX): -len(".json")] for n in names]
+    missing = [d for d in DISCIPLINES if d not in keys]
+    extra = [k for k in keys if k not in DISCIPLINES]
+    gate.assert_(
+        item, not missing and not extra,
+        f"六片齐备 {sorted(keys)}" if not missing and not extra
+        else f"缺失 {missing or '无'}、清单外 {extra or '无'}",
+        "tools 区库内 0 本，仍要出空片——前端按区取片，缺片与空片的容错路径不同",
+    )
+
+    over = []
+    offset = []
+    bad_field = []
+    bad_target = []
+    sizes = []
+    for name, area in zip(sorted(names), sorted(keys)):
+        path = os.path.join(dist_dir, name)
+        kb = os.path.getsize(path) / 1024
+        sizes.append(f"{area} {kb:.1f}KB")
+        if kb > SEARCH_MAX_KB:
+            over.append(f"{name} {kb:.1f}KB")
+        rec = load_json(path)
+        if rec.get("area") != area or rec.get("schemaVersion") != 1 or not rec.get("generator"):
+            bad_field.append(f"{name}: area/schemaVersion/generator 不合格 → "
+                             f"{rec.get('area')!r}/{rec.get('schemaVersion')!r}/{rec.get('generator')!r}")
+            continue
+        books = rec.get("books") or []
+        counts = rec.get("counts") or {}
+        got = {
+            "books": len(books),
+            "chapters": sum(len(b.get("chapters") or []) for b in books),
+            "concepts": sum(len(b.get("concepts") or []) for b in books),
+            "terms": sum(len(b.get("terms") or []) for b in books),
+        }
+        if counts != got:
+            offset.append(f"{name}: counts={counts} ≠ 实测 {got}")
+        if len(books) != by_disc.get(area, 0):
+            offset.append(f"{name}: 书目 {len(books)} 条 ≠ manifest 该学科 {by_disc.get(area, 0)} 条")
+        for b in books:
+            for f in SEARCH_BOOK_FIELDS:
+                if not isinstance(b.get(f), (str, int)) or (isinstance(b.get(f), str) and not b.get(f)):
+                    bad_field.append(f"{name}::{b.get('slug')}: 字段 {f} 缺失/为空 → {str(b.get(f))[:30]!r}")
+            for f in SEARCH_BOOK_ARRAYS:
+                if not isinstance(b.get(f), list):
+                    bad_field.append(f"{name}::{b.get('slug')}: {f} 不是数组 → {str(b.get(f))[:30]!r}")
+            if b.get("area") != area:
+                bad_field.append(f"{name}::{b.get('slug')}: area={b.get('area')!r} 与所在片不符")
+            if b.get("file") not in site_files:
+                bad_field.append(f"{name}::{b.get('slug')}: file={b.get('file')!r} 在 data/sites/ 无同名正文")
+            ch_ids = {c.get("id") for c in (b.get("chapters") or [])}
+            for term in b.get("terms") or []:
+                ref = term.get("c")
+                if ref and ref not in ch_ids:
+                    bad_target.append(f"{name}::{b.get('slug')}: 术语「{term.get('t')}」指向不存在的章节 {ref!r}")
+            for c in b.get("concepts") or []:
+                if not c.get("id") or not c.get("name"):
+                    bad_target.append(f"{name}::{b.get('slug')}: 概念缺 id/name → {str(c)[:40]!r}")
+
+    gate.assert_(item, not over,
+                 f"单片体积均 ≤{SEARCH_MAX_KB}KB：{' / '.join(sizes)}"
+                 + (f"；超限 {over}" if over else ""),
+                 "超限按 full → titles-only → no-terms 三档裁剪长描述（见 tools/build_search_index.py --max-kb）")
+    gate.assert_(item, not offset,
+                 "每片 counts 与数组长度、片内书目数与 manifest 该学科条数全部一致"
+                 if not offset else f"对账不符 {offset[:4]} 共 {len(offset)} 处")
+    gate.assert_(item, not bad_field,
+                 "slug / file / title / area + chapters / concepts / terms 字段齐全，file 均有同名正文"
+                 if not bad_field else f"字段缺失或取数落空 {bad_field[:4]} 共 {len(bad_field)} 处")
+    gate.assert_(item, not bad_target,
+                 "术语的 c 一律落在同片同书的章节 id 上（抽不到就只落书总览，不猜）"
+                 if not bad_target else f"跳转目标悬空 {bad_target[:4]} 共 {len(bad_target)} 处")
+
+
+# ------------------------------------------------------------------ 3. schemaVersion
 
 def check_schema_version(gate: Gate, data_dir: str) -> None:
     item = gate.item(f"所有 manifest.json 的 schemaVersion 均为 {REQUIRED_SCHEMA_VERSION}")
@@ -223,7 +318,7 @@ def check_schema_version(gate: Gate, data_dir: str) -> None:
     )
 
 
-# ------------------------------------------------------------------ 3. 必填字段
+# ------------------------------------------------------------------ 4. 必填字段
 
 def check_required_fields(gate: Gate, data_dir: str, manifest: dict) -> None:
     item = gate.item("必填字段齐全（slug / title / chapters / totals）")
@@ -268,7 +363,7 @@ def check_required_fields(gate: Gate, data_dir: str, manifest: dict) -> None:
                  f"stats 与数组长度不一致的书：{stats_off} 本（契约以数组长度为准）")
 
 
-# ------------------------------------------------------------------ 4. slug 唯一
+# ------------------------------------------------------------------ 5. slug 唯一
 
 def check_slug_unique(gate: Gate, data_dir: str, manifest: dict, report: dict | None) -> None:
     item = gate.item("slug 在全部条目内唯一")
@@ -338,6 +433,7 @@ def main(argv: list[str] | None = None) -> int:
 
     gate = Gate()
     check_totals(gate, data_dir, manifest, report)
+    check_search_shards(gate, data_dir, manifest)
     check_schema_version(gate, data_dir)
     check_required_fields(gate, data_dir, manifest)
     check_slug_unique(gate, data_dir, manifest, report)

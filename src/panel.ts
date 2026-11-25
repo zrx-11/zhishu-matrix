@@ -1,4 +1,5 @@
 import { loadBody } from './data';
+import { forgetDiagrams, hydrateDiagrams } from './diagram';
 import { renderHtmlFragment, renderMarkdown } from './render';
 import type { BodyEntry, BodyFile, BookRecord, BookStats, ContentLevel, SiteEntry } from './types';
 
@@ -93,12 +94,10 @@ export async function openChapter(chapterId: string): Promise<void> {
     (kind === 'html' ? bar('正文为成品 HTML，公式不可还原') : '') +
       rendered.html +
       conceptChips(chapter.conceptIds ?? []) +
-      footer(`公式 ${rendered.mathCount} 处${
-        rendered.formulaFallbacks ? ` · 解析失败回退原文 ${rendered.formulaFallbacks} 处` : ''
-      }`, index),
+      footer(renderInfo(rendered), index),
   );
   hooks.onHud(
-    `${book.title || book.bookSlug} · ${chapter.title || chapterId} · 公式 ${rendered.mathCount} 处`,
+    `${book.title || book.bookSlug} · ${chapter.title || chapterId} · ${renderInfo(rendered)}`,
   );
 }
 
@@ -142,7 +141,7 @@ export async function openConcept(conceptId: string): Promise<void> {
     (fromChapter
       ? `<p class="dim">出自本章：<button type="button" class="linklike" data-chapter="${esc(fromChapter)}">回到章节正文</button></p>`
       : '') +
-    footer(`公式 ${rendered.mathCount} 处`, -1),
+    footer(renderInfo(rendered), -1),
   );
   hooks.onHud(`${book.title || book.bookSlug} · 概念 ${concept.title || conceptId}`);
 }
@@ -334,6 +333,14 @@ function bar(text: string): string {
   return `<div class="degrade-bar">${esc(text)}</div>`;
 }
 
+/** 页脚与 HUD 的渲染计数：公式、回退、图示三项按有无显示 */
+function renderInfo(rendered: { mathCount: number; formulaFallbacks: number; diagramCount: number }): string {
+  const bits = [`公式 ${rendered.mathCount} 处`];
+  if (rendered.formulaFallbacks) bits.push(`解析失败回退原文 ${rendered.formulaFallbacks} 处`);
+  if (rendered.diagramCount) bits.push(`图示 ${rendered.diagramCount} 处`);
+  return bits.join(' · ');
+}
+
 // ---------------------------------------------------------------- DOM
 
 function show(visible: boolean): void {
@@ -357,9 +364,12 @@ function showCrumb(chapterTitle: string | null): void {
 function setBody(html: string): void {
   const root = els.body;
   if (!root) return;
+  forgetDiagrams(root);
   root.innerHTML = html;
   root.scrollTop = 0;
   wire(root);
+  // 判据 A2：正文落地后只登记待渲染围栏，容器进入视口才把 mermaid 分包拉进来
+  hydrateDiagrams(root);
 }
 
 function wire(root: HTMLElement): void {

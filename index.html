@@ -16,7 +16,9 @@
       <header id="topbar">
         <button id="btn-home" type="button" aria-label="返回大厅">大厅</button>
         <div id="where" aria-live="polite">中央大厅</div>
-        <input id="search" type="search" placeholder="搜索（批 4 接入）" aria-label="搜索" disabled />
+        <button id="search-open" type="button" aria-label="打开搜索" aria-haspopup="dialog">
+          搜索<span class="kbd">Ctrl K</span>
+        </button>
       </header>
 
       <main id="stage">
@@ -43,6 +45,18 @@
       </aside>
 
       <footer id="hud"></footer>
+
+      <div id="search-overlay" hidden role="dialog" aria-modal="true" aria-label="站内搜索">
+        <div id="search-box">
+          <div id="search-line">
+            <input id="search-input" type="search" placeholder="书名 / 章节 / 概念 / 术语" aria-label="搜索关键词" autocomplete="off" />
+            <button id="search-close" type="button" aria-label="关闭搜索">×</button>
+          </div>
+          <div id="search-scope" aria-live="polite"></div>
+          <ul id="search-results" role="listbox" aria-label="搜索结果" hidden></ul>
+          <div id="search-status" aria-live="polite"></div>
+        </div>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
