@@ -80,3 +80,48 @@
 | 2026-11-25 | 390 搜索弹层溢出怎么修 | `#search-box` 及每条子项显式 `min-width:0`，长文本配 `overflow-wrap:anywhere` | grid/flex 项自动最小尺寸取 min-content，一条 40 字中文标题把盒子撑到 551px 而 `document.scrollWidth` 仍报 390 | 给盒子写死 `width:390px`（大屏就废了） |
 | 2026-11-25 | 自检截图目录 | 本批落 `_work/shots-batch35/`（25 张），不覆盖批 3 的 `_work/shots-batch3/` | 两批证据要能各自回看对比；目录属 `_work/`（gitignore），不影响版本库 | 改回 `PROBE_SHOTS` 常量即切目录 |
 | 2026-11-25 | 门槛怎么跑才算数 | 收尾一律完整 `python tools/selfcheck.py`，不带 `--skip-build` | 本批三处改动（空片文案、返程落点、390 CSS）都要重建才生效，`--skip-build` 复用旧 dist 直接验成 3 项失败 | 只在改探针本身时用 `--skip-build` 快速回环 |
+| 2026-11-25 | 收敛前先量什么（批 6 阶段 A） | 用无头 Edge 跑「大厅 → 六分区 → 开 7 本书 → 五类图型 → 六区搜索」全路径，逐条记 data 族的请求数，结论落 `_work/measure-requests.json` | 前置清单说「16.7MB 数据拷贝是死重」是估计值；不测就删会先删出 bug 再发现删错（详见 pitfalls 34） | 重跑 `node _work/measure_data_requests.mjs`，脚本只读不改产物 |
+| 2026-11-25 | 「拷贝收敛」够不着 60% 门槛怎么办 | 功能全留，改**传输形态**：构建期 gzip 预压 + 客户端 `DecompressionStream` 还原 | 实测四族全被运行期取到，纯删最多省 0.02 MiB；预压把 15.75 MiB 数据族压到 4.58 MiB，配合 mermaid 裁剪到 9.85 MiB（43.1%） | 关掉 `shipData` 的 `compress: true` 即回明文整拷（+11.17 MiB） |
+| 2026-11-25 | `sites/` 3.72 MiB 删不删 | **留**（并预压到 0.86 MiB） | 实测运行期 55 次 / 去重 54 本请求，任务书给的条件是「若运行期零请求才可删」，前提不成立；把它并进学科分片会把 30KB 的单本取用变成整区 1MB 级取用 | 删 `SHIP` 里 `sites` 那行 + `bookRecord()` 回落到分片内取结构（阅读层会断，需同步改判据） |
+| 2026-11-25 | `_report.json` / `raw/` 进不进产物 | 不进 | 实测运行期 0 次请求；它是抽取器的诊断件，前端不读 | `SHIP` 加一行即可恢复整拷 |
+| 2026-11-25 | `manifest.json` 要不要也预压 | 不压，保持明文 | 它在首屏引导链上，压了就等于把「浏览器有没有解压能力」变成页面起不起得来的前置条件 | 改 `SHIP` 首行 `compress: true` + 文件名带 `.gz` |
+| 2026-11-25 | dev 与 build 两套数据形态怎么对齐 | `publicDir: command === 'serve' ? 'data' : false` + `src/data.ts` 按 `import.meta.env.PROD` 决定 `.gz` 后缀 | 一刀切 `false` 会让 dev 每改一处正文都要重新构建；两处各一行分支，调用点不动 | 改回 `publicDir: 'data'` 即整拷（体积门槛随之失证） |
+| 2026-11-25 | `.gz` 会不会被托管层透明解压 | 读侧两种都吃：`gunzip` 先验魔数 `1f 8b`，非魔数按明文走 | 托管层加 `Content-Encoding: gzip` 时浏览器已解压，再喂 `DecompressionStream` 必炸；只在系统边界做判定，内部数据不加防御性校验 | 删该分支即回到「只认预压」形态 |
+| 2026-11-25 | 分片取不到时为何不报 404 | `getJson` 见 `content-type: text/html` 直接抛「拿到的是 HTML（产物缺这个文件）」 | SPA 回落把缺失文件伪装成 200 + HTML，`res.ok` 判不出来，`JSON.parse` 只给一句 `Unexpected token '<'`，把「缺文件」和「解压失败」混成同一种病 | 删该判定即回到 parse error 难排（deploy.md 4.1 随之失效） |
+| 2026-11-25 | mermaid 白名单剔哪些 | 只留库里实际出现的 5 类（flowchart / graph / sequenceDiagram / mindmap / xychart-beta）及其布局依赖；`classDiagram`/`stateDiagram`/`er`/`gantt`/`pie`/`cynefin`/`usecase`/`architecture`/`gitGraph`/… 的 `import()` 换成必定失败的 `Promise.reject` | 57 片 5.1MB 里绝大部分库里 0 处使用；替换点是注册表里的动态 import，类型侦测仍在，未打包类型自然落进既有 `fail()` 回退支（源码 + 一行原因） | 删 `plugins` 里的 `mermaidWhitelist()` 即回全量分包（+1.8 MiB） |
+| 2026-11-25 | `elk` 1.45 MiB 留不留 | **留** | mermaid 12 里 flowchart 默认布局就是 elk，实测围栏确实取它；把 flowchart 改成 dagre 是**视觉行为变更**，不属于打包收敛 | 改 `KEEP` 前需先在 `src/diagram.ts` 固定 dagre 布局并逐类复核出图形态 |
+| 2026-11-25 | `swimlane` 布局包剔不剔 | 剔（120 KB） | 全库 882 个围栏无一处用 swimlane 图型，也没有 frontmatter 覆写布局；`getRegisteredLayoutAlgorithm` 会自行回落 dagre | 从 `drop.set('swimlanes', …)` 删该行 |
+| 2026-11-25 | 白名单外图型怎么验（库里 0 个样本） | 探针注入一条 `classDiagram` 围栏，验「不出 SVG + 容器给源码 + 原因文本含 `未打包`」，不改 `data/` 也不新增图型样本 | 判据要的是回退行为成立；库里没有该类型就不能当内容样本混进 `图型样本 ≥5 类` 那条（铁律：不硬造） | 删 `selfcheck_probe.mjs` 里 `unbundled` 那一段（判据即失证） |
+| 2026-11-25 | KaTeX 在产物里出现两份 | 记下不动：entry 里是本项目 `katex@0.16.47`，`assets/katex-*.js` 256 KiB 是 `mermaid@12.3.0` 自带的 `katex@0.18.11` | 两份版本不同、职责不同（前者渲染正文公式，后者供 mermaid 公式标签），合并要改依赖版本，属功能变更不属打包收敛 | 需要时在 `package.json` 加 overrides 统一版本，代价是 mermaid 公式标签需重测 |
+| 2026-11-25 | 门槛脚本会不会被 `.gz` 瞎掉 | 三处跟着改：`check_offline.py` 解压后扫（并打印「透明解压 269 个」）、`bundle_evidence()` 两种后缀都认、探针路由 glob 从 `search-*.json` 改 `search-*` | 三处原本按明文 `.json` 认数据，不改就是静默降覆盖率 / 判据假红 / 验不到 loading 态（详见 pitfalls 35） | 逐处回退即回到只认明文 |
+| 2026-11-25 | 预压后怎么保证「只是换了形态」 | 新增门槛项：产物 `.json.gz` 解压后与 `data/` 同名文件逐字节比对，另加 `manifest.json` 明文比对与「产物凭空多文件」检查 | 270 个文件实测全等；不比对就只能靠肉眼信 gzip 往返无损 | 删 `ship_integrity()` 调用即回退到不校验（会把契约写坏而无人知） |
+| 2026-11-25 | 体积门槛落成什么形式 | `selfcheck.py` 新增 `dist_size_evidence()`：总量 ≤ 22.83 MiB × 60%，且产物内不得残留明文数据拷贝与 `_report.json` / `raw/` | 判据要求「≤60% 且给分族表」，写成断言 + 分族打印，数字从报告来不靠手写 | 改 `DIST_MAX_MIB` 常量即放宽（放宽即失证） |
+| 2026-11-25 | 发布动作本批做不做 | **不做**：只出 `docs/deploy.md`，命令与配额核对写清楚 | 发布要账号、属远端写操作（必须停的第 3、4 类）；任务书也只要求「不实际上传」 | 按 deploy.md 第三节跑 `prepare_site` → `publish_site` |
+| 2026-11-25 | 站点清单字段空摘要（前置 2）本批补不补 | **不补**，按原样如实记录：`chapters[].core` 78/1,169、`concepts[].brief` 100/765 非空 | 补齐要重跑抽取器，命中必须停的第 1 类；且禁止用正文反向编造摘要（铁律 7） | 后续单开一轮抽取增强：`extract.py` 抽 `core`/`brief` → 重跑 `build_search_index.py` |
+| 2026-11-25 | 自检截图目录（批 6） | 改落 `_work/shots-batch6/`，不覆盖批 3.5 的 25 张 | 两批证据各自可回看对比；目录在 gitignore 内 | 改回 `PROBE_SHOTS` 常量即切目录 |
+
+---
+
+## 批 6 阶段 A 基线（实测，非估算）
+
+采集：`node _work/measure_data_requests.mjs` → `_work/measure-requests.json`（无头 Edge，走「大厅 → 六分区 → 开 7 本书 → 五类图型各一章 → 六区各搜一次」，桌面 + 390 触屏双上下文）。时间戳 2026-11-25T07:28Z。
+
+`dist/` 本轮开始前：**22.83 MiB / 391 文件**。分族与运行期请求：
+
+| 族 | 源体积 | 文件数 | 运行期请求（distinct / 次数） | 判定 |
+|---|---|---|---|---|
+| `bodies/` | 7.42 MiB | 129 | 7 / 10（本轮样本） | 留，判据 C1 按需取 |
+| `sites/` | 3.72 MiB | 129 | **54 / 55** | 留（「若零请求才可删」前提不成立） |
+| `dist/` 结构分片 | 4.06 MiB | 5 | 5 / 6 | 留，进分区取 |
+| `dist/` 检索分片 | 0.55 MiB | 6 | 6 / 7 | 留，发起搜索才取 |
+| `manifest.json` | 0.05 MiB | 1 | 1 / 3 | 留，首屏引导 |
+| `_report.json` | 0.017 MiB | 1 | **0 / 0** | 剔出产物 |
+| `raw/` | 0 | 0 | 0 / 0 | 剔出产物 |
+| `assets/` | 7.01 MiB | 119 | 16 / 18（首屏仅 entry + css） | 留，其中 mermaid 子树 5.1 MiB 可裁 |
+
+零请求族合计 **0.02 MiB**——即：靠「少拷」最多到 22.81 MiB（100.08% → 99.9%），60% 门槛在只删不压的路线上不可达。
+可选路线只有三条：删功能（判据必红，排除）、裁 `assets/`（1.8 MiB 上限，不够）、**压数据**（唯一够得着的杠杆）。
+故本批按「功能全留 + 预压 + mermaid 白名单」走，落点 9.85 MiB / 43.1%。
+
+`neverRequested` 合计 12.76 MiB / 302 文件（按本轮样本路径），其中 122 本 bodies、75 份 sites 属「样本没点到但运行期会点到」，
+不是死重——这条是判据 B1「不能误删按需正文」的直接依据，别按样本命中率删文件。
