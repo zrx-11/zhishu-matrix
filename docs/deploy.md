@@ -200,3 +200,21 @@ qodercn sites get_publish_status --input '{"actionId":"<同一个>"}'   # 需 pu
 
 同目录已有绑定，重发**不要**再传 `createNewSite`；内容变了必须换新 `actionId`（旧的快照不可变）。
 
+## 八、第二次发布（批 8 上线，2026-11-25）
+
+快照 **9.903 MiB / 347 文件**，`actionId` `bae90e4a-f301-48cb-9d6f-ff41a56b38dd`，`publishOperationId` `01a2133f-f7a0-7c38-b909-659ae308cd02`，读到 `published: true` / `operation.committed: true` / `readiness: publication_completed`。
+
+流程修正一条：第七节写的「`descriptorStatus` 为 pending 时用同一 `actionId` 重试一次」，这次**重试一次仍是 pending**，没有第二次就翻成 `written`。真正的判据不是 `descriptorStatus`，而是 `get_publish_status` 里的 `artifactReady` 与 `canPublish`——那次返回直接是 `artifactReady: true` / `dependenciesReady: true` / `preparation.state: ready` / `operation.state: succeeded`，随后 `publish_site` 一次成功。所以下次重发卡在 pending 时，不要反复跑 `prepare_site`（它只会上传/复用冻结 ZIP），直接去查发布状态。
+
+另一条：`access_mode` 在重发后**保持 public**，不需要再跑 `update_access_policy`。策略是绑在站点上的，不随快照回落到 private——第一节记录的「发布后必先转 public」只在首次建站时成立。
+
+线上核对（不是看返回码，是看内容对不对）：
+
+| 项 | 实测 |
+|---|---|
+| `index.html` | 59,930 B（本地 2,888 B + 托管层注入的水印脚本），引用 `/assets/index-u5Xo0vrr.js` |
+| `/assets/index-u5Xo0vrr.js`、`/assets/scene3d-aJ6DEk3x.js` | 200 + `application/javascript` |
+| `/dist/math.json.gz`、`/dist/search-cs.json.gz` | 200 + `application/octet-stream`（仍不带 `Content-Encoding`） |
+| `/bodies/*.json.gz` | 200；注意正文文件名形如 `food-zhishu--inorganic-analytical-chem.json.gz`（`<repo>--<slug>`，**一本一个文件**，不按章拆），拼 `--ch01` 会 404 |
+| `/manifest.json` | 200 + `application/json` |
+
