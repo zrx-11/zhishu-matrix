@@ -23,7 +23,7 @@ done — 自检 **145 项全绿**（`python tools/selfcheck.py`，报告 `_work/
   七张贴图 `generateMipmaps` 全 true、`anisotropy` 4–8（设备上限 16）；**零新增外部贴图文件**。
 - `dist/` **9.912 → 9.93 MiB / 347 文件（+18 KiB）**，上限 10.6 MiB（占 93.6%）；文件数第六批未变 = 零新增资产、零新增分包。
 - `tools/check_offline.py` 违规 **0**；控制台错误 0、页面异常 0、外部请求 0；390 `scrollWidth === 390`（含漫游态）。
-- **未 push、未重发线上**（按要求；`git remote -v` 亦为空）。本地 5 次 commit：交付要求的 `feat(walk)` / `chore(work)` / `docs` 三个，另两次只补 `_work/` 记录。
+- **未 push、未重发线上**（按要求）。远端 `origin` 是存在的（`github.com/zrx-11/zhishu-matrix`，`origin/main = c7c93eb`），main 现在领先 **6** 个提交待推；早前两份记录写成「`git remote -v` 为空」是把「不该推」记成了「推不了」，已改准。本地共 **6** 次 commit：交付要求的 `feat(walk)` / `chore(work)` / `docs` 三个改动提交，另 3 次只改 `_work/` 记录（数字口径、提交次数、远端状态）。
 
 ## 九条新断言实测数字（全部来自本次门槛报告，逐条列数）
 
@@ -118,5 +118,5 @@ done — 自检 **145 项全绿**（`python tools/selfcheck.py`，报告 `_work/
    架下阴影），要先看 `qualityTier()` 是否给漫游态也出降档档。
 6. **批 5 生成层**仍未接入；工具间区 0 本的空书架在漫游态里现在能走过去了（`shelf 3` 盒不挡空架位），
    但空架没有「此处可生成」的准星提示。
-7. 6.1 发布仍待人工，且按要求**本批未 push、未重发线上**：`docs/deploy.md` 第三节，重发前必须新鲜 `dist/`
+7. 6.1 发布仍待人工，且按要求**本批未 push（main 领先 `origin/main` 5 个提交）、未重发线上**：`docs/deploy.md` 第三节，重发前必须新鲜 `dist/`
    （当前 `dist/` 即批 11 落点构建）。

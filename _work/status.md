@@ -8,13 +8,13 @@
 | D · 触屏分区 | done | 390 左半屏拖 = 摇杆（96 底盘 / 40 把手 / 行程 48 / 死区 0.18，指落点出现、松指归中隐藏），右半屏拖 = 只转头，轻点走准星；**判序先位移（<8px）后时长（<700ms）**；分屏线 `innerWidth/2` 只写在 design 15.5。实测左 (90,620)→净位移 **0.70**、右 (300,420)→**Δyaw 46.48° / 位移 0 采样**、轻点 (195,420)→开 ch03、长按 900ms→`action drag` 不开；`scrollWidth 390`、摇杆盒 x42 w96 与学科条顶边 771 不相压 | 无 |
 | E · 门槛断言 | done | 探针 108 → **126 条**（新增 18、删除 0），`SPACE_ASSERT_MIN 108 → 126`、gate 标签与页脚改「批 11」；九条必给数字的断言全部带实测读数；碰撞口径（OBB + 入面判定 + 72 方位扫满）与触屏判序（采样坐标、判序）写进 `_work/decisions.md` | 无 |
 | F · 近景质量 | done | `applyWalkSurfaces()` 换漫游材质对：石板地面（`stoneTexture`，repeat 14）俯瞰 10.8 → **37.6 texel/单位**；墙/天花/藻井/走廊壳/体量 `Texture.clone()`（共享 `source`）+ `emissive 0xffe9c9 @0.11–0.17`；七张图 `miptrue`、`an 4–8`（上限 16）；**零新增外部贴图**。近景 9 张 `walk-*.png`（大厅/走廊/过道/门洞/抬头/准星命中 + 390 摇杆/转头/长按） | 无 |
-| G · 文档与记账 | done | `docs/design.md` 第十五节六小节；`docs/pitfalls.md` 已验证 **72–77** + 排查 42–46；`docs/deploy.md` 2.1 批 11 行（**9.93 MiB / 347 文件 / +18 KiB**）；README 状态表新增「第一人称漫游」行 + 门槛项数 110→**145**；AGENTS 批次表 + 铁律摘要第 9 条 + src 树补 `walk.ts`；`.qoder` / `.lingma` 两份铁律全文同步新增「第一人称漫游（批 11）」；本地 5 次 commit（`feat(walk)` / `chore(work)` / `docs` 三个 + 两次纯记录补交），未 push | 无 |
+| G · 文档与记账 | done | `docs/design.md` 第十五节六小节；`docs/pitfalls.md` 已验证 **72–77** + 排查 42–46；`docs/deploy.md` 2.1 批 11 行（**9.93 MiB / 347 文件 / +18 KiB**）；README 状态表新增「第一人称漫游」行 + 门槛项数 110→**145**；AGENTS 批次表 + 铁律摘要第 9 条 + src 树补 `walk.ts`；`.qoder` / `.lingma` 两份铁律全文同步新增「第一人称漫游（批 11）」；本地 6 次 commit（`feat(walk)` / `chore(work)` / `docs` 三个改动提交 + 3 次纯记录补交），未 push | 无 |
 | 回归 · 轨道基线 | done | 批 2–10 的 108 条按轨道口径原样绿；控制台错误 0、页面异常 0、外部请求 0、`check_offline.py` 违规 0；帧率：漫游态桌面 **57.1** / 轨道大厅 61.3 / 数学区 51.4 / 390 大厅 119.4 | 无 |
 | 收尾修的两处非本批损伤 | done | ① `spacekit.rugTexture` 的注释与签名被并成一行（早前编辑丢了换行）→ 补回；② 三条首跑红的漫游断言全是谓词写错（`hallDoorJamb` 正则、`closeupReport` 需合并 room+hall、长按 `action` 被时长判据翻成 `drag`）→ 改判据，行为零放宽 | 无 |
 | 铁律核对 | done | `data/` 一字未动、`docs/schema.md` 未改、目录结构未动；无 2D 降级路径；AI 生成内容仍未接入（批 5） | 无 |
 | 批 5 · 生成层 | pending | Agent App + 落库，标「AI 现场生成 · 未经校验」，不进依赖图与诊断链；工具间区 0 本的空书架现在能走过去，但没有「此处可生成」的准星提示 | 建议门槛加「生成内容不出现在检索结果与图示队列」 |
 | 6.1 · Sites 发布 | blocked | 产物就绪，命令与配额核对见 `docs/deploy.md` 第三节；**本批按要求未 push、未重发线上站点** | 发布由主控决定；重发须先本地 `npm run build` 出新鲜 `dist/` |
-| 远端 push | blocked | `git remote -v` 为空 | 无远端可推（第 3 类必须停）；本批只 commit |
+| 远端 push | 按要求不做 | `origin = github.com/zrx-11/zhishu-matrix`、`origin/main = c7c93eb`，main 领先 **6** 个提交 | 任务书写明「不 push、不重发线上」；推送属第 3 类需人工确认。早前记成「远端为空」是错的——**「不该推」不等于「推不了」**，已改准 |
 | 后台进程 | idle | 自检自带临时静态服务，跑完即关；手测脚本 `_work/*_try.mjs` 已删，其近景 A/B 取证 15 张 `f-*.png` 并入 `_work/shots-batch11/`（该目录现 53 张） | 手测走 `npm run preview`（`.gz` 形态）或 `npm run dev`（明文） |
 
 ## 下一步
