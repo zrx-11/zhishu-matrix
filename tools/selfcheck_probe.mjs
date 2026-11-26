@@ -241,6 +241,25 @@ try {
     { ink: mini.ink, zones: mini.state?.zones?.length, camera: mini.state?.camera },
   );
 
+  // ---------------------------------------------------------------- 批 10 B：桌面大厅补光三账
+  // 判据 6/7/8。采样点固定在世界坐标（藻井环 r=40.8 的梁轴 vs 扇板轴、门内 r=38 vs 门外 r=50 地面、
+  // 中央地面三圈），每类多点平均后读回 0–255；整帧 p5 走 sampleLuminance 的 96×96 网格。
+  // 放在 WASD 平移之前——探针按当前机位投影世界点，机位一动采样窗就跟着动。
+  const hallLight = await d.evaluate(() => window.__zhishu.hallLightProbe());
+  await d.screenshot({ path: `${SHOTS}/hall-light.png` });
+  log.push(
+    `大厅补光：梁 ${hallLight.beam} / 板 ${hallLight.panel} 差 ${hallLight.beamDiff}/255 · ` +
+      `门内 ${hallLight.doorIn} / 门外 ${hallLight.doorOut} 差 ${hallLight.doorDiff}/255 · ` +
+      `地面总览均值 ${hallLight.groundMean}（最低 ${hallLight.groundMin}）· 整帧 p5 ${hallLight.frameP5} p50 ${hallLight.frameP50} 暗像素比 ${hallLight.darkRatio}`,
+  );
+  check(
+    '批 10 B1 藻井梁与井板明度可分（差 ≥8/255，地面总览图均值 ≥0.08）',
+    hallLight.beamDiff >= 8 && hallLight.groundMean >= 0.08,
+    hallLight,
+  );
+  check('批 10 B2 六个门洞内外明度可分（差 ≥10/255）', hallLight.doorDiff >= 10, hallLight);
+  check('批 10 B3 补光不是整屏提亮（大厅整帧 p5 ≤0.03）', hallLight.frameP5 <= 0.03, hallLight);
+
   // WASD 平移：位移改变、朝向不变
   await d.evaluate(() => window.__zhishu.wake());
   await d.waitForTimeout(1400);
@@ -500,6 +519,30 @@ try {
     'faceIndex 区间映射与实时射线一致（点击时零线性搜索，书脊不被光尘遮挡）',
     spinePicks.length >= 5 && spinePicks.every((p) => p.got === p.want && p.kind === 'chapter'),
     spinePicks,
+  );
+
+  // ---------------------------------------------------------------- 批 10 C1：题签宽度双证
+  // 图集参数：SPINE_PLATE_RECT.w / 逻辑格宽（32）= 画的占比；渲染实测：题签正面 7 条跨脊扫描线找暗带，
+  // 取中位比（单条会被横贯金线干扰，中位比才稳）。两条都 ≤0.65 才判过。
+  const plateSpec = await d.evaluate(() => window.__zhishu.spinePlateSpec());
+  const plateParam = plateSpec.w / plateSpec.cellW;
+  const plate = await d.evaluate(() => {
+    const z = window.__zhishu;
+    z.focusSpine(2, 3.4);
+    return z.spinePlateProbe(2);
+  });
+  await d.waitForTimeout(250);
+  await d.screenshot({ path: `${SHOTS}/spine-plate-width.png` });
+  await d.evaluate(() => window.__zhishu.enterRoom('math'));
+  await d.waitForTimeout(600);
+  log.push(
+    `题签宽度双证：图集绘制 ${plateSpec.w}/${plateSpec.cellW} = ${plateParam.toFixed(4)} · ` +
+      `渲染实测中位比 ${plate?.ratio}（脊 ${plate?.spinePx}px / 签 ${plate?.platePx}px）· 七线 ${JSON.stringify(plate?.ratios)}`,
+  );
+  check(
+    '批 10 C1 题签只占脊宽 ≤0.65（图集参数 + 渲染实测双证）',
+    plateParam <= 0.65 && !!plate && plate.ratio <= 0.65 && plate.spinePx >= 80,
+    { param: plateParam, spec: plateSpec, probe: plate },
   );
   check('分区浏览阶段零正文请求', requests.bodies.length === 0, requests.bodies.slice(0, 5));
   const mmRoom = await mermaidChunks(d);
@@ -890,6 +933,13 @@ try {
     contrasted.length >= 5 && contrasted.every((r) => r.min >= 4.5),
     contrastRows.map((r) => ({ area: r.area, books: r.books, min: r.min, p50: r.p50 })),
   );
+  // 批 10 C2：把下限从 AA 4.5 抬到 AAA 12——题签收窄到 0.625 后字口仍在暗底板上，六区（有书的）
+  // 最小值必须全部 ≥12，3 米复读才有余量（批 9 实测 15.2–16.95，本批题签变窄后复测）。
+  check(
+    '批 10 C2 书脊字口反差逐区 ≥12（WCAG AAA 级，有书的区）',
+    contrasted.length >= 5 && contrasted.every((r) => r.min >= 12),
+    contrastRows.map((r) => ({ area: r.area, books: r.books, min: r.min, p50: r.p50 })),
+  );
 
   await d.evaluate(() => window.__zhishu.enterRoom('math'));
   await d.waitForTimeout(1200);
@@ -1194,6 +1244,67 @@ try {
   );
   const wMobileHall = await scrollWidth(m);
   check('390 大厅 scrollWidth === 390', wMobileHall.doc === 390, wMobileHall);
+
+  // ---------------------------------------------------------------- 批 10 A：竖屏构图反算（判据 1/2/5）
+  // 主体 = 八角壳 16 点 + 六门 24 点 + 六走廊端点 24 点 + 六门签 24 点，投到 NDC 取包络；
+  // 底部 UI = 小地图 + 房间栏 + hud 提示条 三者的并集带（顶边取最高者），重叠按主体屏幕矩形算面积比。
+  const hallSubject = await m.evaluate(() => {
+    const z = window.__zhishu;
+    z.holdMinimap(true);
+    const sub = z.subjectBox('hall');
+    const lum = z.sampleLuminance(0, 0, 1, 1);
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const rect = (id) => {
+      const el = document.getElementById(id);
+      if (!el || el.hidden) return null;
+      const r = el.getBoundingClientRect();
+      return r.height > 0 ? { top: r.top, h: r.height, w: r.width } : null;
+    };
+    const uis = { roombar: rect('roombar'), minimap: rect('minimap'), hud: rect('hud') };
+    const bandTop = Math.min(...Object.values(uis).filter(Boolean).map((r) => r.top));
+    const [nx0, nx1, ny0, ny1] = sub.ndc;
+    const sx0 = ((nx0 + 1) / 2) * vw;
+    const sx1 = ((nx1 + 1) / 2) * vw;
+    const sy0 = ((1 - ny1) / 2) * vh;
+    const sy1 = ((1 - ny0) / 2) * vh;
+    const ix = Math.max(0, Math.min(sx1, vw) - Math.max(sx0, 0));
+    const iy = Math.max(0, Math.min(sy1, vh) - Math.max(bandTop, sy0));
+    const subArea = Math.max(1, (Math.min(sx1, vw) - Math.max(sx0, 0)) * (Math.min(sy1, vh) - Math.max(sy0, 0)));
+    return {
+      sub,
+      dark: lum.darkRatio,
+      bandH: Number((vh - bandTop).toFixed(1)),
+      bandPct: Number((((vh - bandTop) / vh) * 100).toFixed(1)),
+      overlapPct: Number(((ix * iy) / subArea * 100).toFixed(1)),
+      uis,
+      vw,
+      vh,
+    };
+  });
+  await m.waitForTimeout(120);
+  await m.evaluate(() => window.__zhishu.holdMinimap(false));
+  log.push(
+    `390 大厅主体：V ${hallSubject.sub.v} H ${hallSubject.sub.h}（NDC ${JSON.stringify(hallSubject.sub.ndc)}）· ` +
+      `底部 UI ${hallSubject.bandH}px / ${hallSubject.bandPct}% · 与主体重叠 ${hallSubject.overlapPct}% · 纯黑 ${(hallSubject.dark * 100).toFixed(2)}%`,
+  );
+  check(
+    '批 10 A1 390 大厅主体竖向占屏 ≥50%（壳+走廊+门签投影包络）',
+    hallSubject.sub.v >= 0.5,
+    { v: hallSubject.sub.v, h: hallSubject.sub.h, ndc: hallSubject.sub.ndc },
+  );
+  check(
+    '批 10 A2 390 大厅主体横向占屏 ≥75% 且六门洞全在画内',
+    hallSubject.sub.h >= 0.75 &&
+      (hallFrameGroups.doors?.total ?? 0) === 6 &&
+      hallFrameGroups.doors.in === 6,
+    { h: hallSubject.sub.h, doors: hallFrameGroups.doors },
+  );
+  check(
+    '批 10 A5 390 底部 UI 合计高度 ≤22% 且与主体投影重叠 ≤10%',
+    hallSubject.bandPct <= 22 && hallSubject.overlapPct <= 10,
+    { bandPct: hallSubject.bandPct, overlapPct: hallSubject.overlapPct, uis: hallSubject.uis, vh: hallSubject.vh },
+  );
   check(
     '390 窄屏画质档：DPR ≤1.5、bloom 关、光尘按预算截断',
     mobileMount.quality?.name === 'mobile' &&
@@ -1232,6 +1343,29 @@ try {
   );
   const wMobileRoom = await scrollWidth(m);
   check('390 阅览室 scrollWidth === 390', wMobileRoom.doc === 390, wMobileRoom);
+
+  // ---------------------------------------------------------------- 批 10 A：阅览室主体占屏（判据 3/4）
+  const roomSubject = await m.evaluate(() => {
+    const z = window.__zhishu;
+    const sub = z.subjectBox('room');
+    const lum = z.sampleLuminance(0, 0, 1, 1);
+    return { sub, dark: lum.darkRatio };
+  });
+  log.push(
+    `390 阅览室主体：V ${roomSubject.sub.v}（裁后 ${roomSubject.sub.vClipped}）· 后墙 ${roomGroups.back?.in}/${roomGroups.back?.total} 侧墙 ${roomGroups.sidewall?.in}/${roomGroups.sidewall?.total} · 纯黑 ${(roomSubject.dark * 100).toFixed(2)}%`,
+  );
+  check(
+    '批 10 A3 390 阅览室主体竖向 ≥55%，后墙与侧墙各 ≥2 点入画（批 9 为 0/4、0/4）',
+    roomSubject.sub.v >= 0.55 &&
+      (roomGroups.back?.in ?? 0) >= 2 &&
+      (roomGroups.sidewall?.in ?? 0) >= 2,
+    { v: roomSubject.sub.v, back: roomGroups.back, sidewall: roomGroups.sidewall },
+  );
+  check(
+    '批 10 A4 390 纯黑像素（亮度 <0.02）≤30%（大厅 + 阅览室双测）',
+    hallSubject.dark <= 0.3 && roomSubject.dark <= 0.3,
+    { hall: hallSubject.dark, room: roomSubject.dark },
+  );
   await m.evaluate(() => window.__zhishu.holdMinimap(true));
   const fpsMobileRoom = await fps(m, 5000);
   await m.evaluate(() => window.__zhishu.holdMinimap(false));
@@ -1286,7 +1420,10 @@ try {
   );
 
   // 旧判据「2D 指头点色块开正文，且开的是点到的那一本」→ 3D：点书脊正面开的是那一本的那一章。
-  // 上一步的滑动会转视角，重新进区把机位复位，再打真实触摸点
+  // 上一步的滑动转了视角，而重进同区**按设计不重置机位**（房间相机是记住的，判据 C5 靠它返程），
+  // 所以必须按当前位姿重新选靶；且浏览器按**整数 CSS 像素**投递触摸（CDP 合成实测 237.33→237、
+  // 421.53→422），书脊中心恰好压章节带边界时 0.3px 小数就会滑到铜牌/封面带（实测同一点
+  // 小数坐标 chapter、取整后 book）。选靶一律按投递时的整数坐标验拾取，验的就是指头真正点中的东西。
   await m.evaluate(() => window.__zhishu.enterRoom('math'));
   await m.waitForFunction(
     () => window.__zhishu.room() === 'math' && window.__zhishu.frameCheck()?.view === 'room',
@@ -1294,13 +1431,31 @@ try {
     { timeout: 15000 },
   );
   await m.waitForTimeout(800);
-  const spineTap2 = await m.evaluate((idx) => {
-    const p = window.__zhishu.spineProbe(idx);
-    return p?.screen ? { i: idx, x: p.screen.x, y: p.screen.y } : null;
-  }, spineTap.i);
+  const spineTap2 = await m.evaluate(() => {
+    const cells = window.__zhishu.census().spines.cells;
+    for (let k = 0; k < 60 && cells > 0; k += 1) {
+      const i = Math.floor((k * cells) / 60);
+      const q = window.__zhishu.spineProbe(i);
+      if (!q?.screen) continue;
+      const x = Math.round(q.screen.x);
+      const y = Math.round(q.screen.y);
+      const hit = window.__zhishu.probePick(x, y);
+      if (!hit || hit.kind !== 'chapter' || hit.id !== q.chapterId) continue;
+      if (x < 12 || y < 12 || x > innerWidth - 12 || y > innerHeight - 12) continue;
+      if (x < 120 && y > innerHeight - 120) continue;
+      return { i, x, y, px: q.px, file: q.book, chapterId: q.chapterId };
+    }
+    return null;
+  });
   if (spineTap2) await m.touchscreen.tap(spineTap2.x, spineTap2.y);
+  // 只等 open === true 会撞上读时竞态：openBook 先出 overview 面板，openChapter 的正文还在异步载入，
+  // 探针读到的 mode 可能仍是 overview（批 10 首次跑门禁偶发过一次，定点复现 5/5 全过）。
+  // 等 mode 切到 chapter 再读，断言谓词一字不改——它验的本来就是「点完最后停在章节」。
   await m
-    .waitForFunction(() => window.__zhishu.readerState().open === true, null, { timeout: 15000 })
+    .waitForFunction(() => {
+      const st = window.__zhishu.readerState();
+      return st.open === true && st.mode === 'chapter';
+    }, null, { timeout: 15000 })
     .catch(() => undefined);
   await settle(m, 120);
   const rsTap = await m.evaluate(() => ({
@@ -1311,13 +1466,13 @@ try {
   check(
     '390 触屏轻点书脊开正文，且开的是点到的那一本那一章（书脊投影 ≥36px，指头点得中章节带）',
     spineTap2 !== null &&
-      spineTap.px >= 36 &&
+      spineTap2.px >= 36 &&
       rsTap.rs.open === true &&
-      rsTap.rs.file === spineTap.file &&
+      rsTap.rs.file === spineTap2.file &&
       rsTap.rs.mode === 'chapter' &&
       rsTap.last?.action === 'tap' &&
       rsTap.crumb.length > 0,
-    { tap: spineTap2, spinePx: spineTap.px, want: spineTap.file, rs: rsTap.rs, last: rsTap.last, crumb: clip(rsTap.crumb, 80) },
+    { tap: spineTap2, rs: rsTap.rs, last: rsTap.last, crumb: clip(rsTap.crumb, 80) },
   );
   await m.waitForTimeout(300);
   if (samples.full) {
