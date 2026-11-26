@@ -97,8 +97,69 @@ export function leatherColor(color: string, seed: number): string {
   const jitter = ((seed * 2654435761) % 1000) / 1000;
   const h = (hsl.h + (jitter - 0.5) * 0.1 + 1) % 1;
   const s = Math.min(0.62, 0.28 + hsl.s * 0.42 + jitter * 0.1);
-  const l = 0.16 + (((seed * 40503) % 137) / 137) * 0.14;
+  // 批 9 C3：明度带从 0.16–0.30 提到 0.27–0.39（提一档）。原来的深底在近黑室内被 PBR 的光照
+  // 一乘，渲染值只剩贴图值的三成，竖排小字无论怎么描边都读不出；先把底子抬起来才谈得上反差。
+  const l = 0.27 + (((seed * 40503) % 137) / 137) * 0.12;
   return `#${new THREE.Color().setHSL(h, s, l).getHexString()}`;
+}
+
+/**
+ * 书脊字口：象牙白字落在一条暗色「题签」底板上。
+ *
+ * 批 8 用金棕 `#e7cd8c` 直接写在深皮革上，三米外糊成一片；批 9 先把皮革提亮一档，结果反差
+ * 反而更糟——提亮后 sRGB 亮度到 0.13–0.53（AI 的青绿最亮），白字掉到 1.6 倍。真正的图书馆
+ * 装帧本来也不是「字直接写在皮上」，而是贴一条题签：所以改成暗底板 + 亮字，皮革亮度与字口
+ * 反差这两件事就解耦了，各区都能到 4.5 以上。
+ */
+export const SPINE_INK = '#f7f2e4';
+export const SPINE_PLATE = { hex: '#0c0f16', alpha: 0.86 };
+const SPINE_INK_EDGE = 'rgba(6, 8, 12, 0.85)';
+const SPINE_TITLE_FONT = `700 12px ${SERIF}`;
+
+/** 字轴处（格子横向中点）那道高光渐变的实际叠加量：0.42→0.6 之间线性插值到 α≈0.033 的白 */
+const SPINE_HILITE_ALPHA = 0.06 * (1 - (0.5 - 0.42) / (0.6 - 0.42));
+
+/** 题签底板按 alpha 压在皮革上、再被中点高光洗过之后的实际颜色（判据算的就是这个色，不是 plate 本身的色） */
+function spinePlateOver(base: string): string {
+  const c = new THREE.Color(base);
+  const p = new THREE.Color(SPINE_PLATE.hex);
+  const a = SPINE_PLATE.alpha;
+  const over = (v: number, w: number) => v * (1 - a) + w * a;
+  const lite = (v: number) => v * (1 - SPINE_HILITE_ALPHA) + 1 * SPINE_HILITE_ALPHA;
+  return rgbHex(lite(over(c.r, p.r)), lite(over(c.g, p.g)), lite(over(c.b, p.b)));
+}
+
+/**
+ * 判定口径：字色 SPINE_INK（fillText 全不透明，取纯色）与「题签底板压在皮革上、再被字轴处
+ * 高光渐变洗过」的合成色之间的 WCAG 2.x 相对亮度比，(L_hi + 0.05) / (L_lo + 0.05)。
+ * 底板覆盖字轴整条竖列，所以它是字的真实背景；横向渐变在格子中点只剩 α≈0.033 的白，
+ * 只作用在底板上（字是全不透明绘制的）。金属凸线与菱形不在字轴上，不计入读数。
+ * 每本算一次、每区取最小值，门槛断言读这个 min ≥ 4.5。
+ */
+export function spineInkContrast(base: string): number {
+  return Math.round(contrastRatio(SPINE_INK, spinePlateOver(base)) * 100) / 100;
+}
+
+function rgbHex(r: number, g: number, b: number): string {
+  const f = (v: number) => Math.round(Math.min(1, Math.max(0, v)) * 255).toString(16).padStart(2, '0');
+  return `#${f(r)}${f(g)}${f(b)}`;
+}
+
+/** sRGB 相对亮度（WCAG 2.x：线性化后 0.2126R + 0.7152G + 0.0722B） */
+function relLuminance(hex: string): number {
+  const ch = (i: number) => {
+    const v = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+  };
+  return 0.2126 * ch(1) + 0.7152 * ch(3) + 0.0722 * ch(5);
+}
+
+function contrastRatio(a: string, b: string): number {
+  const la = relLuminance(a);
+  const lb = relLuminance(b);
+  const hi = Math.max(la, lb);
+  const lo = Math.min(la, lb);
+  return (hi + 0.05) / (lo + 0.05);
 }
 
 /**
@@ -170,16 +231,36 @@ function drawSpineCell(
     g.fill();
   }
 
-  // 竖排书名
-  const clipped =
-    title.length > SPINE_TITLE_MAX ? `${title.slice(0, SPINE_TITLE_MAX - 1)}…` : title;
+  // 题签底板 + 竖排书名：底板先压住金线（像真书上一条贴皮标签），再落亮字，
+  // 边缘用更暗的一圈把题签与皮革分开（批 9 C3）
+  const plate = new THREE.Color(SPINE_PLATE.hex);
+  g.fillStyle = `rgba(${Math.round(plate.r * 255)}, ${Math.round(plate.g * 255)}, ${Math.round(plate.b * 255)}, ${SPINE_PLATE.alpha})`;
+  g.beginPath();
+  g.roundRect(w / 2 - 8, 24, 16, h - 30, 3);
+  g.fill();
+  g.strokeStyle = 'rgba(201, 162, 74, 0.35)';
+  g.lineWidth = 1;
+  g.stroke();
+
+  // 先按字数截，再按实测宽度收进题签长度——只按字数截会在宽字（数字、拉丁）下溢出底板
+  g.font = SPINE_TITLE_FONT;
+  let clipped = title.length > SPINE_TITLE_MAX ? title.slice(0, SPINE_TITLE_MAX) : title;
+  if (g.measureText(clipped).width > h - 40) {
+    while (clipped.length > 1 && g.measureText(`${clipped}…`).width > h - 40) {
+      clipped = clipped.slice(0, -1);
+    }
+    clipped += '…';
+  }
   g.save();
-  g.translate(w / 2, h * 0.62);
+  g.translate(w / 2, 24 + (h - 30) / 2);
   g.rotate(-Math.PI / 2);
-  g.font = `bold 11px ${SERIF}`;
-  g.fillStyle = '#e7cd8c';
   g.textAlign = 'center';
   g.textBaseline = 'middle';
+  g.lineJoin = 'round';
+  g.lineWidth = 2;
+  g.strokeStyle = SPINE_INK_EDGE;
+  g.strokeText(clipped, 0, 0);
+  g.fillStyle = SPINE_INK;
   g.fillText(clipped, 0, 0);
   g.restore();
 

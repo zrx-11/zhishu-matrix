@@ -277,7 +277,13 @@ export interface LightRig {
 
 /** 天/地双色环境光 + 一盏投影主光 + 六个区各一盏带衰减的学科色点光（吊灯光） */
 export function buildLightRig(): LightRig {
-  const hemi = new THREE.HemisphereLight(0xb9a17a, 0x10131a, 0.36);
+  // 批 9 C1：藻井、檐口、门洞上沿、阅览室天花的法线全部朝下，HemisphereLight 给它们的是「地面色」而不是天色，
+  // 原来 0x10131a 的地面色几乎是纯黑 —— 这就是七批压主光俯角到 38° 之后顶部结构被黑吃掉的原因。
+  // 抬地面色 + 抬强度即可，顶部结构就有了落脚亮度；主光保持不动，投影仍然清晰。
+  // 中途加过一盏自下而上的 DirectionalLight 补顶面，实测代价 2.7× 帧时（大厅同机位 8s 采样
+  // 62.1 → 165.2 fps），收益只有大厅整帧 p95 0.06497 → 0.08002；顶面改用「抬地面色 + 抬天花反照率」
+  // 这条路，灯撤掉（见 _work/decisions.md 批 9 C1 一节）。
+  const hemi = new THREE.HemisphereLight(0xb9a17a, 0x3c4352, 0.52);
   hemi.position.set(0, 400, 0);
   const key = new THREE.DirectionalLight(0xffe6c4, 1.15);
   key.castShadow = true;
