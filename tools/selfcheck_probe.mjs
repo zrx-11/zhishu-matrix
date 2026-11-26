@@ -1508,6 +1508,546 @@ try {
     },
   );
 
+  /* ---------------------------------------------------------------- 批 12：中央大厅的第一人称内容
+   * 大厅半径 44 / 高 22 是给俯瞰镜头建的，1.65 眼高站在厅心只读出一整面暗墙——本批不改尺度，
+   * 改法是给中央加内容（八角索引台 + 六座低位展柜）。采样口径三条，全写进 _work/decisions.md：
+   *  · D1 环视「有内容」= 走真实拾取链 pickAt(ndc(0,0)) → pickHall 的 faceIndex 表命中，且命中物在
+   *    内容物角色表（indexDesk/deskTop/deskBand/displayCase/caseHood/caseLamp/caseSpine）内、距离 ≤25；
+   *    纯墙不算。台面 1.1 与罩顶 1.94 夹着眼高 1.65，每方位沿俯仰扇 [0,−6,−12,−20,−30]° 取第一条命中。
+   *  · D2 扇区↔走廊对位用两个独立来源对撞：doorBearingScan 从厅心水平扫一圈量门洞质心（穿洞打到走廊
+   *    尽头 >100，实心墙 44 就停，连续通孔段取圆周质心）；aimDeskRay 从台缘按任意方位角压台面，
+   *    读回准星落在哪一块。两边的角差才是实测漂移，±24.5° 必须已经落到邻区。
+   *  · D3 通路量 walkGapAt（带符号净空，已扣玩家半径 0.45，负数＝嵌在盒里），与批 9 走廊夹点、
+   *    批 11 六走廊贯通同一套 resolveSlide；台面账另与 data/manifest.json 现算值逐区对账。
+   */
+  const mManifest = JSON.parse(fs.readFileSync('data/manifest.json', 'utf8'));
+  const wantCount = {};
+  for (const site of mManifest.sites) {
+    const w = (wantCount[site.discipline] ??= { books: 0, chapters: 0 });
+    w.books += 1;
+    w.chapters += site.stats?.chapters ?? 0;
+  }
+  await d.evaluate(() => document.getElementById('panel-close')?.click());
+  await d.evaluate(() => window.__zhishu.showHall());
+  await d.waitForFunction(() => window.__zhishu.frameCheck()?.view === 'hall', null, { timeout: 15000 });
+  await d.evaluate(() => window.__zhishu.setWalk(true));
+  await d.waitForFunction(() => window.__zhishu.walk().mode === 'walk', null, { timeout: 8000 });
+  await d.waitForTimeout(700);
+  const spawn = await d.evaluate(() => window.__zhishu.walk());
+  const atr = await d.evaluate(() => window.__zhishu.atriumState());
+  log.push(
+    `批 12 大厅内容物：八角台 r ${atr.desk.topR}／台面 ${atr.desk.topY} 纹理 ${atr.topTex.join('×')} · ` +
+      `扇区 ${atr.sectors.length} 块、vs 门洞最大漂移 ${atr.maxDriftDeg}° · 展柜 ${atr.cases.length} 座 圈层半径 ${atr.caseRing[0]} · ` +
+      `脊 ${atr.spines.slots} 根／${atr.spines.triangles} 三角面／图集 ${atr.spines.atlasPages} 页 · ` +
+      `碰撞 indexDesk ${atr.blockers.indexDesk ?? 0} displayCase ${atr.blockers.displayCase ?? 0} 共 ${Object.values(atr.blockers).reduce((a, b) => a + b, 0)} 盒 · ` +
+      `自发光 台 ${atr.emissive.top}／灯带 ${atr.emissive.band}／射灯 ${atr.emissive.lamp}`,
+  );
+  check(
+    '批12A 中央索引台立在厅心：八角台 r4 底面直径 8、台面高 1.10、六扇区、台面 1024² canvas、自带一盏点光且是碰撞体',
+    atr.sectors.length === 6 &&
+      atr.desk.r === 4 &&
+      Math.abs(atr.desk.topY - 1.1) < 1e-6 &&
+      atr.desk.topR > atr.desk.r &&
+      atr.topTex[0] === 1024 &&
+      atr.topTex[1] === 1024 &&
+      (atr.blockers.indexDesk ?? 0) === 1 &&
+      atr.desk.lightIntensity > 0 &&
+      atr.desk.lightDistance > 0 &&
+      atr.triangles.desk >= 16,
+    { desk: atr.desk, topTex: atr.topTex, blockers: atr.blockers, deskTris: atr.triangles.desk, sectors: atr.sectors.length },
+  );
+  const sectorLedger = atr.sectors.map((x) => ({
+    key: x.key,
+    books: x.books,
+    chapters: x.chapters,
+    want: wantCount[x.key]?.books ?? 0,
+    wantChapters: wantCount[x.key]?.chapters ?? 0,
+  }));
+  check(
+    '批12A 台面六扇区的区名/本数/章数逐区等于 data/manifest.json 现算值（零编造，合计＝129 本／1169 章）',
+    sectorLedger.length === 6 &&
+      sectorLedger.every((x) => x.books === x.want && x.chapters === x.wantChapters) &&
+      sectorLedger.reduce((a, x) => a + x.books, 0) === mManifest.totals.sites &&
+      sectorLedger.reduce((a, x) => a + x.chapters, 0) === mManifest.totals.chapters,
+    { rows: sectorLedger, sites: mManifest.totals.sites, chapters: mManifest.totals.chapters },
+  );
+
+  // 扇区拼合账：六块必须首尾无缝无叠（宽度不等是设计，漏缝与重压是 bug）
+  const seam = await d.evaluate(() => {
+    const R = window.__zhishu;
+    const st = R.atriumState();
+    const norm = (x) => ((x % 360) + 360) % 360;
+    const secs = [...st.sectors].sort((a, b) => a.amDeg - b.amDeg);
+    const gaps = [];
+    let sum = 0;
+    for (let i = 0; i < secs.length; i += 1) {
+      const a0 = norm(secs[i].a0Deg);
+      const a1 = norm(secs[i].a1Deg);
+      sum += a1 > a0 ? a1 - a0 : 360 - a0 + a1;
+      const nxt = secs[(i + 1) % secs.length];
+      gaps.push(Math.round(Math.abs(norm(nxt.a0Deg) - a1) * 100) / 100);
+    }
+    return {
+      sumDeg: Math.round(sum * 100) / 100,
+      seams: gaps,
+      maxSeam: Math.max(...gaps),
+      order: secs.map((x) => `${x.key}@${x.amDeg}`).join(','),
+      widths: secs.map((x) => {
+        const a0 = norm(x.a0Deg);
+        const a1 = norm(x.a1Deg);
+        return Math.round((a1 > a0 ? a1 - a0 : 360 - a0 + a1) * 10) / 10;
+      }),
+    };
+  });
+  check(
+    '批12A 台面六扇区首尾拼满 360°：宽度不等是设计、缝隙与重叠是 bug（相邻分界线角差 ≤0.05°）',
+    seam.sumDeg === 360 && seam.maxSeam <= 0.05 && seam.seams.length === 6,
+    seam,
+  );
+
+  // 近台升档：先在 24 单位外读一档，再回台缘读另一档
+  const farRead = await d.evaluate(() => {
+    const R = window.__zhishu;
+    const s0 = R.walk();
+    const a = Math.atan2(s0.pos.z, s0.pos.x);
+    R.walkSnap(Math.cos(a) * 24, Math.sin(a) * 24, -Math.cos(a), -Math.sin(a));
+    // 默认提示要在「准星没有目标」时读：台面在眼高以下，把俯仰归零即可，否则读到的是上一项测试留下的命中口径
+    R.walkSetLook(R.walk().yawDeg, 0);
+    const st = R.atriumState();
+    return { near: st.near, top: st.emissive.top, band: st.emissive.band, light: st.desk.lightIntensity, dist: 24, at: R.walk().pos };
+  });
+  const nearRead = await d.evaluate(() => {
+    const R = window.__zhishu;
+    const s0 = R.walk();
+    const a = Math.atan2(s0.pos.z, s0.pos.x);
+    R.walkSnap(Math.cos(a) * R.atriumState().desk.standR, Math.sin(a) * R.atriumState().desk.standR, -Math.cos(a), -Math.sin(a));
+    R.walkSetLook(R.walk().yawDeg, 0);
+    const st = R.atriumState();
+    return {
+      near: st.near,
+      top: st.emissive.top,
+      band: st.emissive.band,
+      light: st.desk.lightIntensity,
+      dist: Math.round(Math.hypot(R.walk().pos.x, R.walk().pos.z) * 100) / 100,
+      hud: (document.getElementById('hud')?.textContent ?? '').replace(/\s+/g, ' ').trim(),
+    };
+  });
+  log.push(
+    `批 12 近台账：远 ${farRead.dist ?? '—'} 处 near=${farRead.near} 台面 ${farRead.top}/灯带 ${farRead.band}/点光 ${farRead.light} → ` +
+      `台缘 ${nearRead.dist} 处 near=${nearRead.near} 台面 ${nearRead.top}/灯带 ${nearRead.band}/点光 ${nearRead.light}`,
+  );
+  check(
+    '批12A 进入 6 单位内台面自发光升一档、灯带同步抬，HUD 出「六区索引 · 准星选扇区」',
+    farRead.near === false &&
+      nearRead.near === true &&
+      nearRead.dist <= 6 &&
+      nearRead.top > farRead.top &&
+      nearRead.band > farRead.band &&
+      nearRead.hud.includes('六区索引') &&
+      nearRead.hud.includes('准星选扇区'),
+    { far: farRead, near: nearRead },
+  );
+
+  // D2：门洞实测方位 + 扇区闭环（扇区左右不对称，边界一律用本区自己的 a0/a1，不用固定 ±角）
+  const doorScan = await d.evaluate(() => window.__zhishu.doorBearingScan(1));
+  const norm180 = (x) => ((x + 540) % 360) - 180;
+  const spanOf = (sec) => norm180(sec.a1Deg - sec.a0Deg);
+  const ownerAt = (deg) => atr.sectors.find((x) => {
+    const w = norm180(deg - x.a0Deg);
+    return w >= 0 && w <= spanOf(x);
+  }) ?? null;
+  const rays = [];
+  for (const sec of atr.sectors) {
+    const hole = doorScan.drift.find((x) => x.key === sec.key) ?? null;
+    const r = await d.evaluate(
+      (arg) => {
+        const R = window.__zhishu;
+        return {
+          mid: R.aimDeskRay(arg.deg),
+          inL: R.aimDeskRay(arg.a0 + 2),
+          inR: R.aimDeskRay(arg.a1 - 2),
+          outL: R.aimDeskRay(arg.a0 - 2),
+          outR: R.aimDeskRay(arg.a1 + 2),
+          door: R.aimDeskRay(arg.hole >= 0 ? arg.hole : arg.deg),
+        };
+      },
+      { deg: sec.doorDeg, a0: sec.a0Deg, a1: sec.a1Deg, hole: hole?.holeDeg ?? -1 },
+    );
+    const wantL = ownerAt(sec.a0Deg - 2);
+    const wantR = ownerAt(sec.a1Deg + 2);
+    rays.push({
+      key: sec.key,
+      doorDeg: sec.doorDeg,
+      sectorDeg: sec.amDeg,
+      holeDeg: hole?.holeDeg ?? -1,
+      holeSpan: hole ? doorScan.holes.find((h) => h.deg === hole.holeDeg)?.spanDeg ?? 0 : 0,
+      holeReach: hole ? doorScan.holes.find((h) => h.deg === hole.holeDeg)?.maxDist ?? 0 : 0,
+      driftDeg: hole?.driftDeg ?? 999,
+      sectorVsHoleDeg: hole?.sectorVsHoleDeg ?? 999,
+      spanDeg: Math.round(spanOf(sec) * 100) / 100,
+      hitKey: r.mid.key,
+      doorKey: r.door.key,
+      inLKey: r.inL.key,
+      inRKey: r.inR.key,
+      outLKey: r.outL.key,
+      outRKey: r.outR.key,
+      wantL: wantL?.key ?? '',
+      wantR: wantR?.key ?? '',
+      ok:
+        r.mid.key === sec.key &&
+        r.door.key === sec.key &&
+        r.inL.key === sec.key &&
+        r.inR.key === sec.key &&
+        r.outL.key === (wantL?.key ?? '') &&
+        r.outL.key !== sec.key &&
+        r.outR.key === (wantR?.key ?? '') &&
+        r.outR.key !== sec.key,
+    });
+  }
+  log.push(
+    `批 12 门洞实测（${doorScan.stepDeg}° 一圈）：通孔 ${doorScan.holes.length} 段 ` +
+      doorScan.holes.map((h) => `${h.deg}°/${h.spanDeg}°/${h.maxDist}`).join(' ') +
+      ` · 扇区 vs 门洞漂移 ` + rays.map((x) => `${x.key}:${x.sectorVsHoleDeg}`).join(' '),
+  );
+  check(
+    '批12A 台面六扇区与六条走廊实测对位：门洞质心与扇区中心线角差 ≤3°、对准门洞即选中本区，本区边界内 2° 仍是本区、外 2° 已落到邻区',
+    doorScan.holes.length === 6 &&
+      rays.length === 6 &&
+      rays.every((x) => x.holeDeg >= 0 && x.sectorVsHoleDeg <= 3 && x.driftDeg <= 3 && x.ok) &&
+      doorScan.maxDriftDeg <= 3,
+    { stepDeg: doorScan.stepDeg, holes: doorScan.holes, rows: rays, maxDriftDeg: doorScan.maxDriftDeg },
+  );
+
+  // 准星压扇区 → 高亮 + HUD 报数
+  const aimRows = [];
+  for (let i = 0; i < atr.sectors.length; i += 1) {
+    const row = await d.evaluate((k) => {
+      const R = window.__zhishu;
+      const a = R.aimDeskSector(k);
+      const st = R.atriumState();
+      return {
+        aim: a,
+        highlight: st.highlight,
+        aimSector: st.aimSector,
+        hud: (document.getElementById('hud')?.textContent ?? '').replace(/\s+/g, ' ').trim(),
+      };
+    }, i);
+    const sec = atr.sectors[i];
+    aimRows.push({
+      i,
+      key: sec.key,
+      ok: Boolean(row.aim?.ok),
+      title: row.aim?.title ?? '',
+        books: sec.books,
+      chapters: sec.chapters,
+      highlight: row.highlight,
+      hudHasCount: row.hud.includes(`${sec.books} 本`) && row.hud.includes(`${sec.chapters} 章`),
+      hud: row.hud.slice(0, 60),
+    });
+  }
+  log.push(`批 12 扇区高亮：${aimRows.map((x) => `${x.key}${x.ok ? '✓' : '✗'}[${x.highlight.join(',')}]`).join(' ')}`);
+  check(
+    '批12A 准星压到扇区：该块高亮（只亮这一块）+ HUD 报「区名 · N 本 · M 章」，六区全对',
+    aimRows.length === 6 && aimRows.every((x) => x.ok && x.highlight.length === 1 && x.highlight[0] === x.i && x.hudHasCount),
+    { rows: aimRows.map((x) => ({ key: x.key, ok: x.ok, hi: x.highlight, hud: x.hud })) },
+  );
+  await d.evaluate(() => window.__zhishu.aimDeskSector(0));
+  await d.waitForTimeout(200);
+  await d.screenshot({ path: `${SHOTS}/desk-sector.png` });
+
+  // 点击台面扇区 → 走现有 enterRoom
+  const enterRows = [];
+  for (const i of [0, 2, 4]) {
+    await d.evaluate((k) => window.__zhishu.aimDeskSector(k), i);
+    await d.waitForTimeout(180);
+    await d.mouse.move(720, 450);
+    await d.mouse.down();
+    await d.mouse.up();
+    let got = 'timeout';
+    try {
+      await d.waitForFunction(
+        () => window.__zhishu.room() && window.__zhishu.frameCheck()?.view === 'room',
+        null,
+        { timeout: 15000 },
+      );
+      got = await d.evaluate(() => window.__zhishu.room());
+    } catch {
+      got = 'timeout';
+    }
+    enterRows.push({ i, want: atr.sectors[i].key, got });
+    await d.evaluate(() => {
+      document.getElementById('panel-close')?.click();
+      window.__zhishu.showHall();
+    });
+    await d.waitForTimeout(800);
+    await d.evaluate(() => window.__zhishu.setWalk(true));
+    await d.waitForFunction(() => window.__zhishu.walk().mode === 'walk', null, { timeout: 8000 });
+  }
+  check(
+    '批12A 点台面扇区进对应区（复用现有 enterRoom，三区实测 room() 全对）',
+    enterRows.length === 3 && enterRows.every((x) => x.got === x.want),
+    enterRows,
+  );
+
+  // 展柜圈：位置、书脊账、faceIndex 覆盖柜体
+  const caseRing = atr.cases.map((c) => Math.round(Math.hypot(c.x, c.z) * 100) / 100);
+  const caseRows = [];
+  for (let i = 0; i < atr.cases.length; i += 1) {
+    const row = await d.evaluate((k) => {
+      const R = window.__zhishu;
+      R.showHall();
+      R.setWalk(true);
+      return R.aimCaseBody(k);
+    }, i);
+    const c = atr.cases[i];
+    caseRows.push({ i, key: c.key, r: caseRing[i], ok: Boolean(row?.ok), kind: row?.kind ?? '', hint: row?.hint ?? '' });
+  }
+  log.push(
+    `批 12 展柜：圈层半径 ${caseRing.join('/')} ·  lean ${atr.cases[0].lean} · 脊 ` +
+      atr.cases.map((c) => `${c.key}:${c.spines}`).join(' ') +
+      ` · 柜体准星 ` + caseRows.map((x) => `${x.key}${x.ok ? '✓' : '✗'}`).join(' '),
+  );
+  check(
+    '批12B 六座展柜落在内圈 18–22、各居一条走廊入口与中心之间，柜面高 1.2／宽 3／深 1.2，罩顶 1.94',
+    atr.cases.length === 6 &&
+      caseRing.every((r) => r >= 18 && r <= 22) &&
+      (atr.blockers.displayCase ?? 0) === 6 &&
+      atr.emissive.lamp >= 2 &&
+      atr.emissive.lamp <= 3.5,
+    { ring: caseRing, blockers: atr.blockers, lamp: atr.emissive.lamp, near: atr.near },
+  );
+  check(
+    '批12B 展柜书脊只从库内挑：每座取该区章数最多的前三本，脊数＝Σmin(3, 该区本数)，章数合计等于这三本之和',
+    atr.spines.slots ===
+      atr.cases.reduce((a, c) => a + Math.min(3, wantCount[c.key]?.books ?? 0), 0) &&
+      atr.cases.every((c) => {
+        const top = mManifest.sites
+          .filter((x) => x.discipline === c.key && (x.stats?.chapters ?? 0) > 0)
+          .sort((x, y) => (y.stats?.chapters ?? 0) - (x.stats?.chapters ?? 0) || x.file.localeCompare(y.file))
+          .slice(0, 3);
+        return c.spines === top.length && c.chapters === top.reduce((a, x) => a + (x.stats?.chapters ?? 0), 0);
+      }) &&
+      atr.spines.triangles === atr.spines.slots * 12 &&
+      atr.spines.atlasPages === 1,
+    {
+      slots: atr.spines.slots,
+      tris: atr.spines.triangles,
+      pages: atr.spines.atlasPages,
+      cases: atr.cases.map((c) => ({ key: c.key, spines: c.spines, titles: c.title.split(' / ').length, chapters: c.chapters })),
+    },
+  );
+  check(
+    '批12B 柜体也进 faceIndex→(书,章) 同一张映射表：准星压柜身按区报「N 根书脊」，六座全对（工具间零书位如实报暂无）',
+    caseRows.length === 6 &&
+      caseRows.every((x) => x.ok && x.kind === 'room' && x.hint.includes('展柜')) &&
+      caseRows.filter((x) => x.hint.includes('暂无书位')).length === atr.cases.filter((c) => (wantCount[c.key]?.books ?? 0) === 0).length,
+    caseRows,
+  );
+
+  // 展柜书脊：逐根准星 + 点开的是不是罩内那一本
+  const spineRows = [];
+  for (let i = 0; i < atr.spines.slots; i += 1) {
+    const row = await d.evaluate((k) => {
+      const R = window.__zhishu;
+      R.showHall();
+      R.setWalk(true);
+      return R.aimCaseSpine(k);
+    }, i);
+    spineRows.push(row);
+  }
+  const spineOk = spineRows.filter((x) => x?.ok).length;
+  log.push(
+    `批 12 罩内书脊准星：${spineOk}/${spineRows.length} 命中且书名对得上 ` +
+      spineRows.map((x) => `${x.discipline}#${x.index}${x.ok ? '✓' : '✗'}`).join(' '),
+  );
+  check(
+    '批12B 罩内书脊可看：准星压脊 kind=chapter，命中的就是那根脊（file 级对账），全圈 ≥12/15',
+    spineRows.length >= 12 && spineOk >= 12 && spineOk === spineRows.length,
+    { rows: spineRows.map((x) => ({ i: x.index, key: x.discipline, ok: x.ok, file: x.file, kind: x.kind, dist: x.dist })) },
+  );
+  await d.evaluate(() => {
+    window.__zhishu.showHall();
+    window.__zhishu.setWalk(true);
+    window.__zhishu.aimCaseSpine(0);
+  });
+  await d.waitForTimeout(250);
+  await d.screenshot({ path: `${SHOTS}/case-spine.png` });
+
+  const openRows = [];
+  for (const i of [0, 7]) {
+    const aim = await d.evaluate((k) => {
+      const R = window.__zhishu;
+      R.showHall();
+      R.setWalk(true);
+      return R.aimCaseSpine(k);
+    }, i);
+    await d.waitForTimeout(200);
+    await d.mouse.move(720, 450);
+    await d.mouse.down();
+    await d.mouse.up();
+    let rd = null;
+    try {
+      await d.waitForFunction(() => window.__zhishu.readerState().open === true, null, { timeout: 15000 });
+      await d.waitForTimeout(500);
+      rd = await d.evaluate(() => ({
+        reader: window.__zhishu.readerState(),
+        chars: (document.getElementById('panel-body')?.innerText ?? '').length,
+        head: (document.querySelector('#panel-body h1, #panel-body h2, #panel-body .ch-title')?.textContent ?? '')
+          .replace(/\s+/g, ' ')
+          .trim(),
+        body: (document.getElementById('panel-body')?.innerText ?? '').replace(/\s+/g, ' ').slice(0, 400),
+      }));
+    } catch {
+      rd = { reader: { open: false }, chars: 0, head: '' };
+    }
+    const first = rd.reader?.file ? JSON.parse(fs.readFileSync(`data/sites/${rd.reader.file}`, 'utf8')) : null;
+    openRows.push({
+      i,
+      want: aim?.book ?? '',
+      wantFile: aim?.file ?? '',
+      gotFile: rd.reader?.file ?? null,
+      mode: rd.reader?.mode ?? '',
+      chars: rd.chars,
+      firstChapter: first?.chapters?.[0]?.title ?? '',
+      head: rd.head,
+      headHit: Boolean(first?.chapters?.[0]?.title && `${rd.head} ${rd.body}`.includes(String(first.chapters[0].title).slice(0, 10))),
+    });
+    await d.evaluate(() => {
+      document.getElementById('panel-close')?.click();
+      window.__zhishu.showHall();
+    });
+    await d.waitForTimeout(800);
+    await d.evaluate(() => window.__zhishu.setWalk(true));
+    await d.waitForFunction(() => window.__zhishu.walk().mode === 'walk', null, { timeout: 8000 });
+  }
+  await d.screenshot({ path: `${SHOTS}/case-reader.png` });
+  check(
+    '批12B 点罩内书脊开该书首章：file 级对上是同一本、mode=chapter、正文非空且标题即该书第 1 章',
+    openRows.length === 2 &&
+      openRows.every((x) => x.gotFile === x.wantFile && x.mode === 'chapter' && x.chars > 400 && x.headHit),
+    openRows,
+  );
+
+  // 走线与可达
+  const routes = await d.evaluate(() => {
+    const R = window.__zhishu;
+    const secs = R.atriumState().sectors;
+    return secs.map((sec) => {
+      const a = (sec.doorDeg * Math.PI) / 180;
+      const dir = [Math.cos(a), Math.sin(a)];
+      R.walkSnap(dir[0] * 6, dir[1] * 6, dir[0], dir[1]);
+      const m = R.walkMarch(dir[0], dir[1], 150, 'hall');
+      let minGap = 99;
+      let tightAt = 0;
+      for (let r = 6; r <= m.travelled - 1.5; r += 1) {
+        const g = R.walkGapAt(dir[0] * r, dir[1] * r);
+        if (g < minGap) { minGap = g; tightAt = r; }
+      }
+      return { key: sec.key, deg: sec.doorDeg, travelled: m.travelled, stopKinds: m.stopKinds, minGap, tightAt };
+    });
+  });
+  log.push(
+    `批 12 通路：` + routes.map((x) => `${x.key} ${x.travelled}（${x.stopKinds}）隙 ${x.minGap}@r${x.tightAt}`).join(' · '),
+  );
+  check(
+    '批12C 台与柜不挡六条通路：中心外 6 单位起沿六个门洞方位直线推进，全部 ≥125 到该区门面，最小净空 ≥0.3',
+    routes.length === 6 &&
+      routes.every((x) => x.travelled >= 125 && String(x.stopKinds).includes('facade') && x.minGap >= 0.3),
+    routes,
+  );
+  const blockRows = await d.evaluate(() => {
+    const R = window.__zhishu;
+    const ring = [];
+    for (let i = 0; i < 24; i += 1) {
+      const a = (i / 24) * Math.PI * 2;
+      R.walkSnap(Math.cos(a) * 5.4, Math.sin(a) * 5.4, -Math.cos(a), -Math.sin(a));
+      const w = R.walk();
+      ring.push(Math.round(Math.hypot(w.pos.x, w.pos.z) * 100) / 100);
+    }
+    R.showHall();
+    R.setWalk(true);
+    const s0 = R.walk();
+    const a0 = Math.atan2(s0.pos.z, s0.pos.x);
+    R.walkSnap(Math.cos(a0) * 4.8, Math.sin(a0) * 4.8, -Math.cos(a0), -Math.sin(a0));
+    const into = R.walkMarch(-Math.cos(a0), -Math.sin(a0), 6, 'hall');
+    return { ring, ringMin: Math.min(...ring), ringMax: Math.max(...ring), into: { travelled: into.travelled, stopKinds: into.stopKinds } };
+  });
+  log.push(`批 12 绕行：台外圈 5.4 上 24 点落位半径 ${blockRows.ringMin}–${blockRows.ringMax} · 正对台心推 6 单位只走 ${blockRows.into.travelled}（${blockRows.into.stopKinds}）`);
+  check(
+    '批12C 索引台是圆柱碰撞体：走不进去（正对台心按 6 单位只推进 <1.2 且第一下是 indexDesk），但绕得过（外圈 24 点全落位、半径不漂）',
+    blockRows.into.travelled < 1.2 &&
+      String(blockRows.into.stopKinds).includes('indexDesk') &&
+      blockRows.ringMin >= 4.9 &&
+      blockRows.ringMax <= 5.5,
+    { into: blockRows.into, ringMin: blockRows.ringMin, ringMax: blockRows.ringMax, ring: blockRows.ring },
+  );
+
+  // 亮度与构图：站位固定成「贴台缘读图」这一点（180° 方位、standR 外），否则前一项测试把人也带走了
+  const stand = await d.evaluate(() => {
+    const R = window.__zhishu;
+    const rr = R.atriumState().desk.standR;
+    R.walkSnap(-rr, 0, 1, 0);
+    const ground = R.walkGroundSample(-35);
+    const sight = R.hallSightScan(25);
+    return { ground, sight, standR: rr };
+  });
+  const ground = stand.ground;
+  const sight = stand.sight;
+  log.push(
+    `批 12 大厅 walk 站立（${sight.at.join(',')}）：环视有内容 ${sight.content}/${sight.total} ` +
+      sight.dirs.map((x) => `${x.deg}°${x.content ? '✓' : '·'}${x.role || '无'}@${x.dist === -1 ? '∞' : x.dist}`).join(' ') +
+      ` · 地面亮度均值 ${ground.mean}（${ground.floorDirs}/${ground.total} 个方位准星确认打到地面，最低 ${ground.min}）`,
+  );
+  check(
+    '批12D 大厅 walk 环视 360°（8 个 45° 方位 × ±20° 视野带 × 俯仰扇 [0,−6,−12,−20,−30]）：≥5/8 方向有内容且都不是纯墙',
+    sight.total === 8 && sight.content >= 5 && sight.dirs.filter((x) => x.content).every((x) => x.dist <= 25),
+    { content: sight.content, dirs: sight.dirs, limit: sight.limit, at: sight.at },
+  );
+  check(
+    '批12D 大厅 walk 站立处地面平均亮度 ≥0.06（批 11 同点位 0.042 一档之上；逐方位先确认采样带中心打的是地面）',
+    ground.floorDirs >= 8 && ground.mean >= 0.06 && ground.max >= 0.06,
+    { mean: ground.mean, min: ground.min, max: ground.max, floorDirs: ground.floorDirs, rows: ground.rows, box: ground.box },
+  );
+  await d.screenshot({ path: `${SHOTS}/walk-hall-desk.png` });
+  await d.evaluate(() => window.__zhishu.walkSetLook(0, 0));
+  await d.waitForTimeout(250);
+  await d.screenshot({ path: `${SHOTS}/walk-hall-back.png` });
+  const shotDoor = await d.evaluate(() => {
+    const R = window.__zhishu;
+    const sec = R.atriumState().sectors[1];
+    const a = (sec.doorDeg * Math.PI) / 180;
+    R.walkSnap(Math.cos(a) * 5.4, Math.sin(a) * 5.4, Math.cos(a), Math.sin(a));
+    return R.walk().pos;
+  });
+  await d.waitForTimeout(250);
+  await d.screenshot({ path: `${SHOTS}/walk-hall-door.png` });
+  const shotCase = await d.evaluate(() => {
+    const R = window.__zhishu;
+    R.showHall();
+    R.setWalk(true);
+    R.aimCaseSpine(7);
+    return R.walk().pos;
+  });
+  await d.waitForTimeout(300);
+  await d.screenshot({ path: `${SHOTS}/walk-hall-case.png` });
+  log.push(`批 12 截图机位：面向走廊 ${JSON.stringify(shotDoor)} · 站在展柜前 ${JSON.stringify(shotCase)}`);
+
+  const atrCen = await d.evaluate(() => window.__zhishu.census());
+  const atrFps = await fps(d, 6000);
+  log.push(
+    `批 12 大厅 walk 帧账：三角面 主 ${atrCen.triangles.mainPass}/阴影 ${atrCen.triangles.shadowPass} · draw ${atrCen.calls.perFrame} · ` +
+      `灯 ${JSON.stringify(atrCen.lights)} · 6s 帧率 ${atrFps}`,
+  );
+  check(
+    '批12G 帧预算不回退：大厅 walk 态三角面 ≤60000、draw ≤110、6s 帧率 ≥45',
+    atrCen.triangles.mainPass <= 60000 && atrCen.calls.perFrame <= 110 && atrFps >= 45,
+    { tris: atrCen.triangles.mainPass, calls: atrCen.calls.perFrame, walkFps: atrFps, lights: atrCen.lights },
+  );
+  await d.evaluate(() => window.__zhishu.setWalk(false));
+  await d.waitForFunction(() => window.__zhishu.walk().mode === 'orbit', null, { timeout: 8000 });
+  await d.waitForTimeout(500);
+  await d.screenshot({ path: `${SHOTS}/atrium-overhead.png` });
+
   // 运行期零外部请求（路由层已阻断，出现即记录）
   check('运行期零外部请求', requests.external.length === 0, requests.external.slice(0, 6));
   await dctx.close();
@@ -1634,6 +2174,59 @@ try {
   const fpsMobileHall = await fps(m, 4000);
   await m.evaluate(() => window.__zhishu.holdMinimap(false));
   await m.screenshot({ path: `${SHOTS}/mobile390.png` });
+
+  // 批 12 G：加了中央内容物之后，俯瞰构图与 390 站厅是否回退
+  const mProj = await m.evaluate(() => {
+    const z = window.__zhishu;
+    z.showHall();
+    z.holdMinimap(true);
+    const sub = z.subjectBox('hall');
+    const st = z.atriumState();
+    z.holdMinimap(false);
+    return { sub, proj: st.proj };
+  });
+  log.push(
+    `批 12 390 俯瞰：主体 V ${mProj.sub.v} H ${mProj.sub.h}（批 10 判据下限 0.50/0.75）· ` +
+      `八角台+展柜圈投影 ${mProj.proj.inFrame}/${mProj.proj.pts} 点入画，台宽占屏 ${(mProj.proj.deskW * 100).toFixed(1)}%、圈宽 ${(mProj.proj.ringW * 100).toFixed(1)}%`,
+  );
+  check(
+    '批12G 加内容后批 10 俯瞰构图不回退（V ≥0.50、H ≥0.75），且八角台+六展柜 32 点全入画、台面投影宽 ≤45% 屏宽',
+    mProj.sub.v >= 0.5 && mProj.sub.h >= 0.75 && mProj.proj.inFrame === mProj.proj.pts && mProj.proj.deskW <= 0.45,
+    mProj,
+  );
+  await m.evaluate(() => window.__zhishu.setWalk(true));
+  await m.waitForFunction(() => window.__zhishu.walk().mode === 'walk', null, { timeout: 8000 });
+  await m.waitForTimeout(700);
+  const mWalkHall = await m.evaluate(() => {
+    const z = window.__zhishu;
+    const w = z.walk();
+    return {
+      mode: w.mode,
+      pos: w.pos,
+      gap: w.wallGap,
+      blockers: w.blockers,
+      doc: document.documentElement.scrollWidth,
+      cross: document.querySelector('[data-crosshair]')?.hidden === false,
+      hud: (document.getElementById('hud')?.textContent ?? '').replace(/\s+/g, ' ').trim(),
+    };
+  });
+  await m.screenshot({ path: `${SHOTS}/walk-390-hall.png` });
+  await m.evaluate(() => window.__zhishu.walkSetLook(0, -16));
+  await m.waitForTimeout(500);
+  await m.screenshot({ path: `${SHOTS}/walk-390-desk.png` });
+  const wMobileAtrium = await scrollWidth(m);
+  log.push(
+    `批 12 390 竖屏站厅：${mWalkHall.mode} 落位 ${JSON.stringify(mWalkHall.pos)} gap ${mWalkHall.gap} ` +
+      `准星 ${mWalkHall.cross} · scrollWidth ${wMobileAtrium.doc} · HUD「${mWalkHall.hud.slice(0, 40)}」`,
+  );
+  check(
+    '批12D 390 竖屏站在大厅仍是同一条 3D 路径：准星在、无横向滚动、站立处不被台/柜吃掉',
+    mWalkHall.mode === 'walk' && mWalkHall.doc === 390 && mWalkHall.cross === true && mWalkHall.gap >= 0,
+    { walk: mWalkHall, doc: wMobileAtrium.doc },
+  );
+  await m.evaluate(() => window.__zhishu.setWalk(false));
+  await m.waitForFunction(() => window.__zhishu.walk().mode === 'orbit', null, { timeout: 8000 });
+  await m.waitForTimeout(300);
 
   await m.locator('#roombar button[data-room="math"]').click();
   // room() 在 main.enterRoom() 里是**同步先置**的，正文数据还要 await 一次才建区；
