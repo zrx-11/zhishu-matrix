@@ -99,19 +99,12 @@ button {
   min-height: 0;
 }
 
-#three-root,
-#svg-root {
+#three-root {
   position: absolute;
   inset: 0;
 }
 
 #three-root canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-#svg-root svg {
   display: block;
   width: 100%;
   height: 100%;
@@ -787,8 +780,9 @@ button {
     flex: 0 0 auto;
   }
 
-  /* 2D 降级本身就是俯视，不再叠小地图 */
-  #minimap {
-    display: none;
+  /* 批 9 起窄屏也是 3D，小地图仍是导航，只是缩到不压住竖屏构图主体 */
+  #minimap-canvas {
+    width: 96px;
+    height: 67px;
   }
 }

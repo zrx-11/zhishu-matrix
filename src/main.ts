@@ -1,6 +1,6 @@
 import './styles.css';
 import type { BookRecord, Discipline, ManifestIndex, SearchHit, SiteEntry } from './types';
-import { ROOMS, ROOM_BY_KEY, prefersFlatView } from './config';
+import { ROOMS, ROOM_BY_KEY } from './config';
 import { booksOf, loadManifest, loadShard, loadSiteRecord } from './data';
 import { forgetDiagrams, hydrateDiagrams, mermaidRequested, renderDiagram } from './diagram';
 import { key, recordIndex } from './layout';
@@ -33,13 +33,12 @@ import {
 } from './panel';
 import { store, type CameraPose } from './state';
 import type { Matrix3D } from './scene3d';
-import { MatrixFlat } from './svg2d';
 
-type View = Matrix3D | MatrixFlat;
+/** 批 9 起全端只有 3D 一条渲染路径（2D 降级视图与 `svg2d.ts` 已删除） */
+type View = Matrix3D;
 
 const els = {
   three: document.getElementById('three-root') as HTMLDivElement,
-  flat: document.getElementById('svg-root') as HTMLDivElement,
   loading: document.getElementById('loading') as HTMLDivElement,
   where: document.getElementById('where') as HTMLDivElement,
   hud: document.getElementById('hud') as HTMLDivElement,
@@ -52,7 +51,7 @@ const els = {
 
 let manifest: ManifestIndex | null = null;
 let view: View | null = null;
-let mode: 'three' | 'flat' | null = null;
+let mode: 'three' | null = null;
 let currentRoom: Discipline | null = null;
 let miniRaf = 0;
 const shardCache = new Map<Discipline, Map<string, BookRecord>>();
@@ -64,7 +63,7 @@ function drawMinimap(): void {
   const wrap = document.getElementById('minimap');
   const cap = document.getElementById('minimap-cap');
   if (!canvas || !wrap || !manifest) return;
-  const state3d = isView3D(view) ? view.minimapState() : null;
+  const state3d = view ? view.minimapState() : null;
   if (!state3d) {
     wrap.hidden = true;
     return;
@@ -180,7 +179,7 @@ function stopMinimap(): void {
 function holdMinimap(hold: boolean): void {
   (window as unknown as { __zhishuHold: boolean }).__zhishuHold = hold;
   if (hold) stopMinimap();
-  else if (isView3D(view)) drawMinimap();
+  else if (view) drawMinimap();
 }
 
 function setHud(text: string): void {
@@ -242,26 +241,16 @@ async function findBook(sel: BookSel): Promise<boolean> {
   return true;
 }
 
-function isView3D(v: View | null): v is Matrix3D {
-  return !!v && v.kind === '3d';
-}
-
 async function enterRoom(discipline: Discipline): Promise<void> {
   if (!manifest || !view) return;
   searchSpot = null; // 用户自己走了，检索返程落点即失效
-  if (isView3D(view)) {
-    // 离开大厅时存下大厅相机，返回时原样恢复（判据：返回后相机与选中状态不丢）
-    if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
-    else store.setHallCamera(view.currentPose());
-  }
+  // 离开大厅时存下大厅相机，返回时原样恢复（判据：返回后相机与选中状态不丢）
+  if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
+  else store.setHallCamera(view.currentPose());
   currentRoom = discipline;
   const books = booksOf(manifest, discipline);
   const records = books.length ? await recordsOf(discipline) : new Map<string, BookRecord>();
-  if (isView3D(view)) {
-    view.enterRoom(discipline, books, records, store.snapshot.roomCameras[discipline] ?? null);
-  } else {
-    (view as MatrixFlat).enterRoom(discipline, books, records);
-  }
+  view.enterRoom(discipline, books, records, store.snapshot.roomCameras[discipline] ?? null);
   setWhere(`${ROOM_BY_KEY[discipline].title} · ${books.length} 本`);
   store.setView('room', discipline);
   syncRoombar();
@@ -270,10 +259,9 @@ async function enterRoom(discipline: Discipline): Promise<void> {
 function showHall(): void {
   if (!view) return;
   searchSpot = null;
-  if (currentRoom && isView3D(view)) store.setRoomCamera(currentRoom, view.currentPose());
+  if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
   currentRoom = null;
-  if (isView3D(view)) view.showHall(store.snapshot.hallCamera);
-  else (view as MatrixFlat).showHall();
+  view.showHall(store.snapshot.hallCamera);
   setWhere('中央大厅');
   store.setView('hall', null);
   syncRoombar();
@@ -281,11 +269,9 @@ function showHall(): void {
 
 function pickBook(book: SiteEntry): void {
   // 选书时保存的是「当前所在视图」的相机，不能误写大厅位姿
-  if (isView3D(view)) {
+  if (view) {
     if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
     else store.setHallCamera(view.currentPose());
-  } else if (view) {
-    store.setFlatPan(view.currentPan);
   }
   store.setSelection({ discipline: currentRoom, book });
   void bookRecord(book).then((rec) => openBook(book, rec));
@@ -303,7 +289,7 @@ function isTyping(): boolean {
 }
 
 function pickConcept(book: SiteEntry, conceptId: string): void {
-  if (isView3D(view)) {
+  if (view) {
     if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
     else store.setHallCamera(view.currentPose());
     view.highlightConcept(conceptId);
@@ -314,7 +300,7 @@ function pickConcept(book: SiteEntry, conceptId: string): void {
 
 /** 点章节立柱 = 选书 + 直接进该章正文（比先开总览少一步） */
 function pickChapter(book: SiteEntry, chapterId: string): void {
-  if (isView3D(view)) {
+  if (view) {
     if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
     else store.setHallCamera(view.currentPose());
     view.highlightConcept(null);
@@ -330,7 +316,6 @@ function pickChapter(book: SiteEntry, chapterId: string): void {
 interface Spot {
   room: Discipline | null;
   pose: CameraPose | null;
-  pan: { x: number; y: number; zoom: number } | null;
   book: SiteEntry | null;
 }
 
@@ -339,8 +324,7 @@ let searchSpot: Spot | null = null;
 function currentSpot(): Spot {
   return {
     room: currentRoom,
-    pose: isView3D(view) ? view.currentPose() : null,
-    pan: view && !isView3D(view) ? (view as MatrixFlat).currentPan : null,
+    pose: view ? view.currentPose() : null,
     book: store.snapshot.selection.book,
   };
 }
@@ -369,12 +353,8 @@ function restorePose(): void {
   searchSpot = null;
   if (spot) {
     currentRoom = spot.room;
-    if (isView3D(view)) {
-      if (spot.pose) view.applyPose(spot.pose);
-      view.nudge();
-    } else {
-      view.setPan(spot.pan ?? store.snapshot.flatPan);
-    }
+    if (spot.pose) view.applyPose(spot.pose);
+    view.nudge();
     if (spot.book) store.setSelection({ discipline: spot.book.discipline, book: spot.book });
     else store.setSelection({ discipline: spot.room, book: null });
     syncRoombar();
@@ -384,13 +364,9 @@ function restorePose(): void {
     );
     return;
   }
-  if (isView3D(view)) {
-    const pose = currentRoom ? store.snapshot.roomCameras[currentRoom] : store.snapshot.hallCamera;
-    if (pose) view.applyPose(pose);
-    view.nudge();
-  } else {
-    view.setPan(store.snapshot.flatPan);
-  }
+  const pose = currentRoom ? store.snapshot.roomCameras[currentRoom] : store.snapshot.hallCamera;
+  if (pose) view.applyPose(pose);
+  view.nudge();
   const book = openedBook();
   setHud(
     book
@@ -401,51 +377,27 @@ function restorePose(): void {
 
 async function mount(): Promise<void> {
   manifest = await loadManifest();
-  const wantFlat = prefersFlatView();
-  const nextMode = wantFlat ? 'flat' : 'three';
-  if (view && mode === nextMode) return;
-  if (view) {
-    // 跨越 768px 断点重挂载时，先把当前位姿写回状态，返回后不丢
-    if (isView3D(view)) {
-      if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
-      else store.setHallCamera(view.currentPose());
-    }
-    view.dispose();
-    view = null;
-  }
-  if (nextMode === 'three') {
-    els.flat.hidden = true;
-    els.three.hidden = false;
-    // 移动端走 2D 时不加载 Three.js（docs/design.md 第七节）
-    const { Matrix3D } = await import('./scene3d');
-    view = new Matrix3D(els.three, manifest, {
-      onPickRoom: (d) => void enterRoom(d),
-      onPickBook: (_d, b) => pickBook(b),
-      onPickChapter: (_d, b, cid) => pickChapter(b, cid),
-      onPickConcept: (_d, b, cid) => pickConcept(b, cid),
-      onHud: setHud,
-      onCamera: () => undefined,
-      inputBusy: () => panelOpen() || isTyping() || miniBusy(),
-    });
-    els.three.addEventListener('click', (ev) => {
-      (view as Matrix3D).handleClick(ev as PointerEvent);
-    });
-  } else {
-    els.three.hidden = true;
-    els.flat.hidden = false;
-    view = new MatrixFlat(els.flat, manifest, {
-      onPickRoom: (d) => void enterRoom(d),
-      onPickBook: (_d, b) => pickBook(b),
-      onHud: setHud,
-      onPan: (p) => store.setFlatPan(p),
-    });
-    (view as MatrixFlat).setPan(store.snapshot.flatPan);
-  }
-  mode = nextMode;
+  if (view) return;
+  // scene3d 仍走动态 import：它把 three + 后期链 + 建筑几何单独分包，首屏只取 main，
+  // 且「移动端确实加载了 scene3d 分包」这条判据要靠真实的 chunk 请求来证，而不是靠代码里写了 import。
+  const { Matrix3D } = await import('./scene3d');
+  els.three.hidden = false;
+  view = new Matrix3D(els.three, manifest, {
+    onPickRoom: (d) => void enterRoom(d),
+    onPickBook: (_d, b) => pickBook(b),
+    onPickChapter: (_d, b, cid) => pickChapter(b, cid),
+    onPickConcept: (_d, b, cid) => pickConcept(b, cid),
+    onHud: setHud,
+    onCamera: () => undefined,
+    inputBusy: () => panelOpen() || isTyping() || miniBusy(),
+  });
+  els.three.addEventListener('click', (ev) => {
+    (view as Matrix3D).handleClick(ev as PointerEvent);
+  });
+  mode = 'three';
   buildRoombar();
   stopMinimap();
-  if (nextMode === 'three') drawMinimap();
-  else if (els.minimap) els.minimap.hidden = true;
+  drawMinimap();
   const resume = store.snapshot;
   if (resume.view === 'room' && resume.room) await enterRoom(resume.room);
   else showHall();
@@ -469,37 +421,42 @@ function exposeDiagnostics(): void {
     levels: manifest?.contentLevels ?? null,
     room: () => currentRoom,
     fps: () => (view ? view.fps() : 0),
-    running: () => (isView3D(view) ? view.isRunning : true),
-    pose: () => (isView3D(view) ? view.currentPose() : (view as MatrixFlat).currentPan),
+    running: () => (view ? view.isRunning : true),
+    pose: () => (view ? view.currentPose() : null),
     screenPoint: (kind: 'room' | 'book', id: string) =>
-      isView3D(view) ? view.screenPoint(kind, id) : null,
-    nodeStats: () => (isView3D(view) ? view.nodeStats() : null),
+      view ? view.screenPoint(kind, id) : null,
+    nodeStats: () => (view ? view.nodeStats() : null),
     /** 批 8 空间取证：结构账、书脊特写落点、真实拾取回归 */
-    structure: () => (isView3D(view) ? view.structure() : null),
+    structure: () => (view ? view.structure() : null),
+    /** 批 9：画质档位与竖屏构图账，门槛断言只读这两条，不从截图反推 */
+    quality: () => (view ? view.quality() : null),
+    frameCheck: () => (view ? view.frameCheck() : null),
+    lastTap: () => (view ? view.lastTap() : null),
+    spineContrast: () => (view ? view.spineContrast() : null),
     focusSpine: (i: number, dist?: number) =>
-      isView3D(view) ? view.focusSpine(i, dist ?? 3.4) : null,
-    spineProbe: (i: number) => (isView3D(view) ? view.spineProbe(i) : null),
-    probePick: (x: number, y: number) => (isView3D(view) ? view.probePick(x, y) : null),
-    spineCellPeek: (i: number) => (isView3D(view) ? view.spineCellPeek(i) : null),
-    triangles: () => (isView3D(view) ? view.triangles() : null),
-    roleHide: (role: string, hide: boolean) => (isView3D(view) ? view.roleHide(role, hide) : 0),
+      view ? view.focusSpine(i, dist ?? 3.4) : null,
+    spineProbe: (i: number) => (view ? view.spineProbe(i) : null),
+    probePick: (x: number, y: number) => (view ? view.probePick(x, y) : null),
+    spineCellPeek: (i: number) => (view ? view.spineCellPeek(i) : null),
+    triangles: () => (view ? view.triangles() : null),
+    roleHide: (role: string, hide: boolean) => (view ? view.roleHide(role, hide) : 0),
     /** 渲染层取证：census / 亮度采样 / 单条 pass 开关，只有 3D 视图有 */
-    census: () => (isView3D(view) ? view.census() : null),
+    census: () => (view ? view.census() : null),
     sampleLuminance: (x?: number, y?: number, w?: number, h?: number) =>
-      isView3D(view) ? view.sampleLuminance(x ?? 0, y ?? 0, w ?? 1, h ?? 1) : null,
-    setPassEnabled: (name: string, on: boolean) => (isView3D(view) ? view.setPassEnabled(name, on) : false),
+      view ? view.sampleLuminance(x ?? 0, y ?? 0, w ?? 1, h ?? 1) : null,
+    setPassEnabled: (name: string, on: boolean) => (view ? view.setPassEnabled(name, on) : false),
     setBloom: (next: { threshold?: number; strength?: number; radius?: number }) =>
-      isView3D(view) ? view.setBloom(next) : false,
-    tune: (o: Record<string, number>) => (isView3D(view) ? view.tune(o) : null),
+      view ? view.setBloom(next) : false,
+    tune: (o: Record<string, number>) => (view ? view.tune(o) : null),
     setShadowsEnabled: (on: boolean) => {
-      if (isView3D(view)) view.setShadowsEnabled(on);
+      if (view) view.setShadowsEnabled(on);
     },
-    direction: () => (isView3D(view) ? view.direction() : null),
-    corridorLabels: () => (isView3D(view) ? view.corridorLabels() : []),
-    viewCorridor: (key: Discipline) => (isView3D(view) ? view.viewCorridor(key) : false),
+    direction: () => (view ? view.direction() : null),
+    corridorLabels: () => (view ? view.corridorLabels() : []),
+    viewCorridor: (key: Discipline) => (view ? view.viewCorridor(key) : false),
     corridorScreenBox: (key: Discipline) =>
-      isView3D(view) ? view.corridorScreenBox(key) : null,
-    minimap: () => (isView3D(view) ? view.minimapState() : null),
+      view ? view.corridorScreenBox(key) : null,
+    minimap: () => (view ? view.minimapState() : null),
     renderSample: (src: string) => renderMarkdown(src),
     diagramRender: (src: string) => renderDiagram(src),
     diagramStates: () => {
@@ -560,7 +517,7 @@ function exposeDiagnostics(): void {
     holdMinimap,
     showHall,
     wake: () => {
-      if (isView3D(view)) view.nudge();
+      if (view) view.nudge();
     },
     /* ---------------------------------------------------------------- 检索层（批 3.5 / 批 4） */
     searchOpen: () => searchOpen(),
@@ -578,7 +535,6 @@ function exposeDiagnostics(): void {
       return {
         room: spot.room,
         pose: spot.pose,
-        pan: spot.pan,
         book: spot.book ? { file: spot.book.file, slug: spot.book.bookSlug, title: spot.book.title } : null,
       };
     },
@@ -593,7 +549,7 @@ function boot(): void {
     onHud: setHud,
     onClose: restorePose,
     onConceptShown: (cid) => {
-      if (isView3D(view)) view.highlightConcept(cid);
+      if (view) view.highlightConcept(cid);
     },
   });
   configureSearch({
@@ -612,11 +568,8 @@ function boot(): void {
   let resizeTimer = 0;
   window.addEventListener('resize', () => {
     window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(() => {
-      const want = prefersFlatView() ? 'flat' : 'three';
-      if (want !== mode) void mount();
-      else if (isView3D(view)) view.resize();
-    }, 160);
+    // 只重排相机与帧缓冲，不再重挂载：批 9 起只有一条渲染路径，跨 768px 换的是画质档不是视图
+    resizeTimer = window.setTimeout(() => view?.resize(), 160);
   });
   void mount().catch((err) => {
     if (els.loading) els.loading.textContent = `加载失败：${String(err)}`;

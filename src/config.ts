@@ -117,12 +117,86 @@ export const PLAQUE_KINDS: Record<Discipline, PlaqueKind> = {
   tools: 'diamond',
 };
 
-/** 是否该走 2D 降级：触屏或窄视口（铁律 4） */
-export function prefersFlatView(): boolean {
-  const coarse = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
-  const narrow = window.innerWidth < 768;
-  const forced = new URLSearchParams(location.search).get('flat');
-  if (forced === '1') return true;
-  if (forced === '0') return false;
-  return coarse || narrow;
+/** 窄视口判定：批 9 起只用于画质档位，不再决定是否走 2D（2D 路径已删除） */
+export const NARROW_VW = 768;
+
+export function isNarrowViewport(): boolean {
+  return window.innerWidth < NARROW_VW;
+}
+
+/**
+ * 画质档位：全端只有 3D 一条路径，移动端靠降档而不是换视图保帧率。
+ * 三档开关集中在这里，`scene3d` 与 `spacekit` 只读结果，不散落在各 build 函数。
+ */
+export interface QualityTier {
+  /** 档名，进 census 供断言读取 */
+  name: 'desktop' | 'mobile';
+  dprCap: number;
+  /** null = 关阴影；否则为 shadowMap 边长 */
+  shadowMapSize: number | null;
+  /** 光尘实例上限（0 = 不建光尘） */
+  dustBudget: number;
+  bloom: boolean;
+  bloomScale: number;
+  /** 房间帧缓冲缩放 */
+  renderScale: number;
+}
+
+const DESKTOP_TIER: QualityTier = {
+  name: 'desktop',
+  dprCap: 2,
+  shadowMapSize: 2048,
+  dustBudget: Number.POSITIVE_INFINITY,
+  bloom: true,
+  bloomScale: 0.65,
+  renderScale: 0.85,
+};
+
+/**
+ * 窄屏档：全端只有 3D 一条路径，移动端靠降画质而不是换视图保帧率。
+ * 光尘与 bloom 是窄屏上最贵的两项（加法混合大 quad 吃 fillrate、bloom 多级降采样），
+ * 阴影在关掉 bloom 后仍要一整张 shadow map 的重绘，所以窄屏连阴影一起关。
+ */
+const MOBILE_TIER: QualityTier = {
+  name: 'mobile',
+  dprCap: 1.5,
+  shadowMapSize: null,
+  dustBudget: 220,
+  bloom: false,
+  bloomScale: 0.5,
+  renderScale: 0.72,
+};
+
+export function qualityTier(): QualityTier {
+  return isNarrowViewport() ? MOBILE_TIER : DESKTOP_TIER;
+}
+
+/**
+ * 竖屏构图自适应：PerspectiveCamera 的 fov 是**垂直**张角，水平张角 = 2·atan(tan(fov/2)·aspect)。
+ * 390×844 的 aspect 只有 0.46，沿桌面那套 fov 时水平视野被压到十几度，
+ * 八角厅六门横向铺到 ±157.5°，默认机位进来只装得下正对的一面，走廊与邻区体量全出画；
+ * 阅览室也一样，装不下三面墙就看不出「房间」。故 fov 与初始距离都按 aspect 自适应。
+ * 判据不靠肉眼，走 `Matrix3d.frameCheck()` 把关键结构点投到 NDC 数在画内的比例。
+ */
+export const HALL_FOV_MIN = 56;
+export const HALL_FOV_MAX = 76;
+/**
+ * 阅览室横屏下限取批 8 的常量 fov 56：52 也能装下三面墙，但代价是把机位沿门墙法线退到门外
+ * （need 随 tan 涨），退出去之后画面上部三分之一变成墙与天花的空场——构图是「装全了」，
+ * 观感却成了娃娃屋。56 时 need 落在门墙内侧，画面仍是三面书架铺满，与批 8 同形。
+ */
+export const ROOM_FOV_MIN = 56;
+export const ROOM_FOV_MAX = 76;
+
+/** aspect 低于此值按竖屏处理（390×844 = 0.462，平板竖屏 0.75，桌面 1.6） */
+export const PORTRAIT_ASPECT = 0.9;
+
+/** aspect → 自适应量在 [0,1] 上的位置：aspect ≥1 取 0（桌面横屏，一切按批 8 基线），≤0.55 取 1（竖屏） */
+export function aspectRamp(aspect: number): number {
+  return Math.min(1, Math.max(0, (1 - aspect) / (1 - 0.55)));
+}
+
+/** aspect → 垂直 fov：aspect 1 → min、0.55 → max，中间线性、两端饱和 */
+export function fovForAspect(min: number, max: number, aspect: number): number {
+  return min + (max - min) * aspectRamp(aspect);
 }

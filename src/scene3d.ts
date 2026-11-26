@@ -7,14 +7,23 @@ import {
   ATLAS_SIZE,
   BG,
   CORRIDOR_W,
+  HALL_FOV_MAX,
+  HALL_FOV_MIN,
   HALL_HEIGHT,
   HALL_RADIUS,
   PLAQUE_KINDS,
   ROOMS,
   ROOM_BY_KEY,
   ROOM_DIST,
+  ROOM_FOV_MAX,
+  ROOM_FOV_MIN,
   ROOM_HEIGHT,
+  SHELF_HEIGHT,
   SHELF_KINDS,
+  aspectRamp,
+  fovForAspect,
+  qualityTier,
+  type QualityTier,
 } from './config';
 import {
   buildEnvironment,
@@ -34,7 +43,9 @@ import {
   muralTexture,
   nameplateTexture,
   plaqueTexture,
+  SPINE_INK,
   type SpineAtlas,
+  spineInkContrast,
 } from './atlas';
 import { planRoom, type RoomPlan } from './layout';
 import {
@@ -55,10 +66,6 @@ import type { CameraPose } from './state';
 
 const KEY_SPEED = 20; // 世界单位/秒：1 单位 ≈ 25 cm，走一步约 0.5 秒
 const MOVE_KEYS = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyQ', 'KeyE']);
-/** Bloom 内部链的分辨率倍率：0.65 拿回约 11% 帧时间，光晕边缘仍够软 */
-const BLOOM_SCALE = 0.65;
-/** 室内帧缓冲缩放（0.85 = 面积 72%）；大厅不缩，见 setRenderScale 注释 */
-const ROOM_RENDER_SCALE = 0.85;
 /** 悬停 120ms 才浮出 tooltip：扫过即闪的标签比没有标签更干扰阅读 */
 const TIP_DELAY_MS = 120;
 /** 大厅里六个「阅览室体量」的外壳按名义边长建，进区后才按该区书量重算真实边长 */
@@ -70,10 +77,23 @@ const FACADE_SIDE = 26;
 const HALL_FOG: [number, number] = [420, 1500];
 const ROOM_FOG: [number, number] = [210, 620];
 /**
- * 大厅默认机位：批 7 是 (0,330,380)，那时六区是 60 单位大的彩色体量，远点也压得住画面。
- * 批 8 换成 26 单位的阅览室体量，同样机位下整个建筑群只占画面一角，故收到 348 单位外。
+ * 大厅默认俯视线：批 7 是 (0,330,380)，那时六区是 60 单位大的彩色体量，远点也压得住画面；
+ * 批 8 换成 26 单位的阅览室体量后收到 (0,232,264)，俯角 atan(232/264) = 41.4°。
+ * 批 9 起这条线只定义**姿态**，距离按 aspect 沿它推远（见 hallPose），桌面档正好落回原点。
  */
-const HALL_POSE: [number, number, number] = [0, 232, 264];
+const HALL_TILT: [number, number] = [232, 264];
+const HALL_TILT_LEN = Math.hypot(HALL_TILT[0], HALL_TILT[1]);
+/**
+ * 俯视要装下的半宽：阅览室中心 150 + 体量半宽 13 + 门廊凸出与余量。
+ * 大厅地面 quad 铺到 ±360，那是背景而不是构图对象，不进这条账。
+ */
+const HALL_SPAN = 178;
+/**
+ * 点书脊的位移容忍：触屏 8px（任务书 B3 硬线：滑动 ≥8px 必须判为拖动）、鼠标 6px。
+ * 阈值取「大于等于即判拖动」，所以 8px 那一格也算拖动。
+ */
+const TAP_SLOP_TOUCH = 8;
+const TAP_SLOP_MOUSE = 6;
 
 export interface ThreeHooks {
   onPickRoom(discipline: Discipline): void;
@@ -216,12 +236,29 @@ export interface SpineProbe {
   chapterId: string;
   chapterIndex: number;
   screen: { x: number; y: number } | null;
+  /** 该书脊在屏幕上的投影高度（CSS 像素），竖屏可点性判据 */
+  px: number;
   /** 由 faceIndex 反查到的结果（与上面比对即为命中） */
   hit?: { kind: string; book: string; chapterId: string };
 }
 
+/** 竖屏构图账：结构关键点投影后落在视锥内的比例，按分组给，避免「总数够但全是地板」 */
+export interface FrameCheck {
+  view: string;
+  fov: number;
+  aspect: number;
+  points: Array<{ name: string; inFrame: boolean; ndc: [number, number, number] }>;
+  inFrame: number;
+  total: number;
+  groups: Record<string, { in: number; total: number }>;
+}
+
 // 10 秒帧率采样窗口要求持续渲染；静止 12 秒后才停循环，交互即恢复
 const IDLE_MS = 12000;
+
+function round2(v: number): number {
+  return Math.round(v * 100) / 100;
+}
 
 export class Matrix3D {
   readonly kind = '3d' as const;
@@ -284,6 +321,10 @@ export class Matrix3D {
   private prevTs = performance.now();
   private frameTimes: number[] = [];
   private downAt = { x: 0, y: 0 };
+  private downKind = 'mouse';
+  /** 上一次点击判定的实测位移与结论，供门槛断言读（不误开书 = drag 时不派发拾取） */
+  private lastTapInfo: { moved: number; slop: number; kind: string; action: 'tap' | 'tap-miss' | 'drag' } | null = null;
+  private tier: QualityTier;
   private keys = new Set<string>();
   private lastKeyHint = 0;
 
@@ -292,13 +333,14 @@ export class Matrix3D {
     private manifest: ManifestIndex,
     private hooks: ThreeHooks,
   ) {
+    this.tier = qualityTier();
     this.renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance', alpha: false });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, this.tier.dprCap));
     this.renderer.setClearColor(new THREE.Color(BG), 1);
     // composer 每条 pass 内部都调 renderer.render()，默认自动重置会让 info 只剩最后一条全屏 quad。
     // 关掉自动重置、每帧开头手动 reset，triangles/calls 才是「整帧」口径，改前改后同一把尺。
     this.renderer.info.autoReset = false;
-    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.enabled = this.tier.shadowMapSize !== null;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     // 只有相机在动，灯与几何每帧不变 → 阴影按「视图切换」重烘一次
     this.renderer.shadowMap.autoUpdate = false;
@@ -324,9 +366,12 @@ export class Matrix3D {
     this.glowTex = glowTexture();
     this.buildTip();
 
-    this.camera = new THREE.PerspectiveCamera(56, 1, 0.4, 1600);
-    this.camera.position.set(...HALL_POSE);
-
+    this.camera = new THREE.PerspectiveCamera(
+      fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, window.innerWidth / Math.max(1, window.innerHeight)),
+      window.innerWidth / Math.max(1, window.innerHeight),
+      0.4,
+      1600,
+    );
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.08;
@@ -336,6 +381,9 @@ export class Matrix3D {
     this.controls.maxPolarAngle = Math.PI * 0.49;
     this.controls.rotateSpeed = 0.85;
     this.controls.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_ROTATE };
+    // 机位要按 maxDistance 收敛，所以放在 controls 配好之后再解一次
+    const hall = this.hallPose();
+    this.camera.position.set(hall[0], hall[1], hall[2]);
 
     this.scene.add(this.hall, this.room);
     for (const [key, group] of this.buildLinks()) {
@@ -347,6 +395,7 @@ export class Matrix3D {
 
     const el = this.renderer.domElement;
     el.addEventListener('pointerdown', this.onPointerDown);
+    el.addEventListener('pointerup', this.onPointerUp);
     el.addEventListener('pointermove', this.onPointerMove);
     el.addEventListener('pointerleave', this.onPointerLeave);
     el.addEventListener('wheel', this.wake, { passive: true });
@@ -602,10 +651,10 @@ export class Matrix3D {
     // 走廊壳体三面法线全部朝内（侧墙指向中线、顶面指向下），必须是 FrontSide：
     // 写成 DoubleSide 时顶面从上方照样可见，大厅俯视看到的是六条封闭暗管盖，而不是管里的地面和铭牌。
     const shellMat = new THREE.MeshStandardMaterial({
-      map: wallTexture('#241d16', '#3a2f22', '#1c1610'),
+      map: wallTexture('#33291f', '#4a3c2c', '#241c14'),
       roughness: 0.9,
       metalness: 0.04,
-      envMapIntensity: 0.25,
+      envMapIntensity: 0.3,
     });
     for (const r of ROOMS) {
       const group = new THREE.Group();
@@ -687,6 +736,44 @@ export class Matrix3D {
     this.resize();
   }
 
+  /**
+   * aspect → 水平半张角（PerspectiveCamera.fov 是垂直角，水平要乘 aspect）。
+   */
+  private halfFovRad(fovDeg: number): number {
+    const aspect = this.camera.aspect || 1;
+    return Math.atan(Math.tan((fovDeg * Math.PI) / 360) * aspect);
+  }
+
+  /** 俯视机位沿批 8 的 41.4° 俯角线推远，直到六个阅览体量横向都进画；桌面档仍落回 (0,232,264) */
+  private hallPose(): [number, number, number] {
+    const fov = fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, this.camera.aspect);
+    const need = HALL_SPAN / Math.max(0.05, Math.tan(this.halfFovRad(fov)));
+    const dist = Math.min(this.controls.maxDistance - 20, Math.max(HALL_TILT_LEN, need));
+    const k = dist / HALL_TILT_LEN;
+    return [0, HALL_TILT[0] * k, HALL_TILT[1] * k];
+  }
+
+  /**
+   * 阅览室机位：横屏（aspect ≥1）就是批 8 那一档——站进门口、side*0.3，画面被三面书架铺满；
+   * 竖屏退到「门内一步」（门墙内侧 1.5 单位），靠 fov 76 把房间横向撑开。
+   *
+   * 竖屏不求「整间房的顶点都进画」：390×844 的 aspect 只有 0.462，fov 76 时水平半角
+   * 也只有 atan(tan38°×0.462)=20.3°，要把 side=20 的后墙四角全装下就得退到门外 13 单位。
+   * 那条构图实测是一间娃娃屋：画面上部三分之一是走廊与门洞，一根书脊被压到 21px 高，
+   * 指头点上去落进书顶的铜牌带，开出来是「本书总览」而不是章节（门槛里「390 点书脊开正文」
+   * 就是这么炸的）。竖屏的构图目标是「站门口看进去、书脊点得中」，两侧墙远段出画是窄屏的性质。
+   */
+  private roomEye(side: number, height: number): { dist: number; eyeY: number; lookY: number } {
+    const t = aspectRamp(this.camera.aspect);
+    const near = side * 0.3;
+    const doorway = Math.max(near, side * 0.5 - 1.5);
+    return {
+      dist: near + (doorway - near) * t,
+      eyeY: Math.min(height * 0.52, side * 0.42) + (Math.min(height * 0.62, side * 0.5) - Math.min(height * 0.52, side * 0.42)) * t,
+      lookY: height * (0.38 + 0.02 * t),
+    };
+  }
+
   showHall(pose?: CameraPose | null): void {
     this.view = 'hall';
     this.roomKey = null;
@@ -700,9 +787,11 @@ export class Matrix3D {
     this.controls.maxDistance = 1000;
     this.setFog(HALL_FOG);
     this.setRenderScale(1);
+    this.setFov(fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, this.camera.aspect));
     if (pose) this.applyPose(pose);
     else {
-      this.camera.position.set(...HALL_POSE);
+      const def = this.hallPose();
+      this.camera.position.set(def[0], def[1], def[2]);
       this.controls.target.set(0, 0, 0);
     }
     this.resetInertia();
@@ -746,18 +835,49 @@ export class Matrix3D {
 
     // 试过把墙面/天花换成 MeshLambertMaterial 省片元，实测反而慢 2–3 fps（五区同向），
     // 已回退——省下来的预算走「不接影」这条路（见下方 mark）。
+    // 批 9 C2：墙面与背板的底色各提一档（#2f2620 → #3d3026）。原来近黑室内里墙与书几乎同值，
+    // 「房间有边界」只能靠地面轮廓读出来。仍压在暗段——这是阅览室的低调子，不是白墙。
+    // 但底色只解释「有多少光可反」，不解释「有没有光」：灯在 y=10.6、离上部墙脚 18 单位开外，
+    // decay 2 之下那里本来就接不到东西。杠杆实测（AI 区默认机位，画面上部 34% 均值）：
+    // 基线 0.0048 / 关阴影 0.0098 / hemi 抬到 5× 也才 0.0215，只有 roomPoint 抬到 4.3× 走到 0.091，
+    // 代价是整帧 0.072 → 0.235（房间洗坏）。所以走「把反弹光烘进表面」：emissive + 同一张图当
+    // emissiveMap——不加灯、不多算片元，花色仍在，只是不再是一块纯黑。
+    const wallTex = wallTexture('#3d3026', '#544536', spec.color);
     const wallMat = new THREE.MeshStandardMaterial({
-      map: wallTexture('#2f2620', '#41352a', spec.color),
+      map: wallTex,
+      emissive: 0xffe9c9,
+      emissiveMap: wallTex,
+      emissiveIntensity: 0.11,
       roughness: 0.9,
       metalness: 0.04,
-      envMapIntensity: 0.28,
+      envMapIntensity: 0.4,
     });
     this.roomMats.push(wallMat);
     this.addRoomObject(this.mark(new THREE.Mesh(shell.walls, wallMat), 'wall', { receiveShadow: true }));
-    this.addRoomObject(this.mark(new THREE.Mesh(shell.ceiling, wallMat), 'ceiling', {}));
+    // 批 9 C1：天花 quad 的法线整片朝下（architecture.ts 里那条 [0,-1,0]），主光在头顶上方，
+    // dot(L,N) < 0 被夹成 0 —— 这面只吃 HemisphereLight 的地面色。隐藏天花与不隐藏天花，
+    // 画面上部 34% 的均值一字不变（0.00478），说明它本来就渲染成了纯黑而不是没画。
+    // 底色抬一档（#3d3026 → #6b5638）+ 反弹光给到 0.16，抬的是落脚亮度，不是入射光，帧时不受影响。
+    const ceilTex = wallTexture('#6b5638', '#7c6a4d', spec.color);
+    const ceilMat = new THREE.MeshStandardMaterial({
+      map: ceilTex,
+      emissive: 0xffe9c9,
+      emissiveMap: ceilTex,
+      emissiveIntensity: 0.22,
+      roughness: 0.95,
+      metalness: 0.02,
+      envMapIntensity: 0.55,
+    });
+    this.roomMats.push(ceilMat);
+    this.addRoomObject(this.mark(new THREE.Mesh(shell.ceiling, ceilMat), 'ceiling', {}));
 
+    // 藻井梁与踢脚/门框共用这一份：梁的底面同样朝下，接不到主光，给一档同样的反弹光
+    const trimTex = woodTexture('#453018', '#1c1208', 9);
     const trimMat = new THREE.MeshStandardMaterial({
-      map: woodTexture('#2a1c10', '#120b06', 9),
+      map: trimTex,
+      emissive: 0xffe9c9,
+      emissiveMap: trimTex,
+      emissiveIntensity: 0.16,
       roughness: 0.6,
       metalness: 0.16,
       envMapIntensity: 0.5,
@@ -811,7 +931,7 @@ export class Matrix3D {
     // 跟着书目走的只有书脊与光尘——没有书就一根脊都不造（铁律：不为演示编数据）。
     const shelf = buildShelves(plan);
     const shelfMat = new THREE.MeshStandardMaterial({
-      map: woodTexture('#3d2a18', '#170f08', 4 + ROOMS.findIndex((r) => r.key === discipline) * 3),
+      map: woodTexture('#4f3620', '#221609', 4 + ROOMS.findIndex((r) => r.key === discipline) * 3),
       roughness: 0.68,
       metalness: 0.12,
       envMapIntensity: 0.45,
@@ -921,8 +1041,20 @@ export class Matrix3D {
     });
     dots.instanceMatrix.needsUpdate = true;
     this.dust = dots;
+    this.applyDustBudget();
     this.addRoomObject(dots);
     this.recolorDots();
+  }
+
+  /**
+   * 光尘实例数按档位收口：加法混合的大 quad 是移动端 fillrate 的主要开销，密度减半在
+   * 390 宽屏上观感差异不可辨。用 `InstancedMesh.count` 截断而不是重建几何——拾取射线
+   * 只遍历 count 以内的实例，所以亮尘表与点选表自动同步，不需要第二套索引。
+   */
+  private applyDustBudget(): void {
+    if (!this.dust) return;
+    this.dust.count = Math.min(this.dotSeeds.length, Math.max(0, this.tier.dustBudget));
+    this.dust.visible = this.dust.count > 0;
   }
 
   private addRoomLights(side: number): void {
@@ -947,7 +1079,8 @@ export class Matrix3D {
     this.controls.minDistance = 3.2;
     this.controls.maxDistance = 320;
     this.setFog(ROOM_FOG);
-    this.setRenderScale(ROOM_RENDER_SCALE);
+    this.setRenderScale(this.tier.renderScale);
+    this.setFov(fovForAspect(ROOM_FOV_MIN, ROOM_FOV_MAX, this.camera.aspect));
     const side = plan.side;
     const spec = ROOM_BY_KEY[plan.discipline];
     const cx = this.room.position.x;
@@ -959,10 +1092,10 @@ export class Matrix3D {
       // 塞进后墙书架里，截出来是一整幅横板（见 pitfalls 55）。
       // 站进门口、齐视线高度：墙与天花只朝内，从门内看过去就是封闭室内而不是娃娃屋外壳。
       const toDoor = new THREE.Vector3(-Math.cos(spec.angle), 0, -Math.sin(spec.angle));
-      const eye = new THREE.Vector3(cx, 0, cz).addScaledVector(toDoor, side * 0.3);
-      eye.y = Math.min(plan.height * 0.52, side * 0.42);
-      this.camera.position.copy(eye);
-      this.controls.target.set(cx, plan.height * 0.38, cz);
+      const eye = this.roomEye(side, plan.height);
+      this.camera.position.set(cx, 0, cz).addScaledVector(toDoor, eye.dist);
+      this.camera.position.y = eye.eyeY;
+      this.controls.target.set(cx, eye.lookY, cz);
     }
     this.resetInertia();
     this.controls.update();
@@ -1017,6 +1150,24 @@ export class Matrix3D {
 
   private onPointerDown = (ev: PointerEvent): void => {
     this.downAt = { x: ev.clientX, y: ev.clientY };
+    this.downKind = ev.pointerType || 'mouse';
+    this.wake();
+  };
+
+  /** 位移阈值按**按下时**的指针类型取：触屏 8px（手指抖动远大于鼠标，6px 会在正常滑动后误开书），鼠标 6px */
+  private tapVerdict(ev: { clientX: number; clientY: number }) {
+    const kind = this.downKind;
+    const slop = kind === 'touch' ? TAP_SLOP_TOUCH : TAP_SLOP_MOUSE;
+    return { kind, slop, moved: Math.hypot(ev.clientX - this.downAt.x, ev.clientY - this.downAt.y) };
+  }
+
+  /**
+   * 拖拽/轻点在 pointerup 就定性并记账：触屏上的滑动手势，浏览器常常**不再派发 click**，
+   * 只在 click 里判阈值的话，「滑动 ≥8px 判为拖拽」这件事在门外根本没有可观测的痕迹。
+   */
+  private onPointerUp = (ev: PointerEvent): void => {
+    const { kind, slop, moved } = this.tapVerdict(ev);
+    this.lastTapInfo = { moved: round2(moved), slop, kind, action: moved >= slop ? 'drag' : 'tap' };
     this.wake();
   };
 
@@ -1232,19 +1383,170 @@ export class Matrix3D {
   }
 
   handleClick(ev: PointerEvent): void {
-    // OrbitControls 拖拽后浏览器仍会派发 click，按位移阈值把拖动排除掉
-    const moved = Math.hypot(ev.clientX - this.downAt.x, ev.clientY - this.downAt.y);
-    if (moved > 6) return;
+    // OrbitControls 拖拽后浏览器仍会派发 click，按位移阈值把拖动排除掉。
+    // pointerup 已经判成拖拽时直接沿用（同一次手势，两处的位移读数本就一致）。
+    const { kind, slop, moved } = this.tapVerdict(ev);
+    const dragged = moved >= slop || this.lastTapInfo?.action === 'drag';
+    if (dragged) {
+      this.lastTapInfo = { moved: round2(moved), slop, kind, action: 'drag' };
+      return;
+    }
+    this.lastTapInfo = { moved: round2(moved), slop, kind, action: 'tap' };
     const hit = this.pick(ev);
-    if (!hit) return;
+    if (!hit) {
+      this.lastTapInfo.action = 'tap-miss';
+      return;
+    }
     if (hit.kind === 'room') this.hooks.onPickRoom(hit.discipline);
     else if (hit.kind === 'book' && hit.book) this.hooks.onPickBook(hit.discipline, hit.book);
     else if (hit.kind === 'chapter' && hit.book && hit.id) {
-      this.hooks.onPickBook(hit.discipline, hit.book);
+      // 不补发 onPickBook：main.pickChapter 自己就做了 setSelection + openBook + openChapter。
+      // 两条链各调一次 bookRecord（未缓存 = 两次 fetch），回来的先后不定，晚到的 openBook
+      // 会把面板从 chapter 打回 overview——390「点书脊开正文」那条就是飘在这里的。
       this.hooks.onPickChapter(hit.discipline, hit.book, hit.id);
     } else if (hit.kind === 'concept' && hit.book && hit.id) {
       this.hooks.onPickConcept(hit.discipline, hit.book, hit.id);
     }
+  }
+
+  lastTap(): Matrix3D['lastTapInfo'] {
+    return this.lastTapInfo;
+  }
+
+  quality(): {
+    name: string;
+    dprCap: number;
+    pixelRatio: number;
+    shadows: boolean;
+    shadowMapSize: number;
+    bloom: boolean;
+    bloomScale: number;
+    renderScale: number;
+    dustBudget: number;
+    viewport: { w: number; h: number; aspect: number };
+    fov: number;
+  } {
+    return {
+      name: this.tier.name,
+      dprCap: this.tier.dprCap,
+      pixelRatio: this.renderer.getPixelRatio(),
+      shadows: this.renderer.shadowMap.enabled,
+      shadowMapSize: this.keyLight?.shadow?.mapSize.width ?? 0,
+      bloom: this.tier.bloom,
+      bloomScale: this.tier.bloomScale,
+      renderScale: this.renderScale,
+      dustBudget: Number.isFinite(this.tier.dustBudget) ? this.tier.dustBudget : -1,
+      viewport: {
+        w: this.root.clientWidth,
+        h: this.root.clientHeight,
+        aspect: this.camera.aspect,
+      },
+      fov: this.camera.fov,
+    };
+  }
+
+  /**
+   * 构图账（批 9 判据「竖屏构图两项」的口径）：把结构关键点投到 NDC，按分组给入画数。
+   * 大厅看六个阅览体量中心 + 六个门洞 + 八角厅天花顶点；阅览室分背墙包络 / 书墙中段 /
+   * 天花梁下 / 地面 / 书架排五组，口径逐组写在下面 room 分支的注释里。
+   * 地面 quad 铺到 ±360，是背景不是构图对象，不进这条账。
+   */
+  frameCheck(): FrameCheck {
+    this.syncWorld();
+    const inHall = this.view === 'hall';
+    const side = this.plan?.side ?? 0;
+    const height = this.plan?.height ?? ROOM_HEIGHT;
+    const raw: Array<{ name: string; group: string; local: [number, number, number] }> = [];
+    if (inHall) {
+      for (const r of ROOMS) {
+        raw.push({ group: 'facades', name: `facade:${r.key}`, local: [r.at[0], ROOM_HEIGHT * 0.5, r.at[1]] });
+        raw.push({ group: 'doors', name: `door:${r.key}`, local: [Math.cos(r.angle) * (HALL_RADIUS + 1), ROOM_DOOR.h * 0.5, Math.sin(r.angle) * (HALL_RADIUS + 1)] });
+      }
+      for (let i = 0; i < 8; i += 1) {
+        const a = (Math.PI * 2 * i) / 8 + Math.PI / 8;
+        raw.push({ group: 'ceiling', name: `ceil:${i}`, local: [Math.cos(a) * HALL_RADIUS, HALL_HEIGHT, Math.sin(a) * HALL_RADIUS] });
+      }
+    } else {
+      // 判据口径（批 9 B1）：分组要问的是「画面里有没有一间房」，不是「房间八个顶点能不能全塞进画」。
+      // 窄屏 aspect 0.46 时水平半角只有 20°出头，两侧墙在室内任何机位都必然出画，
+      // 硬凑「全部顶点入画」只能把机位退到门外十几单位——那是一张娃娃屋剖面图，
+      // 书脊被压到 20px 以下、指头点不中章节带。故这里把「严格包络」与「构图要素」分开：
+      //   back     后墙四角（只作参考量，桌面横屏才可能满，竖屏注定不满）
+      //   face     后墙书墙中段（画面正中是一面书）
+      //   ceiling  天花梁下远段（画面上方有顶，不是空洞）
+      //   floor    地面中近段（画面下方有地，不是悬空）
+      //   shelves  每一排书架的排中心
+      const half = side / 2;
+      for (const sx of [-1, 1]) {
+        for (const sy of [0.2, height]) {
+          raw.push({ group: 'back', name: `back:${sx}:${sy}`, local: [(sx * half) * 0.98, sy, half * 0.98] });
+        }
+        for (const sy of [height * 0.3, height * 0.75]) {
+          raw.push({ group: 'face', name: `face:${sx}:${sy}`, local: [sx * half * 0.35, sy, half * 0.98] });
+        }
+        raw.push({ group: 'sidewall', name: `side:${sx}:mid`, local: [(sx * half) * 0.98, height * 0.55, half * 0.2] });
+        raw.push({ group: 'sidewall', name: `side:${sx}:foot`, local: [(sx * half) * 0.98, 0.25, half * 0.5] });
+        raw.push({ group: 'ceiling', name: `ceil:${sx}:beam`, local: [sx * half * 0.45, height - 2.2, half * 0.9] });
+        raw.push({ group: 'ceiling', name: `ceil:${sx}:far`, local: [sx * half * 0.2, height - 2.2, half * 0.98] });
+        raw.push({ group: 'floor', name: `floor:${sx}:near`, local: [sx * half * 0.25, 0.2, -half * 0.2] });
+        raw.push({ group: 'floor', name: `floor:${sx}:mid`, local: [sx * half * 0.25, 0.2, half * 0.4] });
+      }
+      (this.plan?.rows ?? []).forEach((row, i) => {
+        raw.push({ group: 'shelves', name: `shelf:${i}`, local: [row.x, SHELF_HEIGHT * 0.5, row.z] });
+      });
+    }
+    const groups: Record<string, { in: number; total: number }> = {};
+    const points: FrameCheck['points'] = [];
+    for (const p of raw) {
+      const world = inHall
+        ? new THREE.Vector3(...p.local).applyMatrix4(this.hall.matrixWorld)
+        : this.localToWorld(p.local);
+      const v = world.project(this.camera);
+      const inFrame = Math.abs(v.x) <= 1 && Math.abs(v.y) <= 1 && v.z >= -1 && v.z <= 1;
+      const g = groups[p.group] ?? { in: 0, total: 0 };
+      g.total += 1;
+      if (inFrame) g.in += 1;
+      groups[p.group] = g;
+      points.push({
+        name: p.name,
+        inFrame,
+        ndc: [Number(v.x.toFixed(3)), Number(v.y.toFixed(3)), Number(v.z.toFixed(3))],
+      });
+    }
+    return {
+      view: this.view,
+      fov: this.camera.fov,
+      aspect: this.camera.aspect,
+      points,
+      inFrame: points.filter((p) => p.inFrame).length,
+      total: points.length,
+      groups,
+    };
+  }
+
+  /**
+   * 批 9 C3 判据「书脊字口反差」：对本区每一本书的皮革底色算一次字色/背景对比度，
+   * 口径与算法都在 atlas.spineInkContrast 的注释里（背景是暗题签底板压在皮革上的合成色）。
+   * 返回逐本比值，门槛读 `min`。
+   */
+  spineContrast(): {
+    zone: string | null;
+    ink: string;
+    books: number;
+    min: number;
+    p50: number;
+    ratios: number[];
+  } {
+    const slots = this.plan?.slots ?? [];
+    const ratios = slots.map((s) => spineInkContrast(s.color)).sort((a, b) => a - b);
+    return {
+      zone: this.roomKey ?? null,
+      ink: SPINE_INK,
+      books: ratios.length,
+      min: ratios[0] ?? 0,
+      p50: ratios[Math.floor(ratios.length / 2)] ?? 0,
+      ratios: ratios.slice(0, 12),
+    };
   }
 
   /** 自动化自检用：把区 / 书位节点的世界坐标投到 CSS 像素坐标 */
@@ -1365,6 +1667,10 @@ export class Matrix3D {
           y: rect.top + ((1 - p.y) / 2) * rect.height,
         }
       : null;
+    // 书脊在屏幕上的像素高：脊面上下沿各投一次。竖屏「指头点得中章节带」的判据口径。
+    const top = this.localToWorld([sp.x, sp.y + sp.h / 2, sp.z]).project(this.camera);
+    const foot = this.localToWorld([sp.x, sp.y - sp.h / 2, sp.z]).project(this.camera);
+    const px = inside ? Math.round(((Math.abs(top.y - foot.y) / 2) * rect.height)) : 0;
     // 真实拾取回归：射线打在该书脊屏幕点上，结果应与 faceIndex 映射表一致
     const probe = screen ? this.probePick(screen.x, screen.y) : null;
     return {
@@ -1373,6 +1679,7 @@ export class Matrix3D {
       chapterId: sp.chapter.id,
       chapterIndex: sp.chapterIndex,
       screen,
+      px,
       hit: probe
         ? { kind: probe.kind, book: probe.book ?? '', chapterId: probe.id ?? '' }
         : undefined,
@@ -1453,7 +1760,7 @@ export class Matrix3D {
     if (!dots || !dots.visible || !this.dotSeeds.length) return;
     this.camera.updateMatrixWorld();
     this.billboardQuat.setFromRotationMatrix(this.camera.matrixWorld);
-    for (let i = 0; i < this.dotSeeds.length; i += 1) {
+    for (let i = 0; i < Math.min(this.dotSeeds.length, dots.count); i += 1) {
       const seed = this.dotSeeds[i];
       this.billboardMat.compose(
         seed.pos,
@@ -1963,10 +2270,39 @@ export class Matrix3D {
   resize(): void {
     const w = this.root.clientWidth || window.innerWidth;
     const h = this.root.clientHeight || window.innerHeight;
+    const next = qualityTier();
+    if (next.name !== this.tier.name) this.applyTier(next);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, this.tier.dprCap));
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / Math.max(1, h);
-    this.camera.updateProjectionMatrix();
+    // fov 与距离是一对：只改 fov 不改距离，竖屏会「装得下但仍是同一面墙」；
+    // 只改距离不改 fov，则推远后被窄水平角再次裁掉。两者都按同一个 aspect 解。
+    this.setFov(this.view === 'hall'
+      ? fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, this.camera.aspect)
+      : fovForAspect(ROOM_FOV_MIN, ROOM_FOV_MAX, this.camera.aspect));
     this.ensurePost(w, h);
+  }
+
+  private setFov(fov: number): void {
+    // 不做「fov 没变就 return」的短路：resize() 里 aspect 刚变过，投影矩阵必须跟着重算，
+    // 否则竖屏切来切去相机 fov 是新的、矩阵还是上一个 aspect 的（构图差 10% 量级）。
+    this.camera.fov = fov;
+    this.camera.updateProjectionMatrix();
+  }
+
+  /** 画质档只在构造与跨 768px 时切换；散落在各 build 函数的档位常量都走这里 */
+  private applyTier(next: QualityTier): void {
+    this.tier = next;
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, next.dprCap));
+    const shadows = next.shadowMapSize !== null;
+    this.renderer.shadowMap.enabled = shadows;
+    if (this.keyLight) {
+      this.keyLight.castShadow = shadows;
+      if (next.shadowMapSize) this.keyLight.shadow.mapSize.set(next.shadowMapSize, next.shadowMapSize);
+    }
+    this.applyDustBudget();
+    this.ensurePost(this.renderer.domElement.clientWidth, this.renderer.domElement.clientHeight);
+    this.wake();
   }
 
   private buildTip(): void {
@@ -1987,10 +2323,19 @@ export class Matrix3D {
     // 地板与书架整片送进片元着色，瓶颈是像素量而不是三角形（tris 6.2k / calls 29）。
     const sw = Math.round(w * this.renderScale);
     const sh = Math.round(h * this.renderScale);
+    if (!this.tier.bloom) {
+      // 窄屏档：composer 的 RenderPass + OutputPass 本身就是两趟全屏，bloom 关掉时
+      // 留着它们只剩开销，直接走 renderer.render（ACES 由 renderer 承担）。
+      this.destroyPost();
+      return;
+    }
     if (this.composerHandle) {
       this.composerHandle.setPixelRatio(pr);
       this.composerHandle.setSize(sw, sh);
-      this.bloomHandle?.setSize(Math.round(sw * pr * BLOOM_SCALE), Math.round(sh * pr * BLOOM_SCALE));
+      this.bloomHandle?.setSize(
+        Math.round(sw * pr * this.tier.bloomScale),
+        Math.round(sh * pr * this.tier.bloomScale),
+      );
       return;
     }
     const chain = buildPostChain(this.renderer, this.scene, this.camera, w, h);
@@ -2000,7 +2345,10 @@ export class Matrix3D {
     this.bloomHandle = chain.bloom;
     this.composerHandle.setPixelRatio(pr);
     this.composerHandle.setSize(sw, sh);
-    chain.bloom.setSize(Math.round(sw * pr * BLOOM_SCALE), Math.round(sh * pr * BLOOM_SCALE));
+    chain.bloom.setSize(
+      Math.round(sw * pr * this.tier.bloomScale),
+      Math.round(sh * pr * this.tier.bloomScale),
+    );
     this.postList = [
       { name: 'RenderPass', pass: chain.render },
       { name: 'UnrealBloomPass', pass: chain.bloom },
@@ -2008,11 +2356,22 @@ export class Matrix3D {
     ];
   }
 
+  private destroyPost(): void {
+    if (!this.composerHandle) return;
+    this.composerHandle.dispose();
+    this.composerHandle = null;
+    this.composer = null;
+    this.bloomHandle = null;
+    this.bloomPass = null;
+    this.postList = [];
+  }
+
   dispose(): void {
     this.disposed = true;
     this.stop();
     const el = this.renderer.domElement;
     el.removeEventListener('pointerdown', this.onPointerDown);
+    el.removeEventListener('pointerup', this.onPointerUp);
     el.removeEventListener('pointermove', this.onPointerMove);
     el.removeEventListener('pointerleave', this.onPointerLeave);
     el.removeEventListener('wheel', this.wake);

@@ -20,8 +20,6 @@ interface Persisted {
   hallCamera: CameraPose | null;
   roomCameras: Partial<Record<Discipline, CameraPose>>;
   selection: Selection;
-  /** 2D 降级视图的平移量 */
-  flatPan: { x: number; y: number; zoom: number };
 }
 
 const KEY = 'zhishu.matrix.state.v1';
@@ -32,7 +30,6 @@ const initial: Persisted = {
   hallCamera: null,
   roomCameras: {},
   selection: { discipline: null, book: null },
-  flatPan: { x: 0, y: 0, zoom: 1 },
 };
 
 let state: Persisted = load();
@@ -48,7 +45,6 @@ function load(): Persisted {
       ...parsed,
       roomCameras: parsed.roomCameras ?? {},
       selection: parsed.selection ?? initial.selection,
-      flatPan: parsed.flatPan ?? initial.flatPan,
     };
   } catch {
     return { ...initial };
@@ -92,10 +88,6 @@ export const store = {
     state.selection = { ...state.selection, ...sel };
     save();
     this.emit();
-  },
-  setFlatPan(pan: Partial<Persisted['flatPan']>): void {
-    state.flatPan = { ...state.flatPan, ...pan };
-    save();
   },
   reset(): void {
     state = { ...initial, roomCameras: {} };
