@@ -323,6 +323,110 @@ button {
   display: none;
 }
 
+/* ------------------------------------------------ 批 11：第一人称漫游的输入件 */
+
+#btn-walk.on {
+  border-color: var(--accent);
+  background: #1b2338;
+}
+
+/* 准星：固定在画面中心（= 拾取射线的那一点），pointer-events 关掉，不许吃掉画布手势 */
+.crosshair {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.crosshair[hidden] {
+  display: none;
+}
+
+.crosshair i {
+  position: absolute;
+  background: rgba(232, 236, 244, 0.86);
+}
+
+.crosshair i:nth-child(1) {
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+}
+
+.crosshair i:nth-child(2) {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+}
+
+.crosshair i.dot {
+  left: 50%;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  margin: -1.5px 0 0 -1.5px;
+  border-radius: 50%;
+}
+
+/* 命中态：十字变粗并转成主色，隔着半屏也看得出「这一下点得开」 */
+.crosshair.on-target {
+  opacity: 1;
+}
+
+.crosshair.on-target i {
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(74, 108, 247, 0.75);
+}
+
+.crosshair.on-target i:nth-child(1) {
+  height: 2px;
+}
+
+.crosshair.on-target i:nth-child(2) {
+  width: 2px;
+}
+
+.crosshair.on-target i.dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+}
+
+/* 摇杆：只在实际按住的那半屏就地出现，基座 + 手柄，松手回中即收起 */
+.stick {
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  border: 1px solid rgba(232, 236, 244, 0.26);
+  border-radius: 50%;
+  background: rgba(14, 16, 21, 0.32);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.stick[hidden] {
+  display: none;
+}
+
+.stick .knob {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(232, 236, 244, 0.45);
+  border-radius: 50%;
+  background: rgba(232, 236, 244, 0.28);
+  transform: translate(-50%, -50%);
+}
+
 /* ---------------------------------------------------------------- 阅读层（阶段 C） */
 
 #panel-crumb {

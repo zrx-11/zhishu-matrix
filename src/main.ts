@@ -46,6 +46,7 @@ const els = {
   roombar: document.getElementById('roombar') as HTMLElement,
   minimap: document.getElementById('minimap') as HTMLElement | null,
   home: document.getElementById('btn-home') as HTMLButtonElement,
+  walk: document.getElementById('btn-walk') as HTMLButtonElement | null,
   close: document.getElementById('panel-close') as HTMLButtonElement,
   back: document.getElementById('panel-back') as HTMLButtonElement,
 };
@@ -268,6 +269,23 @@ function showHall(): void {
   syncRoombar();
 }
 
+/** 批 11：顶栏「走进 / 退出」——手机上这是唯一的入口（没有 F 键），所以必须常驻可点 */
+function syncWalkBtn(walk: boolean): void {
+  const btn = els.walk;
+  if (!btn) return;
+  btn.textContent = walk ? '退出' : '走进';
+  btn.setAttribute('aria-pressed', walk ? 'true' : 'false');
+  btn.setAttribute('aria-label', walk ? '退出第一人称漫游' : '进入第一人称漫游');
+  btn.classList.toggle('on', walk);
+}
+
+function toggleWalk(): boolean {
+  if (!view) return false;
+  const on = view.toggleWalk();
+  syncWalkBtn(view.camModeName() === 'walk');
+  return on;
+}
+
 function pickBook(book: SiteEntry): void {
   // 选书时保存的是「当前所在视图」的相机，不能误写大厅位姿
   if (view) {
@@ -391,6 +409,7 @@ async function mount(): Promise<void> {
     onHud: setHud,
     onCamera: () => undefined,
     inputBusy: () => panelOpen() || isTyping() || miniBusy(),
+    onCamMode: (walk) => syncWalkBtn(walk),
   });
   els.three.addEventListener('click', (ev) => {
     (view as Matrix3D).handleClick(ev as PointerEvent);
@@ -441,6 +460,23 @@ function exposeDiagnostics(): void {
     /** 批 10 C：图集绘制参数（题签占脊宽比由 atlas 常量直接给出） */
     spinePlateSpec: () => ({ x: SPINE_PLATE_RECT.x, y: SPINE_PLATE_RECT.y, w: SPINE_PLATE_RECT.w, h: SPINE_PLATE_RECT.h, cellW: 32, cellH: 160 }),
     lastTap: () => (view ? view.lastTap() : null),
+    /** 批 11：第一人称漫游取证。只读 walkState + 走真实按键链路，不另开一条内部通道 */
+    walk: () => (view ? view.walkState() : null),
+    walkToggle: () => toggleWalk(),
+    setWalk: (on: boolean) => (view ? view.setWalk(on) : false),
+    walkSnap: (x: number, z: number, fx: number, fz: number) =>
+      view ? view.walkSnapTo(x, z, fx, fz) : null,
+    walkAimSpine: (i: number) => (view ? view.walkAimSpine(i) : null),
+    walkSetLook: (yawDeg: number, pitchDeg: number) =>
+      view ? view.walkSetLook(yawDeg, pitchDeg) : null,
+    closeupReport: () => (view ? view.closeupReport() : null),
+    walkMarch: (dx: number, dz: number, d: number, use?: 'here' | 'hall' | 'room') =>
+      view ? view.walkMarch(dx, dz, d, use ?? 'here') : null,
+    walkTraceStart: () => {
+      view?.walkTraceStart();
+      return true;
+    },
+    walkTraceStop: () => (view ? view.walkTraceStop() : null),
     spineContrast: () => (view ? view.spineContrast() : null),
     focusSpine: (i: number, dist?: number) =>
       view ? view.focusSpine(i, dist ?? 3.4) : null,
@@ -552,6 +588,9 @@ function exposeDiagnostics(): void {
 
 function boot(): void {
   els.home?.addEventListener('click', showHall);
+  els.walk?.addEventListener('click', () => {
+    toggleWalk();
+  });
   els.close?.addEventListener('click', closePanel);
   els.back?.addEventListener('click', goBack);
   configurePanel({

@@ -69,6 +69,8 @@ export const CORRIDOR_H = 12;
 export const WALL_T = 1.2;
 
 export const ROOM_HEIGHT = 15;
+/** 大厅俯视用的「阅览楼体量」名义边长：进区后才按该区书量算真实房间边长 */
+export const FACADE_SIDE = 26;
 /** 书架：沿墙一整排算「一排」，一排内横向分若干层 */
 export const SHELF_DEPTH = 2.6;
 export const SHELF_HEIGHT = 12;
@@ -142,6 +144,36 @@ export const HALL_PORTRAIT = {
  * 后墙四角 NDC 1.13 → 0.73、侧墙远端 1.45 → 0.94，背墙 4/4、侧墙 2/4 入画。
  */
 export const ROOM_LENS_MAX = 0.55;
+
+/**
+ * 批 11：第一人称漫游。世界尺度 1 单位 ≈ 25 cm（见 HALL_SIDES 上方注释），
+ * 所以下面每个数都能换算回日常尺寸，不是「手感调出来的魔法数」。
+ */
+export const WALK = {
+  /**
+   * 眼高 1.65 单位 = 1.65 m 的人眼高（常规层高 2.6–3 m 的读数）。
+   * 房间 side 20 / height 15、书架 5 层总高 ≈11.6：站在 1.65 处正好平视最下一排书脊
+   * （首层板 0.42 + 书高 ≈1.6 → 书心 1.2，抬头读上面几层），换成 5 或 8 会把书架顶压到头上。
+   */
+  eye: 1.65,
+  /** 站立身高（碰撞柱顶），只用于竖直通带判定 */
+  stand: 1.85,
+  /** 步速 3.2 单位/秒：房间宽 20，横穿约 6 秒 */
+  speed: 3.2,
+  /** Shift 疾走倍率 */
+  sprint: 1.8,
+  /** 圆柱碰撞半径 0.45 单位 ≈ 45 cm 肩宽的一半 */
+  radius: 0.45,
+  /** 俯仰限幅 ±70°：不到 90° 就不可能出现万向锁翻转 */
+  pitchMax: (70 * Math.PI) / 180,
+  /** 转头灵敏度：每 CSS 像素 0.0052 弧度（转 90° 需拖 302px，一屏宽正好半圈） */
+  lookPerPx: 0.0052,
+  /** 轻点最长按压时长：超过即算「按住」而不是「点」——判序永远是先位移后时长 */
+  tapMaxMs: 700,
+  /** 摇杆：把手拖出该半径才算移动（占 48px 行程的 1/4） */
+  stickDead: 0.18,
+  stickPx: 48,
+} as const;
 
 /** 窄视口判定：批 9 起只用于画质档位，不再决定是否走 2D（2D 路径已删除） */
 export const NARROW_VW = 768;

@@ -158,6 +158,70 @@ export function wallTexture(base: string, accent: string, tint: string): THREE.C
   });
 }
 
+/**
+ * 石板地：2×2 一块、灰缝 3px、逐块抖明度 + 细碎砾噪。
+ * 批 11 F 为漫游近景新增——大厅地面原本贴的是俯视总览图，
+ * 一张 1024 摊到 88 单位见方只有 11.6 texel/单位，人站到 1.65 眼高上就是一片糊白的字与同心圆。
+ */
+export function stoneTexture(base: string, joint: string, seed = 5): THREE.CanvasTexture {
+  const key = `stone:${base}:${joint}:${seed}`;
+  return cached(key, () => {
+    const W = 256;
+    const c = document.createElement('canvas');
+    c.width = W;
+    c.height = W;
+    const g = c.getContext('2d');
+    if (!g) throw new Error('canvas 2d 不可用');
+    g.fillStyle = joint;
+    g.fillRect(0, 0, W, W);
+    const b = rgbOf(base);
+    for (let ty = 0; ty < 2; ty += 1) {
+      for (let tx = 0; tx < 2; tx += 1) {
+        const k = noise2(tx, ty, seed);
+        const dim = 0.86 + k * 0.3;
+        g.fillStyle = `rgb(${Math.round(b.r * dim)}, ${Math.round(b.g * dim)}, ${Math.round(b.b * dim)})`;
+        g.fillRect(tx * 128 + 2, ty * 128 + 2, 124, 124);
+      }
+    }
+    const img = g.getImageData(0, 0, W, W);
+    for (let y = 0; y < W; y += 1) {
+      for (let x = 0; x < W; x += 1) {
+        const n = (fbm(x / W * 64, y / W * 64, seed + 3) - 0.5) * 22
+          + (fbm(x / W * 6, y / W * 6, seed + 11) - 0.5) * 14;
+        const i = (y * W + x) * 4;
+        img.data[i] = Math.max(0, Math.min(255, img.data[i] + n));
+        img.data[i + 1] = Math.max(0, Math.min(255, img.data[i + 1] + n));
+        img.data[i + 2] = Math.max(0, Math.min(255, img.data[i + 2] + n));
+      }
+    }
+    g.putImageData(img, 0, 0);
+    // 灰缝压暗、石板边倒角：近景靠这两条读得出「一块一块铺的」，而不是整片糊色
+    g.strokeStyle = 'rgba(0, 0, 0, 0.5)';
+    g.lineWidth = 3;
+    for (let i = 0; i <= 2; i += 1) {
+      const p = i * 128 + 0.5;
+      g.beginPath();
+      g.moveTo(p, 0);
+      g.lineTo(p, W);
+      g.moveTo(0, p);
+      g.lineTo(W, p);
+      g.stroke();
+    }
+    g.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+    g.lineWidth = 1;
+    for (let i = 0; i < 2; i += 1) {
+      for (let j = 0; j < 2; j += 1) g.strokeRect(i * 128 + 4.5, j * 128 + 4.5, 119, 119);
+    }
+    const tex = new THREE.CanvasTexture(c);
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 8;
+    tex.userData.procedural = true;
+    return tex;
+  });
+}
+
 /** 地毯：中心菱形花纹 + 边框，铺阅读室中央（参考 makeRugTexture 的分层画法，尺寸缩到 256） */
 export function rugTexture(color: string): THREE.CanvasTexture {
   const key = `rug:${color}`;

@@ -9,6 +9,7 @@ import {
   CORRIDOR_H,
   CORRIDOR_W,
   DOOR_W,
+  FACADE_SIDE,
   HALL_FOV_MAX,
   HALL_FOV_MIN,
   HALL_HEIGHT,
@@ -22,8 +23,10 @@ import {
   ROOM_FOV_MIN,
   ROOM_HEIGHT,
   ROOM_LENS_MAX,
+  SHELF_DEPTH,
   SHELF_HEIGHT,
   SHELF_KINDS,
+  WALK,
   aspectRamp,
   fovForAspect,
   qualityTier,
@@ -35,6 +38,7 @@ import {
   buildPostChain,
   glowTexture,
   rugTexture,
+  stoneTexture,
   sharedTextures,
   wallTexture,
   woodTexture,
@@ -53,6 +57,15 @@ import {
   spineInkContrast,
 } from './atlas';
 import { planRoom, type RoomPlan } from './layout';
+import {
+  hallBlockers,
+  resolveSlide,
+  roomBlockers,
+  settle,
+  wallGap,
+  type Blocker,
+  type CorridorAxis,
+} from './walk';
 import {
   ROOM_DOOR,
   SPINE_FACE,
@@ -73,8 +86,6 @@ const KEY_SPEED = 20; // 世界单位/秒：1 单位 ≈ 25 cm，走一步约 0.
 const MOVE_KEYS = new Set(['KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyQ', 'KeyE']);
 /** 悬停 120ms 才浮出 tooltip：扫过即闪的标签比没有标签更干扰阅读 */
 const TIP_DELAY_MS = 120;
-/** 大厅里六个「阅览室体量」的外壳按名义边长建，进区后才按该区书量重算真实边长 */
-const FACADE_SIDE = 26;
 /**
  * 雾按视图切换：大厅俯视机位到原点约 500 单位，批 7 的 (210,620) 会把画面压掉七成——
  * 批 8 的区体量不再有大色块兜底，俯视直接黑成空场。大厅用远雾保层次，进区换回近雾。
@@ -101,6 +112,10 @@ const HALL_SPAN = 178;
  */
 const TAP_SLOP_TOUCH = 8;
 const TAP_SLOP_MOUSE = 6;
+/** 批 11：第一人称准星就在屏幕中心，拾取射线固定从 ndc (0,0) 发 */
+const CENTER_NDC = new THREE.Vector2(0, 0);
+/** 走位时每帧把 controls.target 摆在 eye 前方这么多单位，LOD / 小地图朝向都读它 */
+const WALK_AHEAD = 8;
 
 export interface ThreeHooks {
   onPickRoom(discipline: Discipline): void;
@@ -111,6 +126,8 @@ export interface ThreeHooks {
   onCamera(pose: CameraPose): void;
   /** 阅读层打开或输入框聚焦时让出键盘，WASD 不抢字 */
   inputBusy(): boolean;
+  /** 批 11：进出第一人称时通知顶栏按钮改文案 */
+  onCamMode?(walk: boolean): void;
 }
 
 type Pick = {
@@ -267,6 +284,26 @@ function round2(v: number): number {
   return Math.round(v * 100) / 100;
 }
 
+/** three 的过滤常量是裸数字，报告里换成名字才读得懂（判据也按名字比） */
+function filterName(f: number): string {
+  return (
+    {
+      [THREE.NearestFilter]: 'Nearest',
+      [THREE.NearestMipmapNearestFilter]: 'NearestMipmapNearest',
+      [THREE.NearestMipmapLinearFilter]: 'NearestMipmapLinear',
+      [THREE.LinearFilter]: 'Linear',
+      [THREE.LinearMipmapNearestFilter]: 'LinearMipmapNearest',
+      [THREE.LinearMipmapLinearFilter]: 'LinearMipmapLinear',
+    } as Record<number, string>
+  )[f] ?? String(f);
+}
+
+const UP_Y = new THREE.Vector3(0, 1, 0);
+// 漫游逐帧要用到的临时向量：放在模块级避免每帧 new（走一步一次分配 = 帧率抖动源）
+const TEMP_A = new THREE.Vector3();
+const TEMP_B = new THREE.Vector3();
+const TEMP_C = new THREE.Vector3();
+
 export class Matrix3D {
   readonly kind = '3d' as const;
   private renderer: THREE.WebGLRenderer;
@@ -302,6 +339,16 @@ export class Matrix3D {
   private zoneLights: THREE.PointLight[] = [];
   private roomLights: THREE.PointLight[] = [];
   private groundMesh: THREE.Mesh | null = null;
+  private hallFloorMesh: THREE.Mesh | null = null;
+  /** 批 11 F：漫游近景换掉大厅两块地面的贴图，退出即还原——俯瞰口径一个像素都不动 */
+  private walkFloorMat: THREE.MeshStandardMaterial | null = null;
+  private walkGroundMat: THREE.MeshStandardMaterial | null = null;
+  private orbitHallFloorMat: THREE.MeshStandardMaterial | null = null;
+  private orbitGroundMat: THREE.MeshStandardMaterial | null = null;
+  private walkTextures: THREE.Texture[] = [];
+  private walkMats: THREE.Material[] = [];
+  private walkMatPairs: Array<{ mesh: THREE.Mesh; orbit: THREE.Material; walk: THREE.Material }> = [];
+  private walkMatsBuilt = false;
   private roomFloor: THREE.Mesh | null = null;
   private facades: THREE.Mesh | null = null;
   private facadeZones: number[] = [];
@@ -336,6 +383,34 @@ export class Matrix3D {
   private tier: QualityTier;
   private keys = new Set<string>();
   private lastKeyHint = 0;
+  /* ------------------------------------------------- 批 11：第一人称漫游态 */
+  /** 'orbit' = 批 2–10 的俯瞰/外部轨道（默认，行为一字不改）；'walk' = 第一人称 */
+  private camMode: 'orbit' | 'walk' = 'orbit';
+  private walkYaw = 0;
+  private walkPitch = 0;
+  /** 进入 walk 前的 orbit 位姿，退出时原样还回去（门槛断言「位姿差 ≤0.05」） */
+  private orbitReturn: CameraPose | null = null;
+  private hallColliders: Blocker[] = [];
+  private roomColliders: Blocker[] = [];
+  private colliders: Blocker[] = [];
+  private crosshair: HTMLDivElement | null = null;
+  private stick: HTMLDivElement | null = null;
+  private stickKnob: HTMLElement | null = null;
+  /** 左半屏摇杆 / 右半屏转头的活动指针 */
+  private stickId: number | null = null;
+  private stickOrigin = { x: 0, y: 0 };
+  private stickVec = { x: 0, y: 0 };
+  private lookId: number | null = null;
+  private lookLast = { x: 0, y: 0 };
+  private downAtMs = 0;
+  /** walk 下每帧一次的准星命中，供 HUD 底部与断言读 */
+  private aimHit: Pick | null = null;
+  /** WASD 提示抢过一次 HUD，命中文字得重新盖回去 */
+  private hudStale = false;
+  private sprint = false;
+  /** 走位取证：探针按下的键与累计位移，不让它自己算 dt */
+  private walkTrace: Array<{ t: number; x: number; y: number; z: number; yaw: number }> = [];
+  private walkTracing = false;
 
   constructor(
     private root: HTMLElement,
@@ -400,6 +475,7 @@ export class Matrix3D {
       this.scene.add(group);
     }
     this.buildHall();
+    this.buildWalkRig();
     this.resize();
 
     const el = this.renderer.domElement;
@@ -442,6 +518,7 @@ export class Matrix3D {
     ground.receiveShadow = true;
     ground.userData.role = 'ground';
     this.groundMesh = ground;
+    this.orbitGroundMat = ground.material as THREE.MeshStandardMaterial;
     this.hall.add(ground);
 
     const built = buildHall(ROOMS.map((r) => r.angle));
@@ -462,6 +539,8 @@ export class Matrix3D {
     );
     floor.receiveShadow = true;
     floor.userData.role = 'hallFloor';
+    this.hallFloorMesh = floor;
+    this.orbitHallFloorMat = floor.material as THREE.MeshStandardMaterial;
     this.hall.add(floor);
 
     const wallMat = new THREE.MeshStandardMaterial({
@@ -726,6 +805,715 @@ export class Matrix3D {
 
   // ---------------------------------------------------------------- 本区构建与释放
 
+  /* ================================================================ 批 11：第一人称漫游 */
+
+  /**
+   * 碰撞体清单 + 准星 + 摇杆。八角厅与六条走廊是静态的，构造期一次算好；
+   * 阅览室的盒子跟着本区 plan 走（side 按书量在 20–40 之间变），在 enterRoom 里重建。
+   */
+  private buildWalkRig(): void {
+    this.hallColliders = hallBlockers(this.corridorAxes());
+    const cross = document.createElement('div');
+    cross.className = 'crosshair';
+    cross.hidden = true;
+    cross.setAttribute('data-crosshair', '1');
+    const h = document.createElement('i');
+    const v = document.createElement('i');
+    const dot = document.createElement('i');
+    dot.className = 'dot';
+    cross.append(h, v, dot);
+    this.root.appendChild(cross);
+    this.crosshair = cross;
+
+    const stick = document.createElement('div');
+    stick.className = 'stick';
+    stick.hidden = true;
+    stick.setAttribute('data-stick', '1');
+    const knob = document.createElement('i');
+    knob.className = 'knob';
+    stick.appendChild(knob);
+    this.root.appendChild(stick);
+    this.stick = stick;
+    this.stickKnob = knob;
+
+    // 批 11 F：漫游专用的大厅地面材质。俯瞰那张是「总览平面图」——1024 摊到 88 单位见方
+    // 只有 11.6 texel/单位，加上 0.9 自发光，站到 1.65 眼高上就是一张糊白的地名图。
+    // 石板贴图 clone 只换 UV 变换（three 按 texture.source 缓存显存，clone 不多占一份）。
+    const stone = stoneTexture('#2b3140', '#141922');
+    const floorTex = stone.clone();
+    floorTex.repeat.set(14, 14);
+    floorTex.needsUpdate = true;
+    this.walkTextures.push(floorTex);
+    this.walkFloorMat = new THREE.MeshStandardMaterial({
+      map: floorTex, roughness: 0.86, metalness: 0.06, envMapIntensity: 0.42,
+    });
+    const groundTex = stone.clone();
+    // 场地的 UV 本来就按 26 单位一瓦片铺（比大厅地面还糊），再切 4 份 → 6.5 单位一瓦片
+    groundTex.repeat.set(4, 4);
+    groundTex.needsUpdate = true;
+    this.walkTextures.push(groundTex);
+    this.walkGroundMat = new THREE.MeshStandardMaterial({
+      map: groundTex, color: new THREE.Color(1.35, 1.35, 1.4), roughness: 0.95, metalness: 0.04, envMapIntensity: 0.25,
+    });
+  }
+
+  /** 漫游进出只换大厅两块地面的材质引用；房间视角下大厅本就隐藏，不必换 */
+  private applyWalkSurfaces(on: boolean): void {
+    const walk = on && this.view === 'hall';
+    if (this.hallFloorMesh && this.walkFloorMat && this.orbitHallFloorMat) {
+      this.hallFloorMesh.material = walk ? this.walkFloorMat : this.orbitHallFloorMat;
+    }
+    if (this.groundMesh && this.walkGroundMat && this.orbitGroundMat) {
+      this.groundMesh.material = walk ? this.walkGroundMat : this.orbitGroundMat;
+    }
+    if (on && !this.walkMatsBuilt) {
+      this.walkMatsBuilt = true;
+      this.buildWalkMats();
+    }
+    for (const p of this.walkMatPairs) p.mesh.material = walk ? p.walk : p.orbit;
+  }
+
+  /**
+   * 批 11 F：给大厅内壁 / 天花 / 藻井 / 走廊壳 / 六栋外壳各做一份「把反弹光烘进表面」的漫游变体。
+   * 俯瞰口径里这些面吃主光与总览图自发光就够（批 10 的门洞内外差 64.9 就是那套数），
+   * 但站到 1.65 眼高上它们全是死黑——竖直内壁吃不到主光、天花法线朝下只吃地面色。
+   * 加灯要多算片元（批 9 试过，2.7× 帧时），所以走同图 emissive 这条路，退出即换回原材质。
+   */
+  private buildWalkMats(): void {
+    const want: Record<string, number> = {
+      hallWall: 0.17, hallCeiling: 0.17, hallCoffer: 0.14, corridorShell: 0.13, facades: 0.11,
+    };
+    this.scene.traverse((o) => {
+      const role = String(o.userData.role ?? '');
+      const k = want[role];
+      if (k === undefined) return;
+      const mesh = o as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      const mat = mesh.material as THREE.MeshStandardMaterial;
+      if (!mat?.isMeshStandardMaterial || mat.emissiveMap) return;
+      const walk = mat.clone();
+      walk.emissive = new THREE.Color(0xffe9c9);
+      walk.emissiveMap = mat.map ?? null;
+      walk.emissiveIntensity = k;
+      this.walkMatPairs.push({ mesh, orbit: mat, walk });
+      this.walkMats.push(walk);
+    });
+  }
+
+  /** 六条走廊的轴向：from = 八角墙内皮，to = 阅览室门墙外沿（与 buildCorridor 同一条式子） */
+  private corridorAxes(): CorridorAxis[] {
+    return ROOMS.map((r) => ({
+      angle: r.angle,
+      from: HALL_RADIUS - 0.4,
+      to: ROOM_DIST - FACADE_SIDE / 2 - 0.5,
+    }));
+  }
+
+  /** 本区碰撞体：四面外墙（门洞拆开）+ 三排书架 + 通往大厅的那条走廊（管口封住） */
+  private buildRoomColliders(plan: RoomPlan): Blocker[] {
+    const spec = ROOM_BY_KEY[plan.discipline];
+    const axis = this.corridorAxes().find((a) => Math.abs(a.angle - spec.angle) < 1e-6);
+    return roomBlockers(plan, this.room.position, this.room.rotation.y, axis ?? {
+      angle: spec.angle,
+      from: HALL_RADIUS - 0.4,
+      to: ROOM_DIST - FACADE_SIDE / 2 - 0.5,
+    });
+  }
+
+  private walkForward(out: THREE.Vector3): THREE.Vector3 {
+    return out.set(-Math.sin(this.walkYaw), 0, -Math.cos(this.walkYaw));
+  }
+
+  /** 看向世界水平方向 (dx,dz) 所需的 yaw */
+  private yawToward(dx: number, dz: number): number {
+    return Math.atan2(-dx, -dz);
+  }
+
+  private syncWalkTarget(): void {
+    const fw = this.walkForward(TEMP_A);
+    this.controls.target.copy(this.camera.position).addScaledVector(fw, WALK_AHEAD);
+  }
+
+  /**
+   * 进入 walk 的落位。大厅 = 中央厅地面、朝第一个门洞；
+   * 分区 = 离当前机位最近的那排书架前的过道、脸对着书脊（1.65 正好平视最下一排）。
+   */
+  private walkSpawn(): { at: THREE.Vector3; yaw: number } {
+    if (this.view === 'hall' || !this.plan) {
+      const first = ROOMS[0];
+      return {
+        at: new THREE.Vector3(0, WALK.eye, 0),
+        yaw: this.yawToward(Math.cos(first.angle), Math.sin(first.angle)),
+      };
+    }
+    const plan = this.plan;
+    // 刚摆过机位的房间 matrixWorld 还是上一帧的，落位点会算到旧位置上
+    this.room.updateMatrixWorld();
+    let best: { at: THREE.Vector3; yaw: number; d: number } | null = null;
+    for (const row of plan.rows) {
+      const gap = SHELF_DEPTH / 2 + 1.15;
+      const p = this.localToWorld([
+        row.x + row.normal[0] * gap,
+        WALK.eye,
+        row.z + row.normal[1] * gap,
+      ]);
+      const fw = this.localToWorld([
+        row.x + row.normal[0] * (gap + 1),
+        WALK.eye,
+        row.z + row.normal[1] * (gap + 1),
+      ]).sub(p).setY(0);
+      const d = p.distanceTo(this.camera.position);
+      if (!best || d < best.d) best = { at: p, yaw: this.yawToward(fw.x, fw.z), d };
+    }
+    return best ?? { at: new THREE.Vector3(0, WALK.eye, 0), yaw: 0 };
+  }
+
+  /** 眼高所在水平面之外的兜底：落位点若被盒子吃了，沿盒子法线推到面上 */
+  private walkDrop(at: THREE.Vector3, yaw: number): void {
+    this.colliders = this.view === 'hall' ? this.hallColliders : this.roomColliders;
+    at.y = WALK.eye;
+    settle(at, this.colliders);
+    this.camera.position.copy(at);
+    this.walkYaw = yaw;
+    this.walkPitch = 0;
+    this.camera.rotation.order = 'YXZ';
+    this.camera.rotation.set(0, yaw, 0);
+    this.syncWalkTarget();
+  }
+
+  setWalk(on: boolean): boolean {
+    if (on === (this.camMode === 'walk')) return false;
+    if (on) {
+      this.orbitReturn = this.currentPose();
+      this.camMode = 'walk';
+      // OrbitControls 关掉：它的 update() 每帧都会 camera.lookAt(target)，与 yaw/pitch 打架
+      this.controls.enabled = false;
+      const spot = this.walkSpawn();
+      this.walkDrop(spot.at, spot.yaw);
+      this.applyWalkSurfaces(true);
+      this.hideTip();
+      this.wake();
+      this.hooks.onHud(this.walkHint(null));
+    } else {
+      this.camMode = 'orbit';
+      this.colliders = [];
+      this.applyWalkSurfaces(false);
+      this.stickId = null;
+      this.lookId = null;
+      this.stickVec = { x: 0, y: 0 };
+      this.controls.enabled = true;
+      this.camera.rotation.order = 'XYZ';
+      this.applyPose(this.orbitReturn ?? this.hallDefaultPose());
+      this.orbitReturn = null;
+      this.resetInertia();
+      this.aimHit = null;
+      this.updateControls();
+      this.wake();
+      this.hooks.onHud(this.hudDefault());
+    }
+    this.updateWalkUi();
+    this.hooks.onCamMode?.(this.camMode === 'walk');
+    return true;
+  }
+
+  toggleWalk(): boolean {
+    return this.setWalk(this.camMode !== 'walk');
+  }
+
+  camModeName(): 'orbit' | 'walk' {
+    return this.camMode;
+  }
+
+  /**
+   * 漫游途中切了视图（点学科条、搜索跳转、点书脊开书）：
+   * 把这次视图切换本来的俯瞰机位接成新的退出点，人重新落到新视图的地面上。
+   */
+  private rewalkAfterViewSwitch(): void {
+    if (this.camMode !== 'walk') return;
+    const spot = this.walkSpawn();
+    this.walkDrop(spot.at, spot.yaw);
+    this.applyWalkSurfaces(true);
+    this.updateWalkUi();
+    this.hooks.onHud(this.walkHint(null));
+  }
+
+  /** 大厅默认机位（无存档位姿时的落点，也是漫游途中的退出点兜底） */
+  private hallDefaultPose(): CameraPose {
+    const def = this.hallPose();
+    return { px: def[0], py: def[1], pz: def[2], tx: 0, ty: 0, tz: 0 };
+  }
+
+  private walkHint(hit: Pick | null): string {
+    if (hit) return this.tipText(hit);
+    return this.view === 'hall'
+      ? '第一人称 · WASD 走动 · Shift 疾走 · 拖拽转视角 · 准星对准楼体点击进门 · F 退出'
+      : '第一人称 · WASD 走动 · Shift 疾走 · 拖拽转视角 · 准星对准书脊点击读正文 · F 退出';
+  }
+
+  private updateWalkUi(): void {
+    const walk = this.camMode === 'walk';
+    if (this.crosshair) {
+      this.crosshair.hidden = !walk;
+      this.crosshair.classList.toggle('on-target', walk && Boolean(this.aimHit));
+    }
+    if (this.stick && !walk) this.stick.hidden = true;
+  }
+
+  /** 准星命中每 3 帧算一次：射线要过 3 页合并几何（每页 ~3k 三角），逐帧太贵 */
+  private aimFrame = 0;
+
+  private aimUpdate(): void {
+    this.aimFrame = (this.aimFrame + 1) % 3;
+    if (this.aimFrame !== 0) return;
+    this.refreshAim();
+  }
+
+  /** 准星拾取一次，把结果同步到 HUD 与准星高亮态。`force` 用于探针（不等变化沿） */
+  private refreshAim(force = false): void {
+    const hit = this.pickAt(CENTER_NDC);
+    const same = (hit?.kind ?? '') === (this.aimHit?.kind ?? '')
+      && (hit?.book?.file ?? '') === (this.aimHit?.book?.file ?? '')
+      && (hit?.id ?? '') === (this.aimHit?.id ?? '');
+    if (same && !force && !this.hudStale) return;
+    this.hudStale = false;
+    this.aimHit = hit;
+    this.hooks.onHud(hit ? this.tipText(hit) : this.walkHint(null));
+    if (this.crosshair) this.crosshair.classList.toggle('on-target', Boolean(hit));
+  }
+
+  /** 按住键走位 + 滑动碰撞。返回本帧位移，供取证读 */
+  private walkStep(dt: number): number {
+    const k = this.keys;
+    let fwd = 0;
+    let strafe = 0;
+    if (k.has('KeyW')) fwd += 1;
+    if (k.has('KeyS')) fwd -= 1;
+    if (k.has('KeyD')) strafe += 1;
+    if (k.has('KeyA')) strafe -= 1;
+    fwd += this.stickVec.y;
+    strafe += this.stickVec.x;
+    const mag = Math.hypot(fwd, strafe);
+    if (mag > 1) {
+      fwd /= mag;
+      strafe /= mag;
+    }
+    const moved = mag > 1e-6;
+    this.sprint = this.sprint && moved;
+    if (!moved) return 0;
+    const step = WALK.speed * (this.sprint ? WALK.sprint : 1) * Math.min(dt, 0.05);
+    const dir = this.walkForward(TEMP_A);
+    const right = TEMP_B.crossVectors(dir, UP_Y).normalize();
+    const before = TEMP_C.copy(this.camera.position);
+    this.camera.position.addScaledVector(dir, fwd * step).addScaledVector(right, strafe * step);
+    this.camera.position.y = WALK.eye;
+    resolveSlide(this.camera.position, this.colliders, WALK.radius, WALK.stand, before);
+    this.camera.position.y = WALK.eye;
+    const d = this.camera.position.distanceTo(before);
+    if (this.walkTracing) {
+      this.walkTrace.push({
+        t: performance.now(),
+        x: this.camera.position.x,
+        y: this.camera.position.y,
+        z: this.camera.position.z,
+        yaw: this.walkYaw,
+      });
+      if (this.walkTrace.length > 2000) this.walkTrace.shift();
+    }
+    return d;
+  }
+
+  /* ---------------------------------------------------- 摇杆 / 转头指针分派 */
+
+  private beginStick(ev: PointerEvent): void {
+    this.stickId = ev.pointerId;
+    this.stickOrigin = { x: ev.clientX, y: ev.clientY };
+    this.stickVec = { x: 0, y: 0 };
+    const stick = this.stick;
+    const knob = this.stickKnob;
+    if (!stick || !knob) return;
+    const rect = this.root.getBoundingClientRect();
+    stick.style.left = `${ev.clientX - rect.left - WALK.stickPx}px`;
+    stick.style.top = `${ev.clientY - rect.top - WALK.stickPx}px`;
+    stick.style.right = 'auto';
+    stick.style.bottom = 'auto';
+    knob.style.transform = 'translate(-50%, -50%)';
+    stick.hidden = false;
+  }
+
+  private moveStick(ev: PointerEvent): void {
+    const dx = ev.clientX - this.stickOrigin.x;
+    const dy = ev.clientY - this.stickOrigin.y;
+    let ux = dx / WALK.stickPx;
+    let uy = -dy / WALK.stickPx;
+    const m = Math.hypot(ux, uy);
+    if (m > 1) {
+      ux /= m;
+      uy /= m;
+    }
+    // 死区：手指在原点附近抖不该让人往前挪
+    if (Math.hypot(ux, uy) < WALK.stickDead) {
+      ux = 0;
+      uy = 0;
+    } else {
+      const s = (Math.hypot(ux, uy) - WALK.stickDead) / (1 - WALK.stickDead);
+      const a = Math.atan2(uy, ux);
+      ux = Math.cos(a) * s;
+      uy = Math.sin(a) * s;
+    }
+    this.stickVec = { x: ux, y: uy };
+    if (this.stickKnob) {
+      this.stickKnob.style.transform =
+        `translate(calc(-50% + ${Math.round(ux * WALK.stickPx * 0.62)}px), calc(-50% + ${Math.round(-uy * WALK.stickPx * 0.62)}px))`;
+    }
+  }
+
+  private endStick(): void {
+    this.stickId = null;
+    this.stickVec = { x: 0, y: 0 };
+    if (this.stickKnob) this.stickKnob.style.transform = 'translate(-50%, -50%)';
+    if (this.stick) this.stick.hidden = true;
+  }
+
+  /** 拖拽转头： yaw 无限、pitch 夹在 ±70°（不夹到 90° 就不会翻转万向锁） */
+  private applyLook(dx: number, dy: number): void {
+    this.walkYaw -= dx * WALK.lookPerPx;
+    this.walkPitch = Math.max(-WALK.pitchMax, Math.min(WALK.pitchMax, this.walkPitch - dy * WALK.lookPerPx));
+  }
+
+  /* --------------------------------------------------------- 自检取证专用 */
+
+  /** 走位轨迹开关：门槛用它算「按住 W 一秒位移 ≈ 3.2」与「门洞穿过去」的位置序列 */
+  walkTraceStart(): void {
+    this.walkTrace = [];
+    this.walkTracing = true;
+  }
+
+  walkTraceStop(): {
+    samples: number;
+    pathLen: number;
+    net: number;
+    seconds: number;
+    dyMax: number;
+    driftDeg: number;
+    start: [number, number, number] | null;
+    end: [number, number, number] | null;
+  } {
+    this.walkTracing = false;
+    const p = this.walkTrace;
+    let pathLen = 0;
+    let dyMax = 0;
+    for (let i = 0; i < p.length; i += 1) {
+      if (i) pathLen += Math.hypot(p[i].x - p[i - 1].x, p[i].z - p[i - 1].z);
+      dyMax = Math.max(dyMax, Math.abs(p[i].y - WALK.eye));
+    }
+    const head = p[0] ?? null;
+    const tail = p[p.length - 1] ?? null;
+    // 位移方向与朝向的夹角：按住 W 一秒该沿当前朝向走，偏得多就是键位映射错了
+    let driftDeg = 0;
+    if (head && tail) {
+      const vx = tail.x - head.x;
+      const vz = tail.z - head.z;
+      if (Math.hypot(vx, vz) > 0.2) {
+        const moveYaw = Math.atan2(-vx, -vz);
+        let d = moveYaw - head.yaw;
+        while (d > Math.PI) d -= Math.PI * 2;
+        while (d < -Math.PI) d += Math.PI * 2;
+        driftDeg = Math.abs(Math.round((d * 180) / Math.PI * 10) / 10);
+      }
+    }
+    return {
+      samples: p.length,
+      pathLen: round2(pathLen),
+      net: head && tail ? round2(Math.hypot(tail.x - head.x, tail.z - head.z)) : 0,
+      seconds: head && tail ? round2((tail.t - head.t) / 1000) : 0,
+      dyMax: round2(dyMax),
+      driftDeg,
+      start: head ? [round2(head.x), round2(head.y), round2(head.z)] : null,
+      end: tail ? [round2(tail.x), round2(tail.y), round2(tail.z)] : null,
+    };
+  }
+
+  /** 把人放到 walk 平面上的指定点并转向：门洞 / 贴墙两条断言用真实按键走，只是起点得钉住 */
+  walkSnapTo(x: number, z: number, faceX: number, faceZ: number): { ok: boolean; at: [number, number, number]; gap: number } {
+    if (this.camMode !== 'walk') return { ok: false, at: [0, 0, 0], gap: -1 };
+    const at = new THREE.Vector3(x, WALK.eye, z);
+    this.colliders = this.view === 'hall' ? this.hallColliders : this.roomColliders;
+    settle(at, this.colliders);
+    this.camera.position.copy(at).setY(WALK.eye);
+    if (faceX || faceZ) this.walkYaw = this.yawToward(faceX, faceZ);
+    this.camera.rotation.order = 'YXZ';
+    this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+    this.syncWalkTarget();
+    this.wake();
+    return {
+      ok: this.camMode === 'walk',
+      at: [round2(at.x), round2(at.y), round2(at.z)],
+      gap: round2(wallGap(this.camera.position, this.colliders)),
+    };
+  }
+
+  /**
+   * 沿给定水平方向用**同一套** resolveSlide  marches 过去（不经过帧循环，步长 0.12）：
+   * 门槛用它一次证完「六条走廊都真通到门口」与「外墙挡得住人」，不必每向走十几秒。
+   */
+  walkMarch(dx: number, dz: number, distance: number, use: 'here' | 'hall' | 'room' = 'here'): {
+    end: [number, number];
+    travelled: number;
+    want: number;
+    blockedAt: number | null;
+    stopKinds: string;
+    minGap: number;
+  } {
+    const saveColliders = this.colliders;
+    if (use === 'hall') this.colliders = this.hallColliders;
+    else if (use === 'room') this.colliders = this.roomColliders;
+    const len = Math.hypot(dx, dz) || 1;
+    const ux = dx / len;
+    const uz = dz / len;
+    const at = new THREE.Vector3(this.camera.position.x, WALK.eye, this.camera.position.z);
+    const start = [at.x, at.z];
+    const step = 0.12;
+    let taken = 0;
+    let blockedAt: number | null = null;
+    let stopKinds = '';
+    let minGap = Number.POSITIVE_INFINITY;
+    // 增量推进：上一步的**解算结果**才是下一步的起点。若每步都从原始直线重摆，
+    // 脚会一步跨过 1.2 厚的墙、被推出去时当成「从另一侧来」——那是测试的假象，不是碰撞的错。
+    const prev = new THREE.Vector3(at.x, WALK.eye, at.z);
+    for (let d = step; d <= distance + 1e-9; d += step) {
+      prev.set(at.x, WALK.eye, at.z);
+      at.x += ux * step;
+      at.z += uz * step;
+      at.y = WALK.eye;
+      const want = [at.x, at.z];
+      const res = resolveSlide(at, this.colliders, WALK.radius, WALK.stand, prev);
+      const slid = Math.hypot(at.x - want[0], at.z - want[1]);
+      if (slid > 0.02 && blockedAt === null) {
+        blockedAt = round2(d);
+        stopKinds = res.kinds.join('/');
+      }
+      minGap = Math.min(minGap, wallGap(at, this.colliders));
+      taken = Math.max(taken, Math.hypot(at.x - start[0], at.z - start[1]));
+    }
+    this.colliders = saveColliders;
+    return {
+      end: [round2(at.x), round2(at.z)],
+      travelled: round2(taken),
+      want: round2(distance),
+      blockedAt,
+      stopKinds,
+      minGap: round2(minGap),
+    };
+  }
+
+  /**
+   * 走到第 i 根书脊正前方并把准星压上去，然后按真实链路拾取。
+   * 必须「站到架前」而不是站在过道上斜着瞄：同一排书脊不在同一深度（书有厚薄），
+   * 斜瞄时射线会先落在更凸出的邻脊上——那不是 bug，是人站得不对。
+   */
+  walkAimSpine(i: number): {
+    ok: boolean;
+    yawDeg: number;
+    pitchDeg: number;
+    book: string;
+    chapterId: string;
+    aimedAt: string;
+    stand: string;
+    hit: { kind: string; id: string | null } | null;
+  } | null {
+    const spine = this.plan?.spines[i];
+    if (!spine) return null;
+    this.room.updateMatrixWorld();
+    const n = this.normalToWorld(spine.normal);
+    const to = this.localToWorld([spine.x, spine.y, spine.z]);
+    // 站在书脊法线方向 1.9 处（≈架面前 0.25，被碰撞柱顶到面上也行），朝向架内
+    const at = new THREE.Vector3(to.x + n[0] * 1.9, WALK.eye, to.z + n[1] * 1.9);
+    this.walkDrop(at, this.yawToward(-n[0], -n[1]));
+    this.walkPitch = Math.max(-WALK.pitchMax, Math.min(WALK.pitchMax,
+      Math.atan2(to.y - this.camera.position.y,
+        Math.hypot(to.x - this.camera.position.x, to.z - this.camera.position.z))));
+    this.camera.rotation.order = 'YXZ';
+    this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+    this.syncWalkTarget();
+    this.syncWorld();
+    this.refreshAim(true);
+    const slot = this.plan?.slots[spine.slot];
+    return {
+      ok: this.aimHit?.kind === 'chapter' && this.aimHit.id === spine.chapter.id,
+      yawDeg: Math.round(this.walkYaw * 572957.8) / 10000,
+      pitchDeg: Math.round(this.walkPitch * 572957.8) / 10000,
+      book: slot?.book.file ?? '',
+      chapterId: spine.chapter.id,
+      aimedAt: `${round2(to.x)},${round2(to.y)},${round2(to.z)}`,
+      stand: `${round2(this.camera.position.x)},${round2(this.camera.position.z)}`,
+      hit: this.aimHit ? { kind: this.aimHit.kind, id: this.aimHit.id ?? null } : null,
+    };
+  }
+
+  /** 书脊法线（指向房间中心的 room-local xz）→ 世界 xz，与 localToWorld 同一套绕 Y 约定 */
+  private normalToWorld(n: [number, number]): [number, number] {
+    const th = this.room.rotation.y;
+    const c = Math.cos(th);
+    const s = Math.sin(th);
+    return [n[0] * c + n[1] * s, -n[0] * s + n[1] * c];
+  }
+
+  /** 第一人称取证读数：模式、眼高、朝向、碰撞账、准星命中 */
+  walkState(): {
+    mode: 'orbit' | 'walk';
+    eye: number;
+    pos: { x: number; y: number; z: number };
+    yawDeg: number;
+    pitchDeg: number;
+    pitchLimitDeg: number;
+    speed: number;
+    sprint: boolean;
+    radius: number;
+    blockers: number;
+    blockerKinds: Record<string, number>;
+    wallGap: number;
+    aim: { kind: string; book: string | null; id: string | null; hint: string } | null;
+    view: 'hall' | 'room';
+    room: Discipline | null;
+    controlsEnabled: boolean;
+    fov: number;
+    stick: { active: boolean; x: number; y: number };
+  } {
+    const kinds: Record<string, number> = {};
+    for (const b of this.colliders) kinds[b.kind] = (kinds[b.kind] ?? 0) + 1;
+    return {
+      mode: this.camMode,
+      eye: round2(this.camera.position.y),
+      pos: {
+        x: round2(this.camera.position.x),
+        y: round2(this.camera.position.y),
+        z: round2(this.camera.position.z),
+      },
+      yawDeg: Math.round(this.walkYaw * 572957.8) / 10000,
+      pitchDeg: Math.round(this.walkPitch * 572957.8) / 10000,
+      pitchLimitDeg: Math.round(WALK.pitchMax * 572957.8) / 10000,
+      speed: WALK.speed,
+      sprint: this.sprint,
+      radius: WALK.radius,
+      blockers: this.colliders.length,
+      blockerKinds: kinds,
+      wallGap: this.colliders.length ? round2(wallGap(this.camera.position, this.colliders)) : Number.POSITIVE_INFINITY,
+      aim: this.aimHit
+        ? {
+          kind: this.aimHit.kind,
+          book: this.aimHit.book?.file ?? null,
+          id: this.aimHit.id ?? null,
+          hint: this.tipText(this.aimHit),
+        }
+        : null,
+      view: this.view,
+      room: this.roomKey,
+      controlsEnabled: this.controls.enabled,
+      fov: Math.round(this.camera.fov * 100) / 100,
+      stick: { active: this.stickId !== null, x: round2(this.stickVec.x), y: round2(this.stickVec.y) },
+    };
+  }
+
+  /** 取证用：按度数直接摆头（脚本不想复现拖拽像素系数） */
+  walkSetLook(yawDeg: number, pitchDeg: number): { yawDeg: number; pitchDeg: number } | null {
+    if (this.camMode !== 'walk') return null;
+    this.walkYaw = (yawDeg * Math.PI) / 180;
+    this.walkPitch = Math.max(-WALK.pitchMax, Math.min(WALK.pitchMax, (pitchDeg * Math.PI) / 180));
+    this.camera.rotation.order = 'YXZ';
+    this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+    this.syncWalkTarget();
+    this.refreshAim(true);
+    return { yawDeg: Math.round(this.walkYaw * 572957.8) / 10000, pitchDeg: Math.round(this.walkPitch * 572957.8) / 10000 };
+  }
+
+  /**
+   * 批 11 F：近景贴图做工账。逐角色读**运行时**的贴图设置（mipmap、过滤、各向异性），
+   * 并从几何实测「一个贴图瓦片摊到几个世界单位」——近景拉伸成条的根因就是这个数太小。
+   * 判据读账，不读代码常量。
+   */
+  closeupReport(): {
+    maxAnisotropy: number;
+    maps: Array<{
+      role: string;
+      w: number;
+      h: number;
+      mipmaps: boolean;
+      minFilter: string;
+      magFilter: string;
+      anisotropy: number;
+      unitsPerTile: number;
+      texelPerUnit: number;
+      texelPerUnitHi: number;
+    }>;
+  } {
+    const want = new Set(['ground', 'hallFloor', 'roomFloor', 'wall', 'ceiling', 'shelves', 'spines', 'facade']);
+    const maps: Array<{
+      role: string;
+      w: number;
+      h: number;
+      mipmaps: boolean;
+      minFilter: string;
+      magFilter: string;
+      anisotropy: number;
+      unitsPerTile: number;
+      texelPerUnit: number;
+      texelPerUnitHi: number;
+    }> = [];
+    const done = new Set<string>();
+    this.scene.traverse((o) => {
+      const role = String(o.userData.role ?? '');
+      if (!want.has(role) || done.has(role)) return;
+      const mesh = o as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      const mat = mesh.material as THREE.MeshStandardMaterial;
+      const map = mat?.map;
+      if (!map) return;
+      done.add(role);
+      const img = map.image as { width?: number; height?: number } | null;
+      const pos = mesh.geometry.getAttribute('position') as THREE.BufferAttribute;
+      const uv = mesh.geometry.getAttribute('uv') as THREE.BufferAttribute;
+      const box = new THREE.Box3().setFromBufferAttribute(pos);
+      // 逐三角形密度取中位数：合并几何（书脊图集、书架）一整片 UV 跨 0..1，
+      // 用整体跨度算会算出「19 单位一瓦片」这种假数——真正决定近景糊不糊的是单个格子的 texel/单位。
+      const dens: number[] = [];
+      const W = img?.width ?? 0;
+      const Hh = img?.height ?? 0;
+      const rp = Math.max(map.repeat.x, map.repeat.y);
+      const a = new THREE.Vector3();
+      const b = new THREE.Vector3();
+      const cc = new THREE.Vector3();
+      for (let i = 0; i + 2 < pos.count; i += 3) {
+        a.fromBufferAttribute(pos, i);
+        b.fromBufferAttribute(pos, i + 1);
+        cc.fromBufferAttribute(pos, i + 2);
+        const area = b.clone().sub(a).cross(cc.clone().sub(a)).length() * 0.5;
+        const u0 = uv.getX(i);
+        const v0 = uv.getY(i);
+        const auv = Math.abs((uv.getX(i + 1) - u0) * (uv.getY(i + 2) - v0)
+          - (uv.getX(i + 2) - u0) * (uv.getY(i + 1) - v0)) * 0.5 * rp * rp;
+        if (area > 1e-5 && auv > 1e-9) dens.push(Math.sqrt((auv * W * Hh) / area));
+      }
+      dens.sort((x, y) => x - y);
+      const texelPerUnit = dens.length ? dens[Math.floor(dens.length / 2)] : 0;
+      const span = Math.max(box.max.x - box.min.x, box.max.z - box.min.z, box.max.y - box.min.y);
+      maps.push({
+        role,
+        w: W,
+        h: Hh,
+        mipmaps: map.generateMipmaps === true,
+        minFilter: filterName(map.minFilter),
+        magFilter: filterName(map.magFilter),
+        anisotropy: map.anisotropy,
+        unitsPerTile: texelPerUnit > 0 ? Math.round((W / texelPerUnit) * 100) / 100 : Math.round(span * 100) / 100,
+        texelPerUnit: Math.round(texelPerUnit * 10) / 10,
+        texelPerUnitHi: Math.round((dens.length ? dens[Math.floor(dens.length * 0.9)] : 0) * 10) / 10,
+      });
+    });
+    return { maxAnisotropy: this.renderer.capabilities.getMaxAnisotropy(), maps };
+  }
+
+  // ---------------------------------------------------------------- 本区构建与释放
+
   private clearRoom(): void {
     for (const obj of this.roomObjects.splice(0)) {
       this.room.remove(obj);
@@ -827,20 +1615,16 @@ export class Matrix3D {
     this.setFog(HALL_FOG);
     this.setRenderScale(1);
     this.setFov(fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, this.camera.aspect), this.lensForAspect(this.camera.aspect));
-    if (pose) this.applyPose(pose);
-    else {
-      const def = this.hallPose();
-      this.camera.position.set(def[0], def[1], def[2]);
-      this.controls.target.set(0, 0, 0);
-    }
+    this.applyPose(pose ?? this.hallDefaultPose());
     this.resetInertia();
-    this.controls.update();
+    this.updateControls();
     this.focusShadow();
     this.hideTip();
     this.wake();
     this.hooks.onHud(
       `八角厅 · ${this.manifest.totals.sites} 本书 / ${this.manifest.totals.repos} 个仓库 · 六门通六区`,
     );
+    this.rewalkAfterViewSwitch();
   }
 
   enterRoom(
@@ -859,6 +1643,7 @@ export class Matrix3D {
     const centerR = ROOM_DIST - FACADE_SIDE / 2 + plan.side / 2;
     this.room.position.set(Math.cos(spec.angle) * centerR, 0, Math.sin(spec.angle) * centerR);
     this.room.rotation.y = Math.PI / 2 - spec.angle;
+    this.roomColliders = this.buildRoomColliders(plan);
 
     const shell = buildRoomShell(plan);
     this.roomGeoms.push(shell.floor, shell.walls, shell.ceiling, shell.trim, shell.doorFrame);
@@ -1124,23 +1909,21 @@ export class Matrix3D {
     const spec = ROOM_BY_KEY[plan.discipline];
     const cx = this.room.position.x;
     const cz = this.room.position.z;
-    if (pose) this.applyPose(pose);
-    else {
-      // 机位必须沿**本区自己的轴**摆：房间绕 Y 转了 π/2 − angle，本地 −Z 才是门墙那侧。
-      // 早先用世界 +Z 偏移，六个区里只有 angle=90° 的那区碰巧对，其余区等于把相机
-      // 塞进后墙书架里，截出来是一整幅横板（见 pitfalls 55）。
-      // 站进门口、齐视线高度：墙与天花只朝内，从门内看过去就是封闭室内而不是娃娃屋外壳。
-      const toDoor = new THREE.Vector3(-Math.cos(spec.angle), 0, -Math.sin(spec.angle));
-      const eye = this.roomEye(side, plan.height);
-      this.camera.position.set(cx, 0, cz).addScaledVector(toDoor, eye.dist);
-      this.camera.position.y = eye.eyeY;
-      this.controls.target.set(cx, eye.lookY, cz);
-    }
+    // 机位必须沿**本区自己的轴**摆：房间绕 Y 转了 π/2 − angle，本地 −Z 才是门墙那侧。
+    // 早先用世界 +Z 偏移，六个区里只有 angle=90° 的那区碰巧对，其余区等于把相机
+    // 塞进后墙书架里，截出来是一整幅横板（见 pitfalls 55）。
+    // 站进门口、齐视线高度：墙与天花只朝内，从门内看过去就是封闭室内而不是娃娃屋外壳。
+    const toDoor = new THREE.Vector3(-Math.cos(spec.angle), 0, -Math.sin(spec.angle));
+    const eye = this.roomEye(side, plan.height);
+    const at = new THREE.Vector3(cx, 0, cz).addScaledVector(toDoor, eye.dist);
+    at.y = eye.eyeY;
+    this.applyPose(pose ?? { px: at.x, py: at.y, pz: at.z, tx: cx, ty: eye.lookY, tz: cz });
     this.resetInertia();
-    this.controls.update();
+    this.updateControls();
     this.focusShadow();
     this.hideTip();
     this.wake();
+    this.rewalkAfterViewSwitch();
   }
 
   /** 主光与阴影相机跟着视图走：进房只罩住本区，2048 的贴图摊到 760 单位上就糊成一片 */
@@ -1166,6 +1949,25 @@ export class Matrix3D {
   }
 
   applyPose(pose: CameraPose): void {
+    this.setOrbitPose(pose);
+  }
+
+  /**
+   * OrbitControls.update() 不看 enabled：它按 (camera.position − target) 解球坐标、
+   * 用 min/maxDistance 与极角上限夹一遍，再把相机**位置**写回去。漫游的机位是脚定的，
+   * 一旦被它重摆就既不在眼高也不在走廊里——所以漫游期间整段不调。
+   */
+  private updateControls(): void {
+    if (this.camMode === 'walk') return;
+    this.controls.update();
+  }
+
+  /** 摆机位的唯一入口：漫游中不动相机，只把这套位姿记成「退出漫游后回到的俯瞰点」 */
+  private setOrbitPose(pose: CameraPose): void {
+    if (this.camMode === 'walk') {
+      this.orbitReturn = pose;
+      return;
+    }
     this.camera.position.set(pose.px, pose.py, pose.pz);
     this.controls.target.set(pose.tx, pose.ty, pose.tz);
   }
@@ -1180,6 +1982,9 @@ export class Matrix3D {
   }
 
   currentPose(): CameraPose {
+    // 漫游中的相机是人站在地板上，那不该被写进 roomCameras/hallCamera 当成俯瞰位姿存档。
+    // 对外报退出漫游后要回到的那个机位——存盘、恢复、断言比对的口径就统一了。
+    if (this.camMode === 'walk' && this.orbitReturn) return this.orbitReturn;
     const c = this.camera.position;
     const t = this.controls.target;
     return { px: c.x, py: c.y, pz: c.z, tx: t.x, ty: t.y, tz: t.z };
@@ -1190,7 +1995,16 @@ export class Matrix3D {
   private onPointerDown = (ev: PointerEvent): void => {
     this.downAt = { x: ev.clientX, y: ev.clientY };
     this.downKind = ev.pointerType || 'mouse';
+    this.downAtMs = performance.now();
     this.wake();
+    if (this.camMode !== 'walk') return;
+    // 触屏分屏：左半屏推动摇杆，右半屏转头。分界线只写在设计稿里，页面上不画出来
+    if (this.downKind === 'touch' && ev.clientX < window.innerWidth / 2) {
+      if (this.stickId === null) this.beginStick(ev);
+      return;
+    }
+    if (this.lookId === null) this.lookId = ev.pointerId;
+    this.lookLast = { x: ev.clientX, y: ev.clientY };
   };
 
   /** 位移阈值按**按下时**的指针类型取：触屏 8px（手指抖动远大于鼠标，6px 会在正常滑动后误开书），鼠标 6px */
@@ -1207,11 +2021,25 @@ export class Matrix3D {
   private onPointerUp = (ev: PointerEvent): void => {
     const { kind, slop, moved } = this.tapVerdict(ev);
     this.lastTapInfo = { moved: round2(moved), slop, kind, action: moved >= slop ? 'drag' : 'tap' };
+    if (this.camMode === 'walk') {
+      if (ev.pointerId === this.stickId) this.endStick();
+      if (ev.pointerId === this.lookId) this.lookId = null;
+    }
     this.wake();
   };
 
   private onPointerMove = (ev: PointerEvent): void => {
     this.wake();
+    if (this.camMode === 'walk') {
+      if (ev.pointerId === this.stickId) this.moveStick(ev);
+      else if (ev.pointerId === this.lookId) {
+        this.applyLook(ev.clientX - this.lookLast.x, ev.clientY - this.lookLast.y);
+        this.lookLast = { x: ev.clientX, y: ev.clientY };
+      }
+      // 漫游时浮标不跟指针跑：准星钉在屏幕中心，读的是准星下的东西
+      this.hideTip();
+      return;
+    }
     if (ev.buttons !== 0) {
       this.hideTip();
       return;
@@ -1222,7 +2050,11 @@ export class Matrix3D {
     this.scheduleTip(ev, hit);
   };
 
-  private onPointerLeave = (): void => this.hideTip();
+  private onPointerLeave = (): void => {
+    if (this.stickId !== null) this.endStick();
+    this.lookId = null;
+    this.hideTip();
+  };
 
   /** 120ms 延时浮出：扫过的瞬间不闪标签，停下手才给信息 */
   private scheduleTip(ev: PointerEvent, hit: Pick | null): void {
@@ -1276,23 +2108,41 @@ export class Matrix3D {
 
   private onKeyDown = (ev: KeyboardEvent): void => {
     const code = ev.code;
-    if (!MOVE_KEYS.has(code)) return;
+    // 输入框（含阅读面板）聚焦时一律让键，俯瞰与漫游同一条规矩
     if (this.hooks.inputBusy()) return;
+    if (code === 'KeyF') {
+      this.toggleWalk();
+      return;
+    }
+    if (code === 'ShiftLeft' || code === 'ShiftRight') {
+      if (this.camMode === 'walk') this.sprint = true;
+      return;
+    }
+    if (!MOVE_KEYS.has(code)) return;
     this.keys.add(code);
     const now = performance.now();
     if (now - this.lastKeyHint > 1500) {
       this.lastKeyHint = now;
-      this.hooks.onHud('WASD 平移中 · 只改位置不改朝向');
+      this.hooks.onHud(this.camMode === 'walk'
+        ? 'WASD 行走中 · 顺朝向挪步 · Shift 疾走'
+        : 'WASD 平移中 · 只改位置不改朝向');
+      this.hudStale = true;
     }
     this.wake();
   };
 
   private onKeyUp = (ev: KeyboardEvent): void => {
+    if (ev.code === 'ShiftLeft' || ev.code === 'ShiftRight') this.sprint = false;
     this.keys.delete(ev.code);
   };
 
   private onBlur = (): void => {
     this.keys.clear();
+    this.sprint = false;
+    this.stickVec = { x: 0, y: 0 };
+    this.stickId = null;
+    this.lookId = null;
+    if (this.stick) this.stick.hidden = true;
   };
 
   private panKeys(dt: number): void {
@@ -1334,10 +2184,18 @@ export class Matrix3D {
     );
   }
 
-  private pick(ev: PointerEvent): Pick | null {
-    this.ray.setFromCamera(this.ndc(ev), this.camera);
+  /**
+   * 拾取只有一条链路：射线源不同而已。
+   * orbit = 点击坐标；walk = 屏幕中心 (0,0)。faceIndex → (book, chapter) 映射共用批 8 的那份。
+   */
+  private pickAt(ndc: THREE.Vector2): Pick | null {
+    this.ray.setFromCamera(ndc, this.camera);
     if (this.view === 'hall') return this.pickHall();
     return this.pickRoom();
+  }
+
+  private pick(ev: PointerEvent): Pick | null {
+    return this.pickAt(this.camMode === 'walk' ? CENTER_NDC : this.ndc(ev));
   }
 
   /** 大厅：点六栋阅览楼的外壳（faceIndex → 区）或门楣牌匾 */
@@ -1431,6 +2289,12 @@ export class Matrix3D {
       return;
     }
     this.lastTapInfo = { moved: round2(moved), slop, kind, action: 'tap' };
+    // 漫游的触屏点按：先判位移、再判时长。按住不动是「在看」不是「要读」，不该开书面板。
+    // 顺序不能反——先看时长会把「慢慢拖过头」的手势误判成点击。只作用于 walk，俯瞰行为不动。
+    if (this.camMode === 'walk' && performance.now() - this.downAtMs > WALK.tapMaxMs) {
+      this.lastTapInfo.action = 'drag';
+      return;
+    }
     const hit = this.pick(ev);
     if (!hit) {
       this.lastTapInfo.action = 'tap-miss';
@@ -1944,7 +2808,7 @@ export class Matrix3D {
     this.camera.position.copy(outward);
     this.controls.target.copy(center);
     this.resetInertia();
-    this.controls.update();
+    this.updateControls();
     this.renderer.shadowMap.needsUpdate = true;
     this.wake();
     return this.spineProbe(i);
@@ -2429,7 +3293,7 @@ export class Matrix3D {
     this.controls.minDistance = 3.2;
     this.controls.maxDistance = 1000;
     this.resetInertia();
-    this.controls.update();
+    this.updateControls();
     this.wake();
     return true;
   }
@@ -2536,11 +3400,24 @@ export class Matrix3D {
       const now = performance.now();
       const dt = (now - this.prevTs) / 1000;
       this.prevTs = now;
-      this.panKeys(dt);
-      this.controls.update();
-      this.applyLod();
-      this.updateBillboards();
-      this.renderOnce();
+      if (this.camMode === 'walk') {
+        // OrbitControls 的 update() 会无条件 lookAt(target) 并按 minDistance 重摆相机，
+        // 与第一人称的 yaw/pitch 打架——漫游期间整段绕开它，朝向由 walkStep 直接写。
+        this.walkStep(dt);
+        this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+        this.syncWalkTarget();
+        this.lastActive = now;
+        this.applyLod();
+        this.updateBillboards();
+        this.renderOnce();
+        this.aimUpdate();
+      } else {
+        this.panKeys(dt);
+        this.updateControls();
+        this.applyLod();
+        this.updateBillboards();
+        this.renderOnce();
+      }
       this.frameTimes.push(dt);
       if (this.frameTimes.length > 120) this.frameTimes.shift();
       if (performance.now() - this.lastActive > IDLE_MS) {
@@ -2710,6 +3587,22 @@ export class Matrix3D {
     this.hideTip();
     this.tip?.remove();
     this.tip = null;
+    this.crosshair?.remove();
+    this.crosshair = null;
+    this.stick?.remove();
+    this.stick = null;
+    this.stickKnob = null;
+    this.colliders = [];
+    this.roomColliders = [];
+    this.hallColliders = [];
+    // 漫游专用材质不在场景图里（退出即摘），遍历 dispose 抓不到，显式收
+    this.walkFloorMat?.dispose();
+    this.walkGroundMat?.dispose();
+    this.walkFloorMat = null;
+    this.walkGroundMat = null;
+    for (const t of this.walkTextures.splice(0)) t.dispose();
+    for (const m of this.walkMats.splice(0)) m.dispose();
+    this.walkMatPairs = [];
     this.corridorMeshes.clear();
     this.doorPlaques.clear();
     this.nameplates.clear();
