@@ -51,8 +51,8 @@ DIST_MAX_MIB = 22.83 * 0.6
 RENDER_DIST_MAX_MIB = 12.0
 # 批 8 完成判据：空间化重构（图集 + 建筑几何 + 拾取映射）后的硬上限，改前实测 9.883MiB
 SPACE_DIST_MAX_MIB = 10.6
-# 批 8 完成判据：门槛断言只增不减（批 7 收在 88 项）
-SPACE_ASSERT_MIN = 89
+# 批 9 完成判据：门槛断言只增不减（批 8 收在 89 项，批 9 删掉 2D 后改写 5 条 + 新增 9 条，实测 98 项）
+SPACE_ASSERT_MIN = 98
 
 
 def run(cmd: list[str], cwd: Path = ROOT) -> tuple[int, str]:
@@ -494,7 +494,7 @@ def main() -> int:
         httpd, port, _ = serve(DIST)
         base = f"http://127.0.0.1:{port}"
         env = dict(os.environ, PROBE_BASE=base, ZHISHU_SAMPLES=json.dumps(samples, ensure_ascii=False),
-                   PROBE_SHOTS="_work/shots-batch8", PYTHONIOENCODING="utf-8")
+                   PROBE_SHOTS="_work/shots-batch9", PYTHONIOENCODING="utf-8")
         node_exe = shutil.which("node") or "node"
         p = subprocess.run([node_exe, str(TOOLS / "selfcheck_probe.mjs")], cwd=str(ROOT),
                            capture_output=True, text=True, encoding="utf-8", env=env)
@@ -521,7 +521,7 @@ def main() -> int:
                 for line in rep.get("log", []):
                     print("      ·", line)
                 record(
-                    f"批 8 门槛断言总数 >88（批 7 收在 88 项，本批只增不减）",
+                    f"批 9 门槛断言总数 ≥{SPACE_ASSERT_MIN}（批 8 收在 89 项，本批只增不减）",
                     len(rep["checks"]) >= SPACE_ASSERT_MIN,
                     f"探针断言 {len(rep['checks'])} 项 · 失败 {len(rep.get('failed') or [])} 项",
                 )
@@ -547,7 +547,7 @@ def main() -> int:
     merged["failed"] = (merged.get("failed") or []) + [{"name": n, "info": info} for n, ok, info in bad]
     rep_path.write_text(json.dumps(merged, ensure_ascii=False, indent=2), encoding="utf-8", newline="\n")
     print(f"\n{'=' * 68}\n自检 {len(results)} 项，通过 {len(results) - len(bad)}，失败 {len(bad)}，用时 {time.time() - t0:.1f}s")
-    print("报告：_work/selfcheck-report.json（含 gate 门槛项 + 探针逐项 + offline + bundle + distSize）· 截图：_work/shots-batch8/")
+    print("报告：_work/selfcheck-report.json（含 gate 门槛项 + 探针逐项 + offline + bundle + distSize）· 截图：_work/shots-batch9/")
     if bad and args.keep_server:
         print("--keep-server 已指定但自检未过，仍退出非 0")
     return 1 if bad else 0

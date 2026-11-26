@@ -188,10 +188,10 @@ try {
     viewport: { width: 1440, height: 900 },
     deviceScaleFactor: 1,
   });
-  await d.goto(`${BASE}/?flat=0`, { waitUntil: 'load' });
+  await d.goto(BASE, { waitUntil: 'load' });
   await ready(d);
 
-  check('3D 模式挂载（?flat=0）', (await d.evaluate(() => window.__zhishu.mode)) === 'three');
+  check('3D 模式挂载（1440 桌面）', (await d.evaluate(() => window.__zhishu.mode)) === 'three');
   const wHall = await scrollWidth(d);
   check('1440 视口无横向溢出', wHall.doc === 1440, wHall);
   check('大厅阶段零正文请求', requests.bodies.length === 0, requests.bodies.slice(0, 5));
@@ -310,17 +310,47 @@ try {
     { fog: cenHall.fog, pixelRatio: cenHall.pixelRatio, toneMapping: cenHall.toneMapping },
   );
   // bloom 是否真的在改画面：headless 拿不到肉眼，就用同源像素亮度对照（阴影对照留给数学区，大厅只有 144 投影面）
-  const lumBase = await d.evaluate(() => window.__zhishu.sampleLuminance(0, 0, 1, 1));
+  // 每次 sampleLuminance 都现渲染一帧，光尘在飘 → 单帧 p95 有 ±0.004 的抖动。取三帧中位数，
+  // 阈值一字不动（批 9 C1 提亮墙面后 p95 已经不在高光簇上，单帧对照会随机翻脸）。
+  // 采样窗两处：整帧（弱信号，批 7 起的现行口径，留着不动）+ 高光簇窗（强信号，本批补）。
+  // 高光簇窗是 10×7 网格逐格 on/off 对照扫出来的：大厅默认机位下 Δmean 最大的一格在
+  // cx0.35 / cy0.36（被照亮的阅览室外立面 + 门洞辉光那一片），整窗 18%×24%。
+  // 实测（5 轮 on/off 交替，极差 0.00000）：簇窗 Δmean 0.00623 / Δp95 0.02970，
+  // 整帧 Δmean 0.00229 / Δp95 0.00428——整帧 p95 落在暗部平台上，关掉 bloom 时它本来就只降 1/255，
+  // 单帧采样会取到「两边同为 0.06069」的相等结果，所以这条判据改由簇窗承担，整帧 Δmean 仍然保留。
+  const BLOOM_CLUSTER = [0.26, 0.24, 0.44, 0.48];
+  const lumMedian = async (box, n = 3) => {
+    const rows = [];
+    for (let i = 0; i < n; i += 1) {
+      rows.push(await d.evaluate((w) => window.__zhishu.sampleLuminance(...w), box));
+      await d.waitForTimeout(120);
+    }
+    const med = (k) => {
+      const v = rows.map((r) => r[k]).sort((a, b) => a - b);
+      return v[Math.floor(v.length / 2)];
+    };
+    return { mean: med('mean'), p95: med('p95'), brightRatio: med('brightRatio'), samples: rows[0]?.samples ?? 0 };
+  };
+  const fullBase = await lumMedian([0, 0, 1, 1]);
+  const clusterBase = await lumMedian(BLOOM_CLUSTER);
   await d.evaluate(() => window.__zhishu.setPassEnabled('Bloom', false));
-  const lumNoBloom = await d.evaluate(() => window.__zhishu.sampleLuminance(0, 0, 1, 1));
+  const fullNoBloom = await lumMedian([0, 0, 1, 1]);
+  const clusterNoBloom = await lumMedian(BLOOM_CLUSTER);
   await d.evaluate(() => window.__zhishu.setPassEnabled('Bloom', true));
   log.push(
-    `大厅亮度对照：基线 ${lumBase.mean}(p95 ${lumBase.p95}) / 关 bloom ${lumNoBloom.mean}(p95 ${lumNoBloom.p95})`,
+    `大厅亮度对照：整帧 ${fullBase.mean}(p95 ${fullBase.p95}) / 关 bloom ${fullNoBloom.mean}(p95 ${fullNoBloom.p95})；` +
+      `高光簇 ${clusterBase.mean}(p95 ${clusterBase.p95}) / 关 bloom ${clusterNoBloom.mean}(p95 ${clusterNoBloom.p95})`,
   );
   check(
-    'bloom 确实改变画面（关掉后整屏亮度统计下降）',
-    lumBase.mean - lumNoBloom.mean > 1e-3 && lumBase.p95 - lumNoBloom.p95 > 1e-3,
-    { base: lumBase, noBloom: lumNoBloom },
+    'bloom 确实改变画面（整帧均值下降 + 高光簇均值与 p95 双下降，簇窗亮度须显著高于整帧）',
+    fullBase.mean - fullNoBloom.mean > 1e-3 &&
+      clusterBase.mean - clusterNoBloom.mean > 1e-3 &&
+      clusterBase.p95 - clusterNoBloom.p95 > 1e-3 &&
+      clusterBase.mean > fullBase.mean * 1.5,
+    {
+      full: { base: fullBase, noBloom: fullNoBloom },
+      cluster: { box: BLOOM_CLUSTER, base: clusterBase, noBloom: clusterNoBloom },
+    },
   );
   check(
     '三角面分主/阴影两口径上报且主口径不越预算',
@@ -837,6 +867,30 @@ try {
     );
   }
   log.push(`逐区：${zoneRows.map((z) => `${z.area} 脊 ${z.cen.spines.cells}/${z.cen.spines.chapters} 图 ${z.cen.spines.atlasPages} 主 ${z.cen.triangles.mainPass} draw ${z.cen.calls.perFrame}`).join(' · ')}`);
+
+  // ---- 批 9 C3：书脊字口反差。判定口径在 atlas.spineInkContrast 的注释里：字色 SPINE_INK 与
+  // 「暗题签底板压在皮革上、再被字轴处约 3% 高光洗过」的合成色之间的 WCAG 相对亮度比，逐本算、每区取最小值。
+  const contrastRows = [];
+  for (const area of ['math', 'ai', 'chem', 'cs', 'general', 'tools']) {
+    await d.evaluate((a) => window.__zhishu.enterRoom(a), area);
+    await d.waitForFunction(
+      (a) => window.__zhishu.room() === a && window.__zhishu.frameCheck()?.view === 'room',
+      area,
+      { timeout: 15000 },
+    ).catch(() => undefined);
+    await d.waitForTimeout(900);
+    contrastRows.push({ area, ...(await d.evaluate(() => window.__zhishu.spineContrast())) });
+  }
+  const contrasted = contrastRows.filter((r) => r.books > 0);
+  log.push(
+    `书脊字口反差（ ink ${contrastRows[0]?.ink}）：${contrastRows.map((r) => `${r.area} ${r.books} 本 min=${r.min} p50=${r.p50}`).join(' · ')}`,
+  );
+  check(
+    '书脊字口反差逐区 ≥4.5（皮革提一档 + 暗题签底板承亮字，六区里有书的都不低于 4.5）',
+    contrasted.length >= 5 && contrasted.every((r) => r.min >= 4.5),
+    contrastRows.map((r) => ({ area: r.area, books: r.books, min: r.min, p50: r.p50 })),
+  );
+
   await d.evaluate(() => window.__zhishu.enterRoom('math'));
   await d.waitForTimeout(1200);
 
@@ -1092,7 +1146,8 @@ try {
   check('运行期零外部请求', requests.external.length === 0, requests.external.slice(0, 6));
   await dctx.close();
 
-  // ---------------------------------------------------------------- 手机 390×844 · 2D 降级
+  // ---------------------------------------------------------------- 手机 390×844 · 竖屏 3D（批 9：2D 降级路径已删除）
+  // 这一段旧判据不是删掉，是按 3D 语义改写/反写，逐条对应关系见 _work/decisions.md 批 9 D1。
   const { context: mctx, page: m } = await newPage(browser, 'mobile', {
     viewport: { width: 390, height: 844 },
     screen: { width: 390, height: 844 },
@@ -1102,36 +1157,168 @@ try {
   });
   await m.goto(BASE, { waitUntil: 'load' });
   await ready(m);
-  check('390px 触屏自动降级 2D', (await m.evaluate(() => window.__zhishu.mode)) === 'flat');
+  const mobileMount = await m.evaluate(() => {
+    const lum = window.__zhishu.sampleLuminance(0, 0, 1, 1);
+    return {
+      mode: window.__zhishu.mode,
+      canvas: Boolean(document.querySelector('#three-root canvas')),
+      svgRoot: Boolean(document.querySelector('#svg-root')),
+      mean: lum?.mean ?? 0,
+      p95: lum?.p95 ?? 0,
+      quality: window.__zhishu.quality(),
+      frame: window.__zhishu.frameCheck(),
+      sceneChunks: performance
+        .getEntriesByType('resource')
+        .map((e) => e.name.split('/').pop() ?? e.name)
+        .filter((n) => n.startsWith('scene3d-')),
+    };
+  });
+  log.push(
+    `390 竖屏挂载：mode=${mobileMount.mode} 档 ${mobileMount.quality?.name} dpr=${mobileMount.quality?.pixelRatio} ` +
+      `bloom=${mobileMount.quality?.bloom} 阴影=${mobileMount.quality?.shadows} mean=${mobileMount.mean} p95=${mobileMount.p95} ` +
+      `构图 ${mobileMount.frame?.inFrame}/${mobileMount.frame?.total} · scene3d 分包 ${mobileMount.sceneChunks.join(',') || '无'}`,
+  );
+  // 旧判据「390px 触屏自动降级 2D」语义反写：three 才是通过态，并补一条「画布不是全黑」的出图证据
+  check(
+    '390 竖屏走 3D（three 模式 + WebGL 画布 + 画面非全黑）',
+    mobileMount.mode === 'three' && mobileMount.canvas === true && mobileMount.p95 > 0.02,
+    mobileMount,
+  );
+  const hallFrameGroups = mobileMount.frame?.groups ?? {};
+  check(
+    '390 竖屏大厅构图：六体量 / 六门洞 / 天花八角顶点全部入画',
+    ['facades', 'doors', 'ceiling'].every(
+      (g) => (hallFrameGroups[g]?.total ?? 0) > 0 && hallFrameGroups[g].in === hallFrameGroups[g].total,
+    ),
+    hallFrameGroups,
+  );
   const wMobileHall = await scrollWidth(m);
   check('390 大厅 scrollWidth === 390', wMobileHall.doc === 390, wMobileHall);
-  await m.locator('#roombar button[data-room="ai"]').click();
-  await m.waitForFunction(() => window.__zhishu.room() === 'ai', null, { timeout: 10000 });
-  // 平面投影把同一面墙的 6 层书架压到一条线上，靠前的书位中心会被后画的那本盖住，
-  // 于是 Playwright 的 locator.click 一直等不到「元素接收事件」而超时。
-  // 这里改成真人式指点头，并且只认「命中元素属于哪本书」——顺带核对开正文的就是点到的那本。
-  await m.waitForFunction(() => document.querySelectorAll('svg g[data-slug]').length > 0, null, { timeout: 15000 });
-  const tap = await m.evaluate(() => {
-    const gs = [...document.querySelectorAll('svg g[data-slug]')];
-    let self = 0;
-    let first = null;
-    for (const g of gs) {
-      const b = g.getBoundingClientRect();
-      const x = b.x + b.width / 2;
-      const y = b.y + b.height / 2;
-      const el = document.elementFromPoint(x, y);
-      if (el && el.closest('svg g[data-slug]') === g) {
-        self += 1;
-        first = first ?? { x, y, slug: g.dataset.slug };
-      }
-    }
-    return first ? { ...first, n: gs.length, self } : { n: gs.length, self };
+  check(
+    '390 窄屏画质档：DPR ≤1.5、bloom 关、光尘按预算截断',
+    mobileMount.quality?.name === 'mobile' &&
+      mobileMount.quality.pixelRatio <= 1.5 &&
+      mobileMount.quality.bloom === false &&
+      mobileMount.quality.dustBudget > 0 &&
+      mobileMount.quality.dustBudget < 600,
+    mobileMount.quality,
+  );
+  await m.evaluate(() => window.__zhishu.holdMinimap(true));
+  const fpsMobileHall = await fps(m, 4000);
+  await m.evaluate(() => window.__zhishu.holdMinimap(false));
+  await m.screenshot({ path: `${SHOTS}/mobile390.png` });
+
+  await m.locator('#roombar button[data-room="math"]').click();
+  // room() 在 main.enterRoom() 里是**同步先置**的，正文数据还要 await 一次才建区；
+  // 只等 room() 会读到还没切机位的大厅构图，判据必须等视图状态真的切过去
+  await m.waitForFunction(
+    () => window.__zhishu.room() === 'math' && window.__zhishu.frameCheck()?.view === 'room',
+    null,
+    { timeout: 15000 },
+  );
+  const roomFrame = await m.evaluate(() => window.__zhishu.frameCheck());
+  const roomGroups = roomFrame?.groups ?? {};
+  log.push(`390 数学区构图 ${roomFrame?.inFrame}/${roomFrame?.total}：${JSON.stringify(roomGroups)}`);
+  check(
+    '390 竖屏阅览室读作「一间房」：书墙中段 / 天花梁下 / 地面中近段全入画 + ≥1 排书架正面',
+    ['face', 'ceiling', 'floor'].every(
+      (g) => (roomGroups[g]?.total ?? 0) === 4 && roomGroups[g].in === 4,
+    ) &&
+      (roomGroups.shelves?.total ?? 0) >= 3 &&
+      roomGroups.shelves?.in >= 1 &&
+      (roomGroups.back?.total ?? 0) === 4 &&
+      (roomGroups.sidewall?.total ?? 0) === 4,
+    { groups: roomGroups, fov: roomFrame?.fov, aspect: roomFrame?.aspect, inFrame: `${roomFrame?.inFrame}/${roomFrame?.total}` },
+  );
+  const wMobileRoom = await scrollWidth(m);
+  check('390 阅览室 scrollWidth === 390', wMobileRoom.doc === 390, wMobileRoom);
+  await m.evaluate(() => window.__zhishu.holdMinimap(true));
+  const fpsMobileRoom = await fps(m, 5000);
+  await m.evaluate(() => window.__zhishu.holdMinimap(false));
+  log.push(`390 帧率：大厅 ${fpsMobileHall} / 数学区 ${fpsMobileRoom}（deviceScaleFactor 2）`);
+  check('390 竖屏帧率 ≥30（大厅与阅览室双测）', fpsMobileHall >= 30 && fpsMobileRoom >= 30, {
+    hall: fpsMobileHall,
+    room: fpsMobileRoom,
   });
-  check('2D 书位存在可命中的中心（压层后仍有书能被指头点到）', tap.self > 0 && tap.n > 0, tap);
-  if (tap.x !== undefined) await m.touchscreen.tap(tap.x, tap.y);
-  await m.waitForFunction(() => window.__zhishu.readerState().open === true, null, { timeout: 15000 });
-  const rsTap = await m.evaluate(() => window.__zhishu.readerState());
-  check('2D 指头点色块开正文，且开的是点到的那一本', rsTap.open === true && rsTap.book === tap.slug, { tap, rs: rsTap });
+  await m.screenshot({ path: `${SHOTS}/mobile390-room.png` });
+  // 旧判据「2D 书位存在可命中的中心」改成 3D 语义：书脊正面屏幕点由 faceIndex 反查表与实时射线对账，
+  // 且落点必须在视口内、不被左下角小地图压住（小地图 pointer-events:none，挡住的书脊指头按不到）
+  const spineTap = await m.evaluate(() => {
+    const cells = window.__zhishu.census().spines.cells;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    for (let k = 0; k < 60 && cells > 0; k += 1) {
+      const i = Math.floor((k * cells) / 60);
+      const p = window.__zhishu.spineProbe(i);
+      if (!p?.screen || p.hit?.kind !== 'chapter' || p.hit.chapterId !== p.chapterId) continue;
+      const x = p.screen.x;
+      const y = p.screen.y;
+      if (x < 12 || y < 12 || x > vw - 12 || y > vh - 12) continue;
+      if (x < 120 && y > vh - 120) continue;
+      return { i, file: p.book, chapterId: p.chapterId, x, y, px: p.px, mapped: true, cells };
+    }
+    return { i: -1, mapped: false, cells };
+  });
+  check('390 书脊有可命中的屏幕点（faceIndex 反查 = 实时射线）', spineTap.mapped === true, spineTap);
+  // 判据 B3：手指滑动 ≥8px 必须判为拖拽。用 CDP 真触摸序列（touchStart → 两次 touchMove → touchEnd），
+  // pointerType 与浏览器合成 click 都走真实路径，不是往 DOM 上派发自定义事件。
+  const beforeDrag = await m.evaluate(() => window.__zhishu.readerState());
+  if (spineTap.mapped) {
+    const cdp = await mctx.newCDPSession(m);
+    const { x, y } = spineTap;
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x + 9, y: y + 5 }] });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x + 15, y: y + 8 }] });
+    await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await cdp.detach();
+    await m.waitForTimeout(300);
+  }
+  const dragInfo = await m.evaluate(() => ({ last: window.__zhishu.lastTap(), rs: window.__zhishu.readerState() }));
+  check(
+    '触屏滑动 ≥8px 判为拖拽、不误开书（readerState 与滑动前一致）',
+    spineTap.mapped === true &&
+      dragInfo.last?.kind === 'touch' &&
+      dragInfo.last?.action === 'drag' &&
+      dragInfo.last?.moved >= 8 &&
+      dragInfo.rs.open === beforeDrag.open &&
+      dragInfo.rs.mode === beforeDrag.mode,
+    { before: beforeDrag, lastTap: dragInfo.last, after: dragInfo.rs },
+  );
+
+  // 旧判据「2D 指头点色块开正文，且开的是点到的那一本」→ 3D：点书脊正面开的是那一本的那一章。
+  // 上一步的滑动会转视角，重新进区把机位复位，再打真实触摸点
+  await m.evaluate(() => window.__zhishu.enterRoom('math'));
+  await m.waitForFunction(
+    () => window.__zhishu.room() === 'math' && window.__zhishu.frameCheck()?.view === 'room',
+    null,
+    { timeout: 15000 },
+  );
+  await m.waitForTimeout(800);
+  const spineTap2 = await m.evaluate((idx) => {
+    const p = window.__zhishu.spineProbe(idx);
+    return p?.screen ? { i: idx, x: p.screen.x, y: p.screen.y } : null;
+  }, spineTap.i);
+  if (spineTap2) await m.touchscreen.tap(spineTap2.x, spineTap2.y);
+  await m
+    .waitForFunction(() => window.__zhishu.readerState().open === true, null, { timeout: 15000 })
+    .catch(() => undefined);
+  await settle(m, 120);
+  const rsTap = await m.evaluate(() => ({
+    rs: window.__zhishu.readerState(),
+    crumb: document.getElementById('panel-crumb')?.innerText ?? '',
+    last: window.__zhishu.lastTap(),
+  }));
+  check(
+    '390 触屏轻点书脊开正文，且开的是点到的那一本那一章（书脊投影 ≥36px，指头点得中章节带）',
+    spineTap2 !== null &&
+      spineTap.px >= 36 &&
+      rsTap.rs.open === true &&
+      rsTap.rs.file === spineTap.file &&
+      rsTap.rs.mode === 'chapter' &&
+      rsTap.last?.action === 'tap' &&
+      rsTap.crumb.length > 0,
+    { tap: spineTap2, spinePx: spineTap.px, want: spineTap.file, rs: rsTap.rs, last: rsTap.last, crumb: clip(rsTap.crumb, 80) },
+  );
   await m.waitForTimeout(300);
   if (samples.full) {
     await m.evaluate((s) => window.__zhishu.openChapterOf({ slug: s.slug, file: s.file }, s.chapter), samples.full);
@@ -1140,12 +1327,25 @@ try {
   const wMobileReader = await scrollWidth(m);
   check('390 阅读层含公式仍无横向溢出', wMobileReader.doc === 390, wMobileReader);
   await m.screenshot({ path: `${SHOTS}/mobile390-reader.png`, fullPage: false });
-  const svgOnly = await m.evaluate(() => ({
+  // 旧判据「降级视图无 WebGL 画布、SVG 成图」→ 反写：390 同样出 WebGL 画布，降级容器已不存在
+  const mobilePaint = await m.evaluate(() => ({
     svg: Boolean(document.querySelector('#svg-root svg')),
+    svgRoot: Boolean(document.querySelector('#svg-root')),
     canvas: Boolean(document.querySelector('#three-root canvas')),
   }));
-  check('降级视图无 WebGL 画布、SVG 成图', svgOnly.svg && !svgOnly.canvas, svgOnly);
-  check('降级路径未加载 Three.js', (await m.evaluate(() => window.__zhishu.mode)) === 'flat');
+  check(
+    '390 走 WebGL 成图、无 SVG 降级容器残留',
+    mobilePaint.canvas === true && mobilePaint.svg === false && mobilePaint.svgRoot === false,
+    mobilePaint,
+  );
+  // 旧判据「降级路径未加载 Three.js」→ 方向整个反过来：批 9 起 390 必须把 scene3d 分包拉起来
+  const mobileChunks = await m.evaluate(() =>
+    performance
+      .getEntriesByType('resource')
+      .map((e) => e.name.split('/').pop() ?? e.name)
+      .filter((n) => n.startsWith('scene3d-')),
+  );
+  check('390 加载了 scene3d 分包（判据方向自批 9 起反写）', mobileChunks.length > 0, mobileChunks);
 
   // ---------------------------------------------------------------- 390 检索弹层（判据 C3 移动端可用 + 加载中态）
   await mctx.route('**/dist/search-*', async (route) => {
