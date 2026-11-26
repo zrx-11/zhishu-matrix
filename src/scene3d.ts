@@ -693,7 +693,7 @@ export class Matrix3D {
       map: deskTex,
       emissiveMap: deskTex,
       emissive: 0xffffff,
-      emissiveIntensity: 0.62,
+      emissiveIntensity: 0.34,
       roughness: 0.55,
       metalness: 0.16,
       envMapIntensity: 0.5,
@@ -706,7 +706,7 @@ export class Matrix3D {
       roughness: 0.42,
       metalness: 0.45,
       emissive: new THREE.Color('#ffd7a0'),
-      emissiveIntensity: 0.95,
+      emissiveIntensity: 0.55,
     });
     grp.add(this.mark(new THREE.Mesh(built.desk.band, this.deskBandMat), 'deskBand', {}));
 
@@ -740,11 +740,11 @@ export class Matrix3D {
       return mesh;
     });
 
-    // 一盏点光把台面顶成厅内焦点：distance 10 + decay 2，够得到台沿与近身地面，够不到 44 外的外墙
-    this.deskLight = new THREE.PointLight(0xffdcae, 14, 12, 2);
-    this.deskLight.position.set(0, 2.75, 0);
-    this.deskLight.userData.role = 'deskLight';
-    grp.add(this.deskLight);
+    // 批 13 A3：索引台的点光撤掉。它和第 7 个点光一起把大厅 fillrate 压到 36.2 fps，
+    // 而台面的可读性本来就由 emissiveMap 承担（下面 deskTopMat 的自发光 + 台沿灯带），
+    // 那盏灯只贡献了一层过曝：`desk-sector.png` 里六个区的字被烧成彩色反光就是这个原因。
+    // 字段与 readouts 保留（值为 null / 0），walk 落位与 HUD 不依赖灯的强度。
+    this.deskLight = null;
 
     // 展柜：实心柜体（可拾取）+ 亚克力罩（半透明，不吃射线，否则罩内的脊永远点不到）+ 罩顶自发光条
     this.caseBodies = this.mark(
@@ -771,7 +771,7 @@ export class Matrix3D {
       roughness: 0.5,
       metalness: 0.15,
       emissive: new THREE.Color('#ffe7bd'),
-      emissiveIntensity: 2.0,
+      emissiveIntensity: 0.5,
     });
     grp.add(this.mark(new THREE.Mesh(built.cases.lamp, this.caseLampMat), 'caseLamp', {}));
     this.caseStands = built.cases.stands;
@@ -874,9 +874,9 @@ export class Matrix3D {
       && Math.hypot(this.camera.position.x, this.camera.position.z) <= ATRIUM.nearR;
     if (near === this.deskNear) return;
     this.deskNear = near;
-    if (this.deskTopMat) this.deskTopMat.emissiveIntensity = near ? 0.9 : 0.62;
-    if (this.deskBandMat) this.deskBandMat.emissiveIntensity = near ? 1.3 : 0.95;
-    if (this.caseLampMat) this.caseLampMat.emissiveIntensity = near ? 2.2 : 2.0;
+    if (this.deskTopMat) this.deskTopMat.emissiveIntensity = near ? 0.5 : 0.34;
+    if (this.deskBandMat) this.deskBandMat.emissiveIntensity = near ? 0.8 : 0.55;
+    if (this.caseLampMat) this.caseLampMat.emissiveIntensity = near ? 0.6 : 0.5;
     if (this.deskLight) this.deskLight.intensity = near ? 18 : 14;
     this.hudStale = true;
   }
@@ -1575,7 +1575,6 @@ export class Matrix3D {
 
   private buildLinks(): Array<[Discipline, THREE.Group]> {
     const out: Array<[Discipline, THREE.Group]> = [];
-    const floorMat = this.wood('#3a2a1a', 5);
     // 走廊壳体三面法线全部朝内（侧墙指向中线、顶面指向下），必须是 FrontSide：
     // 写成 DoubleSide 时顶面从上方照样可见，大厅俯视看到的是六条封闭暗管盖，而不是管里的地面和铭牌。
     const shellMat = new THREE.MeshStandardMaterial({
@@ -1587,6 +1586,11 @@ export class Matrix3D {
     for (const r of ROOMS) {
       const group = new THREE.Group();
       const built = buildCorridor(r.angle, HALL_RADIUS - 0.4, ROOM_DIST, FACADE_SIDE);
+      // 批 13 A2：六区的学科色改由走廊地面自发光承担（原来靠 6 盏学科色点光，见 spacekit.buildLightRig 注释）。
+      // 自发光是零光源成本的，走廊里那条彩色光带还在，但整帧不再为它多算一次点光。
+      const floorMat = this.wood('#3a2a1a', 5);
+      floorMat.emissive = new THREE.Color(r.color);
+      floorMat.emissiveIntensity = 0.14;
       const floor = new THREE.Mesh(built.floor, floorMat);
       floor.receiveShadow = true;
       floor.userData.role = 'corridorFloor';

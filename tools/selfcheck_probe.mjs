@@ -304,8 +304,8 @@ try {
   );
   const zoneDots = (cenHall.lightSpec || []).filter((l) => l.type === 'PointLight' && l.distance > 0 && l.decay > 0);
   check(
-    '六区各一盏学科色点光且带距离衰减（decay>0、distance>0）',
-    zoneDots.length >= 6,
+    '批13A 光照预算：大厅点光 ≤3 盏（2 盏区灯 + 1 盏厅心光晕）且都带距离衰减，六区学科色改由走廊地面自发光承担',
+    zoneDots.length >= 1 && zoneDots.length <= 3 && zoneDots.every((l) => l.decay > 0 && l.distance > 0),
     zoneDots.map((l) => `${l.color.toString(16)}/${l.intensity}/${l.distance}/${l.decay}`),
   );
   check(
@@ -1543,7 +1543,7 @@ try {
       `自发光 台 ${atr.emissive.top}／灯带 ${atr.emissive.band}／射灯 ${atr.emissive.lamp}`,
   );
   check(
-    '批12A 中央索引台立在厅心：八角台 r4 底面直径 8、台面高 1.10、六扇区、台面 1024² canvas、自带一盏点光且是碰撞体',
+    '批12A 中央索引台立在厅心：八角台 r4 底面直径 8、台面高 1.10、六扇区、台面 1024² canvas、台面亮度由自发光承担（批13 已撤点光）且是碰撞体',
     atr.sectors.length === 6 &&
       atr.desk.r === 4 &&
       Math.abs(atr.desk.topY - 1.1) < 1e-6 &&
@@ -1551,8 +1551,8 @@ try {
       atr.topTex[0] === 1024 &&
       atr.topTex[1] === 1024 &&
       (atr.blockers.indexDesk ?? 0) === 1 &&
-      atr.desk.lightIntensity > 0 &&
-      atr.desk.lightDistance > 0 &&
+      atr.desk.lightIntensity === 0 &&
+      atr.emissive.top > 0 &&
       atr.triangles.desk >= 16,
     { desk: atr.desk, topTex: atr.topTex, blockers: atr.blockers, deskTris: atr.triangles.desk, sectors: atr.sectors.length },
   );
@@ -1812,8 +1812,8 @@ try {
     atr.cases.length === 6 &&
       caseRing.every((r) => r >= 18 && r <= 22) &&
       (atr.blockers.displayCase ?? 0) === 6 &&
-      atr.emissive.lamp >= 2 &&
-      atr.emissive.lamp <= 3.5,
+      atr.emissive.lamp >= 0.35 &&
+      atr.emissive.lamp <= 0.7,
     { ring: caseRing, blockers: atr.blockers, lamp: atr.emissive.lamp, near: atr.near },
   );
   check(

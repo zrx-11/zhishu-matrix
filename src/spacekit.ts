@@ -356,16 +356,18 @@ export function buildLightRig(): LightRig {
   key.shadow.mapSize.set(2048, 2048);
   key.shadow.bias = -0.0012;
   key.shadow.normalBias = 0.28;
-  const zones = ROOMS.map((r) => {
-    const light = new THREE.PointLight(new THREE.Color(r.color).getHex(), 300, 190, 2);
-    // 摆在走廊里、门廊正前方（体量外壳半宽 13 再外退 16）：
-    // 先版吊在屋顶上方 16 单位，只照亮箱顶，大厅俯视仍是六个黑盒；
-    // 挪到门前才把外壳朝大厅那一面与区名铜牌洗成学科色，六条走廊也各带一段色光。
-    const r2 = Math.hypot(r.at[0], r.at[1]) || 1;
-    const k = 1 - 29 / r2;
-    light.position.set(r.at[0] * k, 12, r.at[1] * k);
-    return light;
-  });
+  // 批 13 A1：区灯由 6 盏降为 2 盏。批 12 大厅 walk 态同时有 8 个 PointLight（6 区灯 + 索引台灯），
+  // 每个受光片元都要算 8 个点光，6s 采样帧率从批 11 的 56.9 掉到 36.2 —— 掉的是 fillrate 不是几何
+  // （三角面 2,434、draw 37 都远未触顶）。六区的色彩不再由灯承担，改由走廊地面的学科色自发光（见 scene3d.buildLinks）。
+  // 两盏暖光斜对角摆在大厅内圈，只给地面与体量一点体积感，不参与分区识别。
+  const zones: THREE.PointLight[] = [];
+  const ZONE_POINTS = 2;
+  for (let i = 0; i < ZONE_POINTS; i += 1) {
+    const light = new THREE.PointLight(0xffd7a0, 260, 150, 2);
+    const a = (Math.PI * 2 / ZONE_POINTS) * i + Math.PI / 4;
+    light.position.set(Math.cos(a) * 22, 10, Math.sin(a) * 22);
+    zones.push(light);
+  }
   return { hemi, key, zones };
 }
 
