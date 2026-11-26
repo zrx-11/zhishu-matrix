@@ -253,3 +253,21 @@ qodercn sites get_publish_status --input '{"actionId":"<同一个>"}'   # 需 pu
 | `/bodies/*.json.gz` | 200；注意正文文件名形如 `food-zhishu--inorganic-analytical-chem.json.gz`（`<repo>--<slug>`，**一本一个文件**，不按章拆），拼 `--ch01` 会 404 |
 | `/manifest.json` | 200 + `application/json` |
 
+## 九、第三次发布（批 9 + 批 10 上线，2026-11-26）
+
+快照 **9.91 MiB / 347 文件**，`actionId` `63e68b14-168b-48d0-b0e3-5a33f00104b6`，`publishOperationId` `01a216c4-c26e-7e6e-94d2-4895f9b3c98e`，终态 `published: true` / `committed: true`。
+
+这一次把批 9（删 2D 降级视图）与批 10（竖屏构图反算、大厅补光、书脊题签收窄）两批一起发。
+
+流程上补一条第八节没写到的状态：`prepare_site` 返回 `descriptorStatus: pending` 之后，**第一次 `get_publish_status` 可能仍是 `preparation.state: verifying`**，此时 `artifactReady: false`、`canPublish: false`、`publishBlockedReason: sites_deployment_not_ready`、`retryAfterMs: 5000`。这不是失败，按 `retryAfterMs` 等一轮（实测约 20 秒）再查就成了 `artifactReady: true` / `canPublish: true`。判据永远是 `artifactReady` 与 `canPublish`，不是 `descriptorStatus`。
+
+`access_mode` 依旧保持 `public`，未再调 `update_access_policy`。
+
+线上核验：
+
+| 项 | 实测 |
+|---|---|
+| `index.html` | 59,889 B，引用 `/assets/index-B5yD6PoN.js` |
+| HTML 中的 `#svg-root` | **不存在**（2D 容器已随批 9 删除） |
+| `/assets/index-B5yD6PoN.js`、`/dist/math.json.gz`、`/dist/search-ai.json.gz`、`/manifest.json` | 全部 200，内容类型与第八节一致 |
+
