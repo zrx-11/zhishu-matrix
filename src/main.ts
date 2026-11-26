@@ -2,6 +2,7 @@ import './styles.css';
 import type { BookRecord, Discipline, ManifestIndex, SearchHit, SiteEntry } from './types';
 import { ROOMS, ROOM_BY_KEY } from './config';
 import { booksOf, loadManifest, loadShard, loadSiteRecord } from './data';
+import { SPINE_PLATE_RECT } from './atlas';
 import { forgetDiagrams, hydrateDiagrams, mermaidRequested, renderDiagram } from './diagram';
 import { key, recordIndex } from './layout';
 import { renderMarkdown } from './render';
@@ -431,6 +432,14 @@ function exposeDiagnostics(): void {
     /** 批 9：画质档位与竖屏构图账，门槛断言只读这两条，不从截图反推 */
     quality: () => (view ? view.quality() : null),
     frameCheck: () => (view ? view.frameCheck() : null),
+    /** 批 10 A2：主体占屏比（大厅壳+走廊+门签 / 阅览室内壳结构点） */
+    subjectBox: (which?: 'hall' | 'room') => (view ? view.subjectBox(which) : null),
+    /** 批 10 B：藻井梁/井板、门洞内外、总览图与整帧 p5 的亮度账 */
+    hallLightProbe: () => (view ? view.hallLightProbe() : null),
+    /** 批 10 C：题签宽度实测（跨脊扫描线与图集参数双证） */
+    spinePlateProbe: (i: number) => (view ? view.spinePlateProbe(i) : null),
+    /** 批 10 C：图集绘制参数（题签占脊宽比由 atlas 常量直接给出） */
+    spinePlateSpec: () => ({ x: SPINE_PLATE_RECT.x, y: SPINE_PLATE_RECT.y, w: SPINE_PLATE_RECT.w, h: SPINE_PLATE_RECT.h, cellW: 32, cellH: 160 }),
     lastTap: () => (view ? view.lastTap() : null),
     spineContrast: () => (view ? view.spineContrast() : null),
     focusSpine: (i: number, dist?: number) =>

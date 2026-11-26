@@ -6,10 +6,13 @@ import type { BookRecord, Discipline, ManifestIndex, SiteEntry } from './types';
 import {
   ATLAS_SIZE,
   BG,
+  CORRIDOR_H,
   CORRIDOR_W,
+  DOOR_W,
   HALL_FOV_MAX,
   HALL_FOV_MIN,
   HALL_HEIGHT,
+  HALL_PORTRAIT,
   HALL_RADIUS,
   PLAQUE_KINDS,
   ROOMS,
@@ -18,6 +21,7 @@ import {
   ROOM_FOV_MAX,
   ROOM_FOV_MIN,
   ROOM_HEIGHT,
+  ROOM_LENS_MAX,
   SHELF_HEIGHT,
   SHELF_KINDS,
   aspectRamp,
@@ -38,6 +42,7 @@ import {
 } from './spacekit';
 import {
   buildSpineAtlas,
+  cofferTexture,
   hallPlanTexture,
   leatherColor,
   muralTexture,
@@ -83,6 +88,8 @@ const ROOM_FOG: [number, number] = [210, 620];
  */
 const HALL_TILT: [number, number] = [232, 264];
 const HALL_TILT_LEN = Math.hypot(HALL_TILT[0], HALL_TILT[1]);
+/** 桌面俯角：批 8/9 那一条线的仰角，竖屏档从这里插值到 HALL_PORTRAIT.pitch */
+const HALL_PITCH = Math.atan2(HALL_TILT[0], HALL_TILT[1]);
 /**
  * 俯视要装下的半宽：阅览室中心 150 + 体量半宽 13 + 门廊凸出与余量。
  * 大厅地面 quad 铺到 ±360，那是背景而不是构图对象，不进这条账。
@@ -275,6 +282,8 @@ export class Matrix3D {
   private roomGeoms: THREE.BufferGeometry[] = [];
   private roomMats: THREE.Material[] = [];
   private renderScale = 1;
+  /** 批 10 A3：当前投影的水平挤压系数（1 = 无变形），供诊断输出与采样口径判断 */
+  private lensKx = 1;
   private spineMeshes: THREE.Mesh[] = [];
   private spinePages: SpinePage[] = [];
   private atlas: SpineAtlas | null = null;
@@ -421,6 +430,10 @@ export class Matrix3D {
         .toGeometry(),
       new THREE.MeshStandardMaterial({
         map: wallTexture('#141821', '#1d2430', '#101820'),
+        // 批 10 B2：实测标定值。地面到处是（十字大厅外的整片场地），批 9 渲染亮度只有 5/255，
+        // 390 竖屏里它占掉上半屏与两侧，是「死黑带」的主要来源。乘 1.9 后 7/255 上下：
+        // 高于 0.02 暗像素阈值、低于 0.03 的 p5 红线；底色本身很暗，线性反照率仍 <0.06。
+        color: new THREE.Color(1.9, 1.9, 1.9),
         roughness: 0.95,
         metalness: 0.04,
         envMapIntensity: 0.25,
@@ -469,6 +482,19 @@ export class Matrix3D {
       envMapIntensity: 0.3,
     });
     this.hall.add(this.mark(new THREE.Mesh(built.walls, shellMat), 'hallWall', { receiveShadow: true }));
+    // 批 10 B1 藻井圈：深色井板 + 顶灯/梁料差出「梁压板」的层次；一圈一 draw
+    const coffer = new THREE.Mesh(
+      built.coffer,
+      new THREE.MeshStandardMaterial({
+        map: cofferTexture(),
+        roughness: 0.93,
+        metalness: 0.03,
+        envMapIntensity: 0.18,
+      }),
+    );
+    coffer.receiveShadow = true;
+    coffer.userData.role = 'hallCoffer';
+    this.hall.add(coffer);
     const mural = new THREE.Mesh(
       built.muralPanels,
       new THREE.MeshStandardMaterial({
@@ -483,7 +509,12 @@ export class Matrix3D {
     this.hall.add(this.mark(new THREE.Mesh(built.ceiling, shellMat), 'hallCeiling', {}));
     this.hall.add(this.mark(new THREE.Mesh(built.frames, this.brass()), 'hallDoorFrame', { castShadow: true }));
 
-    const beams = new THREE.InstancedMesh(unitBox(), this.wood('#2c2015', 11), built.beams.length);
+    // 批 10 B1：径向梁加宽一档（0.85→1.6）并带微自发光——俯视 1440 下梁宽才 3–4 像素，
+    // 采样框一旦偏移就落进井板；梁料本色也比井板亮，配合顶光把「梁压板」读出来
+    const beamMat = this.wood('#332416', 11);
+    beamMat.emissive = new THREE.Color(0x1c130b);
+    beamMat.emissiveIntensity = 0.7;
+    const beams = new THREE.InstancedMesh(unitBox(), beamMat, built.beams.length);
     built.beams.forEach((m, i) => beams.setMatrixAt(i, m));
     beams.instanceMatrix.needsUpdate = true;
     beams.userData.role = 'hallBeams';
@@ -744,13 +775,21 @@ export class Matrix3D {
     return Math.atan(Math.tan((fovDeg * Math.PI) / 360) * aspect);
   }
 
-  /** 俯视机位沿批 8 的 41.4° 俯角线推远，直到六个阅览体量横向都进画；桌面档仍落回 (0,232,264) */
+  /** 俯视机位沿批 8 的 41.4° 俯角线推远；窄屏按 aspect 插值到 HALL_PORTRAIT 的 「站高俯冲」姿态 */
   private hallPose(): [number, number, number] {
-    const fov = fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, this.camera.aspect);
-    const need = HALL_SPAN / Math.max(0.05, Math.tan(this.halfFovRad(fov)));
-    const dist = Math.min(this.controls.maxDistance - 20, Math.max(HALL_TILT_LEN, need));
-    const k = dist / HALL_TILT_LEN;
-    return [0, HALL_TILT[0] * k, HALL_TILT[1] * k];
+    const aspect = this.camera.aspect || 1;
+    const fov = fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, aspect);
+    const t = aspectRamp(aspect);
+    // 批 10 A1：水平挤压后横向可视半宽是 tan(hfov)·Kx，装下六栋体量所需距离同比缩短。
+    // 竖屏档的主体口径收到门签外沿（135.65+余量）而不是桌面档的 178：门签外还整栋楼体，
+    // 用 178 会把竖屏机位反推到 287，主体竖向从 52% 掉到 47%（低于门槛），构图反而退回小黑厅。
+    const span = HALL_SPAN + (142 - HALL_SPAN) * t;
+    const kx = 1 + HALL_PORTRAIT.lensMax * t;
+    const need = span / Math.max(0.05, Math.tan(this.halfFovRad(fov)) * kx);
+    const tiltLen = HALL_TILT_LEN + (HALL_PORTRAIT.dist - HALL_TILT_LEN) * t;
+    const pitch = HALL_PITCH + (HALL_PORTRAIT.pitch - HALL_PITCH) * t;
+    const dist = Math.min(this.controls.maxDistance - 20, Math.max(tiltLen, need));
+    return [0, Math.sin(pitch) * dist, Math.cos(pitch) * dist];
   }
 
   /**
@@ -787,7 +826,7 @@ export class Matrix3D {
     this.controls.maxDistance = 1000;
     this.setFog(HALL_FOG);
     this.setRenderScale(1);
-    this.setFov(fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, this.camera.aspect));
+    this.setFov(fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, this.camera.aspect), this.lensForAspect(this.camera.aspect));
     if (pose) this.applyPose(pose);
     else {
       const def = this.hallPose();
@@ -1080,7 +1119,7 @@ export class Matrix3D {
     this.controls.maxDistance = 320;
     this.setFog(ROOM_FOG);
     this.setRenderScale(this.tier.renderScale);
-    this.setFov(fovForAspect(ROOM_FOV_MIN, ROOM_FOV_MAX, this.camera.aspect));
+    this.setFov(fovForAspect(ROOM_FOV_MIN, ROOM_FOV_MAX, this.camera.aspect), this.lensForAspect(this.camera.aspect));
     const side = plan.side;
     const spec = ROOM_BY_KEY[plan.discipline];
     const cx = this.room.position.x;
@@ -1425,6 +1464,7 @@ export class Matrix3D {
     dustBudget: number;
     viewport: { w: number; h: number; aspect: number };
     fov: number;
+    lensKx: number;
   } {
     return {
       name: this.tier.name,
@@ -1442,6 +1482,7 @@ export class Matrix3D {
         aspect: this.camera.aspect,
       },
       fov: this.camera.fov,
+      lensKx: Number(this.lensKx.toFixed(4)),
     };
   }
 
@@ -1522,6 +1563,263 @@ export class Matrix3D {
       total: points.length,
       groups,
     };
+  }
+
+  /**
+   * 批 10 A2 判据「主体占屏比」：主体点集投到 NDC，V/H = 包围盒宽高 ÷2（满屏 = 1）。
+   * 口径：大厅 = 八角厅壳 16 个角点 + 六条走廊远端四角 + 六块门签四角（不含体量外壳的
+   * 整栋楼——近端楼体在俯冲机位下天然探出下缘，任务书口径就到门签为止）；
+   * 阅览室 = frameCheck 的 back/side/ceiling/floor 四组结构点（询问「房间占了多少画面」，
+   * 而不是「外壳八个角能否全进画」——近端两角在相机背后，任何室内机位都投不出来）。
+   * 另给 clipped：裁到 [−1,1] 的占屏比，避免「主体出画反把百分比做大」。
+   */
+  subjectBox(which: 'hall' | 'room' = this.view === 'hall' ? 'hall' : 'room'): {
+    view: string;
+    points: number;
+    v: number;
+    h: number;
+    vClipped: number;
+    hClipped: number;
+    vSpan: number;
+    hSpan: number;
+    ndc: [number, number, number, number];
+  } {
+    this.syncWorld();
+    const pts: THREE.Vector3[] = [];
+    if (which === 'hall') {
+      const Rc = HALL_RADIUS / Math.cos(Math.PI / 8);
+      for (let k = 0; k < 8; k += 1) {
+        const a = (Math.PI * 2 * k) / 8 + Math.PI / 8;
+        for (const y of [0, HALL_HEIGHT]) {
+          pts.push(new THREE.Vector3(Math.cos(a) * Rc, y, Math.sin(a) * Rc));
+        }
+      }
+      for (const r of ROOMS) {
+        const t = new THREE.Vector3(-Math.sin(r.angle), 0, Math.cos(r.angle));
+        const rad = new THREE.Vector3(Math.cos(r.angle), 0, Math.sin(r.angle));
+        for (const y of [0, ROOM_DOOR.h]) {
+          for (const s of [-1, 1]) {
+            pts.push(new THREE.Vector3().copy(rad).multiplyScalar(HALL_RADIUS).addScaledVector(t, s * (DOOR_W / 2)).setY(y));
+          }
+        }
+        for (const y of [0.03, CORRIDOR_H]) {
+          for (const s of [-1, 1]) {
+            pts.push(new THREE.Vector3().copy(rad).multiplyScalar(136.5).addScaledVector(t, s * (CORRIDOR_W / 2)).setY(y));
+          }
+        }
+        for (const dy of [-1.55, 1.55]) {
+          for (const s of [-1, 1]) {
+            pts.push(new THREE.Vector3().copy(rad).multiplyScalar(ROOM_DIST - FACADE_SIDE / 2 - 1.35).addScaledVector(t, s * 4.7).setY(ROOM_DOOR.h + 1.9 + dy));
+          }
+        }
+      }
+    } else {
+      const half = (this.plan?.side ?? 0) / 2;
+      const height = this.plan?.height ?? ROOM_HEIGHT;
+      for (const sx of [-1, 1]) {
+        for (const sy of [0.2, height]) pts.push(this.localToWorld([(sx * half) * 0.98, sy, half * 0.98]).clone());
+        pts.push(this.localToWorld([(sx * half) * 0.98, height * 0.55, half * 0.2]).clone());
+        pts.push(this.localToWorld([(sx * half) * 0.98, 0.25, half * 0.5]).clone());
+        pts.push(this.localToWorld([sx * half * 0.45, height - 2.2, half * 0.9]).clone());
+        pts.push(this.localToWorld([sx * half * 0.2, height - 2.2, half * 0.98]).clone());
+        pts.push(this.localToWorld([sx * half * 0.25, 0.2, -half * 0.2]).clone());
+        pts.push(this.localToWorld([sx * half * 0.25, 0.2, half * 0.4]).clone());
+      }
+    }
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+    let cMinX = Infinity;
+    let cMaxX = -Infinity;
+    let cMinY = Infinity;
+    let cMaxY = -Infinity;
+    for (const p of pts) {
+      const v = p.project(this.camera);
+      minX = Math.min(minX, v.x);
+      maxX = Math.max(maxX, v.x);
+      minY = Math.min(minY, v.y);
+      maxY = Math.max(maxY, v.y);
+      cMinX = Math.min(cMinX, Math.max(-1, Math.min(1, v.x)));
+      cMaxX = Math.max(cMaxX, Math.max(-1, Math.min(1, v.x)));
+      cMinY = Math.min(cMinY, Math.max(-1, Math.min(1, v.y)));
+      cMaxY = Math.max(cMaxY, Math.max(-1, Math.min(1, v.y)));
+    }
+    return {
+      view: this.view,
+      points: pts.length,
+      v: Number(((maxY - minY) / 2).toFixed(4)),
+      h: Number(((maxX - minX) / 2).toFixed(4)),
+      vClipped: Number(((cMaxY - cMinY) / 2).toFixed(4)),
+      hClipped: Number(((cMaxX - cMinX) / 2).toFixed(4)),
+      vSpan: Number((maxY - minY).toFixed(4)),
+      hSpan: Number((maxX - minX).toFixed(4)),
+      ndc: [Number(minX.toFixed(3)), Number(maxX.toFixed(3)), Number(minY.toFixed(3)), Number(maxY.toFixed(3))],
+    };
+  }
+
+  /**
+   * 批 10 B 判据「补光是否真的把梁/门洞/总览图分开」：世界点 → 屏幕 3×3 邻域均值亮度。
+   * 全部取读回 framebuffer 的 8 位值（ACES 之后的口径），门槛数字即 0–255 的差。
+   */
+  private probeWorldPoints(pts: Array<[number, number, number]>): number[] {
+    this.syncWorld();
+    this.renderOnce();
+    const gl = this.renderer.getContext();
+    const rw = gl.drawingBufferWidth;
+    const rh = gl.drawingBufferHeight;
+    const one = new Uint8Array(4);
+    return pts.map((p) => {
+      const v = new THREE.Vector3(p[0], p[1], p[2]).project(this.camera);
+      const cx = Math.round((v.x * 0.5 + 0.5) * rw);
+      const cy = Math.round((v.y * 0.5 + 0.5) * rh);
+      let sum = 0;
+      let n = 0;
+      for (let dy = -1; dy <= 1; dy += 1) {
+        for (let dx = -1; dx <= 1; dx += 1) {
+          const sx = Math.max(0, Math.min(rw - 1, cx + dx));
+          const sy = Math.max(0, Math.min(rh - 1, cy + dy));
+          gl.readPixels(sx, sy, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, one);
+          sum += (0.2126 * one[0] + 0.7152 * one[1] + 0.0722 * one[2]) / 255;
+          n += 1;
+        }
+      }
+      return sum / n;
+    });
+  }
+
+  /**
+   * 大厅补光三账：藻井梁 vs 井板、门洞内侧 vs 走廊地面、地面总览图均值 + 整帧 p5/暗像素比。
+   * 采样点固定在世界坐标（与帧率、机型无关），每类取多组再平均，避开单像素噪声。
+   * p5 读整帧（sampleLuminance 的 96×96 网格），暗像素阈值 0.02。
+   */
+  hallLightProbe(): {
+    beam: number;
+    panel: number;
+    beamDiff: number;
+    doorIn: number;
+    doorOut: number;
+    doorDiff: number;
+    groundMean: number;
+    groundMin: number;
+    frameP5: number;
+    frameP50: number;
+    darkRatio: number;
+  } {
+    const ring: Array<[number, number, number]> = [];
+    const panels: Array<[number, number, number]> = [];
+    for (let k = 0; k < 4; k += 1) {
+      const aBeam = (Math.PI / 2) * k + Math.PI / 4;
+      const aPanel = aBeam + Math.PI / 8;
+      ring.push([Math.cos(aBeam) * 40.8, 21.775, Math.sin(aBeam) * 40.8]);
+      panels.push([Math.cos(aPanel) * 40.8, 21.15, Math.sin(aPanel) * 40.8]);
+    }
+    const beamLum = this.probeWorldPoints(ring);
+    const panelLum = this.probeWorldPoints(panels);
+    const ins: Array<[number, number, number]> = [];
+    const outs: Array<[number, number, number]> = [];
+    for (const r of ROOMS) {
+      ins.push([Math.cos(r.angle) * 38, 0.05, Math.sin(r.angle) * 38]);
+      outs.push([Math.cos(r.angle) * 50, 0.06, Math.sin(r.angle) * 50]);
+    }
+    const inLum = this.probeWorldPoints(ins);
+    const outLum = this.probeWorldPoints(outs);
+    const groundPts: Array<[number, number, number]> = [];
+    for (const rad of [0, 12, 22]) {
+      for (const a of [0, (Math.PI * 2) / 3, (Math.PI * 4) / 3]) {
+        groundPts.push([Math.cos(a) * rad, 0.02, Math.sin(a) * rad]);
+      }
+    }
+    const ground = this.probeWorldPoints(groundPts);
+    const mean = (a: number[]): number => a.reduce((s, v) => s + v, 0) / Math.max(1, a.length);
+    const frame = this.sampleLuminance(0, 0, 1, 1);
+    return {
+      beam: Number(mean(beamLum).toFixed(4)),
+      panel: Number(mean(panelLum).toFixed(4)),
+      beamDiff: Number((Math.abs(mean(beamLum) - mean(panelLum)) * 255).toFixed(2)),
+      doorIn: Number(mean(inLum).toFixed(4)),
+      doorOut: Number(mean(outLum).toFixed(4)),
+      doorDiff: Number((Math.abs(mean(inLum) - mean(outLum)) * 255).toFixed(2)),
+      groundMean: Number(mean(ground).toFixed(4)),
+      groundMin: Number(Math.min(...ground).toFixed(4)),
+      frameP5: frame.p5,
+      frameP50: frame.p50,
+      darkRatio: frame.darkRatio,
+    };
+  }
+
+  /**
+   * 批 10 C 判据「题签宽度」：对准第 i 条书脊，横向跨脊扫 7 条扫描线，找暗带边界，
+   * 暗带宽度 / 脊宽 = 实测题签占比；与图集绘制参数（SPINE_PLATE_RECT.w / 32）互为双证。
+   * 扫描线落在题签纵向中段（0.26–0.62，题签占 0.2125–0.6875），避开上下金线与菱形。
+   * 边界用「从两端皮革向内找连续 4 个暗样本」而不是从中心向外扩：题签上的亮色书名笔画
+   * 会把中心扩展法截断，而两端向内扫不受笔画影响；阈值锚在题签底色 p10 上 +0.045 固定余量
+   * （不用 p90 分位：横贯书脊的金线会把自适应阈值抬到 0.15，皮革 0.11–0.19 会被误判成暗）。
+   */
+  spinePlateProbe(i: number): { index: number; ratio: number; ratios: number[]; spinePx: number; platePx: number } | null {
+    this.syncWorld();
+    const sp = this.plan?.spines[i];
+    if (!sp) return null;
+    this.renderOnce();
+    const gl = this.renderer.getContext();
+    const rw = gl.drawingBufferWidth;
+    const rh = gl.drawingBufferHeight;
+    const across = new THREE.Vector3(-sp.normal[1], 0, sp.normal[0]);
+    // 采样面必须落在正面（中心朝观察者偏 depth/2）而不是中心平面：
+    // 中心平面在正面后面 0.85，透视下投影宽只有正面的 ~75%，量出来的分母就偏小，
+    // 题签占比会从 0.625 虚高到 ~0.77（批 10 C1 第一次实测踩的就是这个）。
+    const faceOut = sp.depth / 2 + 0.03;
+    const left = new THREE.Vector3();
+    const right = new THREE.Vector3();
+    const edge = (t: number, fy: number, out: THREE.Vector3): THREE.Vector3 => out.copy(this.localToWorld([
+      sp.x + across.x * (t * sp.w) / 2 + sp.normal[0] * faceOut,
+      sp.y + (fy - 0.5) * sp.h,
+      sp.z + across.z * (t * sp.w) / 2 + sp.normal[1] * faceOut,
+    ])).project(this.camera);
+    const one = new Uint8Array(4);
+    const lumAt = (px: number, py: number): number => {
+      gl.readPixels(Math.max(0, Math.min(rw - 1, px)), Math.max(0, Math.min(rh - 1, py)), 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, one);
+      return (0.2126 * one[0] + 0.7152 * one[1] + 0.0722 * one[2]) / 255;
+    };
+    const ratios: number[] = [];
+    let spinePx = 0;
+    let platePx = 0;
+    for (const fy of [0.26, 0.32, 0.38, 0.44, 0.50, 0.56, 0.62]) {
+      edge(-1, fy, left);
+      edge(1, fy, right);
+      const x0 = (left.x * 0.5 + 0.5) * rw;
+      const x1 = (right.x * 0.5 + 0.5) * rw;
+      const y = Math.round((left.y * 0.5 + 0.5) * rh);
+      const span = Math.abs(x1 - x0);
+      if (span < 8) continue;
+      const steps = Math.max(24, Math.round(span * 2));
+      const lum: number[] = [];
+      for (let s = 0; s <= steps; s += 1) {
+        lum.push(lumAt(Math.round(x0 + ((x1 - x0) * s) / steps), y));
+      }
+      const sorted = [...lum].sort((a, b) => a - b);
+      const p10 = sorted[Math.floor(sorted.length * 0.1)] ?? 0;
+      // 阈值锚在题签底色（p10）上 + 固定余量，不用 p90 分位：
+      // 书脊上横贯整条的金线会把 p90 抬到 0.45，自适应阈值跟着涨到 0.15，
+      // 皮革（0.11–0.19）就被误判成「暗」，同一根书脊的七条扫描线里冒出一条 0.70 的假值。
+      const thresh = p10 + 0.045;
+      const darkFrom = (from: number, dir: 1 | -1): number => {
+        for (let s = from; s >= 3 && s <= steps - 3; s += dir) {
+          if (lum[s] <= thresh && lum[s + dir] <= thresh && lum[s + 2 * dir] <= thresh && lum[s + 3 * dir] <= thresh) return s;
+        }
+        return from;
+      };
+      const a = darkFrom(Math.floor(steps * 0.12), 1);
+      const b = darkFrom(Math.ceil(steps * 0.88), -1);
+      const ratio = (b - a) / steps;
+      ratios.push(ratio);
+      spinePx = Math.round(span);
+      platePx = Math.round(span * ratio);
+    }
+    if (!ratios.length) return null;
+    ratios.sort((x, y) => x - y);
+    const median = ratios[Math.floor(ratios.length / 2)];
+    return { index: i, ratio: Number(median.toFixed(4)), ratios: ratios.map((r) => Number(r.toFixed(4))), spinePx, platePx };
   }
 
   /**
@@ -1971,7 +2269,15 @@ export class Matrix3D {
     };
   }
 
-  sampleLuminance(x = 0, y = 0, w = 1, h = 1, grid = 96): { mean: number; p95: number; brightRatio: number; samples: number } {
+  sampleLuminance(x = 0, y = 0, w = 1, h = 1, grid = 96): {
+    mean: number;
+    p5: number;
+    p50: number;
+    p95: number;
+    darkRatio: number;
+    brightRatio: number;
+    samples: number;
+  } {
     this.renderOnce();
     const gl = this.renderer.getContext();
     const rw = gl.drawingBufferWidth;
@@ -1993,9 +2299,14 @@ export class Matrix3D {
     }
     lum.sort((a, b) => a - b);
     const mean = lum.reduce((a, b) => a + b, 0) / Math.max(1, lum.length);
+    const at = (q: number): number => lum[Math.max(0, Math.min(lum.length - 1, Math.floor(lum.length * q) - 1))] ?? 0;
     return {
       mean: Number(mean.toFixed(5)),
-      p95: Number((lum[Math.max(0, Math.floor(lum.length * 0.95) - 1)] ?? 0).toFixed(5)),
+      p5: Number(at(0.05).toFixed(5)),
+      p50: Number(at(0.5).toFixed(5)),
+      p95: Number(at(0.95).toFixed(5)),
+      // 批 10 B 判据「不整体提灰」：亮度 < 0.02 的像素占比（口径 = 本函数的采样网格）
+      darkRatio: Number((lum.filter((v) => v < 0.02).length / Math.max(1, lum.length)).toFixed(5)),
       brightRatio: Number((lum.filter((v) => v > 0.75).length / Math.max(1, lum.length)).toFixed(5)),
       samples: lum.length,
     };
@@ -2279,15 +2590,32 @@ export class Matrix3D {
     // 只改距离不改 fov，则推远后被窄水平角再次裁掉。两者都按同一个 aspect 解。
     this.setFov(this.view === 'hall'
       ? fovForAspect(HALL_FOV_MIN, HALL_FOV_MAX, this.camera.aspect)
-      : fovForAspect(ROOM_FOV_MIN, ROOM_FOV_MAX, this.camera.aspect));
+      : fovForAspect(ROOM_FOV_MIN, ROOM_FOV_MAX, this.camera.aspect),
+    this.lensForAspect(this.camera.aspect));
     this.ensurePost(w, h);
   }
 
-  private setFov(fov: number): void {
+  /**
+   * 批 10 A3 变形镜头：只把投影矩阵的 x 缩放压小（anamorphic squeeze），横向视场放宽 Kx 倍，
+   * 垂直视场与机位距离不动。必须同步重算 projectionMatrixInverse——拾取射线与
+   * Vector3.project / raycaster.setFromCamera 都吃它，漏掉会出现「书看得见、点不中」。
+   */
+  private setFov(fov: number, lens = 1): void {
     // 不做「fov 没变就 return」的短路：resize() 里 aspect 刚变过，投影矩阵必须跟着重算，
     // 否则竖屏切来切去相机 fov 是新的、矩阵还是上一个 aspect 的（构图差 10% 量级）。
     this.camera.fov = fov;
     this.camera.updateProjectionMatrix();
+    this.lensKx = lens;
+    if (lens !== 1) {
+      this.camera.projectionMatrix.elements[0] /= lens;
+      this.camera.projectionMatrixInverse.copy(this.camera.projectionMatrix).invert();
+    }
+  }
+
+  /** 当前视图在给定 aspect 下的镜头挤压系数：与 hallPose / roomEye 用同一个 ramp */
+  private lensForAspect(aspect: number): number {
+    const max = this.view === 'hall' ? HALL_PORTRAIT.lensMax : ROOM_LENS_MAX;
+    return 1 + max * aspectRamp(aspect);
   }
 
   /** 画质档只在构造与跨 768px 时切换；散落在各 build 函数的档位常量都走这里 */

@@ -114,7 +114,15 @@ export function leatherColor(color: string, seed: number): string {
 export const SPINE_INK = '#f7f2e4';
 export const SPINE_PLATE = { hex: '#0c0f16', alpha: 0.86 };
 const SPINE_INK_EDGE = 'rgba(6, 8, 12, 0.85)';
-const SPINE_TITLE_FONT = `700 12px ${SERIF}`;
+/**
+ * 批 10 C1：题签从「几乎满脊长的一条黑」改成书脊正中的一块贴皮标签。
+ * 逻辑格 32×160 内：宽 20（=脊宽 62.5%，落在任务书 60–65% 区间），长 76（47.5%）；
+ * 上下各留出一整段装帧纹样——深色带 23–29 / 148–160、双金线 33/41 与 136/142、菱形 46/130，
+ * 全部落在底板之外，渲染后两端都能看见。字号随之从 12 收到 7.5（9 字书名 67.5px 正好放进
+ * 68px 内区），特写机位下字高约 20px，仍可读。参数与截图采样双证见 scene3d.spinePlateProbe。
+ */
+export const SPINE_PLATE_RECT = { x: 6, y: 50, w: 20, h: 76, radius: 2.5 } as const;
+const SPINE_TITLE_FONT = `700 7.5px ${SERIF}`;
 
 /** 字轴处（格子横向中点）那道高光渐变的实际叠加量：0.42→0.6 之间线性插值到 α≈0.033 的白 */
 const SPINE_HILITE_ALPHA = 0.06 * (1 - (0.5 - 0.42) / (0.6 - 0.42));
@@ -210,18 +218,18 @@ function drawSpineCell(
   g.textBaseline = 'middle';
   g.fillText(chapterLabel, w / 2, 11);
 
-  // 书脊上下深色带 + 四道金色凸线
+  // 书脊上下深色带 + 四道金色凸线 + 首尾菱形（批 10：全部落在题签之外，两端可见）
   g.fillStyle = 'rgba(0,0,0,0.42)';
-  g.fillRect(0, 23, w, 7);
+  g.fillRect(0, 23, w, 6);
   g.fillRect(0, h - 12, w, 12);
-  for (const band of [34, 46, h - 30, h - 42]) {
+  for (const band of [33, 41, h - 24, h - 18]) {
     g.fillStyle = gold;
     g.fillRect(0, band, w, 2);
     g.fillStyle = goldDark;
     g.fillRect(0, band + 2, w, 1);
   }
   g.fillStyle = gold;
-  for (const cy of [h - 22, h - 60]) {
+  for (const cy of [46, h - 30]) {
     g.beginPath();
     g.moveTo(w / 2, cy - 4);
     g.lineTo(w / 2 + 4, cy);
@@ -232,32 +240,34 @@ function drawSpineCell(
   }
 
   // 题签底板 + 竖排书名：底板先压住金线（像真书上一条贴皮标签），再落亮字，
-  // 边缘用更暗的一圈把题签与皮革分开（批 9 C3）
+  // 边缘用更暗的一圈把题签与皮革分开（批 9 C3）；批 10 收成 62.5% 宽的中段标签
+  const pl = SPINE_PLATE_RECT;
   const plate = new THREE.Color(SPINE_PLATE.hex);
   g.fillStyle = `rgba(${Math.round(plate.r * 255)}, ${Math.round(plate.g * 255)}, ${Math.round(plate.b * 255)}, ${SPINE_PLATE.alpha})`;
   g.beginPath();
-  g.roundRect(w / 2 - 8, 24, 16, h - 30, 3);
+  g.roundRect(pl.x, pl.y, pl.w, pl.h, pl.radius);
   g.fill();
   g.strokeStyle = 'rgba(201, 162, 74, 0.35)';
   g.lineWidth = 1;
   g.stroke();
 
   // 先按字数截，再按实测宽度收进题签长度——只按字数截会在宽字（数字、拉丁）下溢出底板
+  const inner = pl.h - 8;
   g.font = SPINE_TITLE_FONT;
   let clipped = title.length > SPINE_TITLE_MAX ? title.slice(0, SPINE_TITLE_MAX) : title;
-  if (g.measureText(clipped).width > h - 40) {
-    while (clipped.length > 1 && g.measureText(`${clipped}…`).width > h - 40) {
+  if (g.measureText(clipped).width > inner) {
+    while (clipped.length > 1 && g.measureText(`${clipped}…`).width > inner) {
       clipped = clipped.slice(0, -1);
     }
     clipped += '…';
   }
   g.save();
-  g.translate(w / 2, 24 + (h - 30) / 2);
+  g.translate(w / 2, pl.y + pl.h / 2);
   g.rotate(-Math.PI / 2);
   g.textAlign = 'center';
   g.textBaseline = 'middle';
   g.lineJoin = 'round';
-  g.lineWidth = 2;
+  g.lineWidth = 1.2;
   g.strokeStyle = SPINE_INK_EDGE;
   g.strokeText(clipped, 0, 0);
   g.fillStyle = SPINE_INK;
@@ -495,7 +505,7 @@ export function hallPlanTexture(counts: Record<Discipline, number>): THREE.Canva
   const cx = S / 2;
   const cy = S / 2;
   const R = S / 2 - 8;
-  g.fillStyle = '#232a36';
+  g.fillStyle = '#2b3542';
   g.fillRect(0, 0, S, S);
   // 八角边线
   g.beginPath();
@@ -507,7 +517,7 @@ export function hallPlanTexture(counts: Record<Discipline, number>): THREE.Canva
     else g.lineTo(x, y);
   }
   g.closePath();
-  g.fillStyle = '#333c4d';
+  g.fillStyle = '#3f4c61';
   g.fill();
   g.lineWidth = 7;
   g.strokeStyle = '#7a6330';
@@ -561,4 +571,55 @@ export function hallPlanTexture(counts: Record<Discipline, number>): THREE.Canva
   g.fillStyle = '#a9b4c8';
   g.fillText('六门通六区', cx, cy + 24);
   return finish(c, 8);
+}
+
+/**
+ * 批 10 B1：大厅藻井圈顶板贴图。画布横向 = 一圈方位角（8 条梁缝在 1/8 的整数倍），
+ * 纵向 = 从内缘到外缘（0=内、1=外）。16 格 × 2 排，格心深暖褐、格缝近黑，
+ * 内缘一排带一点顶光高光——梁是浅木、板是深木，俯视时梁板才分得开。
+ */
+export function cofferTexture(): THREE.CanvasTexture {
+  const W = 1024;
+  const H = 256;
+  const { c, g } = canvas(W, H);
+  g.fillStyle = '#1d160e';
+  g.fillRect(0, 0, W, H);
+  const cols = 16;
+  const rows = 2;
+  const cw = W / cols;
+  const ch = H / rows;
+  for (let i = 0; i < cols; i += 1) {
+    for (let j = 0; j < rows; j += 1) {
+      const x = i * cw + 3;
+      const y = j * ch + 4;
+      const w = cw - 6;
+      const h = ch - 8;
+      g.fillStyle = '#2a2015';
+      g.fillRect(x, y, w, h);
+      // 格口上沿受光、下沿落影
+      g.fillStyle = 'rgba(255, 224, 168, 0.10)';
+      g.fillRect(x, y, w, 3);
+      g.fillStyle = 'rgba(0, 0, 0, 0.38)';
+      g.fillRect(x, y + h - 4, w, 4);
+      g.fillStyle = '#201810';
+      g.fillRect(x + 2, y + 2, w - 4, h - 4);
+      g.fillStyle = '#2a2015';
+      g.fillRect(x + 5, y + 5, w - 10, h - 10);
+    }
+    // 每 1/8 一条梁缝（与 45° 一根的径向梁对齐）
+    if (i % 2 === 0) {
+      g.fillStyle = '#120c07';
+      g.fillRect(i * cw - 4, 0, 8, H);
+    }
+  }
+  g.fillStyle = '#171009';
+  g.fillRect(0, H / 2 - 3, W, 6);
+  // 内缘一排亮一档（光从中心上方下来）
+  const grad = g.createLinearGradient(0, 0, 0, H);
+  grad.addColorStop(0, 'rgba(255, 226, 172, 0.16)');
+  grad.addColorStop(0.55, 'rgba(0, 0, 0, 0)');
+  grad.addColorStop(1, 'rgba(0, 0, 0, 0.28)');
+  g.fillStyle = grad;
+  g.fillRect(0, 0, W, H);
+  return finish(c, 4);
 }
