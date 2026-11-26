@@ -60,6 +60,23 @@ dist/
 
 结论：体积与文件数都不构成发布障碍，无需再分片或降清晰度。
 
+### 2.1 批 7–9 的逐批漂移
+
+上表是批 6 的收口数，之后三批都在改渲染与空间，体积按 `python tools/selfcheck.py` 的 `distSize` 记账：
+
+| 批 | `dist/` 合计 | 文件数 | 本批自设上限 | 说明 |
+|---|---|---|---|---|
+| 6 收口 | 9.85 MiB | 347 | — | 数据预压 + mermaid 白名单 |
+| 7（PBR/灯光/图集） | 9.883 MiB | 347 | 10.6 MiB | 程序化纹理全在 canvas 里现算，零外部资产 |
+| 8（阅览室 + 书脊图集） | 9.903 MiB | 347 | 10.6 MiB | +20 KiB，来自图集题签绘制与壳体几何 |
+| 9（全端 3D + 光照修复） | **9.901 MiB** | **347** | 10.6 MiB | −2 KiB：删 `src/svg2d.ts`（398 行 / 15,497 B） |
+
+批 9 删掉一整个视图模块却只省 2 KiB，是因为 svg2d 与 scene3d/atlas 同在 entry 的静态闭包里，
+本批新增的构图解（`aspectRamp` / `fovForAspect` / `hallPose`）、画质档 `qualityTier`、
+`frameCheck` 分组点集与 `spineProbe().px` / `sampleLuminance` 采样窗这些诊断读数落在同一批 chunk 上抵掉了。
+文件数 347 不变 = 没有新增资产、没有新增分包，这条比总量更能说明「本批没往产物里添东西」。
+逐文件的归因没做，只记净值。
+
 ## 三、部署步骤（按 Qoder Sites，本批不实际执行）
 
 发布要账号，属人工步骤，本批只把路径写清楚。站点服务在**域名根**，所以 Vite 不需要 `base` 前缀。
@@ -137,10 +154,27 @@ curl -sI https://<站点域名>/dist/search-cs.json.gz | grep -iE '^(HTTP|conten
   自检门槛会打印原因。
 - 围栏一直停在「等待渲染」→ 视口没滚到位。渲染由 `IntersectionObserver` 触发，可见才渲，未可见只登记，这是设计不是卡住。
 
-### 4.5 手机上仍是 3D / 白屏
+### 4.5 手机上白屏 / 卡死（批 9 起：移动端同样是 3D）
 
-降级判据是 `matchMedia('(pointer: coarse)')` 或宽度 < 768px，命中即渲染 2D SVG 且不加载 `scene3d-*.js`。
-真机若仍是 WebGL：多为托管层插入了 viewport / 脚本改写，直接核对 `index.html` 的 `<meta name="viewport">` 是否还在原样。
+**没有降级视图了。** 批 8 及以前靠 `matchMedia('(pointer: coarse)')` 或宽度 < 768px 命中即改渲 2D SVG、
+连 `scene3d-*.js` 都不加载；批 9 把这条路径整段删掉（`src/svg2d.ts` 398 行、`MatrixFlat`、`?flat=1`、`#svg-root`），
+全端只有一条 3D 路径。窄屏不再换视图，只降画质：`qualityTier()` 一处给两档，
+`desktop` = dpr ≤2 / 阴影 2048 / 光尘不限 / bloom 0.65× / 帧缓冲 0.85，
+`mobile` = dpr ≤1.5 / 关阴影 / 光尘 220 / 关 bloom / 帧缓冲 0.72；机位与 fov 另按 aspect 自适应（`docs/design.md` 第七节）。
+所以「手机上看到的是 3D」现在是**预期行为**，不是异常。
+
+白屏按这个顺序查：
+
+1. **WebGL 能不能建上下文**：控制台若有 `THREE.WebGLRenderer: Error creating WebGL context` 即不支持或被禁用。
+   系统 WebView / 老版本微信内置浏览器关掉硬件加速时会出现。`window.__zhishu.mode` 停在 `null` 就是这一步没过去。
+2. **是不是卡在画质档之外**：`window.__zhishu.quality()` 打 `name / dprCap / pixelRatio / shadows / bloom / renderScale`。
+   dpr 明显高于 1.5 说明窄屏判据没命中（`window.innerWidth` 被托管层的 viewport 改写挤掉了），先核对 `index.html` 的
+   `<meta name="viewport">` 是否还是原样——托管层会往 `</body>` 前注入水印脚本，改 viewport 的注入同样在这条链上。
+3. **是不是一帧都没出**：`window.__zhishu.fps()` 为 0 且 `running()` 为 true → 看 `census().room` 与 `frameCheck()`，
+   多数是该区的图集/几何没建起来（数据文件 404，见 4.2），不是渲染器问题。
+4. **只是慢不是白屏**：`fps()` 在 390×844 实测大厅 165、数学区 146（门槛线 30）。掉到 30 以下先确认 bloom 与阴影确实关了。
+
+阅读层不受影响：正文仍是 HTML + KaTeX，窄屏下 `scrollWidth === 390` 由门槛单独把一条。
 
 ## 五、验收判据（发布前门槛）
 
@@ -179,7 +213,7 @@ curl -sI https://<站点域名>/dist/search-cs.json.gz | grep -iE '^(HTTP|conten
 | 开正文（取 `sites/` + `bodies/` 的 `.gz`） | `food-math` ch01：116 处 KaTeX、3,533 字，`raw` 回退 0 |
 | mermaid 围栏（首次可见才取分包） | `flowchart` 出 SVG 20,102 B，`state=done`，无回退原因 |
 | cs 区检索（取 `dist/search-cs.json.gz`） | 「算法」21 命中，章节 / 概念 / 书三类齐全 |
-| 390 触屏 | `mode=flat`，`scrollWidth` 390 |
+| 390 触屏 | `mode=flat`，`scrollWidth` 390（批 8 及以前的线上实况；批 9 删掉降级路径后同一格变成 `mode=three`） |
 
 验证脚本 `_work/probe-online.mjs`（`node _work/probe-online.mjs`，可用 `PROBE_BASE` 换站点），原始结果 `_work/probe-online.json`，截图 `_work/shots-online/` 六张。
 

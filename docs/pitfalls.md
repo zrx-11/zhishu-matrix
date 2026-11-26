@@ -626,6 +626,127 @@ UV 是按 `[u0,v0][u1,v0][u1,v1][u0,v1]` 绑到**槽位**的，交换顶点后 U
 顺带一个真 bug：章数标注 `<text>` 比书位宽（0.42–0.72 世界单位 vs 两位数约 0.9），
 它原本参与命中、会替邻书接单——标注组一律 `pointer-events: none`。
 
+### 62. 删掉降级分支以后，残留的选择器把「路径已删」读成「渲染失败」（批 9）
+
+`src/svg2d.ts` 一删，`#svg-root`、`.flat-*`、`els.flat`、`?flat=1` 这些名字在源码里没了，
+但探针与取证脚本还在按老口径读它们，于是出现两种**方向相反**的假信号：
+
+- **假失败**：旧判据「降级视图无 WebGL 画布、SVG 成图」读 `#svg-root svg`，节点没了 → 判据红。
+  这不是回归，是判据在描述一条已经不存在的支路。处理不是删掉它，而是**反写成 3D 语义**再留档
+  （现在这条读的是 `mode === 'three'` + `#three-root canvas` 有像素 + 画面非全黑），
+  断言总数只增不减，`SPACE_ASSERT_MIN` 从 89 提到 98。
+- **假通过**：反写成 `document.querySelector('#svg-root') === null` 也是绿的——它只证明 DOM 里没这个节点，
+  不证明 3D 活着。任何「删了 X 所以 X 不存在」式的判据都是空判据，必须配一条正向的「Y 确实在工作」。
+
+另外两处残留不会报错但会骗人：`index.html` 里删掉 `#svg-root` 后，SVG 专用 CSS 还在（无害但会误导下一个读代码的人）；
+取证脚本里的 `?flat=1` 参数在 `main.ts` 不再读它之后**静默失效**——截图看起来是 3D，脚本注释却写着「平面视图」，
+这批就是靠这个发现 mobile 取证图其实早换成 3D 了。收尾做法：删分支之后
+`grep -rn "svg2d|MatrixFlat|flat=1|prefersFlatView|#svg-root"` 全仓过一遍，
+命中的每一处要么删干净、要么改成新语义，不留「读起来像还在」的字符串。
+
+### 63. 手指拖视角，顺手把书翻开了（批 9 B3）
+
+触屏上 `pointerdown → pointermove → pointerup` 之后浏览器还会补发一个合成 `click`，只要位移没超过平台的判定线；
+我们自己的 `handleClick` 又没看位移量，于是「划一下 11px」既转了视角又开了一本书。两个坑叠在一起：
+
+1. **位移量只按首末两点算不够**。手指画个「出去再回来」的弧，首末距离是 0，但中途走了十几像素，视角确实被拖动了。
+   `tapVerdict()` 取的是整段序列里离起点的**最大**距离。
+2. **容忍值不能与鼠标共用一个数**。鼠标 6px 合适，手指抖动大，任务书 B3 又钉了「≥8px 必须判拖拽」，
+   所以 `TAP_SLOP_TOUCH = 8` / `TAP_SLOP_MOUSE = 6` 两个常量分开，阈值按「大于等于即判拖拽」写，8px 那一格也算拖。
+
+判据用 CDP `Input.dispatchTouchEvent` 打真实序列（touchStart → 两次 touchMove → touchEnd），
+不是往 DOM 派发自定义事件；读 `lastTap()` 的 `{kind:'touch', action:'drag', moved:17, slop:8}`，
+再比 `readerState()` 与滑动前逐字段一致。轻点那一支同样要验「开的是点到的那一本那一章」，
+`faceIndex` 反查表与实时射线各跑一次对账（批 8 的映射表在这条上继续当唯一真源，不补第二次射线拾取）。
+
+### 64. 窄屏的 bloom + DPR + 光尘三样叠起来吃 fillrate，但 headless 帧率探针测不出差别（批 9 B2）
+
+结构上这三样在窄屏最贵：`deviceScaleFactor 2` 下 390×844 是 780×1688 ≈ 1.32 Mpx/帧；
+UnrealBloomPass 要在这个分辨率上做 5 级 mip 的可分离模糊再加法合成；光尘是大面积加法混合 quad。
+所以 `qualityTier()` 的 mobile 档把 dpr 压到 1.5、bloom 与阴影整档关掉、光尘预算 220、帧缓冲 0.72。
+
+但**别拿 fps 当这条的证据**。四个组合（现行档 / 只开 bloom / 只把帧缓冲拉回 1.0 / 两样都改）
+在 390×844 各测 4 秒，报出来的数一模一样：大厅 165.1–165.2、数学区 140.7——
+headless 的 rAF 采样在这一档上直接饱和在 ~165，帧时间还剩大把余量，降不降档看不出来。
+同机位在桌面 1440×900 就灵敏（批 9 C1 试那盏自下而上的补顶灯时实测 62.1 → 165.2 fps，2.7× 帧时），
+说明采样器没问题，是窄屏本来就跑不满。
+
+两个后果写进了门槛口径：
+
+- 「390 帧率 ≥30」只当**回归底线**（真炸了能兜住），不当画质档的成效证明；
+- 画质档由 `quality()` 逐项读开关来断言（`name / dprCap / pixelRatio / shadows / bloom / bloomScale / renderScale / dustBudget`），
+  实测 `{"name":"mobile","dprCap":1.5,"pixelRatio":1.5,"shadows":false,"bloom":false,"renderScale":0.72,"dustBudget":220}`。
+
+还有个连带的假信号：`setPassEnabled('Bloom', true)` 在 bloom 没建的档上是**空操作**
+（`postList` 里找不到就 `return false`），而它的返回值没人看——A/B 脚本因此一度以为「bloom 开了但没差别」。
+用运行时开关反证画质档之前，先读返回值。
+
+### 65. 藻井、檐口、门洞上沿、阅览室天花的法线全部朝下，方向光永远打不动它们（批 9 C1）
+
+这些面都是「从里往外看」的顶面，法线 −Y。`DirectionalLight` / `PointLight` 的漫反射项是 `max(0, dot(N, L))`，
+从上方来的光对朝下的面 dot < 0，被 clamp 成 0——**不是不够亮，是恒等于零**。
+`HemisphereLight` 是唯一能照亮它们的标准灯：朝下的法线取的是**地面色**那一路，权重 0.5·dotNL+0.5，
+所以 C1 的杠杆是「抬地面色 + 抬强度」，不是加灯。
+
+中途确实加过一盏自下而上的 `DirectionalLight` 补顶面，代价实测 2.7× 帧时（大厅同机位 8 秒采样 62.1 → 165.2 fps），
+收益只有整帧 p95 0.06497 → 0.08002，撤了。顶面最后走的是「把反弹烤进表面」这条路：
+墙面 / 天花 / 横梁三张程序化贴图各配一份 `emissive + emissiveMap`（暖白 `0xffe9c9`，强度 0.11 / 0.22 / 0.16），
+零逐片元成本，等价于补了一盏不花钱的灯。
+
+顺带两个读数陷阱，都在这条上踩过：
+
+- **只抬反照率抬不动暗部**。墙面基色从 `#2f2620` 提到 `#3d3026`（1.7×），整帧亮度只动了几个百分点——
+  ACES（Narkowicz 近似）+ sRGB 编码在 toe 段把差异压掉了。要么改辐照度，要么走 emissive。
+- **`HemisphereLight` 的 ground 色同时喂给整个场景的朝下面**，抬它等于抬地板、书脊底、桌下，不只有天花。
+  所以它是「一根杠杆拉一片」，调完必须回头看书脊反差有没有被顶掉（本批 min 15.21，判据线 4.5，没动）。
+
+### 66. 亮度采样窗落在 DOM 头部条上，`readPixels` 的原点又在左下角（批 9 C1）
+
+为了回答「天花到底画没画」，先用 `sampleLuminance` 取画面顶部 6% 的条带，结果三个机位取到的数一模一样，
+一度得出「天花没被画出来」的错误结论。两处口径叠着坑人：
+
+1. WebGL `readPixels` 的原点在**左下**，归一化窗口取的是图像上沿还是下沿，取决于实现里翻不翻 Y——
+   不核对就会拿错半幅。
+2. 1440×900 的画面顶部约 55px 是 DOM 的头部条（`#topbar`），不是 WebGL 画布内容。canvas 里那块是空的或背景色，
+   于是「顶带亮度」测的是 UI，不是场景。
+
+判据改成先确认窗口落在画布几何内（按 `#three-root` 的 rect 换算），再用逐角色对照：
+`roleHide('ceiling')` 前后三角面 8,494 → 8,492、`roleHide('wall')` → 8,482，证明它们**在画**、只是黑，
+方向这才转到辐照度上（见 65）。另外「隐藏某角色后画面逐字节不变」也不能直接读成「该角色没画」——
+它同样可能是被别的东西整个挡住，必须配三角面计数一起看。
+
+### 67. 一次点击派两个钩子，两条异步链各发一次 `bookRecord`，面板从 chapter 飘回 overview（批 9）
+
+点书脊的 chapter 命中原本这样派发：`onPickBook(...)` 紧接 `onPickChapter(...)`。
+`main.pickBook` 与 `main.pickChapter` 各自 `bookRecord(book).then(...)`，而 `bookRecord` 只缓存**已完成**的记录、
+不缓存进行中的 promise——同一本书未缓存时就是两次并发 fetch。两条链的尾巴分别是
+`openBook()`（置 `mode='overview'`）和 `openBook()+openChapter()`（置 `mode='chapter'`），
+谁后回来谁说了算：fetch 顺序一抖，`overview` 就把刚打开的章节页打回去。
+桌面机位下书脊大、命中稳、缓存热，这条一直绿；390 竖屏第一次点就翻车（`mode:'overview'`，
+但 `file` 是对的——所以「开对书」的判据没抓到它，得看 `mode`）。
+
+修法在派发侧：chapter 命中只发 `onPickChapter`，`pickChapter` 自己已经做了
+`setSelection + openBook + openChapter`，补发 `onPickBook` 纯属重复，顺带省掉一次 JSON 请求。
+教训是通用的一条：**同一个用户手势不要派两条各自异步收尾的链**，
+要么合并成一条，要么把被调方改成幂等 + 记忆化进行中的 promise。
+
+### 68. 竖屏为了「把房间装全」把机位退到门外，装出来是娃娃屋，书脊也点不中（批 9 B1）
+
+`fovForAspect` 把竖屏 fov 抬到 76 之后，`roomEye` 里那条「按水平视野解距离」仍然要求
+`need = (side/2 + 1.2) / tan(halfFov)`：390×844 的 aspect 只有 0.462，水平半角 atan(tan38°×0.462) ≈ 20.3°，
+side=20 的数学区解出 dist ≈ 23 单位——门墙在 10，等于相机退到门外 13 单位。
+构图账上顶点全入画、判据全绿，截图却是一间摆在黑盒子里的小模型：画面上部三分之一是走廊与门洞，
+书脊投影只剩 20px 上下，指头点上去落进书顶的铜牌带，开成「本书总览」。
+
+结论是**判据本身写错了方向**：窄屏水平视野是物理限制，「两侧墙全进画」与「书脊点得中」不可兼得。
+改成竖屏站门口看进去（`dist = side*0.5 − 1.5`，即门墙内侧 1.5 单位），两侧墙远段出画，
+判据相应分组（`face` / `ceiling` / `floor` 三段各 4/4 算「有一间房」，`back` / `sidewall` 只作参考量），
+「点得中」另用 `spineProbe().px ≥ 36` 把一条（实测 math 39–51、ai 23–33）。
+桌面端那一档一字不动（`aspectRamp` 在 aspect ≥1 取 0，仍是批 8 的 `side*0.3` + fov 56），所以这条改动的回归面只在窄屏。
+
+写判据时值得记住的两条：一是**别把「装得下」当「看得好」**，构图账要配一条可读性/可点性的量；
+二是竖屏的 `ROOM_FOV_MIN` 一度也从 56 降到 52 想「更宽一点」，结果 `need` 随 tan 涨、相机被推出门外——
+fov 与距离是一对耦合量，动一个必须重看另一个。
 
 ## 二、待验证
 
@@ -751,3 +872,22 @@ clone 失败或档位不明时退回 raw 逐文件（`schema.md` 第三节），
     探针要自筛「中心命中本体」的那本再 tap（见已验证 61）
 36. 三面书架转角穿模 → 比 `tierLen/2` 与 `side/2 - SHELF_DEPTH`：前者大于后者就说明书排伸进了邻墙
     进深带，`layout.ts` 的 `corner` 一处改动即可，别去改 `SHELF_DEPTH`（图集与几何都按它算）
+
+批 9 全端 3D 与光照修复新增五条：
+
+37. 手机上看到的是 3D、找不到「降级视图」→ 这是批 9 起的**预期**（`src/svg2d.ts` 已整段删除，`#svg-root` 不存在）。
+    白屏按 `docs/deploy.md` 4.5 的顺序查：WebGL 上下文 → `quality()` 的开关 → `census()/frameCheck()` 有没有建区 → 才轮到帧率。
+    判据侧别再写「`#svg-root` 为 null」这种空判据，要正向读 `mode === 'three'` + canvas 有像素（见已验证 62）
+38. 390 帧率判据是绿的，但画质档到底生效没有看不出来 → headless fps 在窄屏饱和在 ~165，四个档位组合测出来一模一样。
+    这条只能由 `quality()` 逐项读开关断言（`pixelRatio 1.5 / shadows false / bloom false / renderScale 0.72 / dustBudget 220`），
+    并且用 `setPassEnabled` 做 A/B 时**必须读返回值**——bloom 没建的档上它是空操作（见已验证 64）
+39. 竖屏阅览室拍成「黑盒子里摆着小模型」→ 构图账可能全绿而画面是错的。
+    看 `frameCheck().groups`：`face/ceiling/floor` 三段各 4/4 只说明装下了，真正区分娃娃屋的是
+    `spineProbe().px`（门槛 ≥36，娃娃屋距离下只剩 20 上下）。机位取 `side*0.5 − 1.5`，
+    不要取按水平视野解出的 `need`——那个数在 aspect 0.46 下会把相机推到门外（见已验证 68）
+40. 顶面（藻井 / 檐口 / 门洞上沿 / 阅览室天花）加方向光没反应 → 这些面法线朝下，`dot(N,L)` 被 clamp 成 0，
+    只有 HemisphereLight 的地面色与 `emissive/emissiveMap` 能抬。先 `roleHide` 配三角面计数确认它**在画**、只是黑，
+    再动辐照度；只抬反照率会被 ACES 的 toe 段压掉（见已验证 65）
+41. 点书脊开成「本书总览」而不是章节 → 先看 `readerState().mode` 而不是 `file`：`file` 对、`mode` 飘回 overview
+    是双链竞态（一次手势派了 `onPickBook` + `onPickChapter`，两条链各发一次 `bookRecord`，见已验证 67）；
+    `mode` 一直不动才是命中本身偏了，这时候看 `spineProbe().px` 够不够大、点有没有落进书顶铜牌带
