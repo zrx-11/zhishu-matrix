@@ -1235,6 +1235,279 @@ try {
     fallbacks: synth.fallbacks,
   });
 
+  /* ---------------------------------------------------------------- 批 11：第一人称漫游（桌面 1440×900）
+   * 三条口径先说死（详见 _work/decisions.md 批 11 E1–E4），后面每条断言都按这个读：
+   *  · 位移读**帧采样轨迹的净位移**，不是「按键秒数 × 速度」的理论值；
+   *  · 贴墙滑行读 net ≥0.35 且松键反向还能走（unstick net ≥0.35），只看不卡不看过墙；
+   *  · 退出复原读进入前 pose 与退出后 pose 的六分量最大差 ≤0.05，并核对轨道距离不变。
+   * orbit 是本批的回归基线：这一段全部走完后，上面的 108 项必须照旧全绿。
+   */
+  await d.evaluate(() => document.getElementById('panel-close')?.click());
+  await d.evaluate(() => window.__zhishu.showHall());
+  await d.waitForFunction(() => window.__zhishu.frameCheck()?.view === 'hall', null, { timeout: 15000 });
+  await d.waitForTimeout(900);
+  const orbitPre = await d.evaluate(() => window.__zhishu.pose());
+  await d.keyboard.press('KeyF');
+  await d.waitForFunction(() => window.__zhishu.walk().mode === 'walk', null, { timeout: 8000 });
+  await d.waitForTimeout(700);
+  const walkEntry = await d.evaluate(() => {
+    const w = window.__zhishu.walk();
+    const ch = document.querySelector('[data-crosshair]');
+    const cr = ch?.getBoundingClientRect();
+    const cv = document.querySelector('#three-root canvas').getBoundingClientRect();
+    const btn = document.getElementById('btn-walk');
+    return {
+      mode: w.mode,
+      eye: w.eye,
+      pos: w.pos,
+      radius: w.radius,
+      speed: w.speed,
+      pitchLimitDeg: w.pitchLimitDeg,
+      controlsEnabled: w.controlsEnabled,
+      blockers: w.blockers,
+      blockerKinds: w.blockerKinds,
+      wallGap: w.wallGap,
+      cross: cr && ch ? { shown: !ch.hidden, dx: Math.round(cr.x + cr.width / 2 - (cv.x + cv.width / 2)), dy: Math.round(cr.y + cr.height / 2 - (cv.y + cv.height / 2)) } : null,
+      btn: { text: btn?.textContent ?? '', pressed: btn?.getAttribute('aria-pressed') ?? '' },
+      hud: (document.getElementById('hud')?.textContent ?? '').replace(/\s+/g, ' ').trim(),
+    };
+  });
+  check(
+    '批11A F 键进漫游：眼高 1.65±0.1、准星钉在画布中心、OrbitControls 停用、HUD 按钮切「退出」',
+    Math.abs(walkEntry.eye - 1.65) <= 0.1 &&
+      walkEntry.cross?.shown === true &&
+      Math.abs(walkEntry.cross.dx) <= 2 &&
+      Math.abs(walkEntry.cross.dy) <= 2 &&
+      walkEntry.controlsEnabled === false &&
+      walkEntry.btn.pressed === 'true' &&
+      walkEntry.btn.text === '退出' &&
+      walkEntry.radius === 0.45 &&
+      walkEntry.blockers >= 30,
+    { ...walkEntry, orbitPre },
+  );
+  await d.screenshot({ path: `${SHOTS}/walk-hall.png` });
+
+  await d.evaluate(() => window.__zhishu.walkTraceStart());
+  await d.keyboard.down('KeyW');
+  await d.waitForTimeout(1000);
+  await d.keyboard.up('KeyW');
+  await d.waitForTimeout(150);
+  const walkFwd = await d.evaluate(() => window.__zhishu.walkTraceStop());
+  check(
+    '批11B 大厅按住 W 一秒净位移 3.2±0.4、不浮空（dyMax<0.02）、位移方向沿朝向（drift<6°）',
+    Math.abs(walkFwd.net - 3.2) <= 0.4 && walkFwd.dyMax < 0.02 && walkFwd.driftDeg < 6 && walkFwd.samples >= 20,
+    walkFwd,
+  );
+
+  await d.evaluate(() => window.__zhishu.walkTraceStart());
+  await d.keyboard.down('ShiftLeft');
+  await d.keyboard.down('KeyW');
+  await d.waitForTimeout(1000);
+  await d.keyboard.up('KeyW');
+  await d.keyboard.up('ShiftLeft');
+  await d.waitForTimeout(150);
+  const walkRun = await d.evaluate(() => window.__zhishu.walkTraceStop());
+  const sprintRatio = walkFwd.net > 0.5 ? Math.round((walkRun.net / walkFwd.net) * 100) / 100 : 0;
+  check('批11B Shift 疾走 ×1.8（净位移比 1.5–2.1，且眼高不变）', sprintRatio >= 1.5 && sprintRatio <= 2.1 && walkRun.dyMax < 0.02, {
+    walk: walkFwd.net,
+    sprint: walkRun.net,
+    ratio: sprintRatio,
+    dyMax: walkRun.dyMax,
+  });
+
+  // 六条走廊 + 八角壳：用同一套 resolveSlide 增量推进（0.12 步长），一次证完「走廊真通到门口」
+  // 与「实心边挡得住人」。stopKinds 记的是第一下推谁——漏到 hallWall 之外就是壳没封住。
+  const shell = await d.evaluate(() => {
+    const R = window.__zhishu;
+    const doors = [
+      ['math', 180], ['cs', 135], ['ai', 90], ['chem', 45], ['tools', -45], ['general', -90],
+    ];
+    const via = doors.map(([k, deg]) => {
+      const a = (deg * Math.PI) / 180;
+      R.walkSnap(0, 0, Math.cos(a), Math.sin(a));
+      return { k, deg, ...R.walkMarch(Math.cos(a), Math.sin(a), 150, 'hall') };
+    });
+    const solid = [-135, 0, 23, -157].map((deg) => {
+      const a = (deg * Math.PI) / 180;
+      R.walkSnap(0, 0, Math.cos(a), Math.sin(a));
+      return { deg, ...R.walkMarch(Math.cos(a), Math.sin(a), 130, 'hall') };
+    });
+    return { via, solid };
+  });
+  check(
+    '批11B 六条走廊各自真通到该区门面（净推进 ≥125 且第一下阻挡来自 facade）',
+    shell.via.length === 6 && shell.via.every((v) => v.travelled >= 125 && String(v.stopKinds).includes('facade')),
+    shell.via,
+  );
+  check(
+    '批11B 八角厅实心边与门洞转角挡得住人：四向都在 ≤50 单位被壳拦停、无一人翻出壳外',
+    shell.solid.every((v) => v.blockedAt !== null && v.blockedAt <= 50 && v.travelled <= 60 && /hallWall|hallDoorJamb/.test(String(v.stopKinds))),
+    shell.solid,
+  );
+  await d.screenshot({ path: `${SHOTS}/walk-corridor.png` });
+
+  // 进区落位 + 门洞穿行 + 贴墙滑行（全部走真实按键，起点用 walkSnap 钉住）
+  await d.evaluate(() => window.__zhishu.setWalk(false));
+  await d.evaluate(() => window.__zhishu.enterRoom('math'));
+  await d.waitForFunction(() => window.__zhishu.frameCheck()?.view === 'room', null, { timeout: 15000 });
+  await d.waitForTimeout(900);
+  const roomSpawn = await d.evaluate(() => {
+    const R = window.__zhishu;
+    R.setWalk(true);
+    const w = R.walk();
+    return { eye: w.eye, pos: w.pos, view: w.view, room: w.room, kinds: w.blockerKinds, gap: w.wallGap, aim: w.aim };
+  });
+  await d.waitForTimeout(500);
+  check(
+    '批11A 进区落点在书架前的过道：眼高 1.65、本区碰撞清单含三排书架、不嵌墙（gap ≥0）',
+    Math.abs(roomSpawn.eye - 1.65) <= 0.1 &&
+      roomSpawn.view === 'room' &&
+      roomSpawn.room === 'math' &&
+      (roomSpawn.kinds.shelf ?? 0) >= 3 &&
+      roomSpawn.gap >= 0,
+    roomSpawn,
+  );
+  await d.screenshot({ path: `${SHOTS}/walk-aisle.png` });
+
+  await d.evaluate(() => window.__zhishu.walkSnap(-143, 0, 1, 0));
+  await d.evaluate(() => window.__zhishu.walkTraceStart());
+  await d.keyboard.down('KeyW');
+  await d.waitForTimeout(4000);
+  await d.keyboard.up('KeyW');
+  await d.waitForTimeout(150);
+  const doorOut = await d.evaluate(() => {
+    const w = window.__zhishu.walk();
+    return { trace: window.__zhishu.walkTraceStop(), pos: w.pos, gap: w.wallGap };
+  });
+  check(
+    '批11B 7.2×9.2 门洞真走得过去：房内 −143 起按 W，位置序列跨过门平面 −137 且不停在门内',
+    doorOut.trace.start?.[0] <= -142 &&
+      doorOut.trace.end?.[0] >= -137 &&
+      doorOut.pos.x >= -132 &&
+      doorOut.gap >= 0 &&
+      doorOut.trace.dyMax < 0.02,
+    doorOut,
+  );
+  await d.screenshot({ path: `${SHOTS}/walk-door.png` });
+
+  await d.evaluate(() => window.__zhishu.walkSnap(-147, 6.55, 0, 1));
+  await d.evaluate(() => window.__zhishu.walkTraceStart());
+  await d.keyboard.down('KeyW');
+  await d.keyboard.down('KeyD');
+  await d.waitForTimeout(1500);
+  await d.keyboard.up('KeyW');
+  await d.keyboard.up('KeyD');
+  await d.waitForTimeout(150);
+  const hugTrace = await d.evaluate(() => window.__zhishu.walkTraceStop());
+  const hugState = await d.evaluate(() => window.__zhishu.walk());
+  await d.evaluate(() => window.__zhishu.walkTraceStart());
+  await d.keyboard.down('KeyS');
+  await d.waitForTimeout(700);
+  await d.keyboard.up('KeyS');
+  await d.waitForTimeout(150);
+  const unstick = await d.evaluate(() => window.__zhishu.walkTraceStop());
+  check(
+    '批11B 贴墙滑行不卡死：沿墙按住 1.5s 净位移 ≥0.35、柱面贴着墙（gap ≤0.1），松键反向 0.7s 仍能走 ≥0.35',
+    hugTrace.net >= 0.35 && hugState.wallGap <= 0.1 && unstick.net >= 0.35 && hugTrace.dyMax < 0.02,
+    { hug: hugTrace, gap: hugState.wallGap, unstick },
+  );
+
+  // 准星拾取：中心射线（ndc 0,0）复用批 8 的 faceIndex→(book,chapter) 反查，不另开一套拾取
+  const aim = await d.evaluate(() => {
+    const R = window.__zhishu;
+    R.walkSnap(-147, -6.25, 0, -1);
+    return { aim: R.walkAimSpine(3), cross: document.querySelector('[data-crosshair]')?.className ?? '', hud: (document.getElementById('hud')?.textContent ?? '').replace(/\s+/g, ' ').trim() };
+  });
+  await d.waitForTimeout(200);
+  await d.mouse.move(720, 450);
+  await d.mouse.down();
+  await d.mouse.up();
+  await d.waitForFunction(() => window.__zhishu.readerState().mode === 'chapter', null, { timeout: 15000 });
+  const aimReader = await d.evaluate(() => window.__zhishu.readerState());
+  check(
+    '批11C 准星对书脊：命中即高亮 + HUD 报书面与章号，点一下开的正是准星下那一章',
+    aim.aim?.ok === true &&
+      aim.cross.includes('on-target') &&
+      aim.hud.includes(aim.aim.chapterId) &&
+      aimReader.file === aim.aim.book &&
+      aimReader.open === true,
+    { aim: aim.aim, cross: aim.cross, hud: aim.hud, reader: aimReader },
+  );
+  await d.screenshot({ path: `${SHOTS}/walk-crosshair-spine.png` });
+
+  // 近景做工账：房内先读一次（书脊图集、书架、房墙、天花），回大厅漫游态再读一次（石板地面）
+  const closeupRoom = await d.evaluate(() => window.__zhishu.closeupReport());
+  const closeupHall = await d.evaluate(() => {
+    const R = window.__zhishu;
+    document.getElementById('panel-close')?.click();
+    R.showHall();
+    R.setWalk(true);
+    return R.closeupReport();
+  });
+  await d.waitForTimeout(600);
+  const texRows = [];
+  for (const m of [...(closeupHall.maps ?? []), ...(closeupRoom.maps ?? [])]) {
+    if (!texRows.some((r) => r.role === m.role)) texRows.push(m);
+  }
+  const texBad = texRows.filter((m) => !m.mipmaps || m.anisotropy < 4);
+  const walkFloor = texRows.find((m) => m.role === 'hallFloor');
+  const spineRow = texRows.find((m) => m.role === 'spines');
+  check(
+    '批11F 近景贴图账：每张图都有 mipmap 且各向异性 ≥4，漫游大厅地面重铺后 ≥30 texel/单位、书脊图集 ≥20',
+    texRows.length >= 6 && texBad.length === 0 && (walkFloor?.texelPerUnit ?? 0) >= 30 && (spineRow?.texelPerUnit ?? 0) >= 20,
+    { rows: texRows.map((m) => `${m.role}:${m.w}x${m.h} mip${m.mipmaps} an${m.anisotropy} tpu${m.texelPerUnit}`), maxAnisotropy: closeupHall.maxAnisotropy },
+  );
+
+  // 抬头到上限：pitch 必须夹住，yaw 不设限
+  await d.evaluate(() => window.__zhishu.walkSetLook(0, 0));
+  await d.mouse.move(1000, 700);
+  await d.mouse.down();
+  for (let i = 1; i <= 30; i += 1) await d.mouse.move(1000, 700 - i * 30);
+  await d.mouse.up();
+  await d.waitForTimeout(200);
+  const lookUp = await d.evaluate(() => window.__zhishu.walk());
+  await d.mouse.move(1000, 300);
+  await d.mouse.down();
+  for (let i = 1; i <= 14; i += 1) await d.mouse.move(1000 + i * 16, 300 - i * 12);
+  await d.mouse.up();
+  await d.waitForTimeout(200);
+  const lookDrag = await d.evaluate(() => window.__zhishu.walk());
+  check(
+    '批11C 拖拽转头：横向拖 224px 的 Δyaw ≥30°，纵向顶到 −70°…+70° 就夹住（不翻转、不越界）',
+    Math.abs(lookDrag.yawDeg) >= 30 && Math.abs(lookUp.pitchDeg) <= lookUp.pitchLimitDeg + 1e-6 && Math.abs(lookUp.pitchDeg - lookUp.pitchLimitDeg) <= 0.5,
+    { pitchDeg: lookUp.pitchDeg, pitchLimitDeg: lookUp.pitchLimitDeg, yawDeg: lookDrag.yawDeg },
+  );
+  await d.evaluate(() => window.__zhishu.walkSetLook(0, 55));
+  await d.waitForTimeout(300);
+  await d.screenshot({ path: `${SHOTS}/walk-ceiling.png` });
+
+  const walkFps = await fps(d, 10000);
+  check('批11E 漫游态桌面帧率 10s 均值 ≥45', walkFps >= 45, { walkFps });
+
+  await d.evaluate(() => window.__zhishu.setWalk(true));
+  await d.waitForTimeout(300);
+  const poseBeforeWalk = await d.evaluate(() => window.__zhishu.pose());
+  await d.evaluate(() => window.__zhishu.walkTraceStart());
+  await d.keyboard.down('KeyW');
+  await d.waitForTimeout(700);
+  await d.keyboard.up('KeyW');
+  await d.evaluate(() => window.__zhishu.setWalk(false));
+  await d.waitForFunction(() => window.__zhishu.walk().mode === 'orbit', null, { timeout: 8000 });
+  await d.waitForTimeout(400);
+  const poseAfterWalk = await d.evaluate(() => window.__zhishu.pose());
+  const poseDelta = Math.max(...['px', 'py', 'pz', 'tx', 'ty', 'tz'].map((k) => Math.abs(poseAfterWalk[k] - poseBeforeWalk[k])));
+  const orbitDist = (p) => Math.hypot(p.px - p.tx, p.py - p.ty, p.pz - p.tz);
+  check(
+    '批11A 退出漫游复原进入前的轨道位姿：六分量最大差 ≤0.05 且轨道距离不变',
+    poseDelta <= 0.05 && Math.abs(orbitDist(poseAfterWalk) - orbitDist(poseBeforeWalk)) <= 0.05,
+    {
+      poseDelta: Number(poseDelta.toFixed(6)),
+      distBefore: Math.round(orbitDist(poseBeforeWalk) * 100) / 100,
+      distAfter: Math.round(orbitDist(poseAfterWalk) * 100) / 100,
+      crossHidden: await d.evaluate(() => document.querySelector('[data-crosshair]')?.hidden ?? null),
+    },
+  );
+
   // 运行期零外部请求（路由层已阻断，出现即记录）
   check('运行期零外部请求', requests.external.length === 0, requests.external.slice(0, 6));
   await dctx.close();
@@ -1603,6 +1876,160 @@ try {
   }));
   check('390 触屏点结果即开正文，弹层收起且仍无横向溢出', mPick.closed && mPick.reader.open && mPick.doc === 390 && mPick.chars > 60, mPick);
   await m.screenshot({ path: `${SHOTS}/mobile390-search-hit.png` });
+
+  /* ---------------------------------------------------------------- 批 11：漫游在 390 触屏
+   * 分屏口径（写死在 _work/decisions.md 批 11 E4，页面上不画分界线）：
+   * pointerdown 时 `ev.clientX < innerWidth/2` 且 pointerType==='touch' → 摇杆，其余 → 转头；
+   * 390 视口下分界 = 195px，取样点左半取 (90, 620)、右半取 (300, 420)。
+   * 轻点/拖拽的判定顺序是先位移后时长：pointerup 按 8px 阈值定性并记账，click 再用 700ms 兜住长按。
+   */
+  await m.evaluate(() => document.getElementById('panel-close')?.click());
+  await m.evaluate(() => window.__zhishu.enterRoom('math'));
+  await m.waitForFunction(
+    () => window.__zhishu.room() === 'math' && window.__zhishu.frameCheck()?.view === 'room',
+    null,
+    { timeout: 15000 },
+  );
+  await m.waitForTimeout(900);
+  const mWalkBtn = await m.evaluate(() => {
+    const r = document.getElementById('btn-walk').getBoundingClientRect();
+    return { x: Math.round(r.x + r.width / 2), y: Math.round(r.y + r.height / 2), w: Math.round(r.width), h: Math.round(r.height) };
+  });
+  await m.touchscreen.tap(mWalkBtn.x, mWalkBtn.y);
+  await m.waitForFunction(() => window.__zhishu.walk().mode === 'walk', null, { timeout: 8000 });
+  await m.waitForTimeout(500);
+  const mWalkLayout = await m.evaluate(() => {
+    const box = (sel) => {
+      const el = document.querySelector(sel);
+      if (!el) return null;
+      const r = el.getBoundingClientRect();
+      return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), bottom: Math.round(r.bottom), hidden: el.hidden };
+    };
+    const w = window.__zhishu.walk();
+    return {
+      sw: document.documentElement.scrollWidth,
+      eye: w.eye,
+      fov: w.fov,
+      stick: box('[data-stick]'),
+      cross: box('[data-crosshair]'),
+      roombar: box('#roombar'),
+      btn: box('#btn-walk'),
+    };
+  });
+  const barBox = mWalkLayout.roombar;
+  // 摇杆是「指落点才出现」的，进漫游那一刻它必须隐藏——不相压的判定要等按下后拿**实时盒**（见下一条断言）
+  check(
+    '批11D 390 触屏指头点「走进」即进漫游：眼高 1.65、无横向滚动、准星钉在屏心、按钮够大、摇杆未落点不出现',
+    Math.abs(mWalkLayout.eye - 1.65) <= 0.1 &&
+      mWalkLayout.sw === 390 &&
+      mWalkLayout.cross !== null &&
+      Math.abs(mWalkLayout.cross.x + mWalkLayout.cross.w / 2 - 195) <= 3 &&
+      mWalkLayout.btn.w >= 44 &&
+      mWalkLayout.btn.h >= 32 &&
+      mWalkLayout.stick.hidden === true,
+    mWalkLayout,
+  );
+
+  const mcdp = await mctx.newCDPSession(m);
+  await m.evaluate(() => {
+    const R = window.__zhishu;
+    R.walkSnap(-147, -6.25, 0, -1);
+    R.walkTraceStart();
+  });
+  await mcdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 90, y: 620 }] });
+  await m.waitForTimeout(150);
+  const stickLive = await m.evaluate(() => {
+    const r = document.querySelector('[data-stick]').getBoundingClientRect();
+    return {
+      hidden: document.querySelector('[data-stick]').hidden,
+      vec: window.__zhishu.walk().stick,
+      box: { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height), bottom: Math.round(r.bottom) },
+    };
+  });
+  // 摇杆与学科条的重叠必须用**实时盒**判：底盘按指落点定位，静止时它是 hidden（盒为 0），拿来判会恒真
+  const stickOverlap = barBox && stickLive.box
+    ? !(stickLive.box.bottom <= barBox.y || barBox.bottom <= stickLive.box.y
+      || stickLive.box.x + stickLive.box.w <= barBox.x || barBox.x + barBox.w <= stickLive.box.x)
+    : null;
+  await m.screenshot({ path: `${SHOTS}/walk-390-stick.png` });
+  for (let i = 1; i <= 10; i += 1) {
+    await mcdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 90, y: 620 - i * 10 }] });
+    await m.waitForTimeout(50);
+  }
+  await m.waitForTimeout(900);
+  const stickMoved = await m.evaluate(() => window.__zhishu.walk());
+  await mcdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await m.waitForTimeout(250);
+  const stickTrace = await m.evaluate(() => window.__zhishu.walkTraceStop());
+  const stickGone = await m.evaluate(() => document.querySelector('[data-stick]').hidden);
+  check(
+    '批11D 390 左半屏拖动 = 摇杆推动：底盘可见且向量随指头走、人真在走（净位移 ≥0.3）、底盘 96px 不压学科条，松指摇杆归中隐藏',
+    stickLive.hidden === false &&
+      stickLive.vec.active === true &&
+      stickLive.box.w === 96 &&
+      stickOverlap === false &&
+      stickTrace.net >= 0.3 &&
+      stickGone === true,
+    { stickLive, overlapWithRoombar: stickOverlap, roombar: barBox, stickMoved: { vec: stickMoved.stick, pos: stickMoved.pos }, trace: stickTrace, stickGone },
+  );
+
+  await m.evaluate(() => window.__zhishu.walkTraceStart());
+  const look0 = await m.evaluate(() => window.__zhishu.walk());
+  await mcdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 300, y: 420 }] });
+  for (let i = 1; i <= 12; i += 1) {
+    await mcdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 300 - i * 13, y: 420 + i * 7 }] });
+    await m.waitForTimeout(35);
+  }
+  const lookLive = await m.evaluate(() => ({ stickHidden: document.querySelector('[data-stick]').hidden, vec: window.__zhishu.walk().stick }));
+  await m.screenshot({ path: `${SHOTS}/walk-390-look.png` });
+  await mcdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await m.waitForTimeout(250);
+  const look1 = await m.evaluate(() => window.__zhishu.walk());
+  const lookTrace = await m.evaluate(() => window.__zhishu.walkTraceStop());
+  await mcdp.detach();
+  const dYawM = Math.round((look1.yawDeg - look0.yawDeg) * 100) / 100;
+  check(
+    '批11D 390 右半屏拖动 = 只转头：Δyaw ≥20° 且位移轨迹零采样（摇杆不出现、人不挪步）',
+    Math.abs(dYawM) >= 20 && lookTrace.samples === 0 && lookLive.stickHidden === true && lookLive.vec.active === false,
+    { dYaw: dYawM, pitchDeg: look1.pitchDeg, lookTrace, stickLive: lookLive },
+  );
+
+  // 轻点：先位移（8px）后时长（700ms）两道判据各验一次
+  const m390Aim = await m.evaluate(() => {
+    const R = window.__zhishu;
+    R.walkSnap(-147, -6.25, 0, -1);
+    return R.walkAimSpine(3);
+  });
+  await m.evaluate(() => document.getElementById('panel-close')?.click());
+  await m.waitForTimeout(300);
+  await m.touchscreen.tap(195, 420);
+  await m.waitForFunction(() => window.__zhishu.readerState().mode === 'chapter', null, { timeout: 15000 });
+  const mTapOpen = await m.evaluate(() => ({ reader: window.__zhishu.readerState(), tap: window.__zhishu.lastTap() }));
+  check(
+    '批11D 390 轻点（位移 <8px）走准星拾取开正文：开的是准星下那一章，判据记的是 touch/8px/tap',
+    m390Aim?.ok === true &&
+      mTapOpen.reader.file === m390Aim.book &&
+      mTapOpen.tap.kind === 'touch' &&
+      mTapOpen.tap.slop === 8 &&
+      mTapOpen.tap.action === 'tap' &&
+      mTapOpen.tap.moved < 8,
+    { aim: m390Aim, ...mTapOpen },
+  );
+  await m.evaluate(() => document.getElementById('panel-close')?.click());
+  await m.waitForTimeout(300);
+  const mcdp2 = await mctx.newCDPSession(m);
+  await mcdp2.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 195, y: 420 }] });
+  await m.waitForTimeout(900);
+  await mcdp2.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await m.waitForTimeout(600);
+  const mLongPress = await m.evaluate(() => ({ reader: window.__zhishu.readerState(), tap: window.__zhishu.lastTap() }));
+  await mcdp2.detach();
+  check(
+    '批11D 390 长按 900ms 不算轻点：位移判据先过（0px < 8px），时长超 700ms 再被否（记账翻成 drag），正文不被打开',
+    mLongPress.tap.moved < 8 && mLongPress.tap.slop === 8 && mLongPress.tap.action === 'drag' && mLongPress.reader.open === false,
+    mLongPress,
+  );
+  await m.screenshot({ path: `${SHOTS}/walk-390-longpress.png` });
 
   check('运行期零外部请求（移动端）', requests.external.length === 0, requests.external.slice(0, 6));
   await mctx.close();
