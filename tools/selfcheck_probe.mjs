@@ -588,10 +588,53 @@ try {
       fonts: info.fonts.length,
       first: clip(info.fonts[0]?.replace(BASE, '') ?? '', 80),
     });
+    // 口径修正（批 10 复核）：原判据读 performance.getEntriesByType('resource')，
+    // 字体走磁盘缓存时列表为空，会误判 count=0（同一轮 katex/chars 都是通的）。
+    // 改读 CSSOM 里全部 @font-face 的 src：与缓存无关，且比「看实际请求」更严——
+    // 它证明的是「声明本身没有任何一处指向外部」。
+    const fontFaces = await d.evaluate((base) => {
+      const raw = [];
+      const collect = (rules) => {
+        for (const r of rules) {
+          if (r.constructor && r.constructor.name === 'CSSFontFaceRule') {
+            const src = r.style?.getPropertyValue('src') ?? '';
+            for (const m of src.matchAll(/url\((['"]?)([^)'"]+)\1\)/g)) raw.push(m[2]);
+          } else if (r.cssRules) {
+            collect(r.cssRules);
+          }
+        }
+      };
+      for (const sheet of document.styleSheets) {
+        try {
+          collect(sheet.cssRules);
+        } catch {
+          /* 跨源样式表读不到 cssRules，本项目无外部样式 */
+        }
+      }
+      const abs = raw.map((u) => {
+        try {
+          return new URL(u, base).href;
+        } catch {
+          return u;
+        }
+      });
+      return {
+        count: abs.length,
+        inline: abs.filter((u) => u.startsWith('data:')).length,
+        offsite: abs.filter((u) => !u.startsWith(base) && !u.startsWith('data:')),
+        first: abs[0] ?? '',
+      };
+    }, BASE);
     check(
       'KaTeX 字体来自本地 bundle（同源 assets/，无 CDN）',
-      info.fonts.length > 0 && info.fonts.every((n) => n.startsWith(BASE)),
-      { count: info.fonts.length, first: clip(info.fonts[0]?.replace(BASE, '') ?? '', 60) },
+      fontFaces.count >= 40 && fontFaces.offsite.length === 0,
+      {
+        cssFontFace: fontFaces.count,
+        inlineDataUri: fontFaces.inline,
+        offsite: fontFaces.offsite.length,
+        loadedRequests: info.fonts.length,
+        first: clip(fontFaces.first.replace(BASE, ''), 60),
+      },
     );
     await d.screenshot({ path: `${SHOTS}/reader-full.png` });
     const wReader = await scrollWidth(d);
