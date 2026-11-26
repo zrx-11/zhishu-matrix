@@ -23,7 +23,7 @@ done — 自检 **145 项全绿**（`python tools/selfcheck.py`，报告 `_work/
   七张贴图 `generateMipmaps` 全 true、`anisotropy` 4–8（设备上限 16）；**零新增外部贴图文件**。
 - `dist/` **9.912 → 9.93 MiB / 347 文件（+18 KiB）**，上限 10.6 MiB（占 93.6%）；文件数第六批未变 = 零新增资产、零新增分包。
 - `tools/check_offline.py` 违规 **0**；控制台错误 0、页面异常 0、外部请求 0；390 `scrollWidth === 390`（含漫游态）。
-- **未 push、未重发线上**（按要求；`git remote -v` 亦为空）。本轮只 3 次本地 commit。
+- **未 push、未重发线上**（按要求；`git remote -v` 亦为空）。本地 5 次 commit：交付要求的 `feat(walk)` / `chore(work)` / `docs` 三个，另两次只补 `_work/` 记录。
 
 ## 九条新断言实测数字（全部来自本次门槛报告，逐条列数）
 
