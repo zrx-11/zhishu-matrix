@@ -5,6 +5,7 @@ import type { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPas
 import type { BookRecord, Discipline, ManifestIndex, SiteEntry } from './types';
 import {
   ATLAS_SIZE,
+  ATRIUM,
   BG,
   CORRIDOR_H,
   CORRIDOR_W,
@@ -48,6 +49,7 @@ import {
   buildSpineAtlas,
   cofferTexture,
   hallPlanTexture,
+  indexDeskTexture,
   leatherColor,
   muralTexture,
   nameplateTexture,
@@ -56,7 +58,7 @@ import {
   type SpineAtlas,
   spineInkContrast,
 } from './atlas';
-import { planRoom, type RoomPlan } from './layout';
+import { planRoom, type BookSlot, type RoomPlan, type SpinePlacement } from './layout';
 import {
   hallBlockers,
   resolveSlide,
@@ -71,6 +73,7 @@ import {
   SPINE_FACE,
   TILE,
   GeoBuilder,
+  buildAtrium,
   buildCorridor,
   buildHall,
   buildRoomShell,
@@ -122,6 +125,8 @@ export interface ThreeHooks {
   onPickBook(discipline: Discipline, book: SiteEntry): void;
   onPickChapter(discipline: Discipline, book: SiteEntry, chapterId: string): void;
   onPickConcept(discipline: Discipline, book: SiteEntry, conceptId: string): void;
+  /** 展柜书脊：首章 id 只在书目分片里，大厅不为它预取六片，交给阅读层现取 */
+  onFirstChapter?(discipline: Discipline, book: SiteEntry): void;
   onHud(text: string): void;
   onCamera(pose: CameraPose): void;
   /** 阅读层打开或输入框聚焦时让出键盘，WASD 不抢字 */
@@ -136,6 +141,10 @@ type Pick = {
   book?: SiteEntry;
   id?: string;
   hint: string;
+  /** 批 12 台面扇区：DESK_SECTORS 下标，命中即知选的是哪一区 */
+  sector?: number;
+  /** 批 12 扇区命中要在 HUD 报「数学 · 45 本 · 265 章」，覆盖默认的「进入 X」 */
+  title?: string;
 };
 
 interface PassLike {
@@ -411,6 +420,33 @@ export class Matrix3D {
   /** 走位取证：探针按下的键与累计位移，不让它自己算 dt */
   private walkTrace: Array<{ t: number; x: number; y: number; z: number; yaw: number }> = [];
   private walkTracing = false;
+  /* ------------------------------------------------- 批 12：中央索引台与展柜 */
+  private deskTop: THREE.Mesh | null = null;
+  private deskTopMat: THREE.MeshStandardMaterial | null = null;
+  private deskBandMat: THREE.MeshStandardMaterial | null = null;
+  private deskLight: THREE.PointLight | null = null;
+  /** 逐三角 → DESK_SECTORS 下标，拾取按 faceIndex 直接取（与书脊同一套表机制） */
+  private deskTriSector: number[] = [];
+  private deskSectors: Array<{ key: Discipline; am: number; a0: number; a1: number }> = [];
+  private deskCounts = new Map<Discipline, { books: number; chapters: number }>();
+  /** 准星当前压住的扇区（高亮与 HUD 用），−1 = 没有 */
+  private aimSector = -1;
+  private deskNear = false;
+  /** 展柜书脊自成一套 slots/spines 账，但走的是批 8 的 faceIndex 映射与 spineAt */
+  private casePlan: { slots: BookSlot[]; spines: SpinePlacement[] } | null = null;
+  private casePages: SpinePage[] = [];
+  private caseSpineMeshes: THREE.Mesh[] = [];
+  /** 展柜柜体逐三角 → 区序号，与台面 triSector 同一套表机制 */
+  private caseTriRef: number[] = [];
+  private atrium: THREE.Group | null = null;
+  private caseBodies: THREE.Mesh | null = null;
+  private caseHoodMat: THREE.MeshStandardMaterial | null = null;
+  private caseLampMat: THREE.MeshStandardMaterial | null = null;
+  /** 六个扇区各一块加法混合楔形，只在准星压住时可见 */
+  private sectorHl: THREE.Mesh[] = [];
+  private caseStands: Array<{ key: Discipline; angle: number; x: number; z: number }> = [];
+  private caseAtlas: SpineAtlas | null = null;
+  private sightCache: { content: THREE.Object3D[]; wall: THREE.Object3D[] } | null = null;
 
   constructor(
     private root: HTMLElement,
@@ -600,9 +636,791 @@ export class Matrix3D {
     beams.userData.count = built.beams.length;
     this.hall.add(beams);
 
+    this.buildAtriumContent();
     this.buildChandelier();
     this.buildFacades(wallMat);
     this.hall.userData.stats = built.stats;
+  }
+
+  /**
+   * 批 12：中央索引台 + 六座低位展柜。
+   * 大厅尺度一字不动（半径 44 / 高 22 是批 10 俯瞰构图的分母），站姿视线的落点靠往中心
+   * 加内容挣回来。几何在 `architecture.buildAtrium` 里按 `config.ATRIUM` + ROOMS 的角序生成，
+   * 碰撞盒（`walk.atriumBlockers`）读的是同一批数——所见即所撞，不另立尺寸。
+   */
+  private buildAtriumContent(): void {
+    const built = buildAtrium();
+    const grp = new THREE.Group();
+    grp.userData.role = 'atrium';
+    this.atrium = grp;
+    this.hall.add(grp);
+
+    // 台面账目：逐区书本数与章数由 manifest 现场累加，抽取器之外不写 data/
+    const counts = new Map<Discipline, { books: number; chapters: number }>();
+    for (const r of ROOMS) counts.set(r.key, { books: 0, chapters: 0 });
+    for (const site of this.manifest.sites) {
+      const c = counts.get(site.discipline);
+      if (!c) continue;
+      c.books += 1;
+      c.chapters += site.stats?.chapters ?? 0;
+    }
+    this.deskCounts = counts;
+    this.deskSectors = built.desk.sectors;
+    this.deskTriSector = built.desk.triSector;
+
+    grp.add(this.mark(
+      new THREE.Mesh(built.desk.body, this.wood('#3a2c1d', 31)),
+      'indexDesk',
+      { castShadow: true, receiveShadow: true },
+    ));
+    const deskTex = indexDeskTexture(
+      built.desk.sectors.map((sec) => {
+        const spec = ROOM_BY_KEY[sec.key];
+        const c = counts.get(sec.key) ?? { books: 0, chapters: 0 };
+        return {
+          short: spec.short,
+          color: spec.color,
+          am: sec.am,
+          a0: sec.a0,
+          a1: sec.a1,
+          books: c.books,
+          chapters: c.chapters,
+        };
+      }),
+    );
+    // 台面的可读性靠自发光（厅里没有别的灯照得到 1.1 高的台面），近台再升一档
+    this.deskTopMat = new THREE.MeshStandardMaterial({
+      map: deskTex,
+      emissiveMap: deskTex,
+      emissive: 0xffffff,
+      emissiveIntensity: 0.62,
+      roughness: 0.55,
+      metalness: 0.16,
+      envMapIntensity: 0.5,
+    });
+    const top = this.mark(new THREE.Mesh(built.desk.top, this.deskTopMat), 'deskTop', { receiveShadow: true });
+    this.deskTop = top;
+    grp.add(top);
+    this.deskBandMat = new THREE.MeshStandardMaterial({
+      color: 0x241a0c,
+      roughness: 0.42,
+      metalness: 0.45,
+      emissive: new THREE.Color('#ffd7a0'),
+      emissiveIntensity: 0.95,
+    });
+    grp.add(this.mark(new THREE.Mesh(built.desk.band, this.deskBandMat), 'deskBand', {}));
+
+    // 扇区高亮楔形：不进拾取清单（进了就会挡在台面前面，反噬拾取本身）
+    const hlY = ATRIUM.deskTopY + 0.014;
+    const hlR1 = ATRIUM.deskTopR * Math.cos(Math.PI / 8) - 0.16;
+    const hlR0 = ATRIUM.sectorR0 + 0.08;
+    this.sectorHl = built.desk.sectors.map((sec) => {
+      const b = new GeoBuilder();
+      const n = Math.max(2, Math.ceil(Math.abs(sec.a1 - sec.a0) / (Math.PI / 24)));
+      const pt = (t: number, r: number): Vec3 => [Math.cos(t) * r, hlY, Math.sin(t) * r];
+      for (let k = 0; k < n; k += 1) {
+        const t0 = sec.a0 + ((sec.a1 - sec.a0) * k) / n;
+        const t1 = sec.a0 + ((sec.a1 - sec.a0) * (k + 1)) / n;
+        b.quad(pt(t0, hlR0), pt(t1, hlR0), pt(t1, hlR1), pt(t0, hlR1), [0, 0, 1, 1], [0, 1, 0]);
+      }
+      const mesh = new THREE.Mesh(
+        b.toGeometry(),
+        new THREE.MeshBasicMaterial({
+          color: new THREE.Color(ROOM_BY_KEY[sec.key].color),
+          transparent: true,
+          opacity: 0.5,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+          side: THREE.DoubleSide,
+        }),
+      );
+      mesh.visible = false;
+      mesh.userData.role = 'deskSectorHl';
+      grp.add(mesh);
+      return mesh;
+    });
+
+    // 一盏点光把台面顶成厅内焦点：distance 10 + decay 2，够得到台沿与近身地面，够不到 44 外的外墙
+    this.deskLight = new THREE.PointLight(0xffdcae, 14, 12, 2);
+    this.deskLight.position.set(0, 2.75, 0);
+    this.deskLight.userData.role = 'deskLight';
+    grp.add(this.deskLight);
+
+    // 展柜：实心柜体（可拾取）+ 亚克力罩（半透明，不吃射线，否则罩内的脊永远点不到）+ 罩顶自发光条
+    this.caseBodies = this.mark(
+      new THREE.Mesh(built.cases.body, this.wood('#33281d', 41)),
+      'displayCase',
+      { castShadow: true, receiveShadow: true },
+    ) as THREE.Mesh;
+    this.caseTriRef = [...built.cases.triRef];
+    grp.add(this.caseBodies);
+    this.caseHoodMat = new THREE.MeshStandardMaterial({
+      color: 0xd6e3ef,
+      roughness: 0.08,
+      metalness: 0.0,
+      transparent: true,
+      opacity: 0.17,
+      depthWrite: false,
+      envMapIntensity: 0.9,
+    });
+    const hood = new THREE.Mesh(built.cases.hood, this.caseHoodMat);
+    hood.userData.role = 'caseHood';
+    grp.add(hood);
+    this.caseLampMat = new THREE.MeshStandardMaterial({
+      color: 0x2b2417,
+      roughness: 0.5,
+      metalness: 0.15,
+      emissive: new THREE.Color('#ffe7bd'),
+      emissiveIntensity: 2.0,
+    });
+    grp.add(this.mark(new THREE.Mesh(built.cases.lamp, this.caseLampMat), 'caseLamp', {}));
+    this.caseStands = built.cases.stands;
+    this.buildCaseSpines();
+  }
+
+  /**
+   * 罩内那 2–3 根书脊：取该区章数最多的前三本（`manifest.sites[].stats.chapters`，一本都不另造）。
+   * 图集只给「首章」一格、一页、一个 draw；首章 id 不在 manifest 里（书目分片按区懒取），
+   * 所以脊面贴 '首'、点击走 onFirstChapter 由阅读层现取记录再开章——不为大厅预取六个分片。
+   */
+  private buildCaseSpines(): void {
+    const slots: BookSlot[] = [];
+    const spines: SpinePlacement[] = [];
+    const h = ATRIUM.hoodTopY - ATRIUM.caseTopY - 0.14;
+    const w = 0.62;
+    const pitch = 0.9;
+    for (const st of this.caseStands) {
+      const a = st.angle;
+      const rad: [number, number] = [Math.cos(a), Math.sin(a)];
+      const tan: [number, number] = [-Math.sin(a), Math.cos(a)];
+      const books = this.manifest.sites
+        .filter((x) => x.discipline === st.key && (x.stats?.chapters ?? 0) > 0)
+        .sort((x, y) => (y.stats?.chapters ?? 0) - (x.stats?.chapters ?? 0) || x.file.localeCompare(y.file))
+        .slice(0, ATRIUM.caseSpines);
+      books.forEach((book, i) => {
+        const off = (i - (books.length - 1) / 2) * pitch;
+        const idx = slots.length;
+        slots.push({
+          book,
+          chapters: [],
+          color: leatherColor(ROOM_BY_KEY[st.key].color, idx),
+          spineW: w,
+          u0: off,
+          slotW: w,
+          level: 0,
+          wall: 'back',
+          cx: st.x + tan[0] * off,
+          cz: st.z + tan[1] * off,
+          bookH: h,
+          spineStart: 0,
+        });
+        spines.push({
+          slot: idx,
+          chapter: { id: '', title: '', num: null, concepts: [] },
+          chapterIndex: 0,
+          x: st.x + tan[0] * off,
+          y: ATRIUM.caseTopY + h / 2 + 0.02,
+          z: st.z + tan[1] * off,
+          w,
+          h,
+          depth: 0.34,
+          dir: [tan[0], tan[1]],
+          normal: [-rad[0], -rad[1]],
+          cell: idx,
+        });
+      });
+    }
+    this.casePlan = { slots, spines };
+    if (!spines.length) return;
+    const atlas = buildSpineAtlas(
+      slots.map((sl) => ({
+        color: sl.color,
+        title: sl.book.title || sl.book.bookSlug,
+        chapters: ['首'],
+      })),
+    );
+    this.caseAtlas = atlas;
+    this.casePages = buildSpines({ spines } as unknown as RoomPlan, atlas);
+    for (const p of this.casePages) {
+      const tex = atlas.textures[p.page] ?? null;
+      const mat = new THREE.MeshStandardMaterial({
+        map: tex,
+        emissiveMap: tex,
+        emissive: 0xffffff,
+        emissiveIntensity: 0.5,
+        roughness: 0.6,
+        metalness: 0.12,
+        envMapIntensity: 0.5,
+      });
+      const mesh = this.mark(new THREE.Mesh(p.geometry, mat), 'caseSpine', {}) as THREE.Mesh;
+      mesh.userData.page = p.page;
+      mesh.userData.case = true;
+      this.caseSpineMeshes.push(mesh);
+      this.atrium?.add(mesh);
+    }
+  }
+
+  /** 台面上的扇区高亮与「近台」判定：只在变化沿动材质，不做每帧常量刷新 */
+  private syncAtrium(hit: Pick | null): void {
+    const want = hit && hit.kind === 'room' && hit.sector !== undefined ? hit.sector : -1;
+    if (want !== this.aimSector) {
+      this.aimSector = want;
+      this.sectorHl.forEach((m, i) => {
+        m.visible = i === want;
+      });
+    }
+    const near = this.camMode === 'walk'
+      && this.view === 'hall'
+      && Math.hypot(this.camera.position.x, this.camera.position.z) <= ATRIUM.nearR;
+    if (near === this.deskNear) return;
+    this.deskNear = near;
+    if (this.deskTopMat) this.deskTopMat.emissiveIntensity = near ? 0.9 : 0.62;
+    if (this.deskBandMat) this.deskBandMat.emissiveIntensity = near ? 1.3 : 0.95;
+    if (this.caseLampMat) this.caseLampMat.emissiveIntensity = near ? 2.2 : 2.0;
+    if (this.deskLight) this.deskLight.intensity = near ? 18 : 14;
+    this.hudStale = true;
+  }
+
+  /** 展柜取射线用的一组目标：内容物（台 + 柜 + 脊）与纯墙，一次遍历缓存 */
+  private sightTargets(): { content: THREE.Object3D[]; wall: THREE.Object3D[] } {
+    if (this.sightCache) return this.sightCache;
+    const content = new Set(['indexDesk', 'deskTop', 'deskBand', 'displayCase', 'caseHood', 'caseLamp', 'caseSpine']);
+    // 扇区高亮块是台面上的瞬时 UI，Raycaster 不看 visible，留着它会把台面本身挡掉
+    const skip = new Set(['sectorHl', 'deskSectorHl']);
+    const out: { content: THREE.Object3D[]; wall: THREE.Object3D[] } = { content: [], wall: [] };
+    this.hall.traverse((o) => {
+      const mesh = o as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      const role = String(o.userData.role ?? '');
+      if (content.has(role)) out.content.push(mesh);
+      else if (!skip.has(role)) out.wall.push(mesh);
+    });
+    this.sightCache = out;
+    return out;
+  }
+
+  /**
+   * 大厅漫游环视取证：原地转向八个方位（每 45°），每个方位沿俯仰扇 [0,−6,−12,−20,−30]°
+   * 走**真实拾取链**（`pickAt(ndc(0,0))` → pickHall 的 faceIndex 映射），任一眼光落在内容物上
+   * 且距离 ≤ limit 即算该方向有内容。俯仰扇是必要的：台面 1.1、罩顶 1.94 都在 1.65 眼高的上下，
+   * 单条水平射线既压不到台面也读不全展柜。
+   */
+  hallSightScan(limit = 25, windowDeg = 20): {
+    at: [number, number];
+    limit: number;
+    pitchFan: number[];
+    windowDeg: number;
+    dirs: Array<{ deg: number; content: boolean; kind: string; role: string; dist: number; pitchDeg: number; yawOffDeg: number; wallDist: number; wallRole: string; wallPitch: number }>;
+    content: number;
+    total: number;
+  } {
+    const targets = this.sightTargets();
+    const yaw0 = this.walkYaw;
+    const pitch0 = this.walkPitch;
+    const pitchFan = [0, -6, -12, -20, -30];
+    const offsets: number[] = [];
+    for (let w = -Math.abs(windowDeg); w <= Math.abs(windowDeg) + 1e-6; w += 10) offsets.push((w * Math.PI) / 180);
+    const dirs = [] as Array<{ deg: number; content: boolean; kind: string; role: string; dist: number; pitchDeg: number; yawOffDeg: number; wallDist: number; wallRole: string; wallPitch: number }>;
+    for (let i = 0; i < 8; i += 1) {
+      const bearing = (Math.PI / 4) * i;
+      let hit: { kind: string; role: string; dist: number; pitchDeg: number; yawOffDeg: number } | null = null;
+      let wallDist = Number.POSITIVE_INFINITY;
+      let wallRole = '';
+      let wallPitch = 0;
+      for (const off of offsets) {
+        for (const pdeg of pitchFan) {
+          this.walkYaw = this.yawToward(Math.cos(bearing + off), Math.sin(bearing + off));
+          this.walkPitch = (pdeg * Math.PI) / 180;
+          this.camera.rotation.order = 'YXZ';
+          this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+          this.camera.updateMatrixWorld();
+          this.ray.setFromCamera(CENTER_NDC, this.camera);
+          const picked = this.pickHall();
+          const first = this.ray.intersectObjects(targets.content, false)[0];
+          const near = this.ray.intersectObjects(targets.wall, false)[0];
+          if (near && near.distance < wallDist) {
+            wallDist = round2(near.distance);
+            wallRole = String(near.object.userData.role ?? '');
+            wallPitch = pdeg;
+          }
+          if (picked && first && first.distance <= limit && first.distance <= (near?.distance ?? Infinity)) {
+            if (!hit || first.distance < hit.dist) {
+              hit = {
+                kind: picked.kind,
+                role: String(first.object.userData.role ?? ''),
+                dist: round2(first.distance),
+                pitchDeg: pdeg,
+                yawOffDeg: Math.round((off * 180) / Math.PI),
+              };
+            }
+            break;
+          }
+        }
+      }
+      dirs.push({
+        deg: i * 45,
+        content: hit !== null,
+        kind: hit?.kind ?? '',
+        role: hit?.role ?? '',
+        dist: hit?.dist ?? Number.POSITIVE_INFINITY,
+        pitchDeg: hit?.pitchDeg ?? 0,
+        yawOffDeg: hit?.yawOffDeg ?? 0,
+        wallDist: Number.isFinite(wallDist) ? wallDist : -1,
+        wallRole,
+        wallPitch,
+      });
+    }
+    this.walkYaw = yaw0;
+    this.walkPitch = pitch0;
+    this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+    this.camera.updateMatrixWorld();
+    this.syncWalkTarget();
+    this.refreshAim(true);
+    return {
+      at: [round2(this.camera.position.x), round2(this.camera.position.z)],
+      limit,
+      pitchFan,
+      windowDeg,
+      dirs,
+      content: dirs.filter((d) => d.content).length,
+      total: dirs.length,
+    };
+  }
+
+  /** 批 12 对账读数：扇区角 vs 走廊角、台/柜尺寸、书脊账、近台态 */
+  atriumState(): {
+    sectors: Array<{ key: string; amDeg: number; doorDeg: number; driftDeg: number; a0Deg: number; a1Deg: number; books: number; chapters: number }>;
+    maxDriftDeg: number;
+    desk: { r: number; topR: number; topY: number; nearR: number; standR: number; bandY: [number, number]; lightIntensity: number; lightDistance: number; lightDecay: number; lightY: number };
+    near: boolean;
+    aimSector: number;
+    highlight: number[];
+    emissive: { top: number; band: number; lamp: number };
+    cases: Array<{ key: string; deg: number; x: number; z: number; r: number; lean: number; books: number; spines: number; title: string; chapters: number }>;
+    caseRing: [number, number];
+    spines: { slots: number; pages: number; triangles: number; atlasPages: number };
+    topTex: [number, number];
+    blockers: Record<string, number>;
+    triangles: { desk: number; cases: number };
+    proj: { pts: number; inFrame: number; deskW: number; ringW: number };
+  } {
+    const cases = this.caseStands.map((st) => {
+      const c = this.deskCounts.get(st.key) ?? { books: 0, chapters: 0 };
+      const top = this.manifest.sites
+        .filter((x) => x.discipline === st.key && (x.stats?.chapters ?? 0) > 0)
+        .sort((x, y) => (y.stats?.chapters ?? 0) - (x.stats?.chapters ?? 0) || x.file.localeCompare(y.file))
+        .slice(0, ATRIUM.caseSpines);
+      return {
+        key: st.key,
+        deg: Math.round(((st.angle * 180) / Math.PI + 360) % 360 * 100) / 100,
+        x: round2(st.x),
+        z: round2(st.z),
+        r: round2(Math.hypot(st.x, st.z)),
+        lean: ATRIUM.caseLean,
+        books: c.books,
+        spines: this.casePlan?.spines.filter((sp) => this.casePlan?.slots[sp.slot]?.book.discipline === st.key).length ?? 0,
+        title: top.map((b) => b.title || b.bookSlug).join(' / '),
+        chapters: top.reduce((sum, b) => sum + (b.stats?.chapters ?? 0), 0),
+      };
+    });
+    const sectors = this.deskSectors.map((sec) => {
+      const spec = ROOM_BY_KEY[sec.key];
+      const c = this.deskCounts.get(sec.key) ?? { books: 0, chapters: 0 };
+      const door = ((spec.angle * 180) / Math.PI + 360) % 360;
+      const am = ((sec.am * 180) / Math.PI + 360) % 360;
+      return {
+        key: sec.key,
+        amDeg: Math.round(am * 1000) / 1000,
+        doorDeg: Math.round(door * 1000) / 1000,
+        driftDeg: Math.round(Math.abs(((am - door + 540) % 360) - 180) * 1000) / 1000,
+        a0Deg: Math.round(((sec.a0 * 180) / Math.PI + 360) % 360 * 10) / 10,
+        a1Deg: Math.round(((sec.a1 * 180) / Math.PI + 360) % 360 * 10) / 10,
+        books: c.books,
+        chapters: c.chapters,
+      };
+    });
+    const kinds: Record<string, number> = {};
+    for (const b of this.hallColliders) kinds[b.kind] = (kinds[b.kind] ?? 0) + 1;
+    let caseTris = 0;
+    let deskTris = 0;
+    for (const m of [this.caseBodies, ...this.caseSpineMeshes]) if (m) caseTris += trianglesOf(m);
+    for (const m of [this.deskTop]) if (m) deskTris = m.geometry.index ? m.geometry.index.count / 3 : m.geometry.attributes.position.count / 3;
+    return {
+      sectors,
+      maxDriftDeg: Math.max(0, ...sectors.map((x) => x.driftDeg)),
+      desk: {
+        r: ATRIUM.deskR,
+        topR: ATRIUM.deskTopR,
+        topY: ATRIUM.deskTopY,
+        nearR: ATRIUM.nearR,
+        standR: ATRIUM.standR,
+        bandY: [ATRIUM.bandY0, ATRIUM.bandY1],
+        lightIntensity: this.deskLight?.intensity ?? 0,
+        lightDistance: this.deskLight?.distance ?? 0,
+        lightDecay: this.deskLight?.decay ?? 0,
+        lightY: this.deskLight?.position.y ?? 0,
+      },
+      near: this.deskNear,
+      aimSector: this.aimSector,
+      highlight: this.sectorHl.map((m, i) => (m.visible ? i : -1)).filter((i) => i >= 0),
+      emissive: {
+        top: this.deskTopMat?.emissiveIntensity ?? 0,
+        band: this.deskBandMat?.emissiveIntensity ?? 0,
+        lamp: this.caseLampMat?.emissiveIntensity ?? 0,
+      },
+      cases,
+      caseRing: [ATRIUM.caseR, ATRIUM.caseR],
+      spines: {
+        slots: this.casePlan?.slots.length ?? 0,
+        pages: this.casePages.length,
+        triangles: this.casePages.reduce((a, p) => a + p.triangles, 0),
+        atlasPages: this.caseAtlas?.pages ?? 0,
+      },
+      topTex: [
+        (this.deskTopMat?.map?.image as { width?: number } | null)?.width ?? 0,
+        (this.deskTopMat?.map?.image as { height?: number } | null)?.height ?? 0,
+      ],
+      blockers: kinds,
+      triangles: { desk: Math.round(deskTris), cases: caseTris },
+      proj: this.atriumProjection(),
+    };
+  }
+
+  /** 准星压到第 i 个台面扇区：站到台沿环上、按真实链路拾取（与 walkAimSpine 同一条路） */
+  aimDeskSector(i: number): {
+    ok: boolean;
+    sector: number;
+    key: string;
+    title: string;
+    hint: string;
+    pitchDeg: number;
+    stand: string;
+    highlight: boolean;
+  } | null {
+    const sec = this.deskSectors[i];
+    if (!sec) return null;
+    const at = new THREE.Vector3(
+      Math.cos(sec.am) * ATRIUM.standR,
+      WALK.eye,
+      Math.sin(sec.am) * ATRIUM.standR,
+    );
+    // 面朝台心：从扇区中心线外侧看进去，落点正落在这一块的弧心
+    this.walkDrop(at, this.yawToward(-Math.cos(sec.am), -Math.sin(sec.am)));
+    const rr = (ATRIUM.sectorR0 + ATRIUM.deskTopR) / 2;
+    const tx = Math.cos(sec.am) * rr;
+    const tz = Math.sin(sec.am) * rr;
+    const d = Math.hypot(tx - this.camera.position.x, tz - this.camera.position.z);
+    this.walkPitch = Math.max(-WALK.pitchMax, Math.min(WALK.pitchMax, Math.atan2(ATRIUM.deskTopY - this.camera.position.y, d)));
+    this.camera.rotation.order = 'YXZ';
+    this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+    this.syncWalkTarget();
+    this.syncWorld();
+    this.refreshAim(true);
+    const hit = this.aimHit;
+    return {
+      ok: hit?.kind === 'room' && hit.sector === i,
+      sector: i,
+      key: sec.key,
+      title: hit?.title ?? '',
+      hint: hit?.hint ?? '',
+      pitchDeg: Math.round(this.walkPitch * 572957.8) / 10000,
+      stand: `${round2(this.camera.position.x)},${round2(this.camera.position.z)}`,
+      highlight: this.aimSector === i,
+    };
+  }
+
+  /** 准星压到展柜第 i 根书脊：站到柜前、按真实链路拾取，返回该书身份供「开的是不是这一本」对账 */
+  aimCaseSpine(i: number): {
+    ok: boolean;
+    index: number;
+    book: string;
+    file: string;
+    discipline: string;
+    kind: string;
+    pitchDeg: number;
+    stand: string;
+    dist: number;
+  } | null {
+    const sp = this.casePlan?.spines[i];
+    if (!sp) return null;
+    const n: [number, number] = [sp.normal[0], sp.normal[1]];
+    const at = new THREE.Vector3(sp.x + n[0] * 1.7, WALK.eye, sp.z + n[1] * 1.7);
+    this.walkDrop(at, this.yawToward(-n[0], -n[1]));
+    const d = Math.hypot(sp.x - at.x, sp.z - at.z);
+    this.walkPitch = Math.max(-WALK.pitchMax, Math.min(WALK.pitchMax, Math.atan2(sp.y - this.camera.position.y, d)));
+    this.camera.rotation.order = 'YXZ';
+    this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+    this.syncWalkTarget();
+    this.syncWorld();
+    this.refreshAim(true);
+    const slot = this.casePlan?.slots[sp.slot];
+    const hit = this.aimHit;
+    return {
+      ok: hit?.kind === 'chapter' && hit.book?.file === slot?.book.file,
+      index: i,
+      book: slot?.book.title || slot?.book.bookSlug || '',
+      file: slot?.book.file ?? '',
+      discipline: slot?.book.discipline ?? '',
+      kind: hit?.kind ?? '',
+      pitchDeg: Math.round(this.walkPitch * 572957.8) / 10000,
+      stand: `${round2(this.camera.position.x)},${round2(this.camera.position.z)}`,
+      dist: round2(Math.hypot(this.camera.position.x - sp.x, this.camera.position.z - sp.z)),
+    };
+  }
+
+  /** 批 12 审计：厅内每个网格的角色 / 世界包围盒 / 可见性——判「所见即所撞」与射线目标表有没有漏角色 */
+  hallAudit(): Array<{ role: string; in: string; vis: boolean; tris: number; box: [number, number, number, number, number, number] }> {
+    const out: Array<{ role: string; in: string; vis: boolean; tris: number; box: [number, number, number, number, number, number] }> = [];
+    this.hall.traverse((o) => {
+      const mesh = o as THREE.Mesh;
+      if (!mesh.isMesh || !mesh.geometry) return;
+      mesh.updateMatrixWorld(true);
+      const g = mesh.geometry;
+      if (!g.boundingBox) g.computeBoundingBox();
+      const b = g.boundingBox!.clone().applyMatrix4(mesh.matrixWorld);
+      const r = (v: number) => Math.round(v * 100) / 100;
+      const t = this.sightTargets();
+      out.push({
+        role: String(mesh.userData.role ?? ''),
+        in: t.content.includes(mesh) ? 'content' : t.wall.includes(mesh) ? 'wall' : '-',
+        vis: mesh.visible !== false,
+        tris: (g.attributes.position?.count ?? 0) / 3,
+        box: [r(b.min.x), r(b.min.y), r(b.min.z), r(b.max.x), r(b.max.y), r(b.max.z)],
+      });
+    });
+    return out;
+  }
+
+  /** 批 12 通路间隙：不搬玩家，直接读某点的带符号净空（已扣玩家半径 0.45，负数＝嵌在盒里） */
+  walkGapAt(x: number, z: number): number {
+    return round2(wallGap(new THREE.Vector3(x, WALK.eye, z), this.colliders));
+  }
+
+  /** 准星压展柜柜体：走 caseTriRef（faceIndex→区序号）报区名，证明映射表覆盖柜体而非只有书脊 */
+  aimCaseBody(i: number): { ok: boolean; index: number; key: string; kind: string; hint: string; stand: string } | null {
+    const st = this.caseStands[i];
+    if (!st) return null;
+    const a = st.angle;
+    const nx = -Math.cos(a);
+    const nz = -Math.sin(a);
+    const at = new THREE.Vector3(st.x + nx * 2.6, WALK.eye, st.z + nz * 2.6);
+    this.walkDrop(at, this.yawToward(-nx, -nz));
+    const d = Math.hypot(st.x - this.camera.position.x, st.z - this.camera.position.z);
+    const target = ATRIUM.caseTopY - 0.34;
+    this.walkPitch = Math.max(-WALK.pitchMax, Math.min(WALK.pitchMax, Math.atan2(target - this.camera.position.y, d)));
+    this.camera.rotation.order = 'YXZ';
+    this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+    this.syncWalkTarget();
+    this.syncWorld();
+    this.refreshAim(true);
+    const hit = this.aimHit;
+    return {
+      ok: hit?.kind === 'room' && hit.discipline === st.key,
+      index: i,
+      key: String(st.key),
+      kind: hit?.kind ?? '',
+      hint: hit?.hint ?? '',
+      stand: `${round2(this.camera.position.x)},${round2(this.camera.position.z)}`,
+    };
+  }
+
+  /**
+   * 批 12 G：八角台与展柜圈在当前机位下的屏幕投影。俯瞰构图的回退风险不是「包络变小」
+   * （壳/门洞包络与新增体量无关），而是中央一大团把门环压成背景——所以量的是投影占比。
+   */
+  private atriumProjection(): { pts: number; inFrame: number; deskW: number; ringW: number } {
+    const v = new THREE.Vector3();
+    const corners = (cx: number, cz: number, r: number, y: number, n: number) => {
+      const out: Array<[number, number, number]> = [];
+      for (let i = 0; i < n; i += 1) {
+        const a = (i / n) * Math.PI * 2;
+        out.push([cx + Math.cos(a) * r, y, cz + Math.sin(a) * r]);
+      }
+      return out;
+    };
+    const project = (pts: Array<[number, number, number]>) =>
+      pts.map((q) => v.set(q[0], q[1], q[2]).project(this.camera).clone());
+    const desk = project(corners(0, 0, ATRIUM.deskTopR, ATRIUM.deskTopY, 8));
+    const ring = project(this.caseStands.flatMap((st) => corners(st.x, st.z, 1.7, ATRIUM.hoodTopY, 4)));
+    const all = desk.concat(ring);
+    const inNdc = (q: THREE.Vector3) => Math.abs(q.x) <= 1 && Math.abs(q.y) <= 1 && q.z <= 1;
+    const span = (list: THREE.Vector3[]) =>
+      (Math.max(...list.map((q) => q.x)) - Math.min(...list.map((q) => q.x))) / 2;
+    return {
+      pts: all.length,
+      inFrame: all.filter(inNdc).length,
+      deskW: Math.round(span(desk) * 1000) / 1000,
+      ringW: Math.round(span(ring) * 1000) / 1000,
+    };
+  }
+
+  /**
+   * 批 12 门洞实测方位：从厅心（台面之上 2.2，避开八角台）沿水平扫一圈射线打墙系，
+   * 穿门洞的能打到走廊尽头（>100），实心墙 44 就停。连续通孔段取圆周质心，
+   * 与扇区中心线来源无关——这是「从台面扇区走过去就是那条走廊」的角度证据。
+   */
+  doorBearingScan(stepDeg = 1): {
+    stepDeg: number;
+    openMin: number;
+    holes: Array<{ deg: number; spanDeg: number; maxDist: number }>;
+    drift: Array<{ key: string; roomDeg: number; holeDeg: number; sectorDeg: number; driftDeg: number; sectorVsHoleDeg: number }>;
+    maxDriftDeg: number;
+    probe: number[];
+  } {
+    // 只打外墙壳：穿门而过的射线会落到对面墙上（>60），被堵住的打在洞那侧 ~40
+    const shell = this.hall.children.filter((o) => String(o.userData.role ?? '') === 'hallWall');
+    const eye = new THREE.Vector3(0, ATRIUM.deskTopY + 1.1, 0);
+    const dir = new THREE.Vector3();
+    const n = Math.max(1, Math.round(360 / stepDeg));
+    const step = 360 / n;
+    const dist: number[] = [];
+    for (let i = 0; i < n; i += 1) {
+      const a = (i * step * Math.PI) / 180;
+      this.ray.set(eye, dir.set(Math.cos(a), 0, Math.sin(a)));
+      const hit = this.ray.intersectObjects(shell, false)[0];
+      dist.push(hit ? round2(hit.distance) : -1);
+    }
+    const openMin = 60;
+    const openAt = (i: number) => {
+      const d = dist[((i % n) + n) % n];
+      return d < 0 || d >= openMin;
+    };
+    const holes: Array<{ deg: number; spanDeg: number; maxDist: number }> = [];
+    const seen = new Set<number>();
+    for (let i = 0; i < 2 * n; i += 1) {
+      if (!openAt(i) || seen.has(i % n)) continue;
+      let k = 0;
+      while (k < n / 2 && openAt(i + k)) k += 1;
+      for (let j = 0; j < k; j += 1) seen.add((i + j) % n);
+      let sx = 0;
+      let sz = 0;
+      let mx = 0;
+      for (let j = 0; j < k; j += 1) {
+        const d = (((i + j) % n) * step * Math.PI) / 180;
+        sx += Math.cos(d);
+        sz += Math.sin(d);
+        mx = Math.max(mx, dist[(i + j) % n]);
+      }
+      const deg = (Math.atan2(sz, sx) * 180) / Math.PI;
+      holes.push({
+        deg: Math.round(((deg + 360) % 360) * 100) / 100,
+        spanDeg: Math.round(k * step * 100) / 100,
+        maxDist: mx,
+      });
+    }
+    const wrap180 = (x: number) => ((x + 540) % 360) - 180;
+    const drift = ROOMS.map((r) => {
+      const sec = this.deskSectors.find((x) => x.key === r.key);
+      let best: { deg: number } | null = null;
+      for (const h of holes) {
+        if (!best || Math.abs(wrap180(h.deg - (r.angle * 180) / Math.PI)) < Math.abs(wrap180(best.deg - (r.angle * 180) / Math.PI))) {
+          best = h;
+        }
+      }
+      const roomDeg = Math.round((((r.angle * 180) / Math.PI + 360) % 360) * 100) / 100;
+      const holeDeg = best ? best.deg : -1;
+      const sectorDeg = sec ? Math.round((((sec.am * 180) / Math.PI + 360) % 360) * 100) / 100 : -1;
+      return {
+        key: String(r.key),
+        roomDeg,
+        holeDeg,
+        sectorDeg,
+        driftDeg: best ? Math.round(Math.abs(wrap180(holeDeg - roomDeg)) * 100) / 100 : 999,
+        sectorVsHoleDeg: best ? Math.round(Math.abs(wrap180(sectorDeg - holeDeg)) * 100) / 100 : 999,
+      };
+    });
+    return {
+      stepDeg: Math.round(step * 100) / 100,
+      openMin,
+      holes,
+      drift,
+      maxDriftDeg: Math.max(...drift.map((x) => Math.max(x.driftDeg, x.sectorVsHoleDeg))),
+      probe: Array.from({ length: 72 }, (_, i) => dist[i * Math.max(1, Math.round(n / 72))]),
+    };
+  }
+
+  /** 批 12 对位闭环：从台缘沿任意世界方位角望向台面，读回准星压到的是哪一块扇区 */
+  aimDeskRay(deg: number): { sector: number; key: string; kind: string; hint: string; at: string } {
+    const a = (deg * Math.PI) / 180;
+    const at = new THREE.Vector3(Math.cos(a) * ATRIUM.standR, WALK.eye, Math.sin(a) * ATRIUM.standR);
+    this.walkDrop(at, this.yawToward(-Math.cos(a), -Math.sin(a)));
+    const rr = (ATRIUM.sectorR0 + ATRIUM.deskTopR) / 2;
+    const tx = Math.cos(a) * rr;
+    const tz = Math.sin(a) * rr;
+    const d = Math.hypot(tx - this.camera.position.x, tz - this.camera.position.z);
+    this.walkPitch = Math.max(-WALK.pitchMax, Math.min(WALK.pitchMax, Math.atan2(ATRIUM.deskTopY - this.camera.position.y, d)));
+    this.camera.rotation.order = 'YXZ';
+    this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+    this.syncWalkTarget();
+    this.syncWorld();
+    this.refreshAim(true);
+    const hit = this.aimHit;
+    const i = typeof hit?.sector === 'number' ? hit.sector : -1;
+    return {
+      sector: i,
+      key: i >= 0 ? String(this.deskSectors[i]?.key ?? '') : '',
+      kind: hit?.kind ?? '',
+      hint: hit?.hint ?? '',
+      at: `${round2(this.camera.position.x)},${round2(this.camera.position.z)}`,
+    };
+  }
+
+  /** 批 12 E：站立处地面亮度。逐方位先用墙系射线确认采样带中心打的是地面，再取该屏带像素均值 */
+  walkGroundSample(
+    pitchDeg = -35,
+    box: [number, number, number, number] = [0.3, 0.68, 0.4, 0.27],
+  ): {
+    at: [number, number];
+    pitchDeg: number;
+    box: number[];
+    rows: Array<{ deg: number; role: string; dist: number; mean: number }>;
+    floorDirs: number;
+    total: number;
+    mean: number;
+    min: number;
+    max: number;
+  } {
+    const targets = this.sightTargets();
+    const yaw0 = this.walkYaw;
+    const pitch0 = this.walkPitch;
+    const probe = new THREE.Vector2(0, 1 - 2 * (box[1] + box[3] / 2));
+    const rows: Array<{ deg: number; role: string; dist: number; mean: number }> = [];
+    for (let i = 0; i < 12; i += 1) {
+      const bearing = (Math.PI / 6) * i;
+      this.walkYaw = this.yawToward(Math.cos(bearing), Math.sin(bearing));
+      this.walkPitch = (pitchDeg * Math.PI) / 180;
+      this.camera.rotation.order = 'YXZ';
+      this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+      this.camera.updateMatrixWorld();
+      this.ray.setFromCamera(probe, this.camera);
+      const hit = this.ray.intersectObjects(targets.wall, false)[0];
+      const role = hit ? String(hit.object.userData.role ?? '') : '';
+      const lum = this.sampleLuminance(box[0], box[1], box[2], box[3], 48);
+      rows.push({
+        deg: i * 30,
+        role,
+        dist: hit ? round2(hit.distance) : -1,
+        mean: Math.round(lum.mean * 10000) / 10000,
+      });
+    }
+    this.walkYaw = yaw0;
+    this.walkPitch = pitch0;
+    this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
+    this.camera.updateMatrixWorld();
+    const floors = rows.filter((r) => /floor|ground/i.test(r.role));
+    const means = floors.map((r) => r.mean);
+    const avg = means.length ? means.reduce((a, b) => a + b, 0) / means.length : 0;
+    return {
+      at: [round2(this.camera.position.x), round2(this.camera.position.z)],
+      pitchDeg,
+      box,
+      rows,
+      floorDirs: floors.length,
+      total: rows.length,
+      mean: Math.round(avg * 10000) / 10000,
+      min: means.length ? Math.min(...means) : 0,
+      max: means.length ? Math.max(...means) : 0,
+    };
   }
 
   private buildChandelier(): void {
@@ -941,8 +1759,14 @@ export class Matrix3D {
   private walkSpawn(): { at: THREE.Vector3; yaw: number } {
     if (this.view === 'hall' || !this.plan) {
       const first = ROOMS[0];
+      // 批 12：贴着台体外沿站定、脸朝第一条走廊。站在厅心等于站在台体里；落位环既退得出碰撞，
+      // 又让「转身看台面」与「正向走走廊」都是真实视线。
       return {
-        at: new THREE.Vector3(0, WALK.eye, 0),
+        at: new THREE.Vector3(
+          Math.cos(first.angle) * ATRIUM.standR,
+          WALK.eye,
+          Math.sin(first.angle) * ATRIUM.standR,
+        ),
         yaw: this.yawToward(Math.cos(first.angle), Math.sin(first.angle)),
       };
     }
@@ -972,7 +1796,8 @@ export class Matrix3D {
   private walkDrop(at: THREE.Vector3, yaw: number): void {
     this.colliders = this.view === 'hall' ? this.hallColliders : this.roomColliders;
     at.y = WALK.eye;
-    settle(at, this.colliders);
+    // 落点若被台体吃了，沿**朝向**退出：圆柱轴心没有「外侧」可依，不给方向就会每次换个方向抖
+    settle(at, this.colliders, [-Math.sin(yaw), -Math.cos(yaw)]);
     this.camera.position.copy(at);
     this.walkYaw = yaw;
     this.walkPitch = 0;
@@ -1045,9 +1870,13 @@ export class Matrix3D {
 
   private walkHint(hit: Pick | null): string {
     if (hit) return this.tipText(hit);
-    return this.view === 'hall'
-      ? '第一人称 · WASD 走动 · Shift 疾走 · 拖拽转视角 · 准星对准楼体点击进门 · F 退出'
-      : '第一人称 · WASD 走动 · Shift 疾走 · 拖拽转视角 · 准星对准书脊点击读正文 · F 退出';
+    if (this.view !== 'hall') {
+      return '第一人称 · WASD 走动 · Shift 疾走 · 拖拽转视角 · 准星对准书脊点击读正文 · F 退出';
+    }
+    // 批 12：近台给索引台口径，远台给「台面 + 展柜」两条视线落点
+    return this.deskNear
+      ? '六区索引 · 准星选扇区 · 点击进入该区 · F 退出'
+      : '第一人称 · WASD 走动 · 台面选六区 · 展柜书脊读首章 · F 退出';
   }
 
   private updateWalkUi(): void {
@@ -1070,7 +1899,11 @@ export class Matrix3D {
 
   /** 准星拾取一次，把结果同步到 HUD 与准星高亮态。`force` 用于探针（不等变化沿） */
   private refreshAim(force = false): void {
+    // 射线取的是 camera.matrixWorld：瞬移（探针 snap、进出房间、退出漫游）后矩阵还没更新，
+    // 不补这一下就会拿上一帧的朝向算准星，读到的是「转身之前」的目标
+    this.camera.updateMatrixWorld();
     const hit = this.pickAt(CENTER_NDC);
+    this.syncAtrium(hit);
     const same = (hit?.kind ?? '') === (this.aimHit?.kind ?? '')
       && (hit?.book?.file ?? '') === (this.aimHit?.book?.file ?? '')
       && (hit?.id ?? '') === (this.aimHit?.id ?? '');
@@ -1238,12 +2071,13 @@ export class Matrix3D {
     if (this.camMode !== 'walk') return { ok: false, at: [0, 0, 0], gap: -1 };
     const at = new THREE.Vector3(x, WALK.eye, z);
     this.colliders = this.view === 'hall' ? this.hallColliders : this.roomColliders;
-    settle(at, this.colliders);
+    settle(at, this.colliders, faceX || faceZ ? [faceX, faceZ] : undefined);
     this.camera.position.copy(at).setY(WALK.eye);
     if (faceX || faceZ) this.walkYaw = this.yawToward(faceX, faceZ);
     this.camera.rotation.order = 'YXZ';
     this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
     this.syncWalkTarget();
+    this.refreshAim(true);
     this.wake();
     return {
       ok: this.camMode === 'walk',
@@ -2045,6 +2879,7 @@ export class Matrix3D {
       return;
     }
     const hit = this.pick(ev);
+    this.syncAtrium(hit);
     this.renderer.domElement.style.cursor = hit ? 'pointer' : 'grab';
     this.hooks.onHud(hit ? hit.hint : this.hudDefault());
     this.scheduleTip(ev, hit);
@@ -2084,12 +2919,13 @@ export class Matrix3D {
 
   private tipText(hit: Pick): string {
     if (hit.kind === 'room') {
+      if (hit.title) return hit.title;
       const spec = ROOM_BY_KEY[hit.discipline];
       return `${spec.title} · ${this.manifest.sites.filter((s) => s.discipline === spec.key).length} 册 · 点击进入阅览室`;
     }
     const title = hit.book ? hit.book.title || hit.book.bookSlug : '';
     if (hit.kind === 'concept') return `概念 ${hit.id} · 点击读正文`;
-    if (hit.kind === 'chapter') return `${title} · 第 ${hit.id} 章 · 点击读正文`;
+    if (hit.kind === 'chapter') return hit.id ? `${title} · 第 ${hit.id} 章 · 点击读正文` : `${title} · 首章 · 点击进入阅读`;
     return `${title} · ${hit.book?.stats?.chapters ?? 0} 章 · 点击看书的总览`;
   }
 
@@ -2198,11 +3034,42 @@ export class Matrix3D {
     return this.pickAt(this.camMode === 'walk' ? CENTER_NDC : this.ndc(ev));
   }
 
-  /** 大厅：点六栋阅览楼的外壳（faceIndex → 区）或门楣牌匾 */
+  /**
+   * 大厅：中央台面扇区 → 区、展柜书脊 → 该书首章、展柜柜体 → 该区展柜，
+   * 再往后才是六栋阅览楼的外壳与门楣牌匾。全部走 faceIndex 下标取表，没有第二套射线逻辑。
+   */
   private pickHall(): Pick | null {
     const targets: THREE.Object3D[] = [...this.doorPlaques.values()];
+    if (this.deskTop) targets.push(this.deskTop);
+    if (this.caseBodies) targets.push(this.caseBodies);
+    for (const mesh of this.caseSpineMeshes) if (mesh.visible) targets.push(mesh);
     if (this.facades) targets.push(this.facades);
     for (const hit of this.ray.intersectObjects(targets, false)) {
+      if (hit.object === this.deskTop) {
+        const pick = this.deskPick(hit.faceIndex, hit.point);
+        if (pick) return pick;
+        continue;
+      }
+      const pageNo = hit.object.userData.page as number | undefined;
+      if (pageNo !== undefined) {
+        const page = this.casePages[pageNo];
+        if (!page) continue;
+        const pick = this.spinePick(page, hit.faceIndex, this.casePlan);
+        if (pick) return pick;
+        continue;
+      }
+      if (hit.object === this.caseBodies) {
+        const idx = this.caseTriRef[Math.floor(hit.faceIndex ?? -1)];
+        const stand = idx === undefined ? undefined : this.caseStands[idx];
+        if (!stand) continue;
+        const spec = ROOM_BY_KEY[stand.key];
+        const n = this.casePlan?.spines.filter((sp) => this.casePlan?.slots[sp.slot]?.book.discipline === stand.key).length ?? 0;
+        return {
+          kind: 'room',
+          discipline: stand.key,
+          hint: n ? `${spec.title} 展柜 · 罩内 ${n} 根书脊 · 准星压脊读首章` : `${spec.title} 展柜 · 该区暂无书位`,
+        };
+      }
       const plaque = hit.object.userData.discipline as Discipline | undefined;
       if (plaque) {
         const spec = ROOM_BY_KEY[plaque];
@@ -2215,6 +3082,28 @@ export class Matrix3D {
       return { kind: 'room', discipline: spec.key, hint: `进入 ${spec.title}` };
     }
     return null;
+  }
+
+  /**
+   * 台面命中 → 扇区：faceIndex → 构建期落的 `triSector`（与书脊 triSpine 同一张表机制）。
+   * 中心那圈铜罗盘 ref = −1，不参与；半径小于 sectorR0 的落点也留给罗盘，不判成区。
+   */
+  private deskPick(faceIndex: number | null | undefined, at: THREE.Vector3): Pick | null {
+    if (faceIndex === undefined || faceIndex === null) return null;
+    const idx = this.deskTriSector[Math.floor(faceIndex)];
+    if (idx === undefined || idx < 0) return null;
+    if (Math.hypot(at.x, at.z) < ATRIUM.sectorR0) return null;
+    const sec = this.deskSectors[idx];
+    if (!sec) return null;
+    const spec = ROOM_BY_KEY[sec.key];
+    const c = this.deskCounts.get(sec.key) ?? { books: 0, chapters: 0 };
+    return {
+      kind: 'room',
+      discipline: sec.key,
+      sector: idx,
+      title: `${spec.title} · ${c.books} 本 · ${c.chapters} 章 · 点击进入`,
+      hint: `${spec.title} · ${c.books} 本 · ${c.chapters} 章 · 点击进入`,
+    };
   }
 
   private facadeZoneOf(faceIndex: number | null | undefined): number | null {
@@ -2247,36 +3136,55 @@ export class Matrix3D {
       const pageNo = hit.object.userData.page as number | undefined;
       const page = pageNo === undefined ? undefined : this.spinePages[pageNo];
       if (!page) continue;
-      const spine = this.spineAt(page, hit.faceIndex);
-      if (!spine) continue;
-      const slot = this.plan?.slots[spine.slot];
-      if (!slot) continue;
-      const role = page.triRole[Math.floor(hit.faceIndex ?? 0)] ?? SPINE_FACE.cover;
-      if (role === SPINE_FACE.chapter) {
-        return {
-          kind: 'chapter',
-          discipline: slot.book.discipline,
-          book: slot.book,
-          id: spine.chapter.id,
-          hint: `${slot.book.title || slot.book.bookSlug} · ${spine.chapter.title || spine.chapter.id} · 点击读正文`,
-        };
-      }
-      return {
-        kind: 'book',
-        discipline: slot.book.discipline,
-        book: slot.book,
-        hint: `${slot.book.title || slot.book.bookSlug} · ${slot.chapters.length} 章 · 铜牌＝该书总览`,
-      };
+      const pick = this.spinePick(page, hit.faceIndex, this.plan);
+      if (pick) return pick;
     }
     return null;
   }
 
+  /**
+   * 书脊命中 → Pick：批 8 的 faceIndex 映射只有这一份，阅览室的架与大厅展柜的罩共用，
+   * 差别只在把哪一套 slots/spines 账递进来（展柜那套由 manifest 现场搭）。
+   */
+  private spinePick(
+    page: SpinePage,
+    faceIndex: number | null | undefined,
+    plan: { slots: BookSlot[]; spines: SpinePlacement[] } | null,
+  ): Pick | null {
+    const spine = this.spineAt(page, faceIndex, plan);
+    if (!spine) return null;
+    const slot = plan?.slots[spine.slot];
+    if (!slot) return null;
+    const title = slot.book.title || slot.book.bookSlug;
+    const chapters = slot.chapters.length || (slot.book.stats?.chapters ?? 0);
+    const role = page.triRole[Math.floor(faceIndex ?? 0)] ?? SPINE_FACE.cover;
+    if (role === SPINE_FACE.chapter) {
+      return {
+        kind: 'chapter',
+        discipline: slot.book.discipline,
+        book: slot.book,
+        id: spine.chapter.id,
+        hint: `${title} · ${spine.chapter.title || spine.chapter.id || '首章'} · 点击读正文`,
+      };
+    }
+    return {
+      kind: 'book',
+      discipline: slot.book.discipline,
+      book: slot.book,
+      hint: `${title} · ${chapters} 章 · 铜牌＝该书总览`,
+    };
+  }
+
   /** faceIndex → 书脊：构建期落好的映射表，点击时只做一次下标取值 */
-  private spineAt(page: SpinePage, faceIndex: number | null | undefined) {
-    if (faceIndex === undefined || faceIndex === null || !this.plan) return null;
+  private spineAt(
+    page: SpinePage,
+    faceIndex: number | null | undefined,
+    plan: { slots: BookSlot[]; spines: SpinePlacement[] } | null,
+  ): SpinePlacement | null {
+    if (faceIndex === undefined || faceIndex === null || !plan) return null;
     const idx = page.triSpine[Math.floor(faceIndex)];
     if (idx === undefined) return null;
-    return this.plan.spines[idx] ?? null;
+    return plan.spines[idx] ?? null;
   }
 
   handleClick(ev: PointerEvent): void {
@@ -2302,6 +3210,10 @@ export class Matrix3D {
     }
     if (hit.kind === 'room') this.hooks.onPickRoom(hit.discipline);
     else if (hit.kind === 'book' && hit.book) this.hooks.onPickBook(hit.discipline, hit.book);
+    else if (hit.kind === 'chapter' && hit.book && !hit.id) {
+      // 展柜书脊：首章 id 不在 manifest 里，交阅读层现取记录再开（不为大厅预取六个分片）
+      this.hooks.onFirstChapter?.(hit.discipline, hit.book);
+    }
     else if (hit.kind === 'chapter' && hit.book && hit.id) {
       // 不补发 onPickBook：main.pickChapter 自己就做了 setSelection + openBook + openChapter。
       // 两条链各调一次 bookRecord（未缓存 = 两次 fetch），回来的先后不定，晚到的 openBook

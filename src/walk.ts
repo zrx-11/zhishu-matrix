@@ -9,6 +9,7 @@
  */
 import * as THREE from 'three';
 import {
+  ATRIUM,
   CORRIDOR_W,
   DOOR_W,
   FACADE_SIDE,
@@ -40,7 +41,23 @@ export interface Blocker {
   y0: number;
   y1: number;
   /** 只对账用：是哪一类结构 */
-  kind: 'hallWall' | 'hallDoorJamb' | 'corridorWall' | 'corridorEnd' | 'facade' | 'roomWall' | 'doorJamb' | 'shelf';
+  kind:
+    | 'hallWall'
+    | 'hallDoorJamb'
+    | 'corridorWall'
+    | 'corridorEnd'
+    | 'facade'
+    | 'roomWall'
+    | 'doorJamb'
+    | 'shelf'
+    | 'indexDesk'
+    | 'displayCase';
+  /**
+   * 批 12 索引台是圆柱（任务书口径「半径 4 的圆柱」），八角台体用它正好，
+   * 不必再拿一串 OBB 去拼圆——拼出来的并集在角上外扩 1.4 单位，是堵看不见的墙。
+   * `shape:'cyl'` 时 hx = 半径，hz / yaw 不参与计算。
+   */
+  shape?: 'box' | 'cyl';
 }
 
 export interface CorridorAxis {
@@ -149,6 +166,44 @@ export function hallBlockers(corridors: CorridorAxis[]): Blocker[] {
     y1: OPEN_TOP,
     kind: 'facade',
   });
+  out.push(...atriumBlockers());
+  return out;
+}
+
+/**
+ * 批 12 中央内容：索引台（半径 4 的圆柱）+ 六座展柜。
+ * 展柜沿切向偏开 `caseLean`，为的是「中心→门洞」那条直线仍走得通：净宽 3 的柜体
+ * 加人体半径要 1.95 才不贴身，偏 3.7 之后直线余量 1.75；同时柜体在 25 单位 sight 视锥内
+ * 仍能被打到（详见 docs/design.md 十六）。柜高 1.94，不设顶。
+ */
+export function atriumBlockers(): Blocker[] {
+  const out: Blocker[] = [
+    {
+      cx: 0,
+      cz: 0,
+      hx: ATRIUM.deskR,
+      hz: 0,
+      yaw: 0,
+      y0: 0,
+      y1: OPEN_TOP,
+      kind: 'indexDesk',
+      shape: 'cyl',
+    },
+  ];
+  for (const r of ROOMS) {
+    const a = r.angle;
+    const [tx, tz] = [-Math.sin(a), Math.cos(a)];
+    out.push({
+      cx: Math.cos(a) * ATRIUM.caseR + tx * ATRIUM.caseLean,
+      cz: Math.sin(a) * ATRIUM.caseR + tz * ATRIUM.caseLean,
+      hx: ATRIUM.caseD / 2,
+      hz: ATRIUM.caseW / 2,
+      yaw: -a,
+      y0: 0,
+      y1: OPEN_TOP,
+      kind: 'displayCase',
+    });
+  }
   return out;
 }
 
@@ -225,6 +280,7 @@ export function resolveSlide(
   r = WALK.radius,
   stand = WALK.stand,
   prev?: THREE.Vector3,
+  hint?: [number, number],
 ): { hits: number; pushed: THREE.Vector2; kinds: string[] } {
   const feet = at.y - WALK.eye;
   const head = at.y + (stand - WALK.eye);
@@ -240,6 +296,34 @@ export function resolveSlide(
       const dz = at.z - b.cz;
       const c = Math.cos(b.yaw);
       const s = Math.sin(b.yaw);
+      if (b.shape === 'cyl') {
+        const len = Math.hypot(dx, dz);
+        const pen = b.hx + r - len;
+        if (pen <= 0) continue;
+        any = true;
+        hits += 1;
+        if (!kinds.includes(b.kind)) kinds.push(b.kind);
+        // 站在轴心上没有「外侧」可依，按来人方向 / 落位朝向退出，否则每次刷新换个方向抖
+        let ux = len > 1e-6 ? dx / len : 0;
+        let uz = len > 1e-6 ? dz / len : 0;
+        if (len <= 1e-6) {
+          const hx = hint ? hint[0] : prev ? at.x - prev.x : 0;
+          const hz = hint ? hint[1] : prev ? at.z - prev.z : 0;
+          const hl = Math.hypot(hx, hz);
+          if (hl > 1e-6) {
+            ux = hx / hl;
+            uz = hz / hl;
+          } else {
+            ux = 0;
+            uz = 1;
+          }
+        }
+        pushed.x += ux * pen;
+        pushed.y += uz * pen;
+        at.x += ux * pen;
+        at.z += uz * pen;
+        continue;
+      }
       let lx = dx * c - dz * s;
       let lz = dx * s + dz * c;
       const ox = b.hx + r - Math.abs(lx);
@@ -302,6 +386,11 @@ export function wallGap(at: THREE.Vector3, blockers: Blocker[], r = WALK.radius)
     const dz = at.z - b.cz;
     const c = Math.cos(b.yaw);
     const s = Math.sin(b.yaw);
+    if (b.shape === 'cyl') {
+      const d = Math.hypot(dx, dz) - b.hx - r;
+      if (d < best) best = d;
+      continue;
+    }
     const lx = Math.abs(dx * c - dz * s) - b.hx;
     const lz = Math.abs(dx * s + dz * c) - b.hz;
     const ox = Math.max(lx, 0);
@@ -312,9 +401,9 @@ export function wallGap(at: THREE.Vector3, blockers: Blocker[], r = WALK.radius)
   return best;
 }
 
-/** 把点拉回可行走区（进入 walk 时的落位保险） */
-export function settle(at: THREE.Vector3, blockers: Blocker[]): void {
-  resolveSlide(at, blockers);
+/** 把点拉回可行走区（进入 walk 时的落位保险）；`dir` = 落位朝向，轴心退化时按它退出 */
+export function settle(at: THREE.Vector3, blockers: Blocker[], dir?: [number, number]): void {
+  resolveSlide(at, blockers, WALK.radius, WALK.stand, undefined, dir);
 }
 
 function norm(a: number): number {

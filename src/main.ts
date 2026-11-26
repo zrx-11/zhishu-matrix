@@ -331,6 +331,24 @@ function pickChapter(book: SiteEntry, chapterId: string): void {
   });
 }
 
+/**
+ * 展柜书脊 = 选书 + 进该书**首章**。首章 id 只在书目分片里（大厅不为它预取六片，
+ * 分片按需加载是批 4 的口径），所以这里现取记录、由记录定首章，不拿 manifest 猜。
+ */
+function pickFirstChapter(book: SiteEntry): void {
+  if (view) {
+    if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
+    else store.setHallCamera(view.currentPose());
+    view.highlightConcept(null);
+  }
+  store.setSelection({ discipline: currentRoom, book });
+  void bookRecord(book).then((rec) => {
+    openBook(book, rec);
+    const first = rec?.chapters?.[0];
+    if (first) void openChapter(first.id);
+  });
+}
+
 /** 检索跳转前的落点：判据 C4 要求返回时回到原书节点与原相机位姿，不重置 */
 interface Spot {
   room: Discipline | null;
@@ -406,6 +424,7 @@ async function mount(): Promise<void> {
     onPickBook: (_d, b) => pickBook(b),
     onPickChapter: (_d, b, cid) => pickChapter(b, cid),
     onPickConcept: (_d, b, cid) => pickConcept(b, cid),
+    onFirstChapter: (_d, b) => pickFirstChapter(b),
     onHud: setHud,
     onCamera: () => undefined,
     inputBusy: () => panelOpen() || isTyping() || miniBusy(),
@@ -467,6 +486,17 @@ function exposeDiagnostics(): void {
     walkSnap: (x: number, z: number, fx: number, fz: number) =>
       view ? view.walkSnapTo(x, z, fx, fz) : null,
     walkAimSpine: (i: number) => (view ? view.walkAimSpine(i) : null),
+    /** 批 12：中央索引台与展柜取证。同样只读真实拾取链，不另开内部通道 */
+    atriumState: () => (view ? view.atriumState() : null),
+    hallSightScan: (limit?: number) => (view ? view.hallSightScan(limit ?? 25) : null),
+    aimDeskSector: (i: number) => (view ? view.aimDeskSector(i) : null),
+    aimCaseSpine: (i: number) => (view ? view.aimCaseSpine(i) : null),
+    aimDeskRay: (deg: number) => (view ? view.aimDeskRay(deg) : null),
+    doorBearingScan: (step?: number) => (view ? view.doorBearingScan(step ?? 1) : null),
+    walkGroundSample: (pitch?: number) => (view ? view.walkGroundSample(pitch ?? -35) : null),
+    walkGapAt: (x: number, z: number) => (view ? view.walkGapAt(x, z) : null),
+    hallAudit: () => (view ? view.hallAudit() : null),
+    aimCaseBody: (i: number) => (view ? view.aimCaseBody(i) : null),
     walkSetLook: (yawDeg: number, pitchDeg: number) =>
       view ? view.walkSetLook(yawDeg, pitchDeg) : null,
     closeupReport: () => (view ? view.closeupReport() : null),

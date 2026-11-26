@@ -5,17 +5,21 @@
  */
 import * as THREE from 'three';
 import {
+  ATRIUM,
   CORRIDOR_H,
   CORRIDOR_W,
+  DESK_SECTORS,
   DOOR_H,
   DOOR_W,
   HALL_HEIGHT,
   HALL_RADIUS,
   HALL_SIDES,
+  ROOMS,
   SHELF_DEPTH,
   SHELF_KINDS,
   type ShelfKind,
 } from './config';
+import type { Discipline } from './types';
 import type { RoomPlan, ShelfRowSpec, SpinePlacement } from './layout';
 import type { SpineAtlas } from './atlas';
 
@@ -91,8 +95,8 @@ export class GeoBuilder {
     return this;
   }
 
-  /** 三角形（八角地面/天花的扇形） */
-  tri(a: Vec3, b: Vec3, c: Vec3, uv: number[], n: Vec3): this {
+  /** 三角形（八角地面/天花的扇形）；批 12 台面扇区也要拾取，故角色表一并落 */
+  tri(a: Vec3, b: Vec3, c: Vec3, uv: number[], n: Vec3, role = -1, ref = -1, aux = -1): this {
     // 与 quad 同一条规矩：几何绕序必须与声明的法线一致，否则 FrontSide 下这一面会被背面剔除。
     // 八角厅地面按环序 (a→p→q) 写出来的几何法线朝下，材质却给了 UP——结果整块总览图从俯视看不见，
     // 采样亮度与隐藏它之后一模一样（见 pitfalls 56）。UV 跟着顶点一起换，不能留在槽位上。
@@ -114,9 +118,9 @@ export class GeoBuilder {
       this.nor.push(n[0], n[1], n[2]);
     }
     this.uv.push(...uvs);
-    this.role.push(-1);
-    this.ref.push(-1);
-    this.aux.push(-1);
+    this.role.push(role);
+    this.ref.push(ref);
+    this.aux.push(aux);
     return this;
   }
 
@@ -130,6 +134,7 @@ export class GeoBuilder {
     hv: number,
     hw: number,
     uvScale: number,
+    ref = -1,
   ): this {
     const faces: Array<{ axis: Vec3; sign: number; a: Vec3; b: Vec3; ha: number; hb: number; off: number }> = [
       { axis: u, sign: -1, a: v, b: w, ha: hv, hb: hw, off: hu },
@@ -150,7 +155,7 @@ export class GeoBuilder {
         center[2] + oz + f.a[2] * sa + f.b[2] * sb,
       ];
       this.quad(p(-f.ha, -f.hb), p(f.ha, -f.hb), p(f.ha, f.hb), p(-f.ha, f.hb),
-        [-f.ha * uvScale, -f.hb * uvScale, f.ha * uvScale, f.hb * uvScale], n);
+        [-f.ha * uvScale, -f.hb * uvScale, f.ha * uvScale, f.hb * uvScale], n, -1, ref);
     }
     return this;
   }
@@ -662,6 +667,163 @@ export function buildHall(doorAngles: number[]): BuiltHall {
       height: H,
     },
   };
+}
+
+/** 台面逐三角角色：扇区可拾取，中心罗盘那圈 ref = −1 不拾取 */
+export const DESK_FACE = { sector: 0 } as const;
+
+export interface BuiltDesk {
+  body: THREE.BufferGeometry;
+  top: THREE.BufferGeometry;
+  band: THREE.BufferGeometry;
+  /** 逐三角：DESK_SECTORS 下标，−1 = 不可拾取 */
+  triSector: number[];
+  sectors: Array<{ key: Discipline; am: number; a0: number; a1: number }>;
+}
+
+export interface BuiltCases {
+  body: THREE.BufferGeometry;
+  hood: THREE.BufferGeometry;
+  lamp: THREE.BufferGeometry;
+  /** 逐三角：柜序（= ROOMS 下标），命中即知是哪一区的展柜 */
+  triRef: number[];
+  /** 每座的柜心（世界 xz）与门向 */
+  stands: Array<{ key: Discipline; angle: number; x: number; z: number }>;
+  triangles: number;
+}
+
+export interface BuiltAtrium {
+  desk: BuiltDesk;
+  cases: BuiltCases;
+}
+
+/**
+ * 批 12：中央索引台（八角台体 + 台沿灯带 + 十六三角扇区台面）与六座低位展柜。
+ * 台面扇区不做手调——16 个三角按「离哪条走廊最近」归属，与 walk/atlas 共用 DESK_SECTORS，
+ * 所以「扇区角度 = 走廊角度」是构造出来的恒等式，不是对齐出来的近似值。
+ */
+export function buildAtrium(): BuiltAtrium {
+  const topR = ATRIUM.deskTopR;
+  const inR = topR * Math.cos(Math.PI / 8);
+  // 八角台的边心距：面法线在 π/4 的整数倍上，任意方位角到最近面法线的偏差决定半径
+  const rimR = (a: number): number => {
+    const dev = a - (Math.PI / 4) * Math.round(a / (Math.PI / 4));
+    return inR / Math.cos(dev);
+  };
+  const pt = (a: number, r: number, y: number): Vec3 => [Math.cos(a) * r, y, Math.sin(a) * r];
+  const uvOf = (p: Vec3): [number, number] => [(p[0] + topR) / (2 * topR), 1 - (p[2] + topR) / (2 * topR)];
+
+  const bBody = new GeoBuilder();
+  const bTop = new GeoBuilder();
+  const bBand = new GeoBuilder();
+  const h = ATRIUM.deskTopY;
+  const slabY = ATRIUM.deskSlabY;
+  for (let k = 0; k < ATRIUM.deskSides; k += 1) {
+    const a = ((Math.PI * 2) / ATRIUM.deskSides) * k;
+    const n: Vec3 = [Math.cos(a), 0, Math.sin(a)];
+    const c0 = a - Math.PI / 8;
+    const c1 = a + Math.PI / 8;
+    const R = ATRIUM.deskR;
+    bBody.quad(pt(c0, R, 0), pt(c1, R, 0), pt(c1, R, slabY), pt(c0, R, slabY), [0, 0, 1, 1], n);
+    bBand.quad(
+      pt(c0, ATRIUM.bandR, ATRIUM.bandY0),
+      pt(c1, ATRIUM.bandR, ATRIUM.bandY0),
+      pt(c1, ATRIUM.bandR, ATRIUM.bandY1),
+      pt(c0, ATRIUM.bandR, ATRIUM.bandY1),
+      [0, 0, 1, 1],
+      n,
+    );
+    // 台面板出檐：沿口那一圈立面
+    bBody.quad(
+      pt(c0, topR, slabY),
+      pt(c1, topR, slabY),
+      pt(c1, topR, h),
+      pt(c0, topR, h),
+      [0, 0, 1, 1],
+      n,
+    );
+  }
+  // 台面：16 个三角，环点正落在八角的「面心 + 顶点」上，链段仍在台体边上，不额外鼓出
+  const triSector: number[] = [];
+  const step = (Math.PI * 2) / 16;
+  for (let k = 0; k < 16; k += 1) {
+    const a0 = step * k;
+    const a1 = step * (k + 1);
+    const p = pt(a0, rimR(a0), h);
+    const q = pt(a1, rimR(a1), h);
+    const u0 = uvOf(p);
+    const u1 = uvOf(q);
+    bTop.tri([0, h, 0], p, q, [0.5, 0.5, u0[0], u0[1], u1[0], u1[1]], UP, DESK_FACE.sector, sectorOf(a0 + step / 2));
+    triSector.push(sectorOf(a0 + step / 2));
+  }
+
+  const bCase = new GeoBuilder();
+  const bHood = new GeoBuilder();
+  const bLamp = new GeoBuilder();
+  const stands: BuiltCases['stands'] = [];
+  const W = ATRIUM.caseW;
+  const D = ATRIUM.caseD;
+  ROOMS.forEach((r, idx) => {
+    const a = r.angle;
+    const rad: Vec3 = [Math.cos(a), 0, Math.sin(a)];
+    const tan: Vec3 = [-Math.sin(a), 0, Math.cos(a)];
+    const cx = rad[0] * ATRIUM.caseR + tan[0] * ATRIUM.caseLean;
+    const cz = rad[2] * ATRIUM.caseR + tan[2] * ATRIUM.caseLean;
+    const c: Vec3 = [cx, 0, cz];
+    // 实心柜体 + 台面石板（石板出一檐，罩子坐在石板上）；ref = 区序号，命中即知是哪一区
+    bCase.slab([c[0], ATRIUM.caseBodyH / 2, c[2]], tan, UP, rad, W / 2, ATRIUM.caseBodyH / 2, D / 2, TILE.shelf, idx);
+    const lip = 0.14;
+    bCase.slab(
+      [c[0], (ATRIUM.caseBodyH + ATRIUM.caseTopY) / 2, c[2]],
+      tan, UP, rad, W / 2 + lip, (ATRIUM.caseTopY - ATRIUM.caseBodyH) / 2, D / 2 + lip, TILE.trim, idx,
+    );
+    // 亚克力罩：从台面向上 0.78，四面 + 顶
+    const hy0 = ATRIUM.caseTopY;
+    const hy1 = ATRIUM.hoodTopY;
+    const hm = (hy1 - hy0) / 2;
+    const hc: Vec3 = [c[0], hy0 + hm, c[2]];
+    bHood.slab(hc, tan, UP, rad, W / 2 - 0.06, hm, D / 2 - 0.06, 1, idx);
+    // 罩顶一盏极小的射灯（自发光盒，不占灯光预算）
+    bLamp.slab(
+      [c[0], hy1 + 0.07, c[2]], tan, UP, rad, 0.46, 0.07, 0.24, TILE.trim, idx,
+    );
+    stands.push({ key: r.key, angle: a, x: cx, z: cz });
+  });
+
+  return {
+    desk: {
+      body: bBody.toGeometry(),
+      top: bTop.toGeometry(),
+      band: bBand.toGeometry(),
+      triSector,
+      sectors: DESK_SECTORS.map((s) => ({ key: s.key, am: s.am, a0: s.a0, a1: s.a1 })),
+    },
+    cases: {
+      body: bCase.toGeometry(),
+      hood: bHood.toGeometry(),
+      lamp: bLamp.toGeometry(),
+      triRef: [...bCase.ref],
+      stands,
+      triangles: bCase.faces + bHood.faces + bLamp.faces,
+    },
+  };
+}
+
+function sectorOf(a: number): number {
+  const i = DESK_SECTORS.findIndex((s) => inArc(a, s.a0, s.a1));
+  return i < 0 ? -1 : i;
+}
+
+/** 角度 a 是否落在从 a0 逆时针到 a1 的弧内（a0/a1 已按递增排好，跨过 ±π 时补一个周期） */
+function inArc(a: number, a0: number, a1: number): boolean {
+  const t = (x: number): number => {
+    let v = x;
+    while (v < a0) v += Math.PI * 2;
+    while (v >= a0 + Math.PI * 2) v -= Math.PI * 2;
+    return v;
+  };
+  const x = t(a);
+  return x >= t(a0) && x < t(a1);
 }
 
 // ---------------------------------------------------------------- 走廊

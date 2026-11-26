@@ -45,6 +45,81 @@ export const ROOMS: RoomSpec[] = (
   return { ...r, angle, at: roomAt(angle) };
 });
 
+/**
+ * 批 12：中央索引台 + 内圈展柜。大厅尺度（半径 44 / 高 22）一字不动——那是批 10 俯瞰构图
+ * 的分母；要让 1.65 眼高有落点，只能往中心加内容。尺寸全部挂在 HALL_* 与 ROOMS 上。
+ */
+export const ATRIUM = {
+  /** 台体：八角棱柱，底面直径 8（外接半径 4），台面高 1.1 */
+  deskSides: 8,
+  deskR: 4,
+  /** 台面板：1.02 起、1.1 收面，沿口出一圈 0.22 的檐 */
+  deskSlabY: 1.02,
+  deskTopY: 1.1,
+  deskTopR: 4.22,
+  /** 台沿细灯带：贴在台身外侧上沿 */
+  bandY0: 0.82,
+  bandY1: 0.96,
+  bandR: 4.06,
+  /** 靠近 6 单位内台面自发光升档并出 HUD 提示 */
+  nearR: 6,
+  /** 台面扇区内缘：中心留一枚铜罗盘，不参与拾取 */
+  sectorR0: 1.15,
+  /** 展柜圈：沿内圈半径 18–22 摆六座 */
+  caseR: 19,
+  /**
+   * 每座沿切向偏走廊一侧（负 = 顺时针）。桌面净宽 3 + 人体半径 0.45，
+   * 直线通路要求 |caseLean| > 1.5 + 0.45；同时它得让 sight 射线在 25 单位内打得上柜体。
+   */
+  caseLean: -3.7,
+  caseW: 3,
+  caseD: 1.2,
+  /** 桌面高 1.2：实体柜体 0→1.02 + 台面石板 1.02→1.2 + 亚克力罩 1.2→1.94 */
+  caseBodyH: 1.02,
+  caseTopY: 1.2,
+  hoodTopY: 1.94,
+  /** 罩内立 2–3 根真实书脊 */
+  caseSpines: 3,
+  /** 大厅 walk 落位环：贴着台体（半径 4 的圆柱）外沿站定 */
+  standR: 4.6,
+} as const;
+
+/**
+ * 索引台扇区：把台面按「离哪条走廊最近」切成六块，边界取相邻门向的角平分线。
+ * 这样扇区中心角恒等于 ROOMS[].angle，扇区与走廊对齐是推导出来的，不是手调出来的；
+ * 两块扇区之间在两条壁画墙（0°、225°）方向自然留出 22.5° 的空白。
+ */
+export interface DeskSector {
+  key: Discipline;
+  /** 扇区中心角 = 该区走廊门向 */
+  am: number;
+  a0: number;
+  a1: number;
+}
+
+export const DESK_SECTORS: DeskSector[] = (() => {
+  const sorted = [...ROOMS].sort((a, b) => normPi(a.angle) - normPi(b.angle));
+  const n = sorted.length;
+  return sorted.map((r, i) => {
+    // 边界 = 与相邻门向的角平分线。差值必须先归到 (−π, π] 再折半，
+    // 否则跨过 ±180° 的那对（通识 −90° 与数学 180°）会取到优弧那一侧。
+    const bis = (other: number) => r.angle + normPi(other - r.angle) / 2;
+    return {
+      key: r.key,
+      am: r.angle,
+      a0: bis(sorted[(i - 1 + n) % n].angle),
+      a1: bis(sorted[(i + 1) % n].angle),
+    };
+  });
+})();
+
+function normPi(a: number): number {
+  let x = a;
+  while (x > Math.PI) x -= Math.PI * 2;
+  while (x <= -Math.PI) x += Math.PI * 2;
+  return x;
+}
+
 export const ROOM_BY_KEY: Record<Discipline, RoomSpec> = ROOMS.reduce(
   (acc, r) => Object.assign(acc, { [r.key]: r }),
   {} as Record<Discipline, RoomSpec>,

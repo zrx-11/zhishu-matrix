@@ -574,6 +574,132 @@ export function hallPlanTexture(counts: Record<Discipline, number>): THREE.Canva
 }
 
 /**
+ * 批 12 A3：索引台台面 —— 1024² 的六扇区方位图。
+ * 扇区边界取 `DESK_SECTORS` 的角平分线，与 `ROOMS[].angle` 同源；canvas 的 (cos a, sin a)
+ * 经 uvOf 的 v 翻转后正好是世界 (x, z)，所以「画在哪个角度」= 「指向哪条走廊」，不需要换算。
+ * 每扇区印区名 + 书数 + 章数，色用走廊牌匾那套区色；两条壁画墙（0°、225°）正落在扇区缝上。
+ */
+export interface DeskSectorRow {
+  short: string;
+  color: string;
+  am: number;
+  a0: number;
+  a1: number;
+  books: number;
+  chapters: number;
+}
+
+export function indexDeskTexture(rows: DeskSectorRow[]): THREE.CanvasTexture {
+  const S = 1024;
+  const { c, g } = canvas(S, S);
+  const cx = S / 2;
+  const cy = S / 2;
+  const R = S / 2 - 6;
+  g.fillStyle = '#1b2028';
+  g.fillRect(0, 0, S, S);
+  // 八角台面轮廓（顶点在 22.5°+45k，正好落进画布内切八边形）
+  g.beginPath();
+  for (let i = 0; i < 8; i += 1) {
+    const a = (Math.PI / 4) * i + Math.PI / 8;
+    const x = cx + Math.cos(a) * R;
+    const y = cy + Math.sin(a) * R;
+    if (i === 0) g.moveTo(x, y);
+    else g.lineTo(x, y);
+  }
+  g.closePath();
+  const plate = g.createRadialGradient(cx, cy, 0, cx, cy, R);
+  plate.addColorStop(0, '#3c4859');
+  plate.addColorStop(0.62, '#313d4d');
+  plate.addColorStop(1, '#232c39');
+  g.fillStyle = plate;
+  g.fill();
+  g.lineWidth = 6;
+  g.strokeStyle = '#c9a24a';
+  g.stroke();
+  // 刻度圈：每 15° 一道，45° 处加长—— visitor 一眼能把方位角读成罗盘
+  for (let k = 0; k < 24; k += 1) {
+    const a = (Math.PI / 12) * k;
+    const long = k % 3 === 0;
+    const r0 = R * (long ? 0.88 : 0.93);
+    g.beginPath();
+    g.moveTo(cx + Math.cos(a) * r0, cy + Math.sin(a) * r0);
+    g.lineTo(cx + Math.cos(a) * R * 0.975, cy + Math.sin(a) * R * 0.975);
+    g.lineWidth = long ? 5 : 3;
+    g.strokeStyle = long ? 'rgba(201,162,74,0.85)' : 'rgba(201,162,74,0.4)';
+    g.stroke();
+  }
+  for (const s of rows) {
+    const span = s.a1 - s.a0;
+    g.save();
+    g.beginPath();
+    g.moveTo(cx, cy);
+    g.arc(cx, cy, R * 0.87, s.a0, s.a1);
+    g.closePath();
+    const wedge = g.createRadialGradient(cx, cy, R * 0.16, cx, cy, R * 0.87);
+    wedge.addColorStop(0, `${s.color}20`);
+    wedge.addColorStop(1, `${s.color}70`);
+    g.fillStyle = wedge;
+    g.fill();
+    g.lineWidth = 5;
+    g.strokeStyle = `${s.color}d0`;
+    g.stroke();
+    // 三条射线从中心打向门向：把「这块扇区通往哪条走廊」画成看得见的箭头
+    g.beginPath();
+    g.moveTo(cx + Math.cos(s.am) * R * 0.3, cy + Math.sin(s.am) * R * 0.3);
+    g.lineTo(cx + Math.cos(s.am) * R * 0.83, cy + Math.sin(s.am) * R * 0.83);
+    g.lineWidth = 7;
+    g.strokeStyle = s.color;
+    g.stroke();
+    g.beginPath();
+    const tip = R * 0.85;
+    for (const da of [-0.06, 0.06]) {
+      g.moveTo(cx + Math.cos(s.am) * tip, cy + Math.sin(s.am) * tip);
+      g.lineTo(cx + Math.cos(s.am + da + Math.PI * 0.86) * R * 0.74, cy + Math.sin(s.am + da + Math.PI * 0.86) * R * 0.74);
+    }
+    g.lineWidth = 6;
+    g.stroke();
+    // 字头朝台心：人站在自己那一侧的台边低头读，这一向才是正立（朝外会把本区读成倒字）
+    g.translate(cx + Math.cos(s.am) * R * 0.58, cy + Math.sin(s.am) * R * 0.58);
+    g.rotate(s.am - Math.PI / 2);
+    g.textAlign = 'center';
+    g.textBaseline = 'middle';
+    g.shadowColor = 'rgba(0,0,0,0.85)';
+    g.shadowBlur = 12;
+    g.fillStyle = '#f2e9d6';
+    g.font = `700 ${span > 1.1 ? 52 : 46}px ${SANS}`;
+    g.fillText(s.short, 0, -40);
+    g.fillStyle = s.color;
+    g.font = `700 ${span > 1.1 ? 38 : 34}px ${SANS}`;
+    g.fillText(`${s.books} 本`, 0, 10);
+    g.fillStyle = '#cbd6e6';
+    g.font = `400 30px ${SANS}`;
+    g.fillText(`${s.chapters} 章`, 0, 54);
+    g.restore();
+  }
+  // 中心铜罗盘：不参与拾取，只压住十六道三角缝的汇聚点
+  g.beginPath();
+  g.arc(cx, cy, R * 0.26, 0, Math.PI * 2);
+  const brass = g.createRadialGradient(cx - R * 0.07, cy - R * 0.08, R * 0.02, cx, cy, R * 0.26);
+  brass.addColorStop(0, '#6d5b30');
+  brass.addColorStop(0.7, '#463a20');
+  brass.addColorStop(1, '#2c2414');
+  g.fillStyle = brass;
+  g.fill();
+  g.lineWidth = 5;
+  g.strokeStyle = '#c9a24a';
+  g.stroke();
+  g.textAlign = 'center';
+  g.textBaseline = 'middle';
+  g.fillStyle = '#f0dca6';
+  g.font = `700 40px ${SANS}`;
+  g.fillText('六区索引', cx, cy - 16);
+  g.font = `400 26px ${SANS}`;
+  g.fillStyle = '#b6a678';
+  g.fillText('准星选扇区', cx, cy + 22);
+  return finish(c, 8);
+}
+
+/**
  * 批 10 B1：大厅藻井圈顶板贴图。画布横向 = 一圈方位角（8 条梁缝在 1/8 的整数倍），
  * 纵向 = 从内缘到外缘（0=内、1=外）。16 格 × 2 排，格心深暖褐、格缝近黑，
  * 内缘一排带一点顶光高光——梁是浅木、板是深木，俯视时梁板才分得开。
