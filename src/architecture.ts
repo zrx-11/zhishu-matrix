@@ -510,11 +510,20 @@ export interface BuiltHall {
   muralPanels: THREE.BufferGeometry;
   muralFaces: Array<{ center: Vec3; normal: Vec3 }>;
   ceiling: THREE.BufferGeometry;
+  /** 批 10 B1：藻井圈（8 扇环带，顶面/内檐/底面/外檐），补光下梁与顶板明度可分开 */
+  coffer: THREE.BufferGeometry;
   frames: THREE.BufferGeometry;
   beams: THREE.Matrix4[];
   doors: Array<{ angle: number; plaque: Vec3; normal: Vec3; dir: Vec3; headerY: number }>;
   stats: { sides: number; doors: number; murals: number; ceilingBeams: number; radius: number; height: number };
 }
+
+/**
+ * 批 10 B1 藻井圈参数：内径 38 让远端通识门洞的门楣（y=15.5）仍从圈内看得到，
+ * 外径 43.6 离墙面（内切 44）留 0.4 的暗缝；圈顶 21.15 比径向梁顶 21.775 低，
+ * 梁从圈面凸出 0.6，俯视才有「梁压板」的层级。采样口径见 scene3d.hallLightProbe。
+ */
+export const COFFER = { rIn: 38, rOut: 43.6, yTop: 21.15, yBot: 20.75, sides: HALL_SIDES } as const;
 
 function sideBasis(k: number) {
   const angle = (Math.PI * 2 * k) / HALL_SIDES;
@@ -539,6 +548,7 @@ export function buildHall(doorAngles: number[]): BuiltHall {
   const bWalls = new GeoBuilder();
   const bMural = new GeoBuilder();
   const bCeil = new GeoBuilder();
+  const bCoffer = new GeoBuilder();
   const bFrame = new GeoBuilder();
   const muralFaces: BuiltHall['muralFaces'] = [];
   const doors: BuiltHall['doors'] = [];
@@ -598,6 +608,22 @@ export function buildHall(doorAngles: number[]): BuiltHall {
     bCeil.tri([0, H, 0], p, q, [0.5, 0.5, a[0], a[1], c[0], c[1]], [0, -1, 0]);
   });
 
+  // 批 10 B1：藻井圈。u = 方位角/2π（贴图 16 列对齐 8 条径向梁，每扇 2 列），
+  // v = 内缘 0 → 外缘 1（贴图内侧亮、外侧压暗）。顶面/内檐/底面/外檐各一面，按扇拼成一块几何。
+  for (let k = 0; k < COFFER.sides; k += 1) {
+    const a0 = (Math.PI * 2 * k) / COFFER.sides;
+    const a1 = (Math.PI * 2 * (k + 1)) / COFFER.sides;
+    const am = (a0 + a1) / 2;
+    const u0 = a0 / (Math.PI * 2);
+    const u1 = a1 / (Math.PI * 2);
+    const pt = (r: number, y: number, a: number): Vec3 => [Math.cos(a) * r, y, Math.sin(a) * r];
+    const uv: [number, number, number, number] = [u0, 0, u1, 1];
+    bCoffer.quad(pt(COFFER.rIn, COFFER.yTop, a0), pt(COFFER.rIn, COFFER.yTop, a1), pt(COFFER.rOut, COFFER.yTop, a1), pt(COFFER.rOut, COFFER.yTop, a0), uv, UP);
+    bCoffer.quad(pt(COFFER.rIn, COFFER.yBot, a0), pt(COFFER.rIn, COFFER.yBot, a1), pt(COFFER.rOut, COFFER.yBot, a1), pt(COFFER.rOut, COFFER.yBot, a0), uv, [0, -1, 0]);
+    bCoffer.quad(pt(COFFER.rIn, COFFER.yTop, a0), pt(COFFER.rIn, COFFER.yTop, a1), pt(COFFER.rIn, COFFER.yBot, a1), pt(COFFER.rIn, COFFER.yBot, a0), [u0, 0, u1, 1], [-Math.cos(am), 0, -Math.sin(am)]);
+    bCoffer.quad(pt(COFFER.rOut, COFFER.yTop, a0), pt(COFFER.rOut, COFFER.yTop, a1), pt(COFFER.rOut, COFFER.yBot, a1), pt(COFFER.rOut, COFFER.yBot, a0), [u0, 0, u1, 1], [Math.cos(am), 0, Math.sin(am)]);
+  }
+
   const m = new THREE.Matrix4();
   const q0 = new THREE.Quaternion();
   const v = new THREE.Vector3();
@@ -607,7 +633,7 @@ export function buildHall(doorAngles: number[]): BuiltHall {
   for (let k = 0; k < HALL_SIDES; k += 1) {
     const s = sideBasis(k);
     q0.setFromAxisAngle(axis, Math.PI / 2 - s.angle);
-    m.compose(v.set(s.center[0] * 0.5, H - 0.7, s.center[2] * 0.5), q0, sc.set(0.85, 0.95, HALL_RADIUS));
+    m.compose(v.set(s.center[0] * 0.5, H - 0.7, s.center[2] * 0.5), q0, sc.set(1.6, 0.95, HALL_RADIUS));
     beams.push(m.clone());
   }
   for (let k = 0; k < HALL_SIDES; k += 1) {
@@ -623,6 +649,7 @@ export function buildHall(doorAngles: number[]): BuiltHall {
     muralPanels: bMural.toGeometry(),
     muralFaces,
     ceiling: bCeil.toGeometry(),
+    coffer: bCoffer.toGeometry(),
     frames: bFrame.toGeometry(),
     beams,
     doors,

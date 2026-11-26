@@ -283,7 +283,9 @@ export function buildLightRig(): LightRig {
   // 中途加过一盏自下而上的 DirectionalLight 补顶面，实测代价 2.7× 帧时（大厅同机位 8s 采样
   // 62.1 → 165.2 fps），收益只有大厅整帧 p95 0.06497 → 0.08002；顶面改用「抬地面色 + 抬天花反照率」
   // 这条路，灯撤掉（见 _work/decisions.md 批 9 C1 一节）。
-  const hemi = new THREE.HemisphereLight(0xb9a17a, 0x3c4352, 0.52);
+  // 批 10 B2：0.52 → 0.8。批 9 的抬法只够「顶面不死黑」，390 竖屏俯冲机位下地面与六栋体量仍整片
+  // 落在 0.02 以下（暗像素 57%）；抬环境光后同机位 1.1%，桌面整帧 p5 仍 0.0196（≤0.03 不掉）。
+  const hemi = new THREE.HemisphereLight(0xb9a17a, 0x3c4352, 0.8);
   hemi.position.set(0, 400, 0);
   const key = new THREE.DirectionalLight(0xffe6c4, 1.15);
   key.castShadow = true;
