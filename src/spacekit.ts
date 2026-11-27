@@ -390,7 +390,7 @@ export function buildPostChain(
   composer.setPixelRatio(renderer.getPixelRatio());
   composer.setSize(width, height);
   const render = new RenderPass(scene, camera);
-  const bloom = new UnrealBloomPass(new THREE.Vector2(width, height), 0.5, 0.5, 0.6);
+  const bloom = new UnrealBloomPass(new THREE.Vector2(width, height), 0.6, 0.5, 0.45);
   const output = new OutputPass();
   composer.addPass(render);
   composer.addPass(bloom);

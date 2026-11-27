@@ -337,7 +337,7 @@ try {
   // 实测（5 轮 on/off 交替，极差 0.00000）：簇窗 Δmean 0.00623 / Δp95 0.02970，
   // 整帧 Δmean 0.00229 / Δp95 0.00428——整帧 p95 落在暗部平台上，关掉 bloom 时它本来就只降 1/255，
   // 单帧采样会取到「两边同为 0.06069」的相等结果，所以这条判据改由簇窗承担，整帧 Δmean 仍然保留。
-  const BLOOM_CLUSTER = [0.26, 0.24, 0.44, 0.48];
+  const BLOOM_CLUSTER = [0.32, 0.49, 0.08, 0.08];
   const lumMedian = async (box, n = 3) => {
     const rows = [];
     for (let i = 0; i < n; i += 1) {
@@ -350,12 +350,19 @@ try {
     };
     return { mean: med('mean'), p95: med('p95'), brightRatio: med('brightRatio'), samples: rows[0]?.samples ?? 0 };
   };
+  // 批 14：大厅天花板换成星空顶、走廊区灯撤到 2 盏之后，总览机位的整帧 p95 掉到 0.095，
+  // 全画面没有任何像素越过 bloom 阈值（逐格扫描 24 格 Δmean 全为 0），这条对照在总览机位上已无信号。
+  // 改到漫游机位采：索引台台面上方的灯条（emissive 2.2）是画面里唯一稳定的超阈值高光。
+  await d.evaluate(() => window.__zhishu.setWalk(true));
+  await d.waitForTimeout(700);
   const fullBase = await lumMedian([0, 0, 1, 1]);
   const clusterBase = await lumMedian(BLOOM_CLUSTER);
-  await d.evaluate(() => window.__zhishu.setPassEnabled('Bloom', false));
+  await d.evaluate(() => window.__zhishu.setPassEnabled('UnrealBloomPass', false));
   const fullNoBloom = await lumMedian([0, 0, 1, 1]);
   const clusterNoBloom = await lumMedian(BLOOM_CLUSTER);
-  await d.evaluate(() => window.__zhishu.setPassEnabled('Bloom', true));
+  await d.evaluate(() => window.__zhishu.setPassEnabled('UnrealBloomPass', true));
+  await d.evaluate(() => window.__zhishu.setWalk(false));
+  await d.waitForTimeout(500);
   log.push(
     `大厅亮度对照：整帧 ${fullBase.mean}(p95 ${fullBase.p95}) / 关 bloom ${fullNoBloom.mean}(p95 ${fullNoBloom.p95})；` +
       `高光簇 ${clusterBase.mean}(p95 ${clusterBase.p95}) / 关 bloom ${clusterNoBloom.mean}(p95 ${clusterNoBloom.p95})`,

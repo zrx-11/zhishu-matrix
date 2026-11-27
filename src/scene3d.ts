@@ -441,6 +441,8 @@ export class Matrix3D {
   private atrium: THREE.Group | null = null;
   private caseBodies: THREE.Mesh | null = null;
   private caseHoodMat: THREE.MeshStandardMaterial | null = null;
+  /** 批 14：大厅顶星空天窗的 shader 材质（每帧只更新一个 uTime） */
+  private skyMat: THREE.ShaderMaterial | null = null;
   private caseLampMat: THREE.MeshStandardMaterial | null = null;
   /** 六个扇区各一块加法混合楔形，只在准星压住时可见 */
   private sectorHl: THREE.Mesh[] = [];
@@ -621,7 +623,10 @@ export class Matrix3D {
     );
     mural.userData.role = 'mural';
     this.hall.add(mural);
-    this.hall.add(this.mark(new THREE.Mesh(built.ceiling, shellMat), 'hallCeiling', {}));
+    // 批 14：天花板整面换成夜空（深空底 + 三层星点，shader 现算）。批 12 之前的顶是着色板，
+    // 站到 1.65 眼高抬头只看到一片被泛光洗亮的褐色——「星空顶」必须自己发光，不能靠别的灯照。
+    this.skyMat = this.makeStarMat();
+    this.hall.add(this.mark(new THREE.Mesh(built.ceiling, this.skyMat), 'hallCeiling', {}));
     this.hall.add(this.mark(new THREE.Mesh(built.frames, this.brass()), 'hallDoorFrame', { castShadow: true }));
 
     // 批 10 B1：径向梁加宽一档（0.85→1.6）并带微自发光——俯视 1440 下梁宽才 3–4 像素，
@@ -637,6 +642,7 @@ export class Matrix3D {
     this.hall.add(beams);
 
     this.buildAtriumContent();
+    this.buildHallSky();
     this.buildChandelier();
     this.buildFacades(wallMat);
     this.hall.userData.stats = built.stats;
@@ -648,6 +654,103 @@ export class Matrix3D {
    * 加内容挣回来。几何在 `architecture.buildAtrium` 里按 `config.ATRIUM` + ROOMS 的角序生成，
    * 碰撞盒（`walk.atriumBlockers`）读的是同一批数——所见即所撞，不另立尺寸。
    */
+  /**
+   * 批 14：大厅顶的星空天窗 + 地面同心环。
+   * 星空只用一块半径 26 的圆盘贴在顶上（HALL_HEIGHT 下方 0.45），四周藻井梁原样保留——
+   * 批 10 的「梁顶明度差 ≥8/255」因此不回退。星星在一个 fragment shader 里按网格 hash 现算，
+   * 三层不同密度 + 各自相位闪烁，不引任何贴图/依赖（沿用批 8 的零外部资产约束）。
+   * 地面两圈加色环不带碰撞与拾取，只为 1.65 眼高提供「脚下有尺度」的参照。
+   */
+  /** 星空 shader 只吃一个累加时间量，帧时上限 0.1 防止切后台回来跳一大步 */
+  private tickSky(dt: number): void {
+    if (this.skyMat) this.skyMat.uniforms.uTime.value += Math.min(dt, 0.1);
+  }
+
+  /**
+   * 批 14：夜空材质。天花板整面用它，星星在 fragment 里按 uv 网格 hash 现算：
+   * 三层不同密度、各自相位闪烁；深空底色抬到 0.05 左右，不压成纯黑（批 10 的 p5 ≤0.03 不能回退）。
+   * 不引任何贴图/依赖，沿用批 8 的零外部资产约束。
+   */
+  private makeStarMat(): THREE.ShaderMaterial {
+    const mat = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: { value: 0 },
+        uWarm: { value: new THREE.Color('#ffe6c8') },
+        uCool: { value: new THREE.Color('#cfdcff') },
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform float uTime;
+        uniform vec3 uWarm;
+        uniform vec3 uCool;
+        varying vec2 vUv;
+        float hash21(vec2 p) {
+          p = fract(p * vec2(123.34, 456.21));
+          p += dot(p, p + 45.32);
+          return fract(p.x * p.y);
+        }
+        float starLayer(vec2 uv, float freq, float cut, float size, float speed, float seed) {
+          vec2 g = uv * freq + seed;
+          vec2 id = floor(g);
+          vec2 f = fract(g) - 0.5;
+          float h = hash21(id);
+          if (h < cut) return 0.0;
+          float mag = (h - cut) / (1.0 - cut);
+          float d = length(f);
+          float tw = 0.55 + 0.45 * sin(uTime * (0.7 + h * speed) + h * 91.0);
+          return smoothstep(size, 0.0, d) * tw * (0.25 + 0.75 * mag);
+        }
+        void main() {
+          // 频率按「一格里只允许一颗星」往上抬：46/110/210 在近顶视角下每格占屏 20+ 像素，
+          // 出来是一团散景光斑而不是星点（实测），这里抬到 170/380/700 并把半径收到 0.1 量级
+          float near = starLayer(vUv, 170.0, 0.982, 0.16, 5.0, 0.0);
+          float mid = starLayer(vUv, 380.0, 0.962, 0.11, 9.0, 7.3);
+          float far = starLayer(vUv, 700.0, 0.9955, 0.18, 3.0, 19.1);
+          float bright = clamp(near * 0.9 + mid * 0.5 + far, 0.0, 0.95);
+          vec3 col = mix(uCool, uWarm, clamp(far * 1.6 + near * 0.5, 0.0, 1.0));
+          // 整面顶即夜空：深空底 0.05 左右（不是纯黑，p5 判据不允许整块掉黑），星点直接加在上面
+          vec3 sky = vec3(0.045, 0.055, 0.095);
+          gl_FragColor = vec4(sky + col * bright, 1.0);
+        }
+      `,
+      transparent: false,
+      depthWrite: true,
+      side: THREE.DoubleSide,
+      fog: false,
+    });
+    return mat;
+  }
+
+  /** 批 14：地面两圈加色环，只为 1.65 眼高提供「脚下有尺度」的参照，不带碰撞与拾取 */
+  private buildHallSky(): void {
+    const grp = new THREE.Group();
+    grp.userData.role = 'hallRings';
+    for (const [r, o] of [[11, 0.22], [19.5, 0.14]] as Array<[number, number]>) {
+      const ring = new THREE.Mesh(
+        new THREE.RingGeometry(r - 0.18, r + 0.18, 192),
+        new THREE.MeshBasicMaterial({
+          color: 0xffd9a0,
+          transparent: true,
+          opacity: o,
+          blending: THREE.AdditiveBlending,
+          depthWrite: false,
+          side: THREE.DoubleSide,
+        }),
+      );
+      ring.rotation.x = -Math.PI / 2;
+      ring.position.y = 0.02;
+      ring.userData.role = 'hallRing';
+      grp.add(ring);
+    }
+    this.hall.add(grp);
+  }
+
   private buildAtriumContent(): void {
     const built = buildAtrium();
     const grp = new THREE.Group();
@@ -706,7 +809,7 @@ export class Matrix3D {
       roughness: 0.42,
       metalness: 0.45,
       emissive: new THREE.Color('#ffd7a0'),
-      emissiveIntensity: 0.55,
+      emissiveIntensity: 2.2,
     });
     grp.add(this.mark(new THREE.Mesh(built.desk.band, this.deskBandMat), 'deskBand', {}));
 
@@ -875,7 +978,7 @@ export class Matrix3D {
     if (near === this.deskNear) return;
     this.deskNear = near;
     if (this.deskTopMat) this.deskTopMat.emissiveIntensity = near ? 0.5 : 0.34;
-    if (this.deskBandMat) this.deskBandMat.emissiveIntensity = near ? 0.8 : 0.55;
+    if (this.deskBandMat) this.deskBandMat.emissiveIntensity = near ? 2.6 : 2.2;
     if (this.caseLampMat) this.caseLampMat.emissiveIntensity = near ? 0.6 : 0.5;
     if (this.deskLight) this.deskLight.intensity = near ? 18 : 14;
     this.hudStale = true;
@@ -1590,7 +1693,7 @@ export class Matrix3D {
       // 自发光是零光源成本的，走廊里那条彩色光带还在，但整帧不再为它多算一次点光。
       const floorMat = this.wood('#3a2a1a', 5);
       floorMat.emissive = new THREE.Color(r.color);
-      floorMat.emissiveIntensity = 0.14;
+      floorMat.emissiveIntensity = 0.30;
       const floor = new THREE.Mesh(built.floor, floorMat);
       floor.receiveShadow = true;
       floor.userData.role = 'corridorFloor';
@@ -1666,8 +1769,11 @@ export class Matrix3D {
     floorTex.repeat.set(14, 14);
     floorTex.needsUpdate = true;
     this.walkTextures.push(floorTex);
+    // 批 14：漫游地面改低粗糙度 + 抬环境反射，站到 1.65 眼高上能看见石材的反光与顶光高光带；
+    // 再给一层极弱的冷色自发光，避免暗角处整块掉黑（p5 仍由门槛盯着）
     this.walkFloorMat = new THREE.MeshStandardMaterial({
-      map: floorTex, roughness: 0.86, metalness: 0.06, envMapIntensity: 0.42,
+      map: floorTex, roughness: 0.58, metalness: 0.12, envMapIntensity: 0.65,
+      emissive: new THREE.Color('#1b2430'), emissiveIntensity: 0.06,
     });
     const groundTex = stone.clone();
     // 场地的 UV 本来就按 26 单位一瓦片铺（比大厅地面还糊），再切 4 份 → 6.5 单位一瓦片
@@ -1935,7 +2041,9 @@ export class Matrix3D {
       strafe /= mag;
     }
     const moved = mag > 1e-6;
-    this.sprint = this.sprint && moved;
+    // 疾走只由 Shift 键状态决定（onKeyUp / onBlur 负责复位）。
+    // 曾写 this.sprint = this.sprint && moved：Shift 与 W 之间只要插进一帧“只按 Shift”的空帧，
+    // moved 为假就把 sprint 清掉，之后按 W 也只剩步行速度（批 14 门槛 ratio 1.00 即此因）。
     if (!moved) return 0;
     const step = WALK.speed * (this.sprint ? WALK.sprint : 1) * Math.min(dt, 0.05);
     const dir = this.walkForward(TEMP_A);
@@ -4325,10 +4433,12 @@ export class Matrix3D {
         this.lastActive = now;
         this.applyLod();
         this.updateBillboards();
+        this.tickSky(dt);
         this.renderOnce();
         this.aimUpdate();
       } else {
         this.panKeys(dt);
+        this.tickSky(dt);
         this.updateControls();
         this.applyLod();
         this.updateBillboards();
