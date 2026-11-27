@@ -12,6 +12,8 @@ import {
   ATRIUM,
   CORRIDOR_W,
   DOOR_W,
+  FACADE_DOOR,
+  FACADE_PORCH,
   FACADE_SIDE,
   HALL_RADIUS,
   HALL_SIDES,
@@ -155,17 +157,44 @@ export function hallBlockers(corridors: CorridorAxis[]): Blocker[] {
   for (const axis of corridors) {
     out.push(...corridorBlockers(axis, { sealHallEnd: false, facadeFrom }));
   }
-  // 六栋体量外壳是实心盒：走廊尽头就是它，「走到房间门口」= 被这面墙挡在门口
-  for (const r of ROOMS) out.push({
-    cx: r.at[0],
-    cz: r.at[1],
-    hx: FACADE_SIDE / 2,
-    hz: FACADE_SIDE / 2,
-    yaw: 0,
-    y0: 0,
-    y1: OPEN_TOP,
-    kind: 'facade',
-  });
+  /*
+   * 批 20：体量外壳不再是实心盒，正面中央留门洞。三块都在**房间自己那一套轴**里量
+   * （yaw = π/2 − angle，本地 −Z 朝大厅），与 buildFacades 的体量、阅览室正门同向；
+   * 早先写死 yaw 0 时，45° 四区的轴对齐盒角会比正门面早 5.4 单位戳进走廊。
+   * 左/右翼通长（hz = half），中门洞宽 2·dw、深 FACADE_DOOR.recess，再往后是实心后墙：
+   * 门洞只够人走进门洞里，穿不过外壳，「六向推进第一下阻挡仍是 facade」也继续成立。
+   */
+  const fdw = FACADE_DOOR.w / 2;
+  const wingHx = (FACADE_SIDE / 2 - fdw) / 2;
+  const wingCx = (FACADE_SIDE / 2 + fdw) / 2;
+  const backHz = FACADE_SIDE / 2 - FACADE_DOOR.recess / 2;
+  for (const r of ROOMS) {
+    const yaw = Math.PI / 2 - r.angle;
+    const c = Math.cos(yaw);
+    const s = Math.sin(yaw);
+    const push = (lx: number, lz: number, hx: number, hz: number): void => {
+      out.push({
+        cx: r.at[0] + lx * c + lz * s,
+        cz: r.at[1] - lx * s + lz * c,
+        hx,
+        hz,
+        yaw,
+        y0: 0,
+        y1: OPEN_TOP,
+        kind: 'facade',
+      });
+    };
+    push(-wingCx, 0, wingHx, FACADE_SIDE / 2);
+    push(wingCx, 0, wingHx, FACADE_SIDE / 2);
+    push(0, FACADE_DOOR.recess / 2, fdw, backHz);
+    // 同尺寸的门廊左右翼：斜向贴墙走到门口时，不再从凸出的门斗里穿过去
+    const pHz = FACADE_PORCH.depth / 2;
+    const pCx = (FACADE_PORCH.halfW + fdw) / 2;
+    const pWingHx = (FACADE_PORCH.halfW - fdw) / 2;
+    const pZ = -FACADE_SIDE / 2 - pHz;
+    push(-pCx, pZ, pWingHx, pHz);
+    push(pCx, pZ, pWingHx, pHz);
+  }
   out.push(...atriumBlockers());
   return out;
 }

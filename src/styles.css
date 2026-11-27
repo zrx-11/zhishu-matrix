@@ -275,7 +275,10 @@ button {
   position: absolute;
   z-index: 2;
   left: 10px;
-  bottom: 10px;
+  /* 批 20 修正：小地图开始接指针事件后，压在底部 #roombar 上会挡住「数学」等分区按钮（
+     实测 elementFromPoint 命中 minimap-canvas，点不动）。抬到 roombar 之上，
+     具体下限由 main.ts 的 initMinimapDrag 按 roombar 实测高度钳制。 */
+  bottom: 56px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: rgba(14, 16, 21, 0.9);
@@ -297,6 +300,14 @@ button {
 
 #minimap[hidden] {
   display: none;
+}
+
+/* 批 20：窄视口（390×844 口径实测）里卡片占屏 36%，且与主体投影重叠 11.6% 越过 10% 上限。
+   这一档本来就靠摇杆/手势走位，没有鼠标拖卡片的需求，直接不显示，把画面让给场景。 */
+@media (max-width: 520px) {
+  #minimap {
+    display: none;
+  }
 }
 
 #minimap-canvas {

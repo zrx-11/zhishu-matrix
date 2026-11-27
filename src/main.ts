@@ -33,7 +33,7 @@ import {
   viewMode,
 } from './panel';
 import { store, type CameraPose } from './state';
-import type { Matrix3D } from './scene3d';
+import type { Matrix3D, WalkLanding } from './scene3d';
 
 /** 批 9 起全端只有 3D 一条渲染路径（2D 降级视图与 `svg2d.ts` 已删除） */
 type View = Matrix3D;
@@ -71,10 +71,18 @@ function initMinimapDrag(): void {
   const mm = els.minimap;
   if (!mm) return;
   const KEY = 'zhishu.minimap.pos';
+  // 底部这条学科切换栏不能被卡片压住：它自己也是可点的按钮，实测被 minimap 盖住时点不动。
+  // 用 roombar 顶边到视口底的距离（不是它自身高度）——下面还叠着一行 HUD 提示。
+  const floorBottom = (): number => {
+    const rb = document.getElementById('roombar');
+    if (!rb) return 56;
+    return Math.max(56, Math.ceil(window.innerHeight - rb.getBoundingClientRect().top) + 8);
+  };
   const clamp = (v: number, max: number): number => Math.min(Math.max(v, 6), Math.max(6, max));
   const place = (left: number, bottom: number): void => {
     mm.style.left = `${clamp(left, window.innerWidth - mm.offsetWidth - 6)}px`;
-    mm.style.bottom = `${clamp(bottom, window.innerHeight - mm.offsetHeight - 6)}px`;
+    const maxBottom = Math.max(floorBottom(), window.innerHeight - mm.offsetHeight - 6);
+    mm.style.bottom = `${Math.min(Math.max(bottom, floorBottom()), maxBottom)}px`;
   };
   try {
     const raw = localStorage.getItem(KEY);
@@ -305,27 +313,30 @@ async function findBook(sel: BookSel): Promise<boolean> {
   return true;
 }
 
-async function enterRoom(discipline: Discipline): Promise<void> {
+async function enterRoom(discipline: Discipline, landing?: WalkLanding | null): Promise<void> {
   if (!manifest || !view) return;
   searchSpot = null; // 用户自己走了，检索返程落点即失效
-  // 离开大厅时存下大厅相机，返回时原样恢复（判据：返回后相机与选中状态不丢）
-  if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
-  else store.setHallCamera(view.currentPose());
+  // 离开大厅时存下大厅相机，返回时原样恢复（判据：返回后相机与选中状态不丢）。
+  // 漫游态（走路进门）不写存档：1.65 眼高的走位不是俯瞰机位，写进去会把「返回大厅」的存档带歪。
+  if (view.camModeName() === 'orbit') {
+    if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
+    else store.setHallCamera(view.currentPose());
+  }
   currentRoom = discipline;
   const books = booksOf(manifest, discipline);
   const records = books.length ? await recordsOf(discipline) : new Map<string, BookRecord>();
-  view.enterRoom(discipline, books, records, store.snapshot.roomCameras[discipline] ?? null);
+  view.enterRoom(discipline, books, records, store.snapshot.roomCameras[discipline] ?? null, landing ?? null);
   setWhere(`${ROOM_BY_KEY[discipline].title} · ${books.length} 本`);
   store.setView('room', discipline);
   syncRoombar();
 }
 
-function showHall(): void {
+function showHall(landing?: WalkLanding | null): void {
   if (!view) return;
   searchSpot = null;
-  if (currentRoom) store.setRoomCamera(currentRoom, view.currentPose());
+  if (currentRoom && view.camModeName() === 'orbit') store.setRoomCamera(currentRoom, view.currentPose());
   currentRoom = null;
-  view.showHall(store.snapshot.hallCamera);
+  view.showHall(store.snapshot.hallCamera, landing ?? null);
   setWhere('中央大厅');
   store.setView('hall', null);
   syncRoombar();
@@ -482,7 +493,8 @@ async function mount(): Promise<void> {
   const { Matrix3D } = await import('./scene3d');
   els.three.hidden = false;
   view = new Matrix3D(els.three, manifest, {
-    onPickRoom: (d) => void enterRoom(d),
+    onPickRoom: (d, landing) => void enterRoom(d, landing),
+    onShowHall: (landing) => showHall(landing),
     onPickBook: (_d, b) => pickBook(b),
     onPickChapter: (_d, b, cid) => pickChapter(b, cid),
     onPickConcept: (_d, b, cid) => pickConcept(b, cid),
@@ -654,9 +666,9 @@ function exposeDiagnostics(): void {
       if (first) await openChapter(first);
       return true;
     },
-    enterRoom: (d: Discipline) => void enterRoom(d),
+    enterRoom: (d: Discipline, landing?: WalkLanding | null) => void enterRoom(d, landing),
     holdMinimap,
-    showHall,
+    showHall: (landing?: WalkLanding | null) => showHall(landing),
     wake: () => {
       if (view) view.nudge();
     },
@@ -683,7 +695,7 @@ function exposeDiagnostics(): void {
 }
 
 function boot(): void {
-  els.home?.addEventListener('click', showHall);
+  els.home?.addEventListener('click', () => showHall());
   els.walk?.addEventListener('click', () => {
     toggleWalk();
   });

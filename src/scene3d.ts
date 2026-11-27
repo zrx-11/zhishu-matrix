@@ -11,6 +11,8 @@ import {
   CORRIDOR_H,
   CORRIDOR_W,
   DOOR_W,
+  FACADE_DOOR,
+  FACADE_PORCH,
   FACADE_SIDE,
   HALL_FOV_MAX,
   HALL_FOV_MIN,
@@ -154,6 +156,35 @@ const NEIGHBOR = {
   safetyMs: 8000,
 } as const;
 
+/**
+ * 批 20：大厅正门（走廊尽头的体量外壳门）走位判定。
+ * 门平面固定在外壳正面 `ROOM_DIST − FACADE_SIDE/2 = 137`，与阅览室正门墙同一圈；
+ * 门洞净宽走 config 的 FACADE_DOOR.w，判定只用水平距离（门内用房间局部坐标），不发射线。
+ * 落位各退 3 米：进房落在门内 3 米，回大厅落在门外 3 米（走廊里），两边都离触发带 ≥1 米。
+ */
+const FRONT_DOOR = {
+  /** 门平面到厅心的径向距离 */
+  planeR: ROOM_DIST - FACADE_SIDE / 2,
+  /** 厅侧触发半径：站在门前 2 米内 */
+  enterR: 2,
+  /** 房间侧触发带：正门外 0–1.5 米、横向不超过门洞半宽 */
+  exitDepth: 1.5,
+  /** 两个方向的落位内缩/外退 */
+  dropIn: 3,
+  dropOut: 3,
+} as const;
+
+/**
+ * 批 20：走门时的落位。经 `onPickRoom` / `onShowHall` 交给 main 的
+ * `enterRoom` / `showHall`，再由 `rewalkAfterViewSwitch` 落到相机上——
+ * 仍是既有那条进出房间通道的第二个参数，不另立一套相机与碰撞逻辑。
+ */
+export interface WalkLanding {
+  x: number;
+  z: number;
+  yaw: number;
+}
+
 interface NeighborDoor {
   /** 环序下一区（ROOMS 顺序循环） */
   to: Discipline;
@@ -177,7 +208,10 @@ interface NeighborDoor {
 }
 
 export interface ThreeHooks {
-  onPickRoom(discipline: Discipline): void;
+  /** 第二参数（批 20）只在「走路进门」时给出落位；点选/邻区切换不带，仍走原来的默认落位 */
+  onPickRoom(discipline: Discipline, landing?: WalkLanding): void;
+  /** 批 20：走路出正门回大厅；landing 落在走廊里、脸朝大厅。点顶栏回大厅不带 */
+  onShowHall?(landing?: WalkLanding): void;
   onPickBook(discipline: Discipline, book: SiteEntry): void;
   onPickChapter(discipline: Discipline, book: SiteEntry, chapterId: string): void;
   onPickConcept(discipline: Discipline, book: SiteEntry, conceptId: string): void;
@@ -714,6 +748,18 @@ export class Matrix3D {
   private neighborSafety = 0;
   private neighborUnlock = 0;
   private neighborFade: HTMLDivElement | null = null;
+  /* ------------------------------------------------- 批 20：大厅正门的走路进出 */
+  /** 已触发、正在等目标区建好；在这期间 doorTick 不再出第二枪 */
+  private frontPending: Discipline | null = null;
+  private frontLock = false;
+  private frontCooldownUntil = 0;
+  private frontLandingAt = 0;
+  /** 允许自动走回大厅：走路进房 / 邻区切换，或用户在房内用 F、走进按钮切进漫游；
+   *  诊断 API 直调 setWalk / enterRoom（门槛用）不武装，旧检查点语义不变 */
+  private frontArmed = false;
+  /** 门外触发带被冷却挡住时的记账：计时器一过就切，避免疾走时整段触发带被跳过 */
+  private frontExitLatch = false;
+  private frontSafety = 0;
   /* ------------------------------------------------- 批 12：中央索引台与展柜 */
   private deskTop: THREE.Mesh | null = null;
   private deskTopMat: THREE.MeshStandardMaterial | null = null;
@@ -1947,16 +1993,44 @@ export class Matrix3D {
       const v = new THREE.Vector3(0, 1, 0);
       const w = new THREE.Vector3(0, 0, 1).applyQuaternion(q);
       const before = b.faces;
-      b.slab(box([0, ROOM_HEIGHT / 2, 0]), u.toArray() as Vec3, v.toArray() as Vec3, w.toArray() as Vec3,
-        half, ROOM_HEIGHT / 2, half, TILE.wall);
+      /*
+       * 批 20：正面中央留门洞——碰撞盒拆成左右翼 + 门楣 + 后墙，视觉体量同步拆开，
+       * 否则人走到门口看见的是一整块实心（触发虽在 2 米外，斜向贴墙时仍会穿帮）。
+       * 主体正面收进一个门洞进深，左右翼与门楣补回这一层，门洞尽头的后墙正面
+       * 与碰撞的后墙同在 local −half+recess，看上去是一扇深色的门斗而不是空洞。
+       */
+      const fdw = FACADE_DOOR.w / 2;
+      const fdh = FACADE_DOOR.h;
+      const rz = FACADE_DOOR.recess / 2;
+      const bodyHz = half - rz;
+      const wingHx = (half - fdw) / 2;
+      const wingCx = (half + fdw) / 2;
+      const tileWall = TILE.wall;
+      b.slab(box([0, ROOM_HEIGHT / 2, rz]), u.toArray() as Vec3, v.toArray() as Vec3, w.toArray() as Vec3,
+        half, ROOM_HEIGHT / 2, bodyHz, tileWall);
+      b.slab(box([-wingCx, ROOM_HEIGHT / 2, -half + rz]), u.toArray() as Vec3, v.toArray() as Vec3, w.toArray() as Vec3,
+        wingHx, ROOM_HEIGHT / 2, rz, tileWall);
+      b.slab(box([wingCx, ROOM_HEIGHT / 2, -half + rz]), u.toArray() as Vec3, v.toArray() as Vec3, w.toArray() as Vec3,
+        wingHx, ROOM_HEIGHT / 2, rz, tileWall);
+      b.slab(box([0, (fdh + ROOM_HEIGHT) / 2, -half + rz]), u.toArray() as Vec3, v.toArray() as Vec3, w.toArray() as Vec3,
+        fdw, (ROOM_HEIGHT - fdh) / 2, rz, tileWall);
       b.slab(box([0, ROOM_HEIGHT + 0.55, 0]), u.toArray() as Vec3, v.toArray() as Vec3, w.toArray() as Vec3,
         half + 0.8, 0.55, half + 0.8, TILE.trim);
-      // 门廊：朝大厅那一面（local −Z）凸出一小块
-      b.slab(box([0, 4.4, -half - 1.2]), u.toArray() as Vec3, v.toArray() as Vec3, w.toArray() as Vec3,
-        ROOM_DOOR.w / 2 + 1.1, 4.4, 1.2, TILE.trim);
-      // faceIndex → 区：三块 slab 共 36 个三角面，逐面对齐，点击任意一面都能认到区
+      // 门廊：朝大厅那一面（local −Z）凸出一小块；同样只在中央留 3.6×4.6 的门洞
+      const porchH = FACADE_PORCH.h;
+      const porchHx = FACADE_PORCH.halfW;
+      const porchD = FACADE_PORCH.depth;
+      const porchCx = (porchHx + fdw) / 2;
+      const porchWingHx = (porchHx - fdw) / 2;
+      for (const sx of [-1, 1]) {
+        b.slab(box([sx * porchCx, porchH / 2, -half - porchD / 2]), u.toArray() as Vec3, v.toArray() as Vec3, w.toArray() as Vec3,
+          porchWingHx, porchH / 2, porchD / 2, TILE.trim);
+      }
+      b.slab(box([0, (fdh + porchH) / 2, -half - porchD / 2]), u.toArray() as Vec3, v.toArray() as Vec3, w.toArray() as Vec3,
+        fdw, (porchH - fdh) / 2, porchD / 2, TILE.trim);
+      // faceIndex → 区：八块 slab 共 96 个三角面，逐面对齐，点击任意一面都能认到区
       while (facadeZones.length < b.faces) facadeZones.push(idx);
-      if (b.faces - before !== 36) throw new Error(`体量外壳面数异常：${b.faces - before}`);
+      if (b.faces - before !== 96) throw new Error(`体量外壳面数异常：${b.faces - before}`);
     });
     const mesh = new THREE.Mesh(b.toGeometry(), wallMat);
     mesh.castShadow = true;
@@ -2555,6 +2629,122 @@ export class Matrix3D {
     if (hint) this.hooks.onHud(hint);
   }
 
+  /* ---------------------------------------------------- 批 20：正门走路进出 */
+
+  /**
+   * 漫游每帧调用。只认「真实移动输入」（WASD 或摇杆在场）：
+   * 调试用的 walkSnap / walkMarch 是同步摆位，不经过 walkStep，不能因此把人传走，
+   * 现有门槛里「六向 march 到门面」与「房内按 W 穿过 7.2 门洞」两条语义也就保住了。
+   * 只用水平距离/房间局部坐标，不发射线，门楣与书架不参与判定。
+   */
+  private doorTick(now: number): void {
+    if (this.camMode !== 'walk') return;
+    if (this.frontLock || this.frontPending) return;
+    if (this.neighborLock || this.neighborPending) return;
+    const ready = now >= this.frontCooldownUntil && now - this.frontLandingAt >= NEIGHBOR.settleMs;
+    if (this.view === 'hall') {
+      if (!ready || !this.walkInputActive()) return;
+      for (const r of ROOMS) {
+        const dx = this.camera.position.x - Math.cos(r.angle) * FRONT_DOOR.planeR;
+        const dz = this.camera.position.z - Math.sin(r.angle) * FRONT_DOOR.planeR;
+        if (dx * dx + dz * dz > FRONT_DOOR.enterR * FRONT_DOOR.enterR) continue;
+        this.beginFrontEntry(r.key);
+        return;
+      }
+      return;
+    }
+    if (this.view !== 'room' || !this.plan || !this.frontArmed) return;
+    // 世界 → 房间局部：与 roomBlockers / buildRoomColliders 的 toLocal 同一套绕 Y 约定
+    const half = this.plan.side / 2;
+    const pos = this.room.position;
+    const th = this.room.rotation.y;
+    const c = Math.cos(th);
+    const s = Math.sin(th);
+    const wx = this.camera.position.x - pos.x;
+    const wz = this.camera.position.z - pos.z;
+    const lx = wx * c - wz * s;
+    const lz = wx * s + wz * c;
+    if (lz >= -half) {
+      this.frontExitLatch = false;
+      return;
+    }
+    // 已跨出正门墙：门洞外侧 1.5 米内记一次「真要出去」；冷却/静默期间继续等，人还在门外就补切
+    if (Math.abs(lx) <= ROOM_DOOR.w / 2 && lz >= -half - FRONT_DOOR.exitDepth) this.frontExitLatch = true;
+    if (!this.frontExitLatch || !ready || !this.walkInputActive()) return;
+    this.beginFrontExit();
+  }
+
+  /** 真实移动输入：键盘四向任一，或摇杆越过死区 */
+  private walkInputActive(): boolean {
+    const k = this.keys;
+    return k.has('KeyW') || k.has('KeyA') || k.has('KeyS') || k.has('KeyD')
+      || Math.hypot(this.stickVec.x, this.stickVec.y) > 0.05;
+  }
+
+  /** 厅侧：人走到门前 2 米内 → 交给 main 的 enterRoom 建区，并带上「门内 3 米」落位 */
+  private beginFrontEntry(key: Discipline): void {
+    const spec = ROOM_BY_KEY[key];
+    const rr = FRONT_DOOR.planeR + FRONT_DOOR.dropIn;
+    const landing: WalkLanding = {
+      x: Math.cos(spec.angle) * rr,
+      z: Math.sin(spec.angle) * rr,
+      // 脸朝房间中心（= 沿走廊继续向外的径向）；yawToward(dx,dz) 面向 (dx,dz)
+      yaw: this.yawToward(Math.cos(spec.angle), Math.sin(spec.angle)),
+    };
+    this.frontLock = true;
+    this.frontPending = key;
+    this.hooks.onPickRoom(key, landing);
+    window.clearTimeout(this.frontSafety);
+    this.frontSafety = window.setTimeout(() => {
+      this.frontSafety = 0;
+      if (this.frontPending === key) this.cancelFrontDoor('门前加载超时，已留在大厅');
+    }, NEIGHBOR.safetyMs);
+  }
+
+  /** 房间侧：穿过正门走到门外触发带 → 交给 main 的 showHall，并带上「门外 3 米」落位 */
+  private beginFrontExit(): void {
+    const plan = this.plan;
+    if (!plan) return;
+    const spec = ROOM_BY_KEY[plan.discipline];
+    const rr = FRONT_DOOR.planeR - FRONT_DOOR.dropOut;
+    const landing: WalkLanding = {
+      x: Math.cos(spec.angle) * rr,
+      z: Math.sin(spec.angle) * rr,
+      // 脸朝大厅（径向朝内）
+      yaw: this.yawToward(-Math.cos(spec.angle), -Math.sin(spec.angle)),
+    };
+    this.frontExitLatch = false;
+    this.frontArmed = false;
+    this.frontLock = true;
+    this.hooks.onShowHall?.(landing);
+    this.frontLock = false;
+  }
+
+  /** 目标区建好：清在途标记，并按落位重新起算冷却与落地静默 */
+  private finishFrontEntry(plan: RoomPlan): void {
+    if (this.frontPending !== plan.discipline) return;
+    this.frontPending = null;
+    this.frontLock = false;
+    if (this.frontSafety) {
+      window.clearTimeout(this.frontSafety);
+      this.frontSafety = 0;
+    }
+    const now = performance.now();
+    this.frontLandingAt = now;
+    this.frontCooldownUntil = now + NEIGHBOR.cooldownMs;
+    this.frontExitLatch = false;
+  }
+
+  private cancelFrontDoor(hint?: string): void {
+    if (this.frontSafety) {
+      window.clearTimeout(this.frontSafety);
+      this.frontSafety = 0;
+    }
+    this.frontPending = null;
+    this.frontLock = false;
+    if (hint) this.hooks.onHud(hint);
+  }
+
   /** 过渡黑场：只在第一次用到时建一个 div，保留在 DOM 里复用（dispose 时移除） */
   private fadeEl(): HTMLDivElement {
     if (this.neighborFade) return this.neighborFade;
@@ -2695,7 +2885,13 @@ export class Matrix3D {
   }
 
   toggleWalk(): boolean {
-    return this.setWalk(this.camMode !== 'walk');
+    const on = this.camMode !== 'walk';
+    const ok = this.setWalk(on);
+    // 用户手势进漫游（F 键 / 「走进」按钮）时武装正门回大厅：即便这间房是俯瞰点选的，
+    // 切到第一人称后也该能从正门走回大厅。诊断 API 直调 setWalk 不走这里，门槛里的
+    // 「房内按 W 穿过门洞仍停在房内」检查点语义不变。
+    if (ok && on && this.view === 'room') this.frontArmed = true;
+    return ok;
   }
 
   camModeName(): 'orbit' | 'walk' {
@@ -2705,10 +2901,13 @@ export class Matrix3D {
   /**
    * 漫游途中切了视图（点学科条、搜索跳转、点书脊开书）：
    * 把这次视图切换本来的俯瞰机位接成新的退出点，人重新落到新视图的地面上。
+   * 批 20：带 landing 时（走正门进出）用门边落位，否则仍是原来的默认落点。
    */
-  private rewalkAfterViewSwitch(): void {
+  private rewalkAfterViewSwitch(landing?: WalkLanding | null): void {
     if (this.camMode !== 'walk') return;
-    const spot = this.walkSpawn();
+    const spot = landing
+      ? { at: new THREE.Vector3(landing.x, WALK.eye, landing.z), yaw: landing.yaw }
+      : this.walkSpawn();
     this.walkDrop(spot.at, spot.yaw);
     this.applyWalkSurfaces(true);
     this.updateWalkUi();
@@ -3294,9 +3493,12 @@ export class Matrix3D {
     };
   }
 
-  showHall(pose?: CameraPose | null): void {
+  showHall(pose?: CameraPose | null, walkLanding?: WalkLanding | null): void {
     // 回大厅/被导航打断：立刻撤掉在途邻区切换与黑场，不能把大厅留在黑屏里
     this.cancelNeighbor();
+    this.cancelFrontDoor();
+    this.frontArmed = false;
+    this.frontExitLatch = false;
     this.view = 'hall';
     this.roomKey = null;
     this.conceptShown = null;
@@ -3319,7 +3521,11 @@ export class Matrix3D {
     this.hooks.onHud(
       `八角厅 · ${this.manifest.totals.sites} 本书 / ${this.manifest.totals.repos} 个仓库 · 六门通六区`,
     );
-    this.rewalkAfterViewSwitch();
+    this.rewalkAfterViewSwitch(walkLanding ?? null);
+    if (this.camMode === 'walk') {
+      this.frontLandingAt = performance.now();
+      this.frontCooldownUntil = this.frontLandingAt + NEIGHBOR.cooldownMs;
+    }
   }
 
   enterRoom(
@@ -3327,6 +3533,7 @@ export class Matrix3D {
     books: SiteEntry[],
     records: Map<string, BookRecord>,
     pose?: CameraPose | null,
+    walkLanding?: WalkLanding | null,
   ): void {
     const spec = ROOM_BY_KEY[discipline];
     // 批 18：在途的邻区切换只在「进的就是那个目标区」时保留；用户改去别区就作废
@@ -3335,6 +3542,12 @@ export class Matrix3D {
       this.neighborCooldownUntil = 0;
       this.neighborLandingAt = 0;
     }
+    // 批 20：正门在途只对「进的就是那一区」有效；改去别区就作废。
+    // 武装条件 = 这次进入发生在漫游态（走路进门 / 邻区侧门 / 漫游中点选）——
+    // 俯瞰态点选进房的不自动走回大厅，现有「房内按 W 穿门外出」的门槛检查点不受影响。
+    if (this.frontPending && this.frontPending !== discipline) this.cancelFrontDoor();
+    this.frontArmed = this.camMode === 'walk' || Boolean(walkLanding);
+    this.frontExitLatch = false;
     this.clearRoom();
     this.roomKey = discipline;
     this.conceptShown = null;
@@ -3520,7 +3733,7 @@ export class Matrix3D {
 
     if (!books.length || !plan.slots.length) {
       this.addRoomLights(plan.side);
-      this.enterRoomCamera(plan, pose);
+      this.enterRoomCamera(plan, pose, walkLanding);
       this.hooks.onHud(`${spec.title} · 0 本 · 6 个仓库无 manifest，待批 5 生成层补源（不伪造书位）`);
       this.finishNeighborEntry(plan);
       return;
@@ -3556,7 +3769,7 @@ export class Matrix3D {
 
     this.buildDust(plan, spec.color);
     this.addRoomLights(plan.side);
-    this.enterRoomCamera(plan, pose);
+    this.enterRoomCamera(plan, pose, walkLanding);
     this.hooks.onHud(
       `${spec.title} · ${plan.bookCount} 册上架 · ${plan.chapterCount} 条书脊 · 点书脊读章、点顶部铜牌看书`,
     );
@@ -3645,7 +3858,7 @@ export class Matrix3D {
     this.room.add(top, fill);
   }
 
-  private enterRoomCamera(plan: RoomPlan, pose?: CameraPose | null): void {
+  private enterRoomCamera(plan: RoomPlan, pose?: CameraPose | null, walkLanding?: WalkLanding | null): void {
     this.hall.visible = false;
     this.room.visible = true;
     for (const [key, group] of this.links) group.visible = key === this.roomKey;
@@ -3674,7 +3887,14 @@ export class Matrix3D {
     this.focusShadow();
     this.hideTip();
     this.wake();
-    this.rewalkAfterViewSwitch();
+    this.rewalkAfterViewSwitch(walkLanding ?? null);
+    if (this.camMode === 'walk') {
+      const now = performance.now();
+      this.frontLandingAt = now;
+      this.frontCooldownUntil = Math.max(this.frontCooldownUntil, now + NEIGHBOR.cooldownMs);
+    }
+    // 走门进来的那次：清在途标记并按落位重新起算冷却（本函数自带落位时幂等）
+    this.finishFrontEntry(plan);
   }
 
   /** 主光与阴影相机跟着视图走：进房只罩住本区，2048 的贴图摊到 760 单位上就糊成一片 */
@@ -5341,6 +5561,7 @@ export class Matrix3D {
         this.camera.rotation.set(this.walkPitch, this.walkYaw, 0);
         this.syncWalkTarget();
         this.neighborTick(now);
+        this.doorTick(now);
         this.lastActive = now;
         this.applyLod();
         this.updateBillboards();

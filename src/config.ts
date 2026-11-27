@@ -146,6 +146,20 @@ export const WALL_T = 1.2;
 export const ROOM_HEIGHT = 15;
 /** 大厅俯视用的「阅览楼体量」名义边长：进区后才按该区书量算真实房间边长 */
 export const FACADE_SIDE = 26;
+
+/**
+ * 批 20：走廊尽头体量外壳的正门。宽 3.6 落在 3.2–4 之间（比侧门 3.2 宽、比阅览室内门 7.2 窄），
+ * 高 4.6 只约束门楣视觉，碰撞柱只到 1.85，门楣不进竖直通带。
+ * recess = 门洞进深：门洞后墙留在 lz = −half + recess，深一堵墙厚就收实心——
+ * 既让「六向推进第一下仍被 facade 挡」的门槛成立，也防止人从外壳这头穿到那头。
+ */
+export const FACADE_DOOR = { w: 3.6, h: 4.6, recess: WALL_T } as const;
+/**
+ * 批 20：体量外壳正面的门廊（凸出门斗）。视觉与碰撞共用这一组数——
+ * 半宽 4.7 比走廊半宽 5 略窄，两侧各留 0.3 的视觉缝；进深 2.4、高 8.8。
+ * 碰撞只取左右两翼（门楣在 4.6 以上，不在人体竖直通带里）。
+ */
+export const FACADE_PORCH = { halfW: 4.7, depth: 2.4, h: 8.8 } as const;
 /** 书架：沿墙一整排算「一排」，一排内横向分若干层 */
 export const SHELF_DEPTH = 2.6;
 export const SHELF_HEIGHT = 12;
