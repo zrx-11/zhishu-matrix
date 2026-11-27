@@ -246,16 +246,27 @@ try {
   // 中央地面三圈），每类多点平均后读回 0–255；整帧 p5 走 sampleLuminance 的 96×96 网格。
   // 放在 WASD 平移之前——探针按当前机位投影世界点，机位一动采样窗就跟着动。
   const hallLight = await d.evaluate(() => window.__zhishu.hallLightProbe());
+  // 批 15：梁与藻井整条埋在水平星空盘下（21.3 / 20.95 对 22），俯瞰机位被屋顶挡死、
+  // 原采样点读到的是星空。切到漫游抬头读梁底与藻井底面，读完退出回总览。
+  await d.evaluate(() => window.__zhishu.setWalk(true));
+  await d.evaluate(() => window.__zhishu.walkSnap(0, -12, 0, 1));
+  await d.evaluate(() => window.__zhishu.walkSetLook(0, 34));
+  await d.waitForTimeout(700);
+  const beamPanel = await d.evaluate(() => window.__zhishu.beamPanelProbe());
+  await d.screenshot({ path: `${SHOTS}/hall-beams-walk.png` });
+  await d.evaluate(() => window.__zhishu.setWalk(false));
+  await d.waitForTimeout(500);
+  const hallLightAll = { ...hallLight, beam: beamPanel.beam, panel: beamPanel.panel, beamDiff: beamPanel.beamDiff };
   await d.screenshot({ path: `${SHOTS}/hall-light.png` });
   log.push(
-    `大厅补光：梁 ${hallLight.beam} / 板 ${hallLight.panel} 差 ${hallLight.beamDiff}/255 · ` +
-      `门内 ${hallLight.doorIn} / 门外 ${hallLight.doorOut} 差 ${hallLight.doorDiff}/255 · ` +
-      `地面总览均值 ${hallLight.groundMean}（最低 ${hallLight.groundMin}）· 整帧 p5 ${hallLight.frameP5} p50 ${hallLight.frameP50} 暗像素比 ${hallLight.darkRatio}`,
+    `大厅补光：梁 ${hallLightAll.beam} / 板 ${hallLightAll.panel} 差 ${hallLightAll.beamDiff}/255 · ` +
+      `门内 ${hallLightAll.doorIn} / 门外 ${hallLightAll.doorOut} 差 ${hallLightAll.doorDiff}/255 · ` +
+      `地面总览均值 ${hallLightAll.groundMean}（最低 ${hallLightAll.groundMin}）· 整帧 p5 ${hallLightAll.frameP5} p50 ${hallLightAll.frameP50} 暗像素比 ${hallLightAll.darkRatio}`,
   );
   check(
     '批 10 B1 藻井梁与井板明度可分（差 ≥8/255，地面总览图均值 ≥0.08）',
-    hallLight.beamDiff >= 8 && hallLight.groundMean >= 0.08,
-    hallLight,
+    hallLightAll.beamDiff >= 8 && hallLightAll.groundMean >= 0.08,
+    hallLightAll,
   );
   check('批 10 B2 六个门洞内外明度可分（差 ≥10/255）', hallLight.doorDiff >= 10, hallLight);
   check('批 10 B3 补光不是整屏提亮（大厅整帧 p5 ≤0.03）', hallLight.frameP5 <= 0.03, hallLight);

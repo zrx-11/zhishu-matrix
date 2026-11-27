@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import type { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import type { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import type { BookRecord, Discipline, ManifestIndex, SiteEntry } from './types';
@@ -16,6 +17,7 @@ import {
   HALL_HEIGHT,
   HALL_PORTRAIT,
   HALL_RADIUS,
+  HALL_SIDES,
   PLAQUE_KINDS,
   ROOMS,
   ROOM_BY_KEY,
@@ -572,7 +574,7 @@ export class Matrix3D {
         emissive: 0xffffff,
         // 总览图自发光：贴图本身是深蓝灰（线性值 0.03 量级），给 0.9 让区名与楔形色脱离黑底；
         // 曾试 3.2，结果整块地面被 bloom 糊成一团白光——真正的问题不是亮度而是绕序（见 pitfalls 56）
-        emissiveIntensity: 0.9,
+        emissiveIntensity: 1.0,
       }),
     );
     floor.receiveShadow = true;
@@ -597,6 +599,10 @@ export class Matrix3D {
       roughness: 0.88,
       metalness: 0.05,
       envMapIntensity: 0.3,
+      // 批 14：六盏区灯撤成两盏之后，内壁只吃半球光与一盏方向光，站到 1.65 眼高上是一整片黑。
+      // 这里补一层极弱的暖自发光把棕木纹读出来——不能再加灯，加灯会把已经泛白的地面继续洗亮。
+      emissive: new THREE.Color('#241a10'),
+      emissiveIntensity: 0.55,
     });
     this.hall.add(this.mark(new THREE.Mesh(built.walls, shellMat), 'hallWall', { receiveShadow: true }));
     // 批 10 B1 藻井圈：深色井板 + 顶灯/梁料差出「梁压板」的层次；一圈一 draw
@@ -619,10 +625,48 @@ export class Matrix3D {
         roughness: 0.9,
         metalness: 0.04,
         envMapIntensity: 0.25,
+        // 批 14：壁画同理，靠自身微光在暗厅里可读
+        emissive: new THREE.Color('#20242e'),
+        emissiveIntensity: 0.55,
       }),
     );
     mural.userData.role = 'mural';
     this.hall.add(mural);
+    // 批 14：八角顶点立八根壁柱。撤灯后人站在 44 半径的空壳里没有竖向参照，
+    // 走两步就觉得是在一块荒地上。柱落在两面墙交界的顶点（半径 R/cos(π/8)=47.6），
+    // 不占门面宽度、不挡门洞；柱身/柱础/柱头合成一份几何，只占 1 个 draw。
+    const Rv = HALL_RADIUS / Math.cos(Math.PI / HALL_SIDES);
+    const pillarGeos: THREE.BufferGeometry[] = [];
+    for (let k = 0; k < HALL_SIDES; k += 1) {
+      const a = (Math.PI * 2 * k) / HALL_SIDES + Math.PI / HALL_SIDES;
+      const px = Math.cos(a) * Rv;
+      const pz = Math.sin(a) * Rv;
+      const shaftH = HALL_HEIGHT - 2.4;
+      const shaft = new THREE.CylinderGeometry(1.05, 1.25, shaftH, 14);
+      shaft.translate(px, 1.2 + shaftH / 2, pz);
+      pillarGeos.push(shaft);
+      const base = new THREE.BoxGeometry(3.1, 1.2, 3.1);
+      base.translate(px, 0.6, pz);
+      pillarGeos.push(base);
+      const cap = new THREE.BoxGeometry(2.9, 1.2, 2.9);
+      cap.translate(px, HALL_HEIGHT - 0.6, pz);
+      pillarGeos.push(cap);
+    }
+    const pillarMat = new THREE.MeshStandardMaterial({
+      map: wallTexture('#5b462e', '#7d6443', '#3c2f1f'),
+      roughness: 0.86,
+      metalness: 0.08,
+      envMapIntensity: 0.3,
+      emissive: new THREE.Color('#2a1c10'),
+      emissiveIntensity: 0.5,
+    });
+    const merged = mergeGeometries(pillarGeos);
+    pillarGeos.forEach((g) => g.dispose());
+    const pillars = new THREE.Mesh(merged, pillarMat);
+    pillars.castShadow = true;
+    pillars.receiveShadow = true;
+    pillars.userData.role = 'hallPillars';
+    this.hall.add(pillars);
     // 批 14：天花板整面换成夜空（深空底 + 三层星点，shader 现算）。批 12 之前的顶是着色板，
     // 站到 1.65 眼高抬头只看到一片被泛光洗亮的褐色——「星空顶」必须自己发光，不能靠别的灯照。
     this.skyMat = this.makeStarMat();
@@ -632,8 +676,10 @@ export class Matrix3D {
     // 批 10 B1：径向梁加宽一档（0.85→1.6）并带微自发光——俯视 1440 下梁宽才 3–4 像素，
     // 采样框一旦偏移就落进井板；梁料本色也比井板亮，配合顶光把「梁压板」读出来
     const beamMat = this.wood('#332416', 11);
-    beamMat.emissive = new THREE.Color(0x1c130b);
-    beamMat.emissiveIntensity = 0.7;
+    // 批 15：天花板从倒锥改成水平盘后，梁整条贴在星空底下（21.3 vs 22），
+    // 梁与井板的明度差从 8/255 掉到 1/255——梁必须自己亮一点，才能在星空背景上读出「木梁压顶」。
+    beamMat.emissive = new THREE.Color(0x3a2515);
+    beamMat.emissiveIntensity = 0.95;
     const beams = new THREE.InstancedMesh(unitBox(), beamMat, built.beams.length);
     built.beams.forEach((m, i) => beams.setMatrixAt(i, m));
     beams.instanceMatrix.needsUpdate = true;
@@ -1693,7 +1739,7 @@ export class Matrix3D {
       // 自发光是零光源成本的，走廊里那条彩色光带还在，但整帧不再为它多算一次点光。
       const floorMat = this.wood('#3a2a1a', 5);
       floorMat.emissive = new THREE.Color(r.color);
-      floorMat.emissiveIntensity = 0.30;
+      floorMat.emissiveIntensity = 0.24;
       const floor = new THREE.Mesh(built.floor, floorMat);
       floor.receiveShadow = true;
       floor.userData.role = 'corridorFloor';
@@ -1763,17 +1809,16 @@ export class Matrix3D {
 
     // 批 11 F：漫游专用的大厅地面材质。俯瞰那张是「总览平面图」——1024 摊到 88 单位见方
     // 只有 11.6 texel/单位，加上 0.9 自发光，站到 1.65 眼高上就是一张糊白的地名图。
-    // 石板贴图 clone 只换 UV 变换（three 按 texture.source 缓存显存，clone 不多占一份）。
-    const stone = stoneTexture('#2b3140', '#141922');
+    // 批 14：石板底色从冷蓝灰改成暖石，粗糙度抬到 0.74、envMapIntensity 压到 0.24——
+    // 原来 0.58/0.65 让 PMREM 环境把整块地面洗成一片浅灰白，远景地平线直接跟星空对切。
+    const stone = stoneTexture('#3a332b', '#1a1712');
     const floorTex = stone.clone();
     floorTex.repeat.set(14, 14);
     floorTex.needsUpdate = true;
     this.walkTextures.push(floorTex);
-    // 批 14：漫游地面改低粗糙度 + 抬环境反射，站到 1.65 眼高上能看见石材的反光与顶光高光带；
-    // 再给一层极弱的冷色自发光，避免暗角处整块掉黑（p5 仍由门槛盯着）
     this.walkFloorMat = new THREE.MeshStandardMaterial({
-      map: floorTex, roughness: 0.58, metalness: 0.12, envMapIntensity: 0.65,
-      emissive: new THREE.Color('#1b2430'), emissiveIntensity: 0.06,
+      map: floorTex, roughness: 0.74, metalness: 0.06, envMapIntensity: 0.24,
+      emissive: new THREE.Color('#171310'), emissiveIntensity: 0.08,
     });
     const groundTex = stone.clone();
     // 场地的 UV 本来就按 26 单位一瓦片铺（比大厅地面还糊），再切 4 份 → 6.5 单位一瓦片
@@ -3581,6 +3626,28 @@ export class Matrix3D {
    * 采样点固定在世界坐标（与帧率、机型无关），每类取多组再平均，避开单像素噪声。
    * p5 读整帧（sampleLuminance 的 96×96 网格），暗像素阈值 0.02。
    */
+  /** 批 15：天花板从倒锥改成水平盘之后，梁与藻井环整条埋在盘下（21.3 / 20.95 对 22），
+   *  俯瞰机位被屋顶整片挡住，原采样点（梁顶 21.775 / 井板顶 21.15）读到的是星空。
+   *  改从漫游机位读底面：梁底 20.82、藻井底面 20.74，同一半径 40.8、方位差 π/8（落在梁间空隙中央）。 */
+  beamPanelProbe(): { beam: number; panel: number; beamDiff: number } {
+    const ring: Array<[number, number, number]> = [];
+    const panels: Array<[number, number, number]> = [];
+    // 只用朝 +z 的两个扇（45° / 135°）：漫游采样时机位在 (0,-12) 朝 +z，身后两个扇投不出可信屏幕坐标。
+    for (const aBeam of [Math.PI / 4, (Math.PI * 3) / 4]) {
+      const aPanel = aBeam + Math.PI / 8;
+      ring.push([Math.cos(aBeam) * 40.8, 20.82, Math.sin(aBeam) * 40.8]);
+      panels.push([Math.cos(aPanel) * 40.8, 20.74, Math.sin(aPanel) * 40.8]);
+    }
+    const beam = this.probeWorldPoints(ring);
+    const panel = this.probeWorldPoints(panels);
+    const mean = (a: number[]): number => a.reduce((s, v) => s + v, 0) / Math.max(1, a.length);
+    return {
+      beam: Number(mean(beam).toFixed(4)),
+      panel: Number(mean(panel).toFixed(4)),
+      beamDiff: Number((Math.abs(mean(beam) - mean(panel)) * 255).toFixed(2)),
+    };
+  }
+
   hallLightProbe(): {
     beam: number;
     panel: number;

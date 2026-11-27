@@ -496,6 +496,7 @@ function exposeDiagnostics(): void {
     walkGroundSample: (pitch?: number) => (view ? view.walkGroundSample(pitch ?? -35) : null),
     walkGapAt: (x: number, z: number) => (view ? view.walkGapAt(x, z) : null),
     hallAudit: () => (view ? view.hallAudit() : null),
+    beamPanelProbe: () => (view ? view.beamPanelProbe() : null),
     aimCaseBody: (i: number) => (view ? view.aimCaseBody(i) : null),
     walkSetLook: (yawDeg: number, pitchDeg: number) =>
       view ? view.walkSetLook(yawDeg, pitchDeg) : null,
