@@ -436,11 +436,12 @@ export function bookRowTexture(color: string, seed: number): THREE.CanvasTexture
   }
   g.fillStyle = '#2a1d12';
   g.fillRect(0, shelfY, W, H - shelfY);
-  // 整排的顶光渐晕：越靠上越暗，书架才有纵深
+  // 整排的顶光渐晕：越靠上越暗，书架才有纵深。但第一版压到 0.9 黑，
+  // 走廊里三层书架的顶层整片看不见（用户反馈「看不到上边的书」），降到 0.5。
   const shade = g.createLinearGradient(0, 0, 0, shelfY);
-  shade.addColorStop(0, 'rgba(0,0,0,0.9)');
-  shade.addColorStop(0.5, 'rgba(0,0,0,0.42)');
-  shade.addColorStop(1, 'rgba(0,0,0,0.08)');
+  shade.addColorStop(0, 'rgba(0,0,0,0.5)');
+  shade.addColorStop(0.5, 'rgba(0,0,0,0.2)');
+  shade.addColorStop(1, 'rgba(0,0,0,0.04)');
   g.fillStyle = shade;
   g.fillRect(0, 0, W, shelfY);
   // 再整体压一档：MeshBasic 直出 sRGB，亮度必须停在 bloom 阈值 0.45 以下，

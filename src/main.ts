@@ -529,6 +529,8 @@ function exposeDiagnostics(): void {
     },
     direction: () => (view ? view.direction() : null),
     corridorLabels: () => (view ? view.corridorLabels() : []),
+    neighborProbe: () => (view ? view.neighborProbe() : null),
+    walkTuning: () => (view ? view.walkTuning() : { speed: 0, sprint: 0, eye: 0 }),
     viewCorridor: (key: Discipline) => (view ? view.viewCorridor(key) : false),
     corridorScreenBox: (key: Discipline) =>
       view ? view.corridorScreenBox(key) : null,

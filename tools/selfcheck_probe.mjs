@@ -1315,10 +1315,12 @@ try {
   await d.keyboard.up('KeyW');
   await d.waitForTimeout(150);
   const walkFwd = await d.evaluate(() => window.__zhishu.walkTraceStop());
+  // 批 18：步速从 3.2 提到 5.2，判据改为对配置取值，不再写死「3.2±0.4」
+  const tun = await d.evaluate(() => window.__zhishu.walkTuning());
   check(
-    '批11B 大厅按住 W 一秒净位移 3.2±0.4、不浮空（dyMax<0.02）、位移方向沿朝向（drift<6°）',
-    Math.abs(walkFwd.net - 3.2) <= 0.4 && walkFwd.dyMax < 0.02 && walkFwd.driftDeg < 6 && walkFwd.samples >= 20,
-    walkFwd,
+    `批11B 大厅按住 W 一秒净位移 ${tun.speed}±0.5、不浮空（dyMax<0.02）、位移方向沿朝向（drift<6°）`,
+    Math.abs(walkFwd.net - tun.speed) <= 0.5 && walkFwd.dyMax < 0.02 && walkFwd.driftDeg < 6 && walkFwd.samples >= 20,
+    { ...walkFwd, tuning: tun },
   );
 
   await d.evaluate(() => window.__zhishu.walkTraceStart());
