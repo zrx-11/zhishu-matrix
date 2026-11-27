@@ -273,3 +273,21 @@ qodercn sites get_publish_status --input '{"actionId":"<同一个>"}'   # 需 pu
 | HTML 中的 `#svg-root` | **不存在**（2D 容器已随批 9 删除） |
 | `/assets/index-B5yD6PoN.js`、`/dist/math.json.gz`、`/dist/search-ai.json.gz`、`/manifest.json` | 全部 200，内容类型与第八节一致 |
 
+
+## 十、第四次发布（批 20 + 批 21 上线，2026-11-27）
+
+快照 `actionId` `b0fb3358-5ce1-49a6-b016-93237301a616`（批 20）与 `f1d2c3b4-0000-4000-8000-000000002021`（批 21），终态均为 `published: true` / `committed: true` / `readiness: publication_completed`。
+
+两批解决的都是「走不进去」：
+
+| 批 | 改动 | 实测 |
+|---|---|---|
+| 20 | 体量外壳不再是一个实心盒：`hallBlockers` 拆成左右翼 + 门楣 + 后墙（`FACADE_DOOR = {w:3.6,h:4.6,recess:WALL_T}`），并加凸出门廊 `FACADE_PORCH = {halfW:4.7,depth:2.4,h:8.8}`；`buildFacades` 的视觉体量同步拆开；房间正门墙中央留 3.6 通带；`doorTick` 双向触发（厅侧 2 米内 `onPickRoom`、房内跨出门洞 `onShowHall`），落位进门内 3 米 / 门外 3 米 | 走廊 (0,122) 朝 +z 走 4 秒 → (0,143.8) `view hall→room`；房间 (0,143.8) 朝 −z 走 6 秒 → (0,110.1) `view room→hall`；大厅 (0,30) 朝 +z 走 6 秒 → (0,61.3) 进走廊 |
+| 20 | 小地图 `pointer-events: auto` 后压住了底部学科切换栏（`elementFromPoint` 命中 `minimap-canvas`，「数学」按钮点不动，自检 12A 直接超时）；改为默认 `bottom:56px`，并在 `initMinimapDrag` 里按 `#roombar` 顶边到视口底的距离钳制下限；390×844 下一张卡片占屏 36%、与主体投影重叠 11.6% 越过 10% 上限，改为 ≤520px 不显示 | 拖动 (10,769)→(637,359)、`localStorage` 写入 `{"left":637,"bottom":420}`；点 `#roombar button[data-room="math"]` 恢复为 `click ok` |
+| 21 | 走廊尽头门洞在夜里是一块纯黑凹龛，与墙融在一起（`_work/hd-doorway.png` 前一张）；门牌挂在 17 米高、离外壳 1.35，在走廊里根本不在视野内。补一圈贴脸门框（门楣 + 左右竖边，`emissiveIntensity 0.3`）+ 深色门扇 + 一道 0.45 的学科色门缝 | `_work/hd-doorway.png`：走廊 100 米外能直接认出是「一扇带绿框的门」 |
+
+门框、门扇、门缝都不进碰撞（`portalFrame` / `portalLeaf` / `portalSlit` 三个 role 只做视觉），走路判定仍由 `doorTick` 的水平距离负责——「看着像门」和「真的能过」由两套机制各管一半，这一点别在后续改动里合并掉。
+
+自检 164/164（`_work/verify-b20-b.log`、`_work/verify-b21-a.log`）。批 20 第一次跑门槛时 12A/12B 与帧率三项同时红，原因是 Qoder CLI 自己也在跑 Edge 探针（同时开 12 个 msedge 进程），CPU 争用下 6 秒采样只有 33.4 fps；停掉 CLI 后同一条命令 164/164。**这类「多项一起红」先看有没有并行探针在抢 CPU，再怀疑代码。**
+
+线上核对：`/assets/index-D4UaDi1p.js`，与本地 `dist/assets` 同名同内容；`access_mode` 仍为 `public`，未再调策略。
