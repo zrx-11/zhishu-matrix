@@ -131,7 +131,11 @@ const WALK_AHEAD = 8;
 const NEIGHBOR = {
   w: 3.2,
   h: 4.6,
-  len: 10,
+  /**
+   * 批 19：短廊从 10 米收到 6 米。10 米是「进了门还要在黑廊里走十米」，
+   * 玩家走到门洞就以为到头了（站点实测反馈「走不进去」），缩到 6 米让门牌一进门就能看清。
+   */
+  len: 6,
   /** 门洞后沿离房间后墙 0.6；前移 1/3 落在 z 6.2–9.4（side 20），避开正面门与书架前段 */
   rear: 0.6,
   /**
@@ -140,7 +144,7 @@ const NEIGHBOR = {
    */
   shelfShift: 1.8,
   /** 短廊尽头门牌的触发半径与落位内缩（从门洞往房间里退 1 米） */
-  trigger: 1.5,
+  trigger: 2.5,
   landingIn: 5.2,
   fadeMs: 250,
   /** 冷却是 1.6 s、落地静默 1.2 s：两个都满足才允许下一次触发 */
@@ -163,6 +167,7 @@ interface NeighborDoor {
   wallPatch: THREE.BufferGeometry;
   corridor: THREE.BufferGeometry;
   strip: THREE.BufferGeometry;
+  floorGlow: THREE.BufferGeometry;
   plate: THREE.BufferGeometry;
   plateLocal: [number, number, number];
   landingLocal: [number, number, number];
@@ -544,12 +549,42 @@ function neighborCorridor(
   return b.toGeometry();
 }
 
-/** 门楣上的学科色发光条（MeshBasic，亮度在构建时夹到 bloom 阈值 0.45 以下） */
-function neighborStrip(side: 1 | -1, half: number, zc: number): THREE.BufferGeometry {
-  const g = new THREE.PlaneGeometry(2.4, 0.18);
-  g.rotateY((-side * Math.PI) / 2);
-  g.translate(side * (half - 0.66), NEIGHBOR.h + 0.24, zc);
-  return g;
+/**
+ * 侧门的发光门框：门楣一条 + 左右竖边各一条，合并成一个几何。
+ *
+ * 批 19：原来只有门楣一条 2.4×0.18。阅览室背光、门洞本身是黑的，玩家站在房中央
+ * 只看见黑暗里浮着一块门牌，根本认不出那里有门（站点反馈「走不进去」就是没找到门）。
+ * 竖边光条把门洞的三条边勾出来，门才在墙上「显形」。
+ */
+function neighborStrip(side: 1 | -1, half: number, z0: number, z1: number, zc: number): THREE.BufferGeometry {
+  const parts: THREE.BufferGeometry[] = [];
+  const place = (w: number, h: number, y: number, z: number): void => {
+    const g = new THREE.PlaneGeometry(w, h);
+    g.rotateY((-side * Math.PI) / 2);
+    g.translate(side * (half - 0.66), y, z);
+    parts.push(g);
+  };
+  place(3.0, 0.2, NEIGHBOR.h + 0.24, zc);
+  const tall = NEIGHBOR.h - 0.2;
+  place(0.14, tall, tall / 2, z0 + 0.07);
+  place(0.14, tall, tall / 2, z1 - 0.07);
+  const merged = mergeGeometries(parts);
+  parts.forEach((p) => p.dispose());
+  return merged;
+}
+
+/** 短廊地面的两条导引光带：进门后跟着光走六米就到门牌 */
+function neighborFloorGlow(side: 1 | -1, half: number, z0: number, z1: number): THREE.BufferGeometry {
+  const parts: THREE.BufferGeometry[] = [];
+  for (const z of [z0 + 0.12, z1 - 0.12]) {
+    const g = new THREE.PlaneGeometry(NEIGHBOR.len - 0.6, 0.16);
+    g.rotateX(-Math.PI / 2);
+    g.translate(side * (half + NEIGHBOR.len / 2), 0.04, z);
+    parts.push(g);
+  }
+  const merged = mergeGeometries(parts);
+  parts.forEach((p) => p.dispose());
+  return merged;
 }
 
 /** 短廊尽头的邻区门牌：复用 plaqueFor 的牌匾纹理，面朝玩家（法线朝房间方向） */
@@ -2404,7 +2439,8 @@ export class Matrix3D {
       zc,
       wallPatch: neighborWallPatch(side, half, plan.height, z0, z1),
       corridor: neighborCorridor(side, half, z0, z1, NEIGHBOR.len),
-      strip: neighborStrip(side, half, zc),
+      strip: neighborStrip(side, half, z0, z1, zc),
+      floorGlow: neighborFloorGlow(side, half, z0, z1),
       plate: neighborPlate(side, half, zc),
       plateLocal: [side * (half + NEIGHBOR.len - 0.03), 2.3, zc],
       landingLocal: [side * (half - NEIGHBOR.landingIn), WALK.eye, zc],
@@ -3364,18 +3400,24 @@ export class Matrix3D {
     // 极暗环境下不至于走进去什么都看不见。
     const nbMat = this.wood('#3a2a1a', 5);
     nbMat.emissive = new THREE.Color('#241a12');
-    nbMat.emissiveIntensity = 0.14;
+    nbMat.emissiveIntensity = 0.26;
     nbMat.roughness = 0.9;
     this.roomMats.push(nbMat);
     this.addRoomObject(this.mark(new THREE.Mesh(nb.corridor, nbMat), 'neighborCorridor', { receiveShadow: true }));
     this.roomGeoms.push(nb.corridor);
-    const glow = new THREE.Color(spec.color);
+    // 门框与地面光带用**目的地**的学科色，不用本区色：玩家看到这个颜色就是「走进这扇门会到哪」，
+    // 与短廊尽头那块门牌的配色一致，暗房里也更容易把「门」和「墙」分开。
+    const glow = new THREE.Color(ROOM_BY_KEY[nb.to].color);
     const peak = Math.max(glow.r, glow.g, glow.b);
     if (peak > 0.4) glow.multiplyScalar(0.4 / peak);
     const glowMat = new THREE.MeshBasicMaterial({ color: glow });
     this.roomMats.push(glowMat);
     this.addRoomObject(this.mark(new THREE.Mesh(nb.strip, glowMat), 'neighborGlow', {}));
     this.roomGeoms.push(nb.strip);
+    // 短廊地面导引光带：门洞是黑的，只靠门框勾边玩家仍会犹豫「这里能不能进」，
+    // 地上一对光带把落脚点直接指到门牌前。
+    this.addRoomObject(this.mark(new THREE.Mesh(nb.floorGlow, glowMat), 'neighborGlow', {}));
+    this.roomGeoms.push(nb.floorGlow);
     const plateMat = new THREE.MeshBasicMaterial({
       map: this.plaqueFor(nb.to),
       transparent: true,
