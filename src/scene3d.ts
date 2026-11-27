@@ -2066,6 +2066,95 @@ export class Matrix3D {
       this.plaqueTex.set(r.key, tex);
       this.hall.add(plaque);
     });
+
+    /*
+     * 批 21：门洞的发光门框。
+     * 实测（_work/hd-doorway.png）：人站在走廊里朝尽头看，3.6×4.6 的门洞是一块纯黑的凹龛，
+     * 与两周深色墙融在一起，认不出那是入口——功能通不通和「看着能不能进」是两件事。
+     * 门牌挂在 ROOM_DOOR.h+1.9（约 17 米高、离外壳 1.35），在走廊里抬头也未必看得到，
+     * 所以这里补一圈贴脸的门框：门楣 + 左右竖边，颜色取本区学科色，亮度走 emissive
+     * 而不是 Basic 材质——Basic 在泛光里会糊成一片光斑，Standard 的 emissive 能保住边框形状。
+     * 每个区合并成一个 mesh（6 个 draw call），不进碰撞、不投影。
+     */
+    ROOMS.forEach((r) => {
+      const half = FACADE_SIDE / 2;
+      const rot = Math.PI / 2 - r.angle;
+      const q = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), rot);
+      const fdw = FACADE_DOOR.w / 2;
+      const fdh = FACADE_DOOR.h;
+      // 贴在门廊外沿再往前 0.12，避免与门廊面 z-fighting
+      const zFace = -half - FACADE_PORCH.depth - 0.12;
+      const parts: THREE.BufferGeometry[] = [];
+      const bar = (lx: number, ly: number, hx: number, hy: number): void => {
+        const g = new THREE.BoxGeometry(hx * 2, hy * 2, 0.18);
+        g.translate(lx, ly, zFace);
+        g.applyQuaternion(q);
+        g.translate(r.at[0], 0, r.at[1]);
+        parts.push(g);
+      };
+      bar(0, fdh + 0.14, fdw + 0.28, 0.14); // 门楣：压在门洞上沿，比洞宽一档
+      bar(-(fdw + 0.14), fdh / 2, 0.13, fdh / 2); // 左竖边
+      bar(fdw + 0.14, fdh / 2, 0.13, fdh / 2); // 右竖边
+      const merged = mergeGeometries(parts, false);
+      if (!merged) throw new Error(`正门门框合并失败：${r.key}`);
+      const mat = new THREE.MeshStandardMaterial({
+        color: 0x0d0a06,
+        emissive: new THREE.Color(r.color),
+        // 0.55 实测溢成霓虹招牌（泛光一叠就吃掉边框形状）；0.3 仍能在暗走廊里认出框
+        emissiveIntensity: 0.3,
+        roughness: 0.5,
+        metalness: 0.2,
+        envMapIntensity: 0.3,
+      });
+      const frame = new THREE.Mesh(merged, mat);
+      frame.userData.role = 'portalFrame';
+      frame.userData.discipline = r.key;
+      frame.castShadow = false;
+      frame.receiveShadow = false;
+      this.hall.add(frame);
+
+      /*
+       * 门洞里是一块纯黑的凹龛（后墙离门面只有 1.2 米），看上去像堵死的洞。
+       * 补一扇深色门扇 + 一道学科色门缝光：读起来是「一扇开了一条缝的门」，
+       * 而不是「一块刷黑的墙」。门扇不做碰撞，走路触发仍由 doorTick 的 2 米判定负责。
+       */
+      const zLeaf = -half + FACADE_DOOR.recess - 0.04;
+      const leaf = new THREE.BoxGeometry(fdw * 2 - 0.08, fdh - 0.1, 0.06);
+      leaf.translate(0, fdh / 2, zLeaf);
+      leaf.applyQuaternion(q);
+      leaf.translate(r.at[0], 0, r.at[1]);
+      const leafMat = new THREE.MeshStandardMaterial({
+        // 门扇几乎不自发光：整块带学科色荧光会读成「一块发光的板」，不像门
+        color: 0x18120b,
+        emissive: new THREE.Color(r.color),
+        emissiveIntensity: 0.0,
+        roughness: 0.66,
+        metalness: 0.12,
+      });
+      const leafMesh = new THREE.Mesh(leaf, leafMat);
+      leafMesh.userData.role = 'portalLeaf';
+      leafMesh.userData.discipline = r.key;
+      leafMesh.castShadow = false;
+      leafMesh.receiveShadow = false;
+      this.hall.add(leafMesh);
+      // 门缝：一条竖着的学科色亮线，只这一条亮，读起来是「门开了一条缝」
+      const slit = new THREE.BoxGeometry(0.07, fdh - 0.3, 0.09);
+      slit.translate(0, fdh / 2, zLeaf + 0.04);
+      slit.applyQuaternion(q);
+      slit.translate(r.at[0], 0, r.at[1]);
+      const slitMat = new THREE.MeshStandardMaterial({
+        color: 0x0d0a06,
+        emissive: new THREE.Color(r.color),
+        emissiveIntensity: 0.45,
+        roughness: 0.4,
+      });
+      const slitMesh = new THREE.Mesh(slit, slitMat);
+      slitMesh.userData.role = 'portalSlit';
+      slitMesh.userData.discipline = r.key;
+      slitMesh.castShadow = false;
+      slitMesh.receiveShadow = false;
+      this.hall.add(slitMesh);
+    });
   }
 
   private brass(): THREE.MeshStandardMaterial {
@@ -5836,3 +5925,4 @@ function toneName(mode: number): string {
   if (mode === THREE.LinearToneMapping) return 'Linear';
   return 'None';
 }
+
