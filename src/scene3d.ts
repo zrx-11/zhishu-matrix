@@ -48,6 +48,7 @@ import {
   type EnvironmentBundle,
 } from './spacekit';
 import {
+  bookRowTexture,
   buildSpineAtlas,
   cofferTexture,
   hallPlanTexture,
@@ -1745,12 +1746,54 @@ export class Matrix3D {
     // 批 16：走廊原来是一条黑洞——地板只有一条学科色自发光，两侧墙与顶面吃不到任何光。
     // 每 12 米在两侧墙上挂一对壁灯（MeshBasic 自发光小面，零光源成本），走廊才读得出纵深。
     const lampGeos: THREE.BufferGeometry[] = [];
-    for (const r of ROOMS) {
+    // 批 17：六条走廊做书廊。书架本体 / 书脊 / 顶灯全部按世界坐标烘进合并几何。
+    const shelfGeos: THREE.BufferGeometry[] = [];
+    const spinePlates: THREE.BufferGeometry[][] = ROOMS.map(() => []);
+    const ceilingLampGeos: THREE.BufferGeometry[] = [];
+    const shelfGeo = new THREE.BoxGeometry(4.4, 3.2, 0.36);
+    const ceilingLampGeo = new THREE.BoxGeometry(1.6, 0.10, 1.6);
+    for (const [zi, r] of ROOMS.entries()) {
       const group = new THREE.Group();
       const built = buildCorridor(r.angle, HALL_RADIUS - 0.4, ROOM_DIST, FACADE_SIDE);
       const dirV = new THREE.Vector3(Math.cos(r.angle), 0, Math.sin(r.angle));
       const lat = new THREE.Vector3(-dirV.z, 0, dirV.x);
       const d0 = HALL_RADIUS - 0.4;
+      // buildCorridor 的管体在门墙内皮收口（ROOM_DIST − FACADE_SIDE/2 − 0.5），
+      // 不是 ROOM_DIST；书架按管体真实末端留 5 米，否则最后两节会穿进阅览室。
+      const corridorEnd = d0 + built.length;
+      // 局部 +z 经 yaw 正好映射到 lat；朝大厅一侧的书架要多转 π 让正面朝走廊中线。
+      const yaw = Math.atan2(-dirV.z, dirV.x);
+      const wallLat = CORRIDOR_W / 2 - 0.30;
+      for (const side of [-1, 1]) {
+        const sideYaw = yaw + (side > 0 ? Math.PI : 0);
+        let d = d0 + 16;
+        while (d <= corridorEnd - 5) {
+          const px = dirV.x * d + lat.x * side * wallLat;
+          const pz = dirV.z * d + lat.z * side * wallLat;
+          const body = shelfGeo.clone();
+          body.rotateY(sideYaw);
+          body.translate(px, 1.6, pz);
+          shelfGeos.push(body);
+          // 书脊不再是一个个盒子（3 层 × 8 本 × 288 三角/节，书与书之间空 34 cm 远看像悬空方块），
+          // 改成每层一块 4.3×0.74 的薄板，贴 bookRowTexture：紧排书脊、单元 6 个三角。
+          for (let layer = 0; layer < 3; layer++) {
+            const g = new THREE.PlaneGeometry(4.3, 0.74);
+            g.translate(0, 0.79 + layer * 0.86, 0.19);
+            g.rotateY(sideYaw);
+            g.translate(px, 0, pz);
+            spinePlates[zi].push(g);
+          }
+          d += 5;
+        }
+      }
+      let ld = d0 + 26;
+      while (ld <= corridorEnd - 6) {
+        const g = ceilingLampGeo.clone();
+        g.rotateY(yaw);
+        g.translate(dirV.x * ld, CORRIDOR_H - 1.4, dirV.z * ld);
+        ceilingLampGeos.push(g);
+        ld += 26;
+      }
       for (let d = d0 + 8; d < ROOM_DIST - 7; d += 12) {
         for (const side of [-1, 1]) {
           const g = new THREE.PlaneGeometry(0.5, 1.1);
@@ -1804,10 +1847,20 @@ export class Matrix3D {
       const tex = nameplateTexture(r.title, r.key.toUpperCase(), r.color);
       const img = tex.image as HTMLCanvasElement | null;
       const aspect = img && img.width ? img.height / img.width : 0.22;
-      const bandW = Math.min(built.length * 0.6, 44);
+      // 批 17：走廊地面学科名原来铺满 44 米（走廊全长 93 米），站进走廊等于踩在一面巨大的
+      // 荧光字上，近看糊、还越 bloom 阈值。收到 22 米、压到 0.72 不透明 + 灰化，
+      // 长廊里它退回成「地上的一块标识」而不是第二块地板。
+      const bandW = Math.min(built.length * 0.32, 22);
       const plate = new THREE.Mesh(
         new THREE.PlaneGeometry(bandW, bandW * aspect),
-        new THREE.MeshBasicMaterial({ map: tex, transparent: true, opacity: 0.94, side: THREE.DoubleSide, depthWrite: false }),
+        new THREE.MeshBasicMaterial({
+          map: tex,
+          color: 0x8f8f8f,
+          transparent: true,
+          opacity: 0.72,
+          side: THREE.DoubleSide,
+          depthWrite: false,
+        }),
       );
       plate.rotation.order = 'YXZ';
       plate.rotation.x = -Math.PI / 2;
@@ -1832,6 +1885,45 @@ export class Matrix3D {
       );
       lamps.userData.role = 'corridorLamps';
       this.hall.add(lamps);
+    }
+    shelfGeo.dispose();
+    ceilingLampGeo.dispose();
+    if (shelfGeos.length) {
+      const merged = mergeGeometries(shelfGeos);
+      shelfGeos.forEach((g) => g.dispose());
+      const shelves = new THREE.Mesh(
+        merged,
+        new THREE.MeshStandardMaterial({
+          color: 0x33241a,
+          roughness: 0.88,
+          metalness: 0.05,
+          emissive: 0x2e2013,
+          emissiveIntensity: 0.30,
+        }),
+      );
+      shelves.userData.role = 'corridorShelves';
+      this.hall.add(shelves);
+    }
+    spinePlates.forEach((geos, zi) => {
+      if (!geos.length) return;
+      const merged = mergeGeometries(geos);
+      geos.forEach((g) => g.dispose());
+      const spines = new THREE.Mesh(
+        merged,
+        new THREE.MeshBasicMaterial({ map: bookRowTexture(ROOMS[zi].color, zi + 3) }),
+      );
+      spines.userData.role = 'corridorSpines';
+      this.hall.add(spines);
+    });
+    if (ceilingLampGeos.length) {
+      const merged = mergeGeometries(ceilingLampGeos);
+      ceilingLampGeos.forEach((g) => g.dispose());
+      const ceiling = new THREE.Mesh(
+        merged,
+        new THREE.MeshBasicMaterial({ color: 0xffd9a6 }),
+      );
+      ceiling.userData.role = 'corridorCeilingLamps';
+      this.hall.add(ceiling);
     }
     return out;
   }

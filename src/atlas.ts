@@ -400,6 +400,59 @@ export function muralTexture(color: string, seed: number): THREE.CanvasTexture {
   return finish(c, 4);
 }
 
+/**
+ * 批 17：走廊书廊里的一排书脊。
+ *
+ * 一个书架单元如果真拿盒子去堆书脊，3 层 × 8 本就是 288 个三角、6 条走廊 108 米长的墙要
+ * 五万多个三角，而且书与书之间空 34 厘米，远看是一排悬空的彩色方块。改成一张 512×128 的
+ * 程序纹理贴在每层薄板上：单元 6 个三角，书脊紧密成排，纹理横向 repeat 2 次，一本书约 12 厘米。
+ * 明度沿用 leatherColor 的 0.27–0.39 带，MeshBasic 直出，不越过 bloom 阈值 0.45。
+ */
+export function bookRowTexture(color: string, seed: number): THREE.CanvasTexture {
+  const W = 512;
+  const H = 128;
+  const { c, g } = canvas(W, H);
+  g.fillStyle = '#0a0806';
+  g.fillRect(0, 0, W, H);
+  const rnd = (n: number) => {
+    const s = Math.sin((seed + 1) * 12.9898 + n * 78.233) * 43758.5453;
+    return s - Math.floor(s);
+  };
+  // 底板：书脊坐在这条暖木线上，底下留一条深缝
+  const shelfY = H - 9;
+  let x = 0;
+  let k = 0;
+  while (x < W) {
+    const w = 12 + Math.floor(rnd(k * 3 + 1) * 15);
+    const hh = 58 + Math.floor(rnd(k * 5 + 2) * 52);
+    // 每三本就有一本是暖褐暗装帧，不然整面墙是同一片区色，像荧光板不像书
+    g.fillStyle = k % 3 === 0 ? leatherColor('#6a5232', seed * 97 + k) : leatherColor(color, seed * 97 + k);
+    g.fillRect(x, shelfY - hh, w - 2, hh);
+    // 顶面一道暗边，远看就有「一本本立着」的厚度
+    g.fillStyle = 'rgba(0,0,0,0.5)';
+    g.fillRect(x, shelfY - hh, w - 2, 3);
+    x += w;
+    k += 1;
+  }
+  g.fillStyle = '#2a1d12';
+  g.fillRect(0, shelfY, W, H - shelfY);
+  // 整排的顶光渐晕：越靠上越暗，书架才有纵深
+  const shade = g.createLinearGradient(0, 0, 0, shelfY);
+  shade.addColorStop(0, 'rgba(0,0,0,0.9)');
+  shade.addColorStop(0.5, 'rgba(0,0,0,0.42)');
+  shade.addColorStop(1, 'rgba(0,0,0,0.08)');
+  g.fillStyle = shade;
+  g.fillRect(0, 0, W, shelfY);
+  // 再整体压一档：MeshBasic 直出 sRGB，亮度必须停在 bloom 阈值 0.45 以下，
+  // 否则走廊里会出现一片发光的书墙（第一版 0.39 明度就泛光了）。
+  g.fillStyle = 'rgba(0,0,0,0.34)';
+  g.fillRect(0, 0, W, shelfY);
+  const tex = finish(c, 4);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.repeat.set(2, 1);
+  return tex;
+}
+
 /** 门楣牌匾：区名 + 书目数，形制按区不同（六种轮廓） */export function plaqueTexture(
   kind: PlaqueKind,
   title: string,

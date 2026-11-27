@@ -397,6 +397,10 @@ try {
     cenHall.triangles,
   );
 
+  // 批 17：走廊书廊把大厅三角基数抬到 8.4k，阅览室才 8k 出头，
+  // 「回大厅三角应小于阅览室」这条辅助条件已不成立（原意是验释放，不是比总量）。
+  // 改成回大厅后三角不高于进房间前的大厅基线——这才是「本区构建物真的被释放」。
+  const triHallBase = await d.evaluate(() => window.__zhishu.triangles());
   await d.evaluate(() => window.__zhishu.holdMinimap(true));
   const fpsHall = await fps(d, 10000);
   await d.evaluate(() => window.__zhishu.holdMinimap(false));
@@ -814,8 +818,8 @@ try {
       cenBack.room.walls === 0 &&
       cenBack.shelves.rows === 0 &&
       cenBack.renderScale === 1 &&
-      triBack < triRoom,
-    { tris: triBack, spines: cenBack.spines.meshes, walls: cenBack.room.walls, scale: cenBack.renderScale },
+      triBack <= triHallBase,
+    { tris: triBack, hallBase: triHallBase, room: triRoom, spines: cenBack.spines.meshes, walls: cenBack.room.walls, scale: cenBack.renderScale },
   );
   check(
     '大厅是八角中庭：八边壳 + 六扇门洞 + 地面总览图 + 六块走廊地铭',
