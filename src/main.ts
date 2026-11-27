@@ -59,9 +59,71 @@ let miniRaf = 0;
 const shardCache = new Map<Discipline, Map<string, BookRecord>>();
 const bookCache = new Map<string, BookRecord>();
 
+/**
+ * 批 20：左下角小地图改成可拖动。
+ *
+ * 原来它是 pointer-events: none 的纯指示卡，位置固定在左下角，走到房间深处时它会压住
+ * HUD 与地面。现在按住卡片就能挪，松手把位置记进 localStorage，下次进来仍在原处。
+ * 拖动时抬 z-index 与投影，越过 HUD 文本才看得清它浮在上面。
+ * 漫游锁定指针（点了画面锁鼠标）时拖不动——指针被锁进画布，按 Esc 解锁后再拖。
+ */
+function initMinimapDrag(): void {
+  const mm = els.minimap;
+  if (!mm) return;
+  const KEY = 'zhishu.minimap.pos';
+  const clamp = (v: number, max: number): number => Math.min(Math.max(v, 6), Math.max(6, max));
+  const place = (left: number, bottom: number): void => {
+    mm.style.left = `${clamp(left, window.innerWidth - mm.offsetWidth - 6)}px`;
+    mm.style.bottom = `${clamp(bottom, window.innerHeight - mm.offsetHeight - 6)}px`;
+  };
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (raw) {
+      const p = JSON.parse(raw) as { left: number; bottom: number };
+      if (Number.isFinite(p.left) && Number.isFinite(p.bottom)) place(p.left, p.bottom);
+    }
+  } catch {
+    /* 隐私模式或配额满：不记位置，拖动照旧可用 */
+  }
+  let drag: { id: number; x: number; y: number; left: number; bottom: number } | null = null;
+  mm.addEventListener('pointerdown', (ev) => {
+    if (ev.button !== 0) return;
+    const r = mm.getBoundingClientRect();
+    drag = { id: ev.pointerId, x: ev.clientX, y: ev.clientY, left: r.left, bottom: window.innerHeight - r.bottom };
+    mm.classList.add('dragging');
+    // setPointerCapture 让指针移出卡片后仍收得到 move，拖到屏幕边缘也不会断
+    mm.setPointerCapture(ev.pointerId);
+    // 这次按下是一次拖拽，不是场景里的点选；不让它冒泡到 3D 画布的拾取逻辑
+    ev.preventDefault();
+    ev.stopPropagation();
+  });
+  mm.addEventListener('pointermove', (ev) => {
+    if (!drag || ev.pointerId !== drag.id) return;
+    place(drag.left + (ev.clientX - drag.x), drag.bottom - (ev.clientY - drag.y));
+    ev.stopPropagation();
+  });
+  const endDrag = (ev: PointerEvent): void => {
+    if (!drag || ev.pointerId !== drag.id) return;
+    mm.classList.remove('dragging');
+    const r = mm.getBoundingClientRect();
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ left: r.left, bottom: window.innerHeight - r.bottom }));
+    } catch {
+      /* 存不进就算了 */
+    }
+    drag = null;
+  };
+  mm.addEventListener('pointerup', endDrag);
+  mm.addEventListener('pointercancel', endDrag);
+  // 窗口变化后可能被拖到屏幕外，重排时钳回可视区
+  window.addEventListener('resize', () => {
+    const r = mm.getBoundingClientRect();
+    place(r.left, window.innerHeight - r.bottom);
+  });
+}
+
 /** 小地图：3D 视图左下角俯视，画八角厅 + 六条走廊 + 六座阅览室 + 本区书架平面 */
-function drawMinimap(): void {
-  const canvas = document.getElementById('minimap-canvas') as HTMLCanvasElement | null;
+function drawMinimap(): void {  const canvas = document.getElementById('minimap-canvas') as HTMLCanvasElement | null;
   const wrap = document.getElementById('minimap');
   const cap = document.getElementById('minimap-cap');
   if (!canvas || !wrap || !manifest) return;
@@ -531,6 +593,7 @@ function exposeDiagnostics(): void {
     corridorLabels: () => (view ? view.corridorLabels() : []),
     neighborProbe: () => (view ? view.neighborProbe() : null),
     walkTuning: () => (view ? view.walkTuning() : { speed: 0, sprint: 0, eye: 0 }),
+    walkPose: () => (view ? view.walkPose() : null),
     viewCorridor: (key: Discipline) => (view ? view.viewCorridor(key) : false),
     corridorScreenBox: (key: Discipline) =>
       view ? view.corridorScreenBox(key) : null,
@@ -640,6 +703,7 @@ function boot(): void {
     onHud: setHud,
   });
   initSearch();
+  initMinimapDrag();
   window.addEventListener('keydown', (ev) => {
     // 检索弹层开着时 Esc 只收弹层，不把阅读层一起关掉；`/` 与 Ctrl+K 由 search 内部处理
     if (ev.key === 'Escape' && !searchOpen()) closePanel();

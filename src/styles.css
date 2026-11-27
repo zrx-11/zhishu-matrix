@@ -280,7 +280,19 @@ button {
   border-radius: 10px;
   background: rgba(14, 16, 21, 0.9);
   padding: 6px 6px 4px;
-  pointer-events: none; /* 只做指示，不抢 3D 场景的拖拽 */
+  /* 批 20：小地图改成可拖动，必须自己接指针事件；拖动逻辑见 main.ts 的 initMinimapDrag。
+     它不再被场景拖拽穿透（原来 pointer-events: none 就是为了这个），改为在卡片上按下即拖动。 */
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+#minimap.dragging {
+  cursor: grabbing;
+  /* 拖动时抬一档：越过 HUD 文本时才看得出来它浮在上面 */
+  z-index: 3;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
 }
 
 #minimap[hidden] {

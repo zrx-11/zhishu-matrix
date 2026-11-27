@@ -5166,6 +5166,17 @@ export class Matrix3D {
     return { speed: WALK.speed, sprint: WALK.sprint, eye: WALK.eye };
   }
 
+  /** 自检用：当前相机世界位置与所在视图，用来验「大厅 ↔ 走廊 ↔ 房间」的行走通断 */
+  walkPose(): { x: number; z: number; yawDeg: number; view: string; room: Discipline | null } {
+    return {
+      x: Number(this.camera.position.x.toFixed(2)),
+      z: Number(this.camera.position.z.toFixed(2)),
+      yawDeg: Number((((this.camera.rotation.y * 180) / Math.PI) % 360).toFixed(1)),
+      view: this.view,
+      room: this.view === 'room' ? this.plan?.discipline ?? null : null,
+    };
+  }
+
   /**
    * 自检用：本区侧门（通往环序下一区）的世界位置。
    * 门牌点 + 从落位点指向门牌的方向，探针据此 walkSnap 到门牌前触发切区。
