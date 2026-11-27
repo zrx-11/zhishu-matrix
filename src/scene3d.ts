@@ -523,6 +523,7 @@ export class Matrix3D {
     el.addEventListener('pointerup', this.onPointerUp);
     el.addEventListener('pointermove', this.onPointerMove);
     el.addEventListener('pointerleave', this.onPointerLeave);
+    document.addEventListener('pointerlockchange', this.onPointerLockChange);
     el.addEventListener('wheel', this.wake, { passive: true });
     window.addEventListener('keydown', this.onKeyDown);
     window.addEventListener('keyup', this.onKeyUp);
@@ -758,10 +759,19 @@ export class Matrix3D {
           float near = starLayer(vUv, 170.0, 0.982, 0.16, 5.0, 0.0);
           float mid = starLayer(vUv, 380.0, 0.962, 0.11, 9.0, 7.3);
           float far = starLayer(vUv, 700.0, 0.9955, 0.18, 3.0, 19.1);
-          float bright = clamp(near * 0.9 + mid * 0.5 + far, 0.0, 0.95);
+          // 批 16：整片均匀星点看着像贴图。加一条斜向银河：雾状亮带 + 带内多一层密星 + 带外极细尘星
+          float ang = 0.52;
+          vec2 rv = vec2(vUv.x * cos(ang) - vUv.y * sin(ang), vUv.x * sin(ang) + vUv.y * cos(ang));
+          float axis = rv.y - 0.44 - 0.05 * sin(rv.x * 5.2 + 0.7);
+          float band = exp(-axis * axis * 120.0);
+          float dust = starLayer(vUv, 1150.0, 0.975, 0.075, 12.0, 31.0);
+          float dense = starLayer(vUv, 820.0, 0.905, 0.09, 7.0, 53.0) * band;
+          float bright = clamp(near * 0.9 + mid * 0.5 + far + dense * 0.55 + dust * 0.3, 0.0, 0.95);
           vec3 col = mix(uCool, uWarm, clamp(far * 1.6 + near * 0.5, 0.0, 1.0));
           // 整面顶即夜空：深空底 0.05 左右（不是纯黑，p5 判据不允许整块掉黑），星点直接加在上面
           vec3 sky = vec3(0.045, 0.055, 0.095);
+          // 银河雾：偏冷的紫蓝，亮度压在 0.06 以内（远低于 bloom 阈值 0.45，不会把整屏洗灰）
+          sky += band * vec3(0.062, 0.054, 0.098) + band * starLayer(vUv, 240.0, 0.86, 0.22, 4.0, 71.0) * 0.075;
           gl_FragColor = vec4(sky + col * bright, 1.0);
         }
       `,
@@ -1732,14 +1742,36 @@ export class Matrix3D {
       metalness: 0.04,
       envMapIntensity: 0.3,
     });
+    // 批 16：走廊原来是一条黑洞——地板只有一条学科色自发光，两侧墙与顶面吃不到任何光。
+    // 每 12 米在两侧墙上挂一对壁灯（MeshBasic 自发光小面，零光源成本），走廊才读得出纵深。
+    const lampGeos: THREE.BufferGeometry[] = [];
     for (const r of ROOMS) {
       const group = new THREE.Group();
       const built = buildCorridor(r.angle, HALL_RADIUS - 0.4, ROOM_DIST, FACADE_SIDE);
+      const dirV = new THREE.Vector3(Math.cos(r.angle), 0, Math.sin(r.angle));
+      const lat = new THREE.Vector3(-dirV.z, 0, dirV.x);
+      const d0 = HALL_RADIUS - 0.4;
+      for (let d = d0 + 8; d < ROOM_DIST - 7; d += 12) {
+        for (const side of [-1, 1]) {
+          const g = new THREE.PlaneGeometry(0.5, 1.1);
+          const q = new THREE.Quaternion().setFromUnitVectors(
+            new THREE.Vector3(0, 0, 1),
+            lat.clone().multiplyScalar(-side),
+          );
+          const pos = dirV.clone().multiplyScalar(d).addScaledVector(lat, side * (CORRIDOR_W / 2 - 0.12));
+          pos.y = 3.4;
+          g.applyMatrix4(new THREE.Matrix4().compose(pos, q, new THREE.Vector3(1, 1, 1)));
+          lampGeos.push(g);
+        }
+      }
+
       // 批 13 A2：六区的学科色改由走廊地面自发光承担（原来靠 6 盏学科色点光，见 spacekit.buildLightRig 注释）。
       // 自发光是零光源成本的，走廊里那条彩色光带还在，但整帧不再为它多算一次点光。
       const floorMat = this.wood('#3a2a1a', 5);
-      floorMat.emissive = new THREE.Color(r.color);
-      floorMat.emissiveIntensity = 0.24;
+      // 批 16：地板不再吃学科色自发光——极暗环境里哪怕 0.02 的青绿也把整条地面染成墨绿（实测三期）。
+      // 只留一层极弱的暖自发光防死黑，区色交给墙根光带与壁灯。
+      floorMat.emissive = new THREE.Color('#2a2118');
+      floorMat.emissiveIntensity = 0.03;
       const floor = new THREE.Mesh(built.floor, floorMat);
       floor.receiveShadow = true;
       floor.userData.role = 'corridorFloor';
@@ -1747,6 +1779,26 @@ export class Matrix3D {
       shell.userData.role = 'corridorShell';
       shell.receiveShadow = true;
       group.add(floor, shell);
+      // 批 16：两侧墙根的学科色发光带（贴地薄板）。走廊的区色识别靠它 + 壁灯，
+      // 不再靠整块地板自发光——地板的绿会在近处变成一条荧光跑道。
+      const stripLen = ROOM_DIST - d0 - 8;
+      // 光带自身亮度必须压在 bloom 阈值 0.45 以下：原来直接用满色 + 0.55 不透明，
+      // 亮度越过阈值后泛光把整条走廊地面晕成一片墨绿（实测）。
+      const stripColor = new THREE.Color(r.color).multiplyScalar(0.55);
+      for (const side of [-1, 1]) {
+        const strip = new THREE.Mesh(
+          new THREE.BoxGeometry(stripLen, 0.02, 0.42),
+          new THREE.MeshBasicMaterial({ color: stripColor, transparent: true, opacity: 0.5 }),
+        );
+        const th = Math.atan2(-dirV.z, dirV.x);
+        strip.rotation.y = th;
+        strip.position.copy(
+          dirV.clone().multiplyScalar(d0 + 4 + stripLen / 2).addScaledVector(lat, side * (CORRIDOR_W / 2 - 0.3)),
+        );
+        strip.position.y = 0.03;
+        strip.userData.role = 'corridorStrip';
+        group.add(strip);
+      }
 
       // 地面铭牌：文字沿走廊走向铺，正对视角即横排可读
       const tex = nameplateTexture(r.title, r.key.toUpperCase(), r.color);
@@ -1770,6 +1822,16 @@ export class Matrix3D {
       this.corridorNames.push(r.title);
       group.add(plate);
       out.push([r.key, group]);
+    }
+    if (lampGeos.length) {
+      const merged = mergeGeometries(lampGeos);
+      lampGeos.forEach((g) => g.dispose());
+      const lamps = new THREE.Mesh(
+        merged,
+        new THREE.MeshBasicMaterial({ color: 0xffdfae, side: THREE.DoubleSide }),
+      );
+      lamps.userData.role = 'corridorLamps';
+      this.hall.add(lamps);
     }
     return out;
   }
@@ -1978,6 +2040,7 @@ export class Matrix3D {
       this.camMode = 'orbit';
       this.colliders = [];
       this.applyWalkSurfaces(false);
+      this.exitPointerLock();
       this.stickId = null;
       this.lookId = null;
       this.stickVec = { x: 0, y: 0 };
@@ -2025,13 +2088,15 @@ export class Matrix3D {
 
   private walkHint(hit: Pick | null): string {
     if (hit) return this.tipText(hit);
+    // 批 16：鼠标点一下就把指针锁进画布，之后纯靠鼠标转头（Esc 解锁）
+    const lock = this.pointerLocked ? 'Esc 解锁鼠标' : '单击画面锁定鼠标转头';
     if (this.view !== 'hall') {
-      return '第一人称 · WASD 走动 · Shift 疾走 · 拖拽转视角 · 准星对准书脊点击读正文 · F 退出';
+      return `第一人称 · WASD 走动 · Shift 疾走 · ${lock} · 准星对准书脊点击读正文 · F 退出`;
     }
     // 批 12：近台给索引台口径，远台给「台面 + 展柜」两条视线落点
     return this.deskNear
       ? '六区索引 · 准星选扇区 · 点击进入该区 · F 退出'
-      : '第一人称 · WASD 走动 · 台面选六区 · 展柜书脊读首章 · F 退出';
+      : `第一人称 · WASD 走动 · ${lock} · 台面选六区 · F 退出`;
   }
 
   private updateWalkUi(): void {
@@ -2989,13 +3054,51 @@ export class Matrix3D {
     this.downAtMs = performance.now();
     this.wake();
     if (this.camMode !== 'walk') return;
-    // 触屏分屏：左半屏推动摇杆，右半屏转头。分界线只写在设计稿里，页面上不画出来
+    // 批 16：鼠标在漫游里点一下就把指针锁进画布，之后靠 movementX/Y 转头（标准第一人称手感）。
+    // 触屏没有指针锁定这回事，仍走左半屏摇杆 + 右半屏拖拽。锁不上（浏览器拒绝 / 已锁）就退回拖拽。
+    if (this.downKind === 'mouse' && !this.pointerLocked) {
+      this.requestPointerLock();
+    }
     if (this.downKind === 'touch' && ev.clientX < window.innerWidth / 2) {
       if (this.stickId === null) this.beginStick(ev);
       return;
     }
     if (this.lookId === null) this.lookId = ev.pointerId;
     this.lookLast = { x: ev.clientX, y: ev.clientY };
+  };
+
+  private pointerLocked = false;
+
+  private requestPointerLock(): void {
+    const el = this.renderer.domElement;
+    const req = el.requestPointerLock as ((opts?: { unadjustedMovement?: boolean }) => Promise<void> | void) | undefined;
+    if (!req) return;
+    try {
+      const ret = req.call(el, { unadjustedMovement: true });
+      if (ret && typeof (ret as Promise<void>).catch === 'function') {
+        (ret as Promise<void>).catch(() => {
+          // 系统不支持原始输入时退回默认模式，仍允许锁定
+          try {
+            req.call(el);
+          } catch {
+            /* 锁不上就保持拖拽 */
+          }
+        });
+      }
+    } catch {
+      /* 锁不上就保持拖拽 */
+    }
+  }
+
+  private exitPointerLock(): void {
+    const doc = document as Document & { pointerLockElement?: Element | null; exitPointerLock?: () => void };
+    if (doc.pointerLockElement) doc.exitPointerLock?.();
+  }
+
+  private onPointerLockChange = (): void => {
+    this.pointerLocked = document.pointerLockElement === this.renderer.domElement;
+    if (!this.pointerLocked) this.lookId = null;
+    this.wake();
   };
 
   /** 位移阈值按**按下时**的指针类型取：触屏 8px（手指抖动远大于鼠标，6px 会在正常滑动后误开书），鼠标 6px */
@@ -3023,6 +3126,7 @@ export class Matrix3D {
     this.wake();
     if (this.camMode === 'walk') {
       if (ev.pointerId === this.stickId) this.moveStick(ev);
+      else if (this.pointerLocked) this.applyLook(ev.movementX || 0, ev.movementY || 0);
       else if (ev.pointerId === this.lookId) {
         this.applyLook(ev.clientX - this.lookLast.x, ev.clientY - this.lookLast.y);
         this.lookLast = { x: ev.clientX, y: ev.clientY };
