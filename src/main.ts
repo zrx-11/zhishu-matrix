@@ -604,6 +604,8 @@ function exposeDiagnostics(): void {
     direction: () => (view ? view.direction() : null),
     corridorLabels: () => (view ? view.corridorLabels() : []),
     neighborProbe: () => (view ? view.neighborProbe() : null),
+    /** 批 22：一区两扇侧门，探针要两扇都取 */
+    neighborProbeAll: () => (view ? view.neighborProbeAll() : []),
     walkTuning: () => (view ? view.walkTuning() : { speed: 0, sprint: 0, eye: 0 }),
     walkPose: () => (view ? view.walkPose() : null),
     viewCorridor: (key: Discipline) => (view ? view.viewCorridor(key) : false),

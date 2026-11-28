@@ -737,10 +737,16 @@ export class Matrix3D {
   private walkTrace: Array<{ t: number; x: number; y: number; z: number; yaw: number }> = [];
   private walkTracing = false;
   /* ------------------------------------------------- 批 18：阅览室互通（侧门 + 短廊） */
-  /** 本区侧门数据；clearRoom 时释放，enterRoom 重算 */
-  private neighbor: NeighborDoor | null = null;
+  /**
+   * 本区侧门数据；clearRoom 时释放，enterRoom 重算。
+   * 批 22 起是**两扇**：环序下一区开在一面侧墙、上一区开在另一面，两扇都在 z1=half−rear 同一段，
+   * 于是「从 A 走到 B」再「原路退回」能回到 A，而不是被单向环带去 C。
+   */
+  private neighbors: NeighborDoor[] = [];
   /** 已触发、正在等目标区建好的环序下一区；null = 没有在途切换 */
   private neighborPending: Discipline | null = null;
+  /** 批 22：这次是从哪个区过来的——落位时要找目标区「通向出发区」的那扇门 */
+  private neighborPendingFrom: Discipline | null = null;
   private neighborLock = false;
   private neighborCooldownUntil = 0;
   private neighborLandingAt = 0;
@@ -2501,8 +2507,8 @@ export class Matrix3D {
       from: HALL_RADIUS - 0.4,
       to: ROOM_DIST - FACADE_SIDE / 2 - 0.5,
     });
-    const nb = this.neighbor;
-    if (!nb) return list;
+    const doors = this.neighbors;
+    if (!doors.length) return list;
     const half = plan.side / 2;
     const pos = this.room.position;
     const yaw = this.room.rotation.y;
@@ -2512,13 +2518,6 @@ export class Matrix3D {
       (wx - pos.x) * cos - (wz - pos.z) * sin,
       (wx - pos.x) * sin + (wz - pos.z) * cos,
     ];
-    // 摘掉原来那面「通长侧墙」，换成门洞两侧两段
-    const wi = list.findIndex((b) => {
-      if (b.kind !== 'roomWall') return false;
-      const [lx, lz] = toLocal(b.cx, b.cz);
-      return Math.abs(lx - nb.side * half) < 0.02 && Math.abs(lz) < 0.02;
-    });
-    if (wi >= 0) list.splice(wi, 1);
     const push = (lx: number, lz: number, hx: number, hz: number, kind: Blocker['kind']): void => {
       list.push({
         cx: pos.x + lx * cos + lz * sin,
@@ -2536,13 +2535,22 @@ export class Matrix3D {
     // 侧墙两段：延伸到 z=±(half+seal) 与前后墙搭接，门洞 z0..z1 完全留空
     const zLo = -half - seal;
     const zHi = half + seal;
-    push(nb.side * half, (zLo + nb.z0) / 2, h, (nb.z0 - zLo) / 2, 'roomWall');
-    push(nb.side * half, (nb.z1 + zHi) / 2, h, (zHi - nb.z1) / 2, 'roomWall');
-    // 短廊两侧墙与尽头封墙：不封就穿到房间外的空地
-    const xMid = nb.side * (half + NEIGHBOR.len / 2);
-    push(xMid, nb.z0 - h, NEIGHBOR.len / 2, h, 'corridorWall');
-    push(xMid, nb.z1 + h, NEIGHBOR.len / 2, h, 'corridorWall');
-    push(nb.side * (half + NEIGHBOR.len + h), nb.zc, h, NEIGHBOR.w / 2 + h, 'corridorEnd');
+    for (const nb of doors) {
+      // 摘掉这面「通长侧墙」，换成门洞两侧两段（两扇门各占一面侧墙，互不相干）
+      const wi = list.findIndex((b) => {
+        if (b.kind !== 'roomWall') return false;
+        const [lx, lz] = toLocal(b.cx, b.cz);
+        return Math.abs(lx - nb.side * half) < 0.02 && Math.abs(lz) < 0.02;
+      });
+      if (wi >= 0) list.splice(wi, 1);
+      push(nb.side * half, (zLo + nb.z0) / 2, h, (nb.z0 - zLo) / 2, 'roomWall');
+      push(nb.side * half, (nb.z1 + zHi) / 2, h, (zHi - nb.z1) / 2, 'roomWall');
+      // 短廊两侧墙与尽头封墙：不封就穿到房间外的空地
+      const xMid = nb.side * (half + NEIGHBOR.len / 2);
+      push(xMid, nb.z0 - h, NEIGHBOR.len / 2, h, 'corridorWall');
+      push(xMid, nb.z1 + h, NEIGHBOR.len / 2, h, 'corridorWall');
+      push(nb.side * (half + NEIGHBOR.len + h), nb.zc, h, NEIGHBOR.w / 2 + h, 'corridorEnd');
+    }
     return list;
   }
 
@@ -2551,86 +2559,112 @@ export class Matrix3D {
    * 房间本地 +X 正好是顺时针切向，所以顺时针下一区开在 +X（layout 的 right 墙），
    * 逆时针开在 −X（left 墙）。门洞放在侧墙靠后 1/3（z1=half−0.6、宽 3.2），
    * 整排侧书架往前挪 1.8；书位、书脊、光尘都是同一批对象，跟着一起挪，计数不变。
+   *
+   * 批 22：一次给**两扇**——下一区和上一区各开一面侧墙，两扇沿本地 z 的位置相同。
+   * 原来只有单向那一扇，走 A→B 之后原路退回那扇门会去 C（当时当作可接受的取舍记在 docs 里），
+   * 但「想回上一间却越走越远」在实机上就是 bug 级的手感，所以补齐成环上的双向。
+   * 两侧书架各退 1.8，每一面墙只挪一次。
    */
-  private prepareNeighbor(plan: RoomPlan, discipline: Discipline): NeighborDoor {
+  private prepareNeighbor(plan: RoomPlan, discipline: Discipline): NeighborDoor[] {
     const idx = ROOMS.findIndex((r) => r.key === discipline);
-    const to = ROOMS[(idx + 1) % ROOMS.length]?.key ?? ROOMS[0].key;
+    const len = ROOMS.length;
+    const targets: Discipline[] = [
+      ROOMS[(idx + 1) % len]?.key ?? discipline,
+      ROOMS[(idx + len - 1) % len]?.key ?? discipline,
+    ];
     const fromAngle = ROOM_BY_KEY[discipline].angle;
-    const toAngle = ROOM_BY_KEY[to].angle;
-    let turn = toAngle - fromAngle;
-    while (turn > Math.PI) turn -= Math.PI * 2;
-    while (turn <= -Math.PI) turn += Math.PI * 2;
-    const side: 1 | -1 = turn < 0 ? 1 : -1;
-    const wall: 'left' | 'right' = side > 0 ? 'right' : 'left';
     const half = plan.side / 2;
     const z1 = half - NEIGHBOR.rear;
     const z0 = z1 - NEIGHBOR.w;
     const zc = (z0 + z1) / 2;
-
-    // 先按移动前的坐标认领光尘，再和书架一起挪，免得光尘留在门洞里
-    const keys = new Set<string>();
-    for (const sp of plan.spines) {
-      const slot = plan.slots[sp.slot];
-      if (slot?.wall !== wall) continue;
-      for (const c of sp.chapter.concepts) {
-        keys.add(`${slot.book.repo}\u0000${slot.book.bookSlug}\u0000${c.id}`);
-      }
-    }
-    const dustMove: number[] = [];
-    if (keys.size) {
-      for (let i = 0; i < plan.dust.length; i += 1) {
-        const d = plan.dust[i];
-        if (keys.has(`${d.book.repo}\u0000${d.book.bookSlug}\u0000${d.conceptId}`)) dustMove.push(i);
-      }
-    }
     const shift = NEIGHBOR.shelfShift;
-    const row = plan.rows.find((r) => r.wall === wall);
-    if (row) row.z -= shift;
-    for (const slot of plan.slots) if (slot.wall === wall) slot.cz -= shift;
-    for (const sp of plan.spines) {
-      const slot = plan.slots[sp.slot];
-      if (slot?.wall === wall) sp.z -= shift;
-    }
-    for (const i of dustMove) plan.dust[i].z -= shift;
+    const shifted = new Set<'left' | 'right'>();
 
-    return {
-      to,
-      side,
-      wall,
-      z0,
-      z1,
-      zc,
-      wallPatch: neighborWallPatch(side, half, plan.height, z0, z1),
-      corridor: neighborCorridor(side, half, z0, z1, NEIGHBOR.len),
-      strip: neighborStrip(side, half, z0, z1, zc),
-      floorGlow: neighborFloorGlow(side, half, z0, z1),
-      plate: neighborPlate(side, half, zc),
-      plateLocal: [side * (half + NEIGHBOR.len - 0.03), 2.3, zc],
-      landingLocal: [side * (half - NEIGHBOR.landingIn), WALK.eye, zc],
-      plateWorld: new THREE.Vector3(),
-      landingWorld: new THREE.Vector3(),
-      landingYaw: 0,
+    /** 把某一面侧墙的书架整排前移 1.8，让出门洞；书位 / 书脊 / 光尘跟着一起挪 */
+    const shiftWall = (wall: 'left' | 'right'): void => {
+      if (shifted.has(wall)) return;
+      shifted.add(wall);
+      // 先按移动前的坐标认领光尘，再和书架一起挪，免得光尘留在门洞里
+      const keys = new Set<string>();
+      for (const sp of plan.spines) {
+        const slot = plan.slots[sp.slot];
+        if (slot?.wall !== wall) continue;
+        for (const c of sp.chapter.concepts) {
+          keys.add(`${slot.book.repo}\u0000${slot.book.bookSlug}\u0000${c.id}`);
+        }
+      }
+      const dustMove: number[] = [];
+      if (keys.size) {
+        for (let i = 0; i < plan.dust.length; i += 1) {
+          const d = plan.dust[i];
+          if (keys.has(`${d.book.repo}\u0000${d.book.bookSlug}\u0000${d.conceptId}`)) dustMove.push(i);
+        }
+      }
+      const row = plan.rows.find((r) => r.wall === wall);
+      if (row) row.z -= shift;
+      for (const slot of plan.slots) if (slot.wall === wall) slot.cz -= shift;
+      for (const sp of plan.spines) {
+        const slot = plan.slots[sp.slot];
+        if (slot?.wall === wall) sp.z -= shift;
+      }
+      for (const i of dustMove) plan.dust[i].z -= shift;
     };
+
+    const out: NeighborDoor[] = [];
+    for (const to of targets) {
+      // 只有一区（或两区互为邻）时不出第二扇，避免同墙叠门
+      if (to === discipline || out.some((d) => d.to === to)) continue;
+      if (out.length >= 2) break;
+      const toAngle = ROOM_BY_KEY[to].angle;
+      let turn = toAngle - fromAngle;
+      while (turn > Math.PI) turn -= Math.PI * 2;
+      while (turn <= -Math.PI) turn += Math.PI * 2;
+      const side: 1 | -1 = turn < 0 ? 1 : -1;
+      const wall: 'left' | 'right' = side > 0 ? 'right' : 'left';
+      shiftWall(wall);
+      out.push({
+        to,
+        side,
+        wall,
+        z0,
+        z1,
+        zc,
+        wallPatch: neighborWallPatch(side, half, plan.height, z0, z1),
+        corridor: neighborCorridor(side, half, z0, z1, NEIGHBOR.len),
+        strip: neighborStrip(side, half, z0, z1, zc),
+        floorGlow: neighborFloorGlow(side, half, z0, z1),
+        plate: neighborPlate(side, half, zc),
+        plateLocal: [side * (half + NEIGHBOR.len - 0.03), 2.3, zc],
+        landingLocal: [side * (half - NEIGHBOR.landingIn), WALK.eye, zc],
+        plateWorld: new THREE.Vector3(),
+        landingWorld: new THREE.Vector3(),
+        landingYaw: 0,
+      });
+    }
+    return out;
   }
 
-  /** 漫游每帧调用：只有站在短廊尽头、冷却与落地静默都过了，才触发 */
+  /** 漫游每帧调用：只有站在某条短廊尽头、冷却与落地静默都过了，才触发。批 22 起两扇都要查 */
   private neighborTick(now: number): void {
-    const nb = this.neighbor;
-    if (!nb || this.camMode !== 'walk' || this.view !== 'room') return;
+    if (!this.neighbors.length || this.camMode !== 'walk' || this.view !== 'room') return;
     if (this.neighborLock || this.neighborPending) return;
     if (now < this.neighborCooldownUntil) return;
     if (now - this.neighborLandingAt < NEIGHBOR.settleMs) return;
-    const dx = this.camera.position.x - nb.plateWorld.x;
-    const dz = this.camera.position.z - nb.plateWorld.z;
-    if (dx * dx + dz * dz > NEIGHBOR.trigger * NEIGHBOR.trigger) return;
-    this.beginNeighborTransition();
+    const t2 = NEIGHBOR.trigger * NEIGHBOR.trigger;
+    for (const nb of this.neighbors) {
+      const dx = this.camera.position.x - nb.plateWorld.x;
+      const dz = this.camera.position.z - nb.plateWorld.z;
+      if (dx * dx + dz * dz > t2) continue;
+      this.beginNeighborTransition(nb);
+      return;
+    }
   }
 
-  private beginNeighborTransition(): void {
-    const nb = this.neighbor;
-    if (!nb || this.neighborLock || this.neighborPending) return;
+  private beginNeighborTransition(nb: NeighborDoor): void {
+    if (this.neighborLock || this.neighborPending) return;
     this.neighborLock = true;
     this.neighborPending = nb.to;
+    this.neighborPendingFrom = this.roomKey;
     this.setFade(true);
     window.clearTimeout(this.neighborTimer);
     // 等黑场盖住再切区：淡出 250ms，多留一帧给合成器
@@ -2656,15 +2690,22 @@ export class Matrix3D {
    */
   private finishNeighborEntry(plan: RoomPlan): void {
     if (this.neighborPending !== plan.discipline) return;
+    const from = this.neighborPendingFrom;
     this.neighborPending = null;
+    this.neighborPendingFrom = null;
     window.clearTimeout(this.neighborTimer);
     this.neighborTimer = 0;
     window.clearTimeout(this.neighborSafety);
     this.neighborSafety = 0;
     window.clearTimeout(this.neighborUnlock);
     this.neighborUnlock = 0;
-    const nb = this.neighbor;
-    // 目标区自己的 side door 通往它的下一区，与本区无关；这里只核对「确有侧门可落位」
+    /*
+     * 批 22：落位必须是「目标区里通往出发区的那一扇」。单向环时代同房间只有一扇门，
+     * 落哪都无所谓；补成双向后两扇门在相对两侧，落错一侧会把人送到房间对角、还背对着进来的门。
+     * 出发区找不到对应门（不在环上）就退回第一扇，行为与旧版一致。
+     */
+    const nb = this.neighbors.find((d) => d.to === from) ?? this.neighbors[0] ?? null;
+    // 目标区自己没有侧门时（理论上不会），只解锁不落位
     if (this.camMode !== 'walk' || !nb) {
       this.neighborLock = false;
       this.setFade(false, true);
@@ -2707,6 +2748,7 @@ export class Matrix3D {
       this.neighborUnlock = 0;
     }
     this.neighborPending = null;
+    this.neighborPendingFrom = null;
     this.neighborLock = false;
     if (this.neighborFade) {
       this.neighborFade.style.transition = 'none';
@@ -3513,7 +3555,7 @@ export class Matrix3D {
     this.plan = null;
     this.shellStats = null;
     // 几何已在 roomGeoms 里释放；门数据本身跨 room 不保留（在途切换走 neighborPending）
-    this.neighbor = null;
+    this.neighbors = [];
   }
 
   private setFog([near, far]: [number, number]): void {
@@ -3648,20 +3690,25 @@ export class Matrix3D {
     this.room.rotation.y = Math.PI / 2 - spec.angle;
     this.room.updateMatrixWorld(true);
     // 侧门数据必须先于碰撞体：侧书架在 prepare 里前移，roomBlockers 读的是同一批 row
-    const nb = this.prepareNeighbor(plan, discipline);
-    nb.plateWorld.copy(this.localToWorld(nb.plateLocal));
-    nb.landingWorld.copy(this.localToWorld(nb.landingLocal));
-    nb.landingYaw = this.yawToward(
-      this.room.position.x - nb.landingWorld.x,
-      this.room.position.z - nb.landingWorld.z,
-    );
-    this.neighbor = nb;
+    // 批 22：两扇（上一区 / 下一区），各自算世界坐标与落位朝向
+    const doors = this.prepareNeighbor(plan, discipline);
+    for (const nb of doors) {
+      nb.plateWorld.copy(this.localToWorld(nb.plateLocal));
+      nb.landingWorld.copy(this.localToWorld(nb.landingLocal));
+      nb.landingYaw = this.yawToward(
+        this.room.position.x - nb.landingWorld.x,
+        this.room.position.z - nb.landingWorld.z,
+      );
+    }
+    this.neighbors = doors;
     this.roomColliders = this.buildRoomColliders(plan);
 
     const shell = buildRoomShell(plan);
     // 侧墙整面替换成带门洞的补片：原侧墙三角形摘掉，踢脚摘掉后补两段
-    cutWallPlane(shell.walls, nb.side * (plan.side / 2));
-    const trimGeo = trimWithSideDoor(shell.trim, nb.side, plan.side / 2, nb.z0, nb.z1);
+    // 两扇门各在一面侧墙：两面都摘墙、两轮踢脚开洞（函数返回新几何，链式传下去）
+    for (const nb of doors) cutWallPlane(shell.walls, nb.side * (plan.side / 2));
+    let trimGeo = shell.trim;
+    for (const nb of doors) trimGeo = trimWithSideDoor(trimGeo, nb.side, plan.side / 2, nb.z0, nb.z1);
     this.roomGeoms.push(shell.floor, shell.walls, shell.ceiling, trimGeo, shell.doorFrame);
     this.shellStats = shell.stats;
 
@@ -3695,8 +3742,6 @@ export class Matrix3D {
     this.roomMats.push(wallMat);
     this.addRoomObject(this.mark(new THREE.Mesh(shell.walls, wallMat), 'wall', { receiveShadow: true }));
     // 批 18：侧门补片与短廊共用本区墙材质；发光条与门牌是 MeshBasic（不加灯）
-    this.addRoomObject(this.mark(new THREE.Mesh(nb.wallPatch, wallMat), 'neighborWall', { receiveShadow: true }));
-    this.roomGeoms.push(nb.wallPatch);
     // 短廊原来吃本区墙材质，墙纹理铺到地面那一片会显出一块明显的浅灰（实测截图里
     // 廊道一半是暖木、一半是灰白）。整条短廊换成与走廊地板同一档的暖木，并给一点自发光，
     // 极暗环境下不至于走进去什么都看不见。
@@ -3705,29 +3750,34 @@ export class Matrix3D {
     nbMat.emissiveIntensity = 0.26;
     nbMat.roughness = 0.9;
     this.roomMats.push(nbMat);
-    this.addRoomObject(this.mark(new THREE.Mesh(nb.corridor, nbMat), 'neighborCorridor', { receiveShadow: true }));
-    this.roomGeoms.push(nb.corridor);
-    // 门框与地面光带用**目的地**的学科色，不用本区色：玩家看到这个颜色就是「走进这扇门会到哪」，
-    // 与短廊尽头那块门牌的配色一致，暗房里也更容易把「门」和「墙」分开。
-    const glow = new THREE.Color(ROOM_BY_KEY[nb.to].color);
-    const peak = Math.max(glow.r, glow.g, glow.b);
-    if (peak > 0.4) glow.multiplyScalar(0.4 / peak);
-    const glowMat = new THREE.MeshBasicMaterial({ color: glow });
-    this.roomMats.push(glowMat);
-    this.addRoomObject(this.mark(new THREE.Mesh(nb.strip, glowMat), 'neighborGlow', {}));
-    this.roomGeoms.push(nb.strip);
-    // 短廊地面导引光带：门洞是黑的，只靠门框勾边玩家仍会犹豫「这里能不能进」，
-    // 地上一对光带把落脚点直接指到门牌前。
-    this.addRoomObject(this.mark(new THREE.Mesh(nb.floorGlow, glowMat), 'neighborGlow', {}));
-    this.roomGeoms.push(nb.floorGlow);
-    const plateMat = new THREE.MeshBasicMaterial({
-      map: this.plaqueFor(nb.to),
-      transparent: true,
-      depthWrite: false,
-    });
-    this.roomMats.push(plateMat);
-    this.addRoomObject(this.mark(new THREE.Mesh(nb.plate, plateMat), 'neighborPlate', {}));
-    this.roomGeoms.push(nb.plate);
+    // 批 22：一区两扇侧门，几何与材质按扇各自一套（门框与光带用**目的地**的学科色）
+    for (const nb of doors) {
+      this.addRoomObject(this.mark(new THREE.Mesh(nb.wallPatch, wallMat), 'neighborWall', { receiveShadow: true }));
+      this.roomGeoms.push(nb.wallPatch);
+      this.addRoomObject(this.mark(new THREE.Mesh(nb.corridor, nbMat), 'neighborCorridor', { receiveShadow: true }));
+      this.roomGeoms.push(nb.corridor);
+      // 门框与地面光带用**目的地**的学科色，不用本区色：玩家看到这个颜色就是「走进这扇门会到哪」，
+      // 与短廊尽头那块门牌的配色一致，暗房里也更容易把「门」和「墙」分开；两扇门颜色不同本身就是提示。
+      const glow = new THREE.Color(ROOM_BY_KEY[nb.to].color);
+      const peak = Math.max(glow.r, glow.g, glow.b);
+      if (peak > 0.4) glow.multiplyScalar(0.4 / peak);
+      const glowMat = new THREE.MeshBasicMaterial({ color: glow });
+      this.roomMats.push(glowMat);
+      this.addRoomObject(this.mark(new THREE.Mesh(nb.strip, glowMat), 'neighborGlow', {}));
+      this.roomGeoms.push(nb.strip);
+      // 短廊地面导引光带：门洞是黑的，只靠门框勾边玩家仍会犹豫「这里能不能进」，
+      // 地上一对光带把落脚点直接指到门牌前。
+      this.addRoomObject(this.mark(new THREE.Mesh(nb.floorGlow, glowMat), 'neighborGlow', {}));
+      this.roomGeoms.push(nb.floorGlow);
+      const plateMat = new THREE.MeshBasicMaterial({
+        map: this.plaqueFor(nb.to),
+        transparent: true,
+        depthWrite: false,
+      });
+      this.roomMats.push(plateMat);
+      this.addRoomObject(this.mark(new THREE.Mesh(nb.plate, plateMat), 'neighborPlate', {}));
+      this.roomGeoms.push(nb.plate);
+    }
     // 批 9 C1：天花 quad 的法线整片朝下（architecture.ts 里那条 [0,-1,0]），主光在头顶上方，
     // dot(L,N) < 0 被夹成 0 —— 这面只吃 HemisphereLight 的地面色。隐藏天花与不隐藏天花，
     // 画面上部 34% 的均值一字不变（0.00478），说明它本来就渲染成了纯黑而不是没画。
@@ -5487,8 +5537,10 @@ export class Matrix3D {
   }
 
   /**
-   * 自检用：本区侧门（通往环序下一区）的世界位置。
+   * 自检用：本区侧门的世界位置。
    * 门牌点 + 从落位点指向门牌的方向，探针据此 walkSnap 到门牌前触发切区。
+   * 批 22：一区两扇（上一区 / 下一区）。neighborProbe() 保持「第一扇 = 环序下一区」的旧语义，
+   * 门槛与既有探针不用改；要两扇一起取用 neighborProbeAll()。
    */
   neighborProbe(): {
     to: Discipline;
@@ -5497,7 +5549,32 @@ export class Matrix3D {
     dir: [number, number];
     trigger: number;
   } | null {
-    const nb = this.neighbor;
+    return this.probeDoor(this.neighbors[0]);
+  }
+
+  neighborProbeAll(): Array<{
+    to: Discipline;
+    wall: 'left' | 'right';
+    plate: [number, number];
+    dir: [number, number];
+    trigger: number;
+  }> {
+    return this.neighbors.map((nb) => this.probeDoor(nb)).filter((d) => d !== null) as Array<{
+      to: Discipline;
+      wall: 'left' | 'right';
+      plate: [number, number];
+      dir: [number, number];
+      trigger: number;
+    }>;
+  }
+
+  private probeDoor(nb: NeighborDoor | undefined): {
+    to: Discipline;
+    wall: 'left' | 'right';
+    plate: [number, number];
+    dir: [number, number];
+    trigger: number;
+  } | null {
     if (!nb) return null;
     const dx = nb.plateWorld.x - nb.landingWorld.x;
     const dz = nb.plateWorld.z - nb.landingWorld.z;
