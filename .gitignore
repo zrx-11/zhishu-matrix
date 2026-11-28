@@ -13,3 +13,7 @@ _work/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# 交付打包（15MB 级，不入库）
+_package_*/
+*.zip
