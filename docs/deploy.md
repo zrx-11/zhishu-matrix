@@ -291,3 +291,24 @@ qodercn sites get_publish_status --input '{"actionId":"<同一个>"}'   # 需 pu
 自检 164/164（`_work/verify-b20-b.log`、`_work/verify-b21-a.log`）。批 20 第一次跑门槛时 12A/12B 与帧率三项同时红，原因是 Qoder CLI 自己也在跑 Edge 探针（同时开 12 个 msedge 进程），CPU 争用下 6 秒采样只有 33.4 fps；停掉 CLI 后同一条命令 164/164。**这类「多项一起红」先看有没有并行探针在抢 CPU，再怀疑代码。**
 
 线上核对：`/assets/index-D4UaDi1p.js`，与本地 `dist/assets` 同名同内容；`access_mode` 仍为 `public`，未再调策略。
+
+## 十一、第五次发布（批 22 双向侧门上线，2026-11-28）
+
+`actionId` `a220b000-1111-4222-8333-444455556666`，`published: true` / `committed: true` / `readiness: publication_completed`。
+线上 `assets/index-qxRWC1ci.js` 与本地 `dist/` 同名同内容，快照 9.99 MiB / 347 文件，`access_mode` 仍 `public`。
+
+本批把侧门从「单向环一扇」补成「每区两扇」：
+
+| 项 | 改法 | 实测 |
+|---|---|---|
+| 门数 | `prepareNeighbor` 返回数组：`ROOMS[(i+1)]` 一扇、`ROOMS[(i-1)]` 一扇，各占一面侧墙，z 位置相同（`half−rear` 段）；两侧书架各退 `shelfShift 1.8`，每面墙只挪一次 | math 两扇 `right→ai` / `left→tools`；ai 两扇 `right→chem` / `left→math` |
+| 碰撞 | `buildRoomColliders` 逐扇摘「通长侧墙」、补两段、加短廊两侧墙与尽头封墙 | 两扇都能穿，走不进房间外的空地 |
+| 反向落位 | 新增 `neighborPendingFrom`，`finishNeighborEntry` 用它在目标区找「通向出发区」那扇，找不到退回第一扇 | math→ai 落在 (-4.6,155.5)；ai→math 落在 (-147.2,0.7)，`view room/math` |
+| 墙面开洞 | `cutWallPlane` 对两面墙各调一次；`trimWithSideDoor` 链式调用两次（返回新几何，原几何内部 dispose） | 两面侧墙的踢脚都在门洞处断开，无残留 |
+| 探针 | `neighborProbe()` 保持旧语义（第一扇 = 环序下一区），新增 `neighborProbeAll()` 取两扇 | `_work/probe-neighbor2.mjs` 往返全通、零 JS 报错 |
+
+自检 164/164（`_work/verify-b22-a.log`，用时 188.2s）。房间态新增 mesh 每扇 5 个（补片 / 短廊 / 门框光带 / 地面导带 / 门牌），draw 与三角仍在门槛内。
+
+顺带记一条环境问题：本轮 `npm run build` 一次跑到 **2 分 15 秒**（平时 20 秒），且 preview 端口短暂拒绝连接；
+原因是前几轮遗留的无头 Edge 探针进程还在（12 个 `msedge`）与 `node` 子进程抢 CPU。这些进程属于探针，不是用户浏览器，
+但**不要**图快直接杀 `msedge`（可能命中用户自己的窗口）；按 PID 认父进程是 `node` 的再清。
